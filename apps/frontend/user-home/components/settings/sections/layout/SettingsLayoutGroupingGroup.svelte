@@ -32,14 +32,14 @@
         <div>
             <TextInput
                 name="group_name"
-                label={'Name'}
+                label="Name"
                 bind:value={group.name}
             />
         </div>
         <div>
             <TextInput
                 name="group_filter"
-                label={'Filter'}
+                label="Filter"
                 bind:value={group.filter}
                 tooltipComponent={{
                     component: Tooltip,

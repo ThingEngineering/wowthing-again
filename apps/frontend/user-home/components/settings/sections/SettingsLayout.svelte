@@ -51,7 +51,7 @@
 
     <h4>Show in main nav</h4>
 
-    <div class="setting-checkboxes" style:--fieldset-width={'10rem'}>
+    <div class="setting-checkboxes" style:--fieldset-width="10rem">
         <CheckboxInput
             bind:value={$settingsStore.layout.navigationAppearances}
             name="layout_navigationAppearances"

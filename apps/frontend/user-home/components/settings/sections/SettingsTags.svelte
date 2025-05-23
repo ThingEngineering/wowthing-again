@@ -111,9 +111,9 @@
                         class:border-right={$deleting === tag.id}
                     >
                         <IconifyIcon
-                            extraClass={'status-fail'}
+                            extraClass="status-fail"
                             icon={uiIcons.no}
-                            tooltip={'Delete'}
+                            tooltip="Delete"
                             on:click={() => deleting.update((current) => current === tag.id ? null : tag.id)}
                         />
                     </td>
@@ -121,9 +121,9 @@
                         <td class="deleting">
                             Permanently delete?
                             <IconifyIcon
-                                extraClass={'status-fail'}
+                                extraClass="status-fail"
                                 icon={uiIcons.yes}
-                                tooltip={'Delete'}
+                                tooltip="Delete"
                                 on:click={() => deleteConfirmClick(tag.id)}
                             />
                         </td>

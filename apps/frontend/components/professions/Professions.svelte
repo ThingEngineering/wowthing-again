@@ -22,7 +22,7 @@
 
 <div
     class="wrapper-column"
-    style:--sticky-top={'3.1rem'}
+    style:--sticky-top="3.1rem"
 >
     <Subnav />
 

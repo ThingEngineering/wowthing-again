@@ -57,7 +57,7 @@
 </script>
 
 <Sidebar
-    baseUrl={'/items/guild-banks'}
+    baseUrl="/items/guild-banks"
     items={sidebarItems}
     width="22rem"
     decorationFunc={(item) => item.count.toString()}

@@ -1,39 +1,56 @@
 <script lang="ts">
-    import { uiIcons } from '@/shared/icons'
-    import type { SettingsChoice } from '@/shared/stores/settings/types'
+    import { uiIcons } from '@/shared/icons';
+    import type { SettingsChoice } from '@/shared/stores/settings/types';
 
-    import MagicList from './MagicList.svelte'
+    import MagicList from './MagicList.svelte';
 
-    export let activeNumberIds: number[] = undefined
-    export let activeStringIds: string[] = undefined
-    export let choices: SettingsChoice[]
-    export let key: string
-    export let saveInactive = false
-    export let title: string = undefined
+    type Props = {
+        activeNumberIds?: number[];
+        activeStringIds?: string[];
+        choices: SettingsChoice[];
+        key: string;
+        saveInactive?: boolean;
+        title?: string;
+    };
 
-    let activeItems: SettingsChoice[] = (activeNumberIds !== undefined
-        ? activeNumberIds.map((id) => choices.find((item) => item.id === id.toString()))
-        : activeStringIds.map((id) => choices.find((item) => item.id === id))
-    ).filter((item) => !!item)
-    $: inactiveItems = choices.filter((item) => activeNumberIds !== undefined
-        ? !activeNumberIds.includes(parseInt(item.id))
-        : !activeStringIds.includes(item.id))
+    let {
+        activeNumberIds = $bindable(),
+        activeStringIds = $bindable(),
+        choices,
+        key,
+        saveInactive = false,
+        title = undefined,
+    }: Props = $props();
+
+    let activeItems = $derived(
+        (activeNumberIds !== undefined
+            ? activeNumberIds.map((id) => choices.find((item) => item.id === id.toString()))
+            : activeStringIds.map((id) => choices.find((item) => item.id === id))
+        ).filter((item) => !!item),
+    );
+    let inactiveItems = $derived(
+        choices.filter((item) =>
+            activeNumberIds !== undefined
+                ? !activeNumberIds.includes(parseInt(item.id))
+                : !activeStringIds.includes(item.id),
+        ),
+    );
 
     function onActiveChange() {
         if (!saveInactive) {
             if (activeNumberIds !== undefined) {
-                activeNumberIds = activeItems.map((item) => parseInt(item.id))
+                activeNumberIds = activeItems.map((item) => parseInt(item.id));
             } else {
-                activeStringIds = activeItems.map((item) => item.id)
+                activeStringIds = activeItems.map((item) => item.id);
             }
         }
     }
     function onInactiveChange() {
         if (saveInactive) {
             if (activeNumberIds !== undefined) {
-                activeNumberIds = activeItems.map((item) => parseInt(item.id))
+                activeNumberIds = activeItems.map((item) => parseInt(item.id));
             } else {
-                activeStringIds = activeItems.map((item) => item.id)
+                activeStringIds = activeItems.map((item) => item.id);
             }
         }
     }

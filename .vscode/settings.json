@@ -1,0 +1,9 @@
+{
+    "eslint.validate": [
+        "javascript",
+        "svelte"
+    ],
+    "eslint.workingDirectories": [
+        "./apps/frontend"
+    ],
+}

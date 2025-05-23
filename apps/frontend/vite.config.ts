@@ -23,6 +23,10 @@ const config = <UserConfig>defineConfig({
         svelte({
             emitCss: production,
             preprocess: sveltePreprocess({
+                // it can't find the file in the same directrory otherwise, wtf
+                typescript: {
+                    tsconfigFile: 'tsconfig.json',
+                },
                 scss: {
                     prependData: `
 @import 'scss/mixins.scss';
@@ -32,8 +36,9 @@ const config = <UserConfig>defineConfig({
             }),
             compilerOptions: {
                 dev: !production,
+                hmr: !production,
             },
-            hot: !production,
+            // hot: true,
             prebundleSvelteLibraries: true,
         }),
     ],

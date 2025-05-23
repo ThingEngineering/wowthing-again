@@ -12,8 +12,8 @@ export const twwChores11_0: Chore[] = [
     {
         taskKey: 'twwEmissaryArchives',
         taskName: '[Dor] Archives',
-        icon: aliasedIcons.bookshelf,
         minimumLevel: 70,
+        icon: aliasedIcons.bookshelf,
         questIds: [
             82679, // Archives: Seeking History
             // 82678, // Archives: The First Disc
@@ -25,6 +25,7 @@ export const twwChores11_0: Chore[] = [
         taskKey: 'twwEmissaryDelves',
         taskName: '[Dor] Delves',
         minimumLevel: 70,
+        icon: iconLibrary.gameDigDug,
         questIds: [
             82746, // Delves: Breaking Tough to Loot Stuff
             82707, // Delves: Earthen Defense
@@ -42,6 +43,7 @@ export const twwChores11_0: Chore[] = [
         taskKey: 'twwEmissaryWorldsoul',
         taskName: '[Dor] Worldsoul',
         minimumLevel: 70,
+        icon: aliasedIcons.planet,
         questIds: [
             82511, // Worldsoul: Awakening Machine
             87419, // Worldsoul: Delves

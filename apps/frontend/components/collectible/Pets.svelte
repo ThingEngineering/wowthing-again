@@ -56,7 +56,7 @@
     <svelte:fragment slot="extra-options">
         <div class="progress">
             <ProgressBar
-                title={'Max level + quality'}
+                title="Max level + quality"
                 have={maxLevelQuality}
                 total={$lazyStore.pets.stats.OVERALL.total}
             />

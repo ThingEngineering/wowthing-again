@@ -309,7 +309,7 @@
                                 <th class="item text-overflow" colspan="3">
                                     <div class="flex-wrapper">
                                         <WowheadLink
-                                            type={'item'}
+                                            type="item"
                                             id={itemId}
                                             extraParams={{
                                                 bonus: (auctions[0].bonusIds || []).join(':'),
@@ -357,17 +357,17 @@
                                         <span class="icons">
                                             {#if needSource && !needAppearance}
                                                 <IconifyIcon
-                                                    extraClass={'status-shrug'}
+                                                    extraClass="status-shrug"
                                                     icon={iconLibrary.mdiWizardHat}
-                                                    scale={'0.85'}
-                                                    tooltip={'You have collected this appearance from another item'}
+                                                    scale="0.85"
+                                                    tooltip="You have collected this appearance from another item"
                                                 />
                                             {:else if needAppearance}
                                                 <IconifyIcon
-                                                    extraClass={'status-fail'}
+                                                    extraClass="status-fail"
                                                     icon={iconLibrary.mdiWizardHat}
-                                                    scale={'0.85'}
-                                                    tooltip={'You have not collected this appearance'}
+                                                    scale="0.85"
+                                                    tooltip="You have not collected this appearance"
                                                 />
                                             {/if}
 
@@ -383,7 +383,7 @@
                                                 >
                                                     <IconifyIcon
                                                         icon={iconLibrary.mdiAlertOutline}
-                                                        scale={'0.9'}
+                                                        scale="0.9"
                                                     />
                                                 </span>
                                             {:else}
@@ -395,7 +395,7 @@
                                                 >
                                                     <IconifyIcon
                                                         icon={iconLibrary.mdiClipboardPlusOutline}
-                                                        scale={'0.9'}
+                                                        scale="0.9"
                                                     />
                                                 </button>
                                             {/if}
@@ -494,7 +494,7 @@
                             use:basicTooltip={'Copy shopping list to clipboard'}
                             on:click={() => exportShoppingList()}
                         >
-                            <IconifyIcon icon={iconLibrary.mdiClipboardPlusOutline} scale={'0.9'} />
+                            <IconifyIcon icon={iconLibrary.mdiClipboardPlusOutline} scale="0.9" />
                         </button>
                     </span>
                     <span

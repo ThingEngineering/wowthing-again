@@ -84,7 +84,7 @@
                                 <IconifyIcon
                                     extraClass={canUpgrade ? 'status-shrug' : 'status-fail'}
                                     icon={iconLibrary.mdiCurrencyUsd}
-                                    scale={'0.85'}
+                                    scale="0.85"
                                 />
                             {:else}
                                 <span class="faded">--</span>
@@ -105,7 +105,7 @@
                                 <IconifyIcon
                                     extraClass={canConvert ? 'status-shrug' : 'status-fail'}
                                     icon={iconLibrary.gameShurikenAperture}
-                                    scale={'0.85'}
+                                    scale="0.85"
                                 />
                             {:else}
                                 <span class="faded">--</span>

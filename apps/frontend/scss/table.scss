@@ -41,6 +41,11 @@
         &:last-child {
             border-right: 1px solid $border-color;
         }
+
+        code {
+            line-height: 1;
+            background: none;
+        }
     }
 
     tbody {

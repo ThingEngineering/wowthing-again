@@ -128,7 +128,7 @@
         {/if}
 
         {#if isThisWeek}
-            <HeadVault vaultType={'M+'} />
+            <HeadVault vaultType="M+" />
         {/if}
 
         {#key season.id}

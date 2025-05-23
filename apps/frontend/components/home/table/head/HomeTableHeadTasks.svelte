@@ -47,7 +47,7 @@
         {#if choreName}
             <IconifyIcon
                 icon={multiTaskMap[taskName].find((chore) => chore.taskKey === choreName)?.icon}
-                scale={'0.9'}
+                scale="0.9"
             />
         {:else}
             <ParsedText text={taskMap[taskName].shortName} />

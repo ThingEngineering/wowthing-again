@@ -1,6 +1,6 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
-    import type { ComponentType } from 'svelte';
+    import type { Component, ComponentType } from 'svelte';
     import MultiSelect from 'svelte-multiselect';
 
     import { ItemQuality } from '@/enums/item-quality';
@@ -65,7 +65,7 @@
         .map(([key, value]) => [parseInt(key), value as string]);
     weaponOptions.splice(0, 0, [-1, 'Any']);
 
-    const componentMap: Record<string, ComponentType> = {
+    const componentMap: Record<string, Component<any, any, any>> = {
         commodities: Commodities,
         'custom-1': Custom,
         'custom-2': Custom,
@@ -254,9 +254,9 @@
                 <TextInput
                     name="transmog_name_search"
                     maxlength={20}
-                    placeholder={'Name filter'}
+                    placeholder="Name filter"
                     clearButton={true}
-                    inputWidth={'10rem'}
+                    inputWidth="10rem"
                     bind:value={$auctionState.missingTransmogNameSearch}
                 />
             </div>
@@ -265,9 +265,9 @@
                 <TextInput
                     name="transmog_realm_search"
                     maxlength={20}
-                    placeholder={'Realm filter'}
+                    placeholder="Realm filter"
                     clearButton={true}
-                    inputWidth={'10rem'}
+                    inputWidth="10rem"
                     bind:value={$auctionState.missingTransmogRealmSearch}
                 />
             </div>
@@ -276,7 +276,7 @@
                 Min quality:
                 <Select
                     name="transmog_min_quality"
-                    width={'8rem'}
+                    width="8rem"
                     bind:selected={$auctionState.missingTransmogMinQuality}
                     options={[
                         [ItemQuality.Poor, 'Poor'],
@@ -304,7 +304,7 @@
                 {#if $auctionState.missingTransmogItemClass === 'armor'}
                     <Select
                         name="transmog_item_subclass_armor"
-                        width={'8rem'}
+                        width="8rem"
                         bind:selected={$auctionState.missingTransmogItemSubclassArmor}
                         options={[
                             [-1, 'Any'],
@@ -321,7 +321,7 @@
                 {:else if $auctionState.missingTransmogItemClass === 'weapon'}
                     <Select
                         name="transmog_item_subclass_weapon"
-                        width={'11rem'}
+                        width="11rem"
                         bind:selected={$auctionState.missingTransmogItemSubclassWeapon}
                         options={weaponOptions}
                     />
@@ -332,7 +332,7 @@
                 Expansion:
                 <Select
                     name="transmog_expansion"
-                    width={'12.5rem'}
+                    width="12.5rem"
                     bind:selected={$auctionState.missingTransmogExpansion}
                     options={[[-1, '- All -'], ...expansionOptions]}
                 />
@@ -354,9 +354,9 @@
                 <TextInput
                     name="transmog_maximum_gold"
                     maxlength={9}
-                    placeholder={'Maximum gold'}
+                    placeholder="Maximum gold"
                     clearButton={true}
-                    inputWidth={'8rem'}
+                    inputWidth="8rem"
                     bind:value={$auctionState.missingTransmogMaxGold}
                 />
             </div>
@@ -367,9 +367,9 @@
                 <TextInput
                     name="recipe_name_search"
                     maxlength={20}
-                    placeholder={'Name filter'}
+                    placeholder="Name filter"
                     clearButton={true}
-                    inputWidth={'10rem'}
+                    inputWidth="10rem"
                     bind:value={$auctionState.missingRecipeNameSearch}
                 />
             </div>
@@ -378,9 +378,9 @@
                 <TextInput
                     name="recipe_realm_search"
                     maxlength={20}
-                    placeholder={'Realm filter'}
+                    placeholder="Realm filter"
                     clearButton={true}
-                    inputWidth={'10rem'}
+                    inputWidth="10rem"
                     bind:value={$auctionState.missingRecipeRealmSearch}
                 />
             </div>
@@ -398,14 +398,14 @@
             </div>
 
             {#if $auctionState.missingRecipeSearchType === 'character'}
-                <div class="options-group" style:--sms-width={'16rem'}>
+                <div class="options-group" style:--sms-width="16rem">
                     Character:
                     <MultiSelect
                         options={characterOptions}
-                        placeholder={'Any character'}
+                        placeholder="Any character"
                         bind:selected={selectedCharacter}
-                        on:change={(event) => {
-                            if (event?.detail?.type === 'removeAll') {
+                        onchange={(event) => {
+                            if (event?.type === 'removeAll') {
                                 selectedCharacter = [];
                             }
                             $auctionState.missingRecipeCharacterIds = selectedCharacter.map(
@@ -427,7 +427,7 @@
                 /> -->
                 <Select
                     name="recipe_profession_id"
-                    width={'12rem'}
+                    width="12rem"
                     bind:selected={$auctionState.missingRecipeProfessionId}
                     options={[
                         [-1, '- All -'],
@@ -441,7 +441,7 @@
                 Expansion:
                 <Select
                     name="recipe_expansion"
-                    width={'12.5rem'}
+                    width="12.5rem"
                     bind:selected={$auctionState.missingRecipeExpansion}
                     options={[[-1, '- All -'], ...expansionOptions]}
                 />

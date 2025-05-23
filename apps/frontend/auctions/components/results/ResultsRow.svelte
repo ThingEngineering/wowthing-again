@@ -133,7 +133,7 @@
 {:else}
     <tr>
         <td class="icon">
-            <WowthingImage name={'unknown'} size={20} border={1} />
+            <WowthingImage name="unknown" size={20} border={1} />
         </td>
         <td class="name">
             {#if loading}

@@ -17,27 +17,27 @@
 
 <div class="subnav-wrapper wrapper-column">
     <nav class="subnav" id="professions-subnav">
-        <a href={"#/professions/overview"} use:active={"/professions/overview/*"}>
+        <a href="#/professions/overview" use:active={"/professions/overview/*"}>
             Overview
         </a>
 
-        <a href={"#/professions/equipment"} use:active={"/professions/equipment/*"}>
+        <a href="#/professions/equipment" use:active={"/professions/equipment/*"}>
             Equipment
         </a>
 
-        <a href={"#/professions/patron-orders"} use:active={"/professions/patron-orders/*"}>
+        <a href="#/professions/patron-orders" use:active={"/professions/patron-orders/*"}>
             Patron Orders
         </a>
 
-        <a href={"#/professions/recipes"} use:active={"/professions/recipes/*"}>
+        <a href="#/professions/recipes" use:active={"/professions/recipes/*"}>
             Recipes
         </a>
 
-        <a href={"#/professions/dragonflight-knowledge"} use:active>
+        <a href="#/professions/dragonflight-knowledge" use:active>
             [DF] Knowledge
         </a>
 
-        <a href={"#/professions/war-within-knowledge"} use:active>
+        <a href="#/professions/war-within-knowledge" use:active>
             [TWW] Knowledge
         </a>
     </nav>

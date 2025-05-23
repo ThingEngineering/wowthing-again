@@ -168,7 +168,7 @@
             {#if farm.type === FarmType.Dungeon || farm.type === FarmType.Raid}
                 <a href="#/journal/{status.link}">
                     <div class={classes.join(' ')}>
-                        <IconifyIcon {icon} scale={'1'} />
+                        <IconifyIcon {icon} scale="1" />
                     </div>
                 </a>
             {:else}

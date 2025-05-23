@@ -72,7 +72,7 @@
         </td>
         <td class="name text-overflow">
             <div class="flex-wrapper">
-                <WowheadLink id={spellId} type={'spell'}>
+                <WowheadLink id={spellId} type="spell">
                     <WowthingImage
                         name={ability.itemIds[0] > 0
                             ? `item/${ability.itemIds[0]}`

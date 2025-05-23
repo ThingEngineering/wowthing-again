@@ -52,6 +52,11 @@ public class OutDbThingConverter : JsonConverter<OutDbThing>
             writer.WriteStringValue(group.Name);
             writer.WriteNumberArray(group.Range);
 
+            if (group.BonusIds.Length > 0 || !string.IsNullOrWhiteSpace(group.SortKey) || group.ShowNormalTag)
+            {
+                writer.WriteBooleanValue(group.ShowNormalTag);
+            }
+
             if (group.BonusIds.Length > 0 || !string.IsNullOrWhiteSpace(group.SortKey))
             {
                 writer.WriteStringValue(group.SortKey);

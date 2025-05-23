@@ -275,7 +275,7 @@ class ProcessCharacterProfessions {
 
 function doCharacterTasks(stores: LazyStores, character: Character, characterData: LazyCharacter) {
     const processTask = (choreTask: Chore, character: Character): LazyCharacterChoreTask => {
-        let charTask = new LazyCharacterChoreTask(choreTask.taskKey, undefined);
+        const charTask = new LazyCharacterChoreTask(choreTask.taskKey, undefined);
 
         const charQuests = stores.userQuestData.characters[character?.id];
         if (!character || !charQuests) {
@@ -765,13 +765,10 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                     } else if (charTask.quest.status === QuestStatus.InProgress) {
                         charTask.status = 'shrug';
 
-                        let objectives = charTask.quest.objectives || [];
+                        const objectives = charTask.quest.objectives || [];
                         if (objectives.length === 1) {
                             const objective = charTask.quest.objectives[0];
-                            if (objective.type === 'progressbar') {
-                                charTask.text = `${objective.have} %`;
-                            } else if (questKey === 'weeklyHoliday' || questKey === 'weeklyPvp') {
-                                charTask.text = `${objective.have} / ${objective.need}`;
+                            if (objective.type === 'progressbar') {                                charTask.text = `${objective.have} / ${objective.need}`;
                             } else {
                                 charTask.text = `${Math.floor((Math.min(objective.have, objective.need) / objective.need) * 100)} %`;
                             }

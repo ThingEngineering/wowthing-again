@@ -1,4 +1,6 @@
 <script lang="ts">
+    import sortBy from 'lodash/sortBy';
+
     import { imageStrings } from '@/data/icons';
     import { professionConcentration } from '@/data/professions/cooldowns';
     import { staticStore } from '@/shared/stores/static';
@@ -14,11 +16,12 @@
 
     export let character: Character;
 
-    $: professions = Object.values($staticStore.professions).filter(
-        (profession) =>
-            professionConcentration[profession.id] && character.professions?.[profession.id],
+    $: professions = sortBy(
+        Object.values($staticStore.professions).filter(
+            (prof) => professionConcentration[prof.id] && character.professions?.[prof.id],
+        ),
+        (prof) => getProfessionSortKey(prof),
     );
-    $: professions.sort((a, b) => getProfessionSortKey(a).localeCompare(getProfessionSortKey(b)));
 
     function statusClass(fullIsBad: boolean, percent: number) {
         if (percent >= 100) {

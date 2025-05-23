@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte';
+    import { afterUpdate, mount } from 'svelte';
 
     import { iconStrings, imageStrings } from '@/data/icons';
     import { Faction } from '@/enums/faction';
@@ -201,7 +201,7 @@
                     iconStrings[dataString] ||
                     !imageStrings[dataString]
                 ) {
-                    new IconifyIcon({
+                    mount(IconifyIcon, {
                         target: span,
                         props: {
                             icon:
@@ -215,7 +215,7 @@
                         },
                     });
                 } else {
-                    new WowthingImage({
+                    mount(WowthingImage, {
                         target: span,
                         props: {
                             border: 0,
@@ -226,7 +226,7 @@
                 }
             } else if (span.hasAttribute('data-icon')) {
                 span.replaceChildren();
-                new WowthingImage({
+                mount(WowthingImage, {
                     target: span,
                     props: {
                         border: 0,
@@ -236,7 +236,7 @@
                 });
             } else if (span.hasAttribute('data-class')) {
                 span.replaceChildren();
-                new ClassIcon({
+                mount(ClassIcon, {
                     target: span,
                     props: {
                         classId: parseInt(span.getAttribute('data-class')),
@@ -245,7 +245,7 @@
                 });
             } else if (span.hasAttribute('data-faction')) {
                 span.replaceChildren();
-                new FactionIcon({
+                mount(FactionIcon, {
                     target: span,
                     props: {
                         faction:
@@ -257,7 +257,7 @@
                 });
             } else if (span.hasAttribute('data-profession')) {
                 span.replaceChildren();
-                new ProfessionIcon({
+                mount(ProfessionIcon, {
                     target: span,
                     props: {
                         id: parseInt(span.getAttribute('data-profession')),
@@ -266,7 +266,7 @@
                 });
             } else if (span.hasAttribute('data-race')) {
                 span.replaceChildren();
-                new RaceIcon({
+                mount(RaceIcon, {
                     target: span,
                     props: {
                         raceId: parseInt(span.getAttribute('data-race')),
@@ -275,7 +275,7 @@
                 });
             } else if (span.hasAttribute('data-crafted-quality')) {
                 span.replaceChildren();
-                new CraftedQualityIcon({
+                mount(CraftedQualityIcon, {
                     target: span,
                     props: {
                         quality: parseInt(span.getAttribute('data-crafted-quality')),

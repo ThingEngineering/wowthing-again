@@ -78,8 +78,8 @@
                     <IconifyIcon
                         extraClass={slotData.canAfford ? 'status-shrug' : 'status-fail'}
                         icon={iconLibrary.mdiCurrencyUsd}
-                        scale={'0.85'}
-                        tooltip={'Purchase this item!'}
+                        scale="0.85"
+                        tooltip="Purchase this item!"
                     />
                 {/if}
 
@@ -120,7 +120,7 @@
                     <IconifyIcon
                         extraClass={slotData.canConvert ? 'status-shrug' : 'status-fail'}
                         icon={iconLibrary.gameShurikenAperture}
-                        scale={'0.85'}
+                        scale="0.85"
                         tooltip={slotData.canConvert
                             ? 'Convert this item at the Catalyst!'
                             : 'Convert this item at the Catalyst when you have a charge!'}

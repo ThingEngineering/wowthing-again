@@ -66,7 +66,7 @@
         }
     }
 
-    $: filterFuncUgh = (currencies: StaticDataCurrency[], char: Character): boolean =>
+    const filterFuncUgh = (currencies: StaticDataCurrency[], char: Character): boolean =>
         currencies.some((c) => !!c && char.currencies?.[c.id]?.quantity > 0) ||
         (currencyItems[category.id] || []).some((itemId) => char.getItemCount(itemId) > 0);
 </script>

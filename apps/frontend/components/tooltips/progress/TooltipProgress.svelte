@@ -138,7 +138,7 @@
 <div class="wowthing-tooltip">
     <h4>{character.name}</h4>
     <h5>
-        <ParsedText cls={'drop-shadow'} text={groupName} />
+        <ParsedText cls="drop-shadow" text={groupName} />
     </h5>
 
     {#each dataChunks as dataChunk}

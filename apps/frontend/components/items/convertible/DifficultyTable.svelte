@@ -106,7 +106,7 @@
                                 }}
                             >
                                 {#if data?.userHas}
-                                    <IconifyIcon extraClass={'status-success'} icon={uiIcons.yes} />
+                                    <IconifyIcon extraClass="status-success" icon={uiIcons.yes} />
                                 {:else if data?.anyIsConvertible || data?.anyIsPurchaseable || data?.anyIsUpgradeable}
                                     {#if data.anyIsPurchaseable}
                                         <IconifyIcon
@@ -114,7 +114,7 @@
                                                 ? 'status-shrug'
                                                 : 'status-fail'}
                                             icon={iconLibrary.mdiCurrencyUsd}
-                                            scale={'0.85'}
+                                            scale="0.85"
                                         />
                                     {/if}
 
@@ -133,7 +133,7 @@
                                                 ? 'status-shrug'
                                                 : 'status-fail'}
                                             icon={iconLibrary.gameShurikenAperture}
-                                            scale={'0.85'}
+                                            scale="0.85"
                                         />
                                     {/if}
                                 {:else}

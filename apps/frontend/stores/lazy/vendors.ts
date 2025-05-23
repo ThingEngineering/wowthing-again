@@ -36,7 +36,6 @@ import type { UserQuestData } from '@/types/data';
 import type { ItemData } from '@/types/data/item';
 import type { VendorState } from '../local-storage';
 import type { LazyTransmog } from './transmog';
-import { AppearanceModifier } from '@/enums/appearance-modifier';
 
 const tierRegex = new RegExp(/ - T\d\d/);
 

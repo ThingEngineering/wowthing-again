@@ -207,7 +207,7 @@
     {/if}
 
     {#if farm.note}
-        <ParsedText cls={'note'} text={farm.note} />
+        <ParsedText cls="note" text={farm.note} />
     {/if}
 
     <table class="table-tooltip-farm table-striped">

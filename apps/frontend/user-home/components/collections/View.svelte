@@ -24,13 +24,13 @@
 <div>
     {#if params.slug1 === 'appearances'}
         <Appearances
-            basePath={'collections'}
+            basePath="collections"
             params={shiftedParams}
         />
 
     {:else if params.slug1 === 'customizations'}
         <Customizations
-            basePath={'collections'}
+            basePath="collections"
             params={shiftedParams}
         />
 
@@ -42,13 +42,13 @@
 
     {:else if params.slug1 === 'mounts'}
         <Mounts
-            basePath={'collections'}
+            basePath="collections"
             params={shiftedParams}
         />
 
     {:else if params.slug1 === 'pets'}
         <Pets
-            basePath={'collections'}
+            basePath="collections"
             params={shiftedParams}
         />
 
@@ -58,7 +58,7 @@
         />
     {:else if params.slug1 === 'toys'}
         <Toys
-            basePath={'collections'}
+            basePath="collections"
             params={shiftedParams}
         />
 

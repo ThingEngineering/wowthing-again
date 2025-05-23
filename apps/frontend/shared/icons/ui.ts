@@ -20,6 +20,7 @@ export const aliasedIcons = {
     cloud: iconLibrary.notoCloud,
     ice: iconLibrary.notoIce,
     pinkHeart: iconLibrary.notoPinkHeart,
+    planet: iconLibrary.mdiPlanet,
     rose: iconLibrary.notoRose,
     snowflake: iconLibrary.notoSnowflake,
     sun: iconLibrary.notoSunWithFace,
