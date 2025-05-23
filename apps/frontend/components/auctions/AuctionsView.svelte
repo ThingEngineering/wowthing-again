@@ -1,6 +1,6 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
-    import type { ComponentType } from 'svelte';
+    import type { Component, ComponentType } from 'svelte';
     import MultiSelect from 'svelte-multiselect';
 
     import { ItemQuality } from '@/enums/item-quality';
@@ -65,7 +65,7 @@
         .map(([key, value]) => [parseInt(key), value as string]);
     weaponOptions.splice(0, 0, [-1, 'Any']);
 
-    const componentMap: Record<string, ComponentType> = {
+    const componentMap: Record<string, Component<any, any, any>> = {
         commodities: Commodities,
         'custom-1': Custom,
         'custom-2': Custom,
@@ -404,8 +404,8 @@
                         options={characterOptions}
                         placeholder="Any character"
                         bind:selected={selectedCharacter}
-                        on:change={(event) => {
-                            if (event?.detail?.type === 'removeAll') {
+                        onchange={(event) => {
+                            if (event?.type === 'removeAll') {
                                 selectedCharacter = [];
                             }
                             $auctionState.missingRecipeCharacterIds = selectedCharacter.map(

@@ -1,9 +1,9 @@
 <script lang="ts">
-    import type { Character } from '@/types'
+    import type { Character } from '@/types';
     import { toNiceNumber } from '@/utils/formatting';
 
-    export let character: Character
-    export let total: number
+    export let character: Character;
+    export let total: number;
 
     const currencies: [string, number][] = [
         ['Primary', 2853],
@@ -15,7 +15,7 @@
         ['Leech', 2857],
         ['Speed', 2859],
         ['% XP', 3001],
-    ]
+    ];
 </script>
 
 <style lang="scss">
@@ -35,15 +35,17 @@
     <h5>Remix Cloak</h5>
 
     <table class="table-striped">
-        {#each currencies as [text, currencyId]}
-            {@const have = character.currencies?.[currencyId]?.quantity || 0}
-            {#if have > 0}
-                <tr>
-                    <td class="value">+{toNiceNumber(have)}</td>
-                    <td class="text">{text}</td>
-                </tr>
-            {/if}
-        {/each}
+        <tbody>
+            {#each currencies as [text, currencyId] (currencyId)}
+                {@const have = character.currencies?.[currencyId]?.quantity || 0}
+                {#if have > 0}
+                    <tr>
+                        <td class="value">+{toNiceNumber(have)}</td>
+                        <td class="text">{text}</td>
+                    </tr>
+                {/if}
+            {/each}
+        </tbody>
     </table>
 
     <div class="bottom">

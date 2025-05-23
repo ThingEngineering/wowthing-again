@@ -77,7 +77,7 @@
 
     <table class="table table-striped">
         <tbody>
-            {#each sortedProfessions as profession}
+            {#each sortedProfessions as profession (profession.id)}
                 <tr>
                     <td class="name">
                         <ProfessionIcon id={profession.id} size={16} border={1} />
@@ -93,8 +93,8 @@
                             )}
                             placeholder="Any character"
                             bind:selected={selected[profession.id]}
-                            on:change={(event) => {
-                                if (event?.detail?.type === 'removeAll') {
+                            onchange={(event) => {
+                                if (event?.type === 'removeAll') {
                                     selected[profession.id] = [];
                                 }
                                 $settingsStore.professions.collectingCharactersV2[profession.id] =

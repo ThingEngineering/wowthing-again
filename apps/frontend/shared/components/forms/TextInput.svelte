@@ -1,20 +1,20 @@
-<script lang="ts" generics="TComponent extends SvelteComponent">
-    import type { SvelteComponent } from 'svelte'
+<script lang="ts" generics="TComponent extends Component<any, any, any>">
+    import type { Component } from 'svelte';
 
-    import { iconLibrary } from '@/shared/icons'
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import type { ComponentTooltipProps } from '@/shared/utils/tooltips/types'
+    import { iconLibrary } from '@/shared/icons';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import type { ComponentTooltipProps } from '@/shared/utils/tooltips/types';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
-    export let clearButton = false
-    export let inputWidth: string = null
-    export let label = ''
-    export let maxlength: number = null
-    export let name: string
-    export let placeholder = ''
-    export let tooltipComponent: ComponentTooltipProps<TComponent> = undefined
-    export let value: string
+    export let clearButton = false;
+    export let inputWidth: string = null;
+    export let label = '';
+    export let maxlength: number = null;
+    export let name: string;
+    export let placeholder = '';
+    export let tooltipComponent: ComponentTooltipProps<TComponent> = undefined;
+    export let value: string;
 </script>
 
 <style lang="scss">
@@ -47,24 +47,17 @@
     <input
         id="input-{name}"
         class="border"
-        name={name}
-        placeholder={placeholder}
+        {name}
+        {placeholder}
         {maxlength}
-        bind:value={value}
+        bind:value
         use:componentTooltip={tooltipComponent}
         style:width={inputWidth}
-    >
+    />
 
     {#if clearButton}
-        <button
-            class="clear-text"
-            class:disabled={!value}
-            on:click={() => value = ''}
-        >
-            <IconifyIcon
-                icon={iconLibrary.mdiClose}
-                tooltip="Clear text"
-            />
+        <button class="clear-text" class:disabled={!value} on:click={() => (value = '')}>
+            <IconifyIcon icon={iconLibrary.mdiClose} tooltip="Clear text" />
         </button>
     {/if}
 

@@ -1,59 +1,57 @@
 <script lang="ts">
-    import find from 'lodash/find'
-    import type { ComponentType } from 'svelte'
-    import { replace } from 'svelte-spa-router'
-    import active from 'svelte-spa-router/active'
+    import find from 'lodash/find';
+    import type { Component, ComponentType } from 'svelte';
+    import { replace } from 'svelte-spa-router';
+    import active from 'svelte-spa-router/active';
 
-    import { userStore } from '@/stores'
-    import { charactersState } from '@/stores/local-storage'
-    import { Gender } from '@/enums/gender'
-    import { Region } from '@/enums/region'
-    import { splitOnce } from '@/utils/split-once'
-    import type { Character, MultiSlugParams } from '@/types'
+    import { userStore } from '@/stores';
+    import { charactersState } from '@/stores/local-storage';
+    import { Gender } from '@/enums/gender';
+    import { Region } from '@/enums/region';
+    import { splitOnce } from '@/utils/split-once';
+    import type { Character, MultiSlugParams } from '@/types';
 
-    import Items from './items/CharactersItems.svelte'
-    import Paperdoll from './paperdoll/CharactersPaperdoll.svelte'
-    import Professions from './professions/CharacterProfessions.svelte'
-    import Shadowlands from './shadowlands/CharactersShadowlands.svelte'
-    import Specializations from './specializations/CharactersSpecializations.svelte'
+    import Items from './items/CharactersItems.svelte';
+    import Paperdoll from './paperdoll/CharactersPaperdoll.svelte';
+    import Professions from './professions/CharacterProfessions.svelte';
+    import Shadowlands from './shadowlands/CharactersShadowlands.svelte';
+    import Specializations from './specializations/CharactersSpecializations.svelte';
 
-    export let params: MultiSlugParams
+    export let params: MultiSlugParams;
 
-    let baseUrl: string
-    let character: Character
+    let baseUrl: string;
+    let character: Character;
     $: {
-        baseUrl = `/characters/${params.slug1}/${params.slug2}`
+        baseUrl = `/characters/${params.slug1}/${params.slug2}`;
 
         if (params.slug1 && params.slug2) {
-            const [region, realm] = splitOnce(params.slug1, '-')
+            const [region, realm] = splitOnce(params.slug1, '-');
 
             character = find(
                 $userStore.characters,
-                (char: Character) => (
+                (char: Character) =>
                     Region[char.realm.region].toLowerCase() === region &&
                     char.realm.slug === realm &&
-                    char.name === params.slug2
-                )
-            )
+                    char.name === params.slug2,
+            );
 
             if (!componentMap[params.slug3]) {
-                const stored = $charactersState.lastTab
+                const stored = $charactersState.lastTab;
 
-                replace(`${baseUrl}/${stored || 'paperdoll'}`)
-            }
-            else {
-                $charactersState.lastTab = params.slug3
+                replace(`${baseUrl}/${stored || 'paperdoll'}`);
+            } else {
+                $charactersState.lastTab = params.slug3;
             }
         }
     }
 
-    const componentMap: Record<string, ComponentType> = {
+    const componentMap: Record<string, Component<any, any, any>> = {
         items: Items,
         paperdoll: Paperdoll,
         professions: Professions,
         shadowlands: Shadowlands,
         specializations: Specializations,
-    }
+    };
 </script>
 
 <style lang="scss">
@@ -109,7 +107,10 @@
                 {character.name}
 
                 {#if character.guildId}
-                    <span class="guild-name">&lt;{$userStore.guildMap[character.guildId]?.name || 'Unknown Guild'}&gt;</span>
+                    <span class="guild-name"
+                        >&lt;{$userStore.guildMap[character.guildId]?.name ||
+                            'Unknown Guild'}&gt;</span
+                    >
                 {/if}
 
                 <span>{Region[character.realm.region]}-{character.realm.name}</span>
@@ -126,32 +127,21 @@
 
         {#key `${params.slug1}--${params.slug2}`}
             <nav>
-                <a
-                    href="#{baseUrl}/paperdoll"
-                    use:active
-                >Paperdoll</a>
-                <a href="#{baseUrl}/items"
-                    use:active
-                >Items</a>
+                <a href="#{baseUrl}/paperdoll" use:active>Paperdoll</a>
+                <a href="#{baseUrl}/items" use:active>Items</a>
                 <!-- <a
                     href="#{baseUrl}/specializations"
                     use:active
                 >Specializations</a> -->
-                <a
-                    href="#{baseUrl}/professions"
-                    use:active={`${baseUrl}/professions/*`}
-                >Professions</a>
-                <a
-                    href="#{baseUrl}/shadowlands"
-                    use:active={`${baseUrl}/shadowlands/*`}
-                >Shadowlands</a>
+                <a href="#{baseUrl}/professions" use:active={`${baseUrl}/professions/*`}
+                    >Professions</a
+                >
+                <a href="#{baseUrl}/shadowlands" use:active={`${baseUrl}/shadowlands/*`}
+                    >Shadowlands</a
+                >
             </nav>
         {/key}
 
-        <svelte:component
-            this={componentMap[params.slug3]}
-            {character}
-            {params}
-        />
+        <svelte:component this={componentMap[params.slug3]} {character} {params} />
     </div>
 {/if}

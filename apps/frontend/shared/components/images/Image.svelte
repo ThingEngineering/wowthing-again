@@ -50,6 +50,6 @@
         props: {
             content,
         },
-        testFunc: (props) => props.content !== undefined
+        testFunc: (options) => options.content !== undefined
     }}
 />

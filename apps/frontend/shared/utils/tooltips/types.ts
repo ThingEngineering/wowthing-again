@@ -3,7 +3,7 @@ import type { Props } from 'tippy.js';
 
 export type TippyProps = Partial<Props>;
 
-export interface ComponentTooltipProps<TComponent extends Component<any>> {
+export interface ComponentTooltipProps<TComponent extends Component> {
     component: TComponent;
     props: ComponentProps<TComponent>;
     testFunc?: (props: ComponentProps<TComponent>) => boolean;

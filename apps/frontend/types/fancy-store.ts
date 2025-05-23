@@ -1,6 +1,6 @@
-import { DateTime } from 'luxon'
+import { DateTime } from 'luxon';
 import { writable } from 'svelte/store';
-import type { Invalidator, Subscriber, Unsubscriber, Updater, Writable } from 'svelte/store';
+import type { Subscriber, Unsubscriber, Updater, Writable } from 'svelte/store';
 
 import { Language } from '@/enums/language';
 import fetchJson from '@/utils/fetch-json';
@@ -33,7 +33,7 @@ export abstract class WritableFancyStore<T> implements Writable<FancyStoreType<T
     public subscribe: (
         this: void,
         run: Subscriber<FancyStoreType<T>>,
-        invalidate?: Invalidator<FancyStoreType<T>>,
+        invalidate?: () => void,
     ) => Unsubscriber;
     public update: (this: void, updater: Updater<FancyStoreType<T>>) => void;
 

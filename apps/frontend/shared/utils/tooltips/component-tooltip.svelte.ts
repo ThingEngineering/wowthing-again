@@ -7,7 +7,7 @@ import { defaultProps } from './default-props';
 import type { ComponentTooltipProps, SvelteActionResult } from './types';
 
 // TODO: fix typing of this mess
-export function componentTooltip<TComponent extends Component<unknown>>(
+export function componentTooltip<TComponent extends Component<any, any, any>>(
     node: SingleTarget,
     componentProps: ComponentTooltipProps<TComponent>,
 ): SvelteActionResult<{ props: Partial<ComponentProps<TComponent>> }> {

@@ -76,7 +76,7 @@
                     {
                         group: farm,
                         children: [],
-                    },
+                    } as FarmGroup,
                 ]),
         );
         for (let farmIndex = 0; farmIndex < farms.length; farmIndex++) {

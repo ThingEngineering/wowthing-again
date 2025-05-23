@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { afterUpdate, type ComponentType } from 'svelte';
+    import { afterUpdate, type Component } from 'svelte';
 
     import getSavedRoute from '@/utils/get-saved-route';
     import type { MultiSlugParams } from '@/types';
@@ -16,7 +16,7 @@
 
     afterUpdate(() => getSavedRoute('explore', params.slug1));
 
-    const componentMap: Record<string, ComponentType> = {
+    const componentMap: Record<string, Component<any, any, any>> = {
         achievements: Achievements,
         'bonus-ids': BonusIDs,
         chett: Chett,
