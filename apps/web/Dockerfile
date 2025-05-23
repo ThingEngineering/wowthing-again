@@ -1,16 +1,14 @@
-FROM node:16-alpine AS build-frontend
+FROM node:22-alpine AS build-frontend
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-COPY apps/frontend/package.json ./apps/frontend/
+COPY apps/frontend/package.json apps/frontend/package-lock.json ./apps/frontend/
+
+WORKDIR /app/apps/frontend
 
 RUN npm i --no-audit --no-fund
 
-COPY tsconfig.base.json ./
-COPY apps/frontend/ ./apps/frontend/
-
-WORKDIR /app/apps/frontend
+COPY apps/frontend/ .
 
 RUN npm run build
 
