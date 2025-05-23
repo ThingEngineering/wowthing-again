@@ -1,6 +1,6 @@
 <script lang="ts">
     import { DateTime } from 'luxon';
-    import { replace } from 'svelte-spa-router';
+    // import { replace } from 'svelte-spa-router';
 
     import { timeLeft } from '@/data/auctions';
     import { euLocales } from '@/data/region';
@@ -35,8 +35,7 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import { itemModifierMap } from '@/data/item-modifier';
 
-    export let page: number;
-    export let slug1: string;
+    let { page, slug1 }: { page: number; slug1: string } = $props();
 
     function setRealmSearch(connectedRealmId: number) {
         const realmName = $staticStore.connectedRealms[connectedRealmId].realmNames[0];
@@ -47,29 +46,27 @@
         }
     }
 
-    let recipeRealmSearch = '';
-    let transmogRealmSearch = '';
-    $: {
-        if (
-            slug1.startsWith('missing-appearance-') &&
-            $auctionState.missingTransmogRealmSearch !== transmogRealmSearch
-        ) {
-            transmogRealmSearch = $auctionState.missingTransmogRealmSearch;
-            if (page !== 1) {
-                replace(`/auctions/${slug1}/1`);
-            }
-        } else if (
-            slug1 === 'missing-recipes' &&
-            $auctionState.missingRecipeRealmSearch !== recipeRealmSearch
-        ) {
-            recipeRealmSearch = $auctionState.missingRecipeRealmSearch;
-            if (page !== 1) {
-                replace(`/auctions/${slug1}/1`);
-            }
-        }
-    }
+    // $: {
+    //     if (
+    //         slug1.startsWith('missing-appearance-') &&
+    //         $auctionState.missingTransmogRealmSearch !== transmogRealmSearch
+    //     ) {
+    //         transmogRealmSearch = $auctionState.missingTransmogRealmSearch;
+    //         if (page !== 1) {
+    //             replace(`/auctions/${slug1}/1`);
+    //         }
+    //     } else if (
+    //         slug1 === 'missing-recipes' &&
+    //         $auctionState.missingRecipeRealmSearch !== recipeRealmSearch
+    //     ) {
+    //         recipeRealmSearch = $auctionState.missingRecipeRealmSearch;
+    //         if (page !== 1) {
+    //             replace(`/auctions/${slug1}/1`);
+    //         }
+    //     }
+    // }
 
-    let pageItems: UserAuctionEntry[];
+    let pageItems: UserAuctionEntry[] = $state();
     function exportShoppingList() {
         const lines: string[] = [];
         lines.push(`WoWthing ${DateTime.now().toUnixInteger()}`);
@@ -270,7 +267,7 @@
             let:paginated
         >
             <div class="wrapper">
-                {#each paginated as result}
+                {#each paginated as result (result.id)}
                     {@const auctions = result.auctions.slice(
                         0,
                         $auctionState.limitToCheapestRealm ? 1 : 5,
@@ -294,7 +291,7 @@
                                     <tr>
                                         <th class="profession-character" colspan="3">
                                             <ProfessionIcon id={profession.id} />
-                                            {#each characterIds as characterId}
+                                            {#each characterIds as characterId (characterId)}
                                                 {@const character =
                                                     $userStore.characterMap[characterId]}
                                                 <span class="class-{character.classId}">
@@ -390,7 +387,7 @@
                                                 <button
                                                     class="clipboard"
                                                     use:basicTooltip={'Copy to clipboard'}
-                                                    on:click={() =>
+                                                    onclick={() =>
                                                         navigator.clipboard.writeText(item.name)}
                                                 >
                                                     <IconifyIcon
@@ -405,7 +402,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {#each auctions as auction}
+                            {#each auctions as auction (auction)}
                                 {@const connectedRealm =
                                     $staticStore.connectedRealms[auction.connectedRealmId]}
                                 {@const ageInMinutes = Math.floor(
@@ -429,7 +426,7 @@
                                 >
                                     <td
                                         class="realm text-overflow"
-                                        on:click={() => setRealmSearch(auction.connectedRealmId)}
+                                        onclick={() => setRealmSearch(auction.connectedRealmId)}
                                         use:componentTooltip={{
                                             component: RealmTooltip,
                                             props: {
@@ -492,7 +489,7 @@
                         <button
                             class="clipboard"
                             use:basicTooltip={'Copy shopping list to clipboard'}
-                            on:click={() => exportShoppingList()}
+                            onclick={() => exportShoppingList()}
                         >
                             <IconifyIcon icon={iconLibrary.mdiClipboardPlusOutline} scale="0.9" />
                         </button>

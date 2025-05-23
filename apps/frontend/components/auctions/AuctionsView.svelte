@@ -112,7 +112,6 @@
         );
 
         selectedCharacter = initialCharacters();
-        console.log(selectedCharacter);
     }
 </script>
 
