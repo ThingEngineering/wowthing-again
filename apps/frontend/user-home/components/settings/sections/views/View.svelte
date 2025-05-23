@@ -16,13 +16,14 @@
     import Tasks from './Tasks.svelte';
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
 
-    export let params: { view: string };
+    let { params }: { params: { viewId: string } } = $props();
 
-    $: view = find($settingsStore.views || [], (view) => view.id === params.view);
-    $: homeFields = view.homeFields;
+    let view = $derived.by(() =>
+        find($settingsStore.views || [], (view) => view.id === params.viewId),
+    );
 
     const onHomeFieldsUpdated = (e: Event) => {
-        homeFields = (e as CustomEvent<string[]>).detail;
+        view.homeFields = (e as CustomEvent<string[]>).detail;
     };
 
     onMount(() => {
@@ -82,9 +83,9 @@
 
         <TableSettings {view} />
 
-        <Currencies active={homeFields.indexOf('currencies') >= 0} {view} />
-        <Items active={homeFields.indexOf('items') >= 0} {view} />
-        <Lockouts active={homeFields.indexOf('lockouts') >= 0} {view} />
-        <Tasks active={homeFields.indexOf('tasks') >= 0} {view} />
+        <Currencies active={view.homeFields.indexOf('currencies') >= 0} {view} />
+        <Items active={view.homeFields.indexOf('items') >= 0} {view} />
+        <Lockouts active={view.homeFields.indexOf('lockouts') >= 0} {view} />
+        <Tasks active={view.homeFields.indexOf('tasks') >= 0} {view} />
     {/key}
 {/if}

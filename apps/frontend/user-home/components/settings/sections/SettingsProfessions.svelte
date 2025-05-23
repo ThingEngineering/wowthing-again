@@ -1,19 +1,19 @@
 <script lang="ts">
-    import sortBy from 'lodash/sortBy'
+    import sortBy from 'lodash/sortBy';
 
-    import { staticStore } from '@/shared/stores/static'
-    import { settingsStore } from '@/shared/stores/settings'
+    import { staticStore } from '@/shared/stores/static';
+    import { settingsStore } from '@/shared/stores/settings';
 
-    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
-    import Collecting from './SettingsProfessionsCollecting.svelte'
-    import Cooldowns from './SettingsProfessionsCooldowns.svelte'
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
+    import Collecting from './SettingsProfessionsCollecting.svelte';
+    import Cooldowns from './SettingsProfessionsCooldowns.svelte';
 
-    const sortedProfessions = sortBy(
-        Object.values($staticStore.professions),
-        (prof) => [prof.type, prof.name]
-    )
+    const sortedProfessions = sortBy(Object.values($staticStore.professions), (prof) => [
+        prof.type,
+        prof.name,
+    ]);
 
-    $: $settingsStore.professions.collectingCharacters ||= {}
+    $settingsStore.professions.collectingCharacters ||= {};
 </script>
 
 <div>

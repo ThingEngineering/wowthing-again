@@ -35,7 +35,7 @@
         setKey = slugs.join('--');
     }
 
-    $: getTransmogSets = function (group: ManualDataTransmogGroup): TransmogSetData[] {
+    const getTransmogSets = function (group: ManualDataTransmogGroup): TransmogSetData[] {
         if (group.type === 'multi') {
             return Object.keys(group.data).map(
                 (_, index) => new TransmogSetData(index.toString(), index),
@@ -45,7 +45,7 @@
         }
     };
 
-    $: getPercent = function (groupIndex: number, setIndex: number): number {
+    const getPercent = function (groupIndex: number, setIndex: number): number {
         let key: string;
         if (setIndex >= 0) {
             key = `${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}`;
@@ -55,7 +55,7 @@
         return $lazyStore.transmog.stats[key]?.percent;
     };
 
-    $: fakeArmorSpan = function (type: string): number {
+    const fakeArmorSpan = function (type: string): number {
         const fakeGroup: ManualDataTransmogGroup = { data: {}, name: '', sets: [], type: 'armor' };
         const fakeSet: TransmogSetData = {
             span: anyClasses
@@ -66,7 +66,10 @@
         return getTransmogSpan(fakeGroup, fakeSet, skipClasses);
     };
 
-    $: completionistReady = function (group: ManualDataTransmogGroup, _setIndex: number): boolean {
+    const completionistReady = function (
+        group: ManualDataTransmogGroup,
+        _setIndex: number,
+    ): boolean {
         return group.data?.[transmogSets[group.type].sets[0].type]?.every(
             (groupData) => groupData === null || !!groupData.transmogSetId,
         );

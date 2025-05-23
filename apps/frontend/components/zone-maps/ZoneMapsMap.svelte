@@ -147,9 +147,7 @@
         }
     }
 
-    $: {
-        [width, height] = [1500, 1000];
-    }
+    [width, height] = [1500, 1000];
 
     $: lessHeight = $settingsStore?.layout?.newNavigation ? '6.4rem' : '4.4rem';
 

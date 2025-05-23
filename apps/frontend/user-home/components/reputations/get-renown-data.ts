@@ -87,9 +87,9 @@ export function getRenownData({
                     // Brann hack to treat him as blocks of 10 levels
                     let actualMax = 0;
                     let actualValue = repTier.value;
-                    let currentIndex = tiers.names.length - repTier.tier;
-                    let start = Math.floor(currentIndex / 10) * 10;
-                    let end = Math.floor((start + 10) / 10) * 10;
+                    const currentIndex = tiers.names.length - repTier.tier;
+                    const start = Math.floor(currentIndex / 10) * 10;
+                    const end = Math.floor((start + 10) / 10) * 10;
                     for (let i = start; i < end; i++) {
                         const diff = tiers.minValues[i] - (tiers.minValues[i - 1] || 0);
                         actualMax += diff;

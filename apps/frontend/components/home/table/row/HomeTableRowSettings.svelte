@@ -1,43 +1,39 @@
 <script lang="ts">
-    import { CharacterFlag } from '@/enums/character-flag'
-    import { iconLibrary } from '@/shared/icons'
-    import { characterSettingsStore } from '@/stores/character-settings'
-    import { settingsStore } from '@/shared/stores/settings/store'
-    import type { Character } from '@/types/character'
+    import { CharacterFlag } from '@/enums/character-flag';
+    import { iconLibrary } from '@/shared/icons';
+    import { characterSettingsStore } from '@/stores/character-settings';
+    import { settingsStore } from '@/shared/stores/settings/store';
+    import type { Character } from '@/types/character';
 
-    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
-    export let character: Character
+    export let character: Character;
 
-    let ignoreWorkOrders: boolean = (
-        ($settingsStore.characters.flags[character.id] || 0)
-        & CharacterFlag.IgnoreWorkOrders
-    ) > 0
+    let ignoreWorkOrders: boolean =
+        (($settingsStore.characters.flags[character.id] || 0) & CharacterFlag.IgnoreWorkOrders) > 0;
 
-    $: onClick = () => {
+    const onClick = () => {
         if ($characterSettingsStore === character.id) {
-            $characterSettingsStore = 0
+            $characterSettingsStore = 0;
+        } else {
+            $characterSettingsStore = character.id;
         }
-        else {
-            $characterSettingsStore = character.id
-        }
-    }
-    
-    $: ignoreWorkOrdersChanged = () => {
-        ($settingsStore.characters.flags ||= {})[character.id] ^= CharacterFlag.IgnoreWorkOrders
-    }
+    };
 
-    $: toggleTag = (mask: number) => {
-        let flags = ($settingsStore.characters.flags ||= {})[character.id] || 0
+    const ignoreWorkOrdersChanged = () => {
+        ($settingsStore.characters.flags ||= {})[character.id] ^= CharacterFlag.IgnoreWorkOrders;
+    };
+
+    const toggleTag = (mask: number) => {
+        let flags = ($settingsStore.characters.flags ||= {})[character.id] || 0;
         if ((flags & mask) === mask) {
-            flags = flags ^ mask
+            flags = flags ^ mask;
+        } else {
+            flags = flags | mask;
         }
-        else {
-            flags = flags | mask
-        }
-        $settingsStore.characters.flags[character.id] = flags
-    }
+        $settingsStore.characters.flags[character.id] = flags;
+    };
 </script>
 
 <style lang="scss">
@@ -68,9 +64,7 @@
 </style>
 
 <td class="settings">
-    <div
-        class="settings-icon"
-    >
+    <div class="settings-icon">
         <IconifyIcon
             icon={iconLibrary.mdiCogOutline}
             tooltip="Character settings"
@@ -83,15 +77,16 @@
                 <CheckboxInput
                     name="ignore-work-orders-{character.id}"
                     bind:value={ignoreWorkOrders}
-                    on:change={ignoreWorkOrdersChanged}
-                >Ignore work orders</CheckboxInput>
-                {#each ($settingsStore.tags || []) as tag}
+                    on:change={ignoreWorkOrdersChanged}>Ignore work orders</CheckboxInput
+                >
+                {#each $settingsStore.tags || [] as tag}
                     {@const mask = 1 << tag.id}
                     <CheckboxInput
                         name="tag-{character.id}-{tag.id}"
-                        value={(($settingsStore.characters.flags?.[character.id] || 0) & mask) === mask}
-                        on:change={() => toggleTag(mask)}
-                    >Tag: {tag.name}</CheckboxInput>
+                        value={(($settingsStore.characters.flags?.[character.id] || 0) & mask) ===
+                            mask}
+                        on:change={() => toggleTag(mask)}>Tag: {tag.name}</CheckboxInput
+                    >
                 {/each}
             </div>
         {/if}

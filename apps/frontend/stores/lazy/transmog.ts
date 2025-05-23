@@ -107,7 +107,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
             for (let groupIndex = 0; groupIndex < category.groups.length; groupIndex++) {
                 const group = category.groups[groupIndex];
 
-                let groupKey = `${catKey}--${groupIndex}`;
+                const groupKey = `${catKey}--${groupIndex}`;
                 // Multiple consecutive groups with the same name are coalesced into a single
                 // display group, make sure the group stats are accurate
                 let groupStatsKey = groupKey;
