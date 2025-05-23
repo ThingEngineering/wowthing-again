@@ -200,8 +200,6 @@ export class UserAuctionMissingRecipeDataStore {
             );
         });
 
-        console.log(cacheKey, things);
-
         return [things, updated];
     }
 }
