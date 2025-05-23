@@ -1,27 +1,19 @@
 import globals from 'globals';
 
 import js from '@eslint/js';
-import prettierConfig from 'eslint-config-prettier';
-import svelteParser from 'svelte-eslint-parser';
+import ts from 'typescript-eslint';
+import prettier from 'eslint-config-prettier';
 import svelte from 'eslint-plugin-svelte';
-import typescriptParser from '@typescript-eslint/parser';
-import typescriptPlugin from '@typescript-eslint/eslint-plugin';
-
-const ourRules = {
-    // don't break CI for things that are not the end of the world
-    '@typescript-eslint/no-explicit-any': 'warn',
-    '@typescript-eslint/no-unused-vars': 'warn',
-};
 
 export default [
     {
-        ignores: ['dist', 'svelte.config.cjs', 'vite.config.ts'],
+        ignores: ['dist', 'vite.config.ts'],
     },
 
     js.configs.recommended,
-    // ...typescriptPlugin.configs.recommended,
+    ...ts.configs.recommended,
     ...svelte.configs.recommended,
-    prettierConfig,
+    prettier,
     ...svelte.configs.prettier,
 
     {
@@ -34,57 +26,51 @@ export default [
     },
 
     // JS
-    {
-        files: ['**/*.js', '**/*.cjs'],
-    },
+    // {
+    //     files: ['**/*.js', '**/*.cjs'],
+    // },
 
-    // TS
-    {
-        files: ['**/*.ts'],
-        ignores: [],
-        languageOptions: {
-            parser: typescriptParser,
-            parserOptions: {
-                project: 'tsconfig.json',
-            },
-        },
-        plugins: {
-            '@typescript-eslint': typescriptPlugin,
-        },
-        rules: {
-            ...typescriptPlugin.configs.recommended.rules,
-            ...ourRules,
-        },
-    },
+    // // TS
+    // {
+    //     files: ['**/*.ts'],
+    //     ignores: [],
+    //     languageOptions: {
+    //         parser: typescriptParser,
+    //         parserOptions: {
+    //             project: 'tsconfig.json',
+    //         },
+    //     },
+    //     plugins: {
+    //         '@typescript-eslint': typescriptPlugin,
+    //     },
+    //     rules: {
+    //         ...typescriptPlugin.configs.recommended.rules,
+    //         ...ourRules,
+    //     },
+    // },
 
     // Svelte
     {
-        files: ['**/*.svelte', '**/*.svelte.js'],
+        files: ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'],
         languageOptions: {
-            parser: svelteParser,
+            // parser: svelteParser,
             parserOptions: {
                 extraFileExtensions: ['.svelte'],
-                parser: typescriptParser,
-                project: 'tsconfig.json',
-                svelteFeatures: {
-                    experimentalGenerics: true,
-                },
+                parser: ts.parser,
+                // project: 'tsconfig.json',
+                projectService: true,
             },
         },
-        plugins: {
-            svelte: svelte,
-            '@typescript-eslint': typescriptPlugin,
-        },
+    },
+    {
         rules: {
-            ...typescriptPlugin.configs.recommended.rules,
-            ...svelte.configs.recommended.rules,
-            ...ourRules,
+            // don't break CI for things that are not the end of the world
+            '@typescript-eslint/no-explicit-any': 'warn',
+            '@typescript-eslint/no-unused-vars': 'warn',
             // there's a lot of these to embed '&nbsp;', no user data is ever used
             'svelte/no-at-html-tags': 'off',
             // TODO: fix the hundreds of these
             'svelte/require-each-key': 'warn',
-            // // doesn't seem to work properly?
-            // 'svelte/no-unused-svelte-ignore': 'warn',
-        },
-    },
+        }
+    }
 ];
