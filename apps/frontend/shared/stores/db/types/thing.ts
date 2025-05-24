@@ -191,7 +191,7 @@ export class DbDataThing {
                 minimumLevel,
                 name: this.name,
                 note: this.note,
-                questIds: [this.trackingQuestId],
+                questIds: [this.type === DbThingType.Quest ? this.id : this.trackingQuestId],
                 reset,
                 type,
                 drops,
