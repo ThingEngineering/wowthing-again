@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -10,16 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNet.Security.OAuth.BattleNet" Version="8.0.0" />
-    <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="8.1.5" />
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="8.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="8.0.1" />
-    <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="8.0.1" />
+    <PackageReference Include="AspNet.Security.OAuth.BattleNet" Version="9.4.0" />
+    <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="9.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="9.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="9.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="9.0.5" />
+    <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="9.0.5" />
     <PackageReference Include="prometheus-net" Version="8.2.1" />
     <PackageReference Include="prometheus-net.AspNetCore" Version="8.2.1" />
-    <PackageReference Include="StackExchange.Redis" Version="2.7.17" />
+    <PackageReference Include="StackExchange.Redis" Version="2.8.37" />
   </ItemGroup>
 
   <ItemGroup>
