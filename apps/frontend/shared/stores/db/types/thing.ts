@@ -111,11 +111,14 @@ export class DbDataThing {
             }
 
             let minimumLevel = 0;
+            const requiredQuestIds: number[] = [];
             const requirementIds = this.requirementIds || [];
             for (const requirementId of requirementIds) {
                 const requirementParts = dbData.requirementsById[requirementId].split(' ');
                 if (requirementParts[0] === 'level') {
                     minimumLevel = parseInt(requirementParts[1]);
+                } else if (requirementParts[0] === 'quest') {
+                    requiredQuestIds.push(...requirementParts.slice(1).map((s) => parseInt(s)));
                 }
             }
 
@@ -192,8 +195,10 @@ export class DbDataThing {
                 name: this.name,
                 note: this.note,
                 questIds: [this.type === DbThingType.Quest ? this.id : this.trackingQuestId],
+                requiredQuestIds,
                 reset,
                 type,
+                worldQuestId: this.worldQuestId,
                 drops,
             };
         }

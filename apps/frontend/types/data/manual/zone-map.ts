@@ -28,6 +28,7 @@ export class ManualDataZoneMapFarm {
     public drops: ManualDataZoneMapDrop[];
     public highlightQuestId?: number;
     public location: string[];
+    public worldQuestId?: number;
 
     constructor(
         public type: FarmType,

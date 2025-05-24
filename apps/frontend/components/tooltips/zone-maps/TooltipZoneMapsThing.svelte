@@ -40,6 +40,7 @@
     export let farm: ManualDataZoneMapFarm;
     export let map: ManualDataZoneMapCategory;
     export let status: FarmStatus;
+    export let worldQuestAvailable: number;
 
     let sortedDrops: [ManualDataZoneMapDrop, DropStatus][];
     let statistic: number;
@@ -112,6 +113,11 @@
         :global(svg) {
             color: #ffff00;
             margin: -4px -4px 0 -4px;
+        }
+    }
+    h5 {
+        span {
+            padding-left: 0.5rem;
         }
     }
     .statistic {
@@ -202,6 +208,11 @@
                 once per character
             {:else if farm.reset !== FarmResetType.None}
                 {FarmResetType[farm.reset].toLowerCase()} reset
+                {#if worldQuestAvailable === 1}
+                    <span class="status-success">World Quest available!</span>
+                {:else if worldQuestAvailable === -1}
+                    <span class="status-warn">World Quest not available</span>
+                {/if}
             {/if}
         </h5>
     {/if}
@@ -227,7 +238,7 @@
                 </tr>
             {/if}
 
-            {#each sortedDrops.slice(0, 22) as [drop, dropStatus], sortedIndex}
+            {#each sortedDrops.slice(0, 22) as [drop, dropStatus], sortedIndex (drop)}
                 {@const isCriteria = drop.type === RewardType.Achievement && drop.subType > 0}
                 <tr
                     class:success={!dropStatus.need ||
@@ -355,12 +366,12 @@
                             <tr>
                                 <td></td>
                                 <td class="characters" colspan="2">
-                                    {#each sortBy( dropStatus.characterIds.map((c) => $userStore.characterMap[c]), (c) => c.name, ) as character}
+                                    {#each sortBy( dropStatus.characterIds.map((c) => $userStore.characterMap[c]), (c) => c.name, ) as character (character.id)}
                                         <span class="class-{character.classId}">
                                             {character.name}
                                         </span>
                                     {/each}
-                                    {#each sortBy( dropStatus.completedCharacterIds.map((c) => $userStore.characterMap[c]), (c) => c.name, ) as character}
+                                    {#each sortBy( dropStatus.completedCharacterIds.map((c) => $userStore.characterMap[c]), (c) => c.name, ) as character (character.id)}
                                         <span class="completed class-{character.classId}">
                                             {character.name}
                                         </span>
