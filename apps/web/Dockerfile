@@ -13,7 +13,7 @@ COPY apps/frontend/ .
 RUN npm run build
 
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build-web
+FROM mcr.microsoft.com/dotnet/sdk:9.0-alpine AS build-web
 
 WORKDIR /app
 COPY apps/web/ ./apps/web/
