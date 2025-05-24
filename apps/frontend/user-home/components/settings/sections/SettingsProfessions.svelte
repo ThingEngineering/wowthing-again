@@ -12,8 +12,6 @@
         prof.type,
         prof.name,
     ]);
-
-    $settingsStore.professions.collectingCharacters ||= {};
 </script>
 
 <div>
