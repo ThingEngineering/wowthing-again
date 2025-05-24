@@ -2312,6 +2312,13 @@ public static partial class Hardcoded
                 new(153037, DungeonDifficultiesHeroicMythic), // Technique: Glyph of Dark Absolution
             ]
         },
+        // The Arcway > The Rat King
+        {
+            1_0726_0,
+            [
+                new(141053, DungeonDifficultiesHeroicMythic), // echnique: Glyph of Polymorphic Proportions
+            ]
+        },
         // The Arcway > Advisor Vandros
         {
             1501,

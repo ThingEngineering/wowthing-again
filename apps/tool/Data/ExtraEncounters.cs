@@ -332,6 +332,13 @@ public static partial class Hardcoded
         #endregion
 
         #region Legion
+        // Legion > The Arcway
+        {
+            726,
+            [
+                new ExtraEncounter("The Rat King")
+            ]
+        },
         // Legion > Return to Karazhan
         {
             860,
