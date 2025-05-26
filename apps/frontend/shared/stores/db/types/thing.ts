@@ -20,6 +20,7 @@ import { DbDataThingLocation } from './thing-location';
 import { DbDataThingContent, type DbDataThingContentArray } from './thing-content';
 import { DbDataThingGroup, type DbDataThingGroupArray } from './thing-group';
 import { wowthingData } from '../../data/store';
+import { itemStore } from '@/stores';
 
 export class DbDataThing {
     public accountWide: boolean;
@@ -109,6 +110,9 @@ export class DbDataThing {
                 return;
             }
 
+            const itemData = get(itemStore);
+            const staticData = get(staticStore);
+
             let minimumLevel = 0;
             const requiredQuestIds: number[] = [];
             const requirementIds = this.requirementIds || [];
@@ -123,8 +127,17 @@ export class DbDataThing {
                 }
             }
 
+            const personalLoot = this.tagIds.some(
+                (tagId) => wowthingData.db.tagsById.get(tagId) === 'personal-loot',
+            );
+
             const drops: ManualDataZoneMapDrop[] = [];
             for (const content of this.contents) {
+                let classMask = 0;
+                if (personalLoot) {
+                    classMask = itemData.items[content.id]?.classMask || 0;
+                }
+
                 const [type, subType] = getItemTypeAndSubtype(
                     content.id,
                     thingContentTypeToRewardType[content.type],
@@ -133,7 +146,7 @@ export class DbDataThing {
                 const drop: ManualDataZoneMapDrop = {
                     id: content.id,
                     note: content.note,
-                    classMask: 0,
+                    classMask,
                     subType,
                     type,
                     limit: [],
@@ -141,7 +154,6 @@ export class DbDataThing {
 
                 if (type === RewardType.Item) {
                     // if this is an item that teaches a skill, add a profession skill limit
-                    const staticData = get(staticStore);
                     const requiredSkillLine = staticData.itemToSkillLine[drop.id];
                     if (requiredSkillLine) {
                         const profession =
