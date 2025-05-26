@@ -1,96 +1,101 @@
 <script lang="ts">
-    import { warWithinProfessions } from '@/data/professions'
+    import { warWithinProfessions } from '@/data/professions';
     import { warWithinZones } from '@/data/zones';
-    import { Profession } from '@/enums/profession'
-    import { dbStore } from '@/shared/stores/db'
+    import { Profession } from '@/enums/profession';
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import { itemStore, userQuestStore } from '@/stores'
-    import type {  Character } from '@/types'
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import { itemStore, userQuestStore } from '@/stores';
+    import type { Character } from '@/types';
     import type { TaskProfessionQuest } from '@/types/data';
 
-    import Tooltip from '@/components/tooltips/profession-knowledge/TooltipProfessionKnowledge.svelte'
+    import Tooltip from '@/components/tooltips/profession-knowledge/TooltipProfessionKnowledge.svelte';
 
-    export let character: Character
+    export let character: Character;
 
     type ZoneData = {
-        have: number
-        status?: string
-        total: number
-        items: ZoneItem[]
-    }
+        have: number;
+        status?: string;
+        total: number;
+        items: ZoneItem[];
+    };
     type ZoneItem = {
-        have: boolean
-        profession: Profession
-        itemId?: number
-        quest?: TaskProfessionQuest
-        source?: string
-    }
+        have: boolean;
+        profession: Profession;
+        itemId?: number;
+        quest?: TaskProfessionQuest;
+        source?: string;
+    };
 
-    let data: ZoneData[]
+    let data: ZoneData[];
     $: {
-        data = []
+        data = [];
 
         // Zones
         for (const zone of warWithinZones) {
             if (zone === null) {
-                data.push(null)
-                continue
+                data.push(null);
+                continue;
             }
 
             const zoneData: ZoneData = {
                 have: 0,
                 total: 0,
                 items: [],
-            }
+            };
 
             for (const profData of warWithinProfessions) {
                 if (!character.professions?.[profData.id]) {
-                    continue
+                    continue;
                 }
-                
+
                 if (zone.name.endsWith('Books')) {
-                    const bookQuests = (profData.bookQuests || []).filter((bq) =>
-                        (bq.source === zone.shortName) ||
-                        (bq.source.startsWith(`${zone.shortName} `))
-                    )
+                    const bookQuests = (profData.bookQuests || []).filter(
+                        (bq) =>
+                            bq.source === zone.shortName ||
+                            bq.source.startsWith(`${zone.shortName} `),
+                    );
 
                     const characterRenown = zone.reputationId
                         ? Math.floor((character.reputations?.[zone.reputationId] ?? 0) / 2500)
-                        : 0
+                        : 0;
 
                     for (const bookQuest of bookQuests) {
                         const bookData = {
                             have: userQuestStore.hasAny(character.id, bookQuest.questId),
                             quest: bookQuest,
                             profession: profData.id,
-                        }
+                        };
 
-                        const requiredRenown = parseInt(bookQuest.source.split(' ')[1])
+                        const requiredRenown = parseInt(bookQuest.source.split(' ')[1]);
                         if (!bookData.have) {
                             if (!isNaN(requiredRenown) && requiredRenown <= characterRenown) {
-                                zoneData.status = 'fail'
-                            }
-                            else if (bookQuest.source.startsWith('AC ') || bookQuest.source === 'LN') {
-                                zoneData.status = 'fail'
+                                zoneData.status = 'fail';
+                            } else if (
+                                bookQuest.source.startsWith('AC ') ||
+                                bookQuest.source === 'LN'
+                            ) {
+                                zoneData.status = 'fail';
                             }
                         }
 
-                        zoneData.items.push(bookData)
+                        zoneData.items.push(bookData);
                     }
                 } else {
-                    const things = dbStore.search({
-                        maps: [
-                            zone.map,
-                        ],
+                    const things = wowthingData.db.search({
+                        maps: [zone.map],
                         tags: [
                             `expansion:10`,
                             `profession:${$staticStore.professions[profData.id].slug}`,
-                            'treasure:profession'
+                            'treasure:profession',
                         ],
-                    })
+                    });
 
-                    things.sort((a, b) => $itemStore.items[a.contents[0].id].name.localeCompare($itemStore.items[b.contents[0].id].name))
+                    things.sort((a, b) =>
+                        $itemStore.items[a.contents[0].id].name.localeCompare(
+                            $itemStore.items[b.contents[0].id].name,
+                        ),
+                    );
 
                     for (const thing of things) {
                         zoneData.items.push({
@@ -98,27 +103,31 @@
                             itemId: thing.contents[0].id,
                             profession: profData.id,
                             source: zone.shortName,
-                        })
+                        });
                     }
                 }
             }
 
-            zoneData.have = zoneData.items.filter((item) => item.have).length
-            zoneData.total = zoneData.items.length
-            zoneData.items.sort((a, b) => Profession[a.profession].localeCompare(Profession[b.profession]))
+            zoneData.have = zoneData.items.filter((item) => item.have).length;
+            zoneData.total = zoneData.items.length;
+            zoneData.items.sort((a, b) =>
+                Profession[a.profession].localeCompare(Profession[b.profession]),
+            );
 
             if (zone.name.endsWith('Books')) {
                 if (!zoneData.status) {
-                    zoneData.status = zoneData.have < zoneData.total ? 'shrug' : 'success'
+                    zoneData.status = zoneData.have < zoneData.total ? 'shrug' : 'success';
                 }
-            }
-            else {
-                zoneData.status = zoneData.have === 0
-                    ? 'fail'
-                    : (zoneData.have < zoneData.total ? 'shrug' : 'success')
+            } else {
+                zoneData.status =
+                    zoneData.have === 0
+                        ? 'fail'
+                        : zoneData.have < zoneData.total
+                          ? 'shrug'
+                          : 'success';
             }
 
-            data.push(zoneData)
+            data.push(zoneData);
         }
     }
 </script>
@@ -150,7 +159,7 @@
                     reputationId: 0,
                     zoneData,
                     zoneName: zone.name,
-                }
+                },
             }}
         >
             {zoneData.have} / {zoneData.total}

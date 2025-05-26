@@ -16,10 +16,10 @@ import { staticStore } from '@/shared/stores/static';
 import { getItemTypeAndSubtype } from '@/utils/items/get-item-type-and-subtype';
 
 import { DbResetType, DbThingContentType, DbThingType } from '../enums';
-import { dbStore } from '../store';
 import { DbDataThingLocation } from './thing-location';
 import { DbDataThingContent, type DbDataThingContentArray } from './thing-content';
 import { DbDataThingGroup, type DbDataThingGroupArray } from './thing-group';
+import { wowthingData } from '../../data/store';
 
 export class DbDataThing {
     public accountWide: boolean;
@@ -104,8 +104,7 @@ export class DbDataThing {
     private _zoneMapsFarm: Record<string, ManualDataZoneMapFarm> = {};
     public asZoneMapsFarm(mapName: string): ManualDataZoneMapFarm {
         if (!this._zoneMapsFarm[mapName]) {
-            const dbData = get(dbStore);
-            const mapId = dbData.mapsByName[mapName];
+            const mapId = wowthingData.db.mapsByName.get(mapName);
             if (!mapId) {
                 return;
             }
@@ -114,7 +113,9 @@ export class DbDataThing {
             const requiredQuestIds: number[] = [];
             const requirementIds = this.requirementIds || [];
             for (const requirementId of requirementIds) {
-                const requirementParts = dbData.requirementsById[requirementId].split(' ');
+                const requirementParts = wowthingData.db.requirementsById
+                    .get(requirementId)
+                    .split(' ');
                 if (requirementParts[0] === 'level') {
                     minimumLevel = parseInt(requirementParts[1]);
                 } else if (requirementParts[0] === 'quest') {
@@ -160,7 +161,9 @@ export class DbDataThing {
                     const dropRequirementIds = requirementIds.concat(content.requirementIds || []);
                     if (dropRequirementIds.length > 0) {
                         for (const requirementId of dropRequirementIds) {
-                            drop.limit = dbData.requirementsById[requirementId].split(' ');
+                            drop.limit = wowthingData.db.requirementsById
+                                .get(requirementId)
+                                .split(' ');
                         }
                     }
                 }

@@ -1,6 +1,11 @@
 <script lang="ts">
     import { mount, onDestroy, onMount } from 'svelte';
 
+    import { Region } from '@/enums/region';
+    import { wowthingData } from '@/shared/stores/data';
+    import { settingsStore } from '@/shared/stores/settings';
+    import { staticStore } from '@/shared/stores/static';
+    import { timeStore } from '@/shared/stores/time';
     import {
         itemStore,
         journalStore,
@@ -9,24 +14,19 @@
         userQuestStore,
         userStore,
     } from '@/stores';
-    import { userUpdateHubStore } from './signalr/user-update-hub-store';
-    import { dbStore } from '@/shared/stores/db';
-    import { settingsStore } from '@/shared/stores/settings';
-    import { staticStore } from '@/shared/stores/static';
-    import { timeStore } from '@/shared/stores/time';
+    import { worldQuestStore } from '@/user-home/components/world-quests/store';
     import parseApiTime from '@/utils/parse-api-time';
-    import { worldQuestStore } from './components/world-quests/store';
+
+    import { userUpdateHubStore } from './signalr/user-update-hub-store';
 
     import NewNav from './NewNav.svelte';
     import Refresh from './Refresh.svelte';
     import Routes from './Routes.svelte';
     import Sidebar from './Sidebar.svelte';
-    import { Region } from '@/enums/region';
 
     onMount(
         async () =>
             await Promise.all([
-                dbStore.fetch({ language: $settingsStore.general.language }),
                 itemStore.fetch({ language: $settingsStore.general.language }),
                 journalStore.fetch({ language: $settingsStore.general.language }),
                 manualStore.fetch({ language: $settingsStore.general.language }),
@@ -36,6 +36,7 @@
                 userStore.fetch(),
                 worldQuestStore.fetch(Region.US),
                 worldQuestStore.fetch(Region.EU),
+                wowthingData.fetch(),
             ]),
     );
 
@@ -46,7 +47,6 @@
     let ready: boolean;
     $: {
         error =
-            $dbStore.error ||
             $itemStore.error ||
             $journalStore.error ||
             $manualStore.error ||
@@ -56,14 +56,14 @@
             $userStore.error;
 
         loaded =
-            $dbStore.loaded &&
             $itemStore.loaded &&
             $journalStore.loaded &&
             $manualStore.loaded &&
             $staticStore.loaded &&
             $userAchievementStore.loaded &&
             $userQuestStore.loaded &&
-            $userStore.loaded;
+            $userStore.loaded &&
+            wowthingData.loaded;
 
         if (!error && loaded) {
             staticStore.setup($settingsStore, $itemStore);

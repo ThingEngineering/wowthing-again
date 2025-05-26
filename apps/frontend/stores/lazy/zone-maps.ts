@@ -13,7 +13,7 @@ import { FarmResetType } from '@/enums/farm-reset-type';
 import { FarmType } from '@/enums/farm-type';
 import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
 import { RewardType } from '@/enums/reward-type';
-import { dbStore } from '@/shared/stores/db';
+import { wowthingData } from '@/shared/stores/data';
 import { UserCount } from '@/types';
 import { getSetCurrencyCostsString } from '@/utils/get-currency-costs';
 import {
@@ -152,7 +152,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
             }
 
             farms.push(
-                ...dbStore
+                ...wowthingData.db
                     .search({ maps: [map.mapName] })
                     .map((thing) => thing.asZoneMapsFarm(map.mapName))
                     .filter((farm) => !!farm),
