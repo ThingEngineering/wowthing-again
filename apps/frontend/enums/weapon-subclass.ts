@@ -9,7 +9,7 @@ export enum WeaponSubclass {
     OneHandedSword = 7,
     TwoHandedSword = 8,
     Warglaive = 9,
-    Stave = 10,
+    Staff = 10,
     //11: bear claws?
     //12: cat claws?
     Fist = 13,
@@ -45,7 +45,7 @@ export const twoHandWeaponSubclasses: Set<WeaponSubclass> = new Set<WeaponSubcla
     WeaponSubclass.Crossbow,
     WeaponSubclass.Gun,
     WeaponSubclass.Polearm,
-    WeaponSubclass.Stave,
+    WeaponSubclass.Staff,
     WeaponSubclass.TwoHandedAxe,
     WeaponSubclass.TwoHandedMace,
     WeaponSubclass.TwoHandedSword,

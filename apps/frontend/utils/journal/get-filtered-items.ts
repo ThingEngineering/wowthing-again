@@ -18,7 +18,7 @@ const weaponGroups = Object.fromEntries(
         '1h Mace',
         '1h Sword',
         'Polearm',
-        'Stave',
+        'Staff',
         '2h Axe',
         '2h Mace',
         '2h Sword',
