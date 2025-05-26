@@ -47,9 +47,9 @@ public static partial class Hardcoded
         8368, // Ironforge Gauntlets
         9942, // Mithril Scale Gloves
         9957, // Orcish War Leggings
-        9972, // Ornate Mithril Breastplate
-        9979, // Ornate Mithril Boots
-        9980, // Ornate Mithril Helm
+        // 9972, // Ornate Mithril Breastplate
+        // 9979, // Ornate Mithril Boots
+        // 9980, // Ornate Mithril Helm
         16960, // Thorium Greatsword
         16965, // Bleakwood Hew
         16967, // Inlaid Thorium Hammer
