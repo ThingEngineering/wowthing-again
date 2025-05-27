@@ -16,7 +16,6 @@
             id: crypto.randomUUID(),
             name: 'NEW',
             characterFilter: '',
-            groupBeforePin: false,
             showCompletedUntrackedChores: false,
             groups: ['groupBy'],
             groupBy: [],

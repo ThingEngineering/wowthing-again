@@ -66,10 +66,6 @@
         </div>
 
         <div class="settings-block">
-            <CheckboxInput name="group_before_pin" bind:value={view.groupBeforePin}>
-                Group characters before pinning
-            </CheckboxInput>
-
             <CheckboxInput
                 name="show_completed_untracked_chores"
                 bind:value={view.showCompletedUntrackedChores}
