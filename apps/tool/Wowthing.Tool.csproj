@@ -12,6 +12,11 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="bebop" Version="3.1.3" />
+      <PackageReference Include="bebop-tools" Version="3.1.3">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
       <PackageReference Include="CommandLineParser" Version="2.9.1" />
       <PackageReference Include="CsvHelper" Version="33.0.1" />
       <PackageReference Include="morelinq" Version="4.4.0" />
@@ -26,5 +31,8 @@
       <Folder Include="Converters\Reputations\" />
     </ItemGroup>
 
+    <ItemGroup>
+        <Bebop Include="..\..\bebop\*.bop" OutputDir=".\Models" OutputFile="BebopModels.g.cs" Namespace="Wowthing.Tool.Models" />
+    </ItemGroup>
 
 </Project>

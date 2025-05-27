@@ -1,0 +1,14 @@
+struct BebopItem {
+    uint32 idClassIdSubclassId;
+    byte bindTypeExpansion;
+    byte primaryStatQuality;
+    int64 raceMask;
+    int32 classMask;
+    byte flags; // 7b
+    byte inventoryType; // 6b
+    int16 itemLevel; // 12b
+    int16 unique;
+    string name;
+    byte[] sockets;
+    uint32[] appearances;
+}
