@@ -55,7 +55,6 @@ public static partial class Hardcoded
         16967, // Inlaid Thorium Hammer
         16980, // Rune Edge
         16986, // Blood Talon
-        16987, // Darkspear
         34529, // Nether Chain Shirt
         34530, // TBC Twisting Nether Chain Shirt
         55186, // WotLK Chestplate of Conquest
