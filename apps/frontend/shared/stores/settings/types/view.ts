@@ -3,6 +3,7 @@ export interface SettingsView {
     name: string;
 
     characterFilter: string;
+    groupBeforePin: boolean;
     showCompletedUntrackedChores: boolean;
 
     groups: string[];

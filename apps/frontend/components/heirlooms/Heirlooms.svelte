@@ -1,32 +1,38 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte'
+    import { afterUpdate } from 'svelte';
 
-    import { lazyStore, manualStore } from '@/stores'
-    import { settingsStore } from '@/shared/stores/settings/store'
-    import { getColumnResizer } from '@/utils/get-column-resizer'
-    import type { ManualDataHeirloomGroup } from '@/types/data/manual'
+    import { lazyStore, manualStore } from '@/stores';
+    import { settingsStore } from '@/shared/stores/settings';
+    import { getColumnResizer } from '@/utils/get-column-resizer';
+    import type { ManualDataHeirloomGroup } from '@/types/data/manual';
 
-    import Group from './HeirloomsGroup.svelte'
-    import Options from './HeirloomsOptions.svelte'
-    import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
+    import Group from './HeirloomsGroup.svelte';
+    import Options from './HeirloomsOptions.svelte';
+    import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
 
-    let sections: [string, ManualDataHeirloomGroup[]][]
+    let sections: [string, ManualDataHeirloomGroup[]][];
     $: {
         sections = [
-            ['Available', $manualStore.heirlooms.filter((group) => !group.name.startsWith('Unavailable'))],
-        ]
+            [
+                'Available',
+                $manualStore.heirlooms.filter((group) => !group.name.startsWith('Unavailable')),
+            ],
+        ];
 
-        if (!$settingsStore.collections.hideUnavailable || $lazyStore.heirlooms['UNAVAILABLE'].have > 0) {
+        if (
+            !$settingsStore.collections.hideUnavailable ||
+            $lazyStore.heirlooms['UNAVAILABLE'].have > 0
+        ) {
             sections.push([
                 'Unavailable',
-                $manualStore.heirlooms.filter((group) => group.name.startsWith('Unavailable'))
-            ])
+                $manualStore.heirlooms.filter((group) => group.name.startsWith('Unavailable')),
+            ]);
         }
     }
 
-    let containerElement: HTMLElement
-    let resizeableElement: HTMLElement
-    let debouncedResize: () => void
+    let containerElement: HTMLElement;
+    let resizeableElement: HTMLElement;
+    let debouncedResize: () => void;
     $: {
         if (resizeableElement) {
             debouncedResize = getColumnResizer(
@@ -36,17 +42,16 @@
                 {
                     columnCount: '--column-count',
                     gap: 30,
-                    padding: '1.5rem'
-                }
-            )
-            debouncedResize()
-        }
-        else {
-            debouncedResize = null
+                    padding: '1.5rem',
+                },
+            );
+            debouncedResize();
+        } else {
+            debouncedResize = null;
         }
     }
-    
-    afterUpdate(() => debouncedResize?.())
+
+    afterUpdate(() => debouncedResize?.());
 </script>
 
 <svelte:window on:resize={debouncedResize} />

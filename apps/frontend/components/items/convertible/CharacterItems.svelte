@@ -1,7 +1,7 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons';
     import { iconLibrary } from '@/shared/icons';
-    import { settingsStore } from '@/shared/stores/settings/store';
+    import { settingsStore } from '@/shared/stores/settings';
     import { WarbankItem } from '@/types/items';
     import { getItemUrl } from '@/utils/get-item-url';
     import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible';

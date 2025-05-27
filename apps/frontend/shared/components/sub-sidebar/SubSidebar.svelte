@@ -1,5 +1,5 @@
 <script lang="ts" generics="TItem extends SidebarItem">
-    import { settingsStore } from '@/shared/stores/settings/store';
+    import { settingsStore } from '@/shared/stores/settings';
     import { measureScrollbar } from '@/utils/measure-scrollbar';
     import type { SidebarItem } from './types';
 

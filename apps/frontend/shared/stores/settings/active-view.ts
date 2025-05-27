@@ -2,7 +2,7 @@ import { location } from 'svelte-spa-router';
 import { derived, type Readable } from 'svelte/store';
 
 import { browserStore } from '../browser';
-import { settingsStore } from './store';
+import { settingsStore } from './store.svelte';
 import type { SettingsView } from './types';
 
 export const activeView: Readable<SettingsView> = derived(
