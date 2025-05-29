@@ -1,7 +1,9 @@
-﻿using MoreLinq;
+﻿using System.Collections.Immutable;
+using Bebop.Runtime;
 using Serilog.Context;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models.Wow;
+using Wowthing.Tool.Models;
 using Wowthing.Tool.Models.Items;
 using Wowthing.Tool.Models.Professions;
 
@@ -268,6 +270,7 @@ public class ItemsTool
 
         var items = _itemMap.Values.OrderBy(item => item.Id).ToArray();
         cacheData.RawItems = new RedisItemData[_itemMap.Count];
+        var bebopItems = new BebopItem[_itemMap.Count];
         int lastId = 0;
         for (int i = 0; i < items.Length; i++)
         {
@@ -343,6 +346,44 @@ public class ItemsTool
             cacheHash ??= cacheJson.Md5();
 
             await db.SetCacheDataAndHash($"item-{language.ToString()}", cacheJson, cacheHash);
+
+
+            var bebopBuffer = new byte[1000];
+            using var bebopStream = new MemoryStream();
+            foreach (var item in items)
+            {
+                // s6_c6_i20
+                uint idClassIdSubclassId = (uint)item.Id | ((uint)item.ClassId << 20) | ((uint)item.SubclassId << 26);
+                // e4_b4
+                byte bindTypeExpansion = (byte)((int)item.BindType | (item.Expansion << 4));
+                // q4_p4
+                byte primaryStatQuality = (byte)((int)item.PrimaryStat | ((int)item.Quality << 4));
+
+                // s4_m8_a20
+                var appearances = itemToModifiedAppearances.GetValueOrDefault(item.Id, [])
+                    .Select(app => (uint)app.AppearanceId | ((uint)app.Modifier << 20) | ((uint)app.SourceType << 28))
+                    .ToArray();
+
+                var bebopItem = new BebopItem
+                {
+                    IdClassIdSubclassId = idClassIdSubclassId,
+                    BindTypeExpansion = bindTypeExpansion,
+                    PrimaryStatQuality = primaryStatQuality,
+                    RaceMask = item.RaceMask,
+                    ClassMask = item.ClassMask,
+                    Flags = (byte)item.Flags,
+                    InventoryType = (byte)item.InventoryType,
+                    ItemLevel = item.ItemLevel,
+                    Unique = item.Unique,
+                    Name = _strings.GetValueOrDefault((language, item.Id), $"Item #{item.Id}"),
+                    Sockets = [..item.Sockets.Select(socket => (byte)socket)],
+                    Appearances = appearances
+                };
+                int bytesWritten = BebopSerializer.EncodeIntoBuffer(bebopItem, bebopBuffer);
+                bebopStream.Write(bebopBuffer, 0, bytesWritten);
+            }
+
+            ToolContext.Logger.Warning("Bebop stream is {n} bytes", bebopStream.Length);
         }
 
         _timer.AddPoint("Generate", true);

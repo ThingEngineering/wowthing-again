@@ -9,32 +9,37 @@
 
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
 
-    export let sortedProfessions: StaticDataProfession[];
+    let { sortedProfessions }: { sortedProfessions: StaticDataProfession[] } = $props();
+
+    // export let sortedProfessions: StaticDataProfession[];
 
     type CharacterOption = {
         id: number;
         label: string;
     };
 
-    $: options = sortBy(
-        $userStore.activeCharacters,
-        (char) => `${char.realm.slug}|${char.name}`,
-    ).map((char) => ({
-        id: char.id,
-        label: `${char.name}-${char.realm.name}`,
-    })) as CharacterOption[];
-    $: optionMap = Object.fromEntries(options.map((option) => [option.id, option]));
+    let options = $derived.by(
+        () =>
+            sortBy($userStore.activeCharacters, (char) => `${char.realm.slug}|${char.name}`).map(
+                (char) => ({
+                    id: char.id,
+                    label: `${char.name}-${char.realm.name}`,
+                }),
+            ) as CharacterOption[],
+    );
+    let optionMap = $derived.by(() =>
+        Object.fromEntries(options.map((option) => [option.id, option])),
+    );
+
+    let selected: Record<number, CharacterOption[]> = $derived.by(() =>
+        Object.fromEntries(sortedProfessions.map((prof) => [prof.id, maybeOption(prof.id)])),
+    );
 
     function maybeOption(id: number) {
         return ($settingsStore.professions.collectingCharactersV2[id] || [])
             .map((characterId) => optionMap[characterId])
             .filter((id) => !!id);
     }
-
-    let selected: Record<number, CharacterOption[]>;
-    $: selected = Object.fromEntries(
-        sortedProfessions.map((prof) => [prof.id, maybeOption(prof.id)]),
-    );
 </script>
 
 <style lang="scss">

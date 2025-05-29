@@ -2,7 +2,7 @@
     import { CharacterFlag } from '@/enums/character-flag';
     import { iconLibrary } from '@/shared/icons';
     import { characterSettingsStore } from '@/stores/character-settings';
-    import { settingsStore } from '@/shared/stores/settings/store';
+    import { settingsStore } from '@/shared/stores/settings';
     import type { Character } from '@/types/character';
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';

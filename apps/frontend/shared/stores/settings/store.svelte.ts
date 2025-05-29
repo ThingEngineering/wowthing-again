@@ -10,7 +10,7 @@ import { hashObject } from '@/utils/hash-object';
 import type { Expansion, UserData } from '@/types';
 import type { Account } from '@/types/account';
 import type { FancyStoreFetchOptions } from '@/types/fancy-store';
-import type { Settings } from './types';
+import type { Settings, SettingsView } from './types';
 
 import { achievementStore } from '@/stores/achievements';
 import { journalStore } from '@/stores/journal';
@@ -31,6 +31,8 @@ const languageToSubdomain: Record<Language, string> = {
 };
 
 export const settingsSavingState = writable<number>(0);
+
+let views = $state<SettingsView[]>();
 
 function createSettingsStore() {
     let hashTimer: ReturnType<typeof setInterval> | null = null;
@@ -99,6 +101,9 @@ function createSettingsStore() {
                     }
                 }, 1000);
             }
+
+            views = settings.views;
+            settings.views = views;
 
             const currentSettings = get(store);
             if (currentSettings === undefined) {

@@ -16,10 +16,11 @@ import { staticStore } from '@/shared/stores/static';
 import { getItemTypeAndSubtype } from '@/utils/items/get-item-type-and-subtype';
 
 import { DbResetType, DbThingContentType, DbThingType } from '../enums';
-import { dbStore } from '../store';
 import { DbDataThingLocation } from './thing-location';
 import { DbDataThingContent, type DbDataThingContentArray } from './thing-content';
 import { DbDataThingGroup, type DbDataThingGroupArray } from './thing-group';
+import { wowthingData } from '../../data/store';
+import { itemStore } from '@/stores';
 
 export class DbDataThing {
     public accountWide: boolean;
@@ -104,23 +105,39 @@ export class DbDataThing {
     private _zoneMapsFarm: Record<string, ManualDataZoneMapFarm> = {};
     public asZoneMapsFarm(mapName: string): ManualDataZoneMapFarm {
         if (!this._zoneMapsFarm[mapName]) {
-            const dbData = get(dbStore);
-            const mapId = dbData.mapsByName[mapName];
+            const mapId = wowthingData.db.mapsByName.get(mapName);
             if (!mapId) {
                 return;
             }
 
+            const itemData = get(itemStore);
+            const staticData = get(staticStore);
+
             let minimumLevel = 0;
+            const requiredQuestIds: number[] = [];
             const requirementIds = this.requirementIds || [];
             for (const requirementId of requirementIds) {
-                const requirementParts = dbData.requirementsById[requirementId].split(' ');
+                const requirementParts = wowthingData.db.requirementsById
+                    .get(requirementId)
+                    .split(' ');
                 if (requirementParts[0] === 'level') {
                     minimumLevel = parseInt(requirementParts[1]);
+                } else if (requirementParts[0] === 'quest') {
+                    requiredQuestIds.push(...requirementParts.slice(1).map((s) => parseInt(s)));
                 }
             }
 
+            const personalLoot = this.tagIds.some(
+                (tagId) => wowthingData.db.tagsById.get(tagId) === 'personal-loot',
+            );
+
             const drops: ManualDataZoneMapDrop[] = [];
             for (const content of this.contents) {
+                let classMask = 0;
+                if (personalLoot) {
+                    classMask = itemData.items[content.id]?.classMask || 0;
+                }
+
                 const [type, subType] = getItemTypeAndSubtype(
                     content.id,
                     thingContentTypeToRewardType[content.type],
@@ -129,7 +146,7 @@ export class DbDataThing {
                 const drop: ManualDataZoneMapDrop = {
                     id: content.id,
                     note: content.note,
-                    classMask: 0,
+                    classMask,
                     subType,
                     type,
                     limit: [],
@@ -137,7 +154,6 @@ export class DbDataThing {
 
                 if (type === RewardType.Item) {
                     // if this is an item that teaches a skill, add a profession skill limit
-                    const staticData = get(staticStore);
                     const requiredSkillLine = staticData.itemToSkillLine[drop.id];
                     if (requiredSkillLine) {
                         const profession =
@@ -157,7 +173,9 @@ export class DbDataThing {
                     const dropRequirementIds = requirementIds.concat(content.requirementIds || []);
                     if (dropRequirementIds.length > 0) {
                         for (const requirementId of dropRequirementIds) {
-                            drop.limit = dbData.requirementsById[requirementId].split(' ');
+                            drop.limit = wowthingData.db.requirementsById
+                                .get(requirementId)
+                                .split(' ');
                         }
                     }
                 }
@@ -192,8 +210,10 @@ export class DbDataThing {
                 name: this.name,
                 note: this.note,
                 questIds: [this.type === DbThingType.Quest ? this.id : this.trackingQuestId],
+                requiredQuestIds,
                 reset,
                 type,
+                worldQuestId: this.worldQuestId,
                 drops,
             };
         }

@@ -7,7 +7,7 @@ export enum WeaponType {
     Warglaive,
 
     Polearm,
-    Stave,
+    Staff,
     TwoHandedAxe,
     TwoHandedMace,
     TwoHandedSword,

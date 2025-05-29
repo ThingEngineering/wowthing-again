@@ -11,7 +11,7 @@ export const weaponSubclassIcons: Record<number, IconifyIcon> = {
     [WeaponSubclass.TwoHandedMace]: iconLibrary.gameWoodClub,
     [WeaponSubclass.TwoHandedSword]: iconLibrary.gameBroadsword,
     [WeaponSubclass.Polearm]: iconLibrary.gameTrident,
-    [WeaponSubclass.Stave]: iconLibrary.gameWizardStaff,
+    [WeaponSubclass.Staff]: iconLibrary.gameWizardStaff,
     [WeaponSubclass.Dagger]: iconLibrary.gameCurvyKnife,
     [WeaponSubclass.Fist]: iconLibrary.gameBrassKnuckles,
     [WeaponSubclass.Warglaive]: iconLibrary.gameBatLeth,

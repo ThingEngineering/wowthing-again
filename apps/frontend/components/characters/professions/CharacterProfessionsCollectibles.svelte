@@ -5,7 +5,8 @@
     import { Constants } from '@/data/constants';
     import { expansionSlugMap } from '@/data/expansion';
     import { dragonflightProfessionMap, warWithinProfessionMap } from '@/data/professions';
-    import { dbStore } from '@/shared/stores/db';
+    import { zoneShortName } from '@/data/zones';
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
     import { itemStore, userQuestStore, userStore } from '@/stores';
     import findReputationTier from '@/utils/find-reputation-tier';
@@ -17,7 +18,6 @@
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
     import Collectible from './CharacterProfessionsCollectible.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { zoneShortName } from '@/data/zones';
 
     export let character: Character;
     export let expansionSlug: string;
@@ -46,7 +46,7 @@
                 ? dragonflightProfessionMap[staticProfession.id]
                 : warWithinProfessionMap[staticProfession.id];
 
-        things = dbStore
+        things = wowthingData.db
             .search({
                 tags: [
                     `expansion:${expansion.id}`,
@@ -56,7 +56,9 @@
             })
             .map((thing) => [
                 thing,
-                zoneShortName[$dbStore.mapsById[parseInt(Object.keys(thing.locations)[0])]],
+                zoneShortName[
+                    wowthingData.db.mapsById.get(parseInt(Object.keys(thing.locations)[0]))
+                ],
             ]);
         things.sort((a, b) => {
             if (a[1] !== b[1]) {

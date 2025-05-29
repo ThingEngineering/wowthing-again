@@ -12,7 +12,7 @@ import { ItemClass } from '@/enums/item-class';
 import { LookupType } from '@/enums/lookup-type';
 import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
 import { RewardType } from '@/enums/reward-type';
-import { dbStore } from '@/shared/stores/db';
+import { wowthingData } from '@/shared/stores/data';
 import { DbThingType } from '@/shared/stores/db/enums';
 import { UserCount } from '@/types';
 import { ManualDataVendorGroup } from '@/types/data/manual';
@@ -22,7 +22,7 @@ import { getBonusIdModifier } from '@/utils/items/get-bonus-id-modifier';
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
 import { userHasLookup } from '@/utils/rewards/user-has-lookup';
-import type { DbData, DbDataQuery } from '@/shared/stores/db/types';
+import type { DbDataQuery } from '@/shared/stores/db/types';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type {
@@ -47,7 +47,6 @@ export interface LazyVendors {
 interface LazyStores {
     settings: Settings;
     vendorState: VendorState;
-    dbData: DbData;
     itemData: ItemData;
     manualData: ManualData;
     staticData: StaticData;
@@ -107,7 +106,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                 type: DbThingType.Vendor,
             };
 
-            for (const entry of dbStore.search(query)) {
+            for (const entry of wowthingData.db.search(query)) {
                 dbMap[entry.id] = entry.asVendor();
                 vendorIds.push(entry.id);
             }

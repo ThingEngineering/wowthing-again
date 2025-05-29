@@ -77,7 +77,12 @@ class WorldQuestStore {
             }
         }
 
-        return this.cache[cacheKey] || [];
+        return this.cache[cacheKey] || {};
+    }
+
+    getCached(region: number): Record<number, ApiWorldQuest[]> {
+        const cacheKey = [region].join('--');
+        return this.cache[cacheKey] || {};
     }
 
     isLoaded(region: number): boolean {

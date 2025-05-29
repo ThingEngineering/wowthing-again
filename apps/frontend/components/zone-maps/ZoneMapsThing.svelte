@@ -6,6 +6,7 @@
     import { journalStore, lazyStore, userQuestStore, userStore } from '@/stores';
     import { zoneMapState } from '@/stores/local-storage/zone-map';
     import { componentTooltip } from '@/shared/utils/tooltips';
+    import { worldQuestStore } from '@/user-home/components/world-quests/store';
     import { getInstanceFarm } from '@/utils/get-instance-farm';
     import { getFarmIcon } from '@/utils/zone-maps';
     import type { FarmStatus } from '@/types';
@@ -18,6 +19,7 @@
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import Tooltip from '@/components/tooltips/zone-maps/TooltipZoneMapsThing.svelte';
+    import { Region } from '@/enums/region';
 
     export let farm: ManualDataZoneMapFarm;
     export let map: ManualDataZoneMapCategory;
@@ -30,6 +32,7 @@
     let drops: ManualDataZoneMapDrop[];
     let locations: [string, string][];
     let topOffset: string;
+    let worldQuestAvailable: number;
     $: {
         if (farm.type === FarmType.Dungeon || farm.type === FarmType.Raid) {
             [status, drops] = getInstanceFarm(
@@ -63,8 +66,7 @@
         }
         if (farm.type === FarmType.Dungeon) {
             classes.push('dungeon');
-        }
-        if (farm.type === FarmType.Raid) {
+        } else if (farm.type === FarmType.Raid) {
             classes.push('raid');
         }
 
@@ -75,6 +77,17 @@
 
         if (farm.highlightQuestId && userQuestStore.latestHas(farm.highlightQuestId)) {
             classes.push('highlight');
+        }
+
+        worldQuestAvailable = 0;
+        if (farm.worldQuestId) {
+            if (worldQuestStore.getCached(Region.US)[farm.worldQuestId]) {
+                classes.push('highlight');
+                worldQuestAvailable = 1;
+            } else {
+                classes.push('not-available');
+                worldQuestAvailable = -1;
+            }
         }
     }
 </script>
@@ -123,6 +136,9 @@
             &.highlight {
                 color: #f97eeb;
             }
+            &.not-available {
+                color: #ff8000;
+            }
         }
         &.inactive {
             color: #00bb00;
@@ -150,7 +166,7 @@
 
 {#if show}
     {@const [icon, scale] = getFarmIcon(farm)}
-    {#each locations as [xPos, yPos]}
+    {#each locations as [xPos, yPos] (`${xPos}-${yPos}`)}
         <div
             class="wrapper"
             class:active={status.need}
@@ -162,6 +178,7 @@
                     farm,
                     map,
                     status,
+                    worldQuestAvailable,
                 },
             }}
         >

@@ -34,7 +34,6 @@ import { achievementStore } from '../achievements';
 import { itemStore } from '../item';
 import { journalStore } from '../journal';
 import { manualStore } from '../manual';
-import { dbStore } from '@/shared/stores/db';
 import { settingsStore } from '@/shared/stores/settings';
 import { staticStore } from '@/shared/stores/static';
 import { timeStore } from '@/shared/stores/time';
@@ -45,7 +44,6 @@ import { userQuestStore } from '../user-quests';
 import { UserCount } from '@/types';
 import { hashObject } from '@/utils/hash-object';
 
-import type { DbData } from '@/shared/stores/db/types';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { FancyStoreType, UserAchievementData, UserData } from '@/types';
@@ -149,7 +147,6 @@ export const lazyStore = derived(
 export class LazyStore implements LazyUgh {
     private settings: Settings;
 
-    private dbData: DbData;
     private itemData: ItemData;
     private journalData: JournalData;
     private manualData: ManualData;
@@ -233,7 +230,6 @@ export class LazyStore implements LazyUgh {
         const changedHashes = Object.fromEntries(changedEntries);
         this.hashes = newHashes;
 
-        const dbData = (this.dbData = get(dbStore));
         const itemData = (this.itemData = get(itemStore));
         const journalData = (this.journalData = get(journalStore));
         const manualData = (this.manualData = get(manualStore));
@@ -397,7 +393,6 @@ export class LazyStore implements LazyUgh {
                 doVendors({
                     settings,
                     vendorState,
-                    dbData,
                     itemData,
                     manualData,
                     staticData,

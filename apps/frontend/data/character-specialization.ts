@@ -52,7 +52,7 @@ export const specializationData: Record<number, SpecializationData> = {
             WeaponSubclass.Fist,
             WeaponSubclass.OneHandedMace,
             WeaponSubclass.Polearm,
-            WeaponSubclass.Stave,
+            WeaponSubclass.Staff,
             WeaponSubclass.TwoHandedMace,
             WeaponSubclass.HeldInOffHand,
         ],
@@ -60,7 +60,7 @@ export const specializationData: Record<number, SpecializationData> = {
     // Druid - Feral
     103: {
         primaryStat: PrimaryStat.Agility,
-        weaponTypes: [WeaponSubclass.Polearm, WeaponSubclass.Stave, WeaponSubclass.TwoHandedMace],
+        weaponTypes: [WeaponSubclass.Polearm, WeaponSubclass.Staff, WeaponSubclass.TwoHandedMace],
     },
     // Evoker - Devastation
     1467: {
@@ -71,7 +71,7 @@ export const specializationData: Record<number, SpecializationData> = {
             WeaponSubclass.OneHandedAxe,
             WeaponSubclass.OneHandedMace,
             WeaponSubclass.OneHandedSword,
-            WeaponSubclass.Stave,
+            WeaponSubclass.Staff,
             WeaponSubclass.TwoHandedAxe,
             WeaponSubclass.TwoHandedMace,
             WeaponSubclass.TwoHandedSword,
@@ -88,7 +88,7 @@ export const specializationData: Record<number, SpecializationData> = {
         primaryStat: PrimaryStat.Agility,
         weaponTypes: [
             WeaponSubclass.Polearm,
-            WeaponSubclass.Stave,
+            WeaponSubclass.Staff,
             WeaponSubclass.TwoHandedAxe,
             WeaponSubclass.TwoHandedSword,
         ],
@@ -99,7 +99,7 @@ export const specializationData: Record<number, SpecializationData> = {
         weaponTypes: [
             WeaponSubclass.Dagger,
             WeaponSubclass.OneHandedSword,
-            WeaponSubclass.Stave,
+            WeaponSubclass.Staff,
             WeaponSubclass.Wand,
             WeaponSubclass.HeldInOffHand,
         ],
@@ -114,7 +114,7 @@ export const specializationData: Record<number, SpecializationData> = {
             WeaponSubclass.OneHandedMace,
             WeaponSubclass.OneHandedSword,
             WeaponSubclass.Polearm,
-            WeaponSubclass.Stave,
+            WeaponSubclass.Staff,
         ],
     },
     // Monk - Mistweaver
@@ -125,7 +125,7 @@ export const specializationData: Record<number, SpecializationData> = {
             WeaponSubclass.OneHandedAxe,
             WeaponSubclass.OneHandedMace,
             WeaponSubclass.OneHandedSword,
-            WeaponSubclass.Stave,
+            WeaponSubclass.Staff,
             WeaponSubclass.HeldInOffHand,
         ],
     },
@@ -170,7 +170,7 @@ export const specializationData: Record<number, SpecializationData> = {
         weaponTypes: [
             WeaponSubclass.Dagger,
             WeaponSubclass.OneHandedMace,
-            WeaponSubclass.Stave,
+            WeaponSubclass.Staff,
             WeaponSubclass.Wand,
             WeaponSubclass.HeldInOffHand,
         ],
@@ -191,9 +191,7 @@ export const specializationData: Record<number, SpecializationData> = {
             WeaponSubclass.OneHandedMace,
             WeaponSubclass.OneHandedSword,
         ],
-        weaponTypesOffhand: [
-            WeaponSubclass.Dagger,
-        ],
+        weaponTypesOffhand: [WeaponSubclass.Dagger],
     },
     // Shaman - Elemental
     262: {
@@ -203,7 +201,7 @@ export const specializationData: Record<number, SpecializationData> = {
             WeaponSubclass.Fist,
             WeaponSubclass.OneHandedAxe,
             WeaponSubclass.OneHandedMace,
-            WeaponSubclass.Stave,
+            WeaponSubclass.Staff,
             WeaponSubclass.HeldInOffHand,
             WeaponSubclass.Shield,
         ],
@@ -224,7 +222,7 @@ export const specializationData: Record<number, SpecializationData> = {
         weaponTypes: [
             WeaponSubclass.Dagger,
             WeaponSubclass.OneHandedSword,
-            WeaponSubclass.Stave,
+            WeaponSubclass.Staff,
             WeaponSubclass.Wand,
             WeaponSubclass.HeldInOffHand,
             WeaponSubclass.Shield,
@@ -235,7 +233,7 @@ export const specializationData: Record<number, SpecializationData> = {
         primaryStat: PrimaryStat.Strength,
         weaponTypes: [
             WeaponSubclass.Polearm,
-            WeaponSubclass.Stave,
+            WeaponSubclass.Staff,
             WeaponSubclass.TwoHandedAxe,
             WeaponSubclass.TwoHandedMace,
             WeaponSubclass.TwoHandedSword,
@@ -252,7 +250,7 @@ export const specializationData: Record<number, SpecializationData> = {
             WeaponSubclass.OneHandedMace,
             WeaponSubclass.OneHandedSword,
             WeaponSubclass.Polearm,
-            WeaponSubclass.Stave,
+            WeaponSubclass.Staff,
             WeaponSubclass.TwoHandedAxe,
             WeaponSubclass.TwoHandedMace,
             WeaponSubclass.TwoHandedSword,

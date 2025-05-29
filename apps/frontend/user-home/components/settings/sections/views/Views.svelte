@@ -113,7 +113,7 @@
 
     <table class="table table-striped">
         <tbody>
-            {#each $settingsStore.views as view, viewIndex}
+            {#each $settingsStore.views as view, viewIndex (view.id)}
                 <tr>
                     <td class="name text-overflow">
                         {view.name}
