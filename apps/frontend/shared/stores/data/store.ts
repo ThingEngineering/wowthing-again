@@ -4,6 +4,8 @@ import { settingsStore } from '@/shared/stores/settings';
 import { Language } from '@/enums/language';
 import { processDbData } from './db/process';
 import type { DataDb, RawDb } from './db/types';
+import { processManualData } from './manual/process';
+import type { DataManual, RawManual } from './manual/types';
 
 const requestInit: RequestInit = {
     credentials: 'include',
@@ -19,6 +21,7 @@ class WowthingData {
     public loaded = false;
 
     public db: DataDb;
+    public manual: DataManual;
 
     async fetch() {
         console.time('WowthingData.fetch');
@@ -28,6 +31,10 @@ class WowthingData {
 
         await Promise.all([
             this.fetchAndProcess('db', (rawData: RawDb) => (this.db = processDbData(rawData))),
+            this.fetchAndProcess(
+                'manual',
+                (rawData: RawManual) => (this.manual = processManualData(rawData)),
+            ),
         ]);
 
         console.timeEnd('WowthingData.fetch');
@@ -37,9 +44,9 @@ class WowthingData {
         console.log(this);
     }
 
-    private async fetchAndProcess<TRawData>(
+    private async fetchAndProcess<TRawData, TData>(
         name: string,
-        processFunc: (rawData: TRawData) => DataDb,
+        processFunc: (rawData: TRawData) => TData,
     ) {
         const dataUrl = document.getElementById('app')?.getAttribute(`data-${name}`);
         const urlPath = dataUrl.replace('zzZZ', Language[this.language]);
