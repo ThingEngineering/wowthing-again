@@ -33,7 +33,6 @@ import {
 import { achievementStore } from '../achievements';
 import { itemStore } from '../item';
 import { journalStore } from '../journal';
-import { manualStore } from '../manual';
 import { settingsStore } from '@/shared/stores/settings';
 import { staticStore } from '@/shared/stores/static';
 import { timeStore } from '@/shared/stores/time';
@@ -48,13 +47,11 @@ import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { FancyStoreType, UserAchievementData, UserData } from '@/types';
 import type { JournalData, UserQuestData } from '@/types/data';
-import type {
-    ManualData,
-    ManualDataHeirloomItem,
-    ManualDataIllusionItem,
-} from '@/types/data/manual';
+import type { ManualDataHeirloomItem, ManualDataIllusionItem } from '@/types/data/manual';
 import type { ItemData } from '@/types/data/item';
 import { activeHolidays, type ActiveHolidays } from '../derived/active-holidays';
+import { wowthingData } from '@/shared/stores/data';
+import type { DataManual } from '@/shared/stores/data/manual/types';
 
 type LazyKey = 'heirlooms' | 'illusions' | 'mounts' | 'pets' | 'toys';
 
@@ -149,7 +146,6 @@ export class LazyStore implements LazyUgh {
 
     private itemData: ItemData;
     private journalData: JournalData;
-    private manualData: ManualData;
     private staticData: StaticData;
 
     // private userAchievementData: UserAchievementData;
@@ -232,7 +228,6 @@ export class LazyStore implements LazyUgh {
 
         const itemData = (this.itemData = get(itemStore));
         const journalData = (this.journalData = get(journalStore));
-        const manualData = (this.manualData = get(manualStore));
         const staticData = (this.staticData = get(staticStore));
 
         this.settings = settings;
@@ -319,15 +314,25 @@ export class LazyStore implements LazyUgh {
                 doCollectible(
                     collectibleStores,
                     'mounts',
-                    this.manualData.mountSets,
+                    wowthingData.manual.mountSets,
                     userData.hasMount,
                 ),
             );
             this.petsFunc = once(() =>
-                doCollectible(collectibleStores, 'pets', this.manualData.petSets, userData.hasPet),
+                doCollectible(
+                    collectibleStores,
+                    'pets',
+                    wowthingData.manual.petSets,
+                    userData.hasPet,
+                ),
             );
             this.toysFunc = once(() =>
-                doCollectible(collectibleStores, 'toys', this.manualData.toySets, userData.hasToy),
+                doCollectible(
+                    collectibleStores,
+                    'toys',
+                    wowthingData.manual.toySets,
+                    userData.hasToy,
+                ),
             );
         }
 
@@ -379,7 +384,6 @@ export class LazyStore implements LazyUgh {
                 doTransmog({
                     settings,
                     itemData,
-                    manualData,
                     staticData,
                     userAchievementData,
                     userData,
@@ -394,7 +398,6 @@ export class LazyStore implements LazyUgh {
                     settings,
                     vendorState,
                     itemData,
-                    manualData,
                     staticData,
                     userData,
                     userQuestData,
@@ -418,7 +421,6 @@ export class LazyStore implements LazyUgh {
                         settings,
                         zoneMapState,
                         itemData,
-                        manualData,
                         staticData,
                         userData,
                         userAchievementData,
@@ -526,7 +528,7 @@ export class LazyStore implements LazyUgh {
         const counts: UserCounts = {};
         const overallData = (counts['OVERALL'] = new UserCount());
 
-        for (const categories of this.manualData.customizationCategories) {
+        for (const categories of wowthingData.manual.customizationCategories) {
             const sectionData = (counts[categories[0].slug] = new UserCount());
 
             for (const category of categories.slice(1)) {
@@ -571,7 +573,7 @@ export class LazyStore implements LazyUgh {
 
     private doHeirlooms(userData: UserData): UserCounts {
         return this.doGeneric({
-            categories: this.manualData.heirlooms,
+            categories: wowthingData.manual.heirlooms,
             includeUnavailable: !this.settings.collections.hideUnavailable,
             haveFunc: (heirloom: ManualDataHeirloomItem) =>
                 userData.heirlooms?.[this.staticData.heirloomsByItemId[heirloom.itemId].id] !==
@@ -588,7 +590,7 @@ export class LazyStore implements LazyUgh {
 
     private doIllusions(userData: UserData): UserCounts {
         return this.doGeneric({
-            categories: this.manualData.illusions,
+            categories: wowthingData.manual.illusions,
             includeUnavailable: !this.settings.collections.hideUnavailable,
             haveFunc: (illusion: ManualDataIllusionItem) =>
                 userData.hasIllusion.has(

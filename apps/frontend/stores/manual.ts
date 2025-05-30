@@ -212,4 +212,4 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
     }
 }
 
-export const manualStore = new ManualDataStore();
+const manualStore = new ManualDataStore();

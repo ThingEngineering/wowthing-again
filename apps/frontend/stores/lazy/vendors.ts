@@ -26,7 +26,6 @@ import type { DbDataQuery } from '@/shared/stores/db/types';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type {
-    ManualData,
     ManualDataSharedVendor,
     ManualDataVendorCategory,
     ManualDataVendorItem,
@@ -48,7 +47,6 @@ interface LazyStores {
     settings: Settings;
     vendorState: VendorState;
     itemData: ItemData;
-    manualData: ManualData;
     staticData: StaticData;
     userData: UserData;
     userQuestData: UserQuestData;
@@ -58,8 +56,8 @@ interface LazyStores {
 export function doVendors(stores: LazyStores): LazyVendors {
     console.time('LazyStore.doVendors');
 
-    for (const vendor of Object.values(stores.manualData.shared.vendors)) {
-        vendor.createFarmData(stores.itemData, stores.manualData, stores.staticData);
+    for (const vendor of Object.values(wowthingData.manual.shared.vendors)) {
+        vendor.createFarmData(stores.itemData, stores.staticData);
     }
 
     const visitCategory = (category: ManualDataVendorCategory) => {
@@ -88,11 +86,11 @@ export function doVendors(stores: LazyStores): LazyVendors {
 
             const vendorIdSets: number[][] = [[], []];
             for (const mapName of childCategory.vendorMaps) {
-                vendorIdSets[0].push(...(stores.manualData.shared.vendorsByMap[mapName] || []));
+                vendorIdSets[0].push(...(wowthingData.manual.shared.vendorsByMap[mapName] || []));
             }
 
             for (const tagName of childCategory.vendorTags) {
-                vendorIdSets[1].push(...(stores.manualData.shared.vendorsByTag[tagName] || []));
+                vendorIdSets[1].push(...(wowthingData.manual.shared.vendorsByTag[tagName] || []));
             }
 
             const vendorIds =
@@ -114,7 +112,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
             const autoGroups: Record<string, ManualDataVendorGroup> = {};
 
             for (const vendorId of vendorIds) {
-                const vendor = stores.manualData.shared.vendors[vendorId] || dbMap[vendorId];
+                const vendor = wowthingData.manual.shared.vendors[vendorId] || dbMap[vendorId];
 
                 let setPosition = 0;
                 const coveredBySets = new Set<number>();
@@ -203,9 +201,9 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     ) {
                         [groupKey, groupName] = ['90transmog', 'Transmog'];
                     } else if (item.type === RewardType.Item) {
-                        if (stores.manualData.dragonridingItemToQuest[item.id]) {
+                        if (wowthingData.manual.dragonridingItemToQuest.has(item.id)) {
                             [groupKey, groupName] = ['00dragonriding', 'Dragonriding'];
-                        } else if (stores.manualData.druidFormItemToQuest[item.id]) {
+                        } else if (wowthingData.manual.druidFormItemToQuest.has(item.id)) {
                             [groupKey, groupName] = ['00druids', 'Druids'];
                         } else if (stores.staticData.mountsByItem[item.id]) {
                             [groupKey, groupName] = ['00mounts', 'Mounts'];
@@ -260,7 +258,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
         }
     };
 
-    for (const category of stores.manualData.vendors.sets) {
+    for (const category of wowthingData.manual.vendors.sets) {
         visitCategory(category);
     }
 
@@ -292,7 +290,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
     const overallStats = (stats['OVERALL'] = new UserCount());
 
     const unavailableIllusions: number[] = [];
-    for (const illusionGroup of stores.manualData.illusions) {
+    for (const illusionGroup of wowthingData.manual.illusions) {
         if (illusionGroup.name.startsWith('Unavailable')) {
             for (const illusionItem of illusionGroup.items) {
                 unavailableIllusions.push(illusionItem.enchantmentId);
@@ -300,7 +298,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
         }
     }
 
-    for (const rootCategory of stores.manualData.vendors.sets) {
+    for (const rootCategory of wowthingData.manual.vendors.sets) {
         if (rootCategory === null) {
             continue;
         }
@@ -437,7 +435,6 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     // Skip filtered things
                     const [lookupType, lookupId] = rewardToLookup(
                         stores.itemData,
-                        stores.manualData,
                         stores.staticData,
                         item.type,
                         item.id,
@@ -452,7 +449,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         (!stores.vendorState.showToys && lookupType === LookupType.Toy) ||
                         (!stores.vendorState.showCosmetics && item.type === RewardType.Cosmetic) ||
                         (!stores.vendorState.showDragonriding &&
-                            stores.manualData.dragonridingItemToQuest[item.id]) ||
+                            wowthingData.manual.dragonridingItemToQuest.has(item.id)) ||
                         (item.type === RewardType.Armor &&
                             ((item.subType === 1 && !stores.vendorState.showCloth) ||
                                 (item.subType === 2 && !stores.vendorState.showLeather) ||

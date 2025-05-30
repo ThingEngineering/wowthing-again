@@ -2,7 +2,7 @@
     import { afterUpdate } from 'svelte';
 
     import { RewardType } from '@/enums/reward-type';
-    import { itemStore, lazyStore, manualStore } from '@/stores';
+    import { itemStore, lazyStore } from '@/stores';
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import type { MultiSlugParams } from '@/types';
     import type { ManualDataVendorCategory } from '@/types/data/manual';
@@ -11,6 +11,7 @@
     import Costs from './VendorsCosts.svelte';
     import Options from './VendorsOptions.svelte';
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
+    import { wowthingData } from '@/shared/stores/data';
 
     export let params: MultiSlugParams;
 
@@ -19,7 +20,7 @@
     let titles: string[];
     let totalCosts: Record<string, Record<number, number>>;
     $: {
-        firstCategory = $manualStore.vendors.sets.find((cat) => cat?.slug === params.slug1);
+        firstCategory = wowthingData.manual.vendors.sets.find((cat) => cat?.slug === params.slug1);
         if (!firstCategory) {
             break $;
         }

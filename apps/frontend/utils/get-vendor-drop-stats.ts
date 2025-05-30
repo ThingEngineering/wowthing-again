@@ -4,14 +4,13 @@ import type { LazyTransmog } from '@/stores/lazy/transmog';
 import type { UserData } from '@/types';
 import type { UserQuestData } from '@/types/data';
 import type { ItemData } from '@/types/data/item';
-import type { ManualData, ManualDataZoneMapDrop } from '@/types/data/manual';
+import type { ManualDataZoneMapDrop } from '@/types/data/manual';
 
 import userHasDrop from './user-has-drop';
 
 export function getVendorDropStats(
     settings: Settings,
     itemData: ItemData,
-    manualData: ManualData,
     staticData: StaticData,
     userData: UserData,
     userQuestData: UserQuestData,
@@ -27,7 +26,6 @@ export function getVendorDropStats(
         const hasDrop = userHasDrop(
             settings,
             itemData,
-            manualData,
             staticData,
             userData,
             userQuestData,

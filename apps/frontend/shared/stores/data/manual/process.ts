@@ -55,9 +55,7 @@ export function processManualData(rawData: RawManual): DataManual {
         (groupArray) => new ManualDataIllusionGroup(...groupArray),
     );
 
-    data.mountSets = fixCollectionSets(rawData.rawMountSets);
-    data.petSets = fixCollectionSets(rawData.rawPetSets);
-    data.toySets = fixCollectionSets(rawData.rawToySets);
+    data.progressSets = rawData.progressSets.slice();
 
     data.reputationSets = rawData.rawReputationSets.map((repArray) =>
         repArray === null ? null : new ManualDataReputationCategory(...repArray),
@@ -84,6 +82,10 @@ export function processManualData(rawData: RawManual): DataManual {
                   catArray === null ? null : new ManualDataZoneMapCategory(...catArray),
               ),
     );
+
+    data.mountSets = fixCollectionSets(rawData.rawMountSets);
+    data.petSets = fixCollectionSets(rawData.rawPetSets);
+    data.toySets = fixCollectionSets(rawData.rawToySets);
 
     for (const categories of data.customizationCategories) {
         if (categories === null) {

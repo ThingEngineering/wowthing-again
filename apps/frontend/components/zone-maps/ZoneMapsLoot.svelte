@@ -7,7 +7,7 @@
     import { RewardType } from '@/enums/reward-type';
     import { farmTypeIcons } from '@/shared/icons/mappings';
     import { staticStore } from '@/shared/stores/static';
-    import { itemStore, manualStore } from '@/stores';
+    import { itemStore } from '@/stores';
     import { leftPad } from '@/utils/formatting';
     import { getDropData, getDropIcon } from '@/utils/zone-maps';
     import type { ManualDataZoneMapFarm } from '@/types/data/manual';
@@ -120,13 +120,7 @@
                     {#each dropIndexes.slice(0, dropCount) as dropIndex, dataIndex}
                         {@const drop = farms[0].drops[dropIndex]}
                         {@const dropData = dropDatas[dataIndex]}
-                        {@const icon = getDropIcon(
-                            $itemStore,
-                            $manualStore,
-                            $staticStore,
-                            drop,
-                            false,
-                        )}
+                        {@const icon = getDropIcon($itemStore, $staticStore, drop, false)}
                         <div>
                             <IconifyIcon {icon} />
                             <span class="quality{dropData.quality}">

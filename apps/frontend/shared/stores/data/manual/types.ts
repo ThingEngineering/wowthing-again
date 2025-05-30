@@ -5,6 +5,7 @@ import type {
     ManualDataHeirloomGroupArray,
     ManualDataIllusionGroup,
     ManualDataIllusionGroupArray,
+    ManualDataProgressCategory,
     ManualDataReputationCategory,
     ManualDataReputationCategoryArray,
     ManualDataSetCategory,
@@ -20,6 +21,9 @@ import type {
 } from '@/types/data/manual';
 
 export interface RawManual {
+    // TODO pack these
+    progressSets: ManualDataProgressCategory[][];
+
     // Packed data
     rawSharedVendors: ManualDataSharedVendorArray[];
 
@@ -58,5 +62,6 @@ export class DataManual {
     toySets: ManualDataSetCategory[][] = [];
 
     customizationCategories: ManualDataCustomizationCategory[][];
+    progressSets: ManualDataProgressCategory[][];
     reputationSets: ManualDataReputationCategory[];
 }
