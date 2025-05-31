@@ -3,6 +3,7 @@
 
     import { userAchievementStore, userQuestStore, userStore } from '@/stores';
     import { progressState } from '@/stores/local-storage';
+    import { manualStore } from '@/stores';
     import { staticStore } from '@/shared/stores/static';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import getProgress from '@/utils/get-progress';
@@ -18,7 +19,6 @@
     import RowCovenant from '@/components/home/table/row/HomeTableRowCovenant.svelte';
     import RowProgress from './ProgressTableBody.svelte';
     import RowProgressRaidSkip from './ProgressTableBodyRaidSkip.svelte';
-    import { wowthingData } from '@/shared/stores/data';
 
     export let slug1: string;
     export let slug2: string;
@@ -33,7 +33,7 @@
 
     $: {
         categories =
-            find(wowthingData.manual.progressSets, (p) => p !== null && p[0].slug === slug1) || [];
+            find($manualStore.progressSets, (p) => p !== null && p[0].slug === slug1) || [];
         if (categories.length === 0) {
             break $;
         }
