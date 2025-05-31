@@ -5,7 +5,6 @@ import { FarmResetType } from '@/enums/farm-reset-type';
 import { FarmType } from '@/enums/farm-type';
 import { RewardType } from '@/enums/reward-type';
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from './zone-map';
-import type { ManualData } from './store';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { ItemData } from '../item';
 
@@ -49,7 +48,7 @@ export class ManualDataSharedVendor {
         }
     }
 
-    createFarmData(itemData: ItemData, manualData: ManualData, staticData: StaticData) {
+    createFarmData(itemData: ItemData, staticData: StaticData) {
         const seen: Record<number, boolean> = {};
         const itemDrops: ManualDataZoneMapDrop[] = [];
         const setDrops: ManualDataZoneMapDrop[] = [];

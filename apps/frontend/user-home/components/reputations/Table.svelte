@@ -2,7 +2,6 @@
     import find from 'lodash/find';
 
     import { staticStore } from '@/shared/stores/static';
-    import { manualStore } from '@/stores';
     import { reputationState } from '@/stores/local-storage';
     import { leftPad } from '@/utils/formatting';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
@@ -19,6 +18,7 @@
     import TableHead from './TableHead.svelte';
     import TableCell from './TableCell.svelte';
     import TableCellRenown from './TableCellRenown.svelte';
+    import { wowthingData } from '@/shared/stores/data';
 
     export let slug: string;
 
@@ -27,7 +27,7 @@
     let filterFunc: (char: Character) => boolean;
     let sortFunc: (char: Character) => string;
     $: {
-        category = find($manualStore.reputationSets, (r) => r?.slug === slug);
+        category = find(wowthingData.manual.reputationSets, (r) => r?.slug === slug);
         if (!category) {
             break $;
         }

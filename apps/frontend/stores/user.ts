@@ -47,11 +47,10 @@ import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { ItemData, ItemDataItem } from '@/types/data/item';
 import type { ContainsItems, HasNameAndRealm, UserItem } from '@/types/shared';
-import type { ManualData } from '@/types/data/manual';
 
 import { journalStore } from './journal';
-import { manualStore } from './manual';
 import { userModifiedStore } from './user-modified';
+import { wowthingData } from '@/shared/stores/data';
 
 export class UserDataStore extends WritableFancyStore<UserData> {
     get dataUrl(): string {
@@ -185,7 +184,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         const itemData = get(itemStore);
         const journalData = get(journalStore);
-        const manualData = get(manualStore);
         const staticData = get(staticStore);
 
         this._itemCounts = {};
@@ -252,7 +250,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.charactersByRealm = {};
         const allLockouts: Record<string, [Character, CharacterLockout][]> = {};
         for (const character of userData.characters) {
-            this.initializeCharacter(itemData, manualData, staticData, userData, character);
+            this.initializeCharacter(itemData, staticData, userData, character);
 
             character.hidden = settingsData.characters.hiddenCharacters?.includes(character.id);
             character.ignored =
@@ -446,7 +444,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
     private initializeCharacter(
         itemData: ItemData,
-        manualData: ManualData,
         staticData: StaticData,
         userData: UserData,
         character: Character,
@@ -568,7 +565,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         // reputation sets
         character.reputationData = {};
-        for (const category of manualData.reputationSets) {
+        for (const category of wowthingData.manual.reputationSets) {
             if (category === null) {
                 continue;
             }

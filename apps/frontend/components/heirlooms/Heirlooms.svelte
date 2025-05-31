@@ -1,7 +1,7 @@
 <script lang="ts">
     import { afterUpdate } from 'svelte';
 
-    import { lazyStore, manualStore } from '@/stores';
+    import { lazyStore } from '@/stores';
     import { settingsStore } from '@/shared/stores/settings';
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import type { ManualDataHeirloomGroup } from '@/types/data/manual';
@@ -9,13 +9,16 @@
     import Group from './HeirloomsGroup.svelte';
     import Options from './HeirloomsOptions.svelte';
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
+    import { wowthingData } from '@/shared/stores/data';
 
     let sections: [string, ManualDataHeirloomGroup[]][];
     $: {
         sections = [
             [
                 'Available',
-                $manualStore.heirlooms.filter((group) => !group.name.startsWith('Unavailable')),
+                wowthingData.manual.heirlooms.filter(
+                    (group) => !group.name.startsWith('Unavailable'),
+                ),
             ],
         ];
 
@@ -25,7 +28,9 @@
         ) {
             sections.push([
                 'Unavailable',
-                $manualStore.heirlooms.filter((group) => group.name.startsWith('Unavailable')),
+                wowthingData.manual.heirlooms.filter((group) =>
+                    group.name.startsWith('Unavailable'),
+                ),
             ]);
         }
     }

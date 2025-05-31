@@ -1,31 +1,39 @@
 <script lang="ts">
-    import find from 'lodash/find'
-    import { afterUpdate } from 'svelte'
+    import find from 'lodash/find';
+    import { afterUpdate } from 'svelte';
 
-    import { lazyStore, manualStore } from '@/stores'
-    import { collectibleState } from '@/stores/local-storage'
-    import { getColumnResizer } from '@/utils/get-column-resizer'
-    import getPercentClass from '@/utils/get-percent-class'
-    import type { MultiSlugParams } from '@/types'
-    import type { ManualDataCustomizationCategory } from '@/types/data/manual'
+    import { lazyStore } from '@/stores';
+    import { collectibleState } from '@/stores/local-storage';
+    import { getColumnResizer } from '@/utils/get-column-resizer';
+    import getPercentClass from '@/utils/get-percent-class';
+    import type { MultiSlugParams } from '@/types';
+    import type { ManualDataCustomizationCategory } from '@/types/data/manual';
 
-    import Options from './Options.svelte'
-    import Thing from './Thing.svelte'
+    import Options from './Options.svelte';
+    import Thing from './Thing.svelte';
+    import { wowthingData } from '@/shared/stores/data';
 
-    export let params: MultiSlugParams
+    export let params: MultiSlugParams;
 
-    let category: ManualDataCustomizationCategory
+    let category: ManualDataCustomizationCategory;
     $: {
-        const categories = find($manualStore.customizationCategories, (c) => c !== null && c[0].slug === params.slug1)
-        if (!categories) { break $ }
+        const categories = find(
+            wowthingData.manual.customizationCategories,
+            (c) => c !== null && c[0].slug === params.slug1,
+        );
+        if (!categories) {
+            break $;
+        }
 
-        category = find(categories, (c) => c !== null && c.slug === params.slug2)
-        if (!category) { break $ }
+        category = find(categories, (c) => c !== null && c.slug === params.slug2);
+        if (!category) {
+            break $;
+        }
     }
 
-    let containerElement: HTMLElement
-    let resizeableElement: HTMLElement
-    let debouncedResize: () => void
+    let containerElement: HTMLElement;
+    let resizeableElement: HTMLElement;
+    let debouncedResize: () => void;
     $: {
         if (resizeableElement) {
             debouncedResize = getColumnResizer(
@@ -35,17 +43,16 @@
                 {
                     columnCount: '--column-count',
                     gap: 30,
-                    padding: '1.5rem'
-                }
-            )
-            debouncedResize()
-        }
-        else {
-            debouncedResize = null
+                    padding: '1.5rem',
+                },
+            );
+            debouncedResize();
+        } else {
+            debouncedResize = null;
         }
     }
 
-    afterUpdate(() => debouncedResize?.())
+    afterUpdate(() => debouncedResize?.());
 </script>
 
 <style lang="scss">
@@ -83,10 +90,10 @@
 
         <div class="idk" bind:this={resizeableElement}>
             {#each category.groups as group}
-                {@const groupStats = $lazyStore.customizations[`${params.slug1}--${params.slug2}--${group.name}`]}
+                {@const groupStats =
+                    $lazyStore.customizations[`${params.slug1}--${params.slug2}--${group.name}`]}
                 {@const color = getPercentClass(groupStats.percent)}
-                {#if ($collectibleState.showCollected["customizations"] && groupStats.have > 0)
-                    || ($collectibleState.showUncollected["customizations"] && groupStats.have < groupStats.total)}
+                {#if ($collectibleState.showCollected['customizations'] && groupStats.have > 0) || ($collectibleState.showUncollected['customizations'] && groupStats.have < groupStats.total)}
                     <table class="table table-striped">
                         <thead>
                             <tr>

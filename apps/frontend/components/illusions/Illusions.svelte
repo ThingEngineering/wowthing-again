@@ -1,40 +1,51 @@
 <script lang="ts">
-    import find from 'lodash/find'
-    import { afterUpdate } from 'svelte'
+    import find from 'lodash/find';
+    import { afterUpdate } from 'svelte';
 
-    import { manualStore, lazyStore, userStore } from '@/stores'
-    import { staticStore } from '@/shared/stores/static'
-    import { illusionState } from '@/stores/local-storage'
-    import { settingsStore } from '@/shared/stores/settings'
-    import { getColumnResizer } from '@/utils/get-column-resizer'
-    import getPercentClass from '@/utils/get-percent-class'
-    import { basicTooltip } from '@/shared/utils/tooltips'
-    import type { ManualDataIllusionGroup } from '@/types/data/manual'
+    import { lazyStore, userStore } from '@/stores';
+    import { staticStore } from '@/shared/stores/static';
+    import { illusionState } from '@/stores/local-storage';
+    import { settingsStore } from '@/shared/stores/settings';
+    import { getColumnResizer } from '@/utils/get-column-resizer';
+    import getPercentClass from '@/utils/get-percent-class';
+    import { basicTooltip } from '@/shared/utils/tooltips';
+    import type { ManualDataIllusionGroup } from '@/types/data/manual';
 
-    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
-    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
-    import Count from '@/components/collectible/CollectibleCount.svelte'
-    import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
+    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
+    import Count from '@/components/collectible/CollectibleCount.svelte';
+    import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { wowthingData } from '@/shared/stores/data';
 
-    let sections: [string, ManualDataIllusionGroup[]][]
+    let sections: [string, ManualDataIllusionGroup[]][];
     $: {
         sections = [
-            ['Available', $manualStore.illusions.filter((group) => !group.name.startsWith('Unavailable'))],
-        ]
+            [
+                'Available',
+                wowthingData.manual.illusions.filter(
+                    (group) => !group.name.startsWith('Unavailable'),
+                ),
+            ],
+        ];
 
-        if (!$settingsStore.collections.hideUnavailable || $lazyStore.illusions['UNAVAILABLE'].have > 0) {
+        if (
+            !$settingsStore.collections.hideUnavailable ||
+            $lazyStore.illusions['UNAVAILABLE'].have > 0
+        ) {
             sections.push([
                 'Unavailable',
-                $manualStore.illusions.filter((group) => group.name.startsWith('Unavailable'))
-            ])
+                wowthingData.manual.illusions.filter((group) =>
+                    group.name.startsWith('Unavailable'),
+                ),
+            ]);
         }
     }
 
-    let containerElement: HTMLElement
-    let resizeableElement: HTMLElement
-    let debouncedResize: () => void
+    let containerElement: HTMLElement;
+    let resizeableElement: HTMLElement;
+    let debouncedResize: () => void;
     $: {
         if (resizeableElement) {
             debouncedResize = getColumnResizer(
@@ -44,17 +55,16 @@
                 {
                     columnCount: '--column-count',
                     gap: 30,
-                    padding: '1.5rem'
-                }
-            )
-            debouncedResize()
-        }
-        else {
-            debouncedResize = null
+                    padding: '1.5rem',
+                },
+            );
+            debouncedResize();
+        } else {
+            debouncedResize = null;
         }
     }
-    
-    afterUpdate(() => debouncedResize?.())
+
+    afterUpdate(() => debouncedResize?.());
 </script>
 
 <style lang="scss">
@@ -82,7 +92,6 @@
         position: absolute;
         top: -1px;
     }
-
 </style>
 
 <svelte:window on:resize={debouncedResize} />
@@ -90,12 +99,11 @@
 <div class="resizer-view" bind:this={containerElement}>
     <div class="options-container">
         <button>
-            <CheckboxInput
-                name="highlight_missing"
-                bind:value={$illusionState.highlightMissing}
-            >Highlight missing</CheckboxInput>
+            <CheckboxInput name="highlight_missing" bind:value={$illusionState.highlightMissing}
+                >Highlight missing</CheckboxInput
+            >
         </button>
-    
+
         <!-- <span>Show:</span>
     
         <button>
@@ -129,14 +137,15 @@
                         </h4>
                         <div class="collection-objects">
                             {#each group.items as item}
-                                {@const illusion = find($staticStore.illusions, (illusion) => illusion.enchantmentId === item.enchantmentId)}
+                                {@const illusion = find(
+                                    $staticStore.illusions,
+                                    (illusion) => illusion.enchantmentId === item.enchantmentId,
+                                )}
                                 {@const have = $userStore.hasIllusion.has(illusion.enchantmentId)}
                                 <div
                                     class="collection-object"
-                                    class:missing={
-                                        ($illusionState.highlightMissing && have) ||
-                                        (!$illusionState.highlightMissing && !have)
-                                    }
+                                    class:missing={($illusionState.highlightMissing && have) ||
+                                        (!$illusionState.highlightMissing && !have)}
                                     use:basicTooltip={illusion.name}
                                 >
                                     <WowthingImage
@@ -149,13 +158,9 @@
                                         <CollectedIcon />
                                     {/if}
 
-                                    {#each (item.classes || []) as classId}
+                                    {#each item.classes || [] as classId}
                                         <div class="player-class class-{classId} drop-shadow">
-                                            <ClassIcon
-                                                border={2}
-                                                size={20}
-                                                {classId}
-                                            />
+                                            <ClassIcon border={2} size={20} {classId} />
                                         </div>
                                     {/each}
                                 </div>

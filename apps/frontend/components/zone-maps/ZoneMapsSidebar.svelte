@@ -1,16 +1,17 @@
 <script lang="ts">
-    import { lazyStore, manualStore } from '@/stores';
+    import { lazyStore } from '@/stores';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
     import type { UserCount } from '@/types';
 
     import ProgressBar from '@/components/common/ProgressBar.svelte';
     import Settings from '@/components/common/SidebarCollectingSettings.svelte';
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
+    import { wowthingData } from '@/shared/stores/data';
 
     let categories: SidebarItem[];
     let overall: UserCount;
     $: {
-        categories = $manualStore.zoneMaps.sets.map((set) =>
+        categories = wowthingData.manual.zoneMaps.sets.map((set) =>
             set === null
                 ? null
                 : {

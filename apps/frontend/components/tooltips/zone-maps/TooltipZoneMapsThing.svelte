@@ -16,7 +16,6 @@
         achievementStore,
         itemStore,
         lazyStore,
-        manualStore,
         userAchievementStore,
         userStore,
     } from '@/stores';
@@ -252,13 +251,7 @@
                             : 'success'}"
                     >
                         <IconifyIcon
-                            icon={getDropIcon(
-                                $itemStore,
-                                $manualStore,
-                                $staticStore,
-                                drop,
-                                isCriteria,
-                            )}
+                            icon={getDropIcon($itemStore, $staticStore, drop, isCriteria)}
                         />
                     </td>
                     <td class="name" class:status-success={!dropStatus.need}>
@@ -322,7 +315,6 @@
                         {:else if drop.type === RewardType.Item}
                             {@const [lookupType] = rewardToLookup(
                                 $itemStore,
-                                $manualStore,
                                 $staticStore,
                                 drop.type,
                                 drop.id,
