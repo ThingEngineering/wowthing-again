@@ -9,7 +9,7 @@
     import { RewardType } from '@/enums/reward-type';
     import { wowthingData } from '@/shared/stores/data';
     import { settingsStore } from '@/shared/stores/settings';
-    import { lazyStore } from '@/stores';
+    import { lazyStore, manualStore } from '@/stores';
     import { zoneMapState } from '@/stores/local-storage/zone-map';
     import { leftPad } from '@/utils/formatting';
     import { toIndexRecord } from '@/utils/to-index-record';
@@ -41,7 +41,7 @@
     let slugKey: string;
 
     $: {
-        categories = find(wowthingData.manual.zoneMaps.sets, (s) => s?.[0]?.slug === slug1);
+        categories = find($manualStore.zoneMaps.sets, (s) => s?.[0]?.slug === slug1);
         if (slug2) {
             categories = categories.filter((s) => s?.slug === slug2);
         }
@@ -50,11 +50,8 @@
         farms = [];
         if (categories?.length > 0) {
             farms = [...categories[0].farms];
-            for (const vendorId of wowthingData.manual.shared.vendorsByMap[categories[0].mapName] ||
-                []) {
-                farms.push(
-                    ...wowthingData.manual.shared.vendors[vendorId].asFarms(categories[0].mapName),
-                );
+            for (const vendorId of $manualStore.shared.vendorsByMap[categories[0].mapName] || []) {
+                farms.push(...$manualStore.shared.vendors[vendorId].asFarms(categories[0].mapName));
             }
             farms.push(
                 ...wowthingData.db
@@ -131,8 +128,8 @@
                             if (
                                 drop.type === RewardType.Item &&
                                 !(
-                                    wowthingData.manual.druidFormItemToQuest.has(drop.id) ||
-                                    wowthingData.manual.dragonridingItemToQuest.has(drop.id)
+                                    $manualStore.druidFormItemToQuest[drop.id] ||
+                                    $manualStore.dragonridingItemToQuest[drop.id]
                                 )
                             ) {
                                 continue;

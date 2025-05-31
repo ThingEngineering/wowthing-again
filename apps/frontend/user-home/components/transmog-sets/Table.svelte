@@ -1,41 +1,44 @@
 <script lang="ts">
-    import find from 'lodash/find';
+    import find from 'lodash/find'
 
-    import { wowthingData } from '@/shared/stores/data';
-    import { settingsStore } from '@/shared/stores/settings';
-    import getSkipClasses from '@/utils/get-skip-classes';
-    import type { ManualDataTransmogCategory } from '@/types/data/manual';
+    import { manualStore } from '@/stores'
+    import { settingsStore } from '@/shared/stores/settings'
+    import getSkipClasses from '@/utils/get-skip-classes'
+    import type { ManualDataTransmogCategory } from '@/types/data/manual'
 
-    import Category from './TableCategory.svelte';
+    import Category from './TableCategory.svelte'
 
-    export let slug1: string;
-    export let slug2: string;
+    export let slug1: string
+    export let slug2: string
 
-    let anyClasses: boolean;
-    let categories: ManualDataTransmogCategory[];
-    let slugs: string[];
-    let skipClasses: Record<string, boolean | number>;
+    let anyClasses: boolean
+    let categories: ManualDataTransmogCategory[]
+    let slugs: string[]
+    let skipClasses: Record<string, boolean|number>
     $: {
-        categories = (
-            find(wowthingData.manual.transmog.sets, (s) => s !== null && s[0].slug === slug1) || []
-        ).filter((s) => s.groups.length > 0 && !!s.groups[0].type && (!slug2 || s.slug === slug2));
+        categories = (find($manualStore.transmog.sets, (s) => s !== null && s[0].slug === slug1) || [])
+            .filter((s) =>
+                s.groups.length > 0 &&
+                !!s.groups[0].type &&
+                (!slug2 || s.slug === slug2)
+            )
 
-        slugs = slug2 ? [slug1, slug2] : [slug1];
+        slugs = slug2 ? [slug1, slug2] : [slug1]
 
-        anyClasses = false;
-        skipClasses = getSkipClasses($settingsStore, categories?.[0]);
+        anyClasses = false
+        skipClasses = getSkipClasses($settingsStore, categories?.[0])
         for (let i = 0; i < categories.length; i++) {
-            const category = categories[i];
+            const category = categories[i]
             if (!category.groups.some((group) => group.type === 'class')) {
-                continue;
+                continue
             }
 
-            anyClasses = true;
+            anyClasses = true
 
-            const catSkipClasses = getSkipClasses($settingsStore, category);
+            const catSkipClasses = getSkipClasses($settingsStore, category)
             for (const [key, value] of Object.entries(catSkipClasses)) {
                 if (value === false) {
-                    skipClasses[key] = false;
+                    skipClasses[key] = false
                 }
             }
         }

@@ -10,8 +10,7 @@ import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { UserQuestData } from '@/types/data';
 import type { ItemData } from '@/types/data/item';
-import type { ManualDataTransmogCategory } from '@/types/data/manual';
-import { wowthingData } from '@/shared/stores/data';
+import type { ManualData, ManualDataTransmogCategory } from '@/types/data/manual';
 
 // [hasAny, [hasAppearance, hasSource, itemId, modifier, appearanceId]]
 export type TransmogSlot = [boolean, boolean, number, number, number];
@@ -28,6 +27,7 @@ export interface LazyTransmog {
 interface LazyStores {
     settings: Settings;
     itemData: ItemData;
+    manualData: ManualData;
     staticData: StaticData;
     userAchievementData: UserAchievementData;
     userData: UserData;
@@ -90,7 +90,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
     const overallSeen: Record<string, boolean> = {};
     const overallStats = (ret.stats['OVERALL'] = new UserCount());
 
-    for (const categories of wowthingData.manual.transmog.sets) {
+    for (const categories of stores.manualData.transmog.sets) {
         if (categories === null) {
             ret.filteredCategories.push(null);
             continue;
@@ -343,7 +343,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
         if (newCategories.length > 0) {
             ret.filteredCategories.push(newCategories);
         }
-    } // categories of wowthingData.manual.transmog.sets
+    } // categories of stores.manualData.transmog.sets
 
     // generate stats for any transmog sets not seen in manual sets
     for (const [transmogSetId, transmogSet] of getNumberKeyedEntries(

@@ -1,9 +1,9 @@
 import { transmogTypes } from '@/data/transmog';
 import { LookupType } from '@/enums/lookup-type';
 import { RewardType } from '@/enums/reward-type';
-import { wowthingData } from '@/shared/stores/data';
 import type { StaticData } from '@/shared/stores/static/types/store';
 import type { ItemData } from '@/types/data/item/store';
+import type { ManualData } from '@/types/data/manual/store';
 
 const rewardLookupMap: Record<number, LookupType> = {
     [RewardType.AccountQuest]: LookupType.Quest,
@@ -15,12 +15,12 @@ const rewardLookupMap: Record<number, LookupType> = {
 
 export function rewardToLookup(
     itemData: ItemData,
+    manualData: ManualData,
     staticData: StaticData,
     rewardType: RewardType,
     rewardId: number,
     trackingQuestId?: number,
 ): [LookupType, number] {
-    const manualData = wowthingData.manual;
     let ret: [LookupType, number] = [LookupType.None, 0];
 
     if (rewardLookupMap[rewardType]) {
@@ -37,10 +37,10 @@ export function rewardToLookup(
         } else if (staticData.professionAbilityByItemId[rewardId]) {
             const ability = staticData.professionAbilityByItemId[rewardId];
             ret = [LookupType.Recipe, ability.abilityId];
-        } else if (manualData.dragonridingItemToQuest.has(rewardId)) {
-            ret = [LookupType.Quest, manualData.dragonridingItemToQuest.get(rewardId)];
-        } else if (manualData.druidFormItemToQuest.has(rewardId)) {
-            ret = [LookupType.Quest, manualData.druidFormItemToQuest.get(rewardId)];
+        } else if (manualData.dragonridingItemToQuest[rewardId]) {
+            ret = [LookupType.Quest, manualData.dragonridingItemToQuest[rewardId]];
+        } else if (manualData.druidFormItemToQuest[rewardId]) {
+            ret = [LookupType.Quest, manualData.druidFormItemToQuest[rewardId]];
         } else if (itemData.completesQuest[rewardId]) {
             // this should always be the last Quest return type, several other kinds of item
             // are also included in this lookup table

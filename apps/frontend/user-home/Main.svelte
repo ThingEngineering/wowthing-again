@@ -9,6 +9,7 @@
     import {
         itemStore,
         journalStore,
+        manualStore,
         userAchievementStore,
         userQuestStore,
         userStore,
@@ -28,6 +29,7 @@
             await Promise.all([
                 itemStore.fetch({ language: $settingsStore.general.language }),
                 journalStore.fetch({ language: $settingsStore.general.language }),
+                manualStore.fetch({ language: $settingsStore.general.language }),
                 staticStore.fetch({ language: $settingsStore.general.language }),
                 userAchievementStore.fetch(),
                 userQuestStore.fetch(),
@@ -47,6 +49,7 @@
         error =
             $itemStore.error ||
             $journalStore.error ||
+            $manualStore.error ||
             $staticStore.error ||
             $userAchievementStore.error ||
             $userQuestStore.error ||
@@ -55,6 +58,7 @@
         loaded =
             $itemStore.loaded &&
             $journalStore.loaded &&
+            $manualStore.loaded &&
             $staticStore.loaded &&
             $userAchievementStore.loaded &&
             $userQuestStore.loaded &&

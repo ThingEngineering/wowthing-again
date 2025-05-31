@@ -1,4 +1,3 @@
-import { wowthingData } from '@/shared/stores/data';
 import { fixedInventoryType } from './fixed-inventory-type';
 import { isRecipeKnown } from './professions/is-recipe-known';
 import { transmogTypes } from '@/data/transmog';
@@ -8,11 +7,13 @@ import type { StaticData } from '@/shared/stores/static/types';
 import type { LazyTransmog } from '@/stores/lazy/transmog';
 import type { UserQuestData } from '@/types/data';
 import type { ItemData } from '@/types/data/item';
+import type { ManualData } from '@/types/data/manual';
 import type { UserData } from '@/types/user-data';
 
 export default function userHasDrop(
     settings: Settings,
     itemData: ItemData,
+    manualData: ManualData,
     staticData: StaticData,
     userData: UserData,
     userQuestData: UserQuestData,
@@ -22,8 +23,6 @@ export default function userHasDrop(
     appearanceIds?: number[],
     completionist?: boolean,
 ): boolean {
-    const manualData = wowthingData.manual;
-
     if (
         (type === RewardType.Mount && userData.hasMount[id] === true) ||
         (type === RewardType.Pet && userData.hasPet[id] === true) ||
@@ -32,10 +31,10 @@ export default function userHasDrop(
     ) {
         return true;
     } else if (type === RewardType.Item) {
-        if (manualData.dragonridingItemToQuest.has(id)) {
-            return userQuestData.accountHas.has(manualData.dragonridingItemToQuest.get(id));
-        } else if (manualData.druidFormItemToQuest.has(id)) {
-            return userQuestData.accountHas.has(manualData.druidFormItemToQuest.get(id));
+        if (manualData.dragonridingItemToQuest[id]) {
+            return userQuestData.accountHas.has(manualData.dragonridingItemToQuest[id]);
+        } else if (manualData.druidFormItemToQuest[id]) {
+            return userQuestData.accountHas.has(manualData.druidFormItemToQuest[id]);
         } else if (staticData.mountsByItem[id]) {
             return userData.hasMount[staticData.mountsByItem[id].id] === true;
         } else if (staticData.petsByItem[id]) {

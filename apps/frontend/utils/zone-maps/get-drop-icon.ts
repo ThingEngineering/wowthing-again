@@ -12,19 +12,17 @@ import {
     rewardTypeIcons,
     weaponSubclassIcons,
 } from '@/shared/icons/mappings';
-import type { ManualDataZoneMapDrop } from '@/types/data/manual';
+import type { ManualData, ManualDataZoneMapDrop } from '@/types/data/manual';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { ItemData } from '@/types/data/item';
-import { wowthingData } from '@/shared/stores/data';
 
 export function getDropIcon(
     itemData: ItemData,
+    manualData: ManualData,
     staticData: StaticData,
     drop: ManualDataZoneMapDrop,
     isCriteria: boolean,
 ): IconifyIcon {
-    const manualData = wowthingData.manual;
-
     let icon: IconifyIcon;
     if (isCriteria) {
         icon = iconStrings['list'];
@@ -39,9 +37,9 @@ export function getDropIcon(
             icon = armorTypeIcons[<ArmorType>drop.subType];
         }
     } else if (drop.type === RewardType.Item) {
-        if (manualData.dragonridingItemToQuest.get(drop.id)) {
+        if (manualData.dragonridingItemToQuest[drop.id]) {
             icon = iconLibrary.gameSpikedDragonHead;
-        } else if (manualData.druidFormItemToQuest.get(drop.id)) {
+        } else if (manualData.druidFormItemToQuest[drop.id]) {
             icon = iconLibrary.gameBearFace;
         } else if (staticData.mountsByItem[drop.id]) {
             icon = rewardTypeIcons[RewardType.Mount];

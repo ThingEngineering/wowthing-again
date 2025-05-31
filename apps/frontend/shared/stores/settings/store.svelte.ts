@@ -14,6 +14,7 @@ import type { Settings, SettingsView } from './types';
 
 import { achievementStore } from '@/stores/achievements';
 import { journalStore } from '@/stores/journal';
+import { manualStore } from '@/stores/manual';
 import { staticStore } from '@/shared/stores/static';
 import { userStore } from '@/stores/user';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
@@ -155,6 +156,7 @@ async function saveData(settings: Settings, userData: UserData) {
             await Promise.all([
                 achievementStore.fetch(fetchOptions),
                 journalStore.fetch(fetchOptions),
+                manualStore.fetch(fetchOptions),
                 staticStore.fetch(fetchOptions),
             ]);
         }

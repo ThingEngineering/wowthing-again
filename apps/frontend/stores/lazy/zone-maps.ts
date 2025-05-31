@@ -32,6 +32,7 @@ import type { StaticData } from '@/shared/stores/static/types';
 import type { UserAchievementData, UserData } from '@/types';
 import type { UserQuestData } from '@/types/data';
 import type { ItemData } from '@/types/data/item';
+import type { ManualData } from '@/types/data/manual';
 import type { DropStatus, FarmStatus } from '@/types/zone-maps';
 
 type classMaskStrings = keyof typeof PlayableClassMask;
@@ -40,6 +41,7 @@ interface LazyStores {
     settings: Settings;
     zoneMapState: ZoneMapState;
     itemData: ItemData;
+    manualData: ManualData;
     staticData: StaticData;
     userData: UserData;
     userAchievementData: UserAchievementData;
@@ -91,7 +93,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
         ]),
     );
 
-    for (const maps of wowthingData.manual.zoneMaps.sets) {
+    for (const maps of stores.manualData.zoneMaps.sets) {
         if (maps === null) {
             continue;
         }
@@ -145,8 +147,8 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
 
             const farms = [...map.farms];
 
-            for (const vendorId of wowthingData.manual.shared.vendorsByMap[map.mapName] || []) {
-                farms.push(...wowthingData.manual.shared.vendors[vendorId].asFarms(map.mapName));
+            for (const vendorId of stores.manualData.shared.vendorsByMap[map.mapName] || []) {
+                farms.push(...stores.manualData.shared.vendors[vendorId].asFarms(map.mapName));
             }
 
             farms.push(
@@ -207,13 +209,13 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                     let fixedType = drop.type;
                     switch (drop.type) {
                         case RewardType.Item:
-                            if (wowthingData.manual.dragonridingItemToQuest.has(drop.id)) {
+                            if (stores.manualData.dragonridingItemToQuest[drop.id]) {
                                 dropStatus.need = !stores.userQuestData.accountHas.has(
-                                    wowthingData.manual.dragonridingItemToQuest.get(drop.id),
+                                    stores.manualData.dragonridingItemToQuest[drop.id],
                                 );
-                            } else if (wowthingData.manual.druidFormItemToQuest.has(drop.id)) {
+                            } else if (stores.manualData.druidFormItemToQuest[drop.id]) {
                                 dropStatus.need = !stores.userQuestData.accountHas.has(
-                                    wowthingData.manual.druidFormItemToQuest.get(drop.id),
+                                    stores.manualData.druidFormItemToQuest[drop.id],
                                 );
                             } else if (stores.staticData.professionAbilityByItemId[drop.id]) {
                                 const abilityInfo =
@@ -339,6 +341,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             [dropStatus.setHave, dropStatus.setNeed] = getVendorDropStats(
                                 stores.settings,
                                 stores.itemData,
+                                stores.manualData,
                                 stores.staticData,
                                 stores.userData,
                                 stores.userQuestData,
