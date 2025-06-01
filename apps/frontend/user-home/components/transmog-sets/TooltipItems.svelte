@@ -91,7 +91,7 @@
     }
 </script>
 
-{#each itemData as [itemHave, item, modifier]}
+{#each itemData as [itemHave, item, modifier] (`${item.id}-${modifier}`)}
     <div class="item">
         <YesNoIcon state={itemHave} useStatusColors={true} />
         <ParsedText text={getItemText(item, modifier)} />

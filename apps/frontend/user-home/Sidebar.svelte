@@ -54,7 +54,7 @@
 </style>
 
 <Sidebar>
-    {#each filteredNavItems as navItem, navItemIndex}
+    {#each filteredNavItems as navItem, navItemIndex (navItem.path)}
         {#if navItem !== null}
             {#if !navItem.privateOnly || (navItem.privateOnly && navItem.text === 'Currencies' && settingsState.value.privacy.publicCurrencies) || ($userStore.loaded && !sharedState.public)}
                 {@const percent = navItem.percentFunc?.($lazyStore)}

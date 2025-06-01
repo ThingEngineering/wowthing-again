@@ -13,7 +13,7 @@ import { QuestStatus } from '@/enums/quest-status';
 import { Role } from '@/enums/role';
 import { staticStore } from '@/shared/stores/static';
 import { parseBooleanQuery } from '@/shared/utils/boolean-parser';
-import { LazyStore, userStore } from '@/stores';
+import { LazyStore } from '@/stores';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { Character } from '@/types';
 import type { UserQuestData } from '@/types/data';
@@ -33,7 +33,6 @@ export function useCharacterFilter(
     let result = true;
     if (filterString?.length >= 2) {
         const staticData = get(staticStore);
-        const userData = get(userStore);
 
         const filterLower = filterString.toLocaleLowerCase();
         let partArrays: string[][];

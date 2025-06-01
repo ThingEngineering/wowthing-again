@@ -58,7 +58,7 @@
         <MagicLists key="lockouts" choices={taskChoices} bind:activeStringIds={view.homeTasks} />
     </div>
 
-    {#each multiTasks as taskKey}
+    {#each multiTasks as taskKey (taskKey)}
         {#if multiTaskMap[taskKey]?.length > 1 && taskMap[taskKey] && view.homeTasks.indexOf(taskKey) >= 0}
             <div class="settings-block">
                 <div>

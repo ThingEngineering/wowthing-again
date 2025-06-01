@@ -6,7 +6,7 @@
 
     import MagicLists from '../../MagicLists.svelte';
 
-    export let view: SettingsView;
+    let { view }: { view: SettingsView } = $props();
 
     const initialChoices: SettingsChoice[] = [
         { id: 'account', name: 'Account' },
@@ -25,16 +25,13 @@
         { id: 'level', name: 'Level' },
     ];
 
-    let sortByChoices: SettingsChoice[];
-    $: {
-        sortByChoices = [
-            ...initialChoices,
-            ...orderBy(settingsState.value.tags, (tag) => tag.name).map((tag) => ({
-                id: `tag:${tag.id}`,
-                name: `Tag: ${tag.name}`,
-            })),
-        ];
-    }
+    let sortByChoices: SettingsChoice[] = $derived([
+        ...initialChoices,
+        ...orderBy(settingsState.value.tags, (tag) => tag.name).map((tag) => ({
+            id: `tag:${tag.id}`,
+            name: `Tag: ${tag.name}`,
+        })),
+    ]);
 </script>
 
 <style lang="scss">

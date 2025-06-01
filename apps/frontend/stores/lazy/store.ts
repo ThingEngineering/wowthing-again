@@ -51,7 +51,6 @@ import type { ManualDataHeirloomItem, ManualDataIllusionItem } from '@/types/dat
 import type { ItemData } from '@/types/data/item';
 import { activeHolidays, type ActiveHolidays } from '../derived/active-holidays';
 import { wowthingData } from '@/shared/stores/data';
-import type { DataManual } from '@/shared/stores/data/manual/types';
 
 type LazyKey = 'heirlooms' | 'illusions' | 'mounts' | 'pets' | 'toys';
 

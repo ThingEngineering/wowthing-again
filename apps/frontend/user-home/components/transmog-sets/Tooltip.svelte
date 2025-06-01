@@ -12,38 +12,37 @@
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
     import { itemStore } from '@/stores';
 
-    export let have: number;
-    export let set: ManualDataTransmogGroupData;
-    export let setTitle: string;
-    export let slotHave: TransmogSlotData;
-    export let subType: string;
-    export let total: number;
+    type Props = {
+        have: number;
+        set: ManualDataTransmogGroupData;
+        setTitle: string;
+        slotHave: TransmogSlotData;
+        subType: string;
+        total: number;
+    };
 
-    let setName: string;
-    let shiftPressed: boolean;
+    let { have, set, setTitle, slotHave, subType, total }: Props = $props();
 
-    $: completionist = settingsState.value.transmog.completionistMode;
+    let completionist = $derived(settingsState.value.transmog.completionistMode);
 
-    $: {
-        setName = set.transmogSetId ? $staticStore.transmogSets[set.transmogSetId].name : set.name;
-        if (!setName && set.itemsV2?.length === 1) {
-            setName = $itemStore.items[set.itemsV2[0]?.[0]]?.name;
+    let setName = $derived.by(() => {
+        let name = set.transmogSetId ? $staticStore.transmogSets[set.transmogSetId].name : set.name;
+        if (!name && set.itemsV2?.length === 1) {
+            name = $itemStore.items[set.itemsV2[0]?.[0]]?.name;
         }
-    }
+        return name;
+    });
 
-    let actualSlotOrder: number[];
-    let showShift: boolean;
-    let slotKeys: number[];
-    let weapons: number[];
-    $: {
-        slotKeys = Object.keys(slotHave).map((key) => parseInt(key));
-        weapons = slotKeys.filter((key) => key >= 100);
-        actualSlotOrder =
-            weapons.length > 0 ? weaponSubclassOrder.map((subClass) => 100 + subClass) : typeOrder;
+    let slotKeys = $derived(Object.keys(slotHave).map((key) => parseInt(key)));
+    let weapons = $derived(slotKeys.filter((key) => key >= 100));
+    let actualSlotOrder = $derived(
+        weapons.length > 0 ? weaponSubclassOrder.map((subClass) => 100 + subClass) : typeOrder,
+    );
+    let showShift = $derived(
+        slotKeys.length > 1 && Object.values(slotHave).some(([, items]) => items?.length > 2),
+    );
 
-        showShift =
-            slotKeys.length > 1 && Object.values(slotHave).some(([, items]) => items?.length > 2);
-    }
+    let shiftPressed = $state(false);
 
     function keyDown(event: KeyboardEvent) {
         shiftPressed = event.shiftKey;

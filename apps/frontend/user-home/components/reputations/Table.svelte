@@ -104,10 +104,10 @@
         {#if characterSets.length > 0}
             <CharacterTable skipGrouping={sorted} skipIgnored={true} {filterFunc} {sortFunc}>
                 <CharacterTableHead slot="head">
-                    {#each characterSets as [reputationSet]}
+                    {#each characterSets as [reputationSet] (reputationSet)}
                         <td class="spacer"></td>
 
-                        {#each reputationSet as reputation}
+                        {#each reputationSet as reputation (reputation)}
                             <TableHead {reputation} {slug} />
                         {/each}
                     {/each}
@@ -115,10 +115,10 @@
 
                 <svelte:fragment slot="rowExtra" let:character>
                     {#key `reputations|${slug}`}
-                        {#each characterSets as [reputationSets, reputationsIndex]}
+                        {#each characterSets as [reputationSets, reputationsIndex] (reputationSets)}
                             <td class="spacer"></td>
 
-                            {#each reputationSets as reputationSet, reputationSetsIndex}
+                            {#each reputationSets as reputationSet, reputationSetsIndex (reputationSet)}
                                 {#if isRenown(reputationSet)}
                                     <TableCellRenown
                                         reputation={reputationSet}

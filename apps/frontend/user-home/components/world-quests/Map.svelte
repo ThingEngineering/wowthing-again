@@ -5,22 +5,19 @@
     import { worldQuestState } from './state';
     import { worldQuestStore } from './store';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import type { WorldQuestZone } from './types';
 
     import ContinentBox from './ContinentBox.svelte';
     import Image from '@/shared/components/images/Image.svelte';
     import WorldQuest from './WorldQuest.svelte';
 
-    export let expansionSlug: string;
-    export let mapSlug: string;
+    let { expansionSlug, mapSlug }: { expansionSlug: string; mapSlug: string } = $props();
 
-    let zone: WorldQuestZone;
-    $: {
+    let zone = $derived.by(() => {
         const expansion = find(zoneData, (zone) => zone?.slug === expansionSlug);
-        zone = mapSlug ? find(expansion.children, (zone) => zone?.slug === mapSlug) : expansion;
-    }
+        return mapSlug ? find(expansion.children, (zone) => zone?.slug === mapSlug) : expansion;
+    });
 
-    $: lessHeight = settingsState.value?.layout?.newNavigation ? '6.4rem' : '4.4rem';
+    let lessHeight = $derived(settingsState.value?.layout?.newNavigation ? '6.4rem' : '4.4rem');
 </script>
 
 <style lang="scss">
@@ -50,10 +47,10 @@
         {#await worldQuestStore.fetch($worldQuestState.region)}
             L O A D I N G . . .
         {:then worldQuests}
-            {#each (zone.children || []).filter((zone) => zone?.continentPoint) as childZone}
+            {#each (zone.children || []).filter((zone) => zone?.continentPoint) as childZone (childZone.id)}
                 <ContinentBox zone={childZone} worldQuests={worldQuests[childZone.id]} />
             {:else}
-                {#each worldQuests[zone.id] || [] as worldQuest}
+                {#each worldQuests[zone.id] || [] as worldQuest (worldQuest.questId)}
                     <WorldQuest {worldQuest} />
                 {/each}
             {/each}

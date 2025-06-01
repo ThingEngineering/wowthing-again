@@ -82,7 +82,7 @@
         <CharacterTableHead slot="head">
             <th class="spacer"></th>
             {#key slugKey}
-                {#each currencies as currency}
+                {#each currencies as currency (currency.id)}
                     {#if !currency}
                         <th class="spacer"></th>
                     {:else}
@@ -99,7 +99,7 @@
                         <th class="spacer"></th>
                     {/if}
 
-                    {#each currencyItems[category.id] as itemId}
+                    {#each currencyItems[category.id] as itemId (itemId)}
                         {#if itemId === null}
                             <th class="spacer"></th>
                         {:else}
@@ -123,7 +123,7 @@
 
                 {#if hasCurrencyItems}
                     <td class="spacer"></td>
-                    {#each currencyItems[category.id] as itemId}
+                    {#each currencyItems[category.id] as itemId (itemId)}
                         {#if itemId === null}
                             <td class="spacer"></td>
                         {:else}
@@ -141,7 +141,7 @@
         <svelte:fragment slot="rowExtra" let:character>
             <td class="spacer"></td>
             {#key slugKey}
-                {#each currencies as currency}
+                {#each currencies as currency (currency.id)}
                     {#if !currency}
                         <td class="spacer"></td>
                     {:else}
@@ -158,7 +158,7 @@
                         <td class="spacer"></td>
                     {/if}
 
-                    {#each currencyItems[category.id] as itemId}
+                    {#each currencyItems[category.id] as itemId (itemId)}
                         {#if itemId === null}
                             <td class="spacer"></td>
                         {:else}

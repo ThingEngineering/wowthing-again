@@ -43,9 +43,9 @@
 </style>
 
 <div class="column">
-    {#each accountSets as [reputationSets, reputationsIndex]}
+    {#each accountSets as [reputationSets, reputationsIndex] (reputationSets)}
         <div class="set no-break">
-            {#each reputationSets as reputationSet, reputationSetsIndex}
+            {#each reputationSets as reputationSet, reputationSetsIndex (reputationSet)}
                 {@const { characterRep, dataRep, cls, renownLevel } = getRenownData({
                     reputation: reputationSet,
                     reputationsIndex,

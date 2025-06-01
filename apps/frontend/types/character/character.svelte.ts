@@ -219,10 +219,9 @@ export class Character implements ContainsItems, HasNameAndRealm {
         this.gold = gold;
         this.currentLocation = currentLocation;
         this.hearthLocation = hearthLocation;
-
         this.configuration = configuration;
         this.auras = auras;
-        //rawEquippedItems
+        // rawEquippedItems
         this.garrisons = garrisons;
         this.garrisonTrees = garrisonTrees;
         this.highestItemLevel = highestItemLevel;
@@ -234,7 +233,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         this.patronOrders = patronOrders;
         this.professions = professions;
         this.professionCooldowns = professionCooldowns;
-        // this.professionSpecializations = professionSpecializations;
+        // professionSpecializations;
         this.professionTraits = professionTraits;
         this.raiderIo = raiderIo;
         this.reputations = reputations;
@@ -247,6 +246,9 @@ export class Character implements ContainsItems, HasNameAndRealm {
         // rawStatistics
 
         const staticData = get(staticStore);
+
+        // account relies on UserStore data
+        // guild relies on UserStore data
         this.realm = staticData.realms[this.realmId];
         this.region = this.realm?.region;
 
