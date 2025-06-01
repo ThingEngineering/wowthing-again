@@ -1,5 +1,5 @@
 export * from './aura';
-export * from './character';
+export * from './character.svelte';
 export * from './configuration';
 export * from './currency';
 export * from './equipped-item';

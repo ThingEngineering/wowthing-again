@@ -139,7 +139,8 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.characters = [];
         userData.hasRecipe = new Set<number>();
         for (const charArray of userData.charactersRaw || []) {
-            const character = new Character(...charArray);
+            const character = new Character();
+            character.init(...charArray);
             userData.characters.push(character);
             userData.characterMap[character.id] = character;
         }
