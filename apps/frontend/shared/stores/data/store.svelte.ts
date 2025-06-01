@@ -1,6 +1,3 @@
-import { get } from 'svelte/store';
-
-import { settingsStore } from '@/shared/stores/settings';
 import { Language } from '@/enums/language';
 import { processDbData } from './db/process';
 import type { DataDb, RawDb } from './db/types';
@@ -18,16 +15,16 @@ class WowthingData {
     private error = false;
     private language: Language;
 
-    public loaded = false;
+    public loaded = $state(false);
 
     public db: DataDb;
     public manual: DataManual;
 
-    async fetch() {
+    async fetch(language: Language) {
         console.time('WowthingData.fetch');
 
         this.baseUri = document.getElementById('app')?.getAttribute('data-base-uri');
-        this.language = get(settingsStore).general.language;
+        this.language = language;
 
         await Promise.all([
             this.fetchAndProcess('db', (rawData: RawDb) => (this.db = processDbData(rawData))),

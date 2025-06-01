@@ -6,7 +6,7 @@
     import { Region } from '@/enums/region';
     import { staticStore } from '@/shared/stores/static';
     import { userStore } from '@/stores';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import { splitOnce } from '@/utils/split-once';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
@@ -20,8 +20,8 @@
         const realmCharacters: Record<string, Character[]> = groupBy(
             $userStore.characters.filter(
                 (char) =>
-                    $settingsStore.characters.hiddenCharacters.indexOf(char.id) === -1 &&
-                    $settingsStore.characters.ignoredCharacters.indexOf(char.id) === -1,
+                    settingsState.value.characters.hiddenCharacters.indexOf(char.id) === -1 &&
+                    settingsState.value.characters.ignoredCharacters.indexOf(char.id) === -1,
             ),
             (char) => char.realmId,
         );

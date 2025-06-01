@@ -1,8 +1,8 @@
 import groupBy from 'lodash/groupBy';
 import sortBy from 'lodash/sortBy';
 import uniq from 'lodash/uniq';
-import type { DateTime } from 'luxon';
 import { get } from 'svelte/store';
+import type { DateTime } from 'luxon';
 
 import {
     difficultyMap,
@@ -18,6 +18,7 @@ import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
 import { Region } from '@/enums/region';
 import { TypedArray } from '@/enums/typed-array';
 import { itemStore } from '@/stores/item';
+import { sharedState } from '@/shared/state/shared.svelte';
 import { staticStore } from '@/shared/stores/static';
 import {
     Character,
@@ -35,7 +36,6 @@ import getItemLevelQuality from '@/utils/get-item-level-quality';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { getDungeonScores } from '@/utils/mythic-plus/get-dungeon-scores';
 import type {
-    Account,
     CharacterLockout,
     CharacterMythicPlusRun,
     CharacterReputation,
@@ -51,6 +51,7 @@ import type { ContainsItems, HasNameAndRealm, UserItem } from '@/types/shared';
 import { journalStore } from './journal';
 import { userModifiedStore } from './user-modified';
 import { wowthingData } from '@/shared/stores/data';
+import { settingsState } from '@/shared/state/settings.svelte';
 
 export class UserDataStore extends WritableFancyStore<UserData> {
     get dataUrl(): string {
@@ -60,10 +61,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             url = url.replace('-0.json', `-${modified}.json`);
         }
         return url;
-    }
-
-    get useAccountTags(): boolean {
-        return Object.values(get(this).accounts).some((a: Account) => !!a.tag);
     }
 
     initialize(userData: UserData): void {
@@ -170,7 +167,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.rawWarbankItems = null;
 
         // Temporary until static data loads
-        userData.allRegions = [1, 2, 3, 4];
+        // userData.allRegions = [1, 2, 3, 4];
 
         console.timeEnd('UserDataStore.initialize');
     }
@@ -178,7 +175,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     setup(
         settingsData: Settings,
         userData: UserData,
-        userAchievementData: UserAchievementData,
+        // userAchievementData: UserAchievementData,
     ): void {
         console.time('UserDataStore.setup');
 
@@ -282,7 +279,10 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 (allLockouts[key] ||= []).push([character, lockout]);
             }
 
-            if (userData.public || character.account?.enabled === true) {
+            if (
+                sharedState.public ||
+                settingsState.value.accounts?.[character.accountId]?.enabled === true
+            ) {
                 for (const [appearanceId, items] of getNumberKeyedEntries(
                     character.itemsByAppearanceId,
                 )) {
@@ -311,14 +311,20 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         // Accounts
         userData.activeCharacters = [];
         for (const character of userData.characters) {
-            if (userData.public || character.account?.enabled === true) {
+            if (
+                sharedState.public ||
+                settingsState.value.accounts?.[character.accountId]?.enabled === true
+            ) {
                 userData.activeCharacters.push(character);
             }
         }
 
         const regionSet = new Set<number>();
         for (const account of Object.values(userData.accounts)) {
-            if (account.enabled || !settingsData.characters.hideDisabledAccounts) {
+            if (
+                settingsState.value.accounts?.[account.id]?.enabled ||
+                !settingsData.characters.hideDisabledAccounts
+            ) {
                 regionSet.add(account.region);
             }
         }
@@ -434,10 +440,10 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         console.timeEnd('transmog');
 
         // HACK: Warglaives of Azzinoth
-        if (userAchievementData.achievements[426]) {
-            userData.hasSource.add('32837_0');
-            userData.hasSource.add('32838_0');
-        }
+        // if (userAchievementData.achievements[426]) {
+        //     userData.hasSource.add('32837_0');
+        //     userData.hasSource.add('32838_0');
+        // }
 
         console.timeEnd('UserDataStore.setup');
     }
@@ -471,7 +477,11 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         character.realm = staticData.realms[character.realmId] || staticData.realms[0];
         character.region = character.realm?.region || Region.US;
 
-        if (character.account?.enabled && character.realmId > 0 && character.realm) {
+        if (
+            settingsState.value.accounts?.[character.accountId]?.enabled &&
+            character.realmId > 0 &&
+            character.realm
+        ) {
             (this.value.charactersByRealm[character.realmId] ||= []).push(character);
             (this.value.charactersByConnectedRealm[character.realm.connectedRealmId] ||= []).push(
                 character,

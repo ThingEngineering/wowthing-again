@@ -8,6 +8,7 @@ class BrowserState {
     auctions = new BrowserStateAuctions();
     home = new BrowserStateHome();
     matrix = new BrowserStateMatrix();
+    settings = new BrowserStateSettings();
     tokens = new BrowserStateTokens();
 }
 
@@ -16,7 +17,7 @@ class BrowserStateAuctions {
 }
 
 class BrowserStateHome {
-    activeView: string = '';
+    activeView: string = $state('');
 }
 
 class BrowserStateMatrix {
@@ -26,6 +27,11 @@ class BrowserStateMatrix {
     showEmptyRows = false;
     xAxis: string[] = [];
     yAxis: string[] = [];
+}
+
+class BrowserStateSettings {
+    selectedGroup: string;
+    selectedView: string;
 }
 
 class BrowserStateTokens {

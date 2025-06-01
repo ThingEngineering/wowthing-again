@@ -3,6 +3,7 @@
 
     import { Region } from '@/enums/region';
     import { uiIcons } from '@/shared/icons';
+    import { settingsState } from '@/shared/state/settings.svelte';
 
     import { commoditiesState } from './local-storage';
     import type { CharacterCommodities } from './get-character-commodities';
@@ -84,8 +85,10 @@
                         ($commoditiesState.expanded[characterData.characterId] = !isExpanded)}
                     tooltip={isExpanded ? 'Collapse this character' : 'Expand this character'}
                 />
-                {#if userStore.useAccountTags}
-                    <span class="tag">{character.account.tag}</span>
+                {#if settingsState.useAccountTags}
+                    <span class="tag">
+                        {settingsState.value.accounts?.[character.accountId]?.tag}
+                    </span>
                 {/if}
                 <span class="class-{character.classId}">
                     {character.name}
@@ -101,19 +104,19 @@
     </thead>
     <tbody>
         {#if isExpanded}
-            {#each items as itemData}
+            {#each items as [itemId, itemCount, itemValue] (itemId)}
                 <tr>
                     <td class="name text-overflow">
-                        <WowheadLink type="item" id={itemData[0]}>
-                            <WowthingImage name={`item/${itemData[0]}`} size={16} border={1} />
-                            <ParsedText text={`{item:${itemData[0]}}`} />
+                        <WowheadLink type="item" id={itemId}>
+                            <WowthingImage name={`item/${itemId}`} size={16} border={1} />
+                            <ParsedText text={`{item:${itemId}}`} />
                         </WowheadLink>
                     </td>
                     <td class="count">
-                        {itemData[1].toLocaleString()}
+                        {itemCount.toLocaleString()}
                     </td>
                     <td class="value">
-                        {Math.floor(itemData[2]).toLocaleString()} g
+                        {Math.floor(itemValue).toLocaleString()} g
                     </td>
                 </tr>
             {/each}

@@ -2,7 +2,7 @@
     import { afterUpdate } from 'svelte';
     import active from 'svelte-spa-router/active';
 
-    import { userStore } from '@/stores';
+    import { sharedState } from '@/shared/state/shared.svelte';
     import getSavedRoute from '@/utils/get-saved-route';
     import type { MultiSlugParams } from '@/types';
 
@@ -42,7 +42,7 @@
         >
         <a href="#/items/tokens" use:active={{ path: /^\/items\/tokens/ }}>Tokens</a>
 
-        {#if !$userStore.public}
+        {#if !sharedState.public}
             <a
                 class="b-l m-l"
                 href="#/items/guild-banks"

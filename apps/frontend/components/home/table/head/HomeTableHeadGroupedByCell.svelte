@@ -4,7 +4,7 @@
     import type { GroupByContext } from '@/utils/get-character-group-func';
 
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
 
     export let groupByContext: GroupByContext;
     export let group: Character[];
@@ -52,7 +52,7 @@
                     </span>
                 {:else if groupBy.startsWith('tag:')}
                     {@const tagId = parseInt(groupBy.split(':')[1])}
-                    {@const tag = $settingsStore.tags.find((tag) => tag.id === tagId)}
+                    {@const tag = settingsState.value.tags.find((tag) => tag.id === tagId)}
                     <span
                         class:status-success={groupValue === '0'}
                         class:status-warn={groupValue === '1'}

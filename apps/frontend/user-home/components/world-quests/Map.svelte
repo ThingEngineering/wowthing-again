@@ -4,7 +4,7 @@
     import { zoneData } from './data';
     import { worldQuestState } from './state';
     import { worldQuestStore } from './store';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import type { WorldQuestZone } from './types';
 
     import ContinentBox from './ContinentBox.svelte';
@@ -20,7 +20,7 @@
         zone = mapSlug ? find(expansion.children, (zone) => zone?.slug === mapSlug) : expansion;
     }
 
-    $: lessHeight = $settingsStore?.layout?.newNavigation ? '6.4rem' : '4.4rem';
+    $: lessHeight = settingsState.value?.layout?.newNavigation ? '6.4rem' : '4.4rem';
 </script>
 
 <style lang="scss">

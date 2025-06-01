@@ -12,7 +12,7 @@
     import type { Character } from '@/types';
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
 
     export let character: Character;
 
@@ -75,7 +75,7 @@
             )}
             <div
                 class="concentration {statusClass(
-                    $settingsStore.professions.fullConcentrationIsBad,
+                    settingsState.value.professions.fullConcentrationIsBad,
                     percent,
                 )}"
                 use:basicTooltip={{

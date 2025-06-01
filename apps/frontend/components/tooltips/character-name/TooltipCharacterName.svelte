@@ -1,23 +1,26 @@
 <script lang="ts">
     import { Constants } from '@/data/constants';
     import { characterNameTooltipChoices } from '@/data/settings';
-    import { settingsStore } from '@/shared/stores/settings'
-    import { timeStore } from '@/shared/stores/time'
-    import { userStore } from '@/stores'
-    import { toNiceDuration } from '@/utils/formatting'
-    import { getCharacterRested } from '@/utils/get-character-rested'
-    import getRaiderIoColor from '@/utils/get-raider-io-color'
-    import type { Character } from '@/types'
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import { timeStore } from '@/shared/stores/time';
+    import { userStore } from '@/stores';
+    import { toNiceDuration } from '@/utils/formatting';
+    import { getCharacterRested } from '@/utils/get-character-rested';
+    import getRaiderIoColor from '@/utils/get-raider-io-color';
+    import type { Character } from '@/types';
 
-    import CurrentLocation from '@/components/home/table/row/HomeTableRowCurrentLocation.svelte'
-    import ItemLevel from '@/components/character-table/row/ItemLevel.svelte'
-    import Keystone from '@/components/character-table/row/Keystone.svelte'
+    import CurrentLocation from '@/components/home/table/row/HomeTableRowCurrentLocation.svelte';
+    import ItemLevel from '@/components/character-table/row/ItemLevel.svelte';
+    import Keystone from '@/components/character-table/row/Keystone.svelte';
     import LastSeenAddon from '@/components/character-table/row/LastSeenAddon.svelte';
 
-    export let character: Character
+    let { character }: { character: Character } = $props();
 
-    $: enabledChoices = characterNameTooltipChoices
-        .filter((choice) => !$settingsStore.characters.disabledNameTooltip.includes(choice.id));
+    let enabledChoices = $derived.by(() =>
+        characterNameTooltipChoices.filter(
+            (choice) => !settingsState.value.characters.disabledNameTooltip.includes(choice.id),
+        ),
+    );
 </script>
 
 <style lang="scss">
@@ -43,12 +46,12 @@
 <div class="wowthing-tooltip">
     <h4>{character.name} - {character.realm.name}</h4>
 
-    {#if character.guildId && !$settingsStore.characters.disabledNameTooltip.includes('guild')}
+    {#if character.guildId && !settingsState.value.characters.disabledNameTooltip.includes('guild')}
         {@const guild = $userStore.guildMap[character.guildId]}
         <h5>
             {#if guild}
                 &lt;{guild.name || 'Unknown Guild'}&gt;
-                {guild.realm.name}
+                {guild.realm?.name || 'Unknown Realm'}
             {:else}
                 &lt;Unknown Guild #{character.guildId}&gt;
             {/if}
@@ -57,25 +60,22 @@
 
     <table class="table-striped">
         <tbody>
-            {#each enabledChoices as { id }}
+            {#each enabledChoices as { id } (id)}
                 {#if id === 'currentLocation'}
                     <tr>
                         <td>Current loc.</td>
                         <CurrentLocation {character} />
                     </tr>
-
                 {:else if id === 'hearthLocation'}
                     <tr>
                         <td>Hearth loc.</td>
                         <td>{character.hearthLocation || '---'}</td>
                     </tr>
-
                 {:else if id === 'itemLevel'}
                     <tr>
                         <td>Item level</td>
                         <ItemLevel {character} />
                     </tr>
-
                 {:else if id === 'last'}
                     <tr>
                         <td>Addon seen</td>
@@ -92,32 +92,36 @@
                             {/if}
                         </td>
                     </tr>
-
                 {:else if id === 'mythicPlusKeystone'}
                     <tr>
                         <td>M+ key</td>
                         <Keystone {character} />
                     </tr>
-
                 {:else if id === 'mythicPlusScore'}
                     {@const scores = character.raiderIo?.[Constants.mythicPlusSeason]}
                     {@const tiers = $userStore.raiderIoScoreTiers?.[Constants.mythicPlusSeason]}
-                    {@const overallScore = character.mythicPlusSeasonScores?.[Constants.mythicPlusSeason] || scores?.['all'] || 0}
+                    {@const overallScore =
+                        character.mythicPlusSeasonScores?.[Constants.mythicPlusSeason] ||
+                        scores?.['all'] ||
+                        0}
                     <tr>
                         <td>M+ score</td>
                         <td style:color={getRaiderIoColor(tiers, overallScore)}>
                             {overallScore.toFixed(1)}
                         </td>
                     </tr>
-
                 {:else if id === 'playedTime'}
                     <tr>
                         <td>Played time</td>
                         <td>
-                            <code>{@html toNiceDuration(character.playedTotal * 1000).replace('&nbsp;', '')}</code>
+                            <code
+                                >{@html toNiceDuration(character.playedTotal * 1000).replace(
+                                    '&nbsp;',
+                                    '',
+                                )}</code
+                            >
                         </td>
                     </tr>
-
                 {:else if id === 'restedXp' && character.level < Constants.characterMaxLevel}
                     {@const [rested, restedRemaining] = getCharacterRested($timeStore, character)}
                     <tr>
@@ -129,7 +133,6 @@
                             {/if}
                         </td>
                     </tr>
-
                 {/if}
             {/each}
         </tbody>

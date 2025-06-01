@@ -1,65 +1,59 @@
 <script lang="ts">
     import { Constants } from '@/data/constants';
-    import { imageStrings } from '@/data/icons'
-    import { professionIdToSlug } from '@/data/professions'
-    import { Region } from '@/enums/region'
-    import { staticStore } from '@/shared/stores/static'
-    import { getProfessionSortKey } from '@/utils/professions'
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import { settingsStore } from '@/shared/stores/settings'
-    import type { Character, CharacterProfession } from '@/types'
-    import type { StaticDataProfession } from '@/shared/stores/static/types'
+    import { imageStrings } from '@/data/icons';
+    import { professionIdToSlug } from '@/data/professions';
+    import { Region } from '@/enums/region';
+    import { staticStore } from '@/shared/stores/static';
+    import { getProfessionSortKey } from '@/utils/professions';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import type { Character, CharacterProfession } from '@/types';
+    import type { StaticDataProfession } from '@/shared/stores/static/types';
 
-    import Tooltip from '@/components/tooltips/professions/TooltipProfessions.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import Tooltip from '@/components/tooltips/professions/TooltipProfessions.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character
-    export let professionType = 0
+    export let character: Character;
+    export let professionType = 0;
 
-    let professions: [StaticDataProfession, CharacterProfession, boolean][]
+    let professions: [StaticDataProfession, CharacterProfession, boolean][];
     $: {
-        professions = []
+        professions = [];
         for (const professionId in $staticStore.professions) {
-            if (professionId === '794' && !$settingsStore.layout.includeArchaeology) {
-                continue
+            if (professionId === '794' && !settingsState.value.layout.includeArchaeology) {
+                continue;
             }
 
-            const profession: StaticDataProfession = $staticStore.professions[professionId]
+            const profession: StaticDataProfession = $staticStore.professions[professionId];
             if (profession?.type === professionType) {
                 if (profession.subProfessions.length > 0) {
-                    let best: [CharacterProfession, number]
-                    for (const expansion of settingsStore.expansions) {
-                        const subProfession = profession.expansionSubProfession[expansion.id]
+                    let best: [CharacterProfession, number];
+                    for (const expansion of settingsState.expansions) {
+                        const subProfession = profession.expansionSubProfession[expansion.id];
                         if (subProfession) {
-                            const characterSubProfession = character.professions?.[profession.id]?.[subProfession.id]
+                            const characterSubProfession =
+                                character.professions?.[profession.id]?.[subProfession.id];
                             if (characterSubProfession && expansion.id >= (best?.[1] || 0)) {
-                                best = [characterSubProfession, expansion.id]
+                                best = [characterSubProfession, expansion.id];
                             }
                         }
                     }
 
                     if (best) {
-                        professions.push([profession, best[0], best[1] === Constants.expansion])
+                        professions.push([profession, best[0], best[1] === Constants.expansion]);
+                    } else if (professionType === 1) {
+                        professions.push([profession, null, true]);
                     }
-                    else if (professionType === 1) {
-                        professions.push([
-                            profession,
-                            null,
-                            true
-                        ])
-                    }
-                }
-                else {
-                    const characterProfession = character.professions?.[profession.id]?.[profession.id]
-                    professions.push([
-                        profession,
-                        characterProfession || null,
-                        true
-                    ])
+                } else {
+                    const characterProfession =
+                        character.professions?.[profession.id]?.[profession.id];
+                    professions.push([profession, characterProfession || null, true]);
                 }
             }
         }
-        professions.sort((a, b) => getProfessionSortKey(a[0]).localeCompare(getProfessionSortKey(b[0])))
+        professions.sort((a, b) =>
+            getProfessionSortKey(a[0]).localeCompare(getProfessionSortKey(b[0])),
+        );
     }
 </script>
 
@@ -101,7 +95,7 @@
                 {@const currentSkill = charProfession?.currentSkill || 0}
                 <div
                     class="profession"
-                    data-id="{profession.id}"
+                    data-id={profession.id}
                     use:componentTooltip={{
                         component: Tooltip,
                         props: {
@@ -110,15 +104,20 @@
                         },
                     }}
                 >
-                    <a href="#/characters/{Region[character.realm.region].toLowerCase()}-{character.realm.slug}/{character.name}/professions/{profession.slug}">
+                    <a
+                        href="#/characters/{Region[character.realm.region].toLowerCase()}-{character
+                            .realm.slug}/{character.name}/professions/{profession.slug}"
+                    >
                         <WowthingImage
-                            name="{imageStrings[professionIdToSlug[profession.id]]}"
+                            name={imageStrings[professionIdToSlug[profession.id]]}
                             size={20}
                             border={1}
                         />
                         <span
                             class:status-fail={!current || currentSkill === 0}
-                            class:status-success={current && currentSkill > 0 && currentSkill >= charProfession.maxSkill}
+                            class:status-success={current &&
+                                currentSkill > 0 &&
+                                currentSkill >= charProfession.maxSkill}
                         >
                             {currentSkill || '---'}
                         </span>

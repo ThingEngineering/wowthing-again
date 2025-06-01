@@ -2,8 +2,9 @@
     import { mount, onDestroy, onMount } from 'svelte';
 
     import { Region } from '@/enums/region';
+    import { sharedState } from '@/shared/state/shared.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { staticStore } from '@/shared/stores/static';
     import { timeStore } from '@/shared/stores/time';
     import {
@@ -23,20 +24,36 @@
     import Routes from './Routes.svelte';
     import Sidebar from './Sidebar.svelte';
 
-    onMount(
-        async () =>
-            await Promise.all([
-                itemStore.fetch({ language: $settingsStore.general.language }),
-                journalStore.fetch({ language: $settingsStore.general.language }),
-                staticStore.fetch({ language: $settingsStore.general.language }),
-                userAchievementStore.fetch(),
-                userQuestStore.fetch(),
-                userStore.fetch(),
-                worldQuestStore.fetch(Region.US),
-                worldQuestStore.fetch(Region.EU),
-                wowthingData.fetch(),
-            ]),
-    );
+    onMount(async () => {
+        sharedState.public = userStore.dataUrl.includes('/public-');
+
+        await Promise.all([
+            itemStore.fetch({ language: settingsState.value.general.language }),
+            journalStore.fetch({ language: settingsState.value.general.language }),
+            staticStore.fetch({ language: settingsState.value.general.language }),
+            wowthingData.fetch(settingsState.value.general.language),
+        ]);
+
+        await Promise.all([
+            userAchievementStore.fetch(),
+            userQuestStore.fetch(),
+            userStore.fetch(),
+            worldQuestStore.fetch(Region.US),
+            worldQuestStore.fetch(Region.EU),
+        ]);
+
+        // FIX: staticStore->itemStore dependency
+        staticStore.setup(settingsState.value, $itemStore);
+        userStore.setup(settingsState.value, $userStore);
+        // FIX: should likely be derived
+        userQuestStore.setup($timeStore);
+
+        if (!sharedState.public) {
+            userUpdateHubStore.connect();
+        }
+
+        ready = true;
+    });
 
     onDestroy(() => userUpdateHubStore.disconnect());
 
@@ -52,42 +69,42 @@
             $userQuestStore.error ||
             $userStore.error;
 
-        loaded =
-            $itemStore.loaded &&
-            $journalStore.loaded &&
-            $staticStore.loaded &&
-            $userAchievementStore.loaded &&
-            $userQuestStore.loaded &&
-            $userStore.loaded &&
-            wowthingData.loaded;
+        // loaded =
+        //     $itemStore.loaded &&
+        //     $journalStore.loaded &&
+        //     $staticStore.loaded &&
+        //     $userAchievementStore.loaded &&
+        //     $userQuestStore.loaded &&
+        //     $userStore.loaded &&
+        //     wowthingData.loaded;
 
-        if (!error && loaded) {
-            staticStore.setup($settingsStore, $itemStore);
+        // if (!error && loaded) {
+        //     staticStore.setup(settingsState.value, $itemStore);
 
-            userStore.setup($settingsStore, $userStore, $userAchievementStore);
+        //     userStore.setup(settingsState.value, $userStore, $userAchievementStore);
 
-            userQuestStore.setup($timeStore);
+        //     userQuestStore.setup($timeStore);
 
-            if (!$userStore.public) {
-                userUpdateHubStore.connect();
-            }
+        //     if (!sharedState.public) {
+        //         userUpdateHubStore.connect();
+        //     }
 
-            ready = true;
-        }
+        //     ready = true;
+        // }
     }
 
     $: {
         if (ready) {
             const navTarget = document.querySelector('#app-nav');
             navTarget.replaceChildren();
-            if ($settingsStore.layout.newNavigation) {
+            if (settingsState.value.layout.newNavigation) {
                 mount(NewNav, { target: navTarget });
             }
         }
     }
 
     $: {
-        if (ready && !$userStore.public && $userStore.lastApiCheck) {
+        if (ready && !sharedState.public && $userStore.lastApiCheck) {
             const parsedTime = parseApiTime($userStore.lastApiCheck);
             const diff = $timeStore.diff(parsedTime).toMillis();
             // Add the refresh button if lastApiCheck is more than 24 hours ago
@@ -106,7 +123,7 @@
         const headerLinks = document
             .getElementById('nav-left')
             .getElementsByClassName('header-title');
-        (headerLinks[0] as HTMLElement).style.display = $settingsStore.leaderboard.enabled
+        (headerLinks[0] as HTMLElement).style.display = settingsState.value.leaderboard.enabled
             ? 'inline-block'
             : 'none';
     }
@@ -117,7 +134,7 @@
 {:else if !ready}
     <p>L O A D I N G</p>
 {:else}
-    {#if !$settingsStore.layout.newNavigation}
+    {#if !settingsState.value.layout.newNavigation}
         <Sidebar />
     {/if}
     <Routes />

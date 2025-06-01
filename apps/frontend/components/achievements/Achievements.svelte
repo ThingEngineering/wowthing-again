@@ -1,7 +1,7 @@
 <script lang="ts">
     import { afterUpdate, onMount } from 'svelte';
 
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { achievementStore, lazyStore, userAchievementStore } from '@/stores';
     import { achievementState } from '@/stores/local-storage';
     import getSavedRoute from '@/utils/get-saved-route';
@@ -19,7 +19,7 @@
     onMount(
         async () =>
             await Promise.all([
-                achievementStore.fetch({ language: $settingsStore.general.language }),
+                achievementStore.fetch({ language: settingsState.value.general.language }),
                 //userAchievementStore.fetch(),
             ]),
     );

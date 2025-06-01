@@ -1,15 +1,15 @@
 <script lang="ts">
-    import { userStore } from '@/stores'
-    import { settingsStore } from '@/shared/stores/settings'
-    import backgroundThumbUrl from '@/utils/background-thumb-url'
-    import { basicTooltip } from '@/shared/utils/tooltips'
+    import { userStore } from '@/stores';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import backgroundThumbUrl from '@/utils/background-thumb-url';
+    import { basicTooltip } from '@/shared/utils/tooltips';
 
-    export let selected: number
-    export let showDefault = false
+    export let selected: number;
+    export let showDefault = false;
 
-    const onClick = function(this: HTMLElement): void {
-        selected = parseInt(this.getAttribute('data-id'))
-    }
+    const onClick = function (this: HTMLElement): void {
+        selected = parseInt(this.getAttribute('data-id'));
+    };
 </script>
 
 <style lang="scss">
@@ -57,13 +57,10 @@
             data-id={background.id}
             on:click={onClick}
             use:basicTooltip={background.description}
-            >
-            <img
-                src="{backgroundThumbUrl(background)}"
-                alt="{background.description}"
-            >
+        >
+            <img src={backgroundThumbUrl(background)} alt={background.description} />
 
-            {#if showDefault && background.id === $settingsStore.characters.defaultBackgroundId}
+            {#if showDefault && background.id === settingsState.value.characters.defaultBackgroundId}
                 <code class="pill abs-center">DEFAULT</code>
             {/if}
         </button>

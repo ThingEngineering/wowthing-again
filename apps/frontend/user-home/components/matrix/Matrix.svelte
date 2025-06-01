@@ -1,217 +1,220 @@
 <script lang="ts">
-    import groupBy from 'lodash/groupBy'
-    import sortBy from 'lodash/sortBy'
-    import xor from 'lodash/xor'
+    import groupBy from 'lodash/groupBy';
+    import sortBy from 'lodash/sortBy';
+    import xor from 'lodash/xor';
 
-    import { classOrder } from '@/data/character-class'
-    import { Constants } from '@/data/constants'
-    import { isSecondaryProfession, professionOrder } from '@/data/professions'
-    import { Gender, genderValues } from '@/enums/gender'
-    import { Region } from '@/enums/region'
-    import { browserStore } from '@/shared/stores/browser'
-    import { settingsStore } from '@/shared/stores/settings'
-    import { staticStore } from '@/shared/stores/static'
-    import { userStore } from '@/stores'
-    import { cartesianProduct } from '@/utils/cartesian-product'
-    import type { StaticDataRealm } from '@/shared/stores/static/types'
-    import type { Character } from '@/types'
+    import { classOrder } from '@/data/character-class';
+    import { Constants } from '@/data/constants';
+    import { isSecondaryProfession, professionOrder } from '@/data/professions';
+    import { Gender, genderValues } from '@/enums/gender';
+    import { Region } from '@/enums/region';
+    import { browserStore } from '@/shared/stores/browser';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import { staticStore } from '@/shared/stores/static';
+    import { userStore } from '@/stores';
+    import { cartesianProduct } from '@/utils/cartesian-product';
+    import type { StaticDataRealm } from '@/shared/stores/static/types';
+    import type { Character } from '@/types';
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
-    import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte'
-    import NumberInput from '@/shared/components/forms/NumberInput.svelte'
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import RadioGroup from '@/shared/components/forms/RadioGroup.svelte'
+    import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte';
+    import NumberInput from '@/shared/components/forms/NumberInput.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import RadioGroup from '@/shared/components/forms/RadioGroup.svelte';
     import Row from './Row.svelte';
-    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
+    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
 
-    let matrix: Record<string, Character[]>
-    let xCounts: Record<string, number>
-    let xEntries: string[][]
-    let xKeys: string[]
-    let yCounts: Record<string, number>
-    let yEntries: string[][]
-    let yKeys: string[]
+    let matrix: Record<string, Character[]>;
+    let xCounts: Record<string, number>;
+    let xEntries: string[][];
+    let xKeys: string[];
+    let yCounts: Record<string, number>;
+    let yEntries: string[][];
+    let yKeys: string[];
     $: {
         const characters = $userStore.characters.filter(
-            (char) => (
-                $settingsStore.characters.hiddenCharacters.indexOf(char.id) === -1 &&
-                $settingsStore.characters.ignoredCharacters.indexOf(char.id) === -1 &&
+            (char) =>
+                settingsState.value.characters.hiddenCharacters.indexOf(char.id) === -1 &&
+                settingsState.value.characters.ignoredCharacters.indexOf(char.id) === -1 &&
                 char.level >= $browserStore.matrix.minLevel &&
-                char.account?.enabled === true
-            )
-        )
+                settingsState.value.accounts?.[char.accountId]?.enabled === true,
+        );
 
-        const realmMap: Record<number, StaticDataRealm> = {}
+        const realmMap: Record<number, StaticDataRealm> = {};
         for (const character of characters) {
-            realmMap[character.realmId] = character.realm
+            realmMap[character.realmId] = character.realm;
         }
 
-        const realms: [string, string, StaticDataRealm][] = Object.values(realmMap)
-            .map((realm) => [
-                Region[realm.region],
-                $staticStore.connectedRealms[realm.connectedRealmId]?.displayText ||
-                    `Realm #${realm.connectedRealmId}`,
-                realm,
-            ])
+        const realms: [string, string, StaticDataRealm][] = Object.values(realmMap).map((realm) => [
+            Region[realm.region],
+            $staticStore.connectedRealms[realm.connectedRealmId]?.displayText ||
+                `Realm #${realm.connectedRealmId}`,
+            realm,
+        ]);
         //realms.sort()
 
-        const sortedX = sortBy($browserStore.matrix.xAxis, (key) => axisOrder.indexOf(key))
-        const sortedY = sortBy($browserStore.matrix.yAxis, (key) => axisOrder.indexOf(key))
+        const sortedX = sortBy($browserStore.matrix.xAxis, (key) => axisOrder.indexOf(key));
+        const sortedY = sortBy($browserStore.matrix.yAxis, (key) => axisOrder.indexOf(key));
 
         const allAxis = sortBy(
             [...$browserStore.matrix.xAxis, ...$browserStore.matrix.yAxis],
-            (key) => axisOrder.indexOf(key)
-        )
-        
+            (key) => axisOrder.indexOf(key),
+        );
+
         matrix = Object.fromEntries(
             sortBy(
                 Object.entries(
-                    groupBy(
-                        characters,
-                        (char) => {
-                            const parts: (number|string)[] = []
+                    groupBy(characters, (char) => {
+                        const parts: (number | string)[] = [];
 
-                            parts.push(allAxis.indexOf('realm') >= 0 ? char.realm.connectedRealmId : null)
+                        parts.push(
+                            allAxis.indexOf('realm') >= 0 ? char.realm.connectedRealmId : null,
+                        );
 
-                            parts.push(allAxis.indexOf('account') >= 0
-                                ? $userStore.accounts[char.accountId].tag || char.accountId
-                                : null)
-                            
-                            parts.push(allAxis.indexOf('faction') >= 0 ? char.faction : null)
-                            parts.push(allAxis.indexOf('gender') >= 0 ? char.gender : null)
-                            parts.push(allAxis.indexOf('race') >= 0 ? char.raceId : null)
-                            parts.push(allAxis.indexOf('class') >= 0 ? char.classId : null)
+                        parts.push(
+                            allAxis.indexOf('account') >= 0
+                                ? settingsState.value.accounts?.[char.accountId]?.tag ||
+                                      char.accountId
+                                : null,
+                        );
 
-                            const professionIds = Object.keys(char.professions || {})
-                                .map((id) => parseInt(id))
-                                .filter((professionId) => !isSecondaryProfession[professionId])
-                            
-                            parts.push(allAxis.indexOf('profession') >= 0 ? (professionIds[0] || null) : null)
-                            parts.push(allAxis.indexOf('profession') >= 0 ? (professionIds[1] || null) : null)
+                        parts.push(allAxis.indexOf('faction') >= 0 ? char.faction : null);
+                        parts.push(allAxis.indexOf('gender') >= 0 ? char.gender : null);
+                        parts.push(allAxis.indexOf('race') >= 0 ? char.raceId : null);
+                        parts.push(allAxis.indexOf('class') >= 0 ? char.classId : null);
 
-                            return parts
-                        }
-                    ) 
-                ).map(([key, characters]) => [
-                    key,
-                    sortBy(characters, (char) => -char.level),
-                ]),
-                ([key, ]) => key
-            )
-        )
+                        const professionIds = Object.keys(char.professions || {})
+                            .map((id) => parseInt(id))
+                            .filter((professionId) => !isSecondaryProfession[professionId]);
+
+                        parts.push(
+                            allAxis.indexOf('profession') >= 0 ? professionIds[0] || null : null,
+                        );
+                        parts.push(
+                            allAxis.indexOf('profession') >= 0 ? professionIds[1] || null : null,
+                        );
+
+                        return parts;
+                    }),
+                ).map(([key, characters]) => [key, sortBy(characters, (char) => -char.level)]),
+                ([key]) => key,
+            ),
+        );
 
         // unique ID|display text?
-        const combos: string[][] = []
+        const combos: string[][] = [];
 
         for (let i = 0; i < 2; i++) {
-            const axis = i === 0 ? sortedX : sortedY
-                
+            const axis = i === 0 ? sortedX : sortedY;
+
             if (axis.indexOf('realm') >= 0) {
-                combos.push(realms
-                    .map(([region, displayText, realm]) => `${realm.connectedRealmId}|[${region}] ${displayText}`)
-                )
-            }
-            else {
-                combos.push([''])
+                combos.push(
+                    realms.map(
+                        ([region, displayText, realm]) =>
+                            `${realm.connectedRealmId}|[${region}] ${displayText}`,
+                    ),
+                );
+            } else {
+                combos.push(['']);
             }
 
             if (axis.indexOf('account') >= 0) {
-                combos.push(sortBy(
-                    Object.values($userStore.accounts)
-                        .filter((account) => account.enabled)
-                        .map((account) => {
-                            const tag = account.tag || account.id
-                            return `${tag}|${tag}`
-                        }),
-                    (key) => key.split('|')[0]
-                ))
-            }
-            else {
-                combos.push([''])
+                combos.push(
+                    sortBy(
+                        Object.values($userStore.accounts)
+                            .filter(
+                                (account) => settingsState.value.accounts?.[account.id]?.enabled,
+                            )
+                            .map((account) => {
+                                const tag =
+                                    settingsState.value.accounts?.[account.id].tag || account.id;
+                                return `${tag}|${tag}`;
+                            }),
+                        (key) => key.split('|')[0],
+                    ),
+                );
+            } else {
+                combos.push(['']);
             }
 
             if (axis.indexOf('faction') >= 0) {
-                combos.push([':alliance:', ':horde:']
-                    .map((faction, index) => `${index}|${faction}`)
-                )
-            }
-            else {
-                combos.push([''])
+                combos.push(
+                    [':alliance:', ':horde:'].map((faction, index) => `${index}|${faction}`),
+                );
+            } else {
+                combos.push(['']);
             }
 
             if (axis.indexOf('gender') >= 0) {
-                combos.push(genderValues
-                    .map((gender) => `${gender}|${Gender[parseInt(gender)]}`)
-                )
-            }
-            else {
-                combos.push([''])
+                combos.push(genderValues.map((gender) => `${gender}|${Gender[parseInt(gender)]}`));
+            } else {
+                combos.push(['']);
             }
 
             if (axis.indexOf('race') >= 0) {
-                combos.push(Object.keys($staticStore.characterRaces)
-                    .map((raceId) => `${raceId}|:race-${raceId}:`)
-                )
-            }
-            else {
-                combos.push([''])
+                combos.push(
+                    Object.keys($staticStore.characterRaces).map(
+                        (raceId) => `${raceId}|:race-${raceId}:`,
+                    ),
+                );
+            } else {
+                combos.push(['']);
             }
 
             if (axis.indexOf('class') >= 0) {
-                combos.push(classOrder
-                    .map((classId) => `${classId}|:class-${classId}:`)
-                )
-            }
-            else {
-                combos.push([''])
+                combos.push(classOrder.map((classId) => `${classId}|:class-${classId}:`));
+            } else {
+                combos.push(['']);
             }
 
             if (axis.indexOf('profession') >= 0) {
-                combos.push(professionOrder
-                    .map((professionId) => `${professionId}|:profession-${professionId}:`))
-            }
-            else {
-                combos.push([''])
+                combos.push(
+                    professionOrder.map(
+                        (professionId) => `${professionId}|:profession-${professionId}:`,
+                    ),
+                );
+            } else {
+                combos.push(['']);
             }
         }
 
-        xEntries = []
-        xKeys = []
-        yEntries = []
-        yKeys = []
+        xEntries = [];
+        xKeys = [];
+        yEntries = [];
+        yKeys = [];
 
-        const products = cartesianProduct(...combos)
+        const products = cartesianProduct(...combos);
 
         for (const product of products) {
-            const xParts = product.slice(0, product.length / 2)
-            const yParts = product.slice(product.length / 2, product.length)
+            const xParts = product.slice(0, product.length / 2);
+            const yParts = product.slice(product.length / 2, product.length);
 
             // console.log(xParts, yParts)
 
             if (xParts.length > 0) {
-                const xSplit = xParts.map((s) => s.split('|'))
+                const xSplit = xParts.map((s) => s.split('|'));
 
-                const xKey = xSplit.map((parts) => parts[0]).join(',')
+                const xKey = xSplit.map((parts) => parts[0]).join(',');
                 if (!xKeys.some((key) => key === xKey)) {
-                    xKeys.push(xKey)
+                    xKeys.push(xKey);
                 }
 
-                const xEntry = xSplit.map((parts) => parts[1] || '').filter((x) => x !== '')
+                const xEntry = xSplit.map((parts) => parts[1] || '').filter((x) => x !== '');
                 if (!xEntries.some((entry) => xor(entry, xEntry).length === 0)) {
-                    xEntries.push(xEntry)
+                    xEntries.push(xEntry);
                 }
             }
             if (yParts.length > 0) {
-                const ySplit = yParts.map((s) => s.split('|'))
+                const ySplit = yParts.map((s) => s.split('|'));
 
-                const yKey = ySplit.map((parts) => parts[0]).join(',')
+                const yKey = ySplit.map((parts) => parts[0]).join(',');
                 if (!yKeys.some((key) => key === yKey)) {
-                    yKeys.push(yKey)
+                    yKeys.push(yKey);
                 }
 
-                const yEntry = ySplit.map((parts) => parts[1] || '').filter((y) => y !== '')
+                const yEntry = ySplit.map((parts) => parts[1] || '').filter((y) => y !== '');
                 if (!yEntries.some((entry) => xor(entry, yEntry).length === 0)) {
-                    yEntries.push(yEntry)
+                    yEntries.push(yEntry);
                 }
             }
         }
@@ -220,22 +223,22 @@
         // console.log('y', yKeys, yEntries)
 
         if (xEntries.length === 1 && !xEntries[0].some((x) => x !== '')) {
-            xEntries[0] = ['All']
+            xEntries[0] = ['All'];
             //xKeys.push('')
         }
 
         if (yEntries.length === 1 && !yEntries[0].some((y) => y !== '')) {
-            yEntries[0] = ['All']
+            yEntries[0] = ['All'];
         }
 
         // Counts
-        xCounts = {}
-        yCounts = {}
+        xCounts = {};
+        yCounts = {};
         for (const yKey of yKeys) {
             for (const xKey of xKeys) {
-                const keyCharacters = getCharacters(xKey, yKey)
-                xCounts[xKey] = (xCounts[xKey] || 0) + keyCharacters.length
-                yCounts[yKey] = (yCounts[yKey] || 0) + keyCharacters.length
+                const keyCharacters = getCharacters(xKey, yKey);
+                xCounts[xKey] = (xCounts[xKey] || 0) + keyCharacters.length;
+                yCounts[yKey] = (yCounts[yKey] || 0) + keyCharacters.length;
             }
         }
     }
@@ -248,8 +251,8 @@
         ['gender', 'Gender'],
         ['race', 'Race'],
         ['profession', 'Profession'],
-    ]
-    const axisOrder = axisOptions.map(([key,]) => key)
+    ];
+    const axisOrder = axisOptions.map(([key]) => key);
 
     // const mergeKeys = (xKey: string, yKey: string): string => {
     //     const xParts = xKey.split(',')
@@ -262,38 +265,37 @@
     //     return xParts.join(',')
     // }
 
-    const regexCache: Record<string, RegExp> = {}
+    const regexCache: Record<string, RegExp> = {};
     const getCharacters = (xKey: string, yKey: string): Character[] => {
         // merge the keys into a single string
-        const xParts = xKey.split(',')
-        const yParts = yKey.split(',')
+        const xParts = xKey.split(',');
+        const yParts = yKey.split(',');
         for (let index = 0; index < xParts.length; index++) {
             if (yParts[index]) {
-                xParts[index] = yParts[index]
+                xParts[index] = yParts[index];
             }
         }
 
         // professions, oof
         if (xParts[xParts.length - 1]) {
-            const re1 = [...xParts, '\\d*'].join(',')
-            const re2 = [...xParts.slice(0, -1), '\\d*', xParts[xParts.length - 1]].join(',')
+            const re1 = [...xParts, '\\d*'].join(',');
+            const re2 = [...xParts.slice(0, -1), '\\d*', xParts[xParts.length - 1]].join(',');
 
-            const match1 = regexCache[re1] ||= new RegExp(re1)
-            const match2 = regexCache[re2] ||= new RegExp(re2)
+            const match1 = (regexCache[re1] ||= new RegExp(re1));
+            const match2 = (regexCache[re2] ||= new RegExp(re2));
 
-            const characters: Character[] = []
+            const characters: Character[] = [];
             for (const key in matrix) {
                 if (key.match(match1) || key.match(match2)) {
-                    characters.push(...matrix[key])
+                    characters.push(...matrix[key]);
                 }
             }
-            return characters
+            return characters;
+        } else {
+            xParts.push('');
+            return matrix[xParts.join(',')] || [];
         }
-        else {
-            xParts.push('')
-            return matrix[xParts.join(',')] || []
-        }
-    }
+    };
 </script>
 
 <style lang="scss">
@@ -337,7 +339,7 @@
         }
     }
     .empty {
-        background: #{ $body-background };
+        background: #{$body-background};
         border-right-width: 0 !important;
         border-top-width: 0 !important;
     }
@@ -358,10 +360,10 @@
                     name="x_{value}"
                     disabled={$browserStore.matrix.yAxis.indexOf(value) >= 0 ||
                         ($browserStore.matrix.xAxis.indexOf(value) === -1 &&
-                        $browserStore.matrix.xAxis.length >= 2)}
+                            $browserStore.matrix.xAxis.length >= 2)}
                     {value}
-                    bind:bindGroup={$browserStore.matrix.xAxis}
-                >{label}</GroupedCheckbox>
+                    bind:bindGroup={$browserStore.matrix.xAxis}>{label}</GroupedCheckbox
+                >
             {/each}
         </div>
 
@@ -373,10 +375,10 @@
                     name="y_{value}"
                     disabled={$browserStore.matrix.xAxis.indexOf(value) >= 0 ||
                         ($browserStore.matrix.yAxis.indexOf(value) === -1 &&
-                        $browserStore.matrix.yAxis.length >= 3)}
+                            $browserStore.matrix.yAxis.length >= 3)}
                     {value}
-                    bind:bindGroup={$browserStore.matrix.yAxis}
-                >{label}</GroupedCheckbox>
+                    bind:bindGroup={$browserStore.matrix.yAxis}>{label}</GroupedCheckbox
+                >
             {/each}
         </div>
 
@@ -404,10 +406,7 @@
         </div>
 
         <div class="options-container background-box">
-            <CheckboxInput
-                name="show_empty_rows"
-                bind:value={$browserStore.matrix.showEmptyRows}
-            >
+            <CheckboxInput name="show_empty_rows" bind:value={$browserStore.matrix.showEmptyRows}>
                 Show empty rows
             </CheckboxInput>
         </div>

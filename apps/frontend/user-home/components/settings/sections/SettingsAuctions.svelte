@@ -1,35 +1,37 @@
 <script lang="ts">
-    import debounce from 'lodash/debounce'
+    import debounce from 'lodash/debounce';
 
-    import { userStore } from '@/stores'
-    import { staticStore } from '@/shared/stores/static'
-    import { settingsStore } from '@/shared/stores/settings'
-    import type { StaticDataConnectedRealm } from '@/shared/stores/static/types'
+    import { userStore } from '@/stores';
+    import { staticStore } from '@/shared/stores/static';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import type { StaticDataConnectedRealm } from '@/shared/stores/static/types';
 
-    import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte'
-    import NumberInput from '@/shared/components/forms/NumberInput.svelte'
+    import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte';
+    import NumberInput from '@/shared/components/forms/NumberInput.svelte';
 
-    const crIds: Record<number, boolean> = {}
-    const realmNames: Record<string, boolean> = {}
+    const crIds: Record<number, boolean> = {};
+    const realmNames: Record<string, boolean> = {};
     for (const character of $userStore.characters) {
-        crIds[character.realm.connectedRealmId] = true
-        realmNames[character.realm.name] = true
+        crIds[character.realm.connectedRealmId] = true;
+        realmNames[character.realm.name] = true;
     }
 
-    let shownRealms: string[] = Object.keys(crIds)
-        .filter((crId) => $settingsStore.auctions.ignoredRealms.indexOf(parseInt(crId)) === -1)
+    let shownRealms: string[] = Object.keys(crIds).filter(
+        (crId) => settingsState.value.auctions.ignoredRealms.indexOf(parseInt(crId)) === -1,
+    );
 
-    const connectedRealms: StaticDataConnectedRealm[] = Object.keys(crIds)
-        .map((crId) => $staticStore.connectedRealms[parseInt(crId)])
-    connectedRealms.sort((a, b) => a.displayText.localeCompare(b.displayText))
+    const connectedRealms: StaticDataConnectedRealm[] = Object.keys(crIds).map(
+        (crId) => $staticStore.connectedRealms[parseInt(crId)],
+    );
+    connectedRealms.sort((a, b) => a.displayText.localeCompare(b.displayText));
 
-    $: debouncedUpdateSettings(shownRealms)
+    $: debouncedUpdateSettings(shownRealms);
 
     const debouncedUpdateSettings = debounce((shownRealms) => {
-        $settingsStore.auctions.ignoredRealms = Object.keys(crIds)
+        settingsState.value.auctions.ignoredRealms = Object.keys(crIds)
             .filter((crId) => shownRealms.indexOf(crId) === -1)
-            .map((crId) => parseInt(crId))
-    }, 100)
+            .map((crId) => parseInt(crId));
+    }, 100);
 </script>
 
 <style lang="scss">
@@ -44,7 +46,7 @@
             label="Minimum buyout"
             minValue={0}
             maxValue={999999}
-            bind:value={$settingsStore.auctions.minimumExtraPetsValue}
+            bind:value={settingsState.value.auctions.minimumExtraPetsValue}
         />
         <p>Minimum buyout price (in gold) to include an auction in Extra Pets.</p>
     </div>

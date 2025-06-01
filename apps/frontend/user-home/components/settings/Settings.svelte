@@ -1,22 +1,28 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte'
-    import { replace } from 'svelte-spa-router'
+    import { tick } from 'svelte';
+    import { replace } from 'svelte-spa-router';
 
-    import { userStore } from '@/stores'
-    import getSavedRoute from '@/utils/get-saved-route'
-    import type { MultiSlugParams } from '@/types'
+    import { sharedState } from '@/shared/state/shared.svelte';
+    import getSavedRoute from '@/utils/get-saved-route';
+    import type { MultiSlugParams } from '@/types';
 
-    import Routes from './Routes.svelte'
-    import Sidebar from './Sidebar.svelte'
+    import Routes from './Routes.svelte';
+    import Sidebar from './Sidebar.svelte';
 
-    export let params: MultiSlugParams
+    let { params }: { params: MultiSlugParams } = $props();
 
-    afterUpdate(() => getSavedRoute('settings', params.slug1, params.slug2))
+    $effect.pre(() => {
+        tick().then(() => getSavedRoute('settings', params.slug1, params.slug2));
+    });
 
-    $: if ($userStore.public) { replace('/') }
+    $effect(() => {
+        if (sharedState.public) {
+            replace('/');
+        }
+    });
 </script>
 
-{#if !$userStore.public}
+{#if !sharedState.public}
     <Sidebar />
     <Routes {params} />
 {/if}

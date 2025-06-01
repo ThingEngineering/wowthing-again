@@ -115,7 +115,7 @@ export function useCharacterFilter(
                             if (match) {
                                 const accountTag = match[1].toString();
                                 return (
-                                    userData.accounts[char.accountId].tag.toLocaleLowerCase() ==
+                                    settings.accounts?.[char.accountId].tag.toLocaleLowerCase() ==
                                     accountTag
                                 );
                             }

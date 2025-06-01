@@ -68,7 +68,8 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
         (c) =>
             stores.settings.characters.hiddenCharacters.indexOf(c.id) === -1 &&
             stores.settings.characters.ignoredCharacters.indexOf(c.id) === -1 &&
-            (!stores.settings.characters.hideDisabledAccounts || c.account?.enabled !== false),
+            (!stores.settings.characters.hideDisabledAccounts ||
+                stores.settings.accounts?.[c.accountId]?.enabled !== false),
     );
     const overallCounts = (setCounts['OVERALL'] = new UserCount());
     const resetMap = Object.fromEntries(

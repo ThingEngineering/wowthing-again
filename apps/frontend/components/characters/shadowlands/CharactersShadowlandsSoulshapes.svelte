@@ -1,37 +1,33 @@
 <script lang="ts">
-    import { crittershapes, shapeTooltip, soulshapes } from '@/data/covenant'
-    import { userQuestStore } from '@/stores'
-    import { settingsStore } from '@/shared/stores/settings'
-    import { UserCount, type Character } from '@/types'
+    import { crittershapes, shapeTooltip, soulshapes } from '@/data/covenant';
+    import { userQuestStore } from '@/stores';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import { UserCount, type Character } from '@/types';
 
-    import Count from '@/components/collectible/CollectibleCount.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import Count from '@/components/collectible/CollectibleCount.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character
+    export let character: Character;
 
-    let allShapes: [questId: number, icon: string, has: boolean][][]
-    let stats: UserCount
+    let allShapes: [questId: number, icon: string, has: boolean][][];
+    let stats: UserCount;
     $: {
-        allShapes = []
-        stats = new UserCount()
+        allShapes = [];
+        stats = new UserCount();
 
         for (const shapesArray of [soulshapes, crittershapes]) {
-            const temp: [questId: number, icon: string, has: boolean][] = []
+            const temp: [questId: number, icon: string, has: boolean][] = [];
             for (const [questId, icon] of shapesArray) {
-                const has = $userQuestStore.characters[character.id]?.quests?.has(questId)
+                const has = $userQuestStore.characters[character.id]?.quests?.has(questId);
                 if (has) {
-                    stats.have++
+                    stats.have++;
                 }
-                stats.total++
+                stats.total++;
 
-                temp.push([
-                    questId,
-                    icon,
-                    has,
-                ])
+                temp.push([questId, icon, has]);
             }
-            allShapes.push(temp)
+            allShapes.push(temp);
         }
     }
 </script>
@@ -76,20 +72,16 @@
     <h3>
         Soulshapes
         <Count counts={stats} />
-        <a href="https://{settingsStore.wowheadBaseUrl}/guides/soulshapes-night-fae-covenant">Guide</a>
+        <a href="https://{settingsState.wowheadBaseUrl}/guides/soulshapes-night-fae-covenant"
+            >Guide</a
+        >
     </h3>
     <div class="collection-section">
-        {#each allShapes as shapes}
+        {#each allShapes as shapes (shapes)}
             <div class="collection-objects">
-                {#each shapes as [questId, icon, has]}
-                    <div
-                        class="collection-object"
-                        class:missing={!has}
-                    >
-                        <WowheadLink
-                            type="quest"
-                            id={questId}
-                        >
+                {#each shapes as [questId, icon, has] (questId)}
+                    <div class="collection-object" class:missing={!has}>
+                        <WowheadLink type="quest" id={questId}>
                             <WowthingImage
                                 name={icon}
                                 size={32}

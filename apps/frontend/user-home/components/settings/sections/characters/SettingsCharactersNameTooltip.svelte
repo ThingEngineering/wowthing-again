@@ -2,13 +2,14 @@
     import debounce from 'lodash/debounce';
 
     import { characterNameTooltipChoices } from '@/data/settings';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import type { SettingsChoice } from '@/shared/stores/settings/types';
 
     import MagicLists from '@/user-home/components/settings/MagicLists.svelte';
 
     let dataActive = characterNameTooltipChoices.filter(
-        (choice) => ($settingsStore.characters.disabledNameTooltip || []).indexOf(choice.id) === -1,
+        (choice) =>
+            (settingsState.value.characters.disabledNameTooltip || []).indexOf(choice.id) === -1,
     );
 
     let dataInactive: SettingsChoice[] = $state(
@@ -17,10 +18,9 @@
 
     $effect(() =>
         debounce(() => {
-            settingsStore.update((state) => {
-                state.characters.disabledNameTooltip = dataInactive.map((choice) => choice.id);
-                return state;
-            });
+            settingsState.value.characters.disabledNameTooltip = dataInactive.map(
+                (choice) => choice.id,
+            );
         }, 250),
     );
 </script>
@@ -31,7 +31,7 @@
     <MagicLists
         key="character-tooltip-data"
         choices={characterNameTooltipChoices}
-        bind:activeStringIds={$settingsStore.characters.disabledNameTooltip}
+        bind:activeStringIds={settingsState.value.characters.disabledNameTooltip}
         saveInactive={true}
     />
 </div>

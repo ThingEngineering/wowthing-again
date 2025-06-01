@@ -2,7 +2,7 @@
     import sortBy from 'lodash/sortBy';
 
     import { userStore } from '@/stores';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { getCharacterNameRealm } from '@/utils/get-character-name-realm';
     import { getFilteredCharacters } from '@/utils/get-filtered-characters';
     import { leftPad } from '@/utils/formatting';
@@ -22,7 +22,7 @@
     let iconName: string;
     $: {
         currencies = [];
-        for (const character of getFilteredCharacters($settingsStore, $userStore)) {
+        for (const character of getFilteredCharacters(settingsState.value, $userStore)) {
             let quantity = 0;
             if (currency) {
                 currencyName = currency.name;

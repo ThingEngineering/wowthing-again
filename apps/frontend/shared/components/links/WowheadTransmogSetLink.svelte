@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { settingsStore } from '@/shared/stores/settings'
+    import { settingsState } from '@/shared/state/settings.svelte';
 
-    export let cls = ''
-    export let id: number
+    export let cls = '';
+    export let id: number;
 
-    let url: string
+    let url: string;
     $: {
-        url = `https://${settingsStore.wowheadBaseUrl}/transmog-set=${id}`
+        url = `https://${settingsState.wowheadBaseUrl}/transmog-set=${id}`;
     }
 </script>
 
@@ -16,6 +16,6 @@
     }
 </style>
 
-<a href="{url}" class="{cls}">
+<a href={url} class={cls}>
     <slot />
 </a>

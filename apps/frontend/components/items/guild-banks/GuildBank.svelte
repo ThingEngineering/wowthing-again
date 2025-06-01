@@ -45,7 +45,7 @@
             <div class="column">
                 <nav class="subnav" id="guild-banks-subnav">
                     <a href="#/items/guild-banks/{slug1}/all" use:active>All</a>
-                    {#each Array(maxTab) as _, tabIndex}
+                    {#each { length: maxTab }, tabIndex}
                         <a href="#/items/guild-banks/{slug1}/tab-{tabIndex + 1}" use:active
                             >Tab {tabIndex + 1}</a
                         >
@@ -55,7 +55,7 @@
                 {#if slug2}
                     <div class="flex-wrapper">
                         {#if slug2 === 'all'}
-                            {#each Array(maxTab) as _, tabIndex}
+                            {#each { length: maxTab }, tabIndex}
                                 <Tab {guild} tab={tabIndex + 1} />
                             {/each}
                         {:else if slug2.startsWith('tab-')}

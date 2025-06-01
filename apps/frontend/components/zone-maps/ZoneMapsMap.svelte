@@ -8,7 +8,7 @@
     import { PlayableClass } from '@/enums/playable-class';
     import { RewardType } from '@/enums/reward-type';
     import { wowthingData } from '@/shared/stores/data';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { lazyStore } from '@/stores';
     import { zoneMapState } from '@/stores/local-storage/zone-map';
     import { leftPad } from '@/utils/formatting';
@@ -152,7 +152,7 @@
 
     [width, height] = [1500, 1000];
 
-    $: lessHeight = $settingsStore?.layout?.newNavigation ? '6.4rem' : '4.4rem';
+    $: lessHeight = settingsState.value?.layout?.newNavigation ? '6.4rem' : '4.4rem';
 
     const getGroupWidth = function (len: number): string {
         if (len < 3) {

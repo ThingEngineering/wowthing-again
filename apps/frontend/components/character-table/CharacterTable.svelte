@@ -3,71 +3,69 @@
     import sortBy from 'lodash/sortBy';
     import { location } from 'svelte-spa-router';
 
-    import { lazyStore, userQuestStore, userStore } from '@/stores';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { timeStore } from '@/shared/stores/time';
+    import { lazyStore, userQuestStore, userStore } from '@/stores';
     import { homeState, newNavState } from '@/stores/local-storage';
-    import { activeView, settingsStore } from '@/shared/stores/settings';
     import { useCharacterFilter } from '@/utils/characters';
-    import { homeSort } from '@/utils/home';
-    import {
-        getCharacterGroupContext,
-        type GroupByContext,
-    } from '@/utils/get-character-group-func';
+    import { getCharacterGroupContext } from '@/utils/get-character-group-func';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
+    import { homeSort } from '@/utils/home';
     import type { Character } from '@/types';
 
     import CharacterRow from './CharacterTableRow.svelte';
 
-    export let characterLimit = 0;
-    export let isHome = false;
-    export let showEmpty = true;
-    export let showWarbank = false;
-    export let skipGrouping = false;
-    export let skipIgnored = false;
-    export let filterFunc: (char: Character) => boolean = undefined;
-    export let sortFunc: (char: Character) => string = undefined;
+    type Props = {
+        characterLimit: number;
+        isHome: boolean;
+        showEmpty: boolean;
+        showWarbank: boolean;
+        skipGrouping: boolean;
+        skipIgnored: boolean;
+        filterFunc: (char: Character) => boolean;
+        sortFunc: (char: Character) => string;
+    };
 
-    const noSortFunc = !sortFunc;
+    let {
+        characterLimit = 0,
+        isHome = false,
+        showEmpty = true,
+        showWarbank = false,
+        skipGrouping = false,
+        skipIgnored = false,
+        filterFunc = () => true,
+        sortFunc,
+    }: Partial<Props> = $props();
 
-    let characters: Character[];
-    let groups: Character[][];
-    let groupByContext: GroupByContext;
+    sortFunc ||= $getCharacterSortFunc(undefined, settingsState.activeView.sortBy);
 
-    $: {
-        if (!filterFunc) {
-            filterFunc = () => true;
-        }
+    let groupByContext = $derived.by(() =>
+        getCharacterGroupContext(
+            settingsState.value,
+            settingsState.activeView.groupBy,
+            settingsState.activeView.sortBy,
+        ),
+    );
 
-        if (noSortFunc) {
-            sortFunc = $getCharacterSortFunc(undefined, $activeView.sortBy);
-        }
-
-        groupByContext = getCharacterGroupContext(
-            $settingsStore,
-            $activeView.groupBy,
-            $activeView.sortBy,
-        );
-    }
-
-    $: {
-        characters = $userStore.characters.filter(
+    let [characters, groups] = $derived.by(() => {
+        let characters = $userStore.characters.filter(
             (c) =>
-                $settingsStore.characters.hiddenCharacters.indexOf(c.id) === -1 &&
+                settingsState.value.characters.hiddenCharacters.indexOf(c.id) === -1 &&
                 (!skipIgnored ||
-                    $settingsStore.characters.ignoredCharacters.indexOf(c.id) === -1) &&
-                ($settingsStore.characters.hideDisabledAccounts === false ||
-                    $userStore.accounts?.[c.accountId]?.enabled !== false),
+                    settingsState.value.characters.ignoredCharacters.indexOf(c.id) === -1) &&
+                (settingsState.value.characters.hideDisabledAccounts === false ||
+                    settingsState.value.accounts?.[c.accountId]?.enabled !== false),
         );
 
         characters = characters.filter((char) =>
             useCharacterFilter(
                 $lazyStore,
-                $settingsStore,
+                settingsState.value,
                 $userQuestStore,
                 filterFunc,
                 char,
                 $newNavState.characterFilter ||
-                    ($location === '/' ? $activeView.characterFilter : ''),
+                    ($location === '/' ? settingsState.activeView.characterFilter : ''),
             ),
         );
 
@@ -90,12 +88,12 @@
         const pairs: [string, Character[]][] = [];
         for (let keyIndex = 0; keyIndex < groupKeys.length; keyIndex++) {
             const key = groupKeys[keyIndex];
-            const sortKey = `${$activeView.id}|${keyIndex}`;
+            const sortKey = `${settingsState.activeView.id}|${keyIndex}`;
             const keySort =
                 isHome && $homeState.groupSort[sortKey]
                     ? $getCharacterSortFunc((char) =>
                           homeSort(
-                              $activeView,
+                              settingsState.activeView,
                               $lazyStore,
                               $timeStore,
                               $homeState.groupSort[sortKey],
@@ -107,11 +105,13 @@
         }
 
         pairs.sort();
-        groups = pairs.map(([, group]) => group);
+        let groups = pairs.map(([, group]) => group);
         if (groups.length === 1 && groups[0].length === 0) {
             groups = [];
         }
-    }
+
+        return [characters, groups];
+    });
 
     const paddingMap: Record<string, number> = {
         small: 1,
@@ -136,7 +136,7 @@
 
         <table
             class="table table-striped character-table"
-            style="--padding: {paddingMap[$settingsStore.layout.padding] || 1};"
+            style="--padding: {paddingMap[settingsState.value.layout.padding] || 1};"
         >
             <slot name="head" />
             <tbody>

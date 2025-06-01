@@ -71,7 +71,7 @@ export function getInstanceFarm(
                     (char) =>
                         char.level > 10 &&
                         (!settings.characters.hideDisabledAccounts ||
-                            char.account?.enabled !== false),
+                            settings.accounts[char.accountId]?.enabled !== false),
                 );
 
                 for (const character of characters) {

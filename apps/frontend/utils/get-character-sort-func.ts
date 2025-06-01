@@ -4,9 +4,8 @@ import { getCharacterLevel } from './get-character-level';
 import { Constants } from '@/data/constants';
 import { PlayableClass } from '@/enums/playable-class';
 import { Region } from '@/enums/region';
-import { settingsStore } from '@/shared/stores/settings';
+import { settingsState } from '@/shared/state/settings.svelte';
 import { staticStore } from '@/shared/stores/static';
-import { userStore } from '@/stores';
 import { leftPad } from '@/utils/formatting';
 import type { Character } from '@/types';
 
@@ -15,10 +14,10 @@ type SortValueFunction = (char: Character) => string;
 export const getCharacterSortFunc: Readable<
     (prefixFunc?: SortValueFunction, viewSortBy?: string[]) => SortValueFunction
 > = derived(
-    [settingsStore, staticStore, userStore],
-    ([$settingsStore, $staticStore, $userStore]) =>
+    [staticStore],
+    ([$staticStore]) =>
         (prefixFunc?: SortValueFunction, viewSortBy?: string[]): SortValueFunction => {
-            const sortBy = viewSortBy || $settingsStore.views[0].sortBy || ['level', 'name'];
+            const sortBy = viewSortBy || settingsState.value.views[0].sortBy || ['level', 'name'];
 
             return (char: Character) => {
                 const out: string[] = [];
@@ -27,13 +26,14 @@ export const getCharacterSortFunc: Readable<
                     out.push(prefixFunc(char));
                 }
 
-                const index = $settingsStore.characters.pinnedCharacters?.indexOf(char.id) ?? -1;
+                const index =
+                    settingsState.value.characters.pinnedCharacters?.indexOf(char.id) ?? -1;
                 out.push(leftPad(index >= 0 ? index : 999, 3, '0'));
 
                 for (const thing of sortBy) {
                     if (thing === 'account') {
                         out.push(
-                            $userStore.accounts?.[char.accountId]?.tag ??
+                            settingsState.value.accounts?.[char.accountId]?.tag ??
                                 `account${char.accountId}`,
                         );
                     } else if (thing === 'armor' || thing === '-armor') {
@@ -71,7 +71,8 @@ export const getCharacterSortFunc: Readable<
                     } else if (thing === 'class') {
                         out.push($staticStore.characterClasses[char.classId].name);
                     } else if (thing === 'enabled') {
-                        const enabled = $userStore.accounts?.[char.accountId]?.enabled ?? true;
+                        const enabled =
+                            settingsState.value.accounts?.[char.accountId]?.enabled ?? true;
                         out.push(enabled ? 'a' : 'z');
                     } else if (thing === 'faction') {
                         out.push(char.faction.toString());
@@ -118,7 +119,9 @@ export const getCharacterSortFunc: Readable<
                     } else if (thing.startsWith('tag:')) {
                         const tagId = parseInt(thing.substring(4));
                         const hasFlag =
-                            (($settingsStore.characters.flags?.[char.id] || 0) & (1 << tagId)) > 0;
+                            ((settingsState.value.characters.flags?.[char.id] || 0) &
+                                (1 << tagId)) >
+                            0;
                         out.push(hasFlag ? '0' : '1');
                     }
                 }

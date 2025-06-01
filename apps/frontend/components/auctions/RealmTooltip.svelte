@@ -1,16 +1,17 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { userStore } from '@/stores';
     import type { StaticDataConnectedRealm } from '@/shared/stores/static/types';
 
     export let ageInMinutes: number = -1;
     export let connectedRealm: StaticDataConnectedRealm;
-    export let price: number = -1
+    export let price: number = -1;
 
     $: characters = sortBy(
         $userStore.charactersByConnectedRealm[connectedRealm.id] || [],
-        (char) => -char.gold
+        (char) => -char.gold,
     );
     $: goldPrice = price / 10000;
 </script>
@@ -51,10 +52,11 @@
 
 <div class="wowthing-tooltip">
     <h4>
-        {#each connectedRealm.realmNames as realmName, nameIndex}
+        {#each connectedRealm.realmNames as realmName, nameIndex (realmName)}
             <span class="realm">
-                {realmName}{#if nameIndex < (connectedRealm.realmNames.length - 1)
-                    }<span class="realm-separator">/</span>{/if}
+                {realmName}{#if nameIndex < connectedRealm.realmNames.length - 1}<span
+                        class="realm-separator">/</span
+                    >{/if}
             </span>
         {/each}
     </h4>
@@ -66,11 +68,11 @@
 
     <table class="table-striped">
         <tbody>
-            {#each characters.slice(0, 3) as character}
+            {#each characters.slice(0, 3) as character (character.id)}
                 <tr>
-                    {#if userStore.useAccountTags}
+                    {#if settingsState.useAccountTags}
                         <td class="tag">
-                            {character.account.tag}
+                            {settingsState.value.accounts?.[character.accountId]?.tag}
                         </td>
                     {/if}
                     <td class="name">
@@ -105,4 +107,3 @@
         </div>
     {/if}
 </div>
-

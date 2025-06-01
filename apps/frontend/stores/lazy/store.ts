@@ -33,7 +33,7 @@ import {
 import { achievementStore } from '../achievements';
 import { itemStore } from '../item';
 import { journalStore } from '../journal';
-import { settingsStore } from '@/shared/stores/settings';
+import { settingsState } from '@/shared/state/settings.svelte';
 import { staticStore } from '@/shared/stores/static';
 import { timeStore } from '@/shared/stores/time';
 import { userStore } from '../user';
@@ -41,7 +41,7 @@ import { userAchievementStore } from '../user-achievements';
 import { userQuestStore } from '../user-quests';
 
 import { UserCount } from '@/types';
-import { hashObject } from '@/utils/hash-object';
+import { hashObject } from '@/utils/hash-object.svelte';
 
 import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
@@ -76,7 +76,6 @@ type UserCounts = Record<string, UserCount>;
 
 export const lazyStore = derived(
     [
-        settingsStore,
         timeStore,
         achievementState,
         appearanceState,
@@ -91,7 +90,6 @@ export const lazyStore = derived(
     ],
     debounce(
         ([
-            $settingsStore,
             $timeStore,
             $achievementState,
             $appearanceState,
@@ -104,7 +102,6 @@ export const lazyStore = derived(
             $userQuestStore,
             $activeHolidays,
         ]: [
-            Settings,
             DateTime,
             AchievementsState,
             AppearancesState,
@@ -118,7 +115,7 @@ export const lazyStore = derived(
             ActiveHolidays,
         ]) => {
             storeInstance.update(
-                $settingsStore,
+                settingsState.value,
                 $timeStore,
                 $achievementState,
                 $appearanceState,

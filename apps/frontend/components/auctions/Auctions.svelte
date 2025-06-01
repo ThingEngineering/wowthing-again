@@ -1,22 +1,26 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte'
-    import { replace } from 'svelte-spa-router'
+    import { afterUpdate, onMount } from 'svelte';
+    import { replace } from 'svelte-spa-router';
 
-    import { userStore } from '@/stores'
-    import getSavedRoute from '@/utils/get-saved-route'
-    import type { MultiSlugParams } from '@/types'
+    import { sharedState } from '@/shared/state/shared.svelte';
+    import getSavedRoute from '@/utils/get-saved-route';
+    import type { MultiSlugParams } from '@/types';
 
-    import Sidebar from './AuctionsSidebar.svelte'
-    import View from './AuctionsView.svelte'
+    import Sidebar from './AuctionsSidebar.svelte';
+    import View from './AuctionsView.svelte';
 
-    export let params: MultiSlugParams
+    export let params: MultiSlugParams;
 
-    afterUpdate(() => getSavedRoute('auctions', params.slug1))
+    afterUpdate(() => getSavedRoute('auctions', params.slug1));
 
-    $: if ($userStore.public) { replace('/') }
+    onMount(() => {
+        if (sharedState.public) {
+            replace('/');
+        }
+    });
 </script>
 
-{#if !$userStore.public}
+{#if !sharedState.public}
     <Sidebar />
     {#if params.slug1}
         <View {params} />

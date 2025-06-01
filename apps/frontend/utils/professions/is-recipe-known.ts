@@ -1,9 +1,4 @@
-import { derived } from 'svelte/store';
-
 import { Faction } from '@/enums/faction';
-import { settingsStore } from '@/shared/stores/settings';
-import { staticStore } from '@/shared/stores/static';
-import { itemStore, userStore } from '@/stores';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData, StaticDataProfessionAbilityInfo } from '@/shared/stores/static/types';
 import type { UserData } from '@/types';
@@ -81,18 +76,3 @@ export function isRecipeKnown(stores: IsRecipeKnownStores, options: IsRecipeKnow
 
     return false;
 }
-
-export const isRecipeKnownDerived = derived(
-    [settingsStore, itemStore, staticStore, userStore],
-    ([$settingsStore, $itemStore, $staticStore, $userStore]) =>
-        (options: IsRecipeKnownOptions) =>
-            isRecipeKnown(
-                {
-                    settings: $settingsStore,
-                    itemData: $itemStore,
-                    staticData: $staticStore,
-                    userData: $userStore,
-                },
-                options,
-            ),
-);

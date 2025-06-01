@@ -19,7 +19,7 @@ import { DbResetType, DbThingContentType, DbThingType } from '../enums';
 import { DbDataThingLocation } from './thing-location';
 import { DbDataThingContent, type DbDataThingContentArray } from './thing-content';
 import { DbDataThingGroup, type DbDataThingGroupArray } from './thing-group';
-import { wowthingData } from '../../data/store';
+import { wowthingData } from '../../data/store.svelte';
 import { itemStore } from '@/stores';
 
 export class DbDataThing {

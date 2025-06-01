@@ -2,7 +2,7 @@
     import sortBy from 'lodash/sortBy';
     import MultiSelect from 'svelte-multiselect';
 
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { userStore } from '@/stores';
     import { getGenderedName } from '@/utils/get-gendered-name';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
@@ -36,7 +36,7 @@
     );
 
     function maybeOption(id: number) {
-        return ($settingsStore.professions.collectingCharactersV2[id] || [])
+        return (settingsState.value.professions.collectingCharactersV2[id] || [])
             .map((characterId) => optionMap[characterId])
             .filter((id) => !!id);
     }
@@ -102,8 +102,9 @@
                                 if (event?.type === 'removeAll') {
                                     selected[profession.id] = [];
                                 }
-                                $settingsStore.professions.collectingCharactersV2[profession.id] =
-                                    selected[profession.id].map((option) => option.id);
+                                settingsState.value.professions.collectingCharactersV2[
+                                    profession.id
+                                ] = selected[profession.id].map((option) => option.id);
                             }}
                         />
                     </td>

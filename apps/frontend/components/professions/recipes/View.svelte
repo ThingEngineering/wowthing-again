@@ -5,7 +5,7 @@
     import { Faction } from '@/enums/faction';
     import { SkillSourceType } from '@/enums/skill-source-type';
     import { iconLibrary } from '@/shared/icons';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { staticStore } from '@/shared/stores/static';
     import { itemStore, lazyStore, userQuestStore, userStore } from '@/stores';
     import { newNavState, professionsRecipesState } from '@/stores/local-storage';
@@ -42,7 +42,7 @@
 
         characters = [];
         const collectorIds =
-            $settingsStore.professions.collectingCharactersV2?.[profession.id] || [];
+            settingsState.value.professions.collectingCharactersV2?.[profession.id] || [];
         if (collectorIds.length > 0) {
             characters.push(null);
             characters.push(
@@ -53,7 +53,7 @@
         const professionCharacters = $userStore.characters.filter((char) =>
             useCharacterFilter(
                 $lazyStore,
-                $settingsStore,
+                settingsState.value,
                 $userQuestStore,
                 (c) =>
                     !collectorIds.includes(c.id) &&

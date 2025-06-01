@@ -9,7 +9,7 @@
     import { ItemBonusType } from '@/enums/item-bonus-type';
     import { Region } from '@/enums/region';
     import { iconLibrary } from '@/shared/icons';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { staticStore } from '@/shared/stores/static';
     import { timeStore } from '@/shared/stores/time';
     import { basicTooltip, componentTooltip } from '@/shared/utils/tooltips';
@@ -250,7 +250,7 @@
 
 <UnderConstruction />
 
-{#await slug1 === 'missing-recipes' ? userAuctionMissingRecipeStore.search($settingsStore, $auctionState, $itemStore, $staticStore, $userStore) : userAuctionMissingTransmogStore.search($settingsStore, $auctionState, $itemStore, $staticStore, $userStore, slug1.replace('missing-appearance-', ''))}
+{#await slug1 === 'missing-recipes' ? userAuctionMissingRecipeStore.search(settingsState.value, $auctionState, $itemStore, $staticStore, $userStore) : userAuctionMissingTransmogStore.search(settingsState.value, $auctionState, $itemStore, $staticStore, $userStore, slug1.replace('missing-appearance-', ''))}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then [things, updated]}
     {#if things.length > 0}
@@ -284,7 +284,7 @@
                                 {@const profession =
                                     $staticStore.professionBySkillLine[skillLineId]?.[0]}
                                 {@const characterIds =
-                                    $settingsStore.professions.collectingCharactersV2?.[
+                                    settingsState.value.professions.collectingCharactersV2?.[
                                         profession?.id || 0
                                     ]}
                                 {#if characterIds?.length > 0}

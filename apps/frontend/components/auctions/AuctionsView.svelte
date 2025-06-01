@@ -8,7 +8,7 @@
     import { Region } from '@/enums/region';
     import { WeaponSubclass } from '@/enums/weapon-subclass';
     import { browserStore } from '@/shared/stores/browser';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { userStore } from '@/stores';
     import { auctionState } from '@/stores/local-storage/auctions';
     import type { MultiSlugParams } from '@/types';
@@ -43,7 +43,7 @@
         }
     }
 
-    const expansionOptions: [number, string][] = settingsStore.expansions.map((expansion) => [
+    const expansionOptions: [number, string][] = settingsState.expansions.map((expansion) => [
         expansion.id,
         expansion.name,
     ]);
@@ -99,7 +99,7 @@
     $: {
         characterOptions = sortBy(
             $userStore.activeCharacters.filter(
-                (char) => !$settingsStore.characters.ignoredCharacters.includes(char.id),
+                (char) => !settingsState.value.characters.ignoredCharacters.includes(char.id),
             ),
             (char) => `${char.realm.slug}|${char.name}`,
         ).map((char) => ({

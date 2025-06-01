@@ -1,19 +1,18 @@
 <script lang="ts">
-    import { settingsStore } from '@/shared/stores/settings'
+    import { settingsState } from '@/shared/state/settings.svelte';
 
-    export let id: number
+    export let id: number;
 
-    let url = ''
+    let url = '';
     $: {
-        if ($settingsStore.general.useWowdb) {
-            url = `https://www.wowdb.com/achievements/${id}`
-        }
-        else {
-            url = `https://${settingsStore.wowheadBaseUrl}/achievement=${id}`
+        if (settingsState.value.general.useWowdb) {
+            url = `https://www.wowdb.com/achievements/${id}`;
+        } else {
+            url = `https://${settingsState.wowheadBaseUrl}/achievement=${id}`;
         }
     }
 </script>
 
-<a href="{url}">
+<a href={url}>
     <slot />
 </a>

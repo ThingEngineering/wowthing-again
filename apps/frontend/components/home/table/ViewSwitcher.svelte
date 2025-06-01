@@ -1,18 +1,19 @@
 <script lang="ts">
-    import { link } from 'svelte-spa-router'
+    import { link } from 'svelte-spa-router';
 
-    import { iconLibrary } from '@/shared/icons'
-    import { browserStore } from '@/shared/stores/browser'
-    import { activeView, settingsStore } from '@/shared/stores/settings'
-    import { basicTooltip } from '@/shared/utils/tooltips'
-    import { userStore } from '@/stores'
+    import { iconLibrary } from '@/shared/icons';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import { sharedState } from '@/shared/state/shared.svelte';
+    import { browserStore } from '@/shared/stores/browser';
+    import { basicTooltip } from '@/shared/utils/tooltips';
+    import { userStore } from '@/stores';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
     const setActiveView = (viewId: string) => {
-        $browserStore.home.activeView = viewId
-    }
+        $browserStore.home.activeView = viewId;
+    };
 </script>
 
 <style lang="scss">
@@ -49,30 +50,26 @@
 </style>
 
 <div>
-    {#each $settingsStore.views as view}
+    {#each settingsState.value.views as view (view.id)}
         <button
             class="tab border text-overflow"
-            class:active={$activeView.id === view.id}
+            class:active={settingsState.activeView.id === view.id}
             data-id={view.id}
-            on:click={() => setActiveView(view.id)}
+            onclick={() => setActiveView(view.id)}
             use:basicTooltip={view.name}
         >
-            <ParsedText
-                text={view.name}
-            />
+            <ParsedText text={view.name} />
         </button>
     {/each}
 
-    {#if !$userStore.public}
+    {#if !sharedState.public}
         <a
             class="tab"
-            href="/settings/views/{$activeView.id}"
+            href="/settings/views/{settingsState.activeView.id}"
             use:basicTooltip={'Settings'}
             use:link
         >
-            <IconifyIcon
-                icon={iconLibrary.mdiCogOutline}
-            />
+            <IconifyIcon icon={iconLibrary.mdiCogOutline} />
         </a>
 
         <span class="account-gold">

@@ -6,6 +6,7 @@
 
     import Row from './ItemsSearchItemRow.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { settingsState } from '@/shared/state/settings.svelte';
 
     export let response: ItemSearchResponseItem[];
 
@@ -41,7 +42,7 @@
                 <tr class="item-row">
                     <th
                         class="item quality{$itemStore.items[item.itemId].quality} text-overflow"
-                        colspan={userStore.useAccountTags ? 4 : 3}
+                        colspan={settingsState.useAccountTags ? 4 : 3}
                     >
                         <WowthingImage name="item/{item.itemId}" size={20} border={1} />
                         {item.itemName}

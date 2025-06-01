@@ -2,7 +2,7 @@
     import find from 'lodash/find';
 
     import { wowthingData } from '@/shared/stores/data';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import getSkipClasses from '@/utils/get-skip-classes';
     import type { ManualDataTransmogCategory } from '@/types/data/manual';
 
@@ -23,7 +23,7 @@
         slugs = slug2 ? [slug1, slug2] : [slug1];
 
         anyClasses = false;
-        skipClasses = getSkipClasses($settingsStore, categories?.[0]);
+        skipClasses = getSkipClasses(settingsState.value, categories?.[0]);
         for (let i = 0; i < categories.length; i++) {
             const category = categories[i];
             if (!category.groups.some((group) => group.type === 'class')) {
@@ -32,7 +32,7 @@
 
             anyClasses = true;
 
-            const catSkipClasses = getSkipClasses($settingsStore, category);
+            const catSkipClasses = getSkipClasses(settingsState.value, category);
             for (const [key, value] of Object.entries(catSkipClasses)) {
                 if (value === false) {
                     skipClasses[key] = false;

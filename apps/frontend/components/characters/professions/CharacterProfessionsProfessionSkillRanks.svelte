@@ -1,14 +1,14 @@
 <script lang="ts">
-    import { uiIcons } from '@/shared/icons'
-    import type { StaticDataProfessionAbility } from '@/shared/stores/static/types'
+    import { uiIcons } from '@/shared/icons';
+    import type { StaticDataProfessionAbility } from '@/shared/stores/static/types';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
 
-    export let ability: StaticDataProfessionAbility
-    export let currentRank: number
-    export let totalRanks: number
-    export let userHas: boolean
+    export let ability: StaticDataProfessionAbility;
+    export let currentRank: number;
+    export let totalRanks: number;
+    export let userHas: boolean;
 </script>
 
 <style lang="scss">
@@ -31,13 +31,13 @@
         class:status-shrug={userHas && currentRank < totalRanks}
         class:status-fail={!userHas}
     >
-        {#each Array(3) as _, index}
+        {#each { length: 3 }, index}
             <WowheadLink
-                id={index === 0 ? ability.spellId : ability.extraRanks[index - 1][1]}
+                id={index === 0 ? ability.spellId : ability.extraRanks[index][1]}
                 type="spell"
             >
                 <IconifyIcon
-                    icon={(index < currentRank && userHas) ? uiIcons.starFull : uiIcons.starEmpty}
+                    icon={index < currentRank && userHas ? uiIcons.starFull : uiIcons.starEmpty}
                 />
             </WowheadLink>
         {/each}

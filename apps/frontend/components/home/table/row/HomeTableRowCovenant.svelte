@@ -1,20 +1,20 @@
 <script lang="ts">
-    import { Constants } from '@/data/constants'
-    import { covenantMap, covenantOrder } from '@/data/covenant'
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import { settingsStore } from '@/shared/stores/settings'
-    import type { Character, CharacterShadowlandsCovenant, Covenant } from '@/types'
+    import { Constants } from '@/data/constants';
+    import { covenantMap, covenantOrder } from '@/data/covenant';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import type { Character, CharacterShadowlandsCovenant, Covenant } from '@/types';
 
-    import Tooltip from '@/components/tooltips/covenant/TooltipCovenant.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import Tooltip from '@/components/tooltips/covenant/TooltipCovenant.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character = undefined
+    export let character: Character = undefined;
 
-    let characterCovenants: Record<number, CharacterShadowlandsCovenant>
-    let covenant: Covenant
+    let characterCovenants: Record<number, CharacterShadowlandsCovenant>;
+    let covenant: Covenant;
     $: {
-        characterCovenants = character?.shadowlands?.covenants || {}
-        covenant = covenantMap[character?.shadowlands?.covenantId]
+        characterCovenants = character?.shadowlands?.covenants || {};
+        covenant = covenantMap[character?.shadowlands?.covenantId];
     }
 </script>
 
@@ -32,7 +32,8 @@
                 gap: calc(0.4rem - 4px);
                 justify-content: center;
 
-                a, span {
+                a,
+                span {
                     display: inline-block;
                     text-align: center;
                     width: 26px;
@@ -56,28 +57,31 @@
 </style>
 
 <td
-    class="{$settingsStore.layout.covenantColumn}"
+    class={settingsState.value.layout.covenantColumn}
     use:componentTooltip={{
         component: Tooltip,
         props: { character },
     }}
 >
     <div class="flex-wrapper">
-        {#if $settingsStore.layout.covenantColumn === 'current'}
+        {#if settingsState.value.layout.covenantColumn === 'current'}
             {#if covenant !== undefined}
                 <WowthingImage name={covenant.icon} size={20} border={1} />
                 <span
                     class:status-success={character.shadowlands.renownLevel >= Constants.maxRenown}
-                >{character.shadowlands.renownLevel}</span>
+                    >{character.shadowlands.renownLevel}</span
+                >
             {/if}
         {:else}
             {#each covenantOrder as covenantId}
                 {#if characterCovenants[covenantId]}
                     <a
-                        href="#/characters/{character.realm.slug}/{character.name}/shadowlands/{covenantMap[covenantId].slug}"
+                        href="#/characters/{character.realm
+                            .slug}/{character.name}/shadowlands/{covenantMap[covenantId].slug}"
                         class:active={covenantId === character.shadowlands?.covenantId}
-                        class:status-success={characterCovenants[covenantId].renown === Constants.maxRenown}
-                    >{characterCovenants[covenantId].renown}</a>
+                        class:status-success={characterCovenants[covenantId].renown ===
+                            Constants.maxRenown}>{characterCovenants[covenantId].renown}</a
+                    >
                 {:else}
                     <span class="status-fail">---</span>
                 {/if}

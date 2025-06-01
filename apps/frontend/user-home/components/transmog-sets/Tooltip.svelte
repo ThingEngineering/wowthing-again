@@ -1,7 +1,7 @@
 <script lang="ts">
     import { typeOrder } from '@/data/inventory-type';
     import { weaponSubclassOrder, weaponSubclassToString } from '@/data/weapons';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { staticStore } from '@/shared/stores/static';
     import getPercentClass from '@/utils/get-percent-class';
     import type { TransmogSlotData } from '@/stores/lazy/transmog';
@@ -22,7 +22,7 @@
     let setName: string;
     let shiftPressed: boolean;
 
-    $: completionist = $settingsStore.transmog.completionistMode;
+    $: completionist = settingsState.value.transmog.completionistMode;
 
     $: {
         setName = set.transmogSetId ? $staticStore.transmogSets[set.transmogSetId].name : set.name;
@@ -101,7 +101,7 @@
                     <tr>
                         <td class="have">
                             <YesNoIcon
-                                state={$settingsStore.transmog.completionistMode
+                                state={settingsState.value.transmog.completionistMode
                                     ? have >= actualSlotItems.length
                                     : slotCollected}
                                 useStatusColors={true}
@@ -129,7 +129,7 @@
                                     dedupe={false}
                                     items={actualSlotItems.filter(([hasAppearance, hasSource]) =>
                                         have < actualSlotItems.length
-                                            ? $settingsStore.transmog.completionistMode
+                                            ? settingsState.value.transmog.completionistMode
                                                 ? !hasSource
                                                 : !hasAppearance
                                             : true,

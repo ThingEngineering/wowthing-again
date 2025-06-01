@@ -1,7 +1,7 @@
 <script lang="ts">
     import { taskMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
-    import { activeView } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { lazyStore } from '@/stores';
     import type { Character } from '@/types';
@@ -12,7 +12,8 @@
     export let quest: string;
     export let title: string;
 
-    $: charTask = $lazyStore.characters[character.id].tasks[`${$activeView.id}|${quest}`];
+    $: charTask =
+        $lazyStore.characters[character.id].tasks[`${settingsState.activeView.id}|${quest}`];
 
     let status: string;
     $: {

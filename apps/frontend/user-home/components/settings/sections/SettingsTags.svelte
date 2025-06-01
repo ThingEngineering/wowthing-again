@@ -1,54 +1,58 @@
 <script lang="ts">
-    import { writable } from 'svelte/store'
+    import { writable } from 'svelte/store';
 
     import { uiIcons } from '@/shared/icons';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
     import type { SettingsTag } from '@/shared/stores/settings/types/tag';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
 
-    $: currentIds = ($settingsStore.tags || []).map((tag) => tag.id)
+    $: currentIds = (settingsState.value.tags || []).map((tag) => tag.id);
 
-    const deleting = writable<number>(null)
+    const deleting = writable<number>(null);
 
     const newTag = () => {
         let newId = 0;
         for (let i = 30; i > 20; i--) {
             if (!currentIds.includes(i)) {
-                newId = i
-                break
+                newId = i;
+                break;
             }
         }
 
-        if (newId === 0) { return }
+        if (newId === 0) {
+            return;
+        }
 
         const tag: SettingsTag = {
             id: newId,
             name: 'new-tag',
-        }
+        };
 
-        const newTags = ($settingsStore.tags || []).slice()
-        newTags.push(tag)
-        $settingsStore.tags = newTags
-    }
+        const newTags = (settingsState.value.tags || []).slice();
+        newTags.push(tag);
+        settingsState.value.tags = newTags;
+    };
 
     const deleteConfirmClick = (tagId: number) => {
-        $deleting = null
+        $deleting = null;
 
         // Remove the tag from any characters that have it
-        const mask = 1 << tagId
-        for (const [characterId, flags] of getNumberKeyedEntries($settingsStore.characters.flags || {})) {
+        const mask = 1 << tagId;
+        for (const [characterId, flags] of getNumberKeyedEntries(
+            settingsState.value.characters.flags || {},
+        )) {
             if ((flags & mask) === mask) {
-                $settingsStore.characters.flags[characterId] = flags ^ mask
+                settingsState.value.characters.flags[characterId] = flags ^ mask;
             }
         }
 
         // Remove the tag
-        $settingsStore.tags = $settingsStore.tags.filter((tag) => tag.id !== tagId)
-    }
+        settingsState.value.tags = settingsState.value.tags.filter((tag) => tag.id !== tagId);
+    };
 </script>
 
 <style lang="scss">
@@ -97,24 +101,18 @@
 
     <table class="table table-striped">
         <tbody>
-            {#each $settingsStore.tags as tag}
+            {#each settingsState.value.tags as tag}
                 <tr>
                     <td class="name">
-                        <TextInput
-                            maxlength={16}
-                            name="tag-{tag.id}"
-                            bind:value={tag.name}
-                        />
+                        <TextInput maxlength={16} name="tag-{tag.id}" bind:value={tag.name} />
                     </td>
-                    <td
-                        class="icon"
-                        class:border-right={$deleting === tag.id}
-                    >
+                    <td class="icon" class:border-right={$deleting === tag.id}>
                         <IconifyIcon
                             extraClass="status-fail"
                             icon={uiIcons.no}
                             tooltip="Delete"
-                            on:click={() => deleting.update((current) => current === tag.id ? null : tag.id)}
+                            on:click={() =>
+                                deleting.update((current) => (current === tag.id ? null : tag.id))}
                         />
                     </td>
                     {#if $deleting === tag.id}
@@ -138,11 +136,6 @@
     </table>
 
     {#if currentIds.length < 10}
-        <button
-            class="group-entry"
-            on:click={newTag}
-        >
-            New Tag
-        </button>
+        <button class="group-entry" on:click={newTag}> New Tag </button>
     {/if}
 </div>

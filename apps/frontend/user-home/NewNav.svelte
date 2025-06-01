@@ -1,22 +1,20 @@
 <script lang="ts">
-    import active from 'svelte-spa-router/active'
+    import active from 'svelte-spa-router/active';
 
-    import { navItems } from '@/data/nav'
-    import { iconLibrary } from '@/shared/icons'
-    import { settingsStore } from '@/shared/stores/settings'
-    import { basicTooltip } from '@/shared/utils/tooltips'
-    import { lazyStore, userStore } from '@/stores'
-    import getPercentClass from '@/utils/get-percent-class'
+    import { navItems } from '@/data/nav';
+    import { iconLibrary } from '@/shared/icons';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import { basicTooltip } from '@/shared/utils/tooltips';
+    import { lazyStore, userStore } from '@/stores';
+    import getPercentClass from '@/utils/get-percent-class';
 
-    import CharacterFilter from './CharacterFilter.svelte'
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import CharacterFilter from './CharacterFilter.svelte';
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import { sharedState } from '@/shared/state/shared.svelte';
 
-    $: filteredNavItems = navItems
-        .filter((navItem) =>
-            navItem === null ||
-            !navItem.showFunc ||
-            navItem.showFunc($settingsStore)
-        )
+    $: filteredNavItems = navItems.filter(
+        (navItem) => navItem === null || !navItem.showFunc || navItem.showFunc(settingsState.value),
+    );
 </script>
 
 <style lang="scss">
@@ -79,30 +77,24 @@
     }
 </style>
 
-<nav
-    class="subnav"
-    class:subnav-big={$settingsStore.layout.newNavigationIcons}
->
-    {#each filteredNavItems as navItem, navIndex}
+<nav class="subnav" class:subnav-big={settingsState.value.layout.newNavigationIcons}>
+    {#each filteredNavItems as navItem, navIndex (navIndex)}
         {#if navItem !== null}
-            {#if !navItem.privateOnly
-                || (navItem.privateOnly && navItem.text === 'Currencies' && $settingsStore.privacy.publicCurrencies)
-                || ($userStore.loaded && !$userStore.public)
-            }
+            {#if !navItem.privateOnly || (navItem.privateOnly && navItem.text === 'Currencies' && settingsState.value.privacy.publicCurrencies) || ($userStore.loaded && !sharedState.public)}
                 {@const percent = navItem.percentFunc?.($lazyStore)}
-                <a 
-                    class:spacer={navIndex < (filteredNavItems.length) && !filteredNavItems[navIndex+1]?.path}
+                <a
+                    class:spacer={navIndex < filteredNavItems.length &&
+                        !filteredNavItems[navIndex + 1]?.path}
                     class:wip={navItem.text.indexOf('WIP') >= 0}
                     href="#/{navItem.path}"
-                    use:active={navItem.path.endsWith('/') ? `/${navItem.path}*` : `/${navItem.path}`}
+                    use:active={navItem.path.endsWith('/')
+                        ? `/${navItem.path}*`
+                        : `/${navItem.path}`}
                     use:basicTooltip={navItem.text}
                 >
-                    <IconifyIcon
-                        icon={iconLibrary[navItem.icon]}
-                        dropShadow={true}
-                    />
-                    
-                    {#if !$settingsStore.layout.newNavigationIcons}
+                    <IconifyIcon icon={iconLibrary[navItem.icon]} dropShadow={true} />
+
+                    {#if !settingsState.value.layout.newNavigationIcons}
                         {navItem.text}
                     {/if}
 

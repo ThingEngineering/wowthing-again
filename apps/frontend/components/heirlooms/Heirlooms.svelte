@@ -2,7 +2,7 @@
     import { afterUpdate } from 'svelte';
 
     import { lazyStore } from '@/stores';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import type { ManualDataHeirloomGroup } from '@/types/data/manual';
 
@@ -23,7 +23,7 @@
         ];
 
         if (
-            !$settingsStore.collections.hideUnavailable ||
+            !settingsState.value.collections.hideUnavailable ||
             $lazyStore.heirlooms['UNAVAILABLE'].have > 0
         ) {
             sections.push([

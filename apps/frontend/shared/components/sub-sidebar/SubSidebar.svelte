@@ -1,5 +1,5 @@
 <script lang="ts" generics="TItem extends SidebarItem">
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { measureScrollbar } from '@/utils/measure-scrollbar';
     import type { SidebarItem } from './types';
 
@@ -17,7 +17,7 @@
     export let percentFunc: (entry: TItem, parentEntries?: TItem[]) => number = undefined;
 
     $: anyChildren = items.some((item) => (item?.children?.length ?? 0) > 0);
-    $: lessHeight = $settingsStore?.layout?.newNavigation ? '7rem' : '4.4rem';
+    $: lessHeight = settingsState.value?.layout?.newNavigation ? '7rem' : '4.4rem';
 
     const scrollbarWidth = measureScrollbar();
 </script>

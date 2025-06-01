@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { uiIcons } from '@/shared/icons'
-    import { settingsStore } from '@/shared/stores/settings'
+    import { uiIcons } from '@/shared/icons';
+    import { settingsState } from '@/shared/state/settings.svelte';
 
-    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import NameTooltip from './characters/SettingsCharactersNameTooltip.svelte'
-    import RadioGroup from '@/shared/components/forms/RadioGroup.svelte'
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import NameTooltip from './characters/SettingsCharactersNameTooltip.svelte';
+    import RadioGroup from '@/shared/components/forms/RadioGroup.svelte';
 </script>
 
 <style lang="scss">
@@ -32,7 +32,7 @@
 
     <div class="setting setting-checkbox setting-layout">
         <CheckboxInput
-            bind:value={$settingsStore.layout.newNavigation}
+            bind:value={settingsState.value.layout.newNavigation}
             name="layout_newNavigation"
         >
             Use new navigation
@@ -41,9 +41,9 @@
 
     <div class="setting setting-checkbox setting-layout">
         <CheckboxInput
-            bind:value={$settingsStore.layout.newNavigationIcons}
+            bind:value={settingsState.value.layout.newNavigationIcons}
             name="layout_newNavigationIcons"
-            disabled={!$settingsStore.layout.newNavigation}
+            disabled={!settingsState.value.layout.newNavigation}
         >
             Only show icons
         </CheckboxInput>
@@ -53,31 +53,31 @@
 
     <div class="setting-checkboxes" style:--fieldset-width="10rem">
         <CheckboxInput
-            bind:value={$settingsStore.layout.navigationAppearances}
+            bind:value={settingsState.value.layout.navigationAppearances}
             name="layout_navigationAppearances"
         >
             Appearances
         </CheckboxInput>
         <CheckboxInput
-            bind:value={$settingsStore.layout.navigationCustomizations}
+            bind:value={settingsState.value.layout.navigationCustomizations}
             name="layout_navigationCustomizations"
         >
             Customizations
         </CheckboxInput>
         <CheckboxInput
-            bind:value={$settingsStore.layout.navigationMounts}
+            bind:value={settingsState.value.layout.navigationMounts}
             name="layout_navigationMounts"
         >
             Mounts
         </CheckboxInput>
         <CheckboxInput
-            bind:value={$settingsStore.layout.navigationPets}
+            bind:value={settingsState.value.layout.navigationPets}
             name="layout_navigationPets"
         >
             Pets
         </CheckboxInput>
         <CheckboxInput
-            bind:value={$settingsStore.layout.navigationToys}
+            bind:value={settingsState.value.layout.navigationToys}
             name="layout_navigationToys"
         >
             Toys
@@ -90,7 +90,7 @@
 
     <div class="setting setting-layout">
         <RadioGroup
-            bind:value={$settingsStore.layout.padding}
+            bind:value={settingsState.value.layout.padding}
             name="layout_padding"
             options={[
                 ['small', 'Small'],
@@ -107,7 +107,7 @@
 
     <div class="setting setting-checkbox setting-layout">
         <CheckboxInput
-            bind:value={$settingsStore.layout.showEmptyLockouts}
+            bind:value={settingsState.value.layout.showEmptyLockouts}
             name="layout_showEmptyLockouts"
         >
             Show a <span class="status-fail"><IconifyIcon icon={uiIcons.starHalf} /></span>
@@ -121,7 +121,7 @@
 
     <div class="setting setting-layout">
         <RadioGroup
-            bind:value={$settingsStore.layout.covenantColumn}
+            bind:value={settingsState.value.layout.covenantColumn}
             name="layout_covenantColumn"
             options={[
                 ['current', 'Current only'],
@@ -137,7 +137,7 @@
 
     <div class="setting setting-checkbox setting-layout">
         <CheckboxInput
-            bind:value={$settingsStore.layout.useClassColors}
+            bind:value={settingsState.value.layout.useClassColors}
             name="layout_useClassColors"
         >
             Use class colors instead of faction colors for character names.
@@ -146,7 +146,7 @@
 
     <div class="setting setting-checkbox setting-layout">
         <CheckboxInput
-            bind:value={$settingsStore.layout.showPartialLevel}
+            bind:value={settingsState.value.layout.showPartialLevel}
             name="layout_showPartialLevel"
         >
             Show partial levels in Character Level column.
@@ -155,7 +155,7 @@
 
     <div class="setting setting-checkbox setting-layout">
         <CheckboxInput
-            bind:value={$settingsStore.layout.includeArchaeology}
+            bind:value={settingsState.value.layout.includeArchaeology}
             name="layout_includeArchaeology"
         >
             Include Archaeology in Professions - Sec column.

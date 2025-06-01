@@ -10,7 +10,7 @@
     export let character: Character;
 </script>
 
-{#each $activeViewTasks as fullTaskName}
+{#each $activeViewTasks as fullTaskName (fullTaskName)}
     {@const [taskName, choreName] = fullTaskName.split('|', 2)}
     {#if taskMap[taskName]?.type === 'multi'}
         <RowTaskChores {character} {taskName} {choreName} />

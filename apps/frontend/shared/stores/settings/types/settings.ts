@@ -1,3 +1,4 @@
+import type { SettingsAccount } from './account';
 import type { SettingsAuctionCategory } from './auction-category';
 import type { SettingsCustomGroup } from './custom-group';
 import type { SettingsTag } from './tag';
@@ -6,6 +7,7 @@ import type { CharacterFlag } from '@/enums/character-flag';
 import type { Language } from '@/enums/language';
 
 export interface Settings {
+    accounts: Record<number, SettingsAccount>;
     activeView: string;
     customGroups: SettingsCustomGroup[];
     tags: SettingsTag[];

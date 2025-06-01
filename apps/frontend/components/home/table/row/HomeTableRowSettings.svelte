@@ -2,7 +2,7 @@
     import { CharacterFlag } from '@/enums/character-flag';
     import { iconLibrary } from '@/shared/icons';
     import { characterSettingsStore } from '@/stores/character-settings';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import type { Character } from '@/types/character';
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
@@ -11,7 +11,9 @@
     export let character: Character;
 
     let ignoreWorkOrders: boolean =
-        (($settingsStore.characters.flags[character.id] || 0) & CharacterFlag.IgnoreWorkOrders) > 0;
+        ((settingsState.value.characters.flags[character.id] || 0) &
+            CharacterFlag.IgnoreWorkOrders) >
+        0;
 
     const onClick = () => {
         if ($characterSettingsStore === character.id) {
@@ -22,17 +24,18 @@
     };
 
     const ignoreWorkOrdersChanged = () => {
-        ($settingsStore.characters.flags ||= {})[character.id] ^= CharacterFlag.IgnoreWorkOrders;
+        (settingsState.value.characters.flags ||= {})[character.id] ^=
+            CharacterFlag.IgnoreWorkOrders;
     };
 
     const toggleTag = (mask: number) => {
-        let flags = ($settingsStore.characters.flags ||= {})[character.id] || 0;
+        let flags = (settingsState.value.characters.flags ||= {})[character.id] || 0;
         if ((flags & mask) === mask) {
             flags = flags ^ mask;
         } else {
             flags = flags | mask;
         }
-        $settingsStore.characters.flags[character.id] = flags;
+        settingsState.value.characters.flags[character.id] = flags;
     };
 </script>
 
@@ -79,11 +82,12 @@
                     bind:value={ignoreWorkOrders}
                     on:change={ignoreWorkOrdersChanged}>Ignore work orders</CheckboxInput
                 >
-                {#each $settingsStore.tags || [] as tag}
+                {#each settingsState.value.tags || [] as tag}
                     {@const mask = 1 << tag.id}
                     <CheckboxInput
                         name="tag-{character.id}-{tag.id}"
-                        value={(($settingsStore.characters.flags?.[character.id] || 0) & mask) ===
+                        value={((settingsState.value.characters.flags?.[character.id] || 0) &
+                            mask) ===
                             mask}
                         on:change={() => toggleTag(mask)}>Tag: {tag.name}</CheckboxInput
                     >

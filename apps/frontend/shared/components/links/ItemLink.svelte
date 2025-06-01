@@ -1,26 +1,25 @@
 <script lang="ts">
-    import { settingsStore } from '@/shared/stores/settings'
+    import { settingsState } from '@/shared/state/settings.svelte';
 
-    export let id: number
-    export let bonusIds: number[] = []
+    export let id: number;
+    export let bonusIds: number[] = [];
 
-    let url = ''
-    const params: Map<string, string> = new Map<string, string>()
+    let url = '';
+    const params: Map<string, string> = new Map<string, string>();
     $: {
-        if ($settingsStore.general.useWowdb) {
-            url = `https://www.wowdb.com/items/${id}`
+        if (settingsState.value.general.useWowdb) {
+            url = `https://www.wowdb.com/items/${id}`;
             if (bonusIds.length > 0) {
-                params.set('bonusIDs', bonusIds.join(','))
+                params.set('bonusIDs', bonusIds.join(','));
             }
-        }
-        else {
-            url = `https://${settingsStore.wowheadBaseUrl}/item=${id}`
+        } else {
+            url = `https://${settingsState.wowheadBaseUrl}/item=${id}`;
         }
 
         // attach params
     }
 </script>
 
-<a href="{url}">
+<a href={url}>
     <slot />
 </a>

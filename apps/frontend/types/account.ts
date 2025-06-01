@@ -1,7 +1,5 @@
 export interface Account {
-    id: number
-    accountId: number
-    enabled: boolean
-    region: number
-    tag: string
+    id: number;
+    accountId: number;
+    region: number;
 }

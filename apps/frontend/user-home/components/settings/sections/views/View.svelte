@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from 'svelte';
 
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
     import Currencies from './Currencies.svelte';
@@ -17,7 +17,7 @@
     let { params }: { params: { viewId: string } } = $props();
 
     let view = $derived.by(() =>
-        ($settingsStore.views || []).find((view) => view.id === params.viewId),
+        (settingsState.value.views || []).find((view) => view.id === params.viewId),
     );
 
     const onHomeFieldsUpdated = (e: Event) => {

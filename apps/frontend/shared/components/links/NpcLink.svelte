@@ -1,28 +1,25 @@
 <script lang="ts">
-    import { settingsStore } from '@/shared/stores/settings'
+    import { settingsState } from '@/shared/state/settings.svelte';
 
-    export let id: number
-    export let noTooltip = false
-    export let toComments = false
+    export let id: number;
+    export let noTooltip = false;
+    export let toComments = false;
 
-    let url = ''
+    let url = '';
     $: {
-        if ($settingsStore.general.useWowdb) {
-            url = `https://www.wowdb.com/npcs/${id}`
-        }
-        else {
-            url = `https://${settingsStore.wowheadBaseUrl}/npc=${id}`
+        if (settingsState.value.general.useWowdb) {
+            url = `https://www.wowdb.com/npcs/${id}`;
+        } else {
+            url = `https://${settingsState.wowheadBaseUrl}/npc=${id}`;
             if (toComments) {
-                url += '#comments'
+                url += '#comments';
             }
         }
     }
 </script>
 
 {#if id > 0}
-    <a
-        href="{url}"
-        data-disable-wowhead-tooltip="{noTooltip ? 'true' : undefined}">
+    <a href={url} data-disable-wowhead-tooltip={noTooltip ? 'true' : undefined}>
         <slot />
     </a>
 {:else}

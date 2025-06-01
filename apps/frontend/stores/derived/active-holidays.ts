@@ -17,7 +17,12 @@ const cachedTime: Record<number, DateTime> = {};
 export const activeHolidays = derived(
     [staticStore, timeStore, userStore],
     ([$staticStore, $timeStore, $userStore]) => {
-        const regionMask = $userStore.allRegions.reduce((a, b) => a + (1 << (b - 1)), 0);
+        const allRegions = $userStore.allRegions || [];
+        if (allRegions.length === 0) {
+            return [1, 2, 3, 4];
+        }
+
+        const regionMask = allRegions.reduce((a, b) => a + (1 << (b - 1)), 0);
         console.log('activeHolidays', regionMask);
         if (cachedTime[regionMask] === $timeStore) {
             return cachedActive[regionMask];

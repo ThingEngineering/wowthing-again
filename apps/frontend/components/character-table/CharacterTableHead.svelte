@@ -1,10 +1,11 @@
 <script lang="ts">
-    import { userStore } from '@/stores'
-    import { settingsStore } from '@/shared/stores/settings'
+    import { userStore } from '@/stores';
+    import { settingsState } from '@/shared/state/settings.svelte';
 
-    $: commonFields = $settingsStore.views[0].commonFields
-    $: colspan = commonFields.length + 
-        (commonFields.indexOf('accountTag') >= 0 ? (userStore.useAccountTags ? 0 : -1) : 0)
+    $: commonFields = settingsState.value.views[0].commonFields;
+    $: colspan =
+        commonFields.length +
+        (commonFields.indexOf('accountTag') >= 0 ? (settingsState.useAccountTags ? 0 : -1) : 0);
 </script>
 
 <style lang="scss">
@@ -18,7 +19,7 @@
 
 <thead>
     <tr>
-        <th class="head-text" colspan="{colspan}">
+        <th class="head-text" {colspan}>
             <slot name="headText" />
         </th>
 

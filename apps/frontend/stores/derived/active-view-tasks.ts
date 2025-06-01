@@ -3,14 +3,14 @@ import { derived } from 'svelte/store';
 import { activeHolidays } from './active-holidays';
 import { holidayIds } from '@/data/holidays';
 import { multiTaskMap, taskMap } from '@/data/tasks';
-import { activeView } from '@/shared/stores/settings';
-import { lazyStore } from '@/stores/lazy';
+import { settingsState } from '@/shared/state/settings.svelte';
 import { staticStore } from '@/shared/stores/static';
+import { lazyStore } from '@/stores/lazy';
 import type { Chore } from '@/types/tasks';
 
 export const activeViewTasks = derived(
-    [activeHolidays, activeView, lazyStore, staticStore],
-    ([$activeHolidays, $activeView, $lazyStore, $staticStore]) => {
+    [activeHolidays, lazyStore, staticStore],
+    ([$activeHolidays, $lazyStore, $staticStore]) => {
         console.time('activeViewTasks');
 
         const activeTasks: string[] = [];
@@ -21,14 +21,14 @@ export const activeViewTasks = derived(
             Object.values($lazyStore.characters).flatMap((c) => Object.keys(c.tasks)),
         );
 
-        for (const fullTaskName of $activeView.homeTasks) {
+        for (const fullTaskName of settingsState.activeView.homeTasks) {
             const [taskName, choreName] = fullTaskName.split('|', 2);
             const task = taskMap[taskName];
             if (!task) {
                 continue;
             }
 
-            const taskViewKey = `${$activeView.id}|${fullTaskName}`;
+            const taskViewKey = `${settingsState.activeView.id}|${fullTaskName}`;
 
             if (!choreKeys.has(taskViewKey) && !taskKeys.has(taskViewKey)) {
                 continue;
@@ -39,7 +39,8 @@ export const activeViewTasks = derived(
             }
 
             if (task.type === 'multi') {
-                const disabledChores = $activeView.disabledChores?.[fullTaskName] || [];
+                const disabledChores =
+                    settingsState.activeView.disabledChores?.[fullTaskName] || [];
                 const activeChores: Chore[] = [];
                 for (const chore of multiTaskMap[task.key]) {
                     if (!chore || disabledChores.includes(chore.taskKey)) {

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { multiTaskMap } from '@/data/tasks';
-    import { activeView } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { lazyStore } from '@/stores';
     import type { LazyCharacterChore } from '@/stores/lazy/character';
@@ -20,7 +20,7 @@
         const lazyCharacter = $lazyStore.characters[character.id];
         chore =
             lazyCharacter.chores[
-                `${$activeView.id}|${choreName ? `${taskName}|${choreName}` : taskName}`
+                `${settingsState.activeView.id}|${choreName ? `${taskName}|${choreName}` : taskName}`
             ];
         inProgress = false;
 

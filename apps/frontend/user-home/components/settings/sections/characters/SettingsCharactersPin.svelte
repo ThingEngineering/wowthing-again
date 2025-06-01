@@ -1,7 +1,7 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { userStore } from '@/stores';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import type { SettingsChoice } from '@/shared/stores/settings/types';
@@ -32,6 +32,6 @@
     <MagicLists
         key="pin"
         choices={characterChoices}
-        bind:activeNumberIds={$settingsStore.characters.pinnedCharacters}
+        bind:activeNumberIds={settingsState.value.characters.pinnedCharacters}
     />
 </div>

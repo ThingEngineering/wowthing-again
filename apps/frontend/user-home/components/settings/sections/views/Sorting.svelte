@@ -1,38 +1,38 @@
 <script lang="ts">
     import orderBy from 'lodash/orderBy';
 
-    import { settingsStore } from '@/shared/stores/settings';
-    import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types'
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types';
 
-    import MagicLists from '../../MagicLists.svelte'
+    import MagicLists from '../../MagicLists.svelte';
 
-    export let view: SettingsView
+    export let view: SettingsView;
 
     const initialChoices: SettingsChoice[] = [
-        {id: 'account', name: 'Account'},
-        {id: 'enabled', name: 'Account status'},
-        {id: 'armor', name: 'Armor: Cloth > Plate'},
-        {id: '-armor', name: 'Armor: Plate > Cloth'},
-        {id: 'class', name: 'Class name'},
-        {id: 'faction', name: 'Faction: :alliance: > :horde:'},
-        {id: '-faction', name: 'Faction: :horde: > :alliance:'},
-        {id: 'guild', name: 'Guild name'},
-        {id: 'mplusrating', name: 'Mythic+ Rating'},
-        {id: 'name', name: 'Character name'},
-        {id: 'realm', name: 'Realm name'},
-        {id: 'gold', name: 'Gold'},
-        {id: 'itemlevel', name: 'Item level'},
-        {id: 'level', name: 'Level'},
-    ]
+        { id: 'account', name: 'Account' },
+        { id: 'enabled', name: 'Account status' },
+        { id: 'armor', name: 'Armor: Cloth > Plate' },
+        { id: '-armor', name: 'Armor: Plate > Cloth' },
+        { id: 'class', name: 'Class name' },
+        { id: 'faction', name: 'Faction: :alliance: > :horde:' },
+        { id: '-faction', name: 'Faction: :horde: > :alliance:' },
+        { id: 'guild', name: 'Guild name' },
+        { id: 'mplusrating', name: 'Mythic+ Rating' },
+        { id: 'name', name: 'Character name' },
+        { id: 'realm', name: 'Realm name' },
+        { id: 'gold', name: 'Gold' },
+        { id: 'itemlevel', name: 'Item level' },
+        { id: 'level', name: 'Level' },
+    ];
 
-    let sortByChoices: SettingsChoice[]
+    let sortByChoices: SettingsChoice[];
     $: {
         sortByChoices = [
             ...initialChoices,
-            ...orderBy(
-                $settingsStore.tags,
-                (tag) => tag.name,
-            ).map((tag) => ({ id: `tag:${tag.id}`, name: `Tag: ${tag.name}` }))
+            ...orderBy(settingsState.value.tags, (tag) => tag.name).map((tag) => ({
+                id: `tag:${tag.id}`,
+                name: `Tag: ${tag.name}`,
+            })),
         ];
     }
 </script>

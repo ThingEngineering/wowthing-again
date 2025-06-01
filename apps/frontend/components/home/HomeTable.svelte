@@ -1,7 +1,6 @@
 <script lang="ts">
     import { Constants } from '@/data/constants';
-    import { activeView, settingsStore } from '@/shared/stores/settings';
-    import { userStore } from '@/stores';
+    import { settingsState } from '@/shared/state/settings.svelte';
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte';
     import GroupHead from './table/HomeTableGroupHead.svelte';
@@ -34,10 +33,11 @@
     import RowVaultRaid from '@/components/character-table/row/VaultRaid.svelte';
     import RowVaultWorld from '@/components/character-table/row/VaultWorld.svelte';
     import ViewSwitcher from './table/ViewSwitcher.svelte';
+    import { sharedState } from '@/shared/state/shared.svelte';
 
-    export let characterLimit = 0;
+    let { characterLimit = 0 } = $props();
 
-    $: isPublic = $userStore.public;
+    let isPublic = $derived(sharedState.public);
 </script>
 
 <style lang="scss">
@@ -61,7 +61,7 @@
         />
 
         <svelte:fragment slot="rowExtra" let:character>
-            {#each $activeView.homeFields as field (field)}
+            {#each settingsState.activeView.homeFields as field (field)}
                 {#if field === 'bestItemLevel'}
                     <RowBestItemLevel {character} />
                 {:else if field === 'callings'}
@@ -93,13 +93,13 @@
                 {:else if field === 'items'}
                     <RowItems {character} />
                 {:else if field === 'keystone'}
-                    {#if !isPublic || $settingsStore.privacy.publicMythicPlus}
+                    {#if !isPublic || settingsState.value.privacy.publicMythicPlus}
                         <RowKeystone {character} />
                     {/if}
                 {:else if field === 'lastSeenAddon'}
                     <RowLastSeenAddon {character} />
                 {:else if field === 'lockouts'}
-                    {#if !isPublic || $settingsStore.privacy.publicLockouts}
+                    {#if !isPublic || settingsState.value.privacy.publicLockouts}
                         <RowLockouts {character} />
                     {/if}
                 {:else if field === 'mythicPlusScore'}

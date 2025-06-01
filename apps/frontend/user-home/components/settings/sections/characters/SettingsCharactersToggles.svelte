@@ -5,7 +5,7 @@
     import sortBy from 'lodash/sortBy';
 
     import { Region } from '@/enums/region';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { userStore } from '@/stores';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import type { Character } from '@/types';
@@ -15,11 +15,11 @@
     const allCharacterIds: string[] = $userStore.characters.map((char) => char.id.toString());
 
     let hiddenCharacters: string[] = $userStore.characters
-        .filter((char) => $settingsStore.characters.hiddenCharacters.indexOf(char.id) >= 0)
+        .filter((char) => settingsState.value.characters.hiddenCharacters.indexOf(char.id) >= 0)
         .map((char) => char.id.toString());
 
     let ignoredCharacters: string[] = $userStore.characters
-        .filter((char) => $settingsStore.characters.ignoredCharacters.indexOf(char.id) >= 0)
+        .filter((char) => settingsState.value.characters.ignoredCharacters.indexOf(char.id) >= 0)
         .map((char) => char.id.toString());
 
     let realms: [string, Character[]][];
@@ -40,11 +40,11 @@
     $: debouncedUpdateSettings(hiddenCharacters, ignoredCharacters);
 
     const debouncedUpdateSettings = debounce((hiddenChars: string[], ignoredChars: string[]) => {
-        $settingsStore.characters.hiddenCharacters = allCharacterIds
+        settingsState.value.characters.hiddenCharacters = allCharacterIds
             .filter((charId) => hiddenChars.indexOf(charId) >= 0)
             .map((charId) => parseInt(charId));
 
-        $settingsStore.characters.ignoredCharacters = allCharacterIds
+        settingsState.value.characters.ignoredCharacters = allCharacterIds
             .filter((charId) => ignoredChars.indexOf(charId) >= 0)
             .map((charId) => parseInt(charId));
     }, 100);
