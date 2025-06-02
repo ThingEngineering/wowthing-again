@@ -108,7 +108,8 @@
     --link-color: #{$quality0-color};
     color: $quality0-color;
 
-    div, img {
+    div,
+    img {
         border-color: $quality0-border;
     }
 }
@@ -130,8 +131,7 @@ img.quality0 {
 
     div,
     img,
-    img &
-    {
+    img & {
         border-color: $quality1-border;
     }
 }
@@ -151,7 +151,8 @@ img.quality0 {
     --link-color: #{$quality2-color};
     color: $quality2-color;
 
-    div, img {
+    div,
+    img {
         border-color: $quality2-border;
     }
 }
@@ -171,7 +172,8 @@ img.quality2 {
     --link-color: #{$quality3-color};
     color: $quality3-color;
 
-    div, img {
+    div,
+    img {
         border-color: $quality3-border;
     }
 }
@@ -191,7 +193,8 @@ img.quality3 {
     --link-color: #{$quality4-color};
     color: $quality4-color;
 
-    div, img {
+    div,
+    img {
         border-color: $quality4-border;
     }
 }
@@ -210,7 +213,8 @@ img.quality4 {
     --link-color: #{$quality5-color};
     color: $quality5-color;
 
-    div, img {
+    div,
+    img {
         border-color: $quality5-border;
     }
     span {
@@ -232,7 +236,8 @@ img.quality5 {
     --link-color: #{$quality6-color};
     color: $quality6-color;
 
-    div, img {
+    div,
+    img {
         border-color: $quality6-color;
     }
 }
@@ -248,7 +253,8 @@ img.quality5 {
     --link-color: #{$quality7-color};
     color: $quality7-color;
 
-    div,img {
+    div,
+    img {
         border-color: $quality7-color;
     }
 }

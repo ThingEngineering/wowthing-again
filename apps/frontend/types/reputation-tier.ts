@@ -5,6 +5,5 @@ export class ReputationTier {
         public maxValue: number,
         public value: number,
         public percent: string,
-    ) {
-    }
+    ) {}
 }

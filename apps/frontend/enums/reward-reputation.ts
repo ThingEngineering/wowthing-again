@@ -1,4 +1,3 @@
-
 export enum RewardReputation {
     Friendly = 1,
     Honored = 2,

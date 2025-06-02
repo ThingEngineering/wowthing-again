@@ -1,8 +1,7 @@
-import type { IconifyIcon } from '@iconify/types'
+import type { IconifyIcon } from '@iconify/types';
 
-import * as iconLibrary from '../library'
-import { InventorySlot } from '@/enums/inventory-slot'
-
+import * as iconLibrary from '../library';
+import { InventorySlot } from '@/enums/inventory-slot';
 
 export const inventorySlotIcons: Record<number, IconifyIcon> = {
     [InventorySlot.Head]: iconLibrary.gameBarbute,
@@ -14,4 +13,4 @@ export const inventorySlotIcons: Record<number, IconifyIcon> = {
     [InventorySlot.Hands]: iconLibrary.gameGauntlet,
     [InventorySlot.Legs]: iconLibrary.gameGreaves,
     [InventorySlot.Feet]: iconLibrary.gameMetalBoot,
-}
+};

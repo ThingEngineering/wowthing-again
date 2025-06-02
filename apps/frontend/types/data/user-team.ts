@@ -1,9 +1,9 @@
 export interface UserTeamData {
-    teams: Record<number, UserTeamDataTeam>
+    teams: Record<number, UserTeamDataTeam>;
 }
 
 export interface UserTeamDataTeam {
-    id: number
-    name: string
-    slug: string
+    id: number;
+    name: string;
+    slug: string;
 }

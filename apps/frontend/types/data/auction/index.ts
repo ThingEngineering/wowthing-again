@@ -1,2 +1,2 @@
-export * from './category'
-export * from './store'
+export * from './category';
+export * from './store';

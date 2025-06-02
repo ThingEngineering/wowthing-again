@@ -1,16 +1,16 @@
-input[type='checkbox'] {
+input[type="checkbox"] {
     border-radius: $border-radius;
     margin: 0.3rem;
     padding: 0.3rem;
 }
 
-input[type='file'] {
+input[type="file"] {
     padding: 0;
 }
 
-input[type='submit'] {
+input[type="submit"] {
     background: mix($color-success, $thing-background, 10%);
-    border: 1px solid mix($color-success, $border-color, 50%) !important;;
+    border: 1px solid mix($color-success, $border-color, 50%) !important;
     border-radius: $border-radius;
     margin-top: 1rem;
     padding: 0.3rem 0.5rem;

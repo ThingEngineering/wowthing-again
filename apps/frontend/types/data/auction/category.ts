@@ -1,6 +1,5 @@
-import type { InventoryType } from '@/enums/inventory-type'
-import type { ItemClass } from '@/enums/item-class'
-
+import type { InventoryType } from '@/enums/inventory-type';
+import type { ItemClass } from '@/enums/item-class';
 
 export type AuctionCategoryArray = [
     id: number,
@@ -10,11 +9,11 @@ export type AuctionCategoryArray = [
     defaultFilter: number,
     name: string,
     slug: string,
-    childArrays: AuctionCategoryArray[]
-]
+    childArrays: AuctionCategoryArray[],
+];
 
 export class AuctionCategory {
-    public children: AuctionCategory[]
+    public children: AuctionCategory[];
 
     constructor(
         public id: number,
@@ -24,14 +23,13 @@ export class AuctionCategory {
         public defaultFilter: number,
         public name: string,
         public slug: string,
-        childArrays: AuctionCategoryArray[]
-    )
-    {
-        this.children = (childArrays || []).map((childArray) => new AuctionCategory(...childArray))
+        childArrays: AuctionCategoryArray[],
+    ) {
+        this.children = (childArrays || []).map((childArray) => new AuctionCategory(...childArray));
     }
 
     get browseable(): boolean {
-        return this.itemClass > 0 || this.inventoryType > 0
+        return this.itemClass > 0 || this.inventoryType > 0;
     }
 }
 // Can't use this and have it reference itself, alas

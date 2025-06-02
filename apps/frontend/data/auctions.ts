@@ -3,7 +3,7 @@ export const timeLeft: Record<number, string> = {
     1: '30m - 2h',
     2: '2h - 12h',
     3: '12h - 48h',
-}
+};
 
 export const extraCraftedItemIds: Set<number> = new Set<number>([
     // MoP cloth
@@ -45,9 +45,9 @@ export const extraCraftedItemIds: Set<number> = new Set<number>([
     82932, // Ghost-Forged Bracers
     82933, // Ghost-Forged Boots
     82934, // Ghost-Forged Belt
-])
+]);
 
 export const skipRecipeItemIds = new Set<number>([
     16072, // Expert Cookbook
     27736, // Master Cookbook
-])
+]);

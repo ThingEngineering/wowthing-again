@@ -1,8 +1,7 @@
-import type { IconifyIcon } from '@iconify/types'
+import type { IconifyIcon } from '@iconify/types';
 
-import * as iconLibrary from '../library'
-import { InventoryType } from '@/enums/inventory-type'
-
+import * as iconLibrary from '../library';
+import { InventoryType } from '@/enums/inventory-type';
 
 export const inventoryTypeIcons: Record<InventoryType, IconifyIcon> = {
     [InventoryType.NonEquippable]: null,
@@ -35,5 +34,5 @@ export const inventoryTypeIcons: Record<InventoryType, IconifyIcon> = {
     [InventoryType.Quiver]: null,
     [InventoryType.Relic]: null,
     [InventoryType.ProfessionTool]: null,
-    [InventoryType.ProfessionGear]: null
-}
+    [InventoryType.ProfessionGear]: null,
+};

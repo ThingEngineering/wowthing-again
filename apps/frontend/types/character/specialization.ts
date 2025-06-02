@@ -1,3 +1,3 @@
 export interface CharacterSpecializationRaw {
-    talents: number[][]
+    talents: number[][];
 }

@@ -1,5 +1,3 @@
-
-
 export const costOrder: number[] = [
     0, // Gold
 
@@ -21,8 +19,8 @@ export const costOrder: number[] = [
 
     // Cataclysm
     1071617, // Crystallized Firestone
-]
+];
 
 export const costOrderMap: Record<number, number> = Object.fromEntries(
-    costOrder.map((value, index) => [value, index])
-)
+    costOrder.map((value, index) => [value, index]),
+);

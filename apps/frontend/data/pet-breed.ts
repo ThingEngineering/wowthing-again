@@ -1,12 +1,12 @@
 export const petBreedMap: Record<number, string> = {
-     0: '???',
-     3: 'B/B',
-     4: 'P/P',
-     5: 'S/S',
-     6: 'H/H',
-     7: 'H/P',
-     8: 'P/S',
-     9: 'H/S',
+    0: '???',
+    3: 'B/B',
+    4: 'P/P',
+    5: 'S/S',
+    6: 'H/H',
+    7: 'H/P',
+    8: 'P/S',
+    9: 'H/S',
     10: 'P/B',
     11: 'S/B',
     12: 'H/B',
@@ -20,4 +20,4 @@ export const petBreedMap: Record<number, string> = {
     20: 'P/B',
     21: 'S/B',
     22: 'H/B',
-}
+};

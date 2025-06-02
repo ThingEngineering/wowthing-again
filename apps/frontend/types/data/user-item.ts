@@ -1,12 +1,12 @@
 export interface UserItemData {
-    characters: Record<number, UserItemDataCharacter>
+    characters: Record<number, UserItemDataCharacter>;
 }
 
 export interface UserItemDataCharacter {
-    bags: Record<number, UserItemDataItem>
-    bank: Record<number, UserItemDataItem>
+    bags: Record<number, UserItemDataItem>;
+    bank: Record<number, UserItemDataItem>;
 }
 
 export interface UserItemDataItem {
-    count: number
+    count: number;
 }

@@ -1,2 +1,2 @@
-export * from './basic-tooltip'
-export * from './component-tooltip.svelte'
+export * from './basic-tooltip';
+export * from './component-tooltip.svelte';

@@ -1,15 +1,15 @@
-import type { Character } from './character'
+import type { Character } from './character';
 
 export interface TeamData {
-    defaultRealmId: number
-    description: string
-    name: string
-    region: number
+    defaultRealmId: number;
+    description: string;
+    name: string;
+    region: number;
 
-    characters: TeamDataCharacter[]
+    characters: TeamDataCharacter[];
 }
 
 export interface TeamDataCharacter {
-    character: Character
-    note: string
+    character: Character;
+    note: string;
 }

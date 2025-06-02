@@ -1,5 +1,4 @@
-export enum FarmResetType
-{
+export enum FarmResetType {
     None,
     Daily,
     BiWeekly,

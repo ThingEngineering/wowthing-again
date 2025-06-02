@@ -1,35 +1,35 @@
 :root {
     --padding-size: 0.25rem;
-    
+
     --width-vault: 6.5rem;
-    
+
     --color-success: #1eff00;
-    --color-shrug:   #efef00;
-    --color-warn:    #ff8c7e;
-    --color-fail:    #ff1e00;
-    
+    --color-shrug: #efef00;
+    --color-warn: #ff8c7e;
+    --color-fail: #ff1e00;
+
     // poor
-    --color-quality0:        #9d9d9d;
+    --color-quality0: #9d9d9d;
     --color-quality0-border: #8d8d8d;
 
     // common
-    --color-quality1:        #eee; // #ffffff
+    --color-quality1: #eee; // #ffffff
     --color-quality1-border: #ddd;
 
     // uncommon
-    --color-quality2-color:  #1eff00;
+    --color-quality2-color: #1eff00;
     --color-quality2-border: #18cc00; // #1eff00 - 10%
 
     // rare
-    --color-quality3-color:  #44a3ff; // #0070dd + 20%
+    --color-quality3-color: #44a3ff; // #0070dd + 20%
     --color-quality3-border: #0070dd;
 
     // epic
-    --color-quality4-color:  #b864f2; // #a335ee + 10%
+    --color-quality4-color: #b864f2; // #a335ee + 10%
     --color-quality4-border: #a335ee;
 
     // legendary
-    --color-quality5-color:  #f07800; // #ff8000 - 3%
+    --color-quality5-color: #f07800; // #ff8000 - 3%
     --color-quality5-border: #ff8000;
 
     // artifact
@@ -47,134 +47,134 @@
     --sms-selected-li-padding: 0 0.2rem;
 }
 
-$body-background:          #101112;
-$body-text:                #ffffff;
-$link-color:               #44ddff;
-$link-hover-color:         #88ffff;
+$body-background: #101112;
+$body-text: #ffffff;
+$link-color: #44ddff;
+$link-hover-color: #88ffff;
 
-$border-color:             #676b6f;
-$border-radius-large:      8px;
-$border-radius:            5px;
-$border-radius-small:      3px;
+$border-color: #676b6f;
+$border-radius-large: 8px;
+$border-radius: 5px;
+$border-radius-small: 3px;
 
 $header-footer-background: #2c2d2e;
-$thing-background:         #1a1b1c;
-$highlight-background:     #04080f;
-$active-background:        #003048;
-$collection-background:    $highlight-background;
+$thing-background: #1a1b1c;
+$highlight-background: #04080f;
+$active-background: #003048;
+$collection-background: $highlight-background;
 
-$tooltip-background:       #0a0b0c;
-$tooltip-color:            #ffffff;
-$tooltip-border:           #8b8d8f;
+$tooltip-background: #0a0b0c;
+$tooltip-color: #ffffff;
+$tooltip-border: #8b8d8f;
 $tooltip-title-background: $active-background;
-$tooltip-title-color:      $tooltip-color;
-$tooltip-padding-x:        7px;
-$tooltip-padding-y:        5px;
+$tooltip-title-color: $tooltip-color;
+$tooltip-padding-x: 7px;
+$tooltip-padding-y: 5px;
 
-$alliance-border:           #006aff;
-$alliance-border-dark:      darken($alliance-border, 20%);
-$alliance-background:       mix($thing-background, $alliance-border, 90%);
-$alliance-link:             lighten($alliance-border, 20%);
-$horde-border:              #cc0000;
-$horde-border-dark:         darken($horde-border, 20%);
-$horde-background:          mix($thing-background, $horde-border, 90%);
-$horde-link:                lighten($horde-border, 25%);
-$neutral-border:            #dfdf00;
+$alliance-border: #006aff;
+$alliance-border-dark: darken($alliance-border, 20%);
+$alliance-background: mix($thing-background, $alliance-border, 90%);
+$alliance-link: lighten($alliance-border, 20%);
+$horde-border: #cc0000;
+$horde-border-dark: darken($horde-border, 20%);
+$horde-background: mix($thing-background, $horde-border, 90%);
+$horde-link: lighten($horde-border, 25%);
+$neutral-border: #dfdf00;
 
-$sidebar-pill-background:  $highlight-background;
-$sidebar-pill-scale:       0.9;
-$sidebar-sub-link-color:   #c1c2e3;
+$sidebar-pill-background: $highlight-background;
+$sidebar-pill-scale: 0.9;
+$sidebar-sub-link-color: #c1c2e3;
 
-$table-bg:                  $thing-background;
-$table-striped-bg:          lighten($table-bg, 3%);
-$table-alt-bg:              #00151d9f;
-$table-striped-alt-bg:      lighten($table-alt-bg, 3%);
-$table-hl-bg:               darken($active-background, 7%);
-$table-striped-hl-bg:       lighten($table-hl-bg, 3%);
-$tooltip-striped-bg:        $table-bg;
+$table-bg: $thing-background;
+$table-striped-bg: lighten($table-bg, 3%);
+$table-alt-bg: #00151d9f;
+$table-striped-alt-bg: lighten($table-alt-bg, 3%);
+$table-hl-bg: darken($active-background, 7%);
+$table-striped-hl-bg: lighten($table-hl-bg, 3%);
+$tooltip-striped-bg: $table-bg;
 
-$width-callings:            4.6rem;
-$width-covenant:            2.9rem;
-$width-covenant-all:        7.0rem;
-$width-currency:            2.3rem;
-$width-currency-max:        4.0rem;
-$width-home-gear:           2.0rem;
-$width-home-gear-max:       4.0rem;
-$width-gold:                4.0rem;
-$width-gold-max:            6.0rem;
-$width-guild:               6.0rem;
-$width-guild-max:           15.0rem;
-$width-icon:                26px;
-$width-item-count:          2.0rem;
-$width-item-level:          2.5rem;
-$width-item-location:       3.0rem;
-$width-keystone:            4.0rem;
-$width-keystone-level:      1.2rem;
-$width-level:               1.1rem;
-$width-level-partial:       2.6rem;
-$width-location:            5.0rem;
-$width-location-max:        16.0rem;
-$width-lockout:             3.5rem;
-$width-mount-speed:         3.4rem;
-$width-mplus-dungeon:       3.4rem;
-$width-mplus-upgrade:       2.1rem;
-$width-name:                6.0rem;
-$width-name-max:            12.0rem;
-$width-played:              5.2rem;
-$width-played-max:          8.0rem;
-$width-professions:         8.0rem;
-$width-professions-triple:  12.0rem;
-$width-progress:            2.0rem;
-$width-progress-max:        5.5rem;
-$width-raider-io:           3.0rem;
-$width-realm:               8.0rem;
-$width-reputation:          3.8rem;
-$width-rested:              3.0rem;
-$width-spacer:              0.7rem;
-$width-transmog:            2.6rem;
-$width-weekly-quest:        2.7rem;
+$width-callings: 4.6rem;
+$width-covenant: 2.9rem;
+$width-covenant-all: 7rem;
+$width-currency: 2.3rem;
+$width-currency-max: 4rem;
+$width-home-gear: 2rem;
+$width-home-gear-max: 4rem;
+$width-gold: 4rem;
+$width-gold-max: 6rem;
+$width-guild: 6rem;
+$width-guild-max: 15rem;
+$width-icon: 26px;
+$width-item-count: 2rem;
+$width-item-level: 2.5rem;
+$width-item-location: 3rem;
+$width-keystone: 4rem;
+$width-keystone-level: 1.2rem;
+$width-level: 1.1rem;
+$width-level-partial: 2.6rem;
+$width-location: 5rem;
+$width-location-max: 16rem;
+$width-lockout: 3.5rem;
+$width-mount-speed: 3.4rem;
+$width-mplus-dungeon: 3.4rem;
+$width-mplus-upgrade: 2.1rem;
+$width-name: 6rem;
+$width-name-max: 12rem;
+$width-played: 5.2rem;
+$width-played-max: 8rem;
+$width-professions: 8rem;
+$width-professions-triple: 12rem;
+$width-progress: 2rem;
+$width-progress-max: 5.5rem;
+$width-raider-io: 3rem;
+$width-realm: 8rem;
+$width-reputation: 3.8rem;
+$width-rested: 3rem;
+$width-spacer: 0.7rem;
+$width-transmog: 2.6rem;
+$width-weekly-quest: 2.7rem;
 
-$width-padding:             0.25rem;
+$width-padding: 0.25rem;
 
-$settings-column-width:     45rem;
+$settings-column-width: 45rem;
 
-$inactive-opacity:          0.4;
+$inactive-opacity: 0.4;
 
-$color-success:            #1eff00;
-$color-shrug:              #efef00;
-$color-warn:               #ff8c7e;
-$color-fail:               #ff1e00;
+$color-success: #1eff00;
+$color-shrug: #efef00;
+$color-warn: #ff8c7e;
+$color-fail: #ff1e00;
 
-$button-success:           #0f2f0f;
+$button-success: #0f2f0f;
 
 // poor
-$quality0-color:           #9d9d9d;
-$quality0-border:          $quality0-color;
+$quality0-color: #9d9d9d;
+$quality0-border: $quality0-color;
 
 // common
-$quality1-color:           #eee; // #ffffff
-$quality1-border:          darken($quality1-color, 5%);
+$quality1-color: #eee; // #ffffff
+$quality1-border: darken($quality1-color, 5%);
 
 // uncommon
-$quality2-color:           #1eff00;
-$quality2-border:          darken($quality2-color, 10%);
+$quality2-color: #1eff00;
+$quality2-border: darken($quality2-color, 10%);
 
 // rare
-$quality3-color:           lighten(#0070dd, 20%);
-$quality3-border:          #0070dd;
+$quality3-color: lighten(#0070dd, 20%);
+$quality3-border: #0070dd;
 
 // epic
-$quality4-color:           lighten(#a335ee, 10%);
-$quality4-border:          darken($quality4-color, 5%);
+$quality4-color: lighten(#a335ee, 10%);
+$quality4-border: darken($quality4-color, 5%);
 
 // legendary
-$quality5-color:           darken(#ff8000, 3%);
-$quality5-border:          lighten($quality5-color, 5%);
+$quality5-color: darken(#ff8000, 3%);
+$quality5-border: lighten($quality5-color, 5%);
 
 // artifact
-$quality6-color:           darken(#e6cc80, 15%);
-$quality6-border:          $quality6-color;
+$quality6-color: darken(#e6cc80, 15%);
+$quality6-border: $quality6-color;
 
 // heirloom
-$quality7-color:           darken(#00ccff, 8%);
-$quality7-border:          $quality7-color;
+$quality7-color: darken(#00ccff, 8%);
+$quality7-border: $quality7-color;

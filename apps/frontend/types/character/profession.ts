@@ -1,5 +1,5 @@
 export interface CharacterProfession {
-    currentSkill: number
-    maxSkill: number
-    knownRecipes: number[]
+    currentSkill: number;
+    maxSkill: number;
+    knownRecipes: number[];
 }

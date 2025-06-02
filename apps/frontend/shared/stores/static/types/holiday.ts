@@ -1,8 +1,7 @@
-import { DateTime } from 'luxon'
-
+import { DateTime } from 'luxon';
 
 export class StaticDataHoliday {
-    public startDates: DateTime[]
+    public startDates: DateTime[];
 
     constructor(
         public id: number,
@@ -13,10 +12,9 @@ export class StaticDataHoliday {
         public priority: number,
         public regionMask: number,
         public durations: number[],
-        startDates: number[]
-    )
-    {
-        this.startDates = startDates.map((unixTime) => DateTime.fromSeconds(unixTime))
+        startDates: number[],
+    ) {
+        this.startDates = startDates.map((unixTime) => DateTime.fromSeconds(unixTime));
     }
 }
-export type StaticDataHolidayArray = ConstructorParameters<typeof StaticDataHoliday>
+export type StaticDataHolidayArray = ConstructorParameters<typeof StaticDataHoliday>;

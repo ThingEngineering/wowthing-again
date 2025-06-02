@@ -1,5 +1,4 @@
-export enum StatType
-{
+export enum StatType {
     Mana = 0,
     Health = 1,
     Endurance = 2,

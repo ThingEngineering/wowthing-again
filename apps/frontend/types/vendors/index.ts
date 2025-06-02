@@ -1,1 +1,1 @@
-export * from './thing-data'
+export * from './thing-data';

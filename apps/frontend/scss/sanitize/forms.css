@@ -7,16 +7,16 @@ button,
 input,
 select,
 textarea {
-  background-color: transparent; /* 1 */
-  border: 1px solid WindowFrame; /* 1 */
-  color: inherit; /* 1 */
-  font: inherit; /* 2 */
-  letter-spacing: inherit; /* 2 */
-  padding: 0.25em 0.375em; /* 1 */
+    background-color: transparent; /* 1 */
+    border: 1px solid WindowFrame; /* 1 */
+    color: inherit; /* 1 */
+    font: inherit; /* 2 */
+    letter-spacing: inherit; /* 2 */
+    padding: 0.25em 0.375em; /* 1 */
 }
 
 button {
-  border: none;
+    border: none;
 }
 
 /**
@@ -24,11 +24,11 @@ button {
  */
 
 select {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  background: no-repeat right center / 1em;
-  border-radius: 0;
-  padding-right: 1em;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: no-repeat right center / 1em;
+    border-radius: 0;
+    padding-right: 1em;
 }
 
 /**
@@ -45,8 +45,8 @@ select {
 
 [type="color"],
 [type="range"] {
-  border-width: 0;
-  padding: 0;
+    border-width: 0;
+    padding: 0;
 }
 
 /**
@@ -54,7 +54,7 @@ select {
  */
 
 ::-ms-expand {
-  display: none;
+    display: none;
 }
 
 /**
@@ -62,5 +62,5 @@ select {
  */
 
 :-ms-input-placeholder {
-  color: rgba(0, 0, 0, 0.54);
+    color: rgba(0, 0, 0, 0.54);
 }

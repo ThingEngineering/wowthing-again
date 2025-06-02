@@ -1,5 +1,5 @@
 export interface SettingsCustomGroup {
-    filter: string
-    id: string
-    name: string
+    filter: string;
+    id: string;
+    name: string;
 }

@@ -1,14 +1,12 @@
-import type { AppearanceDataAppearance } from './appearance'
-
+import type { AppearanceDataAppearance } from './appearance';
 
 export class AppearanceDataSet {
-    public appearances: AppearanceDataAppearance[]
+    public appearances: AppearanceDataAppearance[];
 
     constructor(
         public name: string,
-        public sortKey: string
-    )
-    {
-        this.appearances = []
+        public sortKey: string,
+    ) {
+        this.appearances = [];
     }
 }

@@ -1,2 +1,2 @@
-export * from './guild.svelte'
-export * from './item'
+export * from './guild.svelte';
+export * from './item';

@@ -3,8 +3,7 @@ export class StaticDataToy {
         public id: number,
         public sourceType: number,
         public itemId: number,
-        public name: string
-    )
-    {}
+        public name: string,
+    ) {}
 }
-export type StaticDataToyArray = ConstructorParameters<typeof StaticDataToy>
+export type StaticDataToyArray = ConstructorParameters<typeof StaticDataToy>;

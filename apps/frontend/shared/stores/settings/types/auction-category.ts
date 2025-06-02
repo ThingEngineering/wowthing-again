@@ -1,4 +1,4 @@
 export interface SettingsAuctionCategory {
-    name: string
-    itemIds: number[]
+    name: string;
+    itemIds: number[];
 }

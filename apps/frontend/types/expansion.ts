@@ -4,6 +4,5 @@ export class Expansion {
         public name: string,
         public slug: string,
         public shortName: string,
-    )
-    { }
+    ) {}
 }

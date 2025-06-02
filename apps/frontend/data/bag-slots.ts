@@ -1,4 +1,4 @@
-import { ItemLocation } from '@/enums/item-location'
+import { ItemLocation } from '@/enums/item-location';
 
 export const bagSlots: Record<number, [number, string, number?][]> = {
     [ItemLocation.Bags]: [
@@ -20,4 +20,4 @@ export const bagSlots: Record<number, [number, string, number?][]> = {
         [12, 'Bank Bag 7'],
         [-3, 'Reagent Bank', 98],
     ],
-}
+};

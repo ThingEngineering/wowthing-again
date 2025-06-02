@@ -1,4 +1,4 @@
-import { ItemLocation } from '@/enums/item-location'
+import { ItemLocation } from '@/enums/item-location';
 import type { ItemQuality } from '@/enums/item-quality';
 import type { Region } from '@/enums/region';
 
@@ -32,16 +32,16 @@ export class WarbankItem /*implements UserItem*/ {
     }
 
     get location(): ItemLocation {
-        return ItemLocation.WarbandBank
+        return ItemLocation.WarbandBank;
     }
 
     get containerId(): number {
-        return this.tabId
+        return this.tabId;
     }
 
     get containerName(): string {
-        return `Tab ${this.tabId}`
-    }    
+        return `Tab ${this.tabId}`;
+    }
 }
 
 export type WarbankItemArray = ConstructorParameters<typeof WarbankItem>;

@@ -2,7 +2,7 @@ export class DataItemBonus {
     constructor(
         public id: number,
         public typeFlags: number,
-        public bonuses: number[][]
-    ) { }
+        public bonuses: number[][],
+    ) {}
 }
-export type DataItemBonusArray = ConstructorParameters<typeof DataItemBonus>
+export type DataItemBonusArray = ConstructorParameters<typeof DataItemBonus>;

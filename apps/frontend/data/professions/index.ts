@@ -1,2 +1,2 @@
-export * from './knowledge'
-export * from './professions'
+export * from './knowledge';
+export * from './professions';

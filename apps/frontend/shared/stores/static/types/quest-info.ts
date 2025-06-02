@@ -1,5 +1,4 @@
-import type { QuestInfoFlags, QuestInfoType } from '@/shared/stores/static/enums'
-
+import type { QuestInfoFlags, QuestInfoType } from '@/shared/stores/static/enums';
 
 export class StaticDataQuestInfo {
     constructor(
@@ -7,8 +6,7 @@ export class StaticDataQuestInfo {
         public type: QuestInfoType,
         public flags: QuestInfoFlags,
         public professionId: number,
-        public name: string
-    )
-    {}
+        public name: string,
+    ) {}
 }
-export type StaticDataQuestInfoArray = ConstructorParameters<typeof StaticDataQuestInfo>
+export type StaticDataQuestInfoArray = ConstructorParameters<typeof StaticDataQuestInfo>;

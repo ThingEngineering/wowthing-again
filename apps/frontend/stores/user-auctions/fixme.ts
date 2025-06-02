@@ -172,7 +172,11 @@ export class UserAuctionMissingDataStore {
             }
         }
 
-        things = sortAuctions(auctionState.sortBy[`missing-${type}`], things, !auctionState.includeBids);
+        things = sortAuctions(
+            auctionState.sortBy[`missing-${type}`],
+            things,
+            !auctionState.includeBids,
+        );
         this.cache[cacheKey] = [things, updated];
         return [things, updated];
     }

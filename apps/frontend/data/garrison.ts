@@ -1,11 +1,10 @@
-import type { GarrisonTree } from '@/types'
-import { imageStrings } from './icons'
-
+import type { GarrisonTree } from '@/types';
+import { imageStrings } from './icons';
 
 export const garrisonUnlockQuests: number[] = [
     34586, // Alliance
     35378, // Horde
-]
+];
 
 export const garrisonBuildingIcon: Record<number, string> = {
     // All
@@ -57,7 +56,7 @@ export const garrisonBuildingIcon: Record<number, string> = {
     24: 'achievement/9452', // Barn 1
     25: 'achievement/9452', // Barn 2
     133: 'achievement/9452', // Barn 3
-    
+
     159: 'achievement/9738', // Gladiator's Sanctum 1
     160: 'achievement/9738', // Gladiator's Sanctum 2
     161: 'achievement/9738', // Gladiator's Sanctum 3
@@ -75,7 +74,7 @@ export const garrisonBuildingIcon: Record<number, string> = {
     145: 'achievement/9478', // Trading Post 3
 
     // Small
-    
+
     52: 'achievement/9468', // Salvage Yard 1
     140: 'achievement/9468', // Salvage Yard 2
     141: 'achievement/9468', // Salvage Yard 3
@@ -115,7 +114,7 @@ export const garrisonBuildingIcon: Record<number, string> = {
     90: imageStrings.skinning, // The Tannery 1
     121: imageStrings.skinning, // The Tannery 2
     122: imageStrings.skinning, // The Tannery 3
-}
+};
 
 export const garrisonTrees: Record<string, GarrisonTree> = {
     // boxOfManyThings: {
@@ -151,12 +150,7 @@ export const garrisonTrees: Record<string, GarrisonTree> = {
                     requires: 1932,
                 },
             ],
-            [
-                null,
-                null,
-                null,
-                null,
-            ],
+            [null, null, null, null],
             [
                 {
                     id: 1972, // Cachial Understanding
@@ -277,12 +271,12 @@ export const garrisonTrees: Record<string, GarrisonTree> = {
                 },
                 null,
             ],
-        ]
+        ],
     },
     // pocopoc: {
     //     id: 476,
     // }
-}
+};
 
 export const cypherTiers: number[][] = [
     [3700, 252],
@@ -291,4 +285,4 @@ export const cypherTiers: number[][] = [
     [1480, 242],
     [740, 239],
     [0, 233],
-]
+];

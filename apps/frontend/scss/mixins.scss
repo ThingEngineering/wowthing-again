@@ -1,9 +1,18 @@
-@mixin cell-width($width, $paddingLeft: $width-padding, $paddingRight: $width-padding, $maxWidth: null) {
+@mixin cell-width(
+    $width,
+    $paddingLeft: $width-padding,
+    $paddingRight: $width-padding,
+    $maxWidth: null
+) {
     $calcLeft: calc(#{$paddingLeft} * var(--padding, 1));
     $calcRight: calc(#{$paddingRight} * var(--padding, 1));
     $calcWidth: calc(#{$width} + #{$calcLeft} + #{$calcRight});
     min-width: $calcWidth;
-    max-width: if($maxWidth, calc(#{$maxWidth} + #{$calcLeft} + #{$calcRight}), $calcWidth);
+    max-width: if(
+        $maxWidth,
+        calc(#{$maxWidth} + #{$calcLeft} + #{$calcRight}),
+        $calcWidth
+    );
     width: $calcWidth;
     padding-left: $calcLeft;
     padding-right: $calcRight;

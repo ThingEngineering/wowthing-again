@@ -1,5 +1,4 @@
-import type { InstanceType } from '@/enums/instance-type'
-
+import type { InstanceType } from '@/enums/instance-type';
 
 export class Difficulty {
     constructor(
@@ -8,7 +7,6 @@ export class Difficulty {
         public shortName: string,
         public instanceType: InstanceType,
         public minPlayers: number,
-        public maxPlayers: number
-    ) {
-    }
+        public maxPlayers: number,
+    ) {}
 }

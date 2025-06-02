@@ -16,5 +16,5 @@ export enum FarmType {
     Dungeon,
     Raid,
     Profession,
-    Achievement
+    Achievement,
 }
