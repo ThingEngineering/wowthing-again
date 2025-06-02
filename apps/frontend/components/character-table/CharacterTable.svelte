@@ -5,8 +5,9 @@
 
     import { settingsState } from '@/shared/state/settings.svelte';
     import { timeStore } from '@/shared/stores/time';
-    import { lazyStore, userQuestStore, userStore } from '@/stores';
+    import { lazyStore, userQuestStore } from '@/stores';
     import { homeState, newNavState } from '@/stores/local-storage';
+    import { userState } from '@/user-home/state/user';
     import { useCharacterFilter } from '@/utils/characters';
     import { getCharacterGroupContext } from '@/utils/get-character-group-func';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
@@ -48,7 +49,7 @@
     );
 
     let [characters, groups] = $derived.by(() => {
-        let characters = $userStore.characters.filter(
+        let characters = userState.general.characters.filter(
             (c) =>
                 settingsState.value.characters.hiddenCharacters.indexOf(c.id) === -1 &&
                 (!skipIgnored ||
@@ -159,7 +160,7 @@
                         <slot name="emptyRow">
                             <tr>
                                 <td class="uhoh">
-                                    {#if $userStore.characters.length > 0}
+                                    {#if userState.general.characters.length > 0}
                                         It looks like you have characters but none match your
                                         current character filter, try clearing that (end of the
                                         navigation)!

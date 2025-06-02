@@ -2,12 +2,17 @@ import { DateTime } from 'luxon';
 import { get } from 'svelte/store';
 
 import { Constants } from '@/data/constants';
+import { slotOrder } from '@/data/inventory-slot';
 import { professionSpecializationToSpell } from '@/data/professions';
+import { InventorySlot } from '@/enums/inventory-slot';
 import { Profession } from '@/enums/profession';
+import { settingsState } from '@/shared/state/settings.svelte';
 import { staticStore } from '@/shared/stores/static';
 import { getBestItemLevels } from '@/utils/characters/get-best-item-levels';
 import { leftPad } from '@/utils/formatting';
 import { getCharacterLevel } from '@/utils/get-character-level';
+import { getGenderedName } from '@/utils/get-gendered-name';
+import getItemLevelQuality from '@/utils/get-item-level-quality';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { Faction } from '@/enums/faction';
 import type { InventoryType } from '@/enums/inventory-type';
@@ -51,8 +56,6 @@ import type { Account } from '../account';
 import type { CharacterAura } from './aura';
 import type { ItemData } from '../data/item';
 import type { CharacterPatronOrder } from './patron-order';
-import { settingsState } from '@/shared/state/settings.svelte';
-import { getGenderedName } from '@/utils/get-gendered-name';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Static
@@ -99,12 +102,6 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public scannedCurrencies: DateTime = $state<DateTime>(undefined);
 
     // Calculated
-    // public hidden: boolean;
-    // public ignored: boolean;
-
-    public calculatedItemLevel: string;
-    public calculatedItemLevelQuality: number;
-
     public bags: Record<number, number> = $state({});
     public currencies: Record<number, CharacterCurrency> = $state({});
     public equippedItems: Record<number, CharacterEquippedItem> = $state({});
@@ -406,6 +403,38 @@ export class Character implements ContainsItems, HasNameAndRealm {
     hidden = $derived.by(() => settingsState.value.characters.hiddenCharacters?.includes(this.id));
     ignored = $derived.by(
         () => this.hidden || settingsState.value.characters.ignoredCharacters?.includes(this.id),
+    );
+
+    calculatedItemLevel = $derived.by(() => {
+        let calced: string = undefined;
+        if (Object.keys(this.equippedItems).length > 0) {
+            let count = 0,
+                itemLevels = 0;
+            for (let j = 0; j < slotOrder.length; j++) {
+                const slot = slotOrder[j];
+                const equippedItem = this.equippedItems[slot];
+                if (equippedItem !== undefined) {
+                    itemLevels += equippedItem.itemLevel;
+                    count++;
+                    if (
+                        slot === InventorySlot.MainHand &&
+                        this.equippedItems[InventorySlot.OffHand] === undefined
+                    ) {
+                        itemLevels += equippedItem.itemLevel;
+                        count++;
+                    }
+                }
+            }
+
+            const itemLevel = itemLevels / count;
+            calced = itemLevel.toFixed(1);
+        }
+
+        return calced || this.equippedItemLevel.toFixed(1);
+    });
+
+    calculatedItemLevelQuality = $derived.by(() =>
+        getItemLevelQuality(parseFloat(this.calculatedItemLevel)),
     );
 
     private _fancyLevel: string;

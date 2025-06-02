@@ -157,7 +157,8 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         // Guilds
         userData.guildMap = {};
         for (const guildArray of userData.guildsRaw || []) {
-            const guild = new Guild(...guildArray);
+            const guild = new Guild();
+            guild.init(...guildArray);
             userData.guildMap[guild.id] = guild;
         }
         userData.guildsRaw = null;

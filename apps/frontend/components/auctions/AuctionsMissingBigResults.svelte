@@ -34,6 +34,7 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import { itemModifierMap } from '@/data/item-modifier';
+    import { userState } from '@/user-home/state/user';
 
     let { page, slug1 }: { page: number; slug1: string } = $props();
 
@@ -293,7 +294,7 @@
                                             <ProfessionIcon id={profession.id} />
                                             {#each characterIds as characterId (characterId)}
                                                 {@const character =
-                                                    $userStore.characterMap[characterId]}
+                                                    userState.general.characterMap[characterId]}
                                                 <span class="class-{character.classId}">
                                                     {character.name}
                                                 </span>
