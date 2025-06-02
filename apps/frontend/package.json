@@ -8,7 +8,9 @@
     "dev": "vite",
     "build": "vite build",
     "check": "svelte-check",
-    "lint": "eslint --cache ."
+    "lint": "eslint --cache .",
+    "prettier": "prettier --check --ignore-path ../../.gitignore .",
+    "prettier-fix": "prettier --write  --ignore-path ../../.gitignore ."
   },
   "dependencies": {
     "@microsoft/signalr": "^8.0.7",
