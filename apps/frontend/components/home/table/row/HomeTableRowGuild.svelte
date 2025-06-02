@@ -1,30 +1,27 @@
 <script lang="ts">
-    import { userStore } from '@/stores'
-    import { basicTooltip } from '@/shared/utils/tooltips'
-    import type { Character } from '@/types'
+    import { userStore } from '@/stores';
+    import { basicTooltip } from '@/shared/utils/tooltips';
+    import type { Character } from '@/types';
 
-    export let character: Character
+    let { character }: { character: Character } = $props();
 
-    $: guild = $userStore.guildMap[character.guildId]
+    let guild = $derived($userStore.guildMap[character.guildId]);
+    let guildName = $derived(guild?.name || 'Unknown Guild');
 </script>
 
 <style lang="scss">
     td {
         @include cell-width($width-guild, $maxWidth: $width-guild-max);
-        
+
         border-left: 1px solid $border-color;
     }
 </style>
 
 <td
     class="text-overflow"
-    use:basicTooltip={guild ? `${guild.name} - ${guild.realm.name}` : null}
+    use:basicTooltip={guild ? `${guildName} - ${guild?.realm?.name || 'Unknown Realm'}` : null}
 >
     {#if character.guildId}
-        {#if guild}
-            {guild.name}
-        {:else}
-            --Unknown guild--
-        {/if}
+        {guildName}
     {/if}
 </td>
