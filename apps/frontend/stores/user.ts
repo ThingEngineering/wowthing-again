@@ -52,6 +52,7 @@ import { journalStore } from './journal';
 import { userModifiedStore } from './user-modified';
 import { wowthingData } from '@/shared/stores/data';
 import { settingsState } from '@/shared/state/settings.svelte';
+import { userState } from '@/user-home/state/user';
 
 export class UserDataStore extends WritableFancyStore<UserData> {
     get dataUrl(): string {
@@ -65,6 +66,8 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
     initialize(userData: UserData): void {
         console.time('UserDataStore.initialize');
+
+        userState.general.process({ ...userData });
 
         // Background images
         userData.backgroundList = sortBy(Object.values(userData.backgrounds), (bg) => -bg.id);
