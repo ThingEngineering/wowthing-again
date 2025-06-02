@@ -768,7 +768,8 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                         const objectives = charTask.quest.objectives || [];
                         if (objectives.length === 1) {
                             const objective = charTask.quest.objectives[0];
-                            if (objective.type === 'progressbar') {                                charTask.text = `${objective.have} / ${objective.need}`;
+                            if (objective.type === 'progressbar') {
+                                charTask.text = `${objective.have} / ${objective.need}`;
                             } else {
                                 charTask.text = `${Math.floor((Math.min(objective.have, objective.need) / objective.need) * 100)} %`;
                             }
@@ -801,8 +802,6 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
             }
         } // choreTask of choreTasks
     } // view of views
-
-    if (character.name === 'Totake') console.log(character.name, characterData.chores);
 }
 
 function doProfessionCooldowns(
