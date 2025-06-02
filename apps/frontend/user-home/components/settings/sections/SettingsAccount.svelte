@@ -3,15 +3,22 @@
 
     import { Language } from '@/enums/language';
     import { Region } from '@/enums/region';
-    import { userStore } from '@/stores';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { userStore } from '@/stores';
     import getAccountCharacters from '@/utils/get-account-characters';
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import Select from '@/shared/components/forms/Select.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
 
-    let apiKey = '';
+    $effect.pre(() => {
+        settingsState.value.accounts ||= {};
+        for (const account of Object.values($userStore.accounts)) {
+            settingsState.value.accounts[account.id] ||= { enabled: true, tag: '' };
+        }
+    });
+
+    let apiKey = $state('');
 
     async function onClick() {
         const xsrf = document.getElementById('app').getAttribute('data-xsrf');
