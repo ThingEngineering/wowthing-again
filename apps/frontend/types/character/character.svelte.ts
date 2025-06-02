@@ -51,6 +51,8 @@ import type { Account } from '../account';
 import type { CharacterAura } from './aura';
 import type { ItemData } from '../data/item';
 import type { CharacterPatronOrder } from './patron-order';
+import { settingsState } from '@/shared/state/settings.svelte';
+import { getGenderedName } from '@/utils/get-gendered-name';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Static
@@ -91,12 +93,14 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public hearthLocation = $state<string>(undefined);
 
     public lastApiUpdate: DateTime = $state<DateTime>(undefined);
+    public lastApiUpdateUnix = $state(0);
     public lastSeenAddon: DateTime = $state<DateTime>(undefined);
+    public lastSeenAddonUnix = $state(0);
     public scannedCurrencies: DateTime = $state<DateTime>(undefined);
 
     // Calculated
-    public hidden: boolean;
-    public ignored: boolean;
+    // public hidden: boolean;
+    // public ignored: boolean;
 
     public calculatedItemLevel: string;
     public calculatedItemLevelQuality: number;
@@ -219,6 +223,9 @@ export class Character implements ContainsItems, HasNameAndRealm {
         this.gold = gold;
         this.currentLocation = currentLocation;
         this.hearthLocation = hearthLocation;
+        this.lastApiUpdateUnix = lastApiUpdateUnix;
+        this.lastSeenAddonUnix = lastSeenAddonUnix;
+
         this.configuration = configuration;
         this.auras = auras;
         // rawEquippedItems
@@ -251,6 +258,19 @@ export class Character implements ContainsItems, HasNameAndRealm {
         // guild relies on UserStore data
         this.realm = staticData.realms[this.realmId];
         this.region = this.realm?.region;
+
+        // names
+        this.className = getGenderedName(
+            staticData.characterClasses[this.classId].name,
+            this.gender,
+        );
+        this.raceName = getGenderedName(staticData.characterRaces[this.raceId].name, this.gender);
+        if (this.activeSpecId > 0) {
+            this.specializationName = getGenderedName(
+                staticData.characterSpecializations[this.activeSpecId].name,
+                this.gender,
+            );
+        }
 
         const pandaCooking = this.professions?.[Profession.Cooking]?.[2544];
         if (pandaCooking) {
@@ -382,6 +402,11 @@ export class Character implements ContainsItems, HasNameAndRealm {
             this.scannedCurrencies = DateTime.fromSeconds(scannedCurrenciesUnix);
         }
     }
+
+    hidden = $derived.by(() => settingsState.value.characters.hiddenCharacters?.includes(this.id));
+    ignored = $derived.by(
+        () => this.hidden || settingsState.value.characters.ignoredCharacters?.includes(this.id),
+    );
 
     private _fancyLevel: string;
     get fancyLevel(): string {

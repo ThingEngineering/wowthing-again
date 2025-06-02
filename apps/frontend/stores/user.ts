@@ -250,11 +250,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         for (const character of userData.characters) {
             this.initializeCharacter(itemData, staticData, userData, character);
 
-            character.hidden = settingsData.characters.hiddenCharacters?.includes(character.id);
-            character.ignored =
-                (character.hidden ||
-                    settingsData.characters.ignoredCharacters?.includes(character.id)) === true;
-
             for (const [key, lockout] of Object.entries(character.lockouts || {})) {
                 // Addon gets the wrong ID for Uldir for some reason?
                 if (key.startsWith('1028-')) {
@@ -458,26 +453,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         // account
         character.account = this.value.accounts[character.accountId];
 
-        // names
-        character.className = getGenderedName(
-            staticData.characterClasses[character.classId].name,
-            character.gender,
-        );
-        character.raceName = getGenderedName(
-            staticData.characterRaces[character.raceId].name,
-            character.gender,
-        );
-        if (character.activeSpecId > 0) {
-            character.specializationName = getGenderedName(
-                staticData.characterSpecializations[character.activeSpecId].name,
-                character.gender,
-            );
-        }
-
         // realm
-        character.realm = staticData.realms[character.realmId] || staticData.realms[0];
-        character.region = character.realm?.region || Region.US;
-
         if (
             settingsState.value.accounts?.[character.accountId]?.enabled &&
             character.realmId > 0 &&
