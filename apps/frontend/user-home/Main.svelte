@@ -24,6 +24,8 @@
     import Routes from './Routes.svelte';
     import Sidebar from './Sidebar.svelte';
 
+    let ready = $state(false);
+
     onMount(async () => {
         sharedState.public = userStore.dataUrl.includes('/public-');
 
@@ -48,8 +50,30 @@
         // FIX: should likely be derived
         userQuestStore.setup($timeStore);
 
+        // mounting the new nav conditionally is annoying
+        const navTarget = document.querySelector('#app-nav');
+        navTarget.replaceChildren();
+        if (settingsState.value.layout.newNavigation) {
+            mount(NewNav, { target: navTarget });
+        }
+
         if (!sharedState.public) {
+            // Signal/R for notifications
             userUpdateHubStore.connect();
+
+            // Add the refresh button if lastApiCheck is more than 24 hours ago
+            if ($userStore.lastApiCheck) {
+                const parsedTime = parseApiTime($userStore.lastApiCheck);
+                const diff = $timeStore.diff(parsedTime).toMillis();
+                if (diff > 24 * 60 * 60 * 1000) {
+                    const navCenter = document.getElementById('nav-center');
+                    navCenter.replaceChildren();
+                    mount(Refresh, {
+                        target: navCenter,
+                        props: {},
+                    });
+                }
+            }
         }
 
         ready = true;
@@ -57,81 +81,17 @@
 
     onDestroy(() => userUpdateHubStore.disconnect());
 
-    let error: boolean;
-    let loaded: boolean;
-    let ready: boolean;
-    $: {
-        error =
-            $itemStore.error ||
-            $journalStore.error ||
-            $staticStore.error ||
-            $userAchievementStore.error ||
-            $userQuestStore.error ||
-            $userStore.error;
-
-        // loaded =
-        //     $itemStore.loaded &&
-        //     $journalStore.loaded &&
-        //     $staticStore.loaded &&
-        //     $userAchievementStore.loaded &&
-        //     $userQuestStore.loaded &&
-        //     $userStore.loaded &&
-        //     wowthingData.loaded;
-
-        // if (!error && loaded) {
-        //     staticStore.setup(settingsState.value, $itemStore);
-
-        //     userStore.setup(settingsState.value, $userStore, $userAchievementStore);
-
-        //     userQuestStore.setup($timeStore);
-
-        //     if (!sharedState.public) {
-        //         userUpdateHubStore.connect();
-        //     }
-
-        //     ready = true;
-        // }
-    }
-
-    $: {
-        if (ready) {
-            const navTarget = document.querySelector('#app-nav');
-            navTarget.replaceChildren();
-            if (settingsState.value.layout.newNavigation) {
-                mount(NewNav, { target: navTarget });
-            }
-        }
-    }
-
-    $: {
-        if (ready && !sharedState.public && $userStore.lastApiCheck) {
-            const parsedTime = parseApiTime($userStore.lastApiCheck);
-            const diff = $timeStore.diff(parsedTime).toMillis();
-            // Add the refresh button if lastApiCheck is more than 24 hours ago
-            if (diff > 24 * 60 * 60 * 1000) {
-                const navCenter = document.getElementById('nav-center');
-                navCenter.replaceChildren();
-                mount(Refresh, {
-                    target: navCenter,
-                    props: {},
-                });
-            }
-        }
-    }
-
-    $: {
+    $effect(() => {
         const headerLinks = document
             .getElementById('nav-left')
             .getElementsByClassName('header-title');
         (headerLinks[0] as HTMLElement).style.display = settingsState.value.leaderboard.enabled
             ? 'inline-block'
             : 'none';
-    }
+    });
 </script>
 
-{#if error}
-    <p>KABOOM! Something has gone horribly wrong, try reloading the page?</p>
-{:else if !ready}
+{#if !ready}
     <p>L O A D I N G</p>
 {:else}
     {#if !settingsState.value.layout.newNavigation}
