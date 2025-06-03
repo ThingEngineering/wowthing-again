@@ -52,7 +52,7 @@ export class DataUserGeneral {
         }
 
         const regions = uniq(
-            this.characters.map((char) => char.realm?.region).filter((region) => !!region),
+            this.characters.map((char) => char.realm?.region).filter((region) => !!region)
         );
         regions.sort();
         this.regions = regions;

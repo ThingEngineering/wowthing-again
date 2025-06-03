@@ -1,8 +1,11 @@
 import { Language } from '@/enums/language';
+
 import { processDbData } from './db/process';
-import type { DataDb, RawDb } from './db/types';
+import { processItemsData } from './items/process';
 import { processManualData } from './manual/process';
+import type { DataDb, RawDb } from './db/types';
 import type { DataManual, RawManual } from './manual/types';
+import type { DataItems, RawItems } from './items/types';
 
 const requestInit: RequestInit = {
     credentials: 'include',
@@ -18,6 +21,7 @@ class WowthingData {
     public loaded = $state(false);
 
     public db: DataDb;
+    public items: DataItems;
     public manual: DataManual;
 
     async fetch(language: Language) {
@@ -29,8 +33,12 @@ class WowthingData {
         await Promise.all([
             this.fetchAndProcess('db', (rawData: RawDb) => (this.db = processDbData(rawData))),
             this.fetchAndProcess(
+                'item',
+                (rawData: RawItems) => (this.items = processItemsData(rawData))
+            ),
+            this.fetchAndProcess(
                 'manual',
-                (rawData: RawManual) => (this.manual = processManualData(rawData)),
+                (rawData: RawManual) => (this.manual = processManualData(rawData))
             ),
         ]);
 
@@ -43,7 +51,7 @@ class WowthingData {
 
     private async fetchAndProcess<TRawData, TData>(
         name: string,
-        processFunc: (rawData: TRawData) => TData,
+        processFunc: (rawData: TRawData) => TData
     ) {
         const dataUrl = document.getElementById('app')?.getAttribute(`data-${name}`);
         const urlPath = dataUrl.replace('zzZZ', Language[this.language]);

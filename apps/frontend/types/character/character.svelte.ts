@@ -4,6 +4,7 @@ import { get } from 'svelte/store';
 import { Constants } from '@/data/constants';
 import { slotOrder } from '@/data/inventory-slot';
 import { professionSpecializationToSpell } from '@/data/professions';
+import { Faction } from '@/enums/faction';
 import { InventorySlot } from '@/enums/inventory-slot';
 import { Profession } from '@/enums/profession';
 import { settingsState } from '@/shared/state/settings.svelte';
@@ -14,7 +15,7 @@ import { getCharacterLevel } from '@/utils/get-character-level';
 import { getGenderedName } from '@/utils/get-gendered-name';
 import getItemLevelQuality from '@/utils/get-item-level-quality';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
-import { Faction } from '@/enums/faction';
+import { initializeContainsItems } from '@/utils/items/initialize-contains-items';
 import type { InventoryType } from '@/enums/inventory-type';
 import type { Region } from '@/enums/region';
 import type { StaticData, StaticDataRealm } from '@/shared/stores/static/types';
@@ -111,7 +112,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public itemsByLocation: Record<number, CharacterItem[]> = $state({});
     public mythicPlusSeasonScores: Record<number, number> = $state({});
     public mythicPlusSeasons: Record<number, Record<number, CharacterMythicPlusAddonMap>> = $state(
-        {},
+        {}
     );
     public mythicPlusWeeks: Record<number, CharacterMythicPlusAddonRun[]> = $state({});
     public professionSpecializations: Record<number, number> = $state({});
@@ -197,7 +198,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
             CharacterStatisticBasicArray[],
             CharacterStatisticMiscArray[],
             CharacterStatisticRatingArray[],
-        ],
+        ]
     ) {
         this.id = id;
         this.name = name;
@@ -259,13 +260,13 @@ export class Character implements ContainsItems, HasNameAndRealm {
         // names
         this.className = getGenderedName(
             staticData.characterClasses[this.classId].name,
-            this.gender,
+            this.gender
         );
         this.raceName = getGenderedName(staticData.characterRaces[this.raceId].name, this.gender);
         if (this.activeSpecId > 0) {
             this.specializationName = getGenderedName(
                 staticData.characterSpecializations[this.activeSpecId].name,
-                this.gender,
+                this.gender
             );
         }
 
@@ -312,25 +313,28 @@ export class Character implements ContainsItems, HasNameAndRealm {
             this.equippedItems[slot] = obj;
         }
 
+        const items: CharacterItem[] = [];
         for (const rawItem of rawItems || []) {
             const obj = new CharacterItem(...rawItem);
             if (obj.slot === 0) {
                 this.bags[obj.bagId] = obj.itemId;
             } else {
-                (this.itemsById[obj.itemId] ||= []).push(obj);
+                items.push(obj);
                 (this.itemsByLocation[obj.location] ||= []).push(obj);
             }
         }
 
+        initializeContainsItems(this, items);
+
         if (this.mythicPlus) {
             this.mythicPlus.seasons = {};
             for (const [seasonId, seasonData] of getNumberKeyedEntries(
-                this.mythicPlus.rawSeasons || {},
+                this.mythicPlus.rawSeasons || {}
             )) {
                 this.mythicPlus.seasons[seasonId] = {};
                 for (const [mapId, runArrays] of getNumberKeyedEntries(seasonData)) {
                     this.mythicPlus.seasons[seasonId][mapId] = runArrays.map(
-                        (runArray) => new CharacterMythicPlusRun(...runArray),
+                        (runArray) => new CharacterMythicPlusRun(...runArray)
                     );
                 }
             }
@@ -340,7 +344,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         if (this.mythicPlusAddon) {
             for (const seasonData of Object.values(this.mythicPlusAddon)) {
                 seasonData.runs = (seasonData.rawRuns || []).map(
-                    (runArray) => new CharacterMythicPlusAddonRun(...runArray),
+                    (runArray) => new CharacterMythicPlusAddonRun(...runArray)
                 );
                 seasonData.rawRuns = null;
             }
@@ -351,14 +355,14 @@ export class Character implements ContainsItems, HasNameAndRealm {
             this.mythicPlusSeasons[seasonId] = {};
             for (const [mapId, mapArray] of getNumberKeyedEntries(seasonData)) {
                 this.mythicPlusSeasons[seasonId][mapId] = new CharacterMythicPlusAddonMap(
-                    ...mapArray,
+                    ...mapArray
                 );
             }
         }
 
         for (const [week, runsArray] of Object.entries(rawMythicPlusWeeks || {})) {
             this.mythicPlusWeeks[parseInt(week)] = runsArray.map(
-                (runArray) => new CharacterMythicPlusAddonRun(...runArray),
+                (runArray) => new CharacterMythicPlusAddonRun(...runArray)
             );
         }
 
@@ -402,7 +406,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
     hidden = $derived.by(() => settingsState.value.characters.hiddenCharacters?.includes(this.id));
     ignored = $derived.by(
-        () => this.hidden || settingsState.value.characters.ignoredCharacters?.includes(this.id),
+        () => this.hidden || settingsState.value.characters.ignoredCharacters?.includes(this.id)
     );
 
     calculatedItemLevel = $derived.by(() => {
@@ -434,7 +438,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     });
 
     calculatedItemLevelQuality = $derived.by(() =>
-        getItemLevelQuality(parseFloat(this.calculatedItemLevel)),
+        getItemLevelQuality(parseFloat(this.calculatedItemLevel))
     );
 
     private _fancyLevel: string;
@@ -457,7 +461,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public bestItemLevels: Record<number, [string, InventoryType[]]>;
     getBestItemLevels(
         itemData: ItemData,
-        staticData: StaticData,
+        staticData: StaticData
     ): Record<number, [string, InventoryType[]]> {
         this.bestItemLevels ||= getBestItemLevels(itemData, staticData, this);
         return this.bestItemLevels;
@@ -467,7 +471,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     getItemCount(itemId: number): number {
         return (this._itemCounts[itemId] ||= (this.itemsById[itemId] || []).reduce(
             (a, b) => a + b.count,
-            0,
+            0
         ));
     }
 

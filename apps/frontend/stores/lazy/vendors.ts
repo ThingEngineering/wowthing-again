@@ -141,7 +141,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         set.name,
                         [],
                         true,
-                        set.showNormalTag,
+                        set.showNormalTag
                     ));
                     for (let itemIndex = setPosition; itemIndex < setEnd; itemIndex++) {
                         coveredBySets.add(itemIndex);
@@ -165,7 +165,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         }
 
                         // BonusIDs, whee
-                        item.appearanceModifier = get(getBonusIdModifier)(item.bonusIds || []);
+                        item.appearanceModifier = getBonusIdModifier(item.bonusIds || []);
                     }
                 }
 
@@ -225,14 +225,14 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     item.sortedCosts = getCurrencyCosts(
                         stores.itemData,
                         stores.staticData,
-                        item.costs,
+                        item.costs
                     );
 
                     if (groupKey) {
                         const autoGroup = (autoGroups[groupKey] ||= new ManualDataVendorGroup(
                             groupName,
                             [],
-                            true,
+                            true
                         ));
 
                         const seenKey = `${item.type}|${item.id}|${(item.bonusIds || []).join(',')}`;
@@ -306,7 +306,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
         const buildCategoryStats = (
             category: ManualDataVendorCategory,
             baseSlug: string,
-            parentStats: UserCount[],
+            parentStats: UserCount[]
         ) => {
             if (category === null) {
                 return;
@@ -323,8 +323,8 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     !stores.vendorState.showPvp &&
                     group.sells.some((vendorItem) =>
                         getNumberKeyedEntries(vendorItem.costs).some(([currencyId]) =>
-                            pvpCurrencies.has(currencyId),
-                        ),
+                            pvpCurrencies.has(currencyId)
+                        )
                     )
                 ) {
                     continue;
@@ -345,7 +345,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     item.sortedCosts = getCurrencyCosts(
                         stores.itemData,
                         stores.staticData,
-                        item.costs,
+                        item.costs
                     );
 
                     if (item.classMask > 0 && (item.classMask & classMask) === 0) {
@@ -438,7 +438,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         stores.staticData,
                         item.type,
                         item.id,
-                        item.trackingQuestId,
+                        item.trackingQuestId
                     );
 
                     if (
@@ -491,7 +491,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                             appearanceIds: item.appearanceIds,
                             completionist: masochist,
                             modifier: item.appearanceModifier,
-                        },
+                        }
                     );
 
                     // Skip unavailable illusions
