@@ -1,22 +1,21 @@
 import sortBy from 'lodash/sortBy';
 
+import { expansionMap, expansionSlugMap } from '@/data/expansion';
+import { typeOrderMap } from '@/data/inventory-type';
+import { weaponSubclassOrderMap, weaponSubclassToString } from '@/data/weapons';
+import { ArmorType } from '@/enums/armor-type';
+import { ItemClass } from '@/enums/item-class';
+import { wowthingData } from '@/shared/stores/data';
 import { UserCount, type UserData } from '@/types';
+import { AppearanceDataAppearance, AppearanceDataSet } from '@/types/data/appearance';
+import { leftPad } from '@/utils/formatting';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
-import type { ItemData } from '@/types/data/item';
-import { AppearanceDataAppearance, AppearanceDataSet } from '@/types/data/appearance';
-import { expansionMap, expansionSlugMap } from '@/data/expansion';
-import { ItemClass } from '@/enums/item-class';
-import { leftPad } from '@/utils/formatting';
-import { weaponSubclassOrderMap, weaponSubclassToString } from '@/data/weapons';
-import { typeOrderMap } from '@/data/inventory-type';
-import { ArmorType } from '@/enums/armor-type';
 import type { AppearancesState } from '../local-storage';
 
 interface LazyStores {
     appearanceState: AppearancesState;
     settings: Settings;
-    itemData: ItemData;
     staticData: StaticData;
     userData: UserData;
 }
@@ -94,12 +93,12 @@ function buildAppearanceData(stores: LazyStores): Record<string, AppearanceDataS
     console.time('buildAppearanceData');
 
     const byExpansion: Record<number, Record<string, AppearanceDataSet>> = Object.fromEntries(
-        Object.values(expansionMap).map((expansion) => [expansion.id, {}]),
+        Object.values(expansionMap).map((expansion) => [expansion.id, {}])
     );
 
     const byAppearanceId: Record<string, Record<number, [number, number, number][]>> = {};
     const keyCache: Record<number, Record<number, Record<number, Record<number, string>>>> = {};
-    for (const item of Object.values(stores.itemData.items)) {
+    for (const item of Object.values(wowthingData.items.items)) {
         if (!item.appearances || byExpansion[item.expansion] === undefined) {
             continue;
         }
@@ -163,9 +162,9 @@ function buildAppearanceData(stores: LazyStores): Record<string, AppearanceDataS
                 leftPad(
                     99 - Math.min(...arrays.map((array) => modifierSortOrder[array[2]] || 0)),
                     2,
-                    '0',
+                    '0'
                 ),
-            ].join('|'),
+            ].join('|')
         );
 
         const name = nameParts.join(' - ');
@@ -173,7 +172,7 @@ function buildAppearanceData(stores: LazyStores): Record<string, AppearanceDataS
 
         for (const [appearanceId, appearanceArrays] of sortedData) {
             nameMap.appearances.push(
-                new AppearanceDataAppearance(parseInt(appearanceId), appearanceArrays),
+                new AppearanceDataAppearance(parseInt(appearanceId), appearanceArrays)
             );
         }
     }
@@ -182,18 +181,18 @@ function buildAppearanceData(stores: LazyStores): Record<string, AppearanceDataS
         sortBy(Object.entries(byExpansion), ([key]) => 100 - parseInt(key)).map(([key, groups]) => [
             `expansion--${expansionMap[parseInt(key)].slug}`,
             sortBy(Object.values(groups), (group) => group.sortKey),
-        ]),
+        ])
     );
 
     for (const [expansion, sets] of sortBy(
         Object.entries(appearanceData),
-        ([exp]) => 100 - parseInt(exp),
+        ([exp]) => 100 - parseInt(exp)
     )) {
         for (const set of sets) {
             let typeName: string;
 
             const armorMatches = set.name.match(
-                /^Armor - (Cloth|Leather|Mail|Plate) (Head|Shoulders|Chest|Wrist|Hands|Waist|Legs|Feet)/,
+                /^Armor - (Cloth|Leather|Mail|Plate) (Head|Shoulders|Chest|Wrist|Hands|Waist|Legs|Feet)/
             );
             if (armorMatches) {
                 typeName = `${armorMatches[1].toLowerCase()}--${armorMatches[2].toLowerCase()}`;
@@ -209,7 +208,7 @@ function buildAppearanceData(stores: LazyStores): Record<string, AppearanceDataS
 
                 const dataSet = new AppearanceDataSet(
                     expansionSlugMap[expansion.split('--')[1]].name,
-                    null,
+                    null
                 );
                 dataSet.appearances = set.appearances;
 

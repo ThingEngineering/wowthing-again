@@ -9,6 +9,12 @@ export function processItemsData(rawData: RawItems): DataItems {
 
     const data = new DataItems();
 
+    data.appearanceMap = rawData.appearanceMap;
+    data.completesQuest = rawData.completesQuest;
+    data.itemConversionEntries = rawData.itemConversionEntries;
+    data.specOverrides = rawData.specOverrides;
+    data.teachesTransmog = rawData.teachesTransmog;
+
     let itemId = 0;
     for (const itemArray of rawData.rawItems) {
         itemId += itemArray[0];
@@ -110,8 +116,6 @@ export function processItemsData(rawData: RawItems): DataItems {
             }
         }
     }
-
-    data.itemConversionEntries = rawData.itemConversionEntries;
 
     for (const itemSetArray of rawData.rawItemSets) {
         const obj = new DataItemSet(...itemSetArray);

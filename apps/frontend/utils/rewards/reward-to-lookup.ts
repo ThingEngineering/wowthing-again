@@ -3,7 +3,6 @@ import { LookupType } from '@/enums/lookup-type';
 import { RewardType } from '@/enums/reward-type';
 import { wowthingData } from '@/shared/stores/data';
 import type { StaticData } from '@/shared/stores/static/types/store';
-import type { ItemData } from '@/types/data/item/store';
 
 const rewardLookupMap: Record<number, LookupType> = {
     [RewardType.AccountQuest]: LookupType.Quest,
@@ -14,11 +13,10 @@ const rewardLookupMap: Record<number, LookupType> = {
 };
 
 export function rewardToLookup(
-    itemData: ItemData,
     staticData: StaticData,
     rewardType: RewardType,
     rewardId: number,
-    trackingQuestId?: number,
+    trackingQuestId?: number
 ): [LookupType, number] {
     const manualData = wowthingData.manual;
     let ret: [LookupType, number] = [LookupType.None, 0];
@@ -32,8 +30,8 @@ export function rewardToLookup(
             ret = [LookupType.Pet, staticData.petsByItem[rewardId].id];
         } else if (staticData.toys[rewardId]) {
             ret = [LookupType.Toy, rewardId];
-        } else if (itemData.teachesTransmog[rewardId]) {
-            ret = [LookupType.TransmogSet, itemData.teachesTransmog[rewardId]];
+        } else if (wowthingData.items.teachesTransmog[rewardId]) {
+            ret = [LookupType.TransmogSet, wowthingData.items.teachesTransmog[rewardId]];
         } else if (staticData.professionAbilityByItemId[rewardId]) {
             const ability = staticData.professionAbilityByItemId[rewardId];
             ret = [LookupType.Recipe, ability.abilityId];
@@ -41,14 +39,14 @@ export function rewardToLookup(
             ret = [LookupType.Quest, manualData.dragonridingItemToQuest.get(rewardId)];
         } else if (manualData.druidFormItemToQuest.has(rewardId)) {
             ret = [LookupType.Quest, manualData.druidFormItemToQuest.get(rewardId)];
-        } else if (itemData.completesQuest[rewardId]) {
+        } else if (wowthingData.items.completesQuest[rewardId]) {
             // this should always be the last Quest return type, several other kinds of item
             // are also included in this lookup table
-            ret = [LookupType.Quest, itemData.completesQuest[rewardId][0]];
+            ret = [LookupType.Quest, wowthingData.items.completesQuest[rewardId][0]];
         } else if (trackingQuestId > 0) {
             ret = [LookupType.Quest, trackingQuestId];
-        } else if (itemData.teachesSpell[rewardId]) {
-            ret = [LookupType.Spell, itemData.teachesSpell[rewardId][0]];
+        } else if (wowthingData.items.teachesSpell[rewardId]) {
+            ret = [LookupType.Spell, wowthingData.items.teachesSpell[rewardId][0]];
         }
     }
 

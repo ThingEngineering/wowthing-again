@@ -31,7 +31,6 @@ import {
 } from '../local-storage';
 
 import { achievementStore } from '../achievements';
-import { itemStore } from '../item';
 import { journalStore } from '../journal';
 import { settingsState } from '@/shared/state/settings.svelte';
 import { staticStore } from '@/shared/stores/static';
@@ -125,7 +124,7 @@ export const lazyStore = derived(
                 $userStore,
                 $userAchievementStore,
                 $userQuestStore,
-                $activeHolidays,
+                $activeHolidays
             );
             return storeInstance;
         },
@@ -133,14 +132,13 @@ export const lazyStore = derived(
         {
             leading: true,
             trailing: true,
-        },
-    ),
+        }
+    )
 );
 
 export class LazyStore implements LazyUgh {
     private settings: Settings;
 
-    private itemData: ItemData;
     private journalData: JournalData;
     private staticData: StaticData;
 
@@ -182,7 +180,7 @@ export class LazyStore implements LazyUgh {
         userData: UserData,
         userAchievementData: UserAchievementData,
         userQuestData: UserQuestData,
-        activeHolidays: ActiveHolidays,
+        activeHolidays: ActiveHolidays
     ) {
         const newHashes: Record<string, string> = {
             currentTime: currentTime.toString(),
@@ -201,7 +199,7 @@ export class LazyStore implements LazyUgh {
             settingsViews: hashObject(settings.views),
         };
         const changedEntries = Object.entries(newHashes).filter(
-            ([key, value]) => value !== this.hashes[key],
+            ([key, value]) => value !== this.hashes[key]
         );
 
         const changedData = {
@@ -222,7 +220,6 @@ export class LazyStore implements LazyUgh {
         const changedHashes = Object.fromEntries(changedEntries);
         this.hashes = newHashes;
 
-        const itemData = (this.itemData = get(itemStore));
         const journalData = (this.journalData = get(journalStore));
         const staticData = (this.staticData = get(staticStore));
 
@@ -245,7 +242,7 @@ export class LazyStore implements LazyUgh {
                     userAchievementData,
                     userData,
                     userQuestData,
-                }),
+                })
             );
         }
 
@@ -258,10 +255,9 @@ export class LazyStore implements LazyUgh {
                 doAppearances({
                     appearanceState,
                     settings: this.settings,
-                    itemData: this.itemData,
                     staticData: this.staticData,
                     userData,
-                }),
+                })
             );
         }
 
@@ -280,19 +276,18 @@ export class LazyStore implements LazyUgh {
                     userData,
                     userQuestData,
                     activeHolidays,
-                }),
+                })
             );
         }
 
         if (changedData.userData || changedData.userQuestData || changedHashes.settingsTransmog) {
             this.convertibleFunc = once(() =>
                 doConvertible({
-                    itemData: this.itemData,
                     settings: this.settings,
                     userAchievementData,
                     userData,
                     userQuestData,
-                }),
+                })
             );
         }
 
@@ -311,30 +306,30 @@ export class LazyStore implements LazyUgh {
                     collectibleStores,
                     'mounts',
                     wowthingData.manual.mountSets,
-                    userData.hasMount,
-                ),
+                    userData.hasMount
+                )
             );
             this.petsFunc = once(() =>
                 doCollectible(
                     collectibleStores,
                     'pets',
                     wowthingData.manual.petSets,
-                    userData.hasPet,
-                ),
+                    userData.hasPet
+                )
             );
             this.toysFunc = once(() =>
                 doCollectible(
                     collectibleStores,
                     'toys',
                     wowthingData.manual.toySets,
-                    userData.hasToy,
-                ),
+                    userData.hasToy
+                )
             );
         }
 
         if (changedData.userQuestData) {
             this.customizationsFunc = once(() =>
-                this.doCustomizations(userAchievementData, userData, userQuestData),
+                this.doCustomizations(userAchievementData, userData, userQuestData)
             );
         }
 
@@ -355,13 +350,12 @@ export class LazyStore implements LazyUgh {
             this.journalFunc = once(() =>
                 doJournal({
                     settings,
-                    itemData,
                     journalState,
                     journalData,
                     staticData,
                     userData,
                     userQuestData,
-                }),
+                })
             );
         }
 
@@ -371,7 +365,7 @@ export class LazyStore implements LazyUgh {
                     settings,
                     staticData,
                     userData,
-                }),
+                })
             );
         }
 
@@ -379,12 +373,11 @@ export class LazyStore implements LazyUgh {
             this.transmogFunc = once(() =>
                 doTransmog({
                     settings,
-                    itemData,
                     staticData,
                     userAchievementData,
                     userData,
                     userQuestData,
-                }),
+                })
             );
         }
 
@@ -393,12 +386,11 @@ export class LazyStore implements LazyUgh {
                 doVendors({
                     settings,
                     vendorState,
-                    itemData,
                     staticData,
                     userData,
                     userQuestData,
                     lazyTransmog: this.transmogFunc(),
-                }),
+                })
             );
         }
 
@@ -416,13 +408,12 @@ export class LazyStore implements LazyUgh {
                     doZoneMaps({
                         settings,
                         zoneMapState,
-                        itemData,
                         staticData,
                         userData,
                         userAchievementData,
                         userQuestData,
                         lazyTransmog: this.transmogFunc(),
-                    }),
+                    })
             );
         }
 
@@ -481,7 +472,7 @@ export class LazyStore implements LazyUgh {
     }
 
     private doGeneric<T extends GenericCategory<U>, U>(
-        params: DoGenericParameters<T, U>,
+        params: DoGenericParameters<T, U>
     ): UserCounts {
         const counts: UserCounts = {};
         const overallData = (counts['OVERALL'] = new UserCount());
@@ -519,7 +510,7 @@ export class LazyStore implements LazyUgh {
     private doCustomizations(
         userAchievementData: UserAchievementData,
         userData: UserData,
-        userQuestData: UserQuestData,
+        userQuestData: UserQuestData
     ): UserCounts {
         const counts: UserCounts = {};
         const overallData = (counts['OVERALL'] = new UserCount());
@@ -547,7 +538,7 @@ export class LazyStore implements LazyUgh {
                             (thing.questId > 0 && userQuestData.accountHas.has(thing.questId)) ||
                             (thing.spellId > 0 &&
                                 userData.characters.some((char) =>
-                                    char.knownSpells?.includes(thing.spellId),
+                                    char.knownSpells?.includes(thing.spellId)
                                 )) ||
                             (thing.appearanceModifier >= 0 &&
                                 userData.hasSourceV2
@@ -592,8 +583,8 @@ export class LazyStore implements LazyUgh {
                 userData.hasIllusion.has(
                     find(
                         this.staticData.illusions,
-                        (staticIllusion) => staticIllusion.enchantmentId === illusion.enchantmentId,
-                    )?.enchantmentId,
+                        (staticIllusion) => staticIllusion.enchantmentId === illusion.enchantmentId
+                    )?.enchantmentId
                 ),
         });
     }

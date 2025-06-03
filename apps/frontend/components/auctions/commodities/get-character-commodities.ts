@@ -1,9 +1,7 @@
-import { get } from 'svelte/store';
-
 import { Constants } from '@/data/constants';
 import { ItemLocation } from '@/enums/item-location';
 import { ItemQuality } from '@/enums/item-quality';
-import { itemStore } from '@/stores';
+import { wowthingData } from '@/shared/stores/data';
 import type { UserData } from '@/types';
 
 import type { CommodityData } from './store';
@@ -30,11 +28,9 @@ const skippedIds = new Set<number>([
 export function getCharacterCommodities(
     userData: UserData,
     commodities: CommodityData,
-    currentExpansionOnly: boolean,
+    currentExpansionOnly: boolean
 ): CharacterCommodities[] {
     let ret: CharacterCommodities[] = [];
-
-    const itemData = get(itemStore);
 
     for (const character of userData.characters) {
         const characterCommodities = new CharacterCommodities(character.id);
@@ -46,7 +42,7 @@ export function getCharacterCommodities(
                     continue;
                 }
 
-                const item = itemData.items[characterItem.itemId];
+                const item = wowthingData.items.items[characterItem.itemId];
                 if (!item) {
                     continue;
                 }

@@ -1,17 +1,16 @@
 import { costOrderMap } from '@/data/vendors';
+import { wowthingData } from '@/shared/stores/data';
 import { leftPad } from '@/utils/formatting';
 import { toNiceNumber } from '@/utils/formatting';
-import type { ItemData } from '@/types/data/item';
 import type { StaticData } from '@/shared/stores/static/types';
 
 type CurrencyArray = [string, number, string, number, number];
 
 export function getCurrencyCosts(
-    itemData: ItemData,
     staticData: StaticData,
     costs: Record<number, number>,
     skipCostOrder?: boolean,
-    skipNiceNumbers?: boolean,
+    skipNiceNumbers?: boolean
 ): CurrencyArray[] {
     const temp: [string, CurrencyArray][] = [];
 
@@ -34,7 +33,7 @@ export function getCurrencyCosts(
         if (skipCostOrder !== true && index >= 0) {
             sortKey = leftPad(index, 6, '0');
         } else if (currencyData[0] === 'item') {
-            const item = itemData.items[currencyData[1]];
+            const item = wowthingData.items.items[currencyData[1]];
             sortKey = [
                 '999999',
                 leftPad(999_999_999 - currencyData[4], 9, '0'),
@@ -57,13 +56,12 @@ export function getCurrencyCosts(
 }
 
 export function getCurrencyCostsString(
-    itemData: ItemData,
     staticData: StaticData,
     costs: Record<number, number>,
-    reputation?: number[],
+    reputation?: number[]
 ): string {
     const parts: string[] = [];
-    const sortedCosts = getCurrencyCosts(itemData, staticData, costs);
+    const sortedCosts = getCurrencyCosts(staticData, costs);
     for (const [type, , , id, value] of sortedCosts) {
         let price: string;
         if (type === 'currency' && id === 0) {
@@ -82,11 +80,10 @@ export function getCurrencyCostsString(
 }
 
 export function getSetCurrencyCostsString(
-    itemData: ItemData,
     staticData: StaticData,
     allAppearanceIds: number[][],
     costses: Record<number, number>[],
-    haveFunc: (appearanceId: number) => boolean,
+    haveFunc: (appearanceId: number) => boolean
 ): string {
     const totalCosts: Record<number, number> = {};
     for (let i = 0; i < allAppearanceIds.length; i++) {
@@ -99,5 +96,5 @@ export function getSetCurrencyCostsString(
             totalCosts[keyNumber] = (totalCosts[keyNumber] || 0) + costses[i][keyNumber];
         }
     }
-    return getCurrencyCostsString(itemData, staticData, totalCosts);
+    return getCurrencyCostsString(staticData, totalCosts);
 }

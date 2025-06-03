@@ -1,12 +1,11 @@
 <script lang="ts">
-    import { itemStore } from '@/stores'
-    import { staticStore } from '@/shared/stores/static'
-    import { getCurrencyCosts } from '@/utils/get-currency-costs'
+    import { staticStore } from '@/shared/stores/static';
+    import { getCurrencyCosts } from '@/utils/get-currency-costs';
 
-    import CurrencyLink from '@/shared/components/links/CurrencyLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import CurrencyLink from '@/shared/components/links/CurrencyLink.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let costs: Record<number, number>    
+    export let costs: Record<number, number>;
 </script>
 
 <style lang="scss">
@@ -27,17 +26,13 @@
 
 {#if costs}
     <span class="costs">
-        {#each getCurrencyCosts($itemStore, $staticStore, costs, true, true) as [linkType, linkId, value]}
+        {#each getCurrencyCosts($staticStore, costs, true, true) as [linkType, linkId, value] (`${linkType}-${linkId}`)}
             <div>
                 <CurrencyLink
                     currencyId={linkType === 'currency' ? linkId : undefined}
                     itemId={linkType === 'item' ? linkId : undefined}
                 >
-                    <WowthingImage
-                        name="{linkType}/{linkId}"
-                        size={20}
-                        border={0}
-                    />
+                    <WowthingImage name="{linkType}/{linkId}" size={20} border={0} />
                     {value}
                 </CurrencyLink>
             </div>

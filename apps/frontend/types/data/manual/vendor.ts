@@ -82,9 +82,9 @@ export class ManualDataVendorItem {
         }
     }
 
-    getNote(itemData: ItemData, staticData: StaticData): string | undefined {
+    getNote(staticData: StaticData): string | undefined {
         return this.costs
-            ? getCurrencyCostsString(itemData, staticData, this.costs, this.reputation)
+            ? getCurrencyCostsString(staticData, this.costs, this.reputation)
             : this.note;
     }
 }

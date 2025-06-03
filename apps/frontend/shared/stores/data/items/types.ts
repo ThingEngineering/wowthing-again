@@ -34,6 +34,13 @@ export interface RawItems {
 }
 
 export class DataItems {
+    public appearanceMap: RawItems['appearanceMap'];
+    public completesQuest: RawItems['completesQuest'];
+    public itemConversionEntries: RawItems['itemConversionEntries'];
+    public specOverrides: RawItems['specOverrides'];
+    public teachesSpell: RawItems['teachesSpell'];
+    public teachesTransmog: RawItems['teachesTransmog'];
+
     public appearanceToItems: Record<number, [number, number][]> = {};
     public bonusIdToModifiedCrafting: Record<number, DataItemModifiedCrafting>;
     public items: Record<number, ItemDataItem> = {};
@@ -42,7 +49,6 @@ export class DataItems {
     public itemBonusSocket: Set<number> = new Set();
     public itemBonusToUpgrade: Record<number, [number, number, number]> = {};
     public itemConversionBonus: Record<number, number> = {};
-    public itemConversionEntries: Record<number, number[]>;
     public itemSets: Record<number, DataItemSet> = {};
     public oppositeFactionAppearance: Record<number, number[]>;
     public transmogSetToItems: Record<number, number[]> = {};

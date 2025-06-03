@@ -1,12 +1,11 @@
 import { Faction } from '@/enums/faction';
+import { wowthingData } from '@/shared/stores/data';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData, StaticDataProfessionAbilityInfo } from '@/shared/stores/static/types';
 import type { UserData } from '@/types';
-import type { ItemData } from '@/types/data/item';
 
 interface IsRecipeKnownStores {
     settings: Settings;
-    itemData: ItemData;
     staticData: StaticData;
     userData: UserData;
 }
@@ -43,7 +42,7 @@ export function isRecipeKnown(stores: IsRecipeKnownStores, options: IsRecipeKnow
             let recipeAlliance = false;
             let recipeHorde = false;
             for (const itemId of abilityInfo.itemIds) {
-                const item = stores.itemData.items[itemId];
+                const item = wowthingData.items.items[itemId];
                 if (item?.allianceOnly) {
                     recipeAlliance = true;
                 } else if (item?.hordeOnly) {

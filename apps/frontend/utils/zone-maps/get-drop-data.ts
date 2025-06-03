@@ -2,7 +2,7 @@ import { get } from 'svelte/store';
 
 import { ItemQuality } from '@/enums/item-quality';
 import { RewardType } from '@/enums/reward-type';
-import { itemStore } from '@/stores';
+import { wowthingData } from '@/shared/stores/data';
 import { staticStore } from '@/shared/stores/static';
 import type { ManualDataZoneMapDrop } from '@/types/data/manual';
 
@@ -15,7 +15,6 @@ export interface DropData {
 
 export function getDropData(drop: ManualDataZoneMapDrop): DropData {
     //const achievementData = get(achievementStore)
-    const itemData = get(itemStore);
     const staticData = get(staticStore);
 
     const ret = {
@@ -32,7 +31,7 @@ export function getDropData(drop: ManualDataZoneMapDrop): DropData {
         drop.type === RewardType.Weapon ||
         drop.type === RewardType.Transmog
     ) {
-        const item = itemData.items[drop.id];
+        const item = wowthingData.items.items[drop.id];
         ret.linkId = drop.id;
         ret.linkType = 'item';
         ret.name = item?.name || `Unknown item #${drop.id}`;
@@ -42,7 +41,7 @@ export function getDropData(drop: ManualDataZoneMapDrop): DropData {
         ret.linkId = mount?.itemIds?.at(-1) || 0;
         ret.linkType = 'item';
         ret.name = mount?.name || `Unknown mount #${drop.id}`;
-        ret.quality = itemData.items[ret.linkId]?.quality || ItemQuality.Epic;
+        ret.quality = wowthingData.items.items[ret.linkId]?.quality || ItemQuality.Epic;
     } else if (drop.type === RewardType.Pet) {
         const pet = staticData.pets[drop.id];
         ret.linkId = pet?.creatureId || 0;
@@ -54,7 +53,7 @@ export function getDropData(drop: ManualDataZoneMapDrop): DropData {
         ret.linkId = drop.id;
         ret.linkType = 'item';
         ret.name = toy?.name || `Unknown toy #${drop.id}`;
-        ret.quality = itemData.items[drop.id]?.quality || ItemQuality.Rare;
+        ret.quality = wowthingData.items.items[drop.id]?.quality || ItemQuality.Rare;
     }
 
     return ret;

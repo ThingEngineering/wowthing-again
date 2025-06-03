@@ -6,6 +6,7 @@ import { ItemLocation } from '@/enums/item-location';
 import { inventoryTypeToItemRedundancySlot } from '@/enums/item-redundancy-slot';
 import { PlayableClass, playableClasses } from '@/enums/playable-class';
 import { QuestStatus } from '@/enums/quest-status';
+import { wowthingData } from '@/shared/stores/data';
 import {
     UserCount,
     type Character,
@@ -17,12 +18,11 @@ import {
 import { fixedInventoryType } from '@/utils/fixed-inventory-type';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type { UserQuestData } from '@/types/data';
-import type { ItemData, ItemDataItem } from '@/types/data/item';
+import type { ItemDataItem } from '@/types/data/item';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { WarbankItem } from '@/types/items';
 
 interface LazyStores {
-    itemData: ItemData;
     settings: Settings;
     userAchievementData: UserAchievementData;
     userData: UserData;
@@ -40,7 +40,7 @@ export class LazyConvertibleCharacterItem {
         public currentTier: number,
         public currentUpgrade: number,
         public isConvertible: boolean,
-        public isUpgradeable: boolean,
+        public isUpgradeable: boolean
     ) {}
 }
 
@@ -77,15 +77,15 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
         playableClasses.map(([name, mask]) => [
             mask,
             PlayableClass[name as keyof typeof PlayableClass],
-        ]),
+        ])
     );
 
     const warbankItems: [WarbankItem, ItemDataItem][] = (stores.userData.warbankItems || []).map(
-        (warbankItem) => [warbankItem, stores.itemData.items[warbankItem.itemId]],
+        (warbankItem) => [warbankItem, wowthingData.items.items[warbankItem.itemId]]
     );
     const warbankByType = groupBy(
         warbankItems.filter(([, item]) => item?.inventoryType > 0),
-        ([, item]) => fixedInventoryType(item.inventoryType),
+        ([, item]) => fixedInventoryType(item.inventoryType)
     );
 
     const itemCounts: Record<number, number> = {};
@@ -97,30 +97,29 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
         const seasonData: SeasonData = (ret.seasons[convertibleCategory.id] = {});
 
         const bonusIds = new Set<number>(
-            Object.entries(stores.itemData.itemConversionBonus)
+            Object.entries(wowthingData.items.itemConversionBonus)
                 .filter(([, convertSeason]) => convertSeason === convertibleCategory.id)
-                .map(([bonusId]) => parseInt(bonusId)),
+                .map(([bonusId]) => parseInt(bonusId))
         );
 
         const hasUpgrades = convertibleCategory.tiers.some(
-            (tier) => tier.lowUpgrade || tier.highUpgrade,
+            (tier) => tier.lowUpgrade || tier.highUpgrade
         );
 
-        for (const setItemId of stores.itemData.itemConversionEntries[convertibleCategory.id] ||
+        for (const setItemId of wowthingData.items.itemConversionEntries[convertibleCategory.id] ||
             []) {
-            const setItem = stores.itemData.items[setItemId];
+            const setItem = wowthingData.items.items[setItemId];
             const classId = maskToClass[setItem.classMask];
             const setItemInventoryType = fixedInventoryType(setItem.inventoryType);
             const setItemRedundancySlot = inventoryTypeToItemRedundancySlot[setItemInventoryType];
 
             seasonData[classId] ||= {};
             const slotData = (seasonData[classId][setItemInventoryType] = new LazyConvertibleSlot(
-                setItem,
+                setItem
             ));
 
             const validCharacters = stores.userData.characters.filter(
-                (char) =>
-                    char.classId === classId && char.level >= convertibleCategory.minimumLevel,
+                (char) => char.classId === classId && char.level >= convertibleCategory.minimumLevel
             );
 
             const charactersWithItems: [Character, WhateverItem[]][] = validCharacters.map(
@@ -132,13 +131,13 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                         ...(warbankByType[setItemInventoryType] || []).map(([wbi]) => wbi),
                     ].filter(
                         (item) =>
-                            ((stores.itemData.items[item.itemId]?.classMask || 0) &
+                            ((wowthingData.items.items[item.itemId]?.classMask || 0) &
                                 setItem.classMask) ===
                                 setItem.classMask &&
                             (item.itemId === setItemId ||
-                                (item.bonusIds || []).some((bonusId) => bonusIds.has(bonusId))),
+                                (item.bonusIds || []).some((bonusId) => bonusIds.has(bonusId)))
                     ),
-                ],
+                ]
             );
 
             for (const modifier of [0, 1, 3, 4]) {
@@ -148,7 +147,7 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                     modifierData.userHas = stores.userData.hasSourceV2.get(modifier).has(setItemId);
                 } else {
                     modifierData.userHas = stores.userData.hasAppearance.has(
-                        setItem.appearances[modifier]?.appearanceId ?? -1,
+                        setItem.appearances[modifier]?.appearanceId ?? -1
                     );
                 }
 
@@ -172,7 +171,7 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                             continue;
                         }
 
-                        const item = stores.itemData.items[charItem.itemId];
+                        const item = wowthingData.items.items[charItem.itemId];
                         const charItemInventoryType = fixedInventoryType(item.inventoryType);
                         if (charItemInventoryType !== setItemInventoryType) {
                             continue;
@@ -184,7 +183,7 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                         let upgrade: [number, number, number];
                         for (const bonusId of charItem.bonusIds) {
                             // sharedStringId, current, max
-                            upgrade = stores.itemData.itemBonusToUpgrade[bonusId];
+                            upgrade = wowthingData.items.itemBonusToUpgrade[bonusId];
                             if (!upgrade) {
                                 continue;
                             }
@@ -275,8 +274,8 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                                     currentTierLevel,
                                     upgrade[1],
                                     isConvertible,
-                                    isUpgradeable,
-                                ),
+                                    isUpgradeable
+                                )
                             );
                         }
                     } // for charItem
@@ -296,8 +295,8 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                             .map((char) =>
                                 (char.itemsById[sourceItemId] || []).reduce(
                                     (a, b) => a + b.count,
-                                    0,
-                                ),
+                                    0
+                                )
                             )
                             .reduce((a, b) => a + b, 0));
                         if (userCount > 0) {
@@ -311,8 +310,8 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                                     convertibleCategory.sourceTier,
                                     0,
                                     true,
-                                    convertibleCategory.sourceTier < desiredTier,
-                                ),
+                                    convertibleCategory.sourceTier < desiredTier
+                                )
                             );
                         }
                     }
@@ -325,7 +324,7 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                                 (purchase.upgradeable === false
                                     ? purchase.upgradeTier === desiredTier
                                     : purchase.upgradeTier >= desiredTier - 1 &&
-                                      purchase.upgradeTier <= desiredTier),
+                                      purchase.upgradeTier <= desiredTier)
                         );
 
                         for (const purchase of usefulPurchases) {
@@ -349,8 +348,7 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                                 purchase.upgradeTier,
                                 0,
                                 true,
-                                purchase.upgradeable !== false &&
-                                    purchase.upgradeTier < desiredTier,
+                                purchase.upgradeable !== false && purchase.upgradeTier < desiredTier
                             );
 
                             purchaseable.isPurchased = true;

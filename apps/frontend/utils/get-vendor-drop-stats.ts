@@ -3,20 +3,18 @@ import type { StaticData } from '@/shared/stores/static/types';
 import type { LazyTransmog } from '@/stores/lazy/transmog';
 import type { UserData } from '@/types';
 import type { UserQuestData } from '@/types/data';
-import type { ItemData } from '@/types/data/item';
 import type { ManualDataZoneMapDrop } from '@/types/data/manual';
 
 import userHasDrop from './user-has-drop';
 
 export function getVendorDropStats(
     settings: Settings,
-    itemData: ItemData,
     staticData: StaticData,
     userData: UserData,
     userQuestData: UserQuestData,
     lazyTransmog: LazyTransmog,
     masochist: boolean,
-    drop: ManualDataZoneMapDrop,
+    drop: ManualDataZoneMapDrop
 ): [number, number] {
     let have = 0;
     let total = 0;
@@ -25,14 +23,13 @@ export function getVendorDropStats(
     for (const vendorItem of drop.vendorItems) {
         const hasDrop = userHasDrop(
             settings,
-            itemData,
             staticData,
             userData,
             userQuestData,
             lazyTransmog,
             vendorItem.type,
             vendorItem.id,
-            vendorItem.appearanceIds,
+            vendorItem.appearanceIds
         );
 
         total++;
