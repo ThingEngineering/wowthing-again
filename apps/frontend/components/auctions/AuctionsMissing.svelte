@@ -38,7 +38,7 @@
     });
 
     let colspan = $derived(
-        (slug1 === 'missing-pets' ? 3 : 2) + ($auctionState.includeBids ? 1 : 0),
+        (slug1 === 'missing-pets' ? 3 : 2) + ($auctionState.includeBids ? 1 : 0)
     );
 
     const ignoreClick = function (id: string): void {
@@ -52,7 +52,7 @@
 
     let wrapperDiv = $state<HTMLElement>(null);
     let debouncedResize = $derived(
-        wrapperDiv ? getColumnResizer(auctionsContainer, wrapperDiv, 'table') : null,
+        wrapperDiv ? getColumnResizer(auctionsContainer, wrapperDiv, 'table') : null
     );
 
     $effect(() => debouncedResize?.());
@@ -150,7 +150,7 @@
         items={(things || []).filter((thing) =>
             $auctionState.hideIgnored
                 ? $auctionState.ignored[slug1]?.[parseInt(thing.id)] !== true
-                : true,
+                : true
         )}
         perPage={$auctionState.allRealms && !$auctionState.limitToBestRealms ? 12 : 24}
         {page}
@@ -176,7 +176,7 @@
                                 </WowheadLink>
                             </th>
                             <th class="ignore">
-                                <button on:click|preventDefault={() => ignoreClick(item.id)}>
+                                <button onclick={() => ignoreClick(item.id)}>
                                     {ignored ? 'Unignore' : 'Ignore'}
                                 </button>
                             </th>
@@ -192,12 +192,12 @@
                                     $timeStore
                                         .diff(
                                             DateTime.fromSeconds(
-                                                updated[auction.connectedRealmId] || 1000,
-                                            ),
+                                                updated[auction.connectedRealmId] || 1000
+                                            )
                                         )
                                         .toMillis() /
                                         1000 /
-                                        60,
+                                        60
                                 )}
                                 <tr>
                                     <td
@@ -243,7 +243,7 @@
                                         <td class="price" class:no-bid={auction.bidPrice === 0}>
                                             {#if auction.bidPrice > 0}
                                                 {Math.floor(
-                                                    auction.bidPrice / 10000,
+                                                    auction.bidPrice / 10000
                                                 ).toLocaleString()} g
                                             {:else}
                                                 &lt;no bid&gt;
@@ -259,7 +259,7 @@
                                             &lt;no b/o&gt;
                                         {:else}
                                             {Math.floor(
-                                                auction.buyoutPrice / 10000,
+                                                auction.buyoutPrice / 10000
                                             ).toLocaleString()} g
                                         {/if}
                                     </td>

@@ -20,7 +20,9 @@
 
     let apiKey = $state('');
 
-    async function onClick() {
+    async function onClick(event: Event) {
+        event.preventDefault();
+
         const xsrf = document.getElementById('app').getAttribute('data-xsrf');
         const response = await fetch('/api/api-key-get', {
             headers: {
@@ -166,7 +168,7 @@
         {#if apiKey}
             <span>{apiKey}</span>
         {:else}
-            <button on:click|preventDefault={onClick}>Reveal API Key</button>
+            <button onclick={onClick}>Reveal API Key</button>
         {/if}
 
         <p>

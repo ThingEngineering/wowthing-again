@@ -31,7 +31,9 @@
         }
     });
 
-    const onSubmit = async function () {
+    const onSubmit = async function (event: Event) {
+        event.preventDefault();
+
         response = await $itemSearchState.search();
         for (const item of response) {
             item.characters = sortBy(item.characters, (char) => [
@@ -108,7 +110,7 @@
 
 <div class="wrapper-column" bind:this={containerElement}>
     <div class="thing-container" bind:this={resizeableElement}>
-        <form on:submit|preventDefault={onSubmit}>
+        <form onsubmit={onSubmit}>
             <TextInput
                 name="terms"
                 maxlength={20}

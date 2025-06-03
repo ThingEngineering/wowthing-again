@@ -6,7 +6,7 @@
 
     import MagicLists from '../../MagicLists.svelte';
 
-    let { view }: { view: SettingsView } = $props();
+    let { view = $bindable() }: { view: SettingsView } = $props();
 
     const initialChoices: SettingsChoice[] = [
         { id: 'account', name: 'Account ID' },
