@@ -10,9 +10,9 @@
     import TextInput from '@/shared/components/forms/TextInput.svelte';
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
 
-    $: currentIds = (settingsState.value.tags || []).map((tag) => tag.id);
+    let deleting = $state(0);
 
-    const deleting = writable<number>(null);
+    let currentIds = $derived((settingsState.value.tags || []).map((tag) => tag.id));
 
     const newTag = () => {
         let newId = 0;
@@ -38,12 +38,12 @@
     };
 
     const deleteConfirmClick = (tagId: number) => {
-        $deleting = null;
+        deleting = 0;
 
         // Remove the tag from any characters that have it
         const mask = 1 << tagId;
         for (const [characterId, flags] of getNumberKeyedEntries(
-            settingsState.value.characters.flags || {},
+            settingsState.value.characters.flags || {}
         )) {
             if ((flags & mask) === mask) {
                 settingsState.value.characters.flags[characterId] = flags ^ mask;
@@ -101,21 +101,20 @@
 
     <table class="table table-striped">
         <tbody>
-            {#each settingsState.value.tags as tag}
+            {#each settingsState.value.tags as tag (tag.id)}
                 <tr>
                     <td class="name">
                         <TextInput maxlength={16} name="tag-{tag.id}" bind:value={tag.name} />
                     </td>
-                    <td class="icon" class:border-right={$deleting === tag.id}>
+                    <td class="icon" class:border-right={deleting === tag.id}>
                         <IconifyIcon
                             extraClass="status-fail"
                             icon={uiIcons.no}
                             tooltip="Delete"
-                            on:click={() =>
-                                deleting.update((current) => (current === tag.id ? null : tag.id))}
+                            on:click={() => (deleting = deleting === tag.id ? 0 : tag.id)}
                         />
                     </td>
-                    {#if $deleting === tag.id}
+                    {#if deleting === tag.id}
                         <td class="deleting">
                             Permanently delete?
                             <IconifyIcon
@@ -136,6 +135,6 @@
     </table>
 
     {#if currentIds.length < 10}
-        <button class="group-entry" on:click={newTag}> New Tag </button>
+        <button class="group-entry" onclick={newTag}>New Tag</button>
     {/if}
 </div>

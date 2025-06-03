@@ -1,20 +1,20 @@
 <script lang="ts">
     import groupBy from 'lodash/groupBy';
 
-    import { getGenderedName } from '@/utils/get-gendered-name';
     import { professionCooldowns, professionWorkOrders } from '@/data/professions/cooldowns';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { getGenderedName } from '@/utils/get-gendered-name';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
 
-    export let sortedProfessions: StaticDataProfession[];
+    let { sortedProfessions }: { sortedProfessions: StaticDataProfession[] } = $props();
 
     const groupedCooldowns = groupBy(
         [...professionWorkOrders, ...professionCooldowns],
-        (cd) => cd.profession,
+        (cd) => cd.profession
     );
 </script>
 
@@ -48,14 +48,14 @@
 <div class="settings-block">
     <h3>Cooldowns</h3>
 
-    {#each sortedProfessions as profession}
+    {#each sortedProfessions as profession (profession.id)}
         {#if groupedCooldowns[profession.id]}
             <h4>
                 <ProfessionIcon id={profession.id} border={1} size={16} />
                 {getGenderedName(profession.name)}
             </h4>
             <div class="many-boxes">
-                {#each groupedCooldowns[profession.id] as cooldown}
+                {#each groupedCooldowns[profession.id] as cooldown (cooldown.key)}
                     <CheckboxInput
                         name="professions_{cooldown.key}"
                         bind:value={settingsState.value.professions.cooldowns[cooldown.key]}

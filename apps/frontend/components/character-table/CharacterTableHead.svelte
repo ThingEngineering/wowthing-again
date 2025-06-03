@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { userStore } from '@/stores';
     import { settingsState } from '@/shared/state/settings.svelte';
 
-    $: commonFields = settingsState.value.views[0].commonFields;
-    $: colspan =
+    let commonFields = $derived(settingsState.value.views[0].commonFields);
+    let colspan = $derived(
         commonFields.length +
-        (commonFields.indexOf('accountTag') >= 0 ? (settingsState.useAccountTags ? 0 : -1) : 0);
+            (commonFields.indexOf('accountTag') >= 0 ? (settingsState.useAccountTags ? 0 : -1) : 0)
+    );
 </script>
 
 <style lang="scss">

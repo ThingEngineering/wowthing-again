@@ -44,9 +44,9 @@
 
         currencies = sortBy(
             Object.values($staticStore.currencies).filter(
-                (c) => !skipCurrenciesMap[c.id] && c.categoryId === category.id,
+                (c) => !skipCurrenciesMap[c.id] && c.categoryId === category.id
             ),
-            (c) => c.name,
+            (c) => c.name
         ).concat((currencyExtra[category.id] || []).map((id) => $staticStore.currencies[id]));
 
         const order = $currencyState.sortOrder[slugKey];
@@ -57,8 +57,8 @@
                     1000000 -
                         (char.getItemCount(order) || char.currencies?.[order]?.quantity || -1),
                     7,
-                    '0',
-                ),
+                    '0'
+                )
             );
         } else {
             sorted = false;
@@ -80,9 +80,9 @@
         {sortFunc}
     >
         <CharacterTableHead slot="head">
-            <th class="spacer"></th>
             {#key slugKey}
-                {#each currencies as currency (currency.id)}
+                <th class="spacer"></th>
+                {#each currencies as currency, currencyIndex (`${slugKey}--${currencyIndex}`)}
                     {#if !currency}
                         <th class="spacer"></th>
                     {:else}
@@ -99,7 +99,7 @@
                         <th class="spacer"></th>
                     {/if}
 
-                    {#each currencyItems[category.id] as itemId (itemId)}
+                    {#each currencyItems[category.id] as itemId, itemIndex (`${slugKey}--${itemIndex}`)}
                         {#if itemId === null}
                             <th class="spacer"></th>
                         {:else}
@@ -123,7 +123,7 @@
 
                 {#if hasCurrencyItems}
                     <td class="spacer"></td>
-                    {#each currencyItems[category.id] as itemId (itemId)}
+                    {#each currencyItems[category.id] as itemId, itemIndex (`${slugKey}--${itemIndex}`)}
                         {#if itemId === null}
                             <td class="spacer"></td>
                         {:else}
@@ -141,7 +141,7 @@
         <svelte:fragment slot="rowExtra" let:character>
             <td class="spacer"></td>
             {#key slugKey}
-                {#each currencies as currency (currency.id)}
+                {#each currencies as currency (currency)}
                     {#if !currency}
                         <td class="spacer"></td>
                     {:else}
@@ -158,7 +158,7 @@
                         <td class="spacer"></td>
                     {/if}
 
-                    {#each currencyItems[category.id] as itemId (itemId)}
+                    {#each currencyItems[category.id] as itemId, itemIndex (`${slugKey}--${itemIndex}`)}
                         {#if itemId === null}
                             <td class="spacer"></td>
                         {:else}
