@@ -44,8 +44,8 @@
         getCharacterGroupContext(
             settingsState.value,
             settingsState.activeView.groupBy,
-            settingsState.activeView.sortBy,
-        ),
+            settingsState.activeView.sortBy
+        )
     );
 
     let [characters, groups] = $derived.by(() => {
@@ -55,7 +55,7 @@
                 (!skipIgnored ||
                     settingsState.value.characters.ignoredCharacters.indexOf(c.id) === -1) &&
                 (settingsState.value.characters.hideDisabledAccounts === false ||
-                    settingsState.value.accounts?.[c.accountId]?.enabled !== false),
+                    settingsState.value.accounts?.[c.accountId]?.enabled !== false)
         );
 
         characters = characters.filter((char) =>
@@ -66,8 +66,8 @@
                 filterFunc,
                 char,
                 $newNavState.characterFilter ||
-                    ($location === '/' ? settingsState.activeView.characterFilter : ''),
-            ),
+                    ($location === '/' ? settingsState.activeView.characterFilter : '')
+            )
         );
 
         if (characterLimit > 0) {
@@ -98,8 +98,8 @@
                               $lazyStore,
                               $timeStore,
                               $homeState.groupSort[sortKey],
-                              char,
-                          ),
+                              char
+                          )
                       )
                     : sortFunc;
             pairs.push([key, sortBy(grouped[key], keySort)]);

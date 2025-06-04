@@ -59,7 +59,7 @@ function createSettingsState() {
     const debouncedSaveData = debounce(saveData, 1500);
 
     const useAccountTags = $derived.by(() =>
-        Object.values(settings.accounts).some((account) => !!account.tag),
+        Object.values(settings.accounts).some((account) => !!account.tag)
     );
 
     const activeView = $derived.by(() => {
@@ -111,7 +111,7 @@ function createSettingsState() {
 
             if (Object.keys(newSettings.professions.collectingCharactersV2 || {}).length === 0) {
                 for (const [professionId, characterId] of getNumberKeyedEntries(
-                    newSettings.professions.collectingCharacters || {},
+                    newSettings.professions.collectingCharacters || {}
                 )) {
                     newSettings.professions.collectingCharactersV2[professionId] = [characterId];
                 }
@@ -144,7 +144,7 @@ function createSettingsState() {
         },
         get expansions(): Expansion[] {
             return expansionOrder.filter(
-                (exp) => !settings.collections.hideFuture || exp.id <= Constants.expansion,
+                (exp) => !settings.collections.hideFuture || exp.id <= Constants.expansion
             );
         },
         get wowheadBaseUrl(): string {
@@ -155,5 +155,5 @@ function createSettingsState() {
 
 export const settingsState = createSettingsState();
 settingsState.set(
-    JSON.parse(document.getElementById('app').getAttribute('data-settings')) as Settings,
+    JSON.parse(document.getElementById('app').getAttribute('data-settings')) as Settings
 );

@@ -13,8 +13,10 @@ export function processItemsData(rawData: RawItems): DataItems {
     data.completesQuest = rawData.completesQuest;
     data.itemConversionEntries = rawData.itemConversionEntries;
     data.specOverrides = rawData.specOverrides;
+    data.teachesSpell = rawData.teachesSpell;
     data.teachesTransmog = rawData.teachesTransmog;
 
+    console.time('rawItems');
     let itemId = 0;
     for (const itemArray of rawData.rawItems) {
         itemId += itemArray[0];
@@ -39,6 +41,7 @@ export function processItemsData(rawData: RawItems): DataItems {
             }
         }
     }
+    console.timeEnd('rawItems');
 
     for (const [craftingQuality, itemIds] of Object.entries(rawData.craftingQualities)) {
         const quality = parseInt(craftingQuality);
