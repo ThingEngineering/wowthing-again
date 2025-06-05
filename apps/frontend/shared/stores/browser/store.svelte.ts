@@ -4,43 +4,58 @@ import { objectKeys } from '@/utils/object-keys';
 
 const storageKey = 'browserStore';
 
-class BrowserState {
-    auctions = new BrowserStateAuctions();
-    home = new BrowserStateHome();
-    matrix = new BrowserStateMatrix();
-    settings = new BrowserStateSettings();
-    tokens = new BrowserStateTokens();
+interface BrowserState {
+    auctions: {
+        commoditiesCurrentExpansion: boolean;
+    };
+    home: {
+        activeView: string;
+    };
+    matrix: {
+        minLevel: number;
+        showCharacterAs: 'level' | 'name';
+        showCovenant: boolean;
+        showEmptyRows: boolean;
+        xAxis: string[];
+        yAxis: string[];
+    };
+    settings: {
+        selectedGroup: string;
+        selectedView: string;
+    };
+    tokens: {
+        highlightMissing: boolean;
+        showCollected: boolean;
+        showUncollected: boolean;
+    };
 }
 
-class BrowserStateAuctions {
-    commoditiesCurrentExpansion = true;
-}
+const initialState: BrowserState = {
+    auctions: {
+        commoditiesCurrentExpansion: true,
+    },
+    home: {
+        activeView: '',
+    },
+    matrix: {
+        minLevel: 0,
+        showCharacterAs: 'level',
+        showCovenant: false,
+        showEmptyRows: false,
+        xAxis: [],
+        yAxis: [],
+    },
+    settings: {
+        selectedGroup: '',
+        selectedView: '',
+    },
+    tokens: {
+        highlightMissing: true,
+        showCollected: true,
+        showUncollected: true,
+    },
+};
 
-class BrowserStateHome {
-    activeView: string = $state('');
-}
-
-class BrowserStateMatrix {
-    minLevel = 0;
-    showCharacterAs: 'level' | 'name' = 'level';
-    showCovenant = false;
-    showEmptyRows = false;
-    xAxis: string[] = [];
-    yAxis: string[] = [];
-}
-
-class BrowserStateSettings {
-    selectedGroup: string;
-    selectedView: string;
-}
-
-class BrowserStateTokens {
-    highlightMissing = true;
-    showCollected = true;
-    showUncollected = true;
-}
-
-const initialState = new BrowserState();
 const userJson = JSON.parse(localStorage.getItem(storageKey) ?? '{}');
 for (const key of objectKeys(initialState)) {
     const subKeys = objectKeys(initialState[key]);
@@ -53,7 +68,8 @@ for (const key of objectKeys(initialState)) {
     }
 }
 
-export const browserStore = writable<BrowserState>(initialState);
+const actualState = $state(initialState);
+export const browserStore = writable<BrowserState>(actualState);
 
 browserStore.subscribe((state) => {
     localStorage.setItem(storageKey, JSON.stringify($state.snapshot(state)));
