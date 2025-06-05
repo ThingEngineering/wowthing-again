@@ -14,10 +14,14 @@ export const twwChores11_0: Chore[] = [
         taskName: '[Dor] Archives',
         minimumLevel: 70,
         icon: aliasedIcons.bookshelf,
-        questIds: [
-            82679, // Archives: Seeking History
-            // 82678, // Archives: The First Disc
-        ],
+        // questIds: [
+        //     82679, // Archives: Seeking History
+        //     82678, // Archives: The First Disc
+        // ],
+        questIdFunc: (char) =>
+            userQuestStore.characterHas(char.id, 83450)
+                ? [82679] // Archives: Seeking History
+                : [82678], // Archives: The First Disc
         questReset: DbResetType.Custom,
         customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1002, 3),
     },

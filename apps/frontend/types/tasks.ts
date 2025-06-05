@@ -45,4 +45,5 @@ export type Chore = {
     canGetFunc?: (char: Character) => string;
 
     customExpiryFunc?: (char: Character, scannedAt: DateTime) => DateTime;
+    questIdFunc?: (char: Character, chore?: Chore) => number[];
 };

@@ -27,7 +27,7 @@ function buildProfessionTasks(
     professions: TaskProfession[],
     expansion: number,
     prefix: string,
-    minimumLevel: number,
+    minimumLevel: number
 ): Chore[] {
     return professions.flatMap((profession) => {
         const name = Profession[profession.id];
@@ -55,7 +55,7 @@ function buildProfessionTasks(
                         char,
                         profession.id,
                         expansion,
-                        expansion === 9 && isGatheringProfession[profession.id] ? 45 : 25,
+                        expansion === 9 && isGatheringProfession[profession.id] ? 45 : 25
                     ),
             });
         }
@@ -94,7 +94,7 @@ export const dragonflightProfessionTasks = buildProfessionTasks(
     dragonflightProfessions,
     9,
     'df',
-    60,
+    60
 );
 export const warWithinProfessionTasks = buildProfessionTasks(warWithinProfessions, 10, 'tww', 60);
 
@@ -423,7 +423,7 @@ export const taskList: Task[] = [
 ];
 
 export const taskMap: Record<string, Task> = Object.fromEntries(
-    taskList.map((task) => [task.key, task]),
+    taskList.map((task) => [task.key, task])
 );
 
 function garrisonCouldGet(char: Character): boolean {
@@ -962,7 +962,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
                         (profession) =>
                             !!char.professions?.[profession.id]?.[
                                 profession.expansionSubProfession[9].id
-                            ],
+                            ]
                     ),
             canGetFunc: (char) =>
                 char.reputations?.[2544] >= 500 ? '' : "Need Preferred with Artisan's Consortium",
@@ -1352,14 +1352,14 @@ export const multiTaskMap: Record<string, Chore[]> = {
 
 export const taskChoreMap = Object.fromEntries(
     Object.entries(multiTaskMap).flatMap(([taskKey, chores]) =>
-        chores.filter((chore) => !!chore).map((chore) => [`${taskKey}_${chore.taskKey}`, chore]),
-    ),
+        chores.filter((chore) => !!chore).map((chore) => [`${taskKey}_${chore.taskKey}`, chore])
+    )
 );
 
 export const questResetMap = Object.fromEntries(
     Object.values(taskChoreMap)
-        .filter((chore) => chore.questReset !== undefined)
-        .flatMap((chore) => chore.questIds.map((questId) => [questId, chore.questReset])),
+        .filter((chore) => chore.questIds && chore.questReset !== undefined)
+        .flatMap((chore) => chore.questIds.map((questId) => [questId, chore.questReset]))
 );
 
 function couldGet(char: Character, professionId: number, subProfessionId: number): boolean {
@@ -1373,7 +1373,7 @@ function getExpansionSkill(
     char: Character,
     professionId: number,
     expansion: number,
-    minSkill: number,
+    minSkill: number
 ): string {
     const staticData = get(staticStore);
     const currentSubProfession =

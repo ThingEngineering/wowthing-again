@@ -284,8 +284,9 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
 
         const charScanned = charQuests.scannedTime;
 
-        if (choreTask.questIds) {
-            for (const questId of choreTask.questIds) {
+        if (choreTask.questReset !== undefined) {
+            const questIds = choreTask.questIdFunc?.(character, choreTask) || choreTask.questIds;
+            for (const questId of questIds) {
                 // is the quest in progress?
                 const questProgress = charProgressQuests?.[`q${questId}`];
                 if (questProgress) {
