@@ -1,13 +1,13 @@
 import { skipRecipeItemIds } from '@/data/auctions';
 import { professionSpecializationSpells } from '@/data/professions';
 import { Faction } from '@/enums/faction';
+import { wowthingData } from '@/shared/stores/data';
 import { sortAuctions, type SortableAuction } from '@/utils/auctions/sort-auctions';
 import {
     type UserAuctionDataMissingRecipeAuctionArray,
     UserAuctionDataMissingRecipeAuction,
 } from '@/types/data';
 import type { UserData } from '@/types';
-import type { ItemData } from '@/types/data/item';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { AuctionState } from '../local-storage';
 import type { UserAuctionEntry } from '../user-auctions';
@@ -20,9 +20,8 @@ export class UserAuctionMissingRecipeDataStore {
     async search(
         settings: Settings,
         auctionState: AuctionState,
-        itemData: ItemData,
         staticData: StaticData,
-        userData: UserData,
+        userData: UserData
     ): Promise<[UserAuctionEntry[], Record<number, number>]> {
         let things: UserAuctionEntry[] = [];
         let updated: Record<number, number>;
@@ -80,14 +79,14 @@ export class UserAuctionMissingRecipeDataStore {
                     }
 
                     parsedData[itemId] = rawAuctions.map(
-                        (auctionArray) => new UserAuctionDataMissingRecipeAuction(...auctionArray),
+                        (auctionArray) => new UserAuctionDataMissingRecipeAuction(...auctionArray)
                     );
                 }
 
                 for (const [thingId, auctions] of Object.entries(parsedData)) {
                     const id = parseInt(thingId);
 
-                    const item = itemData.items[id];
+                    const item = wowthingData.items.items[id];
                     if (!item) {
                         continue;
                     }
@@ -105,14 +104,14 @@ export class UserAuctionMissingRecipeDataStore {
         things = sortAuctions(
             auctionState.sortBy['missing-recipes'],
             things as SortableAuction[],
-            true,
+            true
         ) as UserAuctionEntry[];
         this.cache[cacheKey] = [things, updated];
 
         const nameLower = auctionState.missingRecipeNameSearch.toLocaleLowerCase();
         const realmLower = auctionState.missingRecipeRealmSearch.toLocaleLowerCase();
         things = things.filter((thing) => {
-            const item = itemData.items[thing.auctions[0].itemId];
+            const item = wowthingData.items.items[thing.auctions[0].itemId];
 
             const meetsDontHave = auctionState.showDontHave || thing.hasItems.length > 0;
             const meetsHave = auctionState.showHave || thing.hasItems.length === 0;
@@ -184,8 +183,8 @@ export class UserAuctionMissingRecipeDataStore {
                 .some(
                     (auction) =>
                         staticData.connectedRealms[auction.connectedRealmId].realmNames.filter(
-                            (name) => name.toLocaleLowerCase().indexOf(realmLower) >= 0,
-                        ).length > 0,
+                            (name) => name.toLocaleLowerCase().indexOf(realmLower) >= 0
+                        ).length > 0
                 );
 
             return (

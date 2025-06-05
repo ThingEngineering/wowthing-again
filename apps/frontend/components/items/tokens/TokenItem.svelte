@@ -9,8 +9,9 @@
     import { inventoryTypeIcons, weaponSubclassIcons } from '@/shared/icons/mappings';
     import { browserStore } from '@/shared/stores/browser';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
-    import { itemStore, journalStore, userStore } from '@/stores';
+    import { journalStore, userStore } from '@/stores';
     import { UserCount } from '@/types';
     import { fixedInventoryType } from '@/utils/fixed-inventory-type';
     import { getClassesFromMask } from '@/utils/get-classes-from-mask';
@@ -30,14 +31,14 @@
     let element: HTMLElement;
     let intersected = false;
 
-    $: item = $itemStore.items[itemId];
+    $: item = wowthingData.items.items[itemId];
     $: expandsTo = $journalStore.itemExpansion[itemId];
     $: haveItems = $userStore.itemsById[itemId];
     $: haveCount = haveItems.reduce((a, b) => a + b[1].length, 0);
 
     let expandsData: [number, ItemDataItem, boolean][];
     $: expandsData = expandsTo.map((expandedItemId) => {
-        const expandedItem = $itemStore.items[expandedItemId];
+        const expandedItem = wowthingData.items.items[expandedItemId];
 
         let modifier = AppearanceModifier.Normal;
         if (item.difficultyLookingForRaid) {
@@ -64,7 +65,7 @@
             expandsData.sort(
                 (a, b) =>
                     (weaponSubclassOrderMap[a[1]?.subclassId] ?? 999) -
-                    (weaponSubclassOrderMap[b[1]?.subclassId] ?? 999),
+                    (weaponSubclassOrderMap[b[1]?.subclassId] ?? 999)
             );
         }
     }
@@ -78,7 +79,7 @@
     function getSpecIds(itemId: number): number[] {
         if (showItemIcon) {
             const specIds: number[] = [];
-            const item = $itemStore.items[itemId];
+            const item = wowthingData.items.items[itemId];
             if (item?.classMask > 0) {
                 for (const playableClass of getClassesFromMask(item.classMask)) {
                     const characterClass = $staticStore.characterClasses[playableClass];
@@ -87,7 +88,7 @@
             }
             return specIds;
         } else {
-            return $itemStore.specOverrides[itemId];
+            return wowthingData.items.specOverrides[itemId];
         }
     }
 </script>
@@ -184,7 +185,7 @@
             <CollectibleCount
                 counts={new UserCount(
                     expandsData.reduce((a, b) => a + (b[2] ? 1 : 0), 0),
-                    expandsTo.length,
+                    expandsTo.length
                 )}
             />
         </h4>

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { taskMap } from '@/data/tasks';
-    import { activeViewTasks } from '@/shared/state/activeViewTasks.svelte';
+    import { activeViewTasks } from '@/user-home/state/activeViewTasks.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { activeHolidays } from '@/stores/derived/active-holidays';
     import type { Character } from '@/types';

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { settingsState } from '@/shared/state/settings.svelte';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { itemStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
     import { homeState } from '@/stores/local-storage';
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
@@ -29,7 +29,7 @@
         class:sorted-by={$homeState.groupSort[sortKey] === sortField}
         on:click={() => setSorting(sortField)}
         on:keypress={() => setSorting(sortField)}
-        use:basicTooltip={$itemStore.items[itemId].name}
+        use:basicTooltip={wowthingData.items.items[itemId].name}
     >
         <WowthingImage name="item/{itemId}" size={16} border={1} />
     </td>

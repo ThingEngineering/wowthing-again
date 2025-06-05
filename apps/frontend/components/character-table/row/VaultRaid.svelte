@@ -1,14 +1,14 @@
 <script lang="ts">
     import getRaidVaultItemLevel from '@/utils/get-raid-vault-item-level';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import TooltipVaultRaid from '@/components/tooltips/vault-raid/TooltipVaultRaid.svelte';
     import VaultShared from './VaultShared.svelte';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 
-    $: raidVault = character.isMaxLevel ? character.weekly?.vault?.raidProgress : [];
+    let raidVault = $derived(character.isMaxLevel ? character.weekly?.vault?.raidProgress : []);
 </script>
 
 <style lang="scss">

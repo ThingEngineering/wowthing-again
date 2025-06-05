@@ -1,6 +1,6 @@
 <script lang="ts">
     import { multiTaskMap, taskMap } from '@/data/tasks';
-    import { activeViewTasks } from '@/shared/state/activeViewTasks.svelte';
+    import { activeViewTasks } from '@/user-home/state/activeViewTasks.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { homeState } from '@/stores/local-storage';

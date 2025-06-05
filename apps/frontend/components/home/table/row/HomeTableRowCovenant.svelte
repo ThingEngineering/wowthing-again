@@ -73,7 +73,7 @@
                 >
             {/if}
         {:else}
-            {#each covenantOrder as covenantId}
+            {#each covenantOrder as covenantId (covenantId)}
                 {#if characterCovenants[covenantId]}
                     <a
                         href="#/characters/{character.realm

@@ -55,7 +55,6 @@ import { CharacterWeekly, type CharacterWeeklyArray } from './weekly';
 import type { ContainsItems, HasNameAndRealm } from '../shared';
 import type { Account } from '../account';
 import type { CharacterAura } from './aura';
-import type { ItemData } from '../data/item';
 import type { CharacterPatronOrder } from './patron-order';
 
 export class Character implements ContainsItems, HasNameAndRealm {
@@ -459,11 +458,8 @@ export class Character implements ContainsItems, HasNameAndRealm {
     }
 
     public bestItemLevels: Record<number, [string, InventoryType[]]>;
-    getBestItemLevels(
-        itemData: ItemData,
-        staticData: StaticData
-    ): Record<number, [string, InventoryType[]]> {
-        this.bestItemLevels ||= getBestItemLevels(itemData, staticData, this);
+    getBestItemLevels(staticData: StaticData): Record<number, [string, InventoryType[]]> {
+        this.bestItemLevels ||= getBestItemLevels(staticData, this);
         return this.bestItemLevels;
     }
 

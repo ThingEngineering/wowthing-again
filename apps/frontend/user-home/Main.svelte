@@ -7,13 +7,7 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { staticStore } from '@/shared/stores/static';
     import { timeStore } from '@/shared/stores/time';
-    import {
-        itemStore,
-        journalStore,
-        userAchievementStore,
-        userQuestStore,
-        userStore,
-    } from '@/stores';
+    import { journalStore, userAchievementStore, userQuestStore, userStore } from '@/stores';
     import { worldQuestStore } from '@/user-home/components/world-quests/store';
     import parseApiTime from '@/utils/parse-api-time';
 
@@ -30,7 +24,6 @@
         sharedState.public = userStore.dataUrl.includes('/public-');
 
         await Promise.all([
-            itemStore.fetch({ language: settingsState.value.general.language }),
             journalStore.fetch({ language: settingsState.value.general.language }),
             staticStore.fetch({ language: settingsState.value.general.language }),
             wowthingData.fetch(settingsState.value.general.language),
@@ -44,8 +37,7 @@
             worldQuestStore.fetch(Region.EU),
         ]);
 
-        // FIX: staticStore->itemStore dependency
-        staticStore.setup(settingsState.value, $itemStore);
+        staticStore.setup();
         userStore.setup(settingsState.value, $userStore);
         // FIX: should likely be derived
         userQuestStore.setup($timeStore);

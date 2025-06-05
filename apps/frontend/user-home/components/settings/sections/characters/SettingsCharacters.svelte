@@ -4,13 +4,12 @@
     import BackgroundSelector from '@/components/common/BackgroundSelector.svelte';
     import RangeInput from '@/shared/components/forms/RangeInput.svelte';
 
-    let filter: string;
-    $: {
-        filter = [
+    let filter = $derived(
+        [
             `brightness(${settingsState.value.characters.defaultBackgroundBrightness / 10})`,
             `saturate(${settingsState.value.characters.defaultBackgroundSaturation / 10})`,
-        ].join(' ');
-    }
+        ].join(' ')
+    );
 
     const getValue = (value: number): string => (value === -1 ? 'Def' : `${value * 10}%`);
 </script>

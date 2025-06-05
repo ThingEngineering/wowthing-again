@@ -56,5 +56,5 @@ for (const key of objectKeys(initialState)) {
 export const browserStore = writable<BrowserState>(initialState);
 
 browserStore.subscribe((state) => {
-    localStorage.setItem(storageKey, JSON.stringify(state));
+    localStorage.setItem(storageKey, JSON.stringify($state.snapshot(state)));
 });

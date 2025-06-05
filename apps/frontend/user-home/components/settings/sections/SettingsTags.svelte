@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { writable } from 'svelte/store';
-
     import { uiIcons } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';

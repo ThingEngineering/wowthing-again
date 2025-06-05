@@ -1,16 +1,15 @@
 <script lang="ts">
+    import { staticStore } from '@/shared/stores/static';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import getItemLevelQuality from '@/utils/get-item-level-quality';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
-    import Tooltip from '@/components/tooltips/character-best-item-level/Tooltip.svelte'
-    import { staticStore } from '@/shared/stores/static';
-    import { itemStore } from '@/stores';
+    import Tooltip from '@/components/tooltips/character-best-item-level/Tooltip.svelte';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 
-    $: bestItemLevels = character.getBestItemLevels($itemStore, $staticStore);
-    $: itemLevel = bestItemLevels?.[character.activeSpecId]?.[0];
+    let bestItemLevels = $derived.by(() => character.getBestItemLevels($staticStore));
+    let itemLevel = $derived(bestItemLevels?.[character.activeSpecId]?.[0]);
 </script>
 
 <style lang="scss">
@@ -22,13 +21,15 @@
 </style>
 
 <td
-    class="border-left quality{itemLevel ? getItemLevelQuality(parseFloat(itemLevel)) : character.calculatedItemLevelQuality}"
+    class="border-left quality{itemLevel
+        ? getItemLevelQuality(parseFloat(itemLevel))
+        : character.calculatedItemLevelQuality}"
     use:componentTooltip={{
         component: Tooltip,
         props: {
             bestItemLevels,
             character,
-        }
+        },
     }}
 >
     {itemLevel || character.calculatedItemLevel}

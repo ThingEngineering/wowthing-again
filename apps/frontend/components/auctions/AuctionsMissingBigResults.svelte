@@ -3,6 +3,7 @@
     // import { replace } from 'svelte-spa-router';
 
     import { timeLeft } from '@/data/auctions';
+    import { itemModifierMap } from '@/data/item-modifier';
     import { euLocales } from '@/data/region';
     import { AppearanceModifier } from '@/enums/appearance-modifier';
     import { Faction } from '@/enums/faction';
@@ -10,11 +11,13 @@
     import { Region } from '@/enums/region';
     import { iconLibrary } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
     import { timeStore } from '@/shared/stores/time';
     import { basicTooltip, componentTooltip } from '@/shared/utils/tooltips';
-    import { itemStore, userStore } from '@/stores';
+    import { userStore } from '@/stores';
     import { auctionState } from '@/stores/local-storage';
+    import { userState } from '@/user-home/state/user';
     import {
         userAuctionMissingRecipeStore,
         userAuctionMissingTransmogStore,
@@ -33,8 +36,6 @@
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { itemModifierMap } from '@/data/item-modifier';
-    import { userState } from '@/user-home/state/user';
 
     let { page, slug1 }: { page: number; slug1: string } = $props();
 
@@ -89,7 +90,7 @@
         }
 
         for (const bonusId of bonusIds || []) {
-            const itemBonus = $itemStore.itemBonuses[bonusId];
+            const itemBonus = wowthingData.items.itemBonuses[bonusId];
             for (const bonus of itemBonus?.bonuses || []) {
                 if (bonus[0] === ItemBonusType.AddItemNameDescription) {
                     if (bonus[1] === 1641 || bonus[1] === 13932 || bonus[1] === 14101) {
@@ -251,7 +252,7 @@
 
 <UnderConstruction />
 
-{#await slug1 === 'missing-recipes' ? userAuctionMissingRecipeStore.search(settingsState.value, $auctionState, $itemStore, $staticStore, $userStore) : userAuctionMissingTransmogStore.search(settingsState.value, $auctionState, $itemStore, $staticStore, $userStore, slug1.replace('missing-appearance-', ''))}
+{#await slug1 === 'missing-recipes' ? userAuctionMissingRecipeStore.search(settingsState.value, $auctionState, $staticStore, $userStore) : userAuctionMissingTransmogStore.search(settingsState.value, $auctionState, $staticStore, $userStore, slug1.replace('missing-appearance-', ''))}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then [things, updated]}
     {#if things.length > 0}
@@ -271,10 +272,10 @@
                 {#each paginated as result (result.id)}
                     {@const auctions = result.auctions.slice(
                         0,
-                        $auctionState.limitToCheapestRealm ? 1 : 5,
+                        $auctionState.limitToCheapestRealm ? 1 : 5
                     )}
                     {@const itemId = auctions[0].itemId}
-                    {@const item = $itemStore.items[itemId]}
+                    {@const item = wowthingData.items.items[itemId]}
                     {@const modifier = getModifier(item, auctions[0].bonusIds || [])}
                     {@const [needAppearance, needSource] = getHaveClass(result, item)}
                     <table class="table table-striped" class:faded={result.hasItems.length > 0}>
@@ -410,19 +411,19 @@
                                     $timeStore
                                         .diff(
                                             DateTime.fromSeconds(
-                                                updated[auction.connectedRealmId] || 1000,
-                                            ),
+                                                updated[auction.connectedRealmId] || 1000
+                                            )
                                         )
                                         .toMillis() /
                                         1000 /
-                                        60,
+                                        60
                                 )}
                                 <tr
                                     class:filter-highlight={realmSearch &&
                                         !$auctionState.limitToCheapestRealm &&
                                         connectedRealm.realmNames.some(
                                             (name) =>
-                                                name.toLocaleLowerCase().indexOf(realmSearch) >= 0,
+                                                name.toLocaleLowerCase().indexOf(realmSearch) >= 0
                                         )}
                                 >
                                     <td
@@ -465,7 +466,7 @@
                                             &lt;1 g
                                         {:else}
                                             {Math.floor(
-                                                auction.buyoutPrice / 10000,
+                                                auction.buyoutPrice / 10000
                                             ).toLocaleString()} g
                                         {/if}
                                     </td>
@@ -500,7 +501,7 @@
                         use:basicTooltip={'Total gold required to buy the cheapest of each item'}
                     >
                         {Math.floor(
-                            things.reduce((a, b) => a + b.auctions[0].buyoutPrice, 0) / 10000,
+                            things.reduce((a, b) => a + b.auctions[0].buyoutPrice, 0) / 10000
                         ).toLocaleString()} g
                     </span>
                 </div>

@@ -1,12 +1,12 @@
 import type { DateTime } from 'luxon';
+import { get } from 'svelte/store';
 
 import { toNiceDuration, toNiceNumber } from '../formatting';
 import { currencyItemCurrencies, currencyProfession } from '@/data/currencies';
+import { wowthingData } from '@/shared/stores/data';
 import { CharacterCurrency, type Character } from '@/types/character';
 import type { StaticDataCurrency } from '@/shared/stores/static/types';
 import type { UserDataStore } from '@/stores';
-import type { ItemData } from '@/types/data/item';
-import { get } from 'svelte/store';
 
 interface CharacterCurrencyData {
     amount: string;
@@ -17,12 +17,11 @@ interface CharacterCurrencyData {
 }
 
 export function getCurrencyData(
-    itemData: ItemData,
     time: DateTime,
     userStore: UserDataStore,
     character: Character,
     currency: StaticDataCurrency = undefined,
-    itemId: number = 0,
+    itemId: number = 0
 ): CharacterCurrencyData {
     const ret: CharacterCurrencyData = {
         amount: '',
@@ -51,7 +50,7 @@ export function getCurrencyData(
             if (diff >= currency.rechargeInterval) {
                 amount = Math.min(
                     characterCurrency.max,
-                    amount + Math.floor(diff / currency.rechargeInterval) * currency.rechargeAmount,
+                    amount + Math.floor(diff / currency.rechargeInterval) * currency.rechargeAmount
                 );
                 if (amount < characterCurrency.max) {
                     const remainingTime =
@@ -86,7 +85,7 @@ export function getCurrencyData(
             ret.tooltip += `<br><br>${extraTooltip}`;
         }
     } else {
-        const item = itemData.items[itemId];
+        const item = wowthingData.items.items[itemId];
         const name = item?.name || `Item #${itemId}`;
 
         if (character) {

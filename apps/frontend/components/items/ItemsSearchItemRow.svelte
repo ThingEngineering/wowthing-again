@@ -2,11 +2,12 @@
     import { ItemLocation } from '@/enums/item-location';
     import { Region } from '@/enums/region';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { itemStore, userStore } from '@/stores';
+    import { userStore } from '@/stores';
     import { getItemUrlSearch } from '@/utils/get-item-url';
     import { toNiceNumber } from '@/utils/formatting';
-    import type { Character } from '@/types';
+    import { wowthingData } from '@/shared/stores/data';
     import type { StaticDataRealm } from '@/shared/stores/static/types';
+    import type { Character } from '@/types';
     import type {
         ItemSearchResponseCharacter,
         ItemSearchResponseCommon,
@@ -51,7 +52,7 @@
     {#if warbankItem}
         <td class="guild-name text-overflow" colspan={settingsState.useAccountTags ? 2 : 1}>
             <a
-                class="quality{item.quality || $itemStore.items[itemId].quality || 0}"
+                class="quality{item.quality || wowthingData.items.items[itemId].quality || 0}"
                 href={getItemUrlSearch(itemId, item)}
             >
                 Account Bank
@@ -65,7 +66,7 @@
         {/if}
         <td class="name text-overflow">
             <a
-                class="quality{item.quality || $itemStore.items[itemId].quality || 0}"
+                class="quality{item.quality || wowthingData.items.items[itemId].quality || 0}"
                 href={getItemUrlSearch(itemId, item)}
             >
                 {character.name}
@@ -74,7 +75,7 @@
     {:else}
         <td class="guild-name text-overflow" colspan={settingsState.useAccountTags ? 2 : 1}>
             <a
-                class="quality{item.quality || $itemStore.items[itemId].quality || 0}"
+                class="quality{item.quality || wowthingData.items.items[itemId].quality || 0}"
                 href={getItemUrlSearch(itemId, item)}
             >
                 {guild?.name || 'Unknown Guild'}
@@ -102,7 +103,7 @@
     <td class="item-level">
         {characterItem?.itemLevel ||
             guildBankItem?.itemLevel ||
-            $itemStore.items[itemId].itemLevel ||
+            wowthingData.items.items[itemId].itemLevel ||
             0}
     </td>
 </tr>

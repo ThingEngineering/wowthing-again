@@ -1,10 +1,10 @@
 <script lang="ts">
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import type { Character } from '@/types'
+    import type { CharacterProps } from '@/types/props';
 
-    import Tooltip from '@/components/tooltips/item-level/Tooltip.svelte'
+    import Tooltip from '@/components/tooltips/item-level/Tooltip.svelte';
 
-    export let character: Character
+    let { character }: CharacterProps = $props();
 </script>
 
 <style lang="scss">
@@ -19,7 +19,7 @@
     class="border-left quality{character.calculatedItemLevelQuality}"
     use:componentTooltip={{
         component: Tooltip,
-        props: {}
+        props: {},
     }}
 >
     {character.calculatedItemLevel}

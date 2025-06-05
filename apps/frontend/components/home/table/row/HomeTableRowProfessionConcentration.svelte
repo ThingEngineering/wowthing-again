@@ -6,7 +6,7 @@
     import { staticStore } from '@/shared/stores/static';
     import { timeStore } from '@/shared/stores/time';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { itemStore, userStore } from '@/stores';
+    import { userStore } from '@/stores';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import { getProfessionSortKey } from '@/utils/professions';
     import type { Character } from '@/types';
@@ -18,9 +18,9 @@
 
     $: professions = sortBy(
         Object.values($staticStore.professions).filter(
-            (prof) => professionConcentration[prof.id] && character.professions?.[prof.id],
+            (prof) => professionConcentration[prof.id] && character.professions?.[prof.id]
         ),
-        (prof) => getProfessionSortKey(prof),
+        (prof) => getProfessionSortKey(prof)
     );
 
     function statusClass(fullIsBad: boolean, percent: number) {
@@ -67,16 +67,15 @@
     <div class="flex-wrapper">
         {#each professions as profession}
             {@const { amount, percent, tooltip } = getCurrencyData(
-                $itemStore,
                 $timeStore,
                 userStore,
                 character,
-                $staticStore.currencies[professionConcentration[profession.id]],
+                $staticStore.currencies[professionConcentration[profession.id]]
             )}
             <div
                 class="concentration {statusClass(
                     settingsState.value.professions.fullConcentrationIsBad,
-                    percent,
+                    percent
                 )}"
                 use:basicTooltip={{
                     allowHTML: true,

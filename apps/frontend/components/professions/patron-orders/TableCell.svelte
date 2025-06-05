@@ -2,7 +2,7 @@
     import sortBy from 'lodash/sortBy';
 
     import { timeStore } from '@/shared/stores/time';
-    import { itemStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
     import type { Character } from '@/types';
 
@@ -16,8 +16,9 @@
 
     $: now = $timeStore.toUnixInteger();
     $: activeOrders = sortBy(
-        character.patronOrders?.[profession.id]?.filter((order) => order.expirationTime > now) || [],
-        (order) => `${order.expirationTime}:${$itemStore.items[order.itemId]?.name}`
+        character.patronOrders?.[profession.id]?.filter((order) => order.expirationTime > now) ||
+            [],
+        (order) => `${order.expirationTime}:${wowthingData.items.items[order.itemId]?.name}`
     );
 </script>
 
@@ -32,11 +33,7 @@
 <td>
     {#if activeOrders}
         {#each activeOrders as patronOrder}
-            <Order
-                {character}
-                {commodities}
-                {patronOrder}
-            />
+            <Order {character} {commodities} {patronOrder} />
         {:else}
             <Order {character} />
         {/each}

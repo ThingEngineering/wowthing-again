@@ -37,6 +37,7 @@ export class DataItems {
     public appearanceMap: RawItems['appearanceMap'];
     public completesQuest: RawItems['completesQuest'];
     public itemConversionEntries: RawItems['itemConversionEntries'];
+    public limitCategories: RawItems['limitCategories'];
     public specOverrides: RawItems['specOverrides'];
     public teachesSpell: RawItems['teachesSpell'];
     public teachesTransmog: RawItems['teachesTransmog'];

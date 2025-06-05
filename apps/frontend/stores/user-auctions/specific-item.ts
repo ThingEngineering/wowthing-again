@@ -1,10 +1,10 @@
+import { wowthingData } from '@/shared/stores/data';
 import {
     UserAuctionDataMissingRecipeAuction,
     type UserAuctionData,
     UserAuctionDataAuction,
 } from '@/types/data';
 import type { UserData } from '@/types';
-import type { ItemData } from '@/types/data/item';
 import type { AuctionState } from '../local-storage';
 import type { UserAuctionEntry } from '../user-auctions';
 
@@ -14,9 +14,8 @@ export class UserAuctionSpecificItemDataStore {
 
     async search(
         auctionState: AuctionState,
-        itemData: ItemData,
         userData: UserData,
-        itemId: number,
+        itemId: number
     ): Promise<[UserAuctionEntry[], Record<number, number>]> {
         let things: UserAuctionEntry[] = [];
         let updated: Record<number, number>;
@@ -57,14 +56,14 @@ export class UserAuctionSpecificItemDataStore {
                 const parsedData: Record<number, UserAuctionDataMissingRecipeAuction[]> = {};
                 for (const [itemId, rawAuctions] of Object.entries(responseData.rawAuctions)) {
                     parsedData[parseInt(itemId)] = rawAuctions.map(
-                        (auctionArray) => new UserAuctionDataAuction(...auctionArray),
+                        (auctionArray) => new UserAuctionDataAuction(...auctionArray)
                     );
                 }
 
                 for (const [thingId, auctions] of Object.entries(parsedData)) {
                     const id = parseInt(thingId);
 
-                    const item = itemData.items[id];
+                    const item = wowthingData.items.items[id];
                     if (!item) {
                         continue;
                     }

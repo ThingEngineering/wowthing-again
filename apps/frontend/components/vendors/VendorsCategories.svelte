@@ -2,7 +2,7 @@
     import { afterUpdate } from 'svelte';
 
     import { RewardType } from '@/enums/reward-type';
-    import { itemStore, lazyStore } from '@/stores';
+    import { lazyStore } from '@/stores';
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import type { MultiSlugParams } from '@/types';
     import type { ManualDataVendorCategory } from '@/types/data/manual';
@@ -49,7 +49,7 @@
                             continue;
                         }
 
-                        const thingItem = $itemStore.items[thing.id];
+                        const thingItem = wowthingData.items.items[thing.id];
                         if (thingItem?.oppositeFactionId) {
                             skipItems.add(thingItem.oppositeFactionId);
                         }
@@ -85,7 +85,7 @@
                     columnCount: '--column-count',
                     gap: 30,
                     padding: '0.75rem',
-                },
+                }
             );
             debouncedResize();
         } else {

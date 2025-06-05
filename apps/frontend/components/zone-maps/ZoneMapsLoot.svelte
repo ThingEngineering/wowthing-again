@@ -7,7 +7,7 @@
     import { RewardType } from '@/enums/reward-type';
     import { farmTypeIcons } from '@/shared/icons/mappings';
     import { staticStore } from '@/shared/stores/static';
-    import { itemStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
     import { leftPad } from '@/utils/formatting';
     import { getDropData, getDropIcon } from '@/utils/zone-maps';
     import type { ManualDataZoneMapFarm } from '@/types/data/manual';
@@ -23,7 +23,7 @@
         allLoots = [];
         const farmsById = keyBy(
             loots.map(([farm]) => farm),
-            (farm) => farm.id,
+            (farm) => farm.id
         );
 
         // Group by loot
@@ -42,7 +42,7 @@
             if (farms.length > 1) {
                 const keys = orderBy(
                     farms,
-                    ([farm]) => `${leftPad(farm.type, 2, '0')}${farm.name}`,
+                    ([farm]) => `${leftPad(farm.type, 2, '0')}${farm.name}`
                 ).map(([farm]) => farm.id);
                 (groupedGroups[keys.join('|')] ||= []).push(dropKey);
             } else {
@@ -72,7 +72,7 @@
 
         for (const [farm, dropIndexes] of orderBy(
             loots,
-            ([farm]) => `${leftPad(farm.type, 2, '0')}${farm.name}`,
+            ([farm]) => `${leftPad(farm.type, 2, '0')}${farm.name}`
         )) {
             let usableDropIndexes: number[] = [];
             for (const dropIndex of dropIndexes) {
@@ -104,7 +104,7 @@
     <tbody>
         {#each allLoots as [farms, dropIndexes]}
             {@const dropDatas = dropIndexes.map((dropIndex) =>
-                getDropData(farms[0].drops[dropIndex]),
+                getDropData(farms[0].drops[dropIndex])
             )}
             {@const dropCount = dropIndexes.length > 4 ? 3 : 4}
             <tr>
@@ -120,7 +120,7 @@
                     {#each dropIndexes.slice(0, dropCount) as dropIndex, dataIndex}
                         {@const drop = farms[0].drops[dropIndex]}
                         {@const dropData = dropDatas[dataIndex]}
-                        {@const icon = getDropIcon($itemStore, $staticStore, drop, false)}
+                        {@const icon = getDropIcon($staticStore, drop, false)}
                         <div>
                             <IconifyIcon {icon} />
                             <span class="quality{dropData.quality}">

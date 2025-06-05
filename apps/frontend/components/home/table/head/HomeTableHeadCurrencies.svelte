@@ -2,7 +2,7 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { staticStore } from '@/shared/stores/static';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { itemStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
     import { homeState } from '@/stores/local-storage';
 
     import Tooltip from '@/components/tooltips/currency/TooltipCurrency.svelte';
@@ -35,7 +35,7 @@
             component: Tooltip,
             props: {
                 currency: $staticStore.currencies[currencyId],
-                item: $itemStore.items[currencyId - 1000000],
+                item: wowthingData.items.items[currencyId - 1000000],
             },
         }}
     >

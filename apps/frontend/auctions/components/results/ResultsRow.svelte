@@ -3,8 +3,8 @@
 
     import { itemModifierMap } from '@/data/item-modifier';
     import { Faction } from '@/enums/faction';
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
-    import { itemStore } from '@/stores/item';
     import { leftPad } from '@/utils/formatting';
     import type { AuctionEntry } from '@/auctions/types/auction-entry';
 
@@ -42,7 +42,7 @@
 
         if (groupKey.startsWith('item:')) {
             const itemId = parseInt(groupKey.split(':')[1]);
-            const item = $itemStore.items[itemId];
+            const item = wowthingData.items.items[itemId];
 
             if (item.allianceOnly) {
                 ret.faction = Faction.Alliance;
@@ -61,7 +61,7 @@
         } else if (groupKey.startsWith('source:')) {
             const sourceParts = groupKey.split(':')[1].split('_');
             const itemId = parseInt(sourceParts[0]);
-            const item = $itemStore.items[itemId];
+            const item = wowthingData.items.items[itemId];
 
             if (item.allianceOnly) {
                 ret.faction = Faction.Alliance;

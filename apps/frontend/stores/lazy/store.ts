@@ -4,6 +4,18 @@ import once from 'lodash/once';
 import { derived, get } from 'svelte/store';
 import type { DateTime } from 'luxon';
 
+import { settingsState } from '@/shared/state/settings.svelte';
+import { wowthingData } from '@/shared/stores/data';
+import { staticStore } from '@/shared/stores/static';
+import { timeStore } from '@/shared/stores/time';
+import { UserCount } from '@/types';
+import { hashObject } from '@/utils/hash-object.svelte';
+import type { Settings } from '@/shared/stores/settings/types';
+import type { StaticData } from '@/shared/stores/static/types';
+import type { FancyStoreType, UserAchievementData, UserData } from '@/types';
+import type { JournalData, UserQuestData } from '@/types/data';
+import type { ManualDataHeirloomItem, ManualDataIllusionItem } from '@/types/data/manual';
+
 import { doAchievements, type LazyAchievements } from './achievements';
 import { doAppearances, type LazyAppearances } from './appearances';
 import { doCharacters, type LazyCharacter } from './character';
@@ -32,24 +44,11 @@ import {
 
 import { achievementStore } from '../achievements';
 import { journalStore } from '../journal';
-import { settingsState } from '@/shared/state/settings.svelte';
-import { staticStore } from '@/shared/stores/static';
-import { timeStore } from '@/shared/stores/time';
 import { userStore } from '../user';
 import { userAchievementStore } from '../user-achievements';
 import { userQuestStore } from '../user-quests';
 
-import { UserCount } from '@/types';
-import { hashObject } from '@/utils/hash-object.svelte';
-
-import type { Settings } from '@/shared/stores/settings/types';
-import type { StaticData } from '@/shared/stores/static/types';
-import type { FancyStoreType, UserAchievementData, UserData } from '@/types';
-import type { JournalData, UserQuestData } from '@/types/data';
-import type { ManualDataHeirloomItem, ManualDataIllusionItem } from '@/types/data/manual';
-import type { ItemData } from '@/types/data/item';
 import { activeHolidays, type ActiveHolidays } from '../derived/active-holidays';
-import { wowthingData } from '@/shared/stores/data';
 
 type LazyKey = 'heirlooms' | 'illusions' | 'mounts' | 'pets' | 'toys';
 

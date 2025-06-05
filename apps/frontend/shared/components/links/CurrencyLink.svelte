@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { itemStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
@@ -22,7 +22,7 @@
             item = undefined;
         } else if (itemId !== undefined) {
             currency = undefined;
-            item = $itemStore.items[itemId];
+            item = wowthingData.items.items[itemId];
         }
 
         if (currency) {

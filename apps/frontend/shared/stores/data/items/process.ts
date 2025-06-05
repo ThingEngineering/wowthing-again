@@ -12,6 +12,7 @@ export function processItemsData(rawData: RawItems): DataItems {
     data.appearanceMap = rawData.appearanceMap;
     data.completesQuest = rawData.completesQuest;
     data.itemConversionEntries = rawData.itemConversionEntries;
+    data.limitCategories = rawData.limitCategories;
     data.specOverrides = rawData.specOverrides;
     data.teachesSpell = rawData.teachesSpell;
     data.teachesTransmog = rawData.teachesTransmog;

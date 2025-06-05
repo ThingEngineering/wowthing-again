@@ -1,7 +1,8 @@
 <script lang="ts">
     import { Faction } from '@/enums/faction';
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
-    import { itemStore, lazyStore } from '@/stores';
+    import { lazyStore } from '@/stores';
     import { vendorState } from '@/stores/local-storage';
     import { getClassesFromMask } from '@/utils/get-classes-from-mask';
     import getPercentClass from '@/utils/get-percent-class';
@@ -106,11 +107,11 @@
     style:height={!thing.userHas ? 52 + 20 * thing.item.sortedCosts.length + 'px' : null}
 >
     {#if intersected}
-        {@const teachesTransmog = $itemStore.teachesTransmog[thing.item.id]}
-        {@const item = $itemStore.items[thing.item.id]}
+        {@const teachesTransmog = wowthingData.items.teachesTransmog[thing.item.id]}
+        {@const item = wowthingData.items.items[thing.item.id]}
         {@const classes = getClassesFromMask(item?.classMask || 0)}
         {@const professionAbility = $staticStore.professionAbilityByItemId[thing.item.id]}
-        {@const specIds = $itemStore.specOverrides[thing.item.id]}
+        {@const specIds = wowthingData.items.specOverrides[thing.item.id]}
         <WowheadLink
             id={thing.linkId}
             type={thing.linkType}

@@ -2,7 +2,7 @@
     import { Constants } from '@/data/constants';
     import { timeStore } from '@/shared/stores/time';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { itemStore, userStore } from '@/stores';
+    import { userStore } from '@/stores';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import type { StaticDataCurrency } from '@/shared/stores/static/types';
     import type { Character } from '@/types/character';
@@ -13,12 +13,11 @@
     export let sortingBy: boolean;
 
     $: ({ amount, amountRaw, percent, tooltip } = getCurrencyData(
-        $itemStore,
         $timeStore,
         userStore,
         character,
         currency,
-        itemId,
+        itemId
     ));
 </script>
 

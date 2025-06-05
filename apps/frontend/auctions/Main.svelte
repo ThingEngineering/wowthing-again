@@ -1,11 +1,12 @@
 <script lang="ts">
     import { onMount } from 'svelte';
 
-    import { Region } from '@/enums/region';
-    import { auctionStore } from '@/stores/auction';
-    import { itemStore } from '@/stores/item';
-    import { staticStore } from '@/shared/stores/static';
     import { auctionsAppState } from '@/auctions/stores/state';
+    import { Language } from '@/enums/language';
+    import { Region } from '@/enums/region';
+    import { wowthingData } from '@/shared/stores/data';
+    import { staticStore } from '@/shared/stores/static';
+    import { auctionStore } from '@/stores/auction';
 
     import Routes from './Routes.svelte';
     import Sidebar from './Sidebar.svelte';
@@ -15,17 +16,21 @@
             $auctionsAppState.region = Region.US;
         }
 
-        await Promise.all([auctionStore.fetch(), itemStore.fetch(), staticStore.fetch()]);
+        await Promise.all([
+            auctionStore.fetch(),
+            staticStore.fetch(),
+            wowthingData.fetch(Language.enUS),
+        ]);
     });
 
     let error: boolean;
     let loaded: boolean;
     $: {
-        error = $auctionStore.error || $itemStore.error || $staticStore.error;
-        loaded = $auctionStore.loaded && $itemStore.loaded && $staticStore.loaded;
+        error = $auctionStore.error || $staticStore.error;
+        loaded = $auctionStore.loaded && $staticStore.loaded;
 
         if (loaded) {
-            staticStore.setup(undefined, $itemStore);
+            staticStore.setup();
         }
     }
 </script>

@@ -1,7 +1,8 @@
 <script lang="ts">
     import { Constants } from '@/data/constants';
     import { iconLibrary } from '@/shared/icons';
-    import { itemStore, userStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
+    import { userStore } from '@/stores';
     import getItemLevelQuality from '@/utils/get-item-level-quality';
     import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible';
     import type { CharacterCurrency, Character } from '@/types';
@@ -21,8 +22,8 @@
 
         const accountMaxCharges = Math.max(
             ...$userStore.characters.map(
-                (char) => char.currencies?.[Constants.currencies.catalyst]?.max || 0,
-            ),
+                (char) => char.currencies?.[Constants.currencies.catalyst]?.max || 0
+            )
         );
 
         if (!charCatalyst) {
@@ -37,7 +38,7 @@
     }
 
     $: cyrce = Object.values(character.equippedItems || {}).filter(
-        (item) => item.itemId === 228411,
+        (item) => item.itemId === 228411
     )[0];
 </script>
 
@@ -76,7 +77,7 @@
     <h5>Tier Set Pieces</h5>
 
     <div class="flex-wrapper">
-        {#each tierSets as tierPieces, setIndex}
+        {#each tierSets as tierPieces, setIndex (tierPieces)}
             <table
                 class="table-striped"
                 class:border-left={tierSets.length > 1 && setIndex === 1}
@@ -87,7 +88,7 @@
                         <tr> <td colspan="2">{setIndex === 0 ? 'Current' : 'Previous'} </td></tr>
                     {/if}
 
-                    {#each tierPieces as [slot, , itemLevel, convertible]}
+                    {#each tierPieces as [slot, , itemLevel, convertible] (slot)}
                         <tr>
                             <td class="slot">{slot}</td>
                             <td class="itemLevel quality{getItemLevelQuality(itemLevel)}">
@@ -115,8 +116,8 @@
 
     {#if cyrce}
         <div class="cyrce">
-            {#each [0, 1, 2] as gemIndex}
-                {@const gem = $itemStore.items[cyrce.gemIds[gemIndex]]}
+            {#each [0, 1, 2] as gemIndex (gemIndex)}
+                {@const gem = wowthingData.items.items[cyrce.gemIds[gemIndex]]}
                 <div class="gem">
                     {#if gem}
                         <WowthingImage name={`item/${gem.id}`} size={16} border={1} />

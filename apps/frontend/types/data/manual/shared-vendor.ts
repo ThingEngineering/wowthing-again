@@ -4,10 +4,9 @@ import { FarmIdType } from '@/enums/farm-id-type';
 import { FarmResetType } from '@/enums/farm-reset-type';
 import { FarmType } from '@/enums/farm-type';
 import { RewardType } from '@/enums/reward-type';
+import { wowthingData } from '@/shared/stores/data';
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from './zone-map';
 import type { StaticData } from '@/shared/stores/static/types';
-import type { ItemData } from '../item';
-import { wowthingData } from '@/shared/stores/data';
 
 export class ManualDataSharedVendor {
     private drops: ManualDataZoneMapDrop[];

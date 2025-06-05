@@ -1,66 +1,68 @@
 <script lang="ts">
-    import { Constants } from '@/data/constants'
-    import { Faction } from '@/enums/faction'
-    import { RewardType } from '@/enums/reward-type'
-    import { itemStore, userStore } from '@/stores'
-    import { rewardTypeIcons } from '@/shared/icons/mappings'
-    import { staticStore } from '@/shared/stores/static'
-    import type { Character } from '@/types'
-    import type { ManualDataReputationReputation, ManualDataReputationSet } from '@/types/data/manual';
+    import { Constants } from '@/data/constants';
+    import { Faction } from '@/enums/faction';
+    import { RewardType } from '@/enums/reward-type';
+    import { userStore } from '@/stores';
+    import { rewardTypeIcons } from '@/shared/icons/mappings';
+    import { wowthingData } from '@/shared/stores/data';
+    import { staticStore } from '@/shared/stores/static';
+    import type { Character } from '@/types';
+    import type {
+        ManualDataReputationReputation,
+        ManualDataReputationSet,
+    } from '@/types/data/manual';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let faction: Faction = Faction.Neutral
-    export let reputation: ManualDataReputationReputation
-    export let set: ManualDataReputationSet
+    export let faction: Faction = Faction.Neutral;
+    export let reputation: ManualDataReputationReputation;
+    export let set: ManualDataReputationSet;
 
     let rewards: {
-        id: number,
-        name: string,
-        type: RewardType,
-        have: boolean,
-    }[]
-    let totalParagon = 0
+        id: number;
+        name: string;
+        type: RewardType;
+        have: boolean;
+    }[];
+    let totalParagon = 0;
     $: {
-        rewards = []
+        rewards = [];
         if (set.paragon) {
-            totalParagon = $userStore.characters
-                .reduce(
-                    (a: number, b: Character) => a + (b.paragons?.[reputation.id]?.received ?? 0),
-                    0
-                )
+            totalParagon = $userStore.characters.reduce(
+                (a: number, b: Character) => a + (b.paragons?.[reputation.id]?.received ?? 0),
+                0
+            );
 
             if (reputation.rewards) {
                 for (const reward of reputation.rewards) {
-                    let have = false
-                    let name: string
+                    let have = false;
+                    let name: string;
                     if (reward.type === RewardType.Mount) {
-                        have = $userStore.hasMount[reward.id] === true
-                        const mount = $staticStore.mounts[reward.id]
-                        name = mount ? mount.name : `Mount #${reward.id}`
-                    }
-                    else if (reward.type === RewardType.Pet) {
-                        have = $userStore.hasPet[reward.id] === true
-                        const pet = $staticStore.pets[reward.id]
-                        name = pet ? pet.name : `Pet #${reward.id}`
-                    }
-                    else if (reward.type === RewardType.Toy) {
-                        have = $userStore.hasToy[reward.id] === true
-                        const toy = $staticStore.toys[reward.id]
-                        name = toy ? toy.name : `Toy #${reward.id}`
-                    }
-                    else if (reward.type === RewardType.Transmog) {
-                        const item = $itemStore.items[reward.id]
-                        have = $userStore.hasAppearance.has(item?.appearances[0]?.appearanceId || 0)
-                        name = item?.name || `Item #${reward.id}`
+                        have = $userStore.hasMount[reward.id] === true;
+                        const mount = $staticStore.mounts[reward.id];
+                        name = mount ? mount.name : `Mount #${reward.id}`;
+                    } else if (reward.type === RewardType.Pet) {
+                        have = $userStore.hasPet[reward.id] === true;
+                        const pet = $staticStore.pets[reward.id];
+                        name = pet ? pet.name : `Pet #${reward.id}`;
+                    } else if (reward.type === RewardType.Toy) {
+                        have = $userStore.hasToy[reward.id] === true;
+                        const toy = $staticStore.toys[reward.id];
+                        name = toy ? toy.name : `Toy #${reward.id}`;
+                    } else if (reward.type === RewardType.Transmog) {
+                        const item = wowthingData.items.items[reward.id];
+                        have = $userStore.hasAppearance.has(
+                            item?.appearances[0]?.appearanceId || 0
+                        );
+                        name = item?.name || `Item #${reward.id}`;
                     }
 
                     rewards.push({
                         ...reward,
                         have,
                         name,
-                    })
+                    });
                 }
             }
         }
@@ -91,27 +93,17 @@
         <tr>
             <td class="faction" colspan="2">
                 {#if faction === Faction.Alliance}
-                    <WowthingImage
-                        name={Constants.icons.alliance}
-                        size={20}
-                    />
+                    <WowthingImage name={Constants.icons.alliance} size={20} />
                 {:else if faction === Faction.Horde}
-                    <WowthingImage
-                        name={Constants.icons.horde}
-                        size={20}
-                    />
+                    <WowthingImage name={Constants.icons.horde} size={20} />
                 {/if}
                 {$staticStore.reputations[reputation.id].name}
             </td>
         </tr>
 
         {#each rewards as reward}
-            <tr
-                class:have={reward.have}
-            >
-                <td
-                    class="type status-{reward.have ? 'success' : 'fail'}"
-                >
+            <tr class:have={reward.have}>
+                <td class="type status-{reward.have ? 'success' : 'fail'}">
                     <IconifyIcon icon={rewardTypeIcons[reward.type]} />
                 </td>
                 <td class="name">

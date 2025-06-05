@@ -1,34 +1,29 @@
 <script lang="ts">
-    import { seasonMap } from '@/data/mythic-plus'
-    import { Region } from '@/enums/region'
-    import { userStore } from '@/stores'
-    import getRaiderIoColor from'@/utils/get-raider-io-color'
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import type { Character, CharacterRaiderIoSeason, MythicPlusSeason } from '@/types'
-    import type { UserDataRaiderIoScoreTiers } from '@/types/user-data'
+    import { seasonMap } from '@/data/mythic-plus';
+    import { Region } from '@/enums/region';
+    import { userStore } from '@/stores';
+    import getRaiderIoColor from '@/utils/get-raider-io-color';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import type { MythicPlusSeason } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
-    import Tooltip from '@/components/tooltips/mythic-plus-score/TooltipMythicPlusScore.svelte'
+    import Tooltip from '@/components/tooltips/mythic-plus-score/TooltipMythicPlusScore.svelte';
 
-    export let character: Character
-    export let season: MythicPlusSeason = null
-    export let seasonId = 0
+    type Props = {
+        season?: MythicPlusSeason;
+        seasonId?: number;
+    };
 
-    let overallScore: number
-    let region: string
-    let scores: CharacterRaiderIoSeason
-    let tiers: UserDataRaiderIoScoreTiers
-    $: {
-        if (seasonId > 0) {
-            season = seasonMap[seasonId]
-        }
-        if (season) {
-            scores = character.raiderIo?.[season.id]
-            tiers = $userStore.raiderIoScoreTiers?.[season.id]
+    let { character, season, seasonId }: CharacterProps & Props = $props();
 
-            overallScore = character.mythicPlusSeasonScores?.[season.id] || scores?.['all'] || 0
-        }
-        region = Region[character.realm.region].toLowerCase()
-    }
+    let region = $derived(Region[character.realm.region].toLowerCase());
+    let actualSeason = $derived(season || seasonMap[seasonId]);
+
+    let scores = $derived(actualSeason ? character.raiderIo?.[season.id] : null);
+    let tiers = $derived(actualSeason ? $userStore.raiderIoScoreTiers?.[season.id] : null);
+    let overallScore = $derived(
+        actualSeason ? character.mythicPlusSeasonScores?.[season.id] || scores?.['all'] || 0 : 0
+    );
 </script>
 
 <style lang="scss">
@@ -47,10 +42,10 @@
         use:componentTooltip={{
             component: Tooltip,
             props: {
-                seasonId: season.id,
+                seasonId: actualSeason.id,
                 character,
                 scores,
-                tiers
+                tiers,
             },
         }}
     >

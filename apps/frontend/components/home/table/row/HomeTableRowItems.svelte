@@ -1,7 +1,7 @@
 <script lang="ts">
     import { settingsState } from '@/shared/state/settings.svelte';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { itemStore } from '@/stores/item';
+    import { wowthingData } from '@/shared/stores/data';
     import { toNiceNumber } from '@/utils/formatting';
     import type { Character } from '@/types';
 
@@ -23,7 +23,10 @@
 
 {#each settingsState.activeView.homeItems as itemId}
     {@const count = character.getItemCount(itemId)}
-    <td class:faded={count === 0} use:basicTooltip={`${count}x ${$itemStore.items[itemId].name}`}>
+    <td
+        class:faded={count === 0}
+        use:basicTooltip={`${count}x ${wowthingData.items.items[itemId].name}`}
+    >
         {toNiceNumber(count)}
     </td>
 {/each}

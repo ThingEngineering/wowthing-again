@@ -1,29 +1,29 @@
 <script lang="ts">
     import { currencyIconOverride } from '@/data/currencies';
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import { itemStore } from '@/stores'
-    import { currencyState } from '@/stores/local-storage'
-    import type { StaticDataCurrency } from '@/shared/stores/static/types'
+    import { wowthingData } from '@/shared/stores/data';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import { currencyState } from '@/stores/local-storage';
+    import type { StaticDataCurrency } from '@/shared/stores/static/types';
 
-    import TableSortedBy from '@/components/common/TableSortedBy.svelte'
-    import Tooltip from '@/components/tooltips/currency/TooltipCurrency.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import TableSortedBy from '@/components/common/TableSortedBy.svelte';
+    import Tooltip from '@/components/tooltips/currency/TooltipCurrency.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let currency: StaticDataCurrency = undefined
-    export let itemId = 0
-    export let slug: string
-    export let sortingBy: boolean
+    export let currency: StaticDataCurrency = undefined;
+    export let itemId = 0;
+    export let slug: string;
+    export let sortingBy: boolean;
 
-    let cls: string
-    let onClick: (event: Event) => void
+    let cls: string;
+    let onClick: (event: Event) => void;
     $: {
-        cls = itemId ? `quality${$itemStore.items[itemId]?.quality || 1}` : 'quality1'
+        cls = itemId ? `quality${wowthingData.items.items[itemId]?.quality || 1}` : 'quality1';
 
-        onClick = function(event: Event) {
-            event.preventDefault()
-            $currencyState.sortOrder[slug] = sortingBy ? 0 : (itemId || currency.id)
-        }
+        onClick = function (event: Event) {
+            event.preventDefault();
+            $currencyState.sortOrder[slug] = sortingBy ? 0 : itemId || currency.id;
+        };
     }
 </script>
 
@@ -51,9 +51,9 @@
         component: Tooltip,
         props: {
             currency,
-            item: $itemStore.items[itemId],
+            item: wowthingData.items.items[itemId],
             itemId,
-        }
+        },
     }}
 >
     <WowheadLink
@@ -63,7 +63,8 @@
         noTooltip={true}
     >
         <WowthingImage
-            name={currencyIconOverride[itemId || currency.id] || (itemId ? `item/${itemId}` : `currency/${currency.id}`)}
+            name={currencyIconOverride[itemId || currency.id] ||
+                (itemId ? `item/${itemId}` : `currency/${currency.id}`)}
             size={40}
             border={2}
         />

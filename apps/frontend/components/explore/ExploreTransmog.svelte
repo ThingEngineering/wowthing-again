@@ -5,7 +5,7 @@
     import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
     import { WeaponSubclass } from '@/enums/weapon-subclass';
     import { staticStore } from '@/shared/stores/static';
-    import { itemStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
     import { exploreState } from '@/stores/local-storage';
     import { fixedInventoryType } from '@/utils/fixed-inventory-type';
     import { getClassesFromMask } from '@/utils/get-classes-from-mask';
@@ -29,7 +29,7 @@
         if (transmogSet) {
             for (const [itemId] of transmogSet.items) {
                 const isPrimary = itemId > 10_000_000;
-                const item = $itemStore.items[itemId % 10_000_000];
+                const item = wowthingData.items.items[itemId % 10_000_000];
                 if (!item) {
                     console.warn('Invalid item', itemId);
                     continue;
@@ -52,9 +52,9 @@
         }
     }
 
-    $: learnedFromItems = ($itemStore.transmogSetToItems[$exploreState.transmogSetId] || []).map(
-        (itemId) => $itemStore.items[itemId],
-    );
+    $: learnedFromItems = (
+        wowthingData.items.transmogSetToItems[$exploreState.transmogSetId] || []
+    ).map((itemId) => wowthingData.items.items[itemId]);
 </script>
 
 <style lang="scss">

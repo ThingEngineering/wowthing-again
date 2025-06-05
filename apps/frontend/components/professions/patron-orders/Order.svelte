@@ -1,10 +1,11 @@
 <script lang="ts">
     import { DateTime } from 'luxon';
 
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
     import { timeStore } from '@/shared/stores/time';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { itemStore, lazyStore } from '@/stores';
+    import { lazyStore } from '@/stores';
     import { toNiceDuration, toNiceNumber } from '@/utils/formatting';
     import type { Character, CharacterPatronOrder } from '@/types/character';
 
@@ -35,7 +36,7 @@
             ability =
                 $staticStore.professionAbilityByAbilityId[patronOrder.skillLineAbilityId].ability;
             providedReagents = Object.fromEntries(
-                patronOrder.reagents.map((reagent) => [reagent.itemId, reagent.count]),
+                patronOrder.reagents.map((reagent) => [reagent.itemId, reagent.count])
             );
             timeRemaining = DateTime.fromSeconds(patronOrder.expirationTime, { zone: 'utc' })
                 .diff($timeStore)
@@ -50,8 +51,8 @@
                 const minPrice = Math.min(
                     ...itemIds.map(
                         (itemId) =>
-                            commodities.regions?.[character.realm.region]?.[itemId] || 999999999,
-                    ),
+                            commodities.regions?.[character.realm.region]?.[itemId] || 999999999
+                    )
                 );
                 craftingPrice += reagent.count * minPrice;
             }
@@ -144,10 +145,12 @@
         <div class="quality border-left">
             <CraftedQualityIcon quality={patronOrder.minQuality} />
         </div>
-        <div class="item text-overflow quality{$itemStore.items[patronOrder.itemId].quality}">
+        <div
+            class="item text-overflow quality{wowthingData.items.items[patronOrder.itemId].quality}"
+        >
             <WowheadLink type="spell" id={ability.spellId}>
                 <WowthingImage name="item/{patronOrder.itemId}" size={20} border={1} />
-                {$itemStore.items[patronOrder.itemId].name}
+                {wowthingData.items.items[patronOrder.itemId].name}
             </WowheadLink>
         </div>
         <div
@@ -166,7 +169,7 @@
                             name="item/{reward.itemId}"
                             size={20}
                             border={1}
-                            cls={`quality${$itemStore.items[reward.itemId].quality}-border`}
+                            cls={`quality${wowthingData.items.items[reward.itemId].quality}-border`}
                         />
                     </WowheadLink>
                 </div>

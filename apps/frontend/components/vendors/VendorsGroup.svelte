@@ -4,8 +4,9 @@
     import { AppearanceModifier } from '@/enums/appearance-modifier';
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
     import { RewardType } from '@/enums/reward-type';
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
-    import { itemStore, lazyStore } from '@/stores';
+    import { lazyStore } from '@/stores';
     import { vendorState } from '@/stores/local-storage';
     import { ThingData } from '@/types/vendors';
     import getPercentClass from '@/utils/get-percent-class';
@@ -34,7 +35,8 @@
             ) {
                 const thingData = new ThingData(thing, userHas);
 
-                thingData.quality = thing.quality || $itemStore.items[thing.id]?.quality || 0;
+                thingData.quality =
+                    thing.quality || wowthingData.items.items[thing.id]?.quality || 0;
 
                 if (thing.type === RewardType.Mount) {
                     thingData.linkType = 'spell';
@@ -61,9 +63,9 @@
                         thingData.classId = 0;
                     }
 
-                    const item = $itemStore.items[thingData.linkId];
+                    const item = wowthingData.items.items[thingData.linkId];
                     const appearanceKeys = Object.keys(item?.appearances || {}).map((n) =>
-                        parseInt(n),
+                        parseInt(n)
                     );
                     let modifier = thing.appearanceModifier;
                     if (appearanceKeys.length === 1) {

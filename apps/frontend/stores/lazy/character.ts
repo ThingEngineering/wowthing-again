@@ -69,7 +69,7 @@ export class LazyCharacterChoreTask {
 
     constructor(
         public key: string,
-        public quest: UserQuestDataCharacterProgress,
+        public quest: UserQuestDataCharacterProgress
     ) {}
 }
 export interface LazyCharacterTask {
@@ -126,7 +126,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                 stores,
                 character,
                 professionWorkOrders,
-                CharacterFlag.IgnoreWorkOrders,
+                CharacterFlag.IgnoreWorkOrders
             ),
             professions: new LazyCharacterProfessions(),
         });
@@ -134,7 +134,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
         const professions = new ProcessCharacterProfessions(
             stores,
             character,
-            characterData.professions,
+            characterData.professions
         );
         professions.process();
 
@@ -153,12 +153,12 @@ class ProcessCharacterProfessions {
     constructor(
         private stores: LazyStores,
         private character: Character,
-        private characterData: LazyCharacterProfessions,
+        private characterData: LazyCharacterProfessions
     ) {}
 
     public process() {
         for (const [professionId, characterSubProfessions] of getNumberKeyedEntries(
-            this.character.professions || {},
+            this.character.professions || {}
         )) {
             const staticProfession = this.stores.staticData.professions[professionId];
             // if (staticProfession.type !== 0) {
@@ -262,7 +262,7 @@ class ProcessCharacterProfessions {
 
     private recurseTraits(
         charTraits: Record<number, number>,
-        node: StaticDataSubProfessionTraitNode,
+        node: StaticDataSubProfessionTraitNode
     ) {
         this.currentSubProfession.traitStats.have += (charTraits[node.nodeId] || 1) - 1;
         this.currentSubProfession.traitStats.total += node.rankMax;
@@ -315,14 +315,14 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                     if (choreTask.questReset === DbResetType.Weekly) {
                         expiresAt = getNextWeeklyResetFromTime(
                             charScanned,
-                            character.realm?.region || Region.US,
+                            character.realm?.region || Region.US
                         );
                     } else if (choreTask.questReset === DbResetType.Custom) {
                         expiresAt = choreTask.customExpiryFunc(character, charScanned);
                     } else {
                         expiresAt = getNextDailyResetFromTime(
                             charScanned,
-                            character.realm?.region || Region.US,
+                            character.realm?.region || Region.US
                         );
                     }
 
@@ -432,8 +432,8 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                         choreTask.requiredHolidays?.length > 0 &&
                         !choreTask.requiredHolidays.some((holiday) =>
                             holidayIds[holiday].some(
-                                (holidayId) => stores.activeHolidays[`h${holidayId}`],
-                            ),
+                                (holidayId) => stores.activeHolidays[`h${holidayId}`]
+                            )
                         )
                     ) {
                         continue;
@@ -450,12 +450,12 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                                 ([charId, charQuests]) => {
                                     const charTask = processTask(
                                         choreTask,
-                                        stores.userData.characterMap[parseInt(charId)],
+                                        stores.userData.characterMap[parseInt(charId)]
                                     );
                                     return [charTask.status, charQuests.scannedAt, charTask];
-                                },
+                                }
                             ),
-                            ([status, scannedAt]) => `${status}|${scannedAt}`,
+                            ([status, scannedAt]) => `${status}|${scannedAt}`
                         ).at(-1)?.[2] as LazyCharacterChoreTask;
                     } else {
                         charTask = processTask(choreTask, character);
@@ -479,7 +479,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
 
                     if (charTask.statusTexts.length === 0) {
                         charTask.statusTexts.push(
-                            !charTask.quest ? choreTask.canGetFunc?.(character) || '' : '',
+                            !charTask.quest ? choreTask.canGetFunc?.(character) || '' : ''
                         );
                     }
 
@@ -549,7 +549,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                                 professionData.dropQuests.forEach((drop, index) => {
                                     const dropKey = choreTask.taskKey.replace(
                                         '#',
-                                        (index + 1).toString(),
+                                        (index + 1).toString()
                                     );
                                     const progressQuest =
                                         stores.userQuestData.characters[character.id]
@@ -579,14 +579,14 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
 
                         if (charTask.statusTexts.length === 0) {
                             needCount = choreTask.taskName.match(
-                                /^\[\w+\] (Herbalism|Mining|Skinning):/,
+                                /^\[\w+\] (Herbalism|Mining|Skinning):/
                             )
                                 ? 6
                                 : 4;
                             for (let dropIndex = 0; dropIndex < needCount; dropIndex++) {
                                 const dropKey = choreTask.taskKey.replace(
                                     '#',
-                                    (dropIndex + 1).toString(),
+                                    (dropIndex + 1).toString()
                                 );
                                 const progressQuest =
                                     stores.userQuestData.characters[character.id]?.progressQuests?.[
@@ -665,13 +665,13 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                                 const starHtml = getStarHtml(
                                     false,
                                     firstChore.noProgress || !!firstQuest,
-                                    !firstChore.noProgress,
+                                    !firstChore.noProgress
                                 );
 
                                 if (firstChore.showQuestName) {
                                     if (firstQuest) {
                                         charTask.statusTexts = getObjectivesText(
-                                            firstQuest.objectives,
+                                            firstQuest.objectives
                                         );
                                     } else {
                                         otherText = 'Get quest!';
@@ -705,7 +705,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                                 charTask.quest?.objectives?.length > 0
                             ) {
                                 charChore.anyReady ||= charTask.quest.objectives.every(
-                                    (obj) => !!obj.text && obj.have >= obj.need,
+                                    (obj) => !!obj.text && obj.have >= obj.need
                                 );
                             }
                         }
@@ -717,7 +717,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                 // noAlone chores can't be the only one
                 if (charChore.tasks.length === 1) {
                     const choreTask = multiTaskMap[taskName].find(
-                        (chore) => chore.taskKey === charChore.tasks[0].key,
+                        (chore) => chore.taskKey === charChore.tasks[0].key
                     );
                     if (choreTask.noAlone) {
                         continue;
@@ -782,7 +782,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                             const averagePercent =
                                 objectives.reduce(
                                     (a, b) => a + Math.min(b.have, b.need) / b.need,
-                                    0,
+                                    0
                                 ) / objectives.length;
 
                             charTask.text = `${Math.floor(averagePercent * 100)} %`;
@@ -809,7 +809,7 @@ function doProfessionCooldowns(
     stores: LazyStores,
     character: Character,
     cooldownDatas: (ProfessionCooldownQuest | ProfessionCooldownSpell)[],
-    useFlag: CharacterFlag = CharacterFlag.None,
+    useFlag: CharacterFlag = CharacterFlag.None
 ): LazyCharacterCooldowns {
     const ret = new LazyCharacterCooldowns();
 
@@ -839,7 +839,7 @@ function doProfessionCooldowns(
                     if (expires > stores.currentTime) {
                         full = getNextDailyResetFromTime(
                             expires,
-                            character.realm?.region || Region.US,
+                            character.realm?.region || Region.US
                         );
                         have = 0;
                     }
@@ -887,11 +887,11 @@ function doProfessionCooldowns(
                     // out when this character will be full
                     if (charNext > 0) {
                         charFull = DateTime.fromSeconds(
-                            charNext + (charMax - charHave - 1) * seconds,
+                            charNext + (charMax - charHave - 1) * seconds
                         );
                         const diff = Math.floor(
                             stores.currentTime.diff(DateTime.fromSeconds(charNext)).toMillis() /
-                                1000,
+                                1000
                         );
                         if (diff > 0) {
                             charHave = Math.min(charMax, charHave + 1 + Math.floor(diff / seconds));

@@ -4,7 +4,6 @@ import { getCurrencyCostsString } from '@/utils/get-currency-costs';
 import type { ItemQuality } from '@/enums/item-quality';
 import type { StaticData } from '@/shared/stores/static/types/store';
 import type { UserCount } from '@/types';
-import type { ItemData } from '@/types/data/item';
 
 export type ManualDataVendorCategoryArray = [
     name: string,
@@ -27,11 +26,11 @@ export class ManualDataVendorCategory {
         public vendorMaps: string[],
         public vendorSets: string[],
         public vendorTags: string[],
-        childArrays: ManualDataVendorCategoryArray[],
+        childArrays: ManualDataVendorCategoryArray[]
     ) {
         this.groups = groupArrays.map((groupArray) => new ManualDataVendorGroup(...groupArray));
         this.children = childArrays.map((childArray) =>
-            childArray === null ? null : new ManualDataVendorCategory(...childArray),
+            childArray === null ? null : new ManualDataVendorCategory(...childArray)
         );
     }
 }
@@ -47,7 +46,7 @@ export class ManualDataVendorGroup {
         public name: string,
         itemArrays: ManualDataVendorItemArray[],
         public auto?: boolean,
-        public showNormalTag?: boolean,
+        public showNormalTag?: boolean
     ) {
         this.sells = itemArrays.map((itemArray) => new ManualDataVendorItem(...itemArray));
     }
@@ -72,7 +71,7 @@ export class ManualDataVendorItem {
         public reputation?: number[],
         public appearanceIds?: number[],
         public bonusIds?: number[],
-        public note?: string,
+        public note?: string
     ) {
         this.costs = {};
         if (costArrays) {

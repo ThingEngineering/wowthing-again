@@ -9,21 +9,18 @@ import {
     oneHandWeaponSubclasses,
     twoHandWeaponSubclasses,
 } from '@/enums/weapon-subclass';
+import { wowthingData } from '@/shared/stores/data';
 import type { Character } from '@/types/character';
-import type { ItemData, ItemDataItem } from '@/types/data/item';
+import type { ItemDataItem } from '@/types/data/item';
 import type { StaticData } from '@/shared/stores/static/types';
 
 type BestItemLevels = Record<number, [string, InventoryType[]]>;
 
-export function getBestItemLevels(
-    itemData: ItemData,
-    staticData: StaticData,
-    character: Character,
-): BestItemLevels {
+export function getBestItemLevels(staticData: StaticData, character: Character): BestItemLevels {
     const ret: BestItemLevels = {};
 
     const specializations = Object.values(staticData.characterSpecializations).filter(
-        (spec) => spec.classId === character.classId,
+        (spec) => spec.classId === character.classId
     );
     for (const specialization of specializations) {
         const bestItemLevels: Record<number, [ItemDataItem, number][]> = {};
@@ -31,7 +28,7 @@ export function getBestItemLevels(
         const primaryStats = primaryStatToStats[specialization.primaryStat];
 
         for (const locationItem of character.itemsByLocation[ItemLocation.Bags] || []) {
-            const item = itemData.items[locationItem.itemId];
+            const item = wowthingData.items.items[locationItem.itemId];
             if (!item) {
                 continue;
             }
@@ -56,7 +53,7 @@ export function getBestItemLevels(
                 continue;
             }
 
-            const item = itemData.items[equippedItem.itemId];
+            const item = wowthingData.items.items[equippedItem.itemId];
             if (item.primaryStat === PrimaryStat.None || primaryStats.includes(item.primaryStat)) {
                 const sighInventoryType =
                     item.inventoryType === InventoryType.Chest2
@@ -84,12 +81,12 @@ export function getBestItemLevels(
                     //     inventoryType,
                     //     itemLevel,
                     //     seenCategory[item.limitCategory],
-                    //     itemData.limitCategories[item.limitCategory],
+                    //     wowthingData.items.limitCategories[item.limitCategory],
                     // );
                     if (
                         !item.limitCategory ||
                         (seenCategory[item.limitCategory] || 0) <
-                            itemData.limitCategories[item.limitCategory]
+                            wowthingData.items.limitCategories[item.limitCategory]
                     ) {
                         found++;
                         if (item.limitCategory) {
@@ -161,25 +158,25 @@ export function getBestItemLevels(
         if (specData.dualWield === true) {
             // TODO unique-equipped weapons? ew
             weaponSetups.push(
-                (weaponsByType.oneHand[0]?.[1] || 0) + (weaponsByType.oneHand[1]?.[1] || 0),
+                (weaponsByType.oneHand[0]?.[1] || 0) + (weaponsByType.oneHand[1]?.[1] || 0)
             );
 
             if (specialization.id === 72) {
                 // Fury can dual-wield 2h
                 weaponSetups.push(
-                    (weaponsByType.twoHand[0]?.[1] || 0) + (weaponsByType.twoHand[1]?.[1] || 0),
+                    (weaponsByType.twoHand[0]?.[1] || 0) + (weaponsByType.twoHand[1]?.[1] || 0)
                 );
             } else if (specialization.id === 260) {
                 // Outlaw dagger off-hands
                 weaponSetups.push(
-                    (weaponsByType.oneHand[0]?.[1] || 0) + (weaponsByType.offHand[0]?.[1] || 0),
+                    (weaponsByType.oneHand[0]?.[1] || 0) + (weaponsByType.offHand[0]?.[1] || 0)
                 );
             } else {
                 weaponSetups.push((weaponsByType.twoHand[0]?.[1] || 0) * 2);
             }
         } else {
             weaponSetups.push(
-                (weaponsByType.oneHand[0]?.[1] || 0) + (weaponsByType.offHand[0]?.[1] || 0),
+                (weaponsByType.oneHand[0]?.[1] || 0) + (weaponsByType.offHand[0]?.[1] || 0)
             );
             weaponSetups.push((weaponsByType.twoHand[0]?.[1] || 0) * 2);
         }

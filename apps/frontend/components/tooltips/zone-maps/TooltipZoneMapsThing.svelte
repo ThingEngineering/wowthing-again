@@ -12,14 +12,9 @@
     import { FarmType } from '@/enums/farm-type';
     import { LookupType } from '@/enums/lookup-type';
     import { RewardType } from '@/enums/reward-type';
-    import {
-        achievementStore,
-        itemStore,
-        lazyStore,
-        userAchievementStore,
-        userStore,
-    } from '@/stores';
+    import { achievementStore, lazyStore, userAchievementStore, userStore } from '@/stores';
     import { rewardTypeIcons } from '@/shared/icons/mappings';
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
     import { leftPad } from '@/utils/formatting';
     import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
@@ -250,9 +245,7 @@
                             ? 'fail'
                             : 'success'}"
                     >
-                        <IconifyIcon
-                            icon={getDropIcon($itemStore, $staticStore, drop, isCriteria)}
-                        />
+                        <IconifyIcon icon={getDropIcon($staticStore, drop, isCriteria)} />
                     </td>
                     <td class="name" class:status-success={!dropStatus.need}>
                         {#if drop.amount > 0}
@@ -267,7 +260,7 @@
                             {ArmorType[drop.subType].toLowerCase()}
                             {#if drop.subType >= 1 && drop.subType <= 4}
                                 {$staticStore.inventoryTypes[
-                                    $itemStore.items[drop.id]?.inventoryType
+                                    wowthingData.items.items[drop.id]?.inventoryType
                                 ].toLowerCase()}
                             {/if}
                         {:else if drop.type === RewardType.Weapon}

@@ -1,25 +1,25 @@
 <script lang="ts">
-    import type { DateTime } from 'luxon'
+    import type { DateTime } from 'luxon';
 
-    import { uiIcons } from '@/shared/icons'
-    import { staticStore } from '@/shared/stores/static'
-    import { timeStore } from '@/shared/stores/time'
-    import { itemStore } from '@/stores'
-    import { toNiceDuration } from '@/utils/formatting'
-    import type { Character, DailyQuestsReward } from '@/types'
-    import type { GlobalDailyQuest } from '@/types/data'
+    import { uiIcons } from '@/shared/icons';
+    import { staticStore } from '@/shared/stores/static';
+    import { timeStore } from '@/shared/stores/time';
+    import { wowthingData } from '@/shared/stores/data';
+    import { toNiceDuration } from '@/utils/formatting';
+    import type { Character, DailyQuestsReward } from '@/types';
+    import type { GlobalDailyQuest } from '@/types/data';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let callings: [DailyQuestsReward, GlobalDailyQuest, boolean][]
-    export let character: Character
-    export let expansion: number
-    export let resets: DateTime[]
+    export let callings: [DailyQuestsReward, GlobalDailyQuest, boolean][];
+    export let character: Character;
+    export let expansion: number;
+    export let resets: DateTime[];
 
-    let remaining: string[]
+    let remaining: string[];
     $: {
-        remaining = resets.map((reset) => toNiceDuration(reset.diff($timeStore).toMillis()))
+        remaining = resets.map((reset) => toNiceDuration(reset.diff($timeStore).toMillis()));
     }
 </script>
 
@@ -58,20 +58,22 @@
             Legion Emissaries
         {/if}
     </h5>
-    
+
     <table class="table-striped">
         <tbody>
             {#each callings as [rewards, daily, status], callingIndex}
                 <tr>
                     <td class="status">
                         <IconifyIcon
-                            extraClass="{status ? 'status-success' : 'status-fail'}"
+                            extraClass={status ? 'status-success' : 'status-fail'}
                             icon={status ? uiIcons.yes : uiIcons.no}
                             scale="0.91"
                         />
                     </td>
                     {#if daily}
-                        <td class="name quality{daily.quality}">{daily.getName(character.faction)}</td>
+                        <td class="name quality{daily.quality}"
+                            >{daily.getName(character.faction)}</td
+                        >
                     {:else}
                         <td class="name">Unknown quest</td>
                     {/if}
@@ -87,19 +89,16 @@
                             {#if rewards.money > 0}
                                 {Math.floor(rewards.money / 10000).toLocaleString()} g
                             {:else if rewards.itemId > 0}
-                                <WowthingImage
-                                    name="item/{rewards.itemId}"
-                                    size={20}
-                                    border={1}
-                                />
+                                <WowthingImage name="item/{rewards.itemId}" size={20} border={1} />
 
-                                {@const itemName = $itemStore.items[rewards.itemId]?.name}
-                                <span class="quality{rewards.quality}">{itemName || `Item ${rewards.itemId}`}</span>
+                                {@const itemName = wowthingData.items.items[rewards.itemId]?.name}
+                                <span class="quality{rewards.quality}"
+                                    >{itemName || `Item ${rewards.itemId}`}</span
+                                >
 
                                 {#if rewards.quantity > 1}
                                     x {rewards.quantity}
                                 {/if}
-
                             {:else if rewards.currencyId > 0}
                                 {@const currency = $staticStore.currencies[rewards.currencyId]}
 
@@ -108,9 +107,11 @@
                                     size={20}
                                     border={1}
                                 />
-                                
+
                                 <span class="quality3">
-                                    {currency !== undefined ? currency.name : `Currency #${rewards.currencyId}`}
+                                    {currency !== undefined
+                                        ? currency.name
+                                        : `Currency #${rewards.currencyId}`}
                                 </span>
 
                                 x {rewards.quantity.toLocaleString()}
