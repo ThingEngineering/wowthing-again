@@ -141,6 +141,7 @@ export { default as mdiPlus } from '@iconify/icons-mdi/plus';
 export { default as mdiProgressQuestion } from '@iconify/icons-mdi/progress-question';
 export { default as mdiPuzzle } from '@iconify/icons-mdi/puzzle';
 export { default as mdiQuestion } from '@iconify/icons-mdi/help-circle-outline';
+export { default as mdiQuestionMark } from '@iconify/icons-mdi/question-mark';
 export { default as mdiRadioboxBlank } from '@iconify/icons-mdi/radiobox-blank';
 export { default as mdiRadioboxMarked } from '@iconify/icons-mdi/radiobox-marked';
 export { default as mdiRocketLaunchOutline } from '@iconify/icons-mdi/rocket-launch-outline';

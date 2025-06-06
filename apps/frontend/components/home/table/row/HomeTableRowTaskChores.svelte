@@ -9,6 +9,7 @@
     import Tooltip from '@/components/tooltips/task/TooltipTaskChore.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import { uiIcons } from '@/shared/icons/ui';
+    import { QuestStatus } from '@/enums/quest-status';
 
     export let character: Character;
     export let choreName: string;
@@ -27,7 +28,7 @@
         if (chore && multiTaskMap[taskName]) {
             inProgress = chore?.tasks?.every((taskData) => {
                 const oof = (multiTaskMap[taskName] || []).filter(
-                    (multi) => multi?.taskName === taskData?.name,
+                    (multi) => multi?.taskName === taskData?.name
                 )[0];
                 return oof?.noProgress === true || taskData?.status > 0;
             });
@@ -68,7 +69,7 @@
         class:status-fail={!inProgress && notStarted > 0}
         class:status-shrug={inProgress ||
             (notStarted === 0 && chore.countCompleted < chore.countTotal)}
-        class:status-success={chore.countCompleted === chore.countTotal}
+        class:status-success={chore.status === QuestStatus.Completed}
         class:ready={chore.anyReady}
         use:componentTooltip={{
             component: Tooltip,
@@ -80,8 +81,10 @@
         }}
     >
         {#if multiTaskMap[taskName]?.length === 1 || choreName}
-            {#if chore.countCompleted === chore.countTotal}
+            {#if chore.status === QuestStatus.Completed}
                 <IconifyIcon icon={uiIcons.starFull} />
+            {:else if chore.countCompleted === chore.countTotal}
+                <IconifyIcon icon={uiIcons.question} scale="0.75" />
             {:else if !inProgress}
                 <IconifyIcon icon={uiIcons.starEmpty} />
             {:else}
@@ -92,5 +95,5 @@
         {/if}
     </td>
 {:else}
-    <td class="b-l"></td>
+    <td class="sized b-l"></td>
 {/if}

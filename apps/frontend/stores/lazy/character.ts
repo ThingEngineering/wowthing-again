@@ -1,4 +1,5 @@
 import sortBy from 'lodash/sortBy';
+import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
 
 import { Constants } from '@/data/constants';
@@ -714,20 +715,33 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                     charChore.tasks.push(charTask);
                 }
 
-                // noAlone chores can't be the only one
                 if (charChore.tasks.length === 1) {
                     const choreTask = multiTaskMap[taskName].find(
                         (chore) => chore.taskKey === charChore.tasks[0].key
                     );
+
+                    // noAlone chores can't be the only one
                     if (choreTask.noAlone) {
                         continue;
                     }
 
+                    charChore.status = charChore.tasks[0].status;
+
                     const objectives = charChore.tasks[0].quest?.objectives;
-                    if (objectives?.length === 1) {
-                        charChore.countCompleted = objectives[0].have;
-                        charChore.countTotal = objectives[0].need;
+                    if (objectives?.length > 0) {
+                        const objective = objectives[objectives.length - 1];
+                        charChore.countCompleted = objective.have;
+                        charChore.countTotal = objective.need;
                         charChore.countStarted = charChore.countTotal - charChore.countCompleted;
+                    }
+                } else {
+                    const statuses = uniq(
+                        charChore.tasks
+                            .filter((task) => !!task && !task.skipped)
+                            .map((task) => task.status)
+                    );
+                    if (statuses.length === 1) {
+                        charChore.status = statuses[0];
                     }
                 }
 
