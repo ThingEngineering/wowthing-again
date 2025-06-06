@@ -5,8 +5,8 @@ import { QuestStatus } from '@/enums/quest-status';
 import { aliasedIcons, iconLibrary } from '@/shared/icons';
 import { DbResetType } from '@/shared/stores/db/enums';
 import { userQuestStore, userStore } from '@/stores';
-import type { Chore } from '@/types/tasks';
 import type { Character } from '@/types';
+import type { Chore } from '@/types/tasks';
 
 export const twwChores11_0: Chore[] = [
     {
