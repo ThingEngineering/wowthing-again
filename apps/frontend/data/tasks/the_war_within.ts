@@ -409,3 +409,11 @@ export const twwChores11_1_5: Chore[] = [
         couldGetFunc: (char) => char.level < 80,
     },
 ];
+
+export const twwHorrificVisions: Chore[] = [1, 2, 3, 4, 5].map((n) => ({
+    taskKey: `twwHorrific${n}`,
+    taskName: `[W] Horrific Visions ${n} mask`,
+    minimumLevel: 80,
+    questIds: [88907 + n],
+    questReset: DbResetType.Weekly,
+}));

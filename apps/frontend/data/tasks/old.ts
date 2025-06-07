@@ -16,7 +16,13 @@ import type { TaskProfession } from '@/types/data';
 import type { Chore, Task } from '@/types/tasks';
 
 import { eventsTurboBoost } from './events';
-import { twwChores11_0, twwChores11_1, twwChores11_1_5, twwChoresChett } from './the_war_within';
+import {
+    twwChores11_0,
+    twwChores11_1,
+    twwChores11_1_5,
+    twwChoresChett,
+    twwHorrificVisions,
+} from './the_war_within';
 
 const nameFire = '<span class="status-warn">:fire:</span>';
 const nameQuest = '<span class="status-shrug">:exclamation:</span>';
@@ -389,6 +395,13 @@ export const taskList: Task[] = [
         name: "[TWW] 11.1.5 Flame's Radiance",
         shortName: 'Rad',
         minimumLevel: 10,
+        type: 'multi',
+    },
+    {
+        key: 'twwHorrificVisions',
+        name: '[TWW] Horrific Visions Revisited',
+        shortName: 'Vis',
+        minimumLevel: 80,
         type: 'multi',
     },
     {
@@ -973,6 +986,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
     twwChores11_1,
     twwChores11_1_5,
     twwChoresChett,
+    twwHorrificVisions,
     twwDelveKeys: [
         {
             taskKey: 'twwDelveArchaic',
