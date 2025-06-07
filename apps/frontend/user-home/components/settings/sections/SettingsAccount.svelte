@@ -11,13 +11,6 @@
     import Select from '@/shared/components/forms/Select.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
 
-    $effect.pre(() => {
-        settingsState.value.accounts ||= {};
-        for (const account of Object.values($userStore.accounts)) {
-            settingsState.value.accounts[account.id] ||= { enabled: true, tag: '' };
-        }
-    });
-
     let apiKey = $state('');
 
     async function onClick(event: Event) {

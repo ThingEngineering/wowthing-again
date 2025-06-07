@@ -16,10 +16,7 @@
     import MagicLists from '../../MagicLists.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
 
-    export let active: boolean;
-    export let view: SettingsView;
-
-    let currencyFilter: string;
+    let { active, view }: { active: boolean; view: SettingsView } = $props();
 
     const categoryPrefix: Record<number, string> = {
         260: '[TWW]', // The War Within
@@ -37,9 +34,10 @@
         2: '[PvP]', // Player vs. Player
     };
 
-    let currencyChoices: SettingsChoice[];
-    $: {
-        currencyChoices = [];
+    let currencyFilter = $state('');
+
+    let currencyChoices = $derived.by(() => {
+        const ret: SettingsChoice[] = [];
         for (const categoryId of categoryOrder) {
             if (categoryPrefix[categoryId] === undefined) {
                 continue;
@@ -96,15 +94,15 @@
                 currency.name = `${categoryPrefix[categoryId]} ${currency.name}`;
             }
 
-            currencyChoices.push(...sortBy(currencies, (currency) => currency.name));
+            ret.push(...sortBy(currencies, (currency) => currency.name));
         }
 
-        const lowerFilter = (currencyFilter || '').toLocaleLowerCase();
-        currencyChoices = uniqBy(
-            currencyChoices.filter((c) => c.name.toLocaleLowerCase().includes(lowerFilter)),
+        const lowerFilter = currencyFilter.toLocaleLowerCase();
+        return uniqBy(
+            ret.filter((c) => c.name.toLocaleLowerCase().includes(lowerFilter)),
             (c) => c.id
         );
-    }
+    });
 </script>
 
 <style lang="scss">

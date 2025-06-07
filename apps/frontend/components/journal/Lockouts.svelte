@@ -5,7 +5,7 @@
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty';
     import { uiIcons } from '@/shared/icons';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import { leftPad } from '@/utils/formatting';
     import type { Character, CharacterLockout } from '@/types';
     import type { JournalDataInstance } from '@/types/data';
@@ -13,21 +13,22 @@
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import TooltipLockout from '@/components/tooltips/lockout/TooltipLockout.svelte';
 
-    export let instance: JournalDataInstance;
+    let { instance }: { instance: JournalDataInstance } = $props();
 
-    let byDifficulty: Record<number, [Character, CharacterLockout][]>;
-    $: instanceId = instance.id === 1278 ? 110001 : instance.id;
-    $: {
-        byDifficulty = {};
-        const allLockouts = $userStore.allLockouts.filter(
-            (lockout) => lockout.instanceId === instanceId,
+    let byDifficulty = $derived.by(() => {
+        const instanceId = instance.id === 1278 ? 110001 : instance.id;
+        let ret: Record<number, [Character, CharacterLockout][]> = {};
+
+        const allLockouts = userState.general.allLockouts.filter(
+            (lockout) => lockout.instanceId === instanceId
         );
         for (const lockout of allLockouts) {
             for (const characterLockout of lockout.characters) {
-                (byDifficulty[characterLockout[1].difficulty] ||= []).push(characterLockout);
+                (ret[characterLockout[1].difficulty] ||= []).push(characterLockout);
             }
         }
-    }
+        return ret;
+    });
 </script>
 
 <style lang="scss">
@@ -55,7 +56,7 @@
                 {@const difficulty = difficultyMap[difficultyId]}
                 <div class="lockout">
                     <span>{difficulty.shortName}:</span>
-                    {#each sortBy( lockouts, ([char]) => [leftPad(classOrderMap[char.classId], 2, '0'), char.name], ) as [character, lockout]}
+                    {#each sortBy( lockouts, ([char]) => [leftPad(classOrderMap[char.classId], 2, '0'), char.name] ) as [character, lockout]}
                         {@const per = (lockout.defeatedBosses / lockout.maxBosses) * 100}
                         {@const status = per === 0 ? 0 : per < 100 ? 1 : 2}
                         <span
