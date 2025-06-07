@@ -1,5 +1,3 @@
-import { get } from 'svelte/store';
-
 import { Constants } from '@/data/constants';
 import {
     heirloomSlots,
@@ -11,14 +9,13 @@ import { InventorySlot } from '@/enums/inventory-slot';
 import { ItemBonusType } from '@/enums/item-bonus-type';
 import { ItemClass } from '@/enums/item-class';
 import { WeaponSubclass } from '@/enums/weapon-subclass';
-import { itemStore } from '@/stores';
+import { wowthingData } from '@/shared/stores/data';
 // import getFirstMatch from '@/utils/get-first-match'
 import type { GearState } from '@/stores/local-storage';
 import type { Character, CharacterGear } from '@/types';
 import type { ItemDataItem } from '@/types/data/item';
 
 export default function getCharacterGear(state: GearState, character: Character): CharacterGear[] {
-    const itemData = get(itemStore);
     const ret: CharacterGear[] = [];
 
     const highlightAny =
@@ -73,7 +70,7 @@ export default function getCharacterGear(state: GearState, character: Character)
             if (state.highlightEnchants) {
                 let enchants: number[];
                 if (inventorySlot === InventorySlot.OffHand) {
-                    equippedItem ||= itemData.items[gear.equipped.itemId];
+                    equippedItem ||= wowthingData.items.items[gear.equipped.itemId];
                     if (
                         equippedItem.classId === ItemClass.Weapon &&
                         equippedItem.subclassId !== WeaponSubclass.HeldInOffHand &&
@@ -99,7 +96,7 @@ export default function getCharacterGear(state: GearState, character: Character)
                 if (specialEnchants?.checkFunc(character)) {
                     if (
                         !gear.equipped.enchantmentIds.some(
-                            (e) => specialEnchants.enchants.indexOf(e) >= 0,
+                            (e) => specialEnchants.enchants.indexOf(e) >= 0
                         )
                     ) {
                         gear.missingEnchant = true;
@@ -108,11 +105,11 @@ export default function getCharacterGear(state: GearState, character: Character)
             }
 
             if (state.highlightGems) {
-                equippedItem ||= itemData.items[gear.equipped.itemId];
+                equippedItem ||= wowthingData.items.items[gear.equipped.itemId];
                 let gemCount = equippedItem?.socketTypes?.length || 0;
                 for (const bonusId of gear.equipped.bonusIds) {
-                    if (itemData.itemBonusSocket.has(bonusId)) {
-                        const itemBonus = itemData.itemBonuses[bonusId];
+                    if (wowthingData.items.itemBonusSocket.has(bonusId)) {
+                        const itemBonus = wowthingData.items.itemBonuses[bonusId];
                         for (const [bonusType, bonusValue1] of itemBonus.bonuses) {
                             if (bonusType === ItemBonusType.AddSockets) {
                                 gemCount += bonusValue1;
@@ -128,11 +125,11 @@ export default function getCharacterGear(state: GearState, character: Character)
 
             if (state.highlightUpgrades) {
                 for (const bonusId of gear.equipped.bonusIds) {
-                    if (!itemData.itemBonusCurrentSeason.has(bonusId)) {
+                    if (!wowthingData.items.itemBonusCurrentSeason.has(bonusId)) {
                         continue;
                     }
 
-                    const upgradeData = itemData.itemBonusToUpgrade[bonusId];
+                    const upgradeData = wowthingData.items.itemBonusToUpgrade[bonusId];
                     if (upgradeData) {
                         gear.upgradeHas = upgradeData[1];
                         gear.upgradeMax = upgradeData[2];

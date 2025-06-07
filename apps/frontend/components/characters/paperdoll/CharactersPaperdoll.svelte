@@ -1,41 +1,47 @@
 <script lang="ts">
-    import { InventorySlot } from '@/enums/inventory-slot'
-    import { userStore } from '@/stores'
-    import { settingsStore } from '@/shared/stores/settings'
-    import type { BackgroundImage, Character } from '@/types'
+    import { InventorySlot } from '@/enums/inventory-slot';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import { sharedState } from '@/shared/state/shared.svelte';
+    import { userStore } from '@/stores';
+    import type { BackgroundImage, Character } from '@/types';
 
-    import Configure from './CharactersPaperdollConfigure.svelte'
-    import Equipped from './CharactersPaperdollEquipped.svelte'
-    import Stats from './CharactersPaperdollStats.svelte'
+    import Configure from './CharactersPaperdollConfigure.svelte';
+    import Equipped from './CharactersPaperdollEquipped.svelte';
+    import Stats from './CharactersPaperdollStats.svelte';
 
-    export let character: Character
+    export let character: Character;
 
-    let selected = character.configuration.backgroundId
+    let selected = character.configuration.backgroundId;
 
-    let backgroundImage: BackgroundImage
-    let characterImage: string
-    let filter: string
+    let backgroundImage: BackgroundImage;
+    let characterImage: string;
+    let filter: string;
     $: {
-        backgroundImage = $userStore.backgrounds[selected === -1 ? $settingsStore.characters.defaultBackgroundId : selected]
-        characterImage = $userStore.images[`${character.id}-2`]
+        backgroundImage =
+            $userStore.backgrounds[
+                selected === -1 ? settingsState.value.characters.defaultBackgroundId : selected
+            ];
+        characterImage = $userStore.images[`${character.id}-2`];
 
         if (backgroundImage) {
-            const filterParts: string[] = []
+            const filterParts: string[] = [];
 
-            const brightness = character.configuration.backgroundBrightness !== -1
-                ? character.configuration.backgroundBrightness
-                : backgroundImage.defaultBrightness
-            const saturation = character.configuration.backgroundSaturation !== -1
-                ? character.configuration.backgroundSaturation
-                : backgroundImage.defaultSaturate
+            const brightness =
+                character.configuration.backgroundBrightness !== -1
+                    ? character.configuration.backgroundBrightness
+                    : backgroundImage.defaultBrightness;
+            const saturation =
+                character.configuration.backgroundSaturation !== -1
+                    ? character.configuration.backgroundSaturation
+                    : backgroundImage.defaultSaturate;
 
             if (brightness != 10) {
-                filterParts.push(`brightness(${brightness / 10})`)
+                filterParts.push(`brightness(${brightness / 10})`);
             }
             if (saturation != 10) {
-                filterParts.push(`saturate(${saturation / 10})`)
+                filterParts.push(`saturate(${saturation / 10})`);
             }
-            filter = filterParts.join(' ')
+            filter = filterParts.join(' ');
         }
     }
 
@@ -48,7 +54,7 @@
         InventorySlot.Shirt,
         InventorySlot.Tabard,
         InventorySlot.Wrist,
-    ]
+    ];
     const rightSide: InventorySlot[] = [
         InventorySlot.Hands,
         InventorySlot.Waist,
@@ -58,7 +64,7 @@
         InventorySlot.Ring2,
         InventorySlot.Trinket1,
         InventorySlot.Trinket2,
-    ]
+    ];
 </script>
 
 <style lang="scss">
@@ -78,7 +84,7 @@
             background-size: cover;
             border-bottom-left-radius: $border-radius;
             border-bottom-right-radius: $border-radius;
-            content: "";
+            content: '';
             filter: var(--background-filter, unset);
             height: 100%;
             left: 0;
@@ -127,17 +133,13 @@
     }
     .character-image {
         bottom: 110px;
-        filter:
-            drop-shadow(-2px -2px 2px rgba(0, 0, 0, 0.5))
-            drop-shadow(-2px  2px 2px rgba(0, 0, 0, 0.5))
-            drop-shadow( 2px -2px 2px rgba(0, 0, 0, 0.5))
-            drop-shadow( 2px  2px 2px rgba(0, 0, 0, 0.5))
-            saturate(1.2)
-            brightness(1.2)
-        ;
+        filter: drop-shadow(-2px -2px 2px rgba(0, 0, 0, 0.5))
+            drop-shadow(-2px 2px 2px rgba(0, 0, 0, 0.5))
+            drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.5)) drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5))
+            saturate(1.2) brightness(1.2);
         left: 50%;
         position: absolute;
-        transform: translateX(-50%) scale(var(--scale, 1.0));
+        transform: translateX(-50%) scale(var(--scale, 1));
         transform-origin: bottom;
     }
     .equipped {
@@ -180,50 +182,38 @@
 
 <div
     class="paperdoll race-{character.raceId}"
-    class:paperdoll-configurable={!$userStore.public}
-    style:--background-image={backgroundImage ? `url(https://img.wowthing.org/backgrounds/${backgroundImage.filename})` : undefined}
+    class:paperdoll-configurable={!sharedState.public}
+    style:--background-image={backgroundImage
+        ? `url(https://img.wowthing.org/backgrounds/${backgroundImage.filename})`
+        : undefined}
     style:--background-filter={filter}
 >
     {#if characterImage}
         <img
             alt="Character image for {character.name}"
             class="character-image drop-shadow"
-            src="{characterImage}"
-        >
+            src={characterImage}
+        />
     {/if}
 
     <div class="equipped left">
         {#each leftSide as inventorySlot}
-            <Equipped
-                {character}
-                {inventorySlot}
-            />
+            <Equipped {character} {inventorySlot} />
         {/each}
     </div>
 
     <div class="equipped right">
         {#each rightSide as inventorySlot}
-            <Equipped
-                {character}
-                {inventorySlot}
-                leftSide={true}
-            />
+            <Equipped {character} {inventorySlot} leftSide={true} />
         {/each}
     </div>
 
     <div class="weapon left">
-        <Equipped
-            inventorySlot={InventorySlot.MainHand}
-            {character}
-            leftSide={true}
-        />
+        <Equipped inventorySlot={InventorySlot.MainHand} {character} leftSide={true} />
     </div>
 
     <div class="weapon right">
-        <Equipped
-            inventorySlot={InventorySlot.OffHand}
-            {character}
-        />
+        <Equipped inventorySlot={InventorySlot.OffHand} {character} />
     </div>
 
     {#if backgroundImage}
@@ -235,7 +225,7 @@
     <Stats {character} />
 </div>
 
-{#if !$userStore.public}
+{#if !sharedState.public}
     <Configure
         bind:backgroundBrightness={character.configuration.backgroundBrightness}
         bind:backgroundSaturation={character.configuration.backgroundSaturation}

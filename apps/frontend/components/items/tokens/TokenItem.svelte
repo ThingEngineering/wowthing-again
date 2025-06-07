@@ -8,15 +8,16 @@
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
     import { inventoryTypeIcons, weaponSubclassIcons } from '@/shared/icons/mappings';
     import { browserStore } from '@/shared/stores/browser';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
-    import { itemStore, journalStore, userStore } from '@/stores';
+    import { journalStore, userStore } from '@/stores';
     import { UserCount } from '@/types';
     import { fixedInventoryType } from '@/utils/fixed-inventory-type';
     import { getClassesFromMask } from '@/utils/get-classes-from-mask';
     import type { ItemDataItem } from '@/types/data/item';
 
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
@@ -25,19 +26,19 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
 
-    export let itemId: number
+    export let itemId: number;
 
-    let element: HTMLElement
-    let intersected = false
+    let element: HTMLElement;
+    let intersected = false;
 
-    $: item = $itemStore.items[itemId];
+    $: item = wowthingData.items.items[itemId];
     $: expandsTo = $journalStore.itemExpansion[itemId];
     $: haveItems = $userStore.itemsById[itemId];
     $: haveCount = haveItems.reduce((a, b) => a + b[1].length, 0);
 
-    let expandsData: [number, ItemDataItem, boolean][]
+    let expandsData: [number, ItemDataItem, boolean][];
     $: expandsData = expandsTo.map((expandedItemId) => {
-        const expandedItem = $itemStore.items[expandedItemId];
+        const expandedItem = wowthingData.items.items[expandedItemId];
 
         let modifier = AppearanceModifier.Normal;
         if (item.difficultyLookingForRaid) {
@@ -51,42 +52,43 @@
         const appearance = expandedItem.appearances[modifier];
         let hasItem = false;
         if (appearance) {
-            hasItem = $settingsStore.transmog.completionistMode
+            hasItem = settingsState.value.transmog.completionistMode
                 ? $userStore.hasSourceV2.get(appearance.modifier)?.has(expandedItemId)
                 : $userStore.hasAppearance.has(appearance.appearanceId);
         }
         return [expandedItemId, expandedItem, hasItem];
     });
 
-    $: showItemIcon = expandsData.every(([, item]) => item.classId === ItemClass.Weapon)
+    $: showItemIcon = expandsData.every(([, item]) => item.classId === ItemClass.Weapon);
     $: {
         if (showItemIcon) {
-            expandsData.sort((a, b) =>
-                (weaponSubclassOrderMap[a[1]?.subclassId] ?? 999) -
-                (weaponSubclassOrderMap[b[1]?.subclassId] ?? 999)
-            )
+            expandsData.sort(
+                (a, b) =>
+                    (weaponSubclassOrderMap[a[1]?.subclassId] ?? 999) -
+                    (weaponSubclassOrderMap[b[1]?.subclassId] ?? 999)
+            );
         }
     }
 
     function playableClassFromMask(classMask: number) {
         return classMask in PlayableClassMask
             ? PlayableClass[PlayableClassMask[classMask] as keyof typeof PlayableClass]
-            : 0
+            : 0;
     }
 
     function getSpecIds(itemId: number): number[] {
         if (showItemIcon) {
             const specIds: number[] = [];
-            const item = $itemStore.items[itemId];
+            const item = wowthingData.items.items[itemId];
             if (item?.classMask > 0) {
                 for (const playableClass of getClassesFromMask(item.classMask)) {
                     const characterClass = $staticStore.characterClasses[playableClass];
-                    specIds.push(...characterClass.specializationIds)
+                    specIds.push(...characterClass.specializationIds);
                 }
             }
             return specIds;
         } else {
-            return $itemStore.specOverrides[itemId];
+            return wowthingData.items.specOverrides[itemId];
         }
     }
 </script>
@@ -150,16 +152,12 @@
     }
 </style>
 
-<IntersectionObserver
-    once
-    {element}
-    bind:intersecting={intersected}
->
+<IntersectionObserver once {element} bind:intersecting={intersected}>
     <div class="collection-v2-group" bind:this={element}>
         <h4 class="text-overflow">
             <span class="item-name">
                 {haveCount}x
-                
+
                 {#if item.difficultyLookingForRaid}
                     <code>[L]</code>
                 {:else if item.difficultyHeroic}
@@ -172,31 +170,35 @@
 
                 {#if item.allianceOnly || item.hordeOnly}
                     <span class="faction">
-                        <FactionIcon faction={item.allianceOnly ? Faction.Alliance : Faction.Horde} />
+                        <FactionIcon
+                            faction={item.allianceOnly ? Faction.Alliance : Faction.Horde}
+                        />
                     </span>
                 {/if}
-                
+
                 <WowheadLink id={itemId} type="item" extraClass="quality{item.quality}">
                     <WowthingImage name="item/{itemId}" size={20} />
                     {item.name}
                 </WowheadLink>
             </span>
 
-            <CollectibleCount counts={new UserCount(expandsData.reduce((a, b) => a + (b[2] ? 1 : 0), 0) , expandsTo.length)} />
+            <CollectibleCount
+                counts={new UserCount(
+                    expandsData.reduce((a, b) => a + (b[2] ? 1 : 0), 0),
+                    expandsTo.length
+                )}
+            />
         </h4>
-        
+
         <div class="collection-objects">
             {#each expandsData as [expandedItemId, expandedItem, hasItem]}
                 {@const classId = playableClassFromMask(expandedItem.classMask)}
                 {@const specIds = getSpecIds(expandedItemId)}
-                {#if ($browserStore.tokens.showCollected && hasItem) ||
-                    ($browserStore.tokens.showUncollected && !hasItem)}
+                {#if ($browserStore.tokens.showCollected && hasItem) || ($browserStore.tokens.showUncollected && !hasItem)}
                     <div
                         class="collection-object {classId ? `class-${classId}` : ''}"
-                        class:missing={
-                            (!$browserStore.tokens.highlightMissing && !hasItem) ||
-                            ($browserStore.tokens.highlightMissing && hasItem)
-                        }
+                        class:missing={(!$browserStore.tokens.highlightMissing && !hasItem) ||
+                            ($browserStore.tokens.highlightMissing && hasItem)}
                     >
                         {#if intersected}
                             <WowheadLink id={expandedItemId} type="item">
@@ -205,7 +207,9 @@
                                         dropShadow={true}
                                         icon={showItemIcon
                                             ? weaponSubclassIcons[expandedItem?.subclassId]
-                                            : inventoryTypeIcons[fixedInventoryType(expandedItem?.inventoryType)]}
+                                            : inventoryTypeIcons[
+                                                  fixedInventoryType(expandedItem?.inventoryType)
+                                              ]}
                                     />
                                 </span>
 
@@ -220,17 +224,9 @@
                                         border={2}
                                     />
                                 {:else if classId}
-                                    <ClassIcon
-                                        {classId}
-                                        size={48}
-                                        border={2}
-                                    />
+                                    <ClassIcon {classId} size={48} border={2} />
                                 {:else}
-                                    <WowthingImage
-                                        name="/invalid"
-                                        size={48}
-                                        border={2}
-                                    />
+                                    <WowthingImage name="/invalid" size={48} border={2} />
                                 {/if}
 
                                 {#if classId && !showItemIcon}

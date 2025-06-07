@@ -38,7 +38,7 @@
 >
     <div slot="before" class="before">
         <div class="regions">
-            {#each ['us', 'eu', 'kr', 'tw'] as region}
+            {#each ['us', 'eu', 'kr', 'tw'] as region (region)}
                 <button
                     class="border"
                     class:active={Region[$worldQuestState.region].toLowerCase() === region}

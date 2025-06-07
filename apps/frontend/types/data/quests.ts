@@ -1,6 +1,5 @@
-import { Faction } from '@/enums/faction'
-import { ItemQuality } from '@/enums/item-quality'
-
+import { Faction } from '@/enums/faction';
+import { ItemQuality } from '@/enums/item-quality';
 
 export class GlobalDailyQuest {
     constructor(
@@ -9,10 +8,9 @@ export class GlobalDailyQuest {
         public allianceName: string,
         public hordeName: string,
         public description: string,
-    )
-    {}
+    ) {}
 
     getName(faction: Faction): string {
-        return faction === Faction.Horde && this.hordeName ? this.hordeName : this.allianceName
+        return faction === Faction.Horde && this.hordeName ? this.hordeName : this.allianceName;
     }
 }

@@ -1,40 +1,41 @@
 <script lang="ts">
-    import debounce from 'lodash/debounce'
-    import sortBy from 'lodash/sortBy'
+    import debounce from 'lodash/debounce';
+    import sortBy from 'lodash/sortBy';
 
-    import { Region } from '@/enums/region'
-    import { staticStore } from '@/shared/stores/static'
-    import { userStore } from '@/stores'
-    import { settingsStore } from '@/shared/stores/settings'
-    import type { StaticDataRealm } from '@/shared/stores/static/types'
+    import { Region } from '@/enums/region';
+    import { staticStore } from '@/shared/stores/static';
+    import { userStore } from '@/stores';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import type { StaticDataRealm } from '@/shared/stores/static/types';
 
-    import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte'
+    import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte';
 
-    let realms: StaticDataRealm[]
-    $: {
-        realms = sortBy(
-                    $userStore.goldHistoryRealms
-                        .map((realmId) => $staticStore.realms[realmId]),
+    let realms: StaticDataRealm[] = $derived.by(() =>
+        sortBy(
+            $userStore.goldHistoryRealms.map((realmId) => $staticStore.realms[realmId]),
             (realm) => [realm.region, realm.name]
         )
-    }   
+    );
 
-    let shownRealms: string[] = $userStore.goldHistoryRealms
-        .filter((realmId) => $settingsStore.history.hiddenRealms.indexOf(realmId) === -1)
-        .map((realmId) => realmId.toString())
-    
-    $: debouncedUpdateSettings(shownRealms)
+    let shownRealms: string[] = $derived.by(() =>
+        $userStore.goldHistoryRealms
+            .filter((realmId) => settingsState.value.history.hiddenRealms.indexOf(realmId) === -1)
+            .map((realmId) => realmId.toString())
+    );
+
     const debouncedUpdateSettings = debounce((shownRealms) => {
-        $settingsStore.history.hiddenRealms = realms
+        settingsState.value.history.hiddenRealms = realms
             .filter((realm) => shownRealms.indexOf(realm.id.toString()) === -1)
-            .map((realm) => realm.id)
-    }, 100)
+            .map((realm) => realm.id);
+    }, 100);
+
+    $effect(() => debouncedUpdateSettings(shownRealms));
 </script>
 
 <div class="settings-block">
     <h3>Shown Realms</h3>
 
-    {#each realms as realm}
+    {#each realms as realm (realm.id)}
         <GroupedCheckbox
             name="realm_{realm.id}"
             bind:bindGroup={shownRealms}

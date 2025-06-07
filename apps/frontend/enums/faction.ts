@@ -5,5 +5,6 @@ export enum Faction {
     Both = 10,
 }
 
-export const factionValues: string[] = Object.keys(Faction)
-    .filter((faction) => !isNaN(Number(faction)))
+export const factionValues: string[] = Object.keys(Faction).filter(
+    (faction) => !isNaN(Number(faction)),
+);

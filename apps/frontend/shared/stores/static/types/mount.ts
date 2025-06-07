@@ -5,7 +5,6 @@ export class StaticDataMount {
         public spellId: number,
         public name: string,
         public itemIds: number[],
-    )
-    {}
+    ) {}
 }
-export type StaticDataMountArray = ConstructorParameters<typeof StaticDataMount>
+export type StaticDataMountArray = ConstructorParameters<typeof StaticDataMount>;

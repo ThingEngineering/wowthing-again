@@ -1,8 +1,7 @@
-import type { IconifyIcon } from '@iconify/types'
+import type { IconifyIcon } from '@iconify/types';
 
-import * as iconLibrary from '../library'
-import { FarmType } from '@/enums/farm-type'
-
+import * as iconLibrary from '../library';
+import { FarmType } from '@/enums/farm-type';
 
 export const farmTypeIcons: Record<number, IconifyIcon> = {
     [FarmType.Achievement]: iconLibrary.gameTrophy,
@@ -23,4 +22,4 @@ export const farmTypeIcons: Record<number, IconifyIcon> = {
     [FarmType.Mail]: iconLibrary.mdiLetterM,
     [FarmType.Plate]: iconLibrary.mdiLetterP,
     // [FarmType.Weapon]: mdiAxeBattle,
-}
+};

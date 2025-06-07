@@ -3,8 +3,9 @@
     import { Constants } from '@/data/constants';
     import { currentTier, previousTier } from '@/data/gear';
     import { InventoryType } from '@/enums/inventory-type';
+    import { wowthingData } from '@/shared/stores/data';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { itemStore, lazyStore } from '@/stores';
+    import { lazyStore } from '@/stores';
     import { getTierPieces } from '@/utils/characters/get-tier-pieces';
     import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible';
     import type { Character } from '@/types';
@@ -18,11 +19,15 @@
     let previousCount: number;
     let previousPieces: [string, number, number, LazyConvertibleCharacterItem?][];
     $: {
-        currentPieces = getTierPieces(currentTier, $itemStore.currentTier, character);
+        currentPieces = getTierPieces(currentTier, wowthingData.items.currentTier, character);
         currentCount = currentPieces.filter(([, itemId]) => itemId > 0).length;
 
         if (previousTier) {
-            previousPieces = getTierPieces(previousTier, $itemStore.previousTier, character);
+            previousPieces = getTierPieces(
+                previousTier,
+                wowthingData.items.previousTier,
+                character
+            );
             previousCount = previousPieces.filter(([, itemId]) => itemId > 0).length;
         } else {
             previousPieces = [];

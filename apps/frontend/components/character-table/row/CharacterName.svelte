@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { Region } from '@/enums/region'
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import { settingsStore } from '@/shared/stores/settings'
-    import type { Character } from '@/types'
+    import { Region } from '@/enums/region';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import type { CharacterProps } from '@/types/props';
 
-    import Tooltip from '@/components/tooltips/character-name/TooltipCharacterName.svelte'
+    import Tooltip from '@/components/tooltips/character-name/TooltipCharacterName.svelte';
 
-    export let character: Character
+    let { character }: CharacterProps = $props();
 </script>
 
 <style lang="scss">
@@ -22,12 +22,15 @@
         component: Tooltip,
         props: {
             character,
-        }
+        },
     }}
 >
     <a
-        class="{$settingsStore.layout.useClassColors ? `class-${character.classId}` : ''} drop-shadow"
-        href="#/characters/{Region[character.realm.region].toLowerCase()}-{character.realm.slug}/{character.name}/paperdoll"
+        class="{settingsState.value.layout.useClassColors
+            ? `class-${character.classId}`
+            : ''} drop-shadow"
+        href="#/characters/{Region[character.realm?.region || Region.US].toLowerCase()}-{character
+            .realm.slug}/{character.name}/paperdoll"
     >
         {character.name}
     </a>

@@ -310,13 +310,12 @@ public static partial class Hardcoded
         // MoP > Scholomance
         {
             246,
-            new[]
-            {
+            [
                 new ExtraEncounter("Doctor Theolen Krastinov")
                 {
                     AfterEncounter = 665, // Rattlegore
-                },
-            }
+                }
+            ]
         },
         // MoP > Throne of Thunder
         {

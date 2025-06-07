@@ -1,25 +1,26 @@
-import { ItemQuality } from '@/enums/item-quality'
-
+import { ItemQuality } from '@/enums/item-quality';
 
 export class AppearanceDataAppearance {
-    public modifiedAppearances: AppearanceDataModifiedAppearance[]
+    public modifiedAppearances: AppearanceDataModifiedAppearance[];
 
     constructor(
         public appearanceId: number,
-        modifiedAppearanceArrays: AppearanceDataModifiedAppearanceArray[]
-    )
-    {
-        this.modifiedAppearances = modifiedAppearanceArrays.map((maArray) => new AppearanceDataModifiedAppearance(...maArray))
+        modifiedAppearanceArrays: AppearanceDataModifiedAppearanceArray[],
+    ) {
+        this.modifiedAppearances = modifiedAppearanceArrays.map(
+            (maArray) => new AppearanceDataModifiedAppearance(...maArray),
+        );
     }
 }
-export type AppearanceDataAppearanceArray = ConstructorParameters<typeof AppearanceDataAppearance>
+export type AppearanceDataAppearanceArray = ConstructorParameters<typeof AppearanceDataAppearance>;
 
 export class AppearanceDataModifiedAppearance {
     constructor(
         public itemId: number,
         public quality: ItemQuality,
-        public modifier: number
-    )
-    {}
+        public modifier: number,
+    ) {}
 }
-export type AppearanceDataModifiedAppearanceArray = ConstructorParameters<typeof AppearanceDataModifiedAppearance>
+export type AppearanceDataModifiedAppearanceArray = ConstructorParameters<
+    typeof AppearanceDataModifiedAppearance
+>;

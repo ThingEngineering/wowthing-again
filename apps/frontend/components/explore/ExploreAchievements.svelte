@@ -1,43 +1,43 @@
 <script lang="ts">
-    import { onMount } from 'svelte'
+    import { onMount } from 'svelte';
 
-    import { achievementStore, userAchievementStore } from '@/stores'
-    import { achievementState, exploreState } from '@/stores/local-storage'
-    import { settingsStore } from '@/shared/stores/settings'
-    import type { AchievementDataAchievement } from '@/types'
+    import { achievementStore, userAchievementStore } from '@/stores';
+    import { achievementState, exploreState } from '@/stores/local-storage';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import type { AchievementDataAchievement } from '@/types';
 
-    import CriteriaTree from './ExploreAchievementsCriteriaTree.svelte'
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
-    import NumberInput from '@/shared/components/forms/NumberInput.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import CriteriaTree from './ExploreAchievementsCriteriaTree.svelte';
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import NumberInput from '@/shared/components/forms/NumberInput.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    let achievement: AchievementDataAchievement
+    let achievement: AchievementDataAchievement;
 
     // Fetch achievement data once when this component is mounted
-    onMount(async () => await Promise.all([
-        achievementStore.fetch({ language: $settingsStore.general.language }),
-        //userAchievementStore.fetch(),
-    ]))
+    onMount(
+        async () =>
+            await Promise.all([
+                achievementStore.fetch({ language: settingsState.value.general.language }),
+                //userAchievementStore.fetch(),
+            ]),
+    );
 
-    let error: boolean
-    let loaded: boolean
-    let ready: boolean
+    let error: boolean;
+    let loaded: boolean;
+    let ready: boolean;
     $: {
-        error = $achievementStore.error || $userAchievementStore.error
-        loaded = $achievementStore.loaded && $userAchievementStore.loaded
-        ready = false
+        error = $achievementStore.error || $userAchievementStore.error;
+        loaded = $achievementStore.loaded && $userAchievementStore.loaded;
+        ready = false;
         if (!error && loaded) {
-            userAchievementStore.setup(
-                $achievementState,
-                $achievementStore
-            )
-            ready = true
+            userAchievementStore.setup($achievementState, $achievementStore);
+            ready = true;
         }
     }
 
     $: {
         if (ready) {
-            achievement = $achievementStore.achievement[$exploreState.achievementId]
+            achievement = $achievementStore.achievement[$exploreState.achievementId];
         }
     }
 </script>
@@ -107,10 +107,7 @@
         {/if}
 
         <div class="criteria">
-            <CriteriaTree
-                {achievement}
-                criteriaTreeId={achievement.criteriaTreeId}
-            />
+            <CriteriaTree {achievement} criteriaTreeId={achievement.criteriaTreeId} />
         </div>
     {/if}
 </div>

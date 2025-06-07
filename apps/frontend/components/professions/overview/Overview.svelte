@@ -3,7 +3,7 @@
     import { afterUpdate } from 'svelte';
 
     import { professionOrder } from '@/data/professions';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { staticStore } from '@/shared/stores/static';
     import getSavedRoute from '@/utils/get-saved-route';
 
@@ -38,7 +38,7 @@
         <div class="wrapper-column">
             {#each allProfessions.filter((p) => p.slug !== 'archaeology') as profession}
                 {@const characterIds =
-                    $settingsStore.professions.collectingCharactersV2[profession.id]}
+                    settingsState.value.professions.collectingCharactersV2[profession.id]}
                 {#if characterIds?.length > 0}
                     <Table {profession} {characterIds} />
                 {/if}

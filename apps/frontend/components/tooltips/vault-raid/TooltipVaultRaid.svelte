@@ -1,14 +1,14 @@
 <script lang="ts">
-    import type { Character, CharacterWeeklyProgress } from '@/types'
+    import type { Character, CharacterWeeklyProgress } from '@/types';
 
-    import Progress from './TooltipVaultRaidProgress.svelte'
+    import Progress from './TooltipVaultRaidProgress.svelte';
     import Rewards from './Rewards.svelte';
 
-    export let character: Character
+    export let character: Character;
 
-    let progress: CharacterWeeklyProgress[]
+    let progress: CharacterWeeklyProgress[];
     $: {
-        progress = character.weekly?.vault?.raidProgress || []
+        progress = character.weekly?.vault?.raidProgress || [];
     }
 </script>
 
@@ -16,7 +16,7 @@
     <h4>{character.name} - Raid Vault</h4>
     <table class="table-tooltip-vault table-striped">
         <tbody>
-            {#each Array(3) as _, i}
+            {#each { length: 3 }, i}
                 <Progress progress={progress[i]} />
             {/each}
         </tbody>

@@ -5,7 +5,8 @@
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';
     import { homeState } from '@/stores/local-storage';
-    import { activeView, settingsStore } from '@/shared/stores/settings';
+    import { sharedState } from '@/shared/state/shared.svelte';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import type { Character } from '@/types';
     import type { GroupByContext } from '@/utils/get-character-group-func';
 
@@ -28,17 +29,17 @@
 
     export let groupByContext: GroupByContext;
 
-    $: sortKey = `${$activeView.id}|${groupIndex}`;
+    $: sortKey = `${settingsState.activeView.id}|${groupIndex}`;
 
     let commonSpan: number;
     let gold: number;
     let isPublic: boolean;
     let playedTotal: number;
     $: {
-        isPublic = $userStore.public;
+        isPublic = sharedState.public;
 
-        commonSpan = $activeView.commonFields.filter(
-            (field) => !(field === 'accountTag' && !userStore.useAccountTags),
+        commonSpan = settingsState.activeView.commonFields.filter(
+            (field) => !(field === 'accountTag' && !settingsState.useAccountTags),
         ).length;
 
         gold = sumBy(group, (c: Character) => c.gold);
@@ -85,7 +86,7 @@
         <HeadGroupedByCell {groupByContext} {group} />
     </td>
 
-    {#each $activeView.homeFields as field (field)}
+    {#each settingsState.activeView.homeFields as field (field)}
         {#if field === 'bestItemLevel'}
             <td
                 class="sortable"
@@ -140,7 +141,7 @@
                 <HeadItems {sortKey} />
             {/if}
         {:else if field === 'keystone'}
-            {#if !isPublic || $settingsStore.privacy.publicMythicPlus}
+            {#if !isPublic || settingsState.value.privacy.publicMythicPlus}
                 {@const sortField = 'mythicPlusKeystone'}
                 <td
                     class="sortable"
@@ -159,7 +160,7 @@
                 on:keypress={() => setSorting(field)}>Seen</td
             >
         {:else if field === 'lockouts'}
-            {#if !isPublic || $settingsStore.privacy.publicLockouts}
+            {#if !isPublic || settingsState.value.privacy.publicLockouts}
                 <HeadLockouts {sortKey} />
             {/if}
         {:else if field === 'mythicPlusScore'}

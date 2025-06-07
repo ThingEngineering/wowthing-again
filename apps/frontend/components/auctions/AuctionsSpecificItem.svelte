@@ -1,19 +1,19 @@
 <script lang="ts">
-    import { timeLeft } from '@/data/auctions'
-    import { Region } from '@/enums/region'
-    import { itemStore, userStore, userAuctionSpecificItemStore } from '@/stores'
-    import { staticStore } from '@/shared/stores/static'
-    import { auctionState } from '@/stores/local-storage'
-    import connectedRealmName from '@/utils/connected-realm-name'
-    import { basicTooltip } from '@/shared/utils/tooltips'
+    import { timeLeft } from '@/data/auctions';
+    import { Region } from '@/enums/region';
+    import { userStore, userAuctionSpecificItemStore } from '@/stores';
+    import { staticStore } from '@/shared/stores/static';
+    import { auctionState } from '@/stores/local-storage';
+    import connectedRealmName from '@/utils/connected-realm-name';
+    import { basicTooltip } from '@/shared/utils/tooltips';
 
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let slug2: string
+    export let slug2: string;
 
-    $: itemId = parseInt(slug2)
+    $: itemId = parseInt(slug2);
 </script>
 
 <style lang="scss">
@@ -53,7 +53,7 @@
     //     }
     // }
     .realm {
-        @include cell-width(11.0rem, $paddingLeft: 0px);
+        @include cell-width(11rem, $paddingLeft: 0px);
     }
     // .level {
     //     @include cell-width(1.8rem);
@@ -79,24 +79,19 @@
     }
 </style>
 
-{#await userAuctionSpecificItemStore.search($auctionState, $itemStore, $userStore, itemId)}
+{#await userAuctionSpecificItemStore.search($auctionState, $userStore, itemId)}
     <div class="wrapper">L O A D I N G . . .</div>
-{:then [things,]}
+{:then [things]}
     {#each things as item}
-        {@const auctions = $auctionState.limitToBestRealms ? item.auctions.slice(0, 5) : item.auctions}
+        {@const auctions = $auctionState.limitToBestRealms
+            ? item.auctions.slice(0, 5)
+            : item.auctions}
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th class="item" colspan="4">
-                        <WowheadLink
-                            type="item"
-                            id={parseInt(item.id)}
-                        >
-                            <WowthingImage
-                                name="item/{item.id}"
-                                size={20}
-                                border={1}
-                            />
+                        <WowheadLink type="item" id={parseInt(item.id)}>
+                            <WowthingImage name="item/{item.id}" size={20} border={1} />
                             <ParsedText text={`{item:${item.id}}`} />
                         </WowheadLink>
                     </th>
@@ -114,10 +109,7 @@
                             <code>[{Region[connectedRealm.region]}]</code>
                             {connectedRealmName(auction.connectedRealmId)}
                         </td>
-                        <td
-                            class="price"
-                            class:no-bid={auction.bidPrice === 0}
-                        >
+                        <td class="price" class:no-bid={auction.bidPrice === 0}>
                             {#if auction.bidPrice > 0}
                                 {Math.floor(auction.bidPrice / 10000).toLocaleString()} g
                             {:else}

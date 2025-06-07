@@ -79,7 +79,7 @@
     <div class="view">
         <table class="table-tooltip-vault table-striped" class:border-right={improve.length > 0}>
             <tbody>
-                {#each Array(3) as _, i}
+                {#each { length: 3 }, i}
                     <Progress
                         highlightLast={true}
                         progress={progress[i]}
@@ -95,7 +95,7 @@
             {@const useImprove = improve.slice(0, 3)}
             <table class="table-striped border-left border-bottom" style="margin-bottom: -1px;">
                 <tbody>
-                    {#each useImprove as [levelRange, itemLevel, quality]}
+                    {#each useImprove as [levelRange, itemLevel, quality] (itemLevel)}
                         <tr>
                             <td class="level-range">
                                 {levelRange}

@@ -1,15 +1,15 @@
 export interface CharacterMythicPlus {
-    seasons: Record<number, Record<number, CharacterMythicPlusRun[]>>
+    seasons: Record<number, Record<number, CharacterMythicPlusRun[]>>;
 
-    currentPeriodId: number
-    rawSeasons: Record<number, Record<number, CharacterMythicPlusRunArray[]>>
+    currentPeriodId: number;
+    rawSeasons: Record<number, Record<number, CharacterMythicPlusRunArray[]>>;
 }
 
 export interface CharacterMythicPlusAddon {
-    runs: Array<CharacterMythicPlusAddonRun>
+    runs: Array<CharacterMythicPlusAddonRun>;
 
-    maps: Record<number, CharacterMythicPlusAddonMap>
-    rawRuns: CharacterMythicPlusAddonRunArray[]
+    maps: Record<number, CharacterMythicPlusAddonMap>;
+    rawRuns: CharacterMythicPlusAddonRunArray[];
 }
 
 export class CharacterMythicPlusAddonRun {
@@ -17,43 +17,49 @@ export class CharacterMythicPlusAddonRun {
         public mapId: number,
         public level: number,
         public score: number,
-        public completed: boolean
-    ) { }
+        public completed: boolean,
+    ) {}
 }
-export type CharacterMythicPlusAddonRunArray = ConstructorParameters<typeof CharacterMythicPlusAddonRun>
+export type CharacterMythicPlusAddonRunArray = ConstructorParameters<
+    typeof CharacterMythicPlusAddonRun
+>;
 
 export class CharacterMythicPlusAddonMap {
-    public fortifiedScore?: CharacterMythicPlusAddonMapAffix
-    public tyrannicalScore?: CharacterMythicPlusAddonMapAffix
+    public fortifiedScore?: CharacterMythicPlusAddonMapAffix;
+    public tyrannicalScore?: CharacterMythicPlusAddonMapAffix;
 
     constructor(
         public overallScore: number,
         fortifiedScoreArray?: CharacterMythicPlusAddonMapAffixArray,
-        tyrannicalScoreArray?: CharacterMythicPlusAddonMapAffixArray
+        tyrannicalScoreArray?: CharacterMythicPlusAddonMapAffixArray,
     ) {
         if (fortifiedScoreArray) {
-            this.fortifiedScore = new CharacterMythicPlusAddonMapAffix(...fortifiedScoreArray)
+            this.fortifiedScore = new CharacterMythicPlusAddonMapAffix(...fortifiedScoreArray);
         }
         if (tyrannicalScoreArray) {
-            this.tyrannicalScore = new CharacterMythicPlusAddonMapAffix(...tyrannicalScoreArray)
+            this.tyrannicalScore = new CharacterMythicPlusAddonMapAffix(...tyrannicalScoreArray);
         }
     }
 }
-export type CharacterMythicPlusAddonMapArray = ConstructorParameters<typeof CharacterMythicPlusAddonMap>
+export type CharacterMythicPlusAddonMapArray = ConstructorParameters<
+    typeof CharacterMythicPlusAddonMap
+>;
 
 export class CharacterMythicPlusAddonMapAffix {
-    public overTime: boolean
+    public overTime: boolean;
 
     constructor(
         public level: number,
         public score: number,
         public durationSec: number,
-        overTime: number
+        overTime: number,
     ) {
-        this.overTime = overTime === 1
+        this.overTime = overTime === 1;
     }
 }
-type CharacterMythicPlusAddonMapAffixArray = ConstructorParameters<typeof CharacterMythicPlusAddonMapAffix>
+type CharacterMythicPlusAddonMapAffixArray = ConstructorParameters<
+    typeof CharacterMythicPlusAddonMapAffix
+>;
 
 export class CharacterMythicPlusRun {
     constructor(
@@ -64,19 +70,18 @@ export class CharacterMythicPlusRun {
         public timed: boolean,
         public affixes: number[],
         public members?: CharacterMythicPlusRunMemberArray[],
-        public memberObjects?: CharacterMythicPlusRunMember[]
-    ) { }
+        public memberObjects?: CharacterMythicPlusRunMember[],
+    ) {}
 }
-export type CharacterMythicPlusRunArray = ConstructorParameters<typeof CharacterMythicPlusRun>
+export type CharacterMythicPlusRunArray = ConstructorParameters<typeof CharacterMythicPlusRun>;
 
 export class CharacterMythicPlusRunMember {
     constructor(
         public realmId: number,
         public name: string,
         public specializationId: number,
-        public itemLevel: number
-    )
-    { }
+        public itemLevel: number,
+    ) {}
 }
 
-type CharacterMythicPlusRunMemberArray = ConstructorParameters<typeof CharacterMythicPlusRunMember>
+type CharacterMythicPlusRunMemberArray = ConstructorParameters<typeof CharacterMythicPlusRunMember>;

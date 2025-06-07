@@ -1,7 +1,7 @@
 <script lang="ts">
     import { imageStrings } from '@/data/icons';
     import { professionSpecializationSpells } from '@/data/professions';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { leftPad } from '@/utils/formatting/left-pad';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
     import type { Character } from '@/types';
@@ -63,7 +63,7 @@
             {#if profession.slug === 'archaeology'}
                 <th class="profession-head">Ugh</th>
             {:else}
-                {#each settingsStore.expansions as expansion}
+                {#each settingsState.expansions as expansion}
                     <th class="profession-head">{expansion.shortName}</th>
                 {/each}
             {/if}
@@ -74,7 +74,7 @@
         </CharacterTableHead>
 
         <svelte:fragment slot="rowExtra" let:character>
-            {#each settingsStore.expansions as expansion}
+            {#each settingsState.expansions as expansion}
                 <Profession
                     primaryId={profession.id}
                     subId={profession.expansionSubProfession[expansion.id]?.id}

@@ -3,13 +3,13 @@ import { InventoryType } from '@/enums/inventory-type';
 import { ItemClass } from '@/enums/item-class';
 import { ItemFlags } from '@/enums/item-flags';
 import { WeaponSubclass } from '@/enums/weapon-subclass';
+import { wowthingData } from '@/shared/stores/data';
 import { sortAuctions, type SortableAuction } from '@/utils/auctions/sort-auctions';
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import {
     type UserAuctionDataMissingTransmogAuctionArray,
     UserAuctionDataMissingTransmogAuction,
 } from '@/types/data';
-import type { ItemData } from '@/types/data/item';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { UserData } from '@/types';
 import type { Settings } from '@/shared/stores/settings/types';
@@ -24,10 +24,9 @@ export class UserAuctionMissingTransmogDataStore {
     async search(
         settings: Settings,
         auctionState: AuctionState,
-        itemData: ItemData,
         staticData: StaticData,
         userData: UserData,
-        searchType: string,
+        searchType: string
     ): Promise<[UserAuctionEntry[], Record<number, number>]> {
         let things: UserAuctionEntry[] = [];
         let updated: Record<number, number>;
@@ -70,8 +69,7 @@ export class UserAuctionMissingTransmogDataStore {
                 const parsedData: Record<string, UserAuctionDataMissingTransmogAuction[]> = {};
                 for (const [auctionKey, rawAuctions] of Object.entries(responseData.auctions)) {
                     parsedData[auctionKey] = rawAuctions.map(
-                        (auctionArray) =>
-                            new UserAuctionDataMissingTransmogAuction(...auctionArray),
+                        (auctionArray) => new UserAuctionDataMissingTransmogAuction(...auctionArray)
                     );
                 }
 
@@ -80,7 +78,7 @@ export class UserAuctionMissingTransmogDataStore {
                         continue;
                     }
 
-                    const item = itemData.items[auctions[0].itemId];
+                    const item = wowthingData.items.items[auctions[0].itemId];
                     if (!item) {
                         continue;
                     }
@@ -101,7 +99,7 @@ export class UserAuctionMissingTransmogDataStore {
         things = sortAuctions(
             auctionState.sortBy[`missing-appearance-${searchType}`],
             things as SortableAuction[],
-            true,
+            true
         ) as UserAuctionEntry[];
         this.cache[cacheKey] = [things, updated];
 
@@ -111,7 +109,7 @@ export class UserAuctionMissingTransmogDataStore {
         const nameLower = auctionState.missingTransmogNameSearch.toLocaleLowerCase();
         const realmLower = auctionState.missingTransmogRealmSearch.toLocaleLowerCase();
         things = things.filter((thing) => {
-            const item = itemData.items[thing.auctions[0].itemId];
+            const item = wowthingData.items.items[thing.auctions[0].itemId];
             if (classMask && item.classMask && (item.classMask & classMask) === 0) {
                 return false;
             }
@@ -157,8 +155,8 @@ export class UserAuctionMissingTransmogDataStore {
                 .some(
                     (auction) =>
                         staticData.connectedRealms[auction.connectedRealmId].realmNames.filter(
-                            (name) => name.toLocaleLowerCase().indexOf(realmLower) >= 0,
-                        ).length > 0,
+                            (name) => name.toLocaleLowerCase().indexOf(realmLower) >= 0
+                        ).length > 0
                 );
 
             let matchesArmor = true;

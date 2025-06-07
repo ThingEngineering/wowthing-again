@@ -1,12 +1,12 @@
 <script lang="ts">
     import orderBy from 'lodash/orderBy';
 
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types';
 
     import MagicLists from '../../MagicLists.svelte';
 
-    export let view: SettingsView;
+    let { view = $bindable() }: { view: SettingsView } = $props();
 
     const initialChoices: SettingsChoice[] = [
         { id: 'account', name: 'Account ID' },
@@ -18,16 +18,13 @@
         { id: 'realm', name: 'Connected realm' },
     ];
 
-    let groupByChoices: SettingsChoice[];
-    $: {
-        groupByChoices = [
-            ...initialChoices,
-            ...orderBy($settingsStore.tags, (tag) => tag.name).map((tag) => ({
-                id: `tag:${tag.id}`,
-                name: `Tag: ${tag.name}`,
-            })),
-        ];
-    }
+    let groupByChoices: SettingsChoice[] = $derived([
+        ...initialChoices,
+        ...orderBy(settingsState.value.tags, (tag) => tag.name).map((tag) => ({
+            id: `tag:${tag.id}`,
+            name: `Tag: ${tag.name}`,
+        })),
+    ]);
 </script>
 
 <style lang="scss">

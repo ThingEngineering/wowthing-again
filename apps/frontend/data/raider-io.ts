@@ -3,11 +3,6 @@ export const raiderIoScores: Record<string, string> = {
     dps: 'DPS',
     healer: 'Healer',
     tank: 'Tank',
-}
+};
 
-export const raiderIoScoreOrder: string[] = [
-    'all',
-    'dps',
-    'healer',
-    'tank',
-]
+export const raiderIoScoreOrder: string[] = ['all', 'dps', 'healer', 'tank'];

@@ -32,7 +32,6 @@ import type {
 } from '@/types/data/manual';
 import type { UserData } from '@/types';
 import type { UserQuestData } from '@/types/data';
-import type { ItemData } from '@/types/data/item';
 import type { VendorState } from '../local-storage';
 import type { LazyTransmog } from './transmog';
 
@@ -46,7 +45,6 @@ export interface LazyVendors {
 interface LazyStores {
     settings: Settings;
     vendorState: VendorState;
-    itemData: ItemData;
     staticData: StaticData;
     userData: UserData;
     userQuestData: UserQuestData;
@@ -57,7 +55,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
     console.time('LazyStore.doVendors');
 
     for (const vendor of Object.values(wowthingData.manual.shared.vendors)) {
-        vendor.createFarmData(stores.itemData, stores.staticData);
+        vendor.createFarmData(stores.staticData);
     }
 
     const visitCategory = (category: ManualDataVendorCategory) => {
@@ -141,7 +139,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         set.name,
                         [],
                         true,
-                        set.showNormalTag,
+                        set.showNormalTag
                     ));
                     for (let itemIndex = setPosition; itemIndex < setEnd; itemIndex++) {
                         coveredBySets.add(itemIndex);
@@ -165,7 +163,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         }
 
                         // BonusIDs, whee
-                        item.appearanceModifier = get(getBonusIdModifier)(item.bonusIds || []);
+                        item.appearanceModifier = getBonusIdModifier(item.bonusIds || []);
                     }
                 }
 
@@ -211,7 +209,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                             [groupKey, groupName] = ['00pets', 'Pets'];
                         } else if (stores.staticData.toys[item.id]) {
                             [groupKey, groupName] = ['00toys', 'Toys'];
-                        } else if (stores.itemData.completesQuest[item.id]) {
+                        } else if (wowthingData.items.completesQuest[item.id]) {
                             [groupKey, groupName] = ['10misc', 'Misc'];
                         } else if (stores.staticData.professionAbilityByItemId[item.id]) {
                             [groupKey, groupName] = ['10recipes', 'Recipes'];
@@ -222,17 +220,13 @@ export function doVendors(stores: LazyStores): LazyVendors {
 
                     item.faction = vendor.faction;
 
-                    item.sortedCosts = getCurrencyCosts(
-                        stores.itemData,
-                        stores.staticData,
-                        item.costs,
-                    );
+                    item.sortedCosts = getCurrencyCosts(stores.staticData, item.costs);
 
                     if (groupKey) {
                         const autoGroup = (autoGroups[groupKey] ||= new ManualDataVendorGroup(
                             groupName,
                             [],
-                            true,
+                            true
                         ));
 
                         const seenKey = `${item.type}|${item.id}|${(item.bonusIds || []).join(',')}`;
@@ -306,7 +300,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
         const buildCategoryStats = (
             category: ManualDataVendorCategory,
             baseSlug: string,
-            parentStats: UserCount[],
+            parentStats: UserCount[]
         ) => {
             if (category === null) {
                 return;
@@ -323,8 +317,8 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     !stores.vendorState.showPvp &&
                     group.sells.some((vendorItem) =>
                         getNumberKeyedEntries(vendorItem.costs).some(([currencyId]) =>
-                            pvpCurrencies.has(currencyId),
-                        ),
+                            pvpCurrencies.has(currencyId)
+                        )
                     )
                 ) {
                     continue;
@@ -342,18 +336,14 @@ export function doVendors(stores: LazyStores): LazyVendors {
                 const appearanceMap: Record<number, ManualDataVendorItem> = {};
 
                 for (const item of group.sells) {
-                    item.sortedCosts = getCurrencyCosts(
-                        stores.itemData,
-                        stores.staticData,
-                        item.costs,
-                    );
+                    item.sortedCosts = getCurrencyCosts(stores.staticData, item.costs);
 
                     if (item.classMask > 0 && (item.classMask & classMask) === 0) {
                         continue;
                     }
 
                     // Transmog sets are annoying
-                    const transmogSetId = stores.itemData.teachesTransmog[item.id];
+                    const transmogSetId = wowthingData.items.teachesTransmog[item.id];
                     if (transmogSetId) {
                         const transmogSet = stores.staticData.transmogSets[transmogSetId];
                         if (
@@ -368,7 +358,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         let allClassMask = true;
                         let allWeapon = true;
                         transmogSet.items.forEach(([itemId]) => {
-                            const item = stores.itemData.items[itemId];
+                            const item = wowthingData.items.items[itemId];
                             if (!item) {
                                 return;
                             }
@@ -395,7 +385,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         }
                     }
 
-                    const sharedItem = stores.itemData.items[item.id];
+                    const sharedItem = wowthingData.items.items[item.id];
 
                     if (sharedItem && transmogTypes.has(item.type)) {
                         if (sharedItem.allianceOnly) {
@@ -434,11 +424,10 @@ export function doVendors(stores: LazyStores): LazyVendors {
 
                     // Skip filtered things
                     const [lookupType, lookupId] = rewardToLookup(
-                        stores.itemData,
                         stores.staticData,
                         item.type,
                         item.id,
-                        item.trackingQuestId,
+                        item.trackingQuestId
                     );
 
                     if (
@@ -480,7 +469,6 @@ export function doVendors(stores: LazyStores): LazyVendors {
 
                     const hasDrop = userHasLookup(
                         stores.settings,
-                        stores.itemData,
                         stores.staticData,
                         stores.userData,
                         stores.userQuestData,
@@ -491,7 +479,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                             appearanceIds: item.appearanceIds,
                             completionist: masochist,
                             modifier: item.appearanceModifier,
-                        },
+                        }
                     );
 
                     // Skip unavailable illusions
@@ -546,8 +534,8 @@ export function doVendors(stores: LazyStores): LazyVendors {
 
                 group.sellsFiltered.sort((a, b) => {
                     if (a.classMask in PlayableClassMask && b.classMask in PlayableClassMask) {
-                        const aSpecs = stores.itemData.specOverrides[a.id];
-                        const bSpecs = stores.itemData.specOverrides[b.id];
+                        const aSpecs = wowthingData.items.specOverrides[a.id];
+                        const bSpecs = wowthingData.items.specOverrides[b.id];
                         if (aSpecs?.length > 0 && bSpecs?.length > 0) {
                             const aSpecString = aSpecs
                                 .map((id) => stores.staticData.characterSpecializations[id].order)

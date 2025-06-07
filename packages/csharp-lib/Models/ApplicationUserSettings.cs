@@ -24,6 +24,7 @@ public class ApplicationUserSettings
     public ApplicationUserSettingsTasks? Tasks { get; set; } = new();
     public ApplicationUserSettingsTransmog? Transmog { get; set; } = new();
 
+    public Dictionary<int, ApplicationUserSettingsAccount> Accounts { get; set; } = new();
     public List<ApplicationUserSettingsCustomGroup>? CustomGroups { get; set; } = new();
     public List<ApplicationUserSettingsTag>? Tags { get; set; } = new();
     public List<ApplicationUserSettingsView>? Views { get; set; } = new();
@@ -241,6 +242,12 @@ public class ApplicationUserSettings
                 .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         }
     }
+}
+
+public class ApplicationUserSettingsAccount
+{
+    public bool Enabled { get; set; } = true;
+    public string Tag { get; set; }
 }
 
 public class ApplicationUserSettingsAchievements

@@ -1,11 +1,11 @@
 <script lang="ts">
-    import type { CharacterWeeklyProgress } from '@/types'
+    import type { CharacterWeeklyProgress } from '@/types';
 
-    export let availableRewards: boolean
-    export let generatedRewards: boolean
-    export let progresses: CharacterWeeklyProgress[]
-    export let qualityFunc: (progress: CharacterWeeklyProgress) => number = null
-    export let textFunc: (progress: CharacterWeeklyProgress) => string
+    export let availableRewards: boolean;
+    export let generatedRewards: boolean;
+    export let progresses: CharacterWeeklyProgress[];
+    export let qualityFunc: (progress: CharacterWeeklyProgress) => number = null;
+    export let textFunc: (progress: CharacterWeeklyProgress) => string;
 </script>
 
 <style lang="scss">
@@ -32,14 +32,15 @@
     {:else}
         {#each progresses as progress, progressIndex}
             {#if progress.progress >= progress.threshold}
-                <span class="progress quality{qualityFunc?.(progress) || 4}">{textFunc(progress)}</span>
+                <span class="progress quality{qualityFunc?.(progress) || 4}"
+                    >{textFunc(progress)}</span
+                >
             {:else}
                 <span
                     class="progress"
-                    class:ugh={
-                        progressIndex > 0 &&
-                        progresses[progressIndex-1].progress < progresses[progressIndex-1].threshold
-                    }
+                    class:ugh={progressIndex > 0 &&
+                        progresses[progressIndex - 1].progress <
+                            progresses[progressIndex - 1].threshold}
                 >
                     {progress.threshold - progress.progress} !
                 </span>

@@ -45,7 +45,7 @@
 </style>
 
 <div class="multi-tasks">
-    {#each taskChoices as choice}
+    {#each taskChoices as choice (choice.id)}
         <GroupedCheckbox
             name="choice_{choice.id}"
             tooltip={choice.name}

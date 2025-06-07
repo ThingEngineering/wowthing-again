@@ -1,16 +1,16 @@
 <script lang="ts">
-    import { activeView } from '@/shared/stores/settings'
-    import { basicTooltip } from '@/shared/utils/tooltips'
-    import { itemStore } from '@/stores'
-    import { homeState } from '@/stores/local-storage'
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import { basicTooltip } from '@/shared/utils/tooltips';
+    import { wowthingData } from '@/shared/stores/data';
+    import { homeState } from '@/stores/local-storage';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let sortKey: string
+    export let sortKey: string;
 
     function setSorting(column: string) {
-        const current = $homeState.groupSort[sortKey]
-        $homeState.groupSort[sortKey] = current === column ? undefined : column
+        const current = $homeState.groupSort[sortKey];
+        $homeState.groupSort[sortKey] = current === column ? undefined : column;
     }
 </script>
 
@@ -22,19 +22,15 @@
     }
 </style>
 
-{#each $activeView.homeItems as itemId}
+{#each settingsState.activeView.homeItems as itemId}
     {@const sortField = `item:${itemId}`}
     <td
         class="sortable"
         class:sorted-by={$homeState.groupSort[sortKey] === sortField}
         on:click={() => setSorting(sortField)}
         on:keypress={() => setSorting(sortField)}
-        use:basicTooltip={$itemStore.items[itemId].name}
+        use:basicTooltip={wowthingData.items.items[itemId].name}
     >
-        <WowthingImage
-            name="item/{itemId}"
-            size={16}
-            border={1}
-        />
+        <WowthingImage name="item/{itemId}" size={16} border={1} />
     </td>
 {/each}

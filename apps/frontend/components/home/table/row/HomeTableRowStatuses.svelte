@@ -1,126 +1,126 @@
 <script lang="ts">
-    import { DateTime } from 'luxon'
+    import { DateTime } from 'luxon';
 
-    import { Constants } from '@/data/constants'
-    import { openables } from '@/data/openables'
-    import { contractAuras } from '@/data/reputation'
-    import { durationAuras, staticAuras } from '@/data/spells'
-    import { staticStore } from '@/shared/stores/static'
-    import { timeStore } from '@/shared/stores/time'
-    import { itemStore } from '@/stores';
-    import { toNiceDuration } from '@/utils/formatting'
-    import type { Character } from '@/types'
+    import { Constants } from '@/data/constants';
+    import { openables } from '@/data/openables';
+    import { contractAuras } from '@/data/reputation';
+    import { durationAuras, staticAuras } from '@/data/spells';
+    import { staticStore } from '@/shared/stores/static';
+    import { timeStore } from '@/shared/stores/time';
+    import { wowthingData } from '@/shared/stores/data';
+    import { toNiceDuration } from '@/utils/formatting';
+    import type { Character } from '@/types';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character
+    export let character: Character;
 
-    let images: [string, string, string?][]
+    let images: [string, string, string?][];
     $: {
-        images = []
-        
+        images = [];
+
         if (character.auras?.[418563] !== undefined) {
-            images.push([Constants.icons.anniversary, 'Anniversary Buff'])
+            images.push([Constants.icons.anniversary, 'Anniversary Buff']);
         }
 
         for (const [spellId, spellName] of durationAuras) {
-            const aura = character.auras?.[spellId]
+            const aura = character.auras?.[spellId];
             if (aura) {
-                const lines = [spellName]
-                let hours = 0
-                let minutes = 0
+                const lines = [spellName];
+                let hours = 0;
+                let minutes = 0;
 
                 if (aura.duration) {
-                    minutes = aura.duration / 60
-                    hours = minutes / 60
-                }
-                else if (aura.expires) {
-                    const expires = DateTime.fromSeconds(aura.expires)
+                    minutes = aura.duration / 60;
+                    hours = minutes / 60;
+                } else if (aura.expires) {
+                    const expires = DateTime.fromSeconds(aura.expires);
                     if (expires > $timeStore) {
-                        const milliseconds = expires.diff($timeStore).toMillis()
-                        minutes = milliseconds / 1000 / 60
-                        hours = minutes / 60
+                        const milliseconds = expires.diff($timeStore).toMillis();
+                        minutes = milliseconds / 1000 / 60;
+                        hours = minutes / 60;
                     }
                 }
 
                 if (hours > 0 || minutes > 0) {
-                    const timeText = minutes < 100 ? `${Math.floor(minutes)}m` : `${Math.round(hours)}h`
-                    const iconText = aura.stacks > 0 ? aura.stacks.toString() : timeText
+                    const timeText =
+                        minutes < 100 ? `${Math.floor(minutes)}m` : `${Math.round(hours)}h`;
+                    const iconText = aura.stacks > 0 ? aura.stacks.toString() : timeText;
 
                     if (aura.stacks > 0) {
-                        lines.push(`${aura.stacks} stacks`)
+                        lines.push(`${aura.stacks} stacks`);
                     }
-                    lines.push(`${timeText} remaining`)
+                    lines.push(`${timeText} remaining`);
 
                     images.push([
                         `spell/${spellId}`,
                         `<div class="center">${lines.join('<br>')}</div>`,
-                        iconText
-                    ])
+                        iconText,
+                    ]);
                 }
             }
         }
 
         for (let auraIndex = 0; auraIndex < staticAuras.length; auraIndex++) {
-            const [spellId, auraTooltip] = staticAuras[auraIndex]
-            const aura = character.auras?.[spellId]
+            const [spellId, auraTooltip] = staticAuras[auraIndex];
+            const aura = character.auras?.[spellId];
             if (aura) {
                 images.push([
                     `spell/${spellId}`,
                     `<div class="center">${auraTooltip}</div>`,
-                    auraIndex <= 7 ? (auraIndex + 1).toString() : null
-                ])
+                    auraIndex <= 7 ? (auraIndex + 1).toString() : null,
+                ]);
             }
         }
-        
+
         if (character.level < Constants.characterMaxLevel) {
             if (character.chromieTime) {
-                images.push([Constants.icons.chromieTime, 'Chromie Time'])
+                images.push([Constants.icons.chromieTime, 'Chromie Time']);
             }
             if (character.isResting) {
-                images.push([Constants.icons.resting, 'Resting'])
+                images.push([Constants.icons.resting, 'Resting']);
             }
         }
 
         if (character.isWarMode) {
-            images.push([Constants.icons.warMode, 'War Mode'])
+            images.push([Constants.icons.warMode, 'War Mode']);
         }
 
         for (const spellId in contractAuras) {
             if (character.auras?.[spellId]?.expires > 0) {
                 const diff = DateTime.fromSeconds(character.auras[spellId].expires)
                     .diff($timeStore)
-                    .toMillis()
+                    .toMillis();
                 if (diff <= 0) {
-                    continue
+                    continue;
                 }
-                
-                const niceRemaining = toNiceDuration(diff).replace('&nbsp;', '')
-                const [reputationId, rank] = contractAuras[spellId]
-                const reputation = $staticStore.reputations[reputationId]
+
+                const niceRemaining = toNiceDuration(diff).replace('&nbsp;', '');
+                const [reputationId, rank] = contractAuras[spellId];
+                const reputation = $staticStore.reputations[reputationId];
                 images.push([
                     `spell/${spellId}`,
-                    `<div class="center">{craftedQuality:${rank}} ${reputation.name}<br>${niceRemaining} remaining</div>`
-                ])
+                    `<div class="center">{craftedQuality:${rank}} ${reputation.name}<br>${niceRemaining} remaining</div>`,
+                ]);
             }
         }
 
-        const openableItems: [number, number][] = []
+        const openableItems: [number, number][] = [];
         openables.forEach((itemId) => {
             const itemCount = character.getItemCount(itemId);
             if (itemCount > 0) {
                 openableItems.push([itemId, itemCount]);
             }
-        })
+        });
 
         if (openableItems.length > 0) {
             openableItems.sort((a, b) => {
-                const aItem = $itemStore.items[a[0]];
-                const bItem = $itemStore.items[b[0]];
+                const aItem = wowthingData.items.items[a[0]];
+                const bItem = wowthingData.items.items[b[0]];
                 if (!aItem || !bItem) {
                     return 0;
                 }
-                
+
                 if (aItem.quality !== bItem.quality) {
                     return aItem.quality - bItem.quality;
                 }
@@ -185,18 +185,10 @@
     <div class="flex-wrapper">
         {#each images as [icon, tooltip, iconText]}
             <div class="status-icon">
-                <WowthingImage
-                    name={icon}
-                    size={20}
-                    border={1}
-                    {tooltip}
-                />
+                <WowthingImage name={icon} size={20} border={1} {tooltip} />
 
                 {#if iconText}
-                    <span
-                        class="pill"
-                        class:small-text={iconText.length >= 3}
-                    >
+                    <span class="pill" class:small-text={iconText.length >= 3}>
                         {iconText}
                     </span>
                 {/if}

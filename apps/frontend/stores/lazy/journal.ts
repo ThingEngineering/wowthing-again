@@ -4,19 +4,20 @@ import { classMaskOrderMap } from '@/data/character-class';
 import { journalDifficultyMap } from '@/data/difficulty';
 import { slotOrderMap } from '@/data/inventory-slot';
 import { professionOrderMap } from '@/data/professions';
-import { RewardType } from '@/enums/reward-type';
+import { BindType } from '@/enums/bind-type';
 import { playableClasses, PlayableClassMask } from '@/enums/playable-class';
+import { RewardType } from '@/enums/reward-type';
+import { wowthingData } from '@/shared/stores/data';
 import { UserCount, type UserData } from '@/types';
 import { leftPad } from '@/utils/formatting';
-import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import getFilteredItems from '@/utils/journal/get-filtered-items';
+import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import { isRecipeKnown } from '@/utils/professions/is-recipe-known';
 import { JournalDataEncounterItem, type JournalData, type UserQuestData } from '@/types/data';
-import type { JournalState } from '../local-storage';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { Settings } from '@/shared/stores/settings/types';
-import type { ItemData } from '@/types/data/item';
-import { BindType } from '@/enums/bind-type';
+
+import type { JournalState } from '../local-storage';
 
 export interface LazyJournal {
     filteredItems: Record<string, JournalDataEncounterItem[]>;
@@ -25,7 +26,6 @@ export interface LazyJournal {
 
 interface LazyStores {
     settings: Settings;
-    itemData: ItemData;
     journalState: JournalState;
     journalData: JournalData;
     staticData: StaticData;
@@ -50,7 +50,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
     const overallSeen = new Set<string>();
 
     for (const tier of stores.journalData.tiers.filter(
-        (tier) => tier !== null && tier.slug !== 'dungeons' && tier.slug !== 'raids',
+        (tier) => tier !== null && tier.slug !== 'dungeons' && tier.slug !== 'raids'
     )) {
         const tierStats = (ret.stats[tier.slug] = new UserCount());
         const tierSeen = new Set<string>();
@@ -92,7 +92,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                         stores.journalState,
                         group,
                         classMask,
-                        instanceExpansion,
+                        instanceExpansion
                     );
 
                     if (!masochist) {
@@ -112,7 +112,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
 
                         const usedItems = new Set<number>();
                         for (const [appearanceIdStr, appearanceItems] of Object.entries(
-                            appearanceMap,
+                            appearanceMap
                         )) {
                             const appearanceId = parseInt(appearanceIdStr);
 
@@ -145,14 +145,14 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                     [
                                         appearanceId,
                                         appearanceItems[0].appearances.filter(
-                                            (a) => a.appearanceId === appearanceId,
+                                            (a) => a.appearanceId === appearanceId
                                         )[0].modifierId,
                                         sortBy(
                                             Array.from(difficulties.values()),
-                                            (diff) => journalDifficultyMap[diff],
+                                            (diff) => journalDifficultyMap[diff]
                                         ),
                                     ],
-                                ],
+                                ]
                             );
                             item.extraAppearances = appearanceItems.length - 1;
 
@@ -175,7 +175,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                 : sortBy(
                                       keepItems,
                                       (item) =>
-                                          `${groupIndices[item.id]}|${journalDifficultyMap[item.appearances[0].difficulties[0]]}`,
+                                          `${groupIndices[item.id]}|${journalDifficultyMap[item.appearances[0].difficulties[0]]}`
                                   );
                     }
 
@@ -187,7 +187,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                             let oppositeKey: string;
 
                             if (item.type === RewardType.Item) {
-                                const actualItem = stores.itemData.items[item.id];
+                                const actualItem = wowthingData.items.items[item.id];
 
                                 // Check for source first, we're done if they have it
                                 appearanceKey = `${item.id}_${appearance.modifierId}`;
@@ -206,7 +206,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                     appearance.userHas =
                                         item.classMask === 0 ||
                                         (stores.userData.appearanceMask.get(
-                                            appearance.appearanceId,
+                                            appearance.appearanceId
                                         ) &
                                             item.classMask) ===
                                             item.classMask;
@@ -233,7 +233,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                     appearance.userHas = stores.userData.hasToy[item.id];
                                 } else if (item.type === RewardType.Quest) {
                                     appearance.userHas = stores.userQuestData.accountHas.has(
-                                        item.id,
+                                        item.id
                                     );
                                 }
                             }
@@ -378,8 +378,8 @@ export function doJournal(stores: LazyStores): LazyJournal {
                             }
                         }
 
-                        const aItem = stores.itemData.items[a.id];
-                        const bItem = stores.itemData.items[b.id];
+                        const aItem = wowthingData.items.items[a.id];
+                        const bItem = wowthingData.items.items[b.id];
 
                         // Sort by faction
                         const aFaction = aItem.allianceOnly ? 1 : aItem.hordeOnly ? 2 : 0;

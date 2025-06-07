@@ -1,44 +1,47 @@
 <script lang="ts">
-    import { expansionSlugMap } from '@/data/expansion'
-    import { professionSlugToId } from '@/data/professions'
-    import { staticStore } from '@/shared/stores/static'
+    import { expansionSlugMap } from '@/data/expansion';
+    import { professionSlugToId } from '@/data/professions';
+    import { staticStore } from '@/shared/stores/static';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { lazyStore } from '@/stores'
-    import { UserCount } from '@/types'
+    import { lazyStore } from '@/stores';
+    import { UserCount } from '@/types';
     import getPercentClass from '@/utils/get-percent-class';
-    import type { StaticDataProfessionCategory } from '@/shared/stores/static/types'
+    import type { StaticDataProfessionCategory } from '@/shared/stores/static/types';
 
-    import { recipesState } from './state'
+    import { recipesState } from './state';
 
-    import Ability from './Ability.svelte'
+    import Ability from './Ability.svelte';
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
-    import Options from './Options.svelte'
+    import Options from './Options.svelte';
 
-    export let expansionSlug: string
-    export let professionSlug: string
+    export let expansionSlug: string;
+    export let professionSlug: string;
 
     // let allKnown: Set<number>
-    let category: StaticDataProfessionCategory
-    let subCategories: [StaticDataProfessionCategory, UserCount][]
+    let category: StaticDataProfessionCategory;
+    let subCategories: [StaticDataProfessionCategory, UserCount][];
     $: {
         const expansionId = expansionSlugMap[expansionSlug].id;
         const professionId = professionSlugToId[professionSlug];
 
-        const profession = $staticStore.professions[professionId]
+        const profession = $staticStore.professions[professionId];
 
-        category = profession.expansionCategory[expansionId].children[0]
-        subCategories = []
+        category = profession.expansionCategory[expansionId].children[0];
+        subCategories = [];
         for (const subCategory of category.children) {
-            if (subCategory.abilities.length === 0) { continue }
+            if (subCategory.abilities.length === 0) {
+                continue;
+            }
 
-            const subStats = $lazyStore.recipes.stats[`${professionSlug}--${expansionSlug}--${subCategory.id}`]
+            const subStats =
+                $lazyStore.recipes.stats[`${professionSlug}--${expansionSlug}--${subCategory.id}`];
 
-            let anyShown = false
+            let anyShown = false;
             for (const ability of subCategory.abilities) {
                 const abilityIds = [
                     ability.id,
-                    ...(ability.extraRanks || []).map(([abilityId,]) => abilityId)
-                ]
+                    ...(ability.extraRanks || []).map(([abilityId]) => abilityId),
+                ];
 
                 const abilityUserHas = $lazyStore.recipes.hasAbility[ability.id];
                 abilityIds.forEach((_abilityId, index) => {
@@ -47,14 +50,14 @@
                         (userHas && $recipesState.showCollected) ||
                         (!userHas && $recipesState.showUncollected)
                     ) {
-                        anyShown = true
-                        return
+                        anyShown = true;
+                        return;
                     }
-                })
+                });
             }
 
             if (anyShown) {
-                subCategories.push([subCategory, subStats])
+                subCategories.push([subCategory, subStats]);
             }
         }
     }
@@ -81,15 +84,12 @@
 <Options {category} {expansionSlug} {professionSlug} />
 
 <div class="wrapper">
-    {#each subCategories as [subCategory, subStats]}
-        <table
-            class="table table-striped"
-            data-id="{subCategory.id}"
-        >
+    {#each subCategories as [subCategory, subStats] (subCategory.id)}
+        <table class="table table-striped" data-id={subCategory.id}>
             <thead>
                 <tr>
                     <th
-                        class="{getPercentClass(subStats.percent)}"
+                        class={getPercentClass(subStats.percent)}
                         colspan="2"
                         use:basicTooltip={`Category ${subCategory.id}`}
                     >
@@ -103,17 +103,12 @@
                 </tr>
             </thead>
             <tbody>
-                {#each subCategory.abilities as ability}
-                    <Ability
-                        rank={1}
-                        {ability}
-                    />
+                {#each subCategory.abilities as ability (ability.id)}
+                    {@const extraRanks = ability.extraRanks || []}
+                    <Ability rank={1} {ability} />
 
-                    {#each (ability.extraRanks || []) as _, rankIndex}
-                        <Ability
-                            rank={rankIndex + 2}
-                            {ability}
-                        />
+                    {#each extraRanks, rankIndex}
+                        <Ability rank={rankIndex + 2} {ability} />
                     {/each}
                 {/each}
             </tbody>

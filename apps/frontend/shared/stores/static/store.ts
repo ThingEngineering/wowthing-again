@@ -1,5 +1,7 @@
 import { extraInstanceMap } from '@/data/dungeon';
+import { settingsState } from '@/shared/state/settings.svelte';
 import { WritableFancyStore } from '@/types';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import {
     StaticDataBag,
     StaticDataCampaign,
@@ -18,11 +20,9 @@ import {
 } from './types';
 import { StaticDataProfessionAbilityInfo, type StaticData } from './types';
 import { StaticDataQuestInfo } from './types/quest-info';
-import type { ItemData } from '@/types/data/item';
-import type { Settings } from '@/shared/stores/settings/types';
 import { StaticDataQuestLine } from './types/quest-line';
 import { StaticDataEnchantment } from './types/enchantment';
-import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
+import { wowthingData } from '../data';
 
 export class StaticDataStore extends WritableFancyStore<StaticData> {
     get dataUrl(): string {
@@ -40,7 +40,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             cls.specializationIds = [];
 
             const specs = Object.values(data.characterSpecializations).filter(
-                (spec) => spec.classId === cls.id,
+                (spec) => spec.classId === cls.id
             );
             specs.sort((a, b) => a.order - b.order);
             cls.specializationIds = specs.map((spec) => spec.id);
@@ -52,25 +52,25 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                     ? `${race.slug}${race.faction}`
                     : race.slug,
                 race,
-            ]),
+            ])
         );
 
         data.professionBySkillLine = {};
         for (const profession of Object.values(data.professions)) {
             if (profession.rawCategories != null) {
                 profession.categories = profession.rawCategories.map(
-                    (categoryArray) => new StaticDataProfessionCategory(...categoryArray),
+                    (categoryArray) => new StaticDataProfessionCategory(...categoryArray)
                 );
 
                 profession.expansionCategory = Object.fromEntries(
-                    profession.categories.map((cat, index) => [index, cat]),
+                    profession.categories.map((cat, index) => [index, cat])
                 );
 
                 profession.rawCategories = null;
             }
 
             profession.expansionSubProfession = Object.fromEntries(
-                profession.subProfessions.map((cat, index) => [index, cat]),
+                profession.subProfessions.map((cat, index) => [index, cat])
             );
 
             data.professionBySkillLine[profession.id] = [profession, 0];
@@ -98,7 +98,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         if (data.rawCurrencyCategories !== null) {
             data.currencyCategories = StaticDataStore.createObjects(
                 data.rawCurrencyCategories,
-                StaticDataCurrencyCategory,
+                StaticDataCurrencyCategory
             );
             data.rawCurrencyCategories = null;
         }
@@ -113,7 +113,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             }
 
             for (const [enchantId, enchantValues] of getNumberKeyedEntries(
-                data.enchantmentValues,
+                data.enchantmentValues
             )) {
                 data.enchantments[enchantId] ||= new StaticDataEnchantment(`Enchant #${enchantId}`);
                 data.enchantments[enchantId].values = enchantValues;
@@ -139,10 +139,10 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         }
 
         data.heirloomsById = Object.fromEntries(
-            data.heirlooms.map((heirloom) => [heirloom.id, heirloom]),
+            data.heirlooms.map((heirloom) => [heirloom.id, heirloom])
         );
         data.heirloomsByItemId = Object.fromEntries(
-            data.heirlooms.map((heirloom) => [heirloom.itemId, heirloom]),
+            data.heirlooms.map((heirloom) => [heirloom.itemId, heirloom])
         );
 
         if (data.instancesRaw !== null) {
@@ -162,7 +162,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         if (data.rawQuestLines !== null) {
             data.questLines = StaticDataStore.createObjects(
                 data.rawQuestLines,
-                StaticDataQuestLine,
+                StaticDataQuestLine
             );
             data.rawQuestLines = null;
         }
@@ -176,7 +176,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                     100001,
                     'Commodities',
                     'commodities',
-                    'zzZZ',
+                    'zzZZ'
                 ),
                 100002: new StaticDataRealm(
                     100002,
@@ -184,7 +184,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                     100002,
                     'Commodities',
                     'commodities',
-                    'zzZZ',
+                    'zzZZ'
                 ),
                 100003: new StaticDataRealm(
                     100003,
@@ -192,7 +192,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                     100003,
                     'Commodities',
                     'commodities',
-                    'zzZZ',
+                    'zzZZ'
                 ),
                 100004: new StaticDataRealm(
                     100004,
@@ -200,7 +200,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                     100004,
                     'Commodities',
                     'commodities',
-                    'zzZZ',
+                    'zzZZ'
                 ),
             };
             for (const realmArray of data.rawRealms) {
@@ -213,7 +213,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         if (data.rawReputations !== null) {
             data.reputations = StaticDataStore.createObjects(
                 data.rawReputations,
-                StaticDataReputation,
+                StaticDataReputation
             );
             data.rawReputations = null;
         }
@@ -255,10 +255,10 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.toys = StaticDataStore.createObjects(
                 data.rawToys,
                 StaticDataToy,
-                (toy) => toy.itemId,
+                (toy) => toy.itemId
             );
             data.toysById = Object.fromEntries(
-                Object.values(data.toys).map((toy) => [toy.id, toy]),
+                Object.values(data.toys).map((toy) => [toy.id, toy])
             );
             data.rawToys = null;
         }
@@ -267,7 +267,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.transmogSets = StaticDataStore.createObjects(
                 data.rawTransmogSets,
                 StaticDataTransmogSet,
-                (set) => set.id,
+                (set) => set.id
             );
             data.rawTransmogSets = null;
         }
@@ -276,7 +276,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.worldQuests = StaticDataStore.createObjects(
                 data.rawWorldQuests,
                 StaticDataWorldQuest,
-                (wq) => wq.id,
+                (wq) => wq.id
             );
             data.rawWorldQuests = null;
         }
@@ -284,12 +284,12 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         console.timeEnd('StaticDataStore.initialize');
     }
 
-    setup(settings: Settings, itemData: ItemData) {
+    setup() {
         this.value.connectedRealms = {};
 
         const connected: Record<number, { region: number; locale: string; names: string[] }> = {};
         for (const realm of Object.values(this.value.realms)) {
-            if (settings?.general?.useEnglishRealmNames !== false && realm.englishName) {
+            if (settingsState.value.general.useEnglishRealmNames !== false && realm.englishName) {
                 realm.name = realm.englishName;
             }
 
@@ -319,7 +319,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         this.value.professionAbilityBySpellId = {};
 
         const spellToItem: Record<number, number[]> = {};
-        for (const [itemId, spellIds] of Object.entries(itemData.teachesSpell)) {
+        for (const [itemId, spellIds] of Object.entries(wowthingData.items.teachesSpell)) {
             for (const spellId of spellIds) {
                 (spellToItem[spellId] ||= []).push(parseInt(itemId));
             }
@@ -331,14 +331,14 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                     profession.categories[i],
                     profession.id,
                     profession.subProfessions[i].id,
-                    spellToItem,
+                    spellToItem
                 );
             }
         }
 
         // map learned spells to ability info
         // TODO: do something about items that teach multiple spells
-        for (const [itemId, spellIds] of getNumberKeyedEntries(itemData.teachesSpell)) {
+        for (const [itemId, spellIds] of getNumberKeyedEntries(wowthingData.items.teachesSpell)) {
             for (const spellId of spellIds) {
                 const abilityInfo = this.value.professionAbilityBySpellId[spellId];
                 if (abilityInfo) {
@@ -353,7 +353,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         category: StaticDataProfessionCategory,
         professionId: number,
         subProfessionId: number,
-        spellToItem: Record<number, number[]>,
+        spellToItem: Record<number, number[]>
     ) {
         const data: StaticDataProfessionAbilityInfo[] = [];
 
@@ -365,8 +365,8 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                     ability,
                     ability.id,
                     ability.itemIds,
-                    ability.spellId,
-                ),
+                    ability.spellId
+                )
             );
 
             for (const [extraAbilityId, extraSpellId] of ability.extraRanks || []) {
@@ -379,8 +379,8 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                             ability,
                             extraAbilityId,
                             extraItemId,
-                            extraSpellId,
-                        ),
+                            extraSpellId
+                        )
                     );
                 }
             }
@@ -403,7 +403,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
     private static createObjects<TObject extends { id: number }, TArgs extends unknown[]>(
         arrays: TArgs[],
         objectConstructor: { new (...args: TArgs): TObject },
-        idFunc: (obj: TObject) => number = null,
+        idFunc: (obj: TObject) => number = null
     ): Record<number, TObject> {
         const ret: Record<number, TObject> = {};
 

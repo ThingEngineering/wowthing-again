@@ -1,14 +1,15 @@
 <script lang="ts">
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { getWorldTier } from '@/utils/vault/get-world-tier';
-    import { Character, CharacterWeeklyProgress } from '@/types';
+    import { CharacterWeeklyProgress } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import TooltipVaultWorld from '@/components/tooltips/vault-world/TooltipVaultWorld.svelte';
     import VaultShared from './VaultShared.svelte';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 
-    $: worldVault = character.isMaxLevel ? character.weekly?.vault?.worldProgress : [];
+    let worldVault = $derived(character.isMaxLevel ? character.weekly?.vault?.worldProgress : []);
 
     function qualityFunc(prog: CharacterWeeklyProgress): number {
         return getWorldTier(prog.level)[1];

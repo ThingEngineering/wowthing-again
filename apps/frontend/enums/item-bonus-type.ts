@@ -1,5 +1,4 @@
-export enum ItemBonusType
-{
+export enum ItemBonusType {
     NoBonus = 0,
     IncreaseItemLevel = 1,
     IncreaseBonusStat = 2,

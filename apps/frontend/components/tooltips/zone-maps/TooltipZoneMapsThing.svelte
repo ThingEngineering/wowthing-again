@@ -12,14 +12,9 @@
     import { FarmType } from '@/enums/farm-type';
     import { LookupType } from '@/enums/lookup-type';
     import { RewardType } from '@/enums/reward-type';
-    import {
-        achievementStore,
-        itemStore,
-        lazyStore,
-        userAchievementStore,
-        userStore,
-    } from '@/stores';
+    import { achievementStore, lazyStore, userAchievementStore, userStore } from '@/stores';
     import { rewardTypeIcons } from '@/shared/icons/mappings';
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
     import { leftPad } from '@/utils/formatting';
     import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
@@ -54,7 +49,7 @@
         if (farm.statisticId > 0) {
             statistic = ($userAchievementStore.statistics?.[farm.statisticId] || []).reduce(
                 (a, b) => a + b[1],
-                0,
+                0
             );
         }
     }
@@ -62,7 +57,7 @@
     const showCharacters = (
         drop: ManualDataZoneMapDrop,
         dropStatus: DropStatus,
-        nextDrop: [ManualDataZoneMapDrop, DropStatus],
+        nextDrop: [ManualDataZoneMapDrop, DropStatus]
     ): boolean => {
         if (farm.type === FarmType.Vendor && drop.type !== RewardType.Quest) {
             return false;
@@ -90,7 +85,7 @@
             const charDiff = difference(dropStatus.characterIds, nextDrop[1].characterIds);
             const completeDiff = difference(
                 dropStatus.completedCharacterIds,
-                nextDrop[1].completedCharacterIds,
+                nextDrop[1].completedCharacterIds
             );
 
             return charDiff.length > 0 || completeDiff.length > 0;
@@ -250,9 +245,7 @@
                             ? 'fail'
                             : 'success'}"
                     >
-                        <IconifyIcon
-                            icon={getDropIcon($itemStore, $staticStore, drop, isCriteria)}
-                        />
+                        <IconifyIcon icon={getDropIcon($staticStore, drop, isCriteria)} />
                     </td>
                     <td class="name" class:status-success={!dropStatus.need}>
                         {#if drop.amount > 0}
@@ -267,7 +260,7 @@
                             {ArmorType[drop.subType].toLowerCase()}
                             {#if drop.subType >= 1 && drop.subType <= 4}
                                 {$staticStore.inventoryTypes[
-                                    $itemStore.items[drop.id]?.inventoryType
+                                    wowthingData.items.items[drop.id]?.inventoryType
                                 ].toLowerCase()}
                             {/if}
                         {:else if drop.type === RewardType.Weapon}
@@ -278,7 +271,7 @@
                             <code
                                 >{@html leftPad(dropStatus.setHave, 2)} / {@html leftPad(
                                     dropStatus.setNeed,
-                                    2,
+                                    2
                                 )}</code
                             >
                         {:else if drop.type === RewardType.XpQuest}
@@ -295,7 +288,7 @@
                                                 $staticStore.professions[
                                                     professionSlugToId[drop.limit[1]]
                                                 ].subProfessions.findIndex(
-                                                    (sub) => sub.id === parseInt(drop.limit[2]),
+                                                    (sub) => sub.id === parseInt(drop.limit[2])
                                                 )
                                             ]}
                                         [<span class="status-shrug"
@@ -313,12 +306,7 @@
                                 {/if}
                             {/if}
                         {:else if drop.type === RewardType.Item}
-                            {@const [lookupType] = rewardToLookup(
-                                $itemStore,
-                                $staticStore,
-                                drop.type,
-                                drop.id,
-                            )}
+                            {@const [lookupType] = rewardToLookup($staticStore, drop.type, drop.id)}
                             {#if lookupType !== LookupType.None}
                                 {LookupType[lookupType].toLowerCase()}
                             {:else}
@@ -358,12 +346,12 @@
                             <tr>
                                 <td></td>
                                 <td class="characters" colspan="2">
-                                    {#each sortBy( dropStatus.characterIds.map((c) => $userStore.characterMap[c]), (c) => c.name, ) as character (character.id)}
+                                    {#each sortBy( dropStatus.characterIds.map((c) => $userStore.characterMap[c]), (c) => c.name ) as character (character.id)}
                                         <span class="class-{character.classId}">
                                             {character.name}
                                         </span>
                                     {/each}
-                                    {#each sortBy( dropStatus.completedCharacterIds.map((c) => $userStore.characterMap[c]), (c) => c.name, ) as character (character.id)}
+                                    {#each sortBy( dropStatus.completedCharacterIds.map((c) => $userStore.characterMap[c]), (c) => c.name ) as character (character.id)}
                                         <span class="completed class-{character.classId}">
                                             {character.name}
                                         </span>

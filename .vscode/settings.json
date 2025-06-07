@@ -6,4 +6,7 @@
     "eslint.workingDirectories": [
         "./apps/frontend"
     ],
+    "typescript.preferences.organizeImports": {
+        "typeOrder": "last"
+    }
 }

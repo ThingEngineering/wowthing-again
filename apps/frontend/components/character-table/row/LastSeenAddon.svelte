@@ -2,9 +2,9 @@
     import { timeStore } from '@/shared/stores/time';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { toNiceDuration } from '@/utils/formatting';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
-    export let character: Character
+    let { character }: CharacterProps = $props();
 </script>
 
 <style lang="scss">
@@ -15,10 +15,7 @@
     }
 </style>
 
-<td
-    class="border-left"
-    use:basicTooltip={'Addon data processed for this character'}
->
+<td class="border-left" use:basicTooltip={'Addon data processed for this character'}>
     {#if character.lastSeenAddon}
         {@const diff = $timeStore.diff(character.lastSeenAddon).toMillis()}
         <code>{@html toNiceDuration(diff)}</code>

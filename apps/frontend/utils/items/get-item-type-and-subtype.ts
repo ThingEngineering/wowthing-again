@@ -1,17 +1,15 @@
-import { get } from 'svelte/store';
-
 import { ArmorSubclass } from '@/enums/armor-subclass';
 import { InventoryType } from '@/enums/inventory-type';
 import { ItemClass } from '@/enums/item-class';
 import { RewardType } from '@/enums/reward-type';
-import { itemStore } from '@/stores';
 import { WeaponSubclass } from '@/enums/weapon-subclass';
+import { wowthingData } from '@/shared/stores/data';
 
 export function getItemTypeAndSubtype(id: number, initialType: RewardType): [RewardType, number] {
     let type = initialType;
     let subType = 0;
 
-    const item = get(itemStore).items[id];
+    const item = wowthingData.items.items[id];
     if (item) {
         if (item.classId === ItemClass.Armor) {
             if (

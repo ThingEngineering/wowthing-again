@@ -3,8 +3,7 @@ export class StaticDataInstance {
         public id: number,
         public expansion: number,
         public name: string,
-        public shortName: string
-    )
-    { }
+        public shortName: string,
+    ) {}
 }
-export type StaticDataInstanceArray = ConstructorParameters<typeof StaticDataInstance>
+export type StaticDataInstanceArray = ConstructorParameters<typeof StaticDataInstance>;

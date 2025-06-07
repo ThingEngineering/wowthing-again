@@ -1,7 +1,8 @@
 <script lang="ts">
     import { typeOrder } from '@/data/inventory-type';
     import { weaponSubclassOrder, weaponSubclassToString } from '@/data/weapons';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
     import getPercentClass from '@/utils/get-percent-class';
     import type { TransmogSlotData } from '@/stores/lazy/transmog';
@@ -10,40 +11,38 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import TooltipItems from './TooltipItems.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
-    import { itemStore } from '@/stores';
 
-    export let have: number;
-    export let set: ManualDataTransmogGroupData;
-    export let setTitle: string;
-    export let slotHave: TransmogSlotData;
-    export let subType: string;
-    export let total: number;
+    type Props = {
+        have: number;
+        set: ManualDataTransmogGroupData;
+        setTitle: string;
+        slotHave: TransmogSlotData;
+        subType: string;
+        total: number;
+    };
 
-    let setName: string;
-    let shiftPressed: boolean;
+    let { have, set, setTitle, slotHave, subType, total }: Props = $props();
 
-    $: completionist = $settingsStore.transmog.completionistMode;
+    let completionist = $derived(settingsState.value.transmog.completionistMode);
 
-    $: {
-        setName = set.transmogSetId ? $staticStore.transmogSets[set.transmogSetId].name : set.name;
-        if (!setName && set.itemsV2?.length === 1) {
-            setName = $itemStore.items[set.itemsV2[0]?.[0]]?.name;
+    let setName = $derived.by(() => {
+        let name = set.transmogSetId ? $staticStore.transmogSets[set.transmogSetId].name : set.name;
+        if (!name && set.itemsV2?.length === 1) {
+            name = wowthingData.items.items[set.itemsV2[0]?.[0]]?.name;
         }
-    }
+        return name;
+    });
 
-    let actualSlotOrder: number[];
-    let showShift: boolean;
-    let slotKeys: number[];
-    let weapons: number[];
-    $: {
-        slotKeys = Object.keys(slotHave).map((key) => parseInt(key));
-        weapons = slotKeys.filter((key) => key >= 100);
-        actualSlotOrder =
-            weapons.length > 0 ? weaponSubclassOrder.map((subClass) => 100 + subClass) : typeOrder;
+    let slotKeys = $derived(Object.keys(slotHave).map((key) => parseInt(key)));
+    let weapons = $derived(slotKeys.filter((key) => key >= 100));
+    let actualSlotOrder = $derived(
+        weapons.length > 0 ? weaponSubclassOrder.map((subClass) => 100 + subClass) : typeOrder
+    );
+    let showShift = $derived(
+        slotKeys.length > 1 && Object.values(slotHave).some(([, items]) => items?.length > 2)
+    );
 
-        showShift =
-            slotKeys.length > 1 && Object.values(slotHave).some(([, items]) => items?.length > 2);
-    }
+    let shiftPressed = $state(false);
 
     function keyDown(event: KeyboardEvent) {
         shiftPressed = event.shiftKey;
@@ -93,7 +92,7 @@
     {/if}
     <table class="table-tooltip-vault table-striped">
         <tbody>
-            {#each actualSlotOrder as type}
+            {#each actualSlotOrder as type (type)}
                 {#if slotHave[type] !== undefined}
                     {@const [slotCollected, slotItems] = slotHave[type]}
                     {@const actualSlotItems = slotItems || []}
@@ -101,7 +100,7 @@
                     <tr>
                         <td class="have">
                             <YesNoIcon
-                                state={$settingsStore.transmog.completionistMode
+                                state={settingsState.value.transmog.completionistMode
                                     ? have >= actualSlotItems.length
                                     : slotCollected}
                                 useStatusColors={true}
@@ -116,7 +115,7 @@
                             {#if completionist && slotItems?.length >= 2}
                                 <div
                                     class="slot-count {getPercentClass(
-                                        (have / slotItems.length) * 100,
+                                        (have / slotItems.length) * 100
                                     )}"
                                 >
                                     {have} / {slotItems.length}
@@ -129,10 +128,10 @@
                                     dedupe={false}
                                     items={actualSlotItems.filter(([hasAppearance, hasSource]) =>
                                         have < actualSlotItems.length
-                                            ? $settingsStore.transmog.completionistMode
+                                            ? settingsState.value.transmog.completionistMode
                                                 ? !hasSource
                                                 : !hasAppearance
-                                            : true,
+                                            : true
                                     )}
                                 />
                             {:else if slotKeys.length === 1}

@@ -89,8 +89,7 @@ table {
 }
 
 a,
-a:visited
-{
+a:visited {
     color: var(--link-color, $link-color);
     text-decoration: none;
 }
@@ -125,7 +124,9 @@ code {
     align-items: flex-start;
     display: flex;
     flex: 1 0 auto;
-    transform: translateZ(0); // null transform to force a new layer/HW acceleration
+    transform: translateZ(
+        0
+    ); // null transform to force a new layer/HW acceleration
 }
 
 div.content {
@@ -148,20 +149,17 @@ div.content {
     justify-content: space-between;
 }
 
-
 .drop-shadow {
-    filter:
-        drop-shadow(-1px -1px 1px var(--shadow-color, rgba(0, 0, 0, 0.5)))
-        drop-shadow(-1px  1px 1px var(--shadow-color, rgba(0, 0, 0, 0.5)))
-        drop-shadow( 1px -1px 1px var(--shadow-color, rgba(0, 0, 0, 0.5)))
-        drop-shadow( 1px  1px 1px var(--shadow-color, rgba(0, 0, 0, 0.5)));
+    filter: drop-shadow(-1px -1px 1px var(--shadow-color, rgba(0, 0, 0, 0.5)))
+        drop-shadow(-1px 1px 1px var(--shadow-color, rgba(0, 0, 0, 0.5)))
+        drop-shadow(1px -1px 1px var(--shadow-color, rgba(0, 0, 0, 0.5)))
+        drop-shadow(1px 1px 1px var(--shadow-color, rgba(0, 0, 0, 0.5)));
 }
 .drop-shadow2 {
-    filter:
-        drop-shadow(-2px -2px 2px var(--shadow-color, rgba(0, 0, 0, 0.5)))
-        drop-shadow(-2px  2px 2px var(--shadow-color, rgba(0, 0, 0, 0.5)))
-        drop-shadow( 2px -2px 2px var(--shadow-color, rgba(0, 0, 0, 0.5)))
-        drop-shadow( 2px  2px 2px var(--shadow-color, rgba(0, 0, 0, 0.5)));
+    filter: drop-shadow(-2px -2px 2px var(--shadow-color, rgba(0, 0, 0, 0.5)))
+        drop-shadow(-2px 2px 2px var(--shadow-color, rgba(0, 0, 0, 0.5)))
+        drop-shadow(2px -2px 2px var(--shadow-color, rgba(0, 0, 0, 0.5)))
+        drop-shadow(2px 2px 2px var(--shadow-color, rgba(0, 0, 0, 0.5)));
 }
 .drop-shadow-single {
     filter: drop-shadow(0 0 2px var(--shadow-color, rgba(0, 0, 0, 0.5)));
@@ -199,7 +197,8 @@ div.content {
 .r {
     text-align: right;
 }
-.c, .center {
+.c,
+.center {
     text-align: center;
 }
 .abs-center {
@@ -217,19 +216,24 @@ div.content {
 .border {
     border: 1px solid $border-color;
 }
-.b-b, .border-bottom {
+.b-b,
+.border-bottom {
     border-bottom: 1px solid $border-color;
 }
-.b-l, .border-left {
+.b-l,
+.border-left {
     border-left: 1px solid $border-color;
 }
-.b-r, .border-right {
+.b-r,
+.border-right {
     border-right: 1px solid $border-color;
 }
-.b-t, .border-top {
+.b-t,
+.border-top {
     border-top: 1px solid $border-color;
 }
-.m-l, .margin-left {
+.m-l,
+.margin-left {
     margin-left: 0.5rem;
 }
 .faded {

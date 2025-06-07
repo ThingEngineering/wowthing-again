@@ -1,5 +1,5 @@
 export interface StaticDataIllusion {
-    enchantmentId: number
-    id: number
-    name: string
+    enchantmentId: number;
+    id: number;
+    name: string;
 }

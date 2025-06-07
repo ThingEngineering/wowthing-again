@@ -5,7 +5,7 @@
     import { lazyStore, userStore } from '@/stores';
     import { staticStore } from '@/shared/stores/static';
     import { illusionState } from '@/stores/local-storage';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import getPercentClass from '@/utils/get-percent-class';
     import { basicTooltip } from '@/shared/utils/tooltips';
@@ -31,7 +31,7 @@
         ];
 
         if (
-            !$settingsStore.collections.hideUnavailable ||
+            !settingsState.value.collections.hideUnavailable ||
             $lazyStore.illusions['UNAVAILABLE'].have > 0
         ) {
             sections.push([

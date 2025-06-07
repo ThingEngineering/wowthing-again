@@ -1,6 +1,6 @@
 <script lang="ts">
     import { itemModifierMap } from '@/data/item-modifier';
-    import { itemStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
     import { getClassesFromMask } from '@/utils/get-classes-from-mask';
     import type { TransmogSlot } from '@/stores/lazy/transmog';
     import type { ItemDataItem } from '@/types/data/item';
@@ -23,7 +23,7 @@
             for (const [, haveSource, itemId] of items) {
                 // const have = completionist ? haveSource : haveAppearance;
                 const have = haveSource;
-                const item = $itemStore.items[itemId];
+                const item = wowthingData.items.items[itemId];
                 if (!byName[item.name]) {
                     byName[item.name] = [have, item];
                     nameOrder.push(item.name);
@@ -46,7 +46,7 @@
         } else {
             itemData = items.map(([, haveSource, itemId, modifier]) => [
                 haveSource,
-                $itemStore.items[itemId],
+                wowthingData.items.items[itemId],
                 modifier,
             ]);
         }
@@ -91,7 +91,7 @@
     }
 </script>
 
-{#each itemData as [itemHave, item, modifier]}
+{#each itemData as [itemHave, item, modifier] (`${item.id}-${modifier}`)}
     <div class="item">
         <YesNoIcon state={itemHave} useStatusColors={true} />
         <ParsedText text={getItemText(item, modifier)} />

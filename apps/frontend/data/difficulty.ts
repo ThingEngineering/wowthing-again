@@ -1,6 +1,5 @@
-import { InstanceType } from '@/enums/instance-type'
-import { Difficulty } from '@/types'
-
+import { InstanceType } from '@/enums/instance-type';
+import { Difficulty } from '@/types';
 
 export const difficultyMap: Record<number, Difficulty> = {
     0: new Difficulty(0, 'World Boss', 'WB', InstanceType.Raid, 1, 40),
@@ -27,15 +26,15 @@ export const difficultyMap: Record<number, Difficulty> = {
     17: new Difficulty(17, 'Looking For Raid', 'L', InstanceType.Raid, 10, 30),
     18: new Difficulty(18, 'Event?', 'E', InstanceType.Raid, 40, 40),
     33: new Difficulty(33, 'Timewalking', 'T', InstanceType.Raid, 10, 30),
-}
+};
 
 export const dungeonDifficulties = Object.values(difficultyMap)
     .filter((diff) => diff.instanceType === InstanceType.Dungeon)
-    .map((diff) => diff.id)
+    .map((diff) => diff.id);
 
 export const raidDifficulties = Object.values(difficultyMap)
     .filter((diff) => diff.instanceType === InstanceType.Raid)
-    .map((diff) => diff.id)
+    .map((diff) => diff.id);
 
 export const journalDifficultyOrder: number[] = [
     1, // Dungeon Normal
@@ -56,18 +55,18 @@ export const journalDifficultyOrder: number[] = [
     15, // Raid Heroic
     16, // Raid Mythic
     33, // Raid Timewalking
-]
+];
 
 export const journalDifficultyMap: Record<number, number> = Object.fromEntries(
-    journalDifficultyOrder.map((value, index) => [value, index])
-)
+    journalDifficultyOrder.map((value, index) => [value, index]),
+);
 
 export const lockoutDifficultyOrder: number[] = [
     16, // Raid Mythic
     15, // Raid Heroic
     14, // Raid Normal
     17, // Raid LFR
-    
+
     6, // Legacy 25 Heroic
     5, // Legacy 10 Heroic
     9, // Legacy 40 Player
@@ -80,8 +79,8 @@ export const lockoutDifficultyOrder: number[] = [
     1, // Dungeon Normal
 
     0, // World Boss
-]
+];
 
 export const lockoutDifficultyOrderMap: Record<number, number> = Object.fromEntries(
-    lockoutDifficultyOrder.map((value, index) => [value, index])
-)
+    lockoutDifficultyOrder.map((value, index) => [value, index]),
+);

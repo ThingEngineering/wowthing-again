@@ -1,16 +1,15 @@
-import { ItemLocation } from '@/enums/item-location'
-import type { ItemQuality } from '@/enums/item-quality'
-import type { UserItem } from '../shared'
-
+import { ItemLocation } from '@/enums/item-location';
+import type { ItemQuality } from '@/enums/item-quality';
+import type { UserItem } from '../shared';
 
 export class GuildItem implements UserItem {
-    public bonusIds: number[]
-    public enchantmentIds: number[]
-    public gemIds: number[]
+    public bonusIds: number[];
+    public enchantmentIds: number[];
+    public gemIds: number[];
 
-    public appearanceId: number
-    public appearanceModifier: number
-    public appearanceSource: string
+    public appearanceId: number;
+    public appearanceModifier: number;
+    public appearanceSource: string;
 
     constructor(
         public tabId: number,
@@ -24,23 +23,23 @@ export class GuildItem implements UserItem {
         public quality: ItemQuality,
         public suffix: number,
         bonusIds?: number[],
-        gemIds?: number[]
+        gemIds?: number[],
     ) {
-        this.enchantmentIds = enchantId ? [enchantId] : []
-        this.bonusIds = bonusIds || []
-        this.gemIds = gemIds || []
+        this.enchantmentIds = enchantId ? [enchantId] : [];
+        this.bonusIds = bonusIds || [];
+        this.gemIds = gemIds || [];
     }
 
     get location(): ItemLocation {
-        return ItemLocation.GuildBank
+        return ItemLocation.GuildBank;
     }
 
     get containerId(): number {
-        return this.tabId
+        return this.tabId;
     }
 
     get containerName(): string {
-        return `Tab ${this.tabId}`
+        return `Tab ${this.tabId}`;
     }
 }
-export type GuildItemArray = ConstructorParameters<typeof GuildItem>
+export type GuildItemArray = ConstructorParameters<typeof GuildItem>;

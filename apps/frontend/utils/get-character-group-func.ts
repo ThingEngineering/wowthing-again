@@ -1,7 +1,6 @@
 import { get } from 'svelte/store';
 
 import { Constants } from '@/data/constants';
-import { userStore } from '@/stores';
 import { staticStore } from '@/shared/stores/static';
 import type { Character } from '@/types';
 import type { Settings } from '@/shared/stores/settings/types';
@@ -32,11 +31,10 @@ export function getCharacterGroupContext(
             for (const thing of groupBy) {
                 if (thing === 'account') {
                     out.push(
-                        get(userStore).accounts?.[char.accountId]?.tag ??
-                            `account${char.accountId}`,
+                        settingsData.accounts?.[char.accountId]?.tag ?? `account${char.accountId}`,
                     );
                 } else if (thing === 'enabled') {
-                    const enabled = get(userStore).accounts?.[char.accountId]?.enabled ?? true;
+                    const enabled = settingsData.accounts?.[char.accountId]?.enabled ?? true;
                     out.push(enabled ? 'a' : 'z');
                 } else if (thing === 'faction') {
                     if (minusFaction) {

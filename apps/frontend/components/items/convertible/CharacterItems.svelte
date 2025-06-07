@@ -1,7 +1,7 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons';
     import { iconLibrary } from '@/shared/icons';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { WarbankItem } from '@/types/items';
     import { getItemUrl } from '@/utils/get-item-url';
     import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible';
@@ -98,7 +98,7 @@
                 class="quality{slotData.equippedItem.quality}"
                 href={slotData.equippedItem.itemId > 10_000
                     ? getItemUrl(slotData.equippedItem)
-                    : `https://${settingsStore.wowheadBaseUrl}/currency=${slotData.equippedItem.itemId}`}
+                    : `https://${settingsState.wowheadBaseUrl}/currency=${slotData.equippedItem.itemId}`}
             >
                 <WowthingImage
                     name={slotData.equippedItem.itemId > 10_000

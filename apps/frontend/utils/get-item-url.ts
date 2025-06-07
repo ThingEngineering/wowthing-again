@@ -1,6 +1,4 @@
-import { get } from 'svelte/store';
-
-import { settingsStore } from '@/shared/stores/settings';
+import { settingsState } from '@/shared/state/settings.svelte';
 import type { Character, CharacterEquippedItem } from '@/types';
 import type { ItemSearchResponseCommon } from '@/types/items';
 
@@ -9,8 +7,7 @@ export function getItemUrl(
     character?: Character,
     tierPieces?: number[],
 ): string {
-    const settings = get(settingsStore);
-    const useWowdb = settings.general.useWowdb;
+    const useWowdb = settingsState.value.general.useWowdb;
 
     let url = '';
     const params = [];
@@ -45,7 +42,7 @@ export function getItemUrl(
             params.push(`pcs=${tierPieces.filter((itemId) => itemId > 0).join(':')}`);
         }
 
-        url = `https://${settingsStore.wowheadBaseUrl}/item=${item.itemId}`;
+        url = `https://${settingsState.wowheadBaseUrl}/item=${item.itemId}`;
     }
 
     if (params.length > 0) {

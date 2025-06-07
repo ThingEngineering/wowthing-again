@@ -1,4 +1,3 @@
-import { writable, type Writable } from 'svelte/store'
+import { writable, type Writable } from 'svelte/store';
 
-
-export const parsedTextStore: Writable<Record<string, string>> = writable({})
+export const parsedTextStore: Writable<Record<string, string>> = writable({});

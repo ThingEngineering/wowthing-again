@@ -3,8 +3,8 @@
     import { AppearanceModifier } from '@/enums/appearance-modifier';
     import { InventoryType } from '@/enums/inventory-type';
     import { uiIcons } from '@/shared/icons';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { lazyStore } from '@/stores';
-    import { commonColspan } from '@/shared/stores/settings';
     import getPercentClass from '@/utils/get-percent-class';
     import type { ConvertibleCategory } from './types';
     import type { StaticDataCharacterClass } from '@/shared/stores/static/types';
@@ -78,7 +78,7 @@
                 </div>
             </svelte:fragment>
 
-            {#each convertibleTypes as inventoryType}
+            {#each convertibleTypes as inventoryType (inventoryType)}
                 <th class="item-slot">
                     {InventoryType[inventoryType]}
                 </th>
@@ -88,7 +88,7 @@
         </CharacterTableHead>
 
         <svelte:fragment slot="rowExtra" let:character>
-            {#each convertibleTypes as inventoryType}
+            {#each convertibleTypes as inventoryType (inventoryType)}
                 <td class="item-slot">
                     {#if data[inventoryType].modifiers[modifier].userHas}
                         <IconifyIcon extraClass="status-success" icon={uiIcons.yes} />
@@ -108,8 +108,8 @@
         </svelte:fragment>
 
         <tr slot="emptyRow">
-            <td colspan={$commonColspan}></td>
-            {#each convertibleTypes as inventoryType}
+            <td colspan={settingsState.commonColspan}></td>
+            {#each convertibleTypes as inventoryType (inventoryType)}
                 <td class="item-slot">
                     {#if data[inventoryType].modifiers[modifier].userHas}
                         <IconifyIcon extraClass="status-success" icon={uiIcons.yes} />

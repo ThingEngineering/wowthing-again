@@ -3,7 +3,7 @@
     import { transmogSets } from '@/data/transmog';
     import { iconLibrary, uiIcons } from '@/shared/icons';
     import { lazyStore, userStore } from '@/stores';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { transmogSetsState } from '@/stores/local-storage';
     import getPercentClass from '@/utils/get-percent-class';
     import getTransmogSpan from '@/utils/get-transmog-span';
@@ -362,7 +362,7 @@
     {/if}
 
     {#if isExpanded}
-        {#each getFilteredSets($settingsStore, $userStore, group) as [setShow, setName], setIndex}
+        {#each getFilteredSets(settingsState.value, $userStore, group) as [setShow, setName], setIndex}
             {#if setShow}
                 {@const setPercent = getPercent(groupIndex, setIndex)}
                 <tr class:faded={setName.endsWith('*')}>

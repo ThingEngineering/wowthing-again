@@ -8,7 +8,7 @@
     import { zoneShortName } from '@/data/zones';
     import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
-    import { itemStore, userQuestStore, userStore } from '@/stores';
+    import { userQuestStore, userStore } from '@/stores';
     import findReputationTier from '@/utils/find-reputation-tier';
     import type { Character } from '@/types';
     import type { TaskProfession } from '@/types/data';
@@ -65,8 +65,8 @@
                 return a[1].localeCompare(b[1]);
             }
 
-            return $itemStore.items[a[0].contents[0].id].name.localeCompare(
-                $itemStore.items[b[0].contents[0].id].name,
+            return wowthingData.items.items[a[0].contents[0].id].name.localeCompare(
+                wowthingData.items.items[b[0].contents[0].id].name
             );
         });
     }
@@ -75,13 +75,13 @@
         $staticStore.reputationTiers[398],
         maxBy(
             $userStore.characters,
-            (c) => c.reputations?.[Constants.reputations.artisansConsortium] || 0,
-        ).reputations?.[Constants.reputations.artisansConsortium],
+            (c) => c.reputations?.[Constants.reputations.artisansConsortium] || 0
+        ).reputations?.[Constants.reputations.artisansConsortium]
     );
     $: lnRep =
         (maxBy(
             $userStore.characters,
-            (c) => c.reputations?.[Constants.reputations.loammNiffen] || 0,
+            (c) => c.reputations?.[Constants.reputations.loammNiffen] || 0
         ).reputations?.[Constants.reputations.loammNiffen] || 0) / 2500;
 </script>
 
@@ -107,7 +107,7 @@
                 {#if taskProfession.masterQuestId}
                     {@const userHas = userQuestStore.hasAny(
                         character.id,
-                        taskProfession.masterQuestId,
+                        taskProfession.masterQuestId
                     )}
                     <div class="quality5" class:missing={userHas}>
                         <WowthingImage
@@ -154,7 +154,7 @@
 
         {#if taskProfession.treasureQuests?.length > 0}
             <div class="collection-objects">
-                {#each sortBy( taskProfession.treasureQuests, (tq) => [tq.source, $itemStore.items[tq.itemId]], ) as treasureQuest}
+                {#each sortBy( taskProfession.treasureQuests, (tq) => [tq.source, wowthingData.items.items[tq.itemId]] ) as treasureQuest}
                     <Collectible
                         itemId={treasureQuest.itemId}
                         text={treasureQuest.source}

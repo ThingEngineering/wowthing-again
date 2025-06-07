@@ -236,6 +236,9 @@ public class JournalTool
 
         _timer.AddPoint("Shared");
 
+        var languages = Enum.GetValues<Language>().ToArray();
+
+        // Add extra tiers
         foreach (var (tier, dungeons) in Hardcoded.ExtraTiers)
         {
             tiers.Add(tier);
@@ -243,7 +246,7 @@ public class JournalTool
                 .Select(dungeon => dungeon.ID)
                 .ToArray();
 
-            foreach (var language in Enum.GetValues<Language>())
+            foreach (var language in languages)
             {
                 _stringMap[(StringType.WowJournalTierName, language, tier.ID)] = tier.Name;
             }
@@ -253,16 +256,77 @@ public class JournalTool
                 instancesById[dungeon.ID] = dungeon;
                 encountersByInstanceId[dungeon.ID] = new List<DumpJournalEncounter>();
 
-                foreach (var language in Enum.GetValues<Language>())
+                foreach (var language in languages)
                 {
                     _stringMap[(StringType.WowJournalInstanceName, language, dungeon.ID)] = dungeon.Name;
                 }
             }
         }
 
+        // Add extra encounters
+        foreach (var (instanceId, extraEncounters) in Hardcoded.ExtraEncounters)
+        {
+            for (int i = extraEncounters.Length - 1; i >= 0; i--)
+            {
+                var extraEncounter = extraEncounters[i];
+                int encounterId = 100000 + (instanceId * 10) + i;
+
+                var encounter = new DumpJournalEncounter
+                {
+                    ID = encounterId,
+                    OrderIndex = -i,
+                };
+
+                if (extraEncounter.AfterEncounter.HasValue)
+                {
+                    for (int j = 0; j < encountersByInstanceId[instanceId].Count; j++)
+                    {
+                        if (encountersByInstanceId[instanceId][j].ID == extraEncounter.AfterEncounter.Value)
+                        {
+                            encountersByInstanceId[instanceId].Insert(j + 1, encounter);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    encountersByInstanceId[instanceId].Insert(0, encounter);
+                }
+
+                foreach (var language in languages)
+                {
+                    _stringMap[(StringType.WowJournalEncounterName, language, encounterId)] = extraEncounter.Name;
+                }
+            }
+        }
+
+        foreach (var (encounterId, extraDrops) in Hardcoded.ExtraItemDrops)
+        {
+            int instanceId = encounterId % 1_000_000;
+
+            if (encounterId > 2_000_000)
+            {
+                // Shared drops
+                encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
+                {
+                    ID = encounterId,
+                    OrderIndex = -9,
+                });
+            }
+            else if (encounterId > 1_000_000)
+            {
+                // Trash drops
+                encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
+                {
+                    ID = encounterId,
+                    OrderIndex = -10,
+                });
+            }
+        }
+
         // Once per language, oh boy
         string cacheHash = null;
-        foreach (var language in Enum.GetValues<Language>())
+        foreach (var language in languages)
         {
             ToolContext.Logger.Debug("Generating {Lang}", language);
 
@@ -348,60 +412,6 @@ public class JournalTool
                     }
 
                     var encounters = encountersByInstanceId[instanceId];
-
-                    // Instance has extra encounters, add those
-                    if (Hardcoded.ExtraEncounters.TryGetValue(instanceId, out var extraEncounters))
-                    {
-                        for (int i = extraEncounters.Length - 1; i >= 0; i--)
-                        {
-                            var extraEncounter = extraEncounters[i];
-                            int encounterId = 100000 + (instanceId * 10) + i;
-
-                            var encounter = new DumpJournalEncounter
-                            {
-                                ID = encounterId,
-                                OrderIndex = -i,
-                            };
-
-                            if (extraEncounter.AfterEncounter.HasValue)
-                            {
-                                for (int j = 0; j < encountersByInstanceId[instanceId].Count; j++)
-                                {
-                                    if (encountersByInstanceId[instanceId][j].ID == extraEncounter.AfterEncounter.Value)
-                                    {
-                                        encountersByInstanceId[instanceId].Insert(j + 1, encounter);
-                                        break;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                encountersByInstanceId[instanceId].Insert(0, encounter);
-                            }
-
-                            _stringMap[(StringType.WowJournalEncounterName, language, encounterId)] = extraEncounter.Name;
-                        }
-                    }
-
-                    // Instance has shared drops, add a fake encounter
-                    if (Hardcoded.ExtraItemDrops.ContainsKey(2000000 + instanceId))
-                    {
-                        encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
-                        {
-                            ID = 2000000 + instanceId,
-                            OrderIndex = -9,
-                        });
-                    }
-
-                    // Instance has trash drops, add a fake encounter
-                    if (Hardcoded.ExtraItemDrops.ContainsKey(1000000 + instanceId))
-                    {
-                        encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
-                        {
-                            ID = 1000000 + instanceId,
-                            OrderIndex = -10,
-                        });
-                    }
 
                     // Force sort order
                     if (Hardcoded.JournalBossOrder.TryGetValue(instanceId, out var bossOrder))

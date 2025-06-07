@@ -1,12 +1,13 @@
 <script lang="ts">
-    import { activeView } from '@/shared/stores/settings';
+    import { Constants } from '@/data/constants';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
     import { timeStore } from '@/shared/stores/time';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { itemStore, userStore } from '@/stores';
+    import { userStore } from '@/stores';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import type { Character } from '@/types';
-    import { Constants } from '@/data/constants';
 
     export let character: Character;
 </script>
@@ -23,16 +24,15 @@
     }
 </style>
 
-{#each $activeView.homeCurrencies as currencyId}
+{#each settingsState.activeView.homeCurrencies as currencyId (currencyId)}
     {@const currency = currencyId < 1000000 ? $staticStore.currencies[currencyId] : undefined}
     {@const itemId = currencyId > 1000000 ? currencyId - 1000000 : 0}
     {@const { amount, amountRaw, percent, tooltip } = getCurrencyData(
-        $itemStore,
         $timeStore,
         userStore,
         character,
         currency,
-        itemId,
+        itemId
     )}
     {#if amount}
         <td

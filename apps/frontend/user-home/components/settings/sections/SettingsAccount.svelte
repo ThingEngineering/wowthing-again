@@ -1,32 +1,41 @@
 <script lang="ts">
-    import sortBy from 'lodash/sortBy'
+    import sortBy from 'lodash/sortBy';
 
-    import { Language } from '@/enums/language'
-    import { Region } from '@/enums/region'
-    import { userStore } from '@/stores'
-    import { settingsStore } from '@/shared/stores/settings'
-    import getAccountCharacters from '@/utils/get-account-characters'
+    import { Language } from '@/enums/language';
+    import { Region } from '@/enums/region';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import { userStore } from '@/stores';
+    import getAccountCharacters from '@/utils/get-account-characters';
 
-    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
-    import Select from '@/shared/components/forms/Select.svelte'
-    import TextInput from '@/shared/components/forms/TextInput.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
+    import Select from '@/shared/components/forms/Select.svelte';
+    import TextInput from '@/shared/components/forms/TextInput.svelte';
 
-    let apiKey = ''
+    $effect.pre(() => {
+        settingsState.value.accounts ||= {};
+        for (const account of Object.values($userStore.accounts)) {
+            settingsState.value.accounts[account.id] ||= { enabled: true, tag: '' };
+        }
+    });
 
-    async function onClick() {
-        const xsrf = document.getElementById('app').getAttribute('data-xsrf')
+    let apiKey = $state('');
+
+    async function onClick(event: Event) {
+        event.preventDefault();
+
+        const xsrf = document.getElementById('app').getAttribute('data-xsrf');
         const response = await fetch('/api/api-key-get', {
             headers: {
-                'RequestVerificationToken': xsrf,
+                RequestVerificationToken: xsrf,
             },
-        })
+        });
 
-        const obj = await response.json()
-        apiKey = obj['key']
+        const obj = await response.json();
+        apiKey = obj['key'];
 
         setTimeout(() => {
-            apiKey = ''
-        }, 8000)
+            apiKey = '';
+        }, 8000);
     }
 </script>
 
@@ -40,15 +49,15 @@
     }
 
     .account-id {
-        @include cell-width(7.0rem);
+        @include cell-width(7rem);
     }
     .account-tag {
-        @include cell-width(4.0rem);
+        @include cell-width(4rem);
 
         text-align: center;
     }
     .account-enabled {
-        @include cell-width(4.0rem);
+        @include cell-width(4rem);
 
         text-align: center;
     }
@@ -102,7 +111,7 @@
     <div class="setting">
         <Select
             name="general_language"
-            bind:selected={$settingsStore.general.language}
+            bind:selected={settingsState.value.general.language}
             options={[
                 [Language.deDE, '[deDE] Deutsch'],
                 [Language.enUS, '[enUS] English'],
@@ -115,14 +124,13 @@
             ]}
         />
         <p>
-            <strong>NOTE:</strong> this is a very new feature and only used in some places,
-            work is ongoing.
+            <strong>NOTE:</strong> this is a very new feature and only used in some places, work is ongoing.
         </p>
     </div>
 
     <div class="setting setting-checkbox setting-layout">
         <Checkbox
-            bind:value={$settingsStore.general.useEnglishRealmNames}
+            bind:value={settingsState.value.general.useEnglishRealmNames}
             name="general_useEnglishRealmNames"
         >
             Prefer English realm names (eg "[EU] Greymane" instead of "[EU] Седогрив")
@@ -138,12 +146,12 @@
             name="general_DesiredAccountName"
             maxlength={32}
             placeholder="Desired user name"
-            bind:value={$settingsStore.general.desiredAccountName}
+            bind:value={settingsState.value.general.desiredAccountName}
         />
         <div>
             <p>
-                If you would like to change your user name, change this and save changes.
-                Your user name is currently: <code>{document.getElementById('user-name').innerText}</code>
+                If you would like to change your user name, change this and save changes. Your user
+                name is currently: <code>{document.getElementById('user-name').innerText}</code>
             </p>
             <p>
                 Your account will get renamed at some point in the future, log out/in to check.
@@ -160,11 +168,13 @@
         {#if apiKey}
             <span>{apiKey}</span>
         {:else}
-            <button on:click|preventDefault={onClick}>Reveal API Key</button>
+            <button onclick={onClick}>Reveal API Key</button>
         {/if}
 
         <p>
-            Use this API key with <a href="https://github.com/ThingEngineering/wowthing-sync">WoWthing Sync</a>
+            Use this API key with <a href="https://github.com/ThingEngineering/wowthing-sync"
+                >WoWthing Sync</a
+            >
             to automate the uploading of your <code>WoWthing_Collector.lua</code>
             files.
         </p>
@@ -175,7 +185,8 @@
     <h3 class="space-me">WoW Accounts</h3>
 
     <p>
-        Tag is some short text that will display on character tables if "Account tag" is in your Common layout.
+        Tag is some short text that will display on character tables if "Account tag" is in your
+        Common layout.
     </p>
 
     <table class="table-striped">
@@ -188,7 +199,8 @@
             </tr>
         </thead>
         <tbody>
-            {#each sortBy(Object.values($userStore.accounts), (a) => a.accountId) as account}
+            {#each sortBy(Object.values($userStore.accounts), (a) => a.accountId) as account (account.id)}
+                {@const accountState = settingsState.value.accounts?.[account.id]}
                 {@const accountCharacters = getAccountCharacters($userStore, account.id)}
                 <tr>
                     <td class="account-id">
@@ -199,24 +211,27 @@
                         <TextInput
                             name="account_tag_${account.id}"
                             maxlength={4}
-                            bind:value={account.tag}
+                            bind:value={accountState.tag}
                         />
                     </td>
                     <td class="account-enabled">
                         <Checkbox
                             name="account_enabled_${account.id}"
-                            bind:value={account.enabled}
+                            bind:value={accountState.enabled}
                         />
                     </td>
                     <td class="account-characters">
-                        {#each accountCharacters as character, characterIndex}
+                        {#each accountCharacters as character, characterIndex (character.id)}
                             {characterIndex > 0 ? ', ' : ''}
                             <span class="class-{character.classId}">{character.name}</span>
                         {/each}
                         <code
                             class:status-fail={accountCharacters.length == 65}
-                            class:status-shrug={accountCharacters.length > 45 && accountCharacters.length < 65}
-                        > ({accountCharacters.length} / 65)</code>
+                            class:status-shrug={accountCharacters.length > 45 &&
+                                accountCharacters.length < 65}
+                        >
+                            ({accountCharacters.length} / 65)</code
+                        >
                     </td>
                 </tr>
             {/each}
@@ -226,7 +241,8 @@
     <div class="setting full-width">
         <Checkbox
             name="characters_hideDisabledAccounts"
-            bind:value={$settingsStore.characters.hideDisabledAccounts}
-        >Hide characters on disabled accounts</Checkbox>
+            bind:value={settingsState.value.characters.hideDisabledAccounts}
+            >Hide characters on disabled accounts</Checkbox
+        >
     </div>
 </div>

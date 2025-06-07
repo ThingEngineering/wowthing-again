@@ -1,12 +1,8 @@
-import { get } from 'svelte/store';
-
-import { itemStore } from '@/stores';
 import { RewardType } from '@/enums/reward-type';
+import { wowthingData } from '@/shared/stores/data';
 import type { ManualDataZoneMapDrop } from '@/types/data/manual';
 
 export function getDropQuality(drop: ManualDataZoneMapDrop): number {
-    const itemData = get(itemStore);
-
     if (
         drop.type === RewardType.Item ||
         drop.type === RewardType.Toy ||
@@ -15,7 +11,7 @@ export function getDropQuality(drop: ManualDataZoneMapDrop): number {
         drop.type === RewardType.Weapon ||
         drop.type === RewardType.Transmog
     ) {
-        return itemData.items[drop.id]?.quality || 1;
+        return wowthingData.items.items[drop.id]?.quality || 1;
     } else if (drop.type === RewardType.Mount) {
         return 4;
     } else if (drop.type === RewardType.Pet) {

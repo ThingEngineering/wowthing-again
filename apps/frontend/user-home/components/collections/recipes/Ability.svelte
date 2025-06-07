@@ -90,7 +90,7 @@
 
                 {#if ability.extraRanks?.length > 0}
                     <div class="rank">
-                        {#each Array(ability.extraRanks.length + 1) as _, index}
+                        {#each { length: ability.extraRanks.length + 1 }, index}
                             <IconifyIcon
                                 extraClass={rank <= index ? 'faded' : undefined}
                                 icon={rank > index ? uiIcons.starFull : uiIcons.starEmpty}

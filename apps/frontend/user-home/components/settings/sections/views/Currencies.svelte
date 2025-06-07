@@ -9,8 +9,8 @@
         currencyItems,
         skipCurrenciesMap,
     } from '@/data/currencies';
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
-    import { itemStore } from '@/stores';
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types';
 
     import MagicLists from '../../MagicLists.svelte';
@@ -51,7 +51,7 @@
                 categoryIds.push(
                     ...categoryChildren[categoryId]
                         .map((c) => c.id)
-                        .filter((c) => [125001, 125011, 125012].indexOf(c) === -1),
+                        .filter((c) => [125001, 125011, 125012].indexOf(c) === -1)
                 );
             }
 
@@ -82,7 +82,7 @@
                 }
 
                 for (const itemId of currencyItems[actualCategoryId] || []) {
-                    const item = $itemStore.items[itemId];
+                    const item = wowthingData.items.items[itemId];
                     if (item) {
                         currencies.push({
                             id: (itemId + 1000000).toString(),
@@ -102,7 +102,7 @@
         const lowerFilter = (currencyFilter || '').toLocaleLowerCase();
         currencyChoices = uniqBy(
             currencyChoices.filter((c) => c.name.toLocaleLowerCase().includes(lowerFilter)),
-            (c) => c.id,
+            (c) => c.id
         );
     }
 </script>

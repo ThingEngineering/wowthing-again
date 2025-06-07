@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { itemStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types';
 
     import MagicLists from '../../MagicLists.svelte';
@@ -15,7 +15,7 @@
         itemChoices = [];
 
         for (const itemId of view.homeItems) {
-            const item = $itemStore.items[itemId];
+            const item = wowthingData.items.items[itemId];
             itemChoices.push({
                 id: item.id.toString(),
                 name: item.name,
@@ -23,10 +23,10 @@
         }
 
         const itemWords = (itemFilter?.toLocaleLowerCase()?.split(' ') || []).filter(
-            (word) => word.length >= 3,
+            (word) => word.length >= 3
         );
         if (itemWords.length > 0) {
-            for (const item of Object.values($itemStore.items)) {
+            for (const item of Object.values(wowthingData.items.items)) {
                 const lowerName = item.name.toLocaleLowerCase();
                 if (
                     itemWords.every((word) => lowerName.indexOf(word) >= 0) &&

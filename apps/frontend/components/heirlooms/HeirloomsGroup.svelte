@@ -1,17 +1,21 @@
 <script lang="ts">
-    import { lazyStore } from '@/stores'
-    import { settingsStore } from '@/shared/stores/settings'
-    import getPercentClass from '@/utils/get-percent-class'
-    import type { ManualDataHeirloomGroup } from '@/types/data/manual'
+    import { lazyStore } from '@/stores';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import getPercentClass from '@/utils/get-percent-class';
+    import type { ManualDataHeirloomGroup } from '@/types/data/manual';
 
-    import Count from '@/components/collectible/CollectibleCount.svelte'
-    import Item from './HeirloomsItem.svelte'
+    import Count from '@/components/collectible/CollectibleCount.svelte';
+    import Item from './HeirloomsItem.svelte';
 
-    export let group: ManualDataHeirloomGroup
+    export let group: ManualDataHeirloomGroup;
 
-    $: groupCount = $lazyStore.heirlooms[group.name]
-    $: isUnavailable = group.name.startsWith('Unavailable - ')
-    $: show = !($settingsStore.collections.hideUnavailable && isUnavailable && groupCount.have === 0)
+    $: groupCount = $lazyStore.heirlooms[group.name];
+    $: isUnavailable = group.name.startsWith('Unavailable - ');
+    $: show = !(
+        settingsState.value.collections.hideUnavailable &&
+        isUnavailable &&
+        groupCount.have === 0
+    );
 </script>
 
 <style lang="scss">

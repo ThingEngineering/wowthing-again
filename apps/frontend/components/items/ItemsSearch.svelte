@@ -1,6 +1,6 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
-    import { afterUpdate, onMount } from 'svelte';
+    import { onMount, tick } from 'svelte';
     import { replace } from 'svelte-spa-router';
 
     import { ItemLocation } from '@/enums/item-location';
@@ -15,21 +15,25 @@
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte';
     import Select from '@/shared/components/forms/Select.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
+    import { sharedState } from '@/shared/state/shared.svelte';
 
-    let response: ItemSearchResponseItem[];
+    let response: ItemSearchResponseItem[] = $state([]);
 
-    $: formValid = $itemSearchState.isValid;
-    $: if ($userStore.public) {
-        replace('/items/bags');
-    }
+    let formValid = $derived($itemSearchState.isValid);
 
     onMount(() => {
+        if (sharedState.public) {
+            replace('/items/bags');
+        }
+
         if (formValid) {
             document.getElementById('item-search-submit').click();
         }
     });
 
-    const onSubmit = async function () {
+    const onSubmit = async function (event: Event) {
+        event.preventDefault();
+
         response = await $itemSearchState.search();
         for (const item of response) {
             item.characters = sortBy(item.characters, (char) => [
@@ -39,29 +43,25 @@
         }
     };
 
-    let containerElement: HTMLElement;
-    let resizeableElement: HTMLElement;
-    let debouncedResize: () => void;
-    $: {
+    let containerElement: HTMLElement = $state(null);
+    let resizeableElement: HTMLElement = $state(null);
+    let debouncedResize: () => void = $derived.by(() => {
         if (resizeableElement) {
-            debouncedResize = getColumnResizer(
-                containerElement,
-                resizeableElement,
-                'search-table',
-                {
-                    columnCount: '--column-count',
-                    gap: 20,
-                    minColumns: 2,
-                    padding: '0.75rem',
-                },
-            );
-            debouncedResize();
+            return getColumnResizer(containerElement, resizeableElement, 'search-table', {
+                columnCount: '--column-count',
+                gap: 20,
+                minColumns: 2,
+                padding: '0.75rem',
+            });
         } else {
             debouncedResize = null;
         }
-    }
+    });
 
-    afterUpdate(() => debouncedResize?.());
+    // FIX: hacky, work out how to listen for resize events instead
+    $effect.pre(() => {
+        tick().then(() => debouncedResize?.());
+    });
 </script>
 
 <style lang="scss">
@@ -110,7 +110,7 @@
 
 <div class="wrapper-column" bind:this={containerElement}>
     <div class="thing-container" bind:this={resizeableElement}>
-        <form on:submit|preventDefault={onSubmit}>
+        <form onsubmit={onSubmit}>
             <TextInput
                 name="terms"
                 maxlength={20}

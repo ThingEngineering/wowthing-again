@@ -9,7 +9,7 @@ export interface JournalData {
 
     // calculated
     expandedItem: Record<number, number[]>;
-    instanceById: Record<number, JournalDataInstance>
+    instanceById: Record<number, JournalDataInstance>;
 }
 
 export interface JournalDataTier {

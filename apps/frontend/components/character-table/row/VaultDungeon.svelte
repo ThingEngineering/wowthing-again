@@ -2,14 +2,15 @@
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { getVaultItemLevel } from '@/utils/mythic-plus';
     import { getDungeonLevel } from '@/utils/mythic-plus/get-dungeon-level';
-    import type { Character, CharacterWeeklyProgress } from '@/types';
+    import type { CharacterWeeklyProgress } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import TooltipMythicPlusVault from '@/components/tooltips/vault-mythic-plus/TooltipVaultMythicPlus.svelte';
     import VaultShared from './VaultShared.svelte';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 
-    $: mythicPlus = character.isMaxLevel ? character.weekly?.vault?.dungeonProgress : [];
+    let mythicPlus = $derived(character.isMaxLevel ? character.weekly?.vault?.dungeonProgress : []);
 
     function qualityFunc(prog: CharacterWeeklyProgress): number {
         return getVaultItemLevel(getDungeonLevel(prog))[1];

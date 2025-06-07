@@ -31,5 +31,5 @@ export enum PlayableClassMask {
 }
 
 export const playableClasses: [string, number][] = Object.entries(PlayableClassMask)
-    .filter(([a,]) => isNaN(parseInt(a)))
-    .map(([a, b]) => [a, <number>b])
+    .filter(([a]) => isNaN(parseInt(a)))
+    .map(([a, b]) => [a, <number>b]);

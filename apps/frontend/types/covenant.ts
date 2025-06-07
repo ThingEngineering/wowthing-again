@@ -4,10 +4,9 @@ export class Covenant {
         public name: string,
         public slug: string,
         public icon: string,
-    )
-    {}
+    ) {}
 
     getTooltip(renown: number): string {
-        return `${this.name} Renown ${renown}`
+        return `${this.name} Renown ${renown}`;
     }
 }

@@ -16,7 +16,6 @@ type InstanceLockout = InstanceDifficulty & { characters: [Character, CharacterL
 
 export interface UserData {
     lastApiCheck: string;
-    public: boolean;
 
     accounts: Record<number, Account>;
     charactersRaw: CharacterArray[];

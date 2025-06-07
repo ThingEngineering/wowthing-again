@@ -5,7 +5,8 @@
     import { Faction } from '@/enums/faction';
     import { RewardReputation } from '@/enums/reward-reputation';
     import { iconLibrary, aliasedIcons, uiIcons } from '@/shared/icons';
-    import { itemStore, parsedTextStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
+    import { parsedTextStore } from '@/stores';
     import { staticStore } from '@/shared/stores/static';
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
@@ -32,7 +33,7 @@
 
         html = html.replace(
             /(- )?\|A:Professions-ChatIcon-Quality-Tier(\d):20:20\|a/,
-            '{craftedQuality:$2}',
+            '{craftedQuality:$2}'
         );
 
         // {reputation:amount|factionId}
@@ -46,7 +47,7 @@
                 }
                 parts.push($staticStore.reputations[repId]?.name ?? `Reputation #${repId}`);
                 return parts.join(' ');
-            },
+            }
         );
 
         html = html.replaceAll(
@@ -74,7 +75,7 @@
                 }
 
                 return parts.join(' ');
-            },
+            }
         );
 
         // {currency:currencyId}
@@ -91,7 +92,7 @@
                 if (currencyId) {
                     if (currencyId > 1000000) {
                         const itemId = currencyId - 1000000;
-                        const item = $itemStore.items[itemId];
+                        const item = wowthingData.items.items[itemId];
                         if (item) {
                             if (short !== undefined) {
                                 return `<span data-icon="item/${itemId}"></span> ${amount}`;
@@ -116,12 +117,12 @@
                 } else {
                     return `${amount}g`;
                 }
-            },
+            }
         );
 
         // {itemWithIcon:id}
         html = html.replaceAll(/\{itemWithIcon:(\d+)\}/g, (_, itemId) => {
-            const item = $itemStore.items[parseInt(itemId)];
+            const item = wowthingData.items.items[parseInt(itemId)];
             if (item) {
                 return `<span data-icon="item/${itemId}"></span> <span class="quality${item.quality}">${item.name}</span>`;
             }
@@ -129,7 +130,7 @@
 
         // {item:id}
         html = html.replaceAll(/\{item:(\d+)\}/g, (_, itemId) => {
-            const item = $itemStore.items[parseInt(itemId)];
+            const item = wowthingData.items.items[parseInt(itemId)];
             if (item) {
                 if (item.craftingQuality) {
                     return `<span class="quality${item.quality}">${item.name} <span data-crafted-quality="${item.craftingQuality}"></span></span>`;
@@ -156,12 +157,12 @@
 <div class="drop-shadow" style="height: 16px; width: 48px; background-color: #${hex1}; border: 1px solid #888;"></div>
 `;
                 }
-            },
+            }
         );
 
         html = html.replaceAll(
             /\{craftedQuality:(\d+)\}/g,
-            '<span data-crafted-quality="$1"></span>',
+            '<span data-crafted-quality="$1"></span>'
         );
 
         html = html.replaceAll(/:class-(\d+):/g, '<span data-class="$1"></span>');

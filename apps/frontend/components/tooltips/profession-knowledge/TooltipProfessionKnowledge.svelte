@@ -1,30 +1,32 @@
 <script lang="ts">
-    import { itemStore } from '@/stores'
-    import { staticStore } from '@/shared/stores/static'
-    import type { Profession } from '@/enums/profession'
-    import type { Character } from '@/types'
+    import { wowthingData } from '@/shared/stores/data';
+    import { staticStore } from '@/shared/stores/static';
+    import type { Profession } from '@/enums/profession';
+    import type { Character } from '@/types';
     import type { TaskProfessionQuest } from '@/types/data';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
-    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte'
-    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
+    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
+    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 
-    export let character: Character
-    export let reputationId: number
+    export let character: Character;
+    export let reputationId: number;
     export let zoneData: {
-        have: number,
-        total: number,
+        have: number;
+        total: number;
         items: {
-            have: boolean
-            profession: Profession
-            itemId?: number
-            quest?: TaskProfessionQuest
-            source?: string
-        }[]
-    }
-    export let zoneName: string
+            have: boolean;
+            profession: Profession;
+            itemId?: number;
+            quest?: TaskProfessionQuest;
+            source?: string;
+        }[];
+    };
+    export let zoneName: string;
 
-    $: characterRenown = reputationId ? Math.floor((character.reputations?.[reputationId] ?? 0) / 2500) : 0
+    $: characterRenown = reputationId
+        ? Math.floor((character.reputations?.[reputationId] ?? 0) / 2500)
+        : 0;
 
     let totalCosts: Set<number>;
     $: {
@@ -73,19 +75,15 @@
                 {@const actualItemId = itemId || quest?.itemId || 0}
                 {@const actualSource = source || quest?.source}
                 <tr>
-                    <td
-                        class="have"
-                        class:status-success={have}
-                        class:status-fail={!have}
-                    >
+                    <td class="have" class:status-success={have} class:status-fail={!have}>
                         <YesNoIcon state={have} />
                     </td>
                     <td class="profession">
                         <ProfessionIcon id={profession} />
                     </td>
-                    
+
                     {#if actualItemId > 0}
-                        {@const item = $itemStore.items[actualItemId]}
+                        {@const item = wowthingData.items.items[actualItemId]}
                         <td class="name quality{item.quality} text-overflow">
                             {item.name}
                         </td>
@@ -94,12 +92,9 @@
                     {/if}
 
                     {#if quest?.costs?.length > 0}
-                        <td
-                            class="costs"
-                            class:faded={have}
-                        >
+                        <td class="costs" class:faded={have}>
                             {#each quest.costs as { amount, currencyId, itemId }}
-                                {@const text = `{priceShort:${amount}|${(itemId ? itemId + 1000000 : currencyId)}}`}
+                                {@const text = `{priceShort:${amount}|${itemId ? itemId + 1000000 : currencyId}}`}
                                 <ParsedText {text} />
                             {/each}
                         </td>
@@ -111,8 +106,8 @@
                             <td
                                 class="source"
                                 class:status-fail={renown > characterRenown}
-                                class:status-success={renown <= characterRenown}
-                            >R {renown}</td>
+                                class:status-success={renown <= characterRenown}>R {renown}</td
+                            >
                         {/if}
                     {/if}
                 </tr>
@@ -128,12 +123,13 @@
                     {characterRenown}
                 </span>
             {/if}
-            
+
             {#if totalCosts.size > 0}
                 {#each totalCosts as costId}
-                    {@const amount = costId > 1000000
-                        ? character.getItemCount(costId - 1000000)
-                        : character.currencies?.[costId]?.quantity || 0}
+                    {@const amount =
+                        costId > 1000000
+                            ? character.getItemCount(costId - 1000000)
+                            : character.currencies?.[costId]?.quantity || 0}
                     <ParsedText text={`{priceShort:${amount}|${costId}}`} />
                 {/each}
             {/if}

@@ -1,16 +1,15 @@
+import { LookupType } from '@/enums/lookup-type';
+import { wowthingData } from '@/shared/stores/data';
 import { fixedInventoryType } from '../fixed-inventory-type';
 import { isRecipeKnown } from '../professions/is-recipe-known';
-import { LookupType } from '@/enums/lookup-type';
 import type { Settings } from '@/shared/stores/settings/types/settings';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { LazyTransmog } from '@/stores/lazy/transmog';
 import type { UserQuestData } from '@/types/data';
-import type { ItemData } from '@/types/data/item';
 import type { UserData } from '@/types/user-data';
 
 export function userHasLookup(
     settings: Settings,
-    itemData: ItemData,
     staticData: StaticData,
     userData: UserData,
     userQuestData: UserQuestData,
@@ -25,7 +24,7 @@ export function userHasLookup(
         appearanceIds?: number[];
         completionist?: boolean;
         modifier?: number;
-    },
+    }
 ): boolean {
     if (type === LookupType.Illusion) {
         return userData.hasIllusion.has(appearanceIds[0]);
@@ -37,7 +36,7 @@ export function userHasLookup(
         return !!userData.hasToy[id];
     } else if (type === LookupType.Recipe) {
         const abilityInfo = staticData.professionAbilityByAbilityId[id];
-        return isRecipeKnown({ settings, itemData, staticData, userData }, { abilityInfo });
+        return isRecipeKnown({ settings, staticData, userData }, { abilityInfo });
     } else if (type === LookupType.Quest) {
         return accountTrackingQuest(userQuestData, [id]);
     } else if (type === LookupType.Spell) {
@@ -50,16 +49,17 @@ export function userHasLookup(
         if (appearanceIds?.[0] > 0) {
             const bySlot: Record<number, boolean> = {};
             for (const appearanceId of appearanceIds) {
-                const appearanceItemsAndModifiers = itemData.appearanceToItems[appearanceId];
+                const appearanceItemsAndModifiers =
+                    wowthingData.items.appearanceToItems[appearanceId];
                 for (const [itemId] of appearanceItemsAndModifiers) {
-                    const appearanceItem = itemData.items[itemId];
+                    const appearanceItem = wowthingData.items.items[itemId];
                     const invType = fixedInventoryType(appearanceItem.inventoryType);
                     bySlot[invType] ||= userData.hasAppearance.has(appearanceId);
                 }
             }
             return Object.values(bySlot).every((hasSlot) => !!hasSlot);
         } else {
-            const item = itemData.items[id];
+            const item = wowthingData.items.items[id];
             if (!item) {
                 return false;
             }
@@ -91,7 +91,7 @@ function accountTrackingQuest(userQuestData: UserQuestData, questIds: number[]):
         (questId) =>
             userQuestData.accountHas?.has(questId) ||
             Object.values(userQuestData.characters).some(
-                (charData) => charData?.dailyQuests?.has(questId) || charData?.quests?.has(questId),
-            ),
+                (charData) => charData?.dailyQuests?.has(questId) || charData?.quests?.has(questId)
+            )
     );
 }

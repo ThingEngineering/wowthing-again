@@ -1,7 +1,7 @@
 import { get } from 'svelte/store';
 
 import { Constants } from '@/data/constants';
-import { settingsStore } from '@/shared/stores/settings';
+import { settingsState } from '@/shared/state/settings.svelte';
 import { staticStore } from '@/shared/stores/static';
 import type { StaticDataProfession } from '@/shared/stores/static/types';
 import type { Character, CharacterProfession } from '@/types';
@@ -20,7 +20,7 @@ export function getCharacterProfessions(
         if (profession?.type === professionType) {
             if (profession.subProfessions.length > 0) {
                 let found = false;
-                for (const expansion of settingsStore.expansions) {
+                for (const expansion of settingsState.expansions) {
                     const subProfession = profession.expansionSubProfession[expansion.id];
                     const characterSubProfession =
                         character.professions?.[profession.id]?.[subProfession.id];

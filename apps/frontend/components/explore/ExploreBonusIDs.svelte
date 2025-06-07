@@ -1,6 +1,6 @@
 <script lang="ts">
     import { ItemBonusType } from '@/enums/item-bonus-type';
-    import { itemStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
     import { exploreState } from '@/stores/local-storage';
 
     import TextInput from '@/shared/components/forms/TextInput.svelte';
@@ -54,7 +54,7 @@
     <div class="bonuses">
         {#each $exploreState.bonusIds.split(':') as bonusIdString}
             {@const bonusId = parseInt(bonusIdString)}
-            {@const bonus = $itemStore.itemBonuses[bonusId]}
+            {@const bonus = wowthingData.items.itemBonuses[bonusId]}
             <div class="bonus">
                 <h4>{bonusId}</h4>
                 {#if bonus}

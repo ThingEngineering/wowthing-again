@@ -1,4 +1,5 @@
 import sortBy from 'lodash/sortBy';
+import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
 
 import { Constants } from '@/data/constants';
@@ -69,7 +70,7 @@ export class LazyCharacterChoreTask {
 
     constructor(
         public key: string,
-        public quest: UserQuestDataCharacterProgress,
+        public quest: UserQuestDataCharacterProgress
     ) {}
 }
 export interface LazyCharacterTask {
@@ -126,7 +127,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                 stores,
                 character,
                 professionWorkOrders,
-                CharacterFlag.IgnoreWorkOrders,
+                CharacterFlag.IgnoreWorkOrders
             ),
             professions: new LazyCharacterProfessions(),
         });
@@ -134,7 +135,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
         const professions = new ProcessCharacterProfessions(
             stores,
             character,
-            characterData.professions,
+            characterData.professions
         );
         professions.process();
 
@@ -153,12 +154,12 @@ class ProcessCharacterProfessions {
     constructor(
         private stores: LazyStores,
         private character: Character,
-        private characterData: LazyCharacterProfessions,
+        private characterData: LazyCharacterProfessions
     ) {}
 
     public process() {
         for (const [professionId, characterSubProfessions] of getNumberKeyedEntries(
-            this.character.professions || {},
+            this.character.professions || {}
         )) {
             const staticProfession = this.stores.staticData.professions[professionId];
             // if (staticProfession.type !== 0) {
@@ -262,7 +263,7 @@ class ProcessCharacterProfessions {
 
     private recurseTraits(
         charTraits: Record<number, number>,
-        node: StaticDataSubProfessionTraitNode,
+        node: StaticDataSubProfessionTraitNode
     ) {
         this.currentSubProfession.traitStats.have += (charTraits[node.nodeId] || 1) - 1;
         this.currentSubProfession.traitStats.total += node.rankMax;
@@ -284,8 +285,9 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
 
         const charScanned = charQuests.scannedTime;
 
-        if (choreTask.questIds) {
-            for (const questId of choreTask.questIds) {
+        if (choreTask.questReset !== undefined) {
+            const questIds = choreTask.questIdFunc?.(character, choreTask) || choreTask.questIds;
+            for (const questId of questIds) {
                 // is the quest in progress?
                 const questProgress = charProgressQuests?.[`q${questId}`];
                 if (questProgress) {
@@ -314,14 +316,14 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                     if (choreTask.questReset === DbResetType.Weekly) {
                         expiresAt = getNextWeeklyResetFromTime(
                             charScanned,
-                            character.realm?.region || Region.US,
+                            character.realm?.region || Region.US
                         );
                     } else if (choreTask.questReset === DbResetType.Custom) {
                         expiresAt = choreTask.customExpiryFunc(character, charScanned);
                     } else {
                         expiresAt = getNextDailyResetFromTime(
                             charScanned,
-                            character.realm?.region || Region.US,
+                            character.realm?.region || Region.US
                         );
                     }
 
@@ -431,8 +433,8 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                         choreTask.requiredHolidays?.length > 0 &&
                         !choreTask.requiredHolidays.some((holiday) =>
                             holidayIds[holiday].some(
-                                (holidayId) => stores.activeHolidays[`h${holidayId}`],
-                            ),
+                                (holidayId) => stores.activeHolidays[`h${holidayId}`]
+                            )
                         )
                     ) {
                         continue;
@@ -449,12 +451,12 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                                 ([charId, charQuests]) => {
                                     const charTask = processTask(
                                         choreTask,
-                                        stores.userData.characterMap[parseInt(charId)],
+                                        stores.userData.characterMap[parseInt(charId)]
                                     );
                                     return [charTask.status, charQuests.scannedAt, charTask];
-                                },
+                                }
                             ),
-                            ([status, scannedAt]) => `${status}|${scannedAt}`,
+                            ([status, scannedAt]) => `${status}|${scannedAt}`
                         ).at(-1)?.[2] as LazyCharacterChoreTask;
                     } else {
                         charTask = processTask(choreTask, character);
@@ -478,7 +480,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
 
                     if (charTask.statusTexts.length === 0) {
                         charTask.statusTexts.push(
-                            !charTask.quest ? choreTask.canGetFunc?.(character) || '' : '',
+                            !charTask.quest ? choreTask.canGetFunc?.(character) || '' : ''
                         );
                     }
 
@@ -548,7 +550,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                                 professionData.dropQuests.forEach((drop, index) => {
                                     const dropKey = choreTask.taskKey.replace(
                                         '#',
-                                        (index + 1).toString(),
+                                        (index + 1).toString()
                                     );
                                     const progressQuest =
                                         stores.userQuestData.characters[character.id]
@@ -578,14 +580,14 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
 
                         if (charTask.statusTexts.length === 0) {
                             needCount = choreTask.taskName.match(
-                                /^\[\w+\] (Herbalism|Mining|Skinning):/,
+                                /^\[\w+\] (Herbalism|Mining|Skinning):/
                             )
                                 ? 6
                                 : 4;
                             for (let dropIndex = 0; dropIndex < needCount; dropIndex++) {
                                 const dropKey = choreTask.taskKey.replace(
                                     '#',
-                                    (dropIndex + 1).toString(),
+                                    (dropIndex + 1).toString()
                                 );
                                 const progressQuest =
                                     stores.userQuestData.characters[character.id]?.progressQuests?.[
@@ -664,13 +666,13 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                                 const starHtml = getStarHtml(
                                     false,
                                     firstChore.noProgress || !!firstQuest,
-                                    !firstChore.noProgress,
+                                    !firstChore.noProgress
                                 );
 
                                 if (firstChore.showQuestName) {
                                     if (firstQuest) {
                                         charTask.statusTexts = getObjectivesText(
-                                            firstQuest.objectives,
+                                            firstQuest.objectives
                                         );
                                     } else {
                                         otherText = 'Get quest!';
@@ -704,7 +706,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                                 charTask.quest?.objectives?.length > 0
                             ) {
                                 charChore.anyReady ||= charTask.quest.objectives.every(
-                                    (obj) => !!obj.text && obj.have >= obj.need,
+                                    (obj) => !!obj.text && obj.have >= obj.need
                                 );
                             }
                         }
@@ -713,20 +715,33 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                     charChore.tasks.push(charTask);
                 }
 
-                // noAlone chores can't be the only one
                 if (charChore.tasks.length === 1) {
                     const choreTask = multiTaskMap[taskName].find(
-                        (chore) => chore.taskKey === charChore.tasks[0].key,
+                        (chore) => chore.taskKey === charChore.tasks[0].key
                     );
+
+                    // noAlone chores can't be the only one
                     if (choreTask.noAlone) {
                         continue;
                     }
 
+                    charChore.status = charChore.tasks[0].status;
+
                     const objectives = charChore.tasks[0].quest?.objectives;
-                    if (objectives?.length === 1) {
-                        charChore.countCompleted = objectives[0].have;
-                        charChore.countTotal = objectives[0].need;
+                    if (objectives?.length > 0) {
+                        const objective = objectives[objectives.length - 1];
+                        charChore.countCompleted = objective.have;
+                        charChore.countTotal = objective.need;
                         charChore.countStarted = charChore.countTotal - charChore.countCompleted;
+                    }
+                } else {
+                    const statuses = uniq(
+                        charChore.tasks
+                            .filter((task) => !!task && !task.skipped)
+                            .map((task) => task.status)
+                    );
+                    if (statuses.length === 1) {
+                        charChore.status = statuses[0];
                     }
                 }
 
@@ -768,7 +783,8 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                         const objectives = charTask.quest.objectives || [];
                         if (objectives.length === 1) {
                             const objective = charTask.quest.objectives[0];
-                            if (objective.type === 'progressbar') {                                charTask.text = `${objective.have} / ${objective.need}`;
+                            if (objective.type === 'progressbar') {
+                                charTask.text = `${objective.have} / ${objective.need}`;
                             } else {
                                 charTask.text = `${Math.floor((Math.min(objective.have, objective.need) / objective.need) * 100)} %`;
                             }
@@ -780,7 +796,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                             const averagePercent =
                                 objectives.reduce(
                                     (a, b) => a + Math.min(b.have, b.need) / b.need,
-                                    0,
+                                    0
                                 ) / objectives.length;
 
                             charTask.text = `${Math.floor(averagePercent * 100)} %`;
@@ -801,15 +817,13 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
             }
         } // choreTask of choreTasks
     } // view of views
-
-    if (character.name === 'Totake') console.log(character.name, characterData.chores);
 }
 
 function doProfessionCooldowns(
     stores: LazyStores,
     character: Character,
     cooldownDatas: (ProfessionCooldownQuest | ProfessionCooldownSpell)[],
-    useFlag: CharacterFlag = CharacterFlag.None,
+    useFlag: CharacterFlag = CharacterFlag.None
 ): LazyCharacterCooldowns {
     const ret = new LazyCharacterCooldowns();
 
@@ -839,7 +853,7 @@ function doProfessionCooldowns(
                     if (expires > stores.currentTime) {
                         full = getNextDailyResetFromTime(
                             expires,
-                            character.realm?.region || Region.US,
+                            character.realm?.region || Region.US
                         );
                         have = 0;
                     }
@@ -887,11 +901,11 @@ function doProfessionCooldowns(
                     // out when this character will be full
                     if (charNext > 0) {
                         charFull = DateTime.fromSeconds(
-                            charNext + (charMax - charHave - 1) * seconds,
+                            charNext + (charMax - charHave - 1) * seconds
                         );
                         const diff = Math.floor(
                             stores.currentTime.diff(DateTime.fromSeconds(charNext)).toMillis() /
-                                1000,
+                                1000
                         );
                         if (diff > 0) {
                             charHave = Math.min(charMax, charHave + 1 + Math.floor(diff / seconds));

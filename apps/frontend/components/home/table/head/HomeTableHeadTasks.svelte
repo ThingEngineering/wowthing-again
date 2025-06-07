@@ -1,7 +1,8 @@
 <script lang="ts">
     import { multiTaskMap, taskMap } from '@/data/tasks';
+    import { activeViewTasks } from '@/user-home/state/activeViewTasks.svelte';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { activeViewTasks } from '@/stores/derived/active-view-tasks';
     import { homeState } from '@/stores/local-storage';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
@@ -28,29 +29,31 @@
     }
 </style>
 
-{#each $activeViewTasks as fullTaskName}
-    {@const [taskName, choreName] = fullTaskName.split('|', 2)}
-    {@const sortField = `task:${fullTaskName}`}
-    <td
-        class="sortable"
-        class:sorted-by={$homeState.groupSort[sortKey] === sortField}
-        data-task={taskName}
-        on:click={() => setSorting(sortField)}
-        on:keypress={() => setSorting(sortField)}
-        use:componentTooltip={{
-            component: Tooltip,
-            props: {
-                fullTaskName,
-            },
-        }}
-    >
-        {#if choreName}
-            <IconifyIcon
-                icon={multiTaskMap[taskName].find((chore) => chore.taskKey === choreName)?.icon}
-                scale="0.9"
-            />
-        {:else}
-            <ParsedText text={taskMap[taskName].shortName} />
-        {/if}
-    </td>
-{/each}
+{#key settingsState.activeView.id}
+    {#each activeViewTasks().value as fullTaskName (fullTaskName)}
+        {@const [taskName, choreName] = fullTaskName.split('|', 2)}
+        {@const sortField = `task:${fullTaskName}`}
+        <td
+            class="sortable"
+            class:sorted-by={$homeState.groupSort[sortKey] === sortField}
+            data-task={taskName}
+            on:click={() => setSorting(sortField)}
+            on:keypress={() => setSorting(sortField)}
+            use:componentTooltip={{
+                component: Tooltip,
+                props: {
+                    fullTaskName,
+                },
+            }}
+        >
+            {#if choreName}
+                <IconifyIcon
+                    icon={multiTaskMap[taskName].find((chore) => chore.taskKey === choreName)?.icon}
+                    scale="0.9"
+                />
+            {:else}
+                <ParsedText text={taskMap[taskName].shortName} />
+            {/if}
+        </td>
+    {/each}
+{/key}

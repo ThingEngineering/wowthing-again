@@ -1,7 +1,8 @@
 const config = {
+    plugins: ['prettier-plugin-svelte'],
     singleQuote: true,
     tabWidth: 4,
-    trailingCommas: 'es5',
+    trailingComma: 'es5',
     svelteSortOrder: 'options-scripts-styles-markup',
 };
 

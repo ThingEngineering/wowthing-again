@@ -2,11 +2,12 @@
     import sortBy from 'lodash/sortBy';
 
     import { Region } from '@/enums/region';
-    import { userStore } from '@/stores';
-    import { itemSearchState } from '@/stores';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import { itemSearchState, userStore } from '@/stores';
     import type { Character } from '@/types';
     import type { ItemSearchResponseCharacter, ItemSearchResponseItem } from '@/types/items';
 
+    import CharacterTag from '@/shared/components/CharacterTag.svelte';
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import Row from './ItemsSearchCharacterRow.svelte';
 
@@ -54,13 +55,13 @@
     }
 </script>
 
-{#each characters as [character, items]}
+{#each characters as [character, items] (character.id)}
     <table class="table table-striped search-table">
         <thead>
             <tr class="item-row">
-                {#if userStore.useAccountTags}
+                {#if settingsState.useAccountTags}
                     <td class="tag">
-                        {$userStore.accounts[character.accountId].tag || ''}
+                        <CharacterTag {character} />
                     </td>
                 {/if}
                 <th class="item">
@@ -74,7 +75,7 @@
         </thead>
 
         <tbody>
-            {#each items as characterItem}
+            {#each items as characterItem (characterItem)}
                 <Row itemId={characterItem.itemId} {characterItem} />
             {/each}
             <!-- 

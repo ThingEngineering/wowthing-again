@@ -2,14 +2,20 @@ import { DateTime } from 'luxon';
 import { get } from 'svelte/store';
 
 import { Constants } from '@/data/constants';
+import { slotOrder } from '@/data/inventory-slot';
 import { professionSpecializationToSpell } from '@/data/professions';
+import { Faction } from '@/enums/faction';
+import { InventorySlot } from '@/enums/inventory-slot';
 import { Profession } from '@/enums/profession';
+import { settingsState } from '@/shared/state/settings.svelte';
 import { staticStore } from '@/shared/stores/static';
 import { getBestItemLevels } from '@/utils/characters/get-best-item-levels';
 import { leftPad } from '@/utils/formatting';
 import { getCharacterLevel } from '@/utils/get-character-level';
+import { getGenderedName } from '@/utils/get-gendered-name';
+import getItemLevelQuality from '@/utils/get-item-level-quality';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
-import type { Faction } from '@/enums/faction';
+import { initializeContainsItems } from '@/utils/items/initialize-contains-items';
 import type { InventoryType } from '@/enums/inventory-type';
 import type { Region } from '@/enums/region';
 import type { StaticData, StaticDataRealm } from '@/shared/stores/static/types';
@@ -49,92 +55,138 @@ import { CharacterWeekly, type CharacterWeeklyArray } from './weekly';
 import type { ContainsItems, HasNameAndRealm } from '../shared';
 import type { Account } from '../account';
 import type { CharacterAura } from './aura';
-import type { ItemData } from '../data/item';
 import type { CharacterPatronOrder } from './patron-order';
 
 export class Character implements ContainsItems, HasNameAndRealm {
-    // Calculated
-    public hidden: boolean;
-    public ignored: boolean;
+    // Static
+    public id: number;
+    public accountId: number;
+    public classId: number;
+    public gender: number;
+    public guildId: number;
+    public raceId: number;
+    public realmId: number;
+    public name: string;
+    public faction: Faction;
+
+    // Static calculated
+    public className: string;
+    public raceName: string;
+    public specializationName: string;
 
     public account: Account;
     public guild: Guild;
     public realm: StaticDataRealm;
     public region: Region;
 
-    public className: string;
-    public raceName: string;
-    public specializationName: string;
+    // Reactive
+    public activeSpecId = $state(0);
+    public equippedItemLevel = $state(0);
+    public gold = $state(0);
+    public level = $state(0);
+    public levelXp = $state(0);
+    public playedTotal = $state(0);
+    public restedExperience = $state(0);
 
-    public calculatedItemLevel: string;
-    public calculatedItemLevelQuality: number;
-    public lastApiUpdate: DateTime;
-    public lastSeenAddon: DateTime;
-    public scannedCurrencies: DateTime;
+    public chromieTime = $state(false);
+    public isResting = $state(false);
+    public isWarMode = $state(false);
 
-    public bags: Record<number, number> = {};
-    public currencies: Record<number, CharacterCurrency> = {};
-    public equippedItems: Record<number, CharacterEquippedItem>;
-    public itemsByAppearanceId: Record<number, CharacterItem[]>;
-    public itemsByAppearanceSource: Record<string, CharacterItem[]>;
-    public itemsById: Record<number, CharacterItem[]>;
-    public itemsByLocation: Record<number, CharacterItem[]>;
-    public mythicPlusSeasonScores: Record<number, number>;
-    public mythicPlusSeasons: Record<number, Record<number, CharacterMythicPlusAddonMap>>;
-    public mythicPlusWeeks: Record<number, CharacterMythicPlusAddonRun[]> = {};
-    public professionSpecializations: Record<number, number>;
-    public reputationData: Record<string, CharacterReputation>;
-    public specializations: Record<number, Record<number, number>> = {};
+    public currentLocation = $state<string>(undefined);
+    public hearthLocation = $state<string>(undefined);
+
+    public lastApiUpdate: DateTime = $state<DateTime>(undefined);
+    public lastApiUpdateUnix = $state(0);
+    public lastSeenAddon: DateTime = $state<DateTime>(undefined);
+    public lastSeenAddonUnix = $state(0);
+    public scannedCurrencies: DateTime = $state<DateTime>(undefined);
+
+    // Calculated
+    public bags: Record<number, number> = $state({});
+    public currencies: Record<number, CharacterCurrency> = $state({});
+    public equippedItems: Record<number, CharacterEquippedItem> = $state({});
+    public itemsByAppearanceId: Record<number, CharacterItem[]> = $state({});
+    public itemsByAppearanceSource: Record<string, CharacterItem[]> = $state({});
+    public itemsById: Record<number, CharacterItem[]> = $state({});
+    public itemsByLocation: Record<number, CharacterItem[]> = $state({});
+    public mythicPlusSeasonScores: Record<number, number> = $state({});
+    public mythicPlusSeasons: Record<number, Record<number, CharacterMythicPlusAddonMap>> = $state(
+        {}
+    );
+    public mythicPlusWeeks: Record<number, CharacterMythicPlusAddonRun[]> = $state({});
+    public professionSpecializations: Record<number, number> = $state({});
+    public reputationData: Record<string, CharacterReputation> = $state({});
+    public specializations: Record<number, Record<number, number>> = $state({});
+
     public statistics: CharacterStatistics = new CharacterStatistics();
     public weekly: CharacterWeekly;
 
-    constructor(
-        public id: number,
-        public name: string,
-        public isResting: number,
-        public isWarMode: number,
-        public accountId: number,
-        public activeSpecId: number,
-        public level: number,
-        public levelXp: number,
-        public chromieTime: number,
-        public classId: number,
-        public equippedItemLevel: number,
-        public faction: Faction,
-        public gender: number,
-        public guildId: number,
-        public playedTotal: number,
-        public raceId: number,
-        public realmId: number,
-        public restedExperience: number,
-        public gold: number,
-        public currentLocation: string,
-        public hearthLocation: string,
+    public configuration: CharacterConfiguration;
+
+    public auras: Record<number, CharacterAura> = $state({});
+    public garrisons: Record<number, CharacterGarrison> = $state({});
+    public garrisonTrees: Record<number, Record<number, number[]>> = $state({});
+    public highestItemLevel: Record<number, number> = $state({});
+    public knownSpells: number[] = $state([]);
+    public lockouts: Record<string, CharacterLockout> = $state({});
+    public mythicPlus: CharacterMythicPlus;
+    public mythicPlusAddon: Record<number, CharacterMythicPlusAddon> = $state({});
+    public paragons: Record<number, CharacterReputationParagon> = $state({});
+    public patronOrders: Record<number, CharacterPatronOrder[]> = $state({});
+    public professions: Record<number, Record<number, CharacterProfession>> = $state({});
+    public professionCooldowns: Record<string, [number, number, number]> = $state({});
+    public professionTraits: Record<number, Record<number, number>> = $state({});
+    public raiderIo: Record<number, CharacterRaiderIoSeason> = $state({});
+    public reputations: Record<number, number> = $state({});
+    public shadowlands: CharacterShadowlands;
+
+    init(
+        id: number,
+        name: string,
+        isResting: number,
+        isWarMode: number,
+        accountId: number,
+        activeSpecId: number,
+        level: number,
+        levelXp: number,
+        chromieTime: number,
+        classId: number,
+        equippedItemLevel: number,
+        faction: Faction,
+        gender: number,
+        guildId: number,
+        playedTotal: number,
+        raceId: number,
+        realmId: number,
+        restedExperience: number,
+        gold: number,
+        currentLocation: string,
+        hearthLocation: string,
         lastApiUpdateUnix: number,
         lastSeenAddonUnix: number,
         scannedCurrenciesUnix: number,
 
-        public configuration: CharacterConfiguration,
+        configuration: CharacterConfiguration,
 
-        public auras: Record<number, CharacterAura>,
+        auras: Record<number, CharacterAura>,
         rawEquippedItems: Record<number, CharacterEquippedItemArray>,
-        public garrisons: Record<number, CharacterGarrison>,
-        public garrisonTrees: Record<number, Record<number, number[]>>,
-        public highestItemLevel: Record<number, number>,
-        public knownSpells: number[],
-        public lockouts: Record<string, CharacterLockout>,
-        public mythicPlus: CharacterMythicPlus,
-        public mythicPlusAddon: Record<number, CharacterMythicPlusAddon>,
+        garrisons: Record<number, CharacterGarrison>,
+        garrisonTrees: Record<number, Record<number, number[]>>,
+        highestItemLevel: Record<number, number>,
+        knownSpells: number[],
+        lockouts: Record<string, CharacterLockout>,
+        mythicPlus: CharacterMythicPlus,
+        mythicPlusAddon: Record<number, CharacterMythicPlusAddon>,
         rawMythicPlusSeasons: Record<number, Record<number, CharacterMythicPlusAddonMapArray>>,
-        public paragons: Record<number, CharacterReputationParagon>,
-        public patronOrders: Record<number, CharacterPatronOrder[]>,
-        public professions: Record<number, Record<number, CharacterProfession>>,
-        public professionCooldowns: Record<string, [number, number, number]>,
+        paragons: Record<number, CharacterReputationParagon>,
+        patronOrders: Record<number, CharacterPatronOrder[]>,
+        professions: Record<number, Record<number, CharacterProfession>>,
+        professionCooldowns: Record<string, [number, number, number]>,
         professionSpecializations: Record<number, string>,
-        public professionTraits: Record<number, Record<number, number>>,
-        public raiderIo: Record<number, CharacterRaiderIoSeason>,
-        public reputations: Record<number, number>,
-        public shadowlands: CharacterShadowlands,
+        professionTraits: Record<number, Record<number, number>>,
+        raiderIo: Record<number, CharacterRaiderIoSeason>,
+        reputations: Record<number, number>,
+        shadowlands: CharacterShadowlands,
         rawWeekly: CharacterWeeklyArray,
 
         rawCurrencies: CharacterCurrencyArray[],
@@ -145,8 +197,78 @@ export class Character implements ContainsItems, HasNameAndRealm {
             CharacterStatisticBasicArray[],
             CharacterStatisticMiscArray[],
             CharacterStatisticRatingArray[],
-        ],
+        ]
     ) {
+        this.id = id;
+        this.name = name;
+        this.isResting = isResting === 1;
+        this.isWarMode = isWarMode === 1;
+        this.accountId = accountId;
+        this.activeSpecId = activeSpecId;
+        this.level = level;
+        this.levelXp = levelXp;
+        this.chromieTime = chromieTime === 1;
+        this.classId = classId;
+        this.equippedItemLevel = equippedItemLevel;
+        this.faction = faction;
+        this.gender = gender;
+        this.guildId = guildId;
+        this.playedTotal = playedTotal;
+        this.raceId = raceId;
+        this.realmId = realmId;
+        this.restedExperience = restedExperience;
+        this.gold = gold;
+        this.currentLocation = currentLocation;
+        this.hearthLocation = hearthLocation;
+        this.lastApiUpdateUnix = lastApiUpdateUnix;
+        this.lastSeenAddonUnix = lastSeenAddonUnix;
+
+        this.configuration = configuration;
+        this.auras = auras;
+        // rawEquippedItems
+        this.garrisons = garrisons;
+        this.garrisonTrees = garrisonTrees;
+        this.highestItemLevel = highestItemLevel;
+        this.knownSpells = knownSpells;
+        this.lockouts = lockouts;
+        this.mythicPlus = mythicPlus;
+        this.mythicPlusAddon = mythicPlusAddon;
+        this.paragons = paragons;
+        this.patronOrders = patronOrders;
+        this.professions = professions;
+        this.professionCooldowns = professionCooldowns;
+        // professionSpecializations;
+        this.professionTraits = professionTraits;
+        this.raiderIo = raiderIo;
+        this.reputations = reputations;
+        this.shadowlands = shadowlands;
+        // rawWeekly
+        // rawCurrenices
+        // rawItems
+        // rawMythicPlusWeeks
+        // rawSpecializations
+        // rawStatistics
+
+        const staticData = get(staticStore);
+
+        // account relies on UserStore data
+        // guild relies on UserStore data
+        this.realm = staticData.realms[this.realmId];
+        this.region = this.realm?.region;
+
+        // names
+        this.className = getGenderedName(
+            staticData.characterClasses[this.classId].name,
+            this.gender
+        );
+        this.raceName = getGenderedName(staticData.characterRaces[this.raceId].name, this.gender);
+        if (this.activeSpecId > 0) {
+            this.specializationName = getGenderedName(
+                staticData.characterSpecializations[this.activeSpecId].name,
+                this.gender
+            );
+        }
+
         const pandaCooking = this.professions?.[Profession.Cooking]?.[2544];
         if (pandaCooking) {
             for (let skillLineId = 975; skillLineId <= 980; skillLineId++) {
@@ -190,25 +312,28 @@ export class Character implements ContainsItems, HasNameAndRealm {
             this.equippedItems[slot] = obj;
         }
 
+        const items: CharacterItem[] = [];
         for (const rawItem of rawItems || []) {
             const obj = new CharacterItem(...rawItem);
             if (obj.slot === 0) {
                 this.bags[obj.bagId] = obj.itemId;
             } else {
-                (this.itemsById[obj.itemId] ||= []).push(obj);
+                items.push(obj);
                 (this.itemsByLocation[obj.location] ||= []).push(obj);
             }
         }
 
+        initializeContainsItems(this, items);
+
         if (this.mythicPlus) {
             this.mythicPlus.seasons = {};
             for (const [seasonId, seasonData] of getNumberKeyedEntries(
-                this.mythicPlus.rawSeasons || {},
+                this.mythicPlus.rawSeasons || {}
             )) {
                 this.mythicPlus.seasons[seasonId] = {};
                 for (const [mapId, runArrays] of getNumberKeyedEntries(seasonData)) {
                     this.mythicPlus.seasons[seasonId][mapId] = runArrays.map(
-                        (runArray) => new CharacterMythicPlusRun(...runArray),
+                        (runArray) => new CharacterMythicPlusRun(...runArray)
                     );
                 }
             }
@@ -218,7 +343,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         if (this.mythicPlusAddon) {
             for (const seasonData of Object.values(this.mythicPlusAddon)) {
                 seasonData.runs = (seasonData.rawRuns || []).map(
-                    (runArray) => new CharacterMythicPlusAddonRun(...runArray),
+                    (runArray) => new CharacterMythicPlusAddonRun(...runArray)
                 );
                 seasonData.rawRuns = null;
             }
@@ -229,14 +354,14 @@ export class Character implements ContainsItems, HasNameAndRealm {
             this.mythicPlusSeasons[seasonId] = {};
             for (const [mapId, mapArray] of getNumberKeyedEntries(seasonData)) {
                 this.mythicPlusSeasons[seasonId][mapId] = new CharacterMythicPlusAddonMap(
-                    ...mapArray,
+                    ...mapArray
                 );
             }
         }
 
         for (const [week, runsArray] of Object.entries(rawMythicPlusWeeks || {})) {
             this.mythicPlusWeeks[parseInt(week)] = runsArray.map(
-                (runArray) => new CharacterMythicPlusAddonRun(...runArray),
+                (runArray) => new CharacterMythicPlusAddonRun(...runArray)
             );
         }
 
@@ -278,6 +403,43 @@ export class Character implements ContainsItems, HasNameAndRealm {
         }
     }
 
+    hidden = $derived.by(() => settingsState.value.characters.hiddenCharacters?.includes(this.id));
+    ignored = $derived.by(
+        () => this.hidden || settingsState.value.characters.ignoredCharacters?.includes(this.id)
+    );
+
+    calculatedItemLevel = $derived.by(() => {
+        let calced: string = undefined;
+        if (Object.keys(this.equippedItems).length > 0) {
+            let count = 0,
+                itemLevels = 0;
+            for (let j = 0; j < slotOrder.length; j++) {
+                const slot = slotOrder[j];
+                const equippedItem = this.equippedItems[slot];
+                if (equippedItem !== undefined) {
+                    itemLevels += equippedItem.itemLevel;
+                    count++;
+                    if (
+                        slot === InventorySlot.MainHand &&
+                        this.equippedItems[InventorySlot.OffHand] === undefined
+                    ) {
+                        itemLevels += equippedItem.itemLevel;
+                        count++;
+                    }
+                }
+            }
+
+            const itemLevel = itemLevels / count;
+            calced = itemLevel.toFixed(1);
+        }
+
+        return calced || this.equippedItemLevel.toFixed(1);
+    });
+
+    calculatedItemLevelQuality = $derived.by(() =>
+        getItemLevelQuality(parseFloat(this.calculatedItemLevel))
+    );
+
     private _fancyLevel: string;
     get fancyLevel(): string {
         if (!this._fancyLevel) {
@@ -296,11 +458,8 @@ export class Character implements ContainsItems, HasNameAndRealm {
     }
 
     public bestItemLevels: Record<number, [string, InventoryType[]]>;
-    getBestItemLevels(
-        itemData: ItemData,
-        staticData: StaticData,
-    ): Record<number, [string, InventoryType[]]> {
-        this.bestItemLevels ||= getBestItemLevels(itemData, staticData, this);
+    getBestItemLevels(staticData: StaticData): Record<number, [string, InventoryType[]]> {
+        this.bestItemLevels ||= getBestItemLevels(staticData, this);
         return this.bestItemLevels;
     }
 
@@ -308,7 +467,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     getItemCount(itemId: number): number {
         return (this._itemCounts[itemId] ||= (this.itemsById[itemId] || []).reduce(
             (a, b) => a + b.count,
-            0,
+            0
         ));
     }
 
@@ -346,4 +505,4 @@ export class Character implements ContainsItems, HasNameAndRealm {
         return this.allProfessionAbilities.has(abilityId);
     }
 }
-export type CharacterArray = ConstructorParameters<typeof Character>;
+export type CharacterArray = Parameters<Character['init']>;

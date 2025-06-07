@@ -2,7 +2,7 @@
     import sortBy from 'lodash/sortBy';
 
     import { staticStore } from '@/shared/stores/static';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
     import Collecting from './SettingsProfessionsCollecting.svelte';
@@ -21,42 +21,42 @@
         <h3>Profession Weeklies</h3>
 
         <CheckboxInput
-            bind:value={$settingsStore.professions.dragonflightCountCraftingDrops}
+            bind:value={settingsState.value.professions.dragonflightCountCraftingDrops}
             name="professions_dragonflightCountCraftingDrops"
         >
             Count incomplete crafting drops in Profession Weeklies.
         </CheckboxInput>
 
         <CheckboxInput
-            bind:value={$settingsStore.professions.dragonflightCountGathering}
+            bind:value={settingsState.value.professions.dragonflightCountGathering}
             name="professions_dragonflightCountGathering"
         >
             Count incomplete gathering tasks in Profession Weeklies.
         </CheckboxInput>
 
         <CheckboxInput
-            bind:value={$settingsStore.professions.dragonflightCountTasks}
+            bind:value={settingsState.value.professions.dragonflightCountTasks}
             name="professions_dragonflightCountTasks"
         >
             Count incomplete "Task" tasks in Profession Weeklies.
         </CheckboxInput>
 
         <CheckboxInput
-            bind:value={$settingsStore.professions.dragonflightTreatises}
+            bind:value={settingsState.value.professions.dragonflightTreatises}
             name="professions_dragonflightTreatises"
         >
             Show Treatises in Profession Weeklies.
         </CheckboxInput>
 
         <CheckboxInput
-            bind:value={$settingsStore.professions.fullConcentrationIsBad}
+            bind:value={settingsState.value.professions.fullConcentrationIsBad}
             name="professions_fullConcentrationIsBad"
         >
             Full Concentration is a bad thing.
         </CheckboxInput>
 
         <CheckboxInput
-            bind:value={$settingsStore.professions.ignoreTasksWhenDoneWithTraits}
+            bind:value={settingsState.value.professions.ignoreTasksWhenDoneWithTraits}
             name="professions_ignoreTasksWhenDoneWithTraits"
         >
             Ignore tasks when character has 100% of traits.

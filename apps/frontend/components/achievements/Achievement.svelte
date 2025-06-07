@@ -1,55 +1,55 @@
 <script lang="ts">
-    import { iconStrings } from '@/data/icons'
-    import { achievementStore, userAchievementStore } from '@/stores'
-    import { achievementState } from '@/stores/local-storage'
-    import { settingsStore } from '@/shared/stores/settings'
-    import type { AchievementDataAchievement } from '@/types'
+    import { iconStrings } from '@/data/icons';
+    import { achievementStore, userAchievementStore } from '@/stores';
+    import { achievementState } from '@/stores/local-storage';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import type { AchievementDataAchievement } from '@/types';
 
-    import AchievementLink from '@/shared/components/links/AchievementLink.svelte'
-    import Criteria from './Criteria.svelte'
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import AchievementLink from '@/shared/components/links/AchievementLink.svelte';
+    import Criteria from './Criteria.svelte';
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let achievementId: number
-    export let allAchievementIds: number[] = undefined
-    export let alwaysShow = false
-    export let kindaAlwaysShow = false
+    export let achievementId: number;
+    export let allAchievementIds: number[] = undefined;
+    export let alwaysShow = false;
+    export let kindaAlwaysShow = false;
 
-    let achievement: AchievementDataAchievement
-    let earned: number
-    let earnedDate: Date
-    let show: boolean
-    let chain: number[]
-    let faction: number
+    let achievement: AchievementDataAchievement;
+    let earned: number;
+    let earnedDate: Date;
+    let show: boolean;
+    let chain: number[];
+    let faction: number;
     $: {
-        achievement = $achievementStore.achievement[achievementId]
-        if (!achievement) { break $ }
+        achievement = $achievementStore.achievement[achievementId];
+        if (!achievement) {
+            break $;
+        }
 
         if (allAchievementIds) {
             for (const possibleId of allAchievementIds) {
-                const possibleEarned = $userAchievementStore.achievements[possibleId]
+                const possibleEarned = $userAchievementStore.achievements[possibleId];
                 if (possibleEarned && (!earned || possibleEarned < earned)) {
-                    earned = possibleEarned
+                    earned = possibleEarned;
                 }
             }
         } else {
-            earned = $userAchievementStore.achievements[achievementId]
+            earned = $userAchievementStore.achievements[achievementId];
         }
 
-        earnedDate = new Date(earned * 1000)
-        chain = []
-        show = true
+        earnedDate = new Date(earned * 1000);
+        chain = [];
+        show = true;
 
         // Why are achievement factions reversed? Who knows :|
         if (achievement.faction === 0) {
-            faction = 1
-        }
-        else if (achievement.faction === 1) {
-            faction = 0
-        }
-        else {
-            faction = achievement.faction
+            faction = 1;
+        } else if (achievement.faction === 1) {
+            faction = 0;
+        } else {
+            faction = achievement.faction;
         }
 
         // Chain : A B C D
@@ -61,51 +61,53 @@
         //   D = not earned + supersedes not earned, don't show
 
         // Hack for some weird achievements that don't reference future ones properly
-        if (achievement.supersededBy && (
-            $userAchievementStore.achievements[achievement.supersededBy] ||
-            $userAchievementStore.achievements[$achievementStore.achievement[achievement.supersededBy].supersededBy]
-        )) {
-            show = false
-        }
-        else if (!kindaAlwaysShow && achievement.supersedes && $userAchievementStore.achievements[achievement.supersedes] === undefined) {
-            show = false
-        }
-        else {
-            let sigh = achievement
+        if (
+            achievement.supersededBy &&
+            ($userAchievementStore.achievements[achievement.supersededBy] ||
+                $userAchievementStore.achievements[
+                    $achievementStore.achievement[achievement.supersededBy].supersededBy
+                ])
+        ) {
+            show = false;
+        } else if (
+            !kindaAlwaysShow &&
+            achievement.supersedes &&
+            $userAchievementStore.achievements[achievement.supersedes] === undefined
+        ) {
+            show = false;
+        } else {
+            let sigh = achievement;
             while (sigh?.supersedes) {
-                chain.push(sigh.supersedes)
-                sigh = $achievementStore.achievement[sigh.supersedes]
+                chain.push(sigh.supersedes);
+                sigh = $achievementStore.achievement[sigh.supersedes];
             }
-            chain.reverse()
+            chain.reverse();
 
             if (chain.length > 0 || achievement.supersededBy) {
-                chain.push(achievement.id)
+                chain.push(achievement.id);
             }
 
             if (achievement.supersededBy) {
-                sigh = achievement
+                sigh = achievement;
                 while (sigh?.supersededBy) {
-                    chain.push(sigh.supersededBy)
-                    sigh = $achievementStore.achievement[sigh.supersededBy]
+                    chain.push(sigh.supersededBy);
+                    sigh = $achievementStore.achievement[sigh.supersededBy];
                 }
             }
         }
 
         if (alwaysShow) {
-            show = true
-        }
-        else {
+            show = true;
+        } else {
             if (
                 (earned && !$achievementState.showCompleted) ||
                 (!earned && !$achievementState.showIncomplete)
             ) {
-                show = false
-            }
-            else if (!earned && $achievementStore.isHidden[achievementId]) {
-                show = false
-            }
-            else if (kindaAlwaysShow) {
-                show = true
+                show = false;
+            } else if (!earned && $achievementStore.isHidden[achievementId]) {
+                show = false;
+            } else if (kindaAlwaysShow) {
+                show = true;
             }
         }
     }
@@ -122,10 +124,10 @@
         break-inside: avoid;
         display: grid;
         grid-template-areas:
-            "icon     info"
-            ".        chain"
-            "criteria criteria"
-            "progress progress";
+            'icon     info'
+            '.        chain'
+            'criteria criteria'
+            'progress progress';
         grid-template-columns: calc(50px + 0.5rem) auto;
         margin-bottom: 0.5rem;
         overflow: hidden; /* Firefox fix */
@@ -155,8 +157,8 @@
         display: grid;
         grid-area: info;
         grid-template-areas:
-            "name earned"
-            "desc extra";
+            'name earned'
+            'desc extra';
         grid-template-columns: auto 5.5rem;
         grid-template-rows: 1.5rem auto;
     }
@@ -166,7 +168,6 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         width: 100%;
-
     }
     .points {
         color: #fff;
@@ -188,7 +189,6 @@
     .chain {
         grid-area: chain;
         margin-top: 0.5rem;
-
     }
     .chain-icon {
         display: inline-block;
@@ -225,15 +225,9 @@
 </style>
 
 {#if achievement && show}
-    <div class="thing-container faction{faction}"
-        class:completed={earned}
-    >
+    <div class="thing-container faction{faction}" class:completed={earned}>
         <AchievementLink id={achievementId}>
-            <WowthingImage
-                name="achievement/{achievementId}"
-                size={48}
-                border={2}
-            />
+            <WowthingImage name="achievement/{achievementId}" size={48} border={2} />
 
             {#if achievement.points > 0}
                 <span class="pill abs-center points">{achievement.points}</span>
@@ -241,19 +235,12 @@
 
             {#if faction >= 0}
                 <div class="icon-faction drop-shadow">
-                    <FactionIcon
-                        border={2}
-                        size={20}
-                        useTooltip={false}
-                        {faction}
-                    />
+                    <FactionIcon border={2} size={20} useTooltip={false} {faction} />
                 </div>
             {/if}
         </AchievementLink>
 
-        <div
-            class="info"
-        >
+        <div class="info">
             <h3>{achievement.name}</h3>
 
             <p class="description">{achievement.description}</p>
@@ -271,15 +258,9 @@
             <div class="chain">
                 {#each chain as chainId}
                     {@const chainEarned = $userAchievementStore.achievements[chainId] !== undefined}
-                    <div
-                        class="chain-icon"
-                        class:completed={chainEarned}
-                    >
+                    <div class="chain-icon" class:completed={chainEarned}>
                         <AchievementLink id={chainId}>
-                            <WowthingImage
-                                name="achievement/{chainId}"
-                                size={40}
-                                border={2} />
+                            <WowthingImage name="achievement/{chainId}" size={40} border={2} />
                         </AchievementLink>
 
                         {#if $achievementStore.achievement[chainId]}
@@ -290,9 +271,7 @@
 
                         {#if chainId === achievementId}
                             <div class="abs-center chain-current drop-shadow">
-                                <IconifyIcon
-                                    icon={iconStrings['arrow-up']}
-                                />
+                                <IconifyIcon icon={iconStrings['arrow-up']} />
                             </div>
                         {/if}
                     </div>
@@ -300,7 +279,7 @@
             </div>
         {/if}
 
-        {#if !earned || $settingsStore.achievements.showCharactersIfCompleted}
+        {#if !earned || settingsState.value.achievements.showCharactersIfCompleted}
             <Criteria {achievement} />
         {/if}
     </div>

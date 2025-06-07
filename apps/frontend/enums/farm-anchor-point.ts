@@ -1,5 +1,4 @@
-export enum FarmAnchorPoint
-{
+export enum FarmAnchorPoint {
     None,
     TopLeft,
     Top,

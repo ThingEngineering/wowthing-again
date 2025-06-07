@@ -1,7 +1,7 @@
 <script lang="ts">
     import IntersectionObserver from 'svelte-intersection-observer';
 
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { lazyStore, userStore } from '@/stores';
     import { appearanceState } from '@/stores/local-storage';
     import getPercentClass from '@/utils/get-percent-class';
@@ -17,7 +17,7 @@
     let intersected: boolean;
 
     $: counts = $lazyStore.appearances.stats[slug];
-    $: masochist = $settingsStore.transmog.completionistMode;
+    $: masochist = settingsState.value.transmog.completionistMode;
 </script>
 
 {#if counts.total > 0}

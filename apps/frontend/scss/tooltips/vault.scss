@@ -1,32 +1,32 @@
 .table-tooltip-vault {
-  tr {
-    &.vault-more {
-      color: #00ccff;
-    }
-    &.vault-reward {
-      color: #1eff00;
-    }
-  }
-
-  td {
-    &.key-level {
-      max-width: 2rem;
-      text-align: right;
-      white-space: nowrap;
-    }
-    &.dungeon-name {
-      max-width: 14rem;
-      text-align: left;
-      white-space: nowrap;
-    }
-    &.item-level {
-      max-width: 3rem;
-      white-space: nowrap;
+    tr {
+        &.vault-more {
+            color: #00ccff;
+        }
+        &.vault-reward {
+            color: #1eff00;
+        }
     }
 
-    &.do-some {
-      max-width: 15rem;
-      white-space: nowrap;
+    td {
+        &.key-level {
+            max-width: 2rem;
+            text-align: right;
+            white-space: nowrap;
+        }
+        &.dungeon-name {
+            max-width: 14rem;
+            text-align: left;
+            white-space: nowrap;
+        }
+        &.item-level {
+            max-width: 3rem;
+            white-space: nowrap;
+        }
+
+        &.do-some {
+            max-width: 15rem;
+            white-space: nowrap;
+        }
     }
-  }
 }

@@ -12,16 +12,14 @@ import {
     rewardTypeIcons,
     weaponSubclassIcons,
 } from '@/shared/icons/mappings';
+import { wowthingData } from '@/shared/stores/data';
 import type { ManualDataZoneMapDrop } from '@/types/data/manual';
 import type { StaticData } from '@/shared/stores/static/types';
-import type { ItemData } from '@/types/data/item';
-import { wowthingData } from '@/shared/stores/data';
 
 export function getDropIcon(
-    itemData: ItemData,
     staticData: StaticData,
     drop: ManualDataZoneMapDrop,
-    isCriteria: boolean,
+    isCriteria: boolean
 ): IconifyIcon {
     const manualData = wowthingData.manual;
 
@@ -31,7 +29,7 @@ export function getDropIcon(
     } else if (drop.type === RewardType.Armor) {
         // Cloth, Leather, Mail, Plate
         if (drop.subType >= 1 && drop.subType <= 4) {
-            const item = itemData.items[drop.id];
+            const item = wowthingData.items.items[drop.id];
             icon = inventoryTypeIcons[item?.inventoryType];
         }
         // Misc
@@ -47,14 +45,14 @@ export function getDropIcon(
             icon = rewardTypeIcons[RewardType.Mount];
         } else if (staticData.petsByItem[drop.id]) {
             icon = rewardTypeIcons[RewardType.Pet];
-        } else if (itemData.teachesSpell[drop.id]) {
+        } else if (wowthingData.items.teachesSpell[drop.id]) {
             const [skillLineId] = staticData.itemToSkillLine[drop.id];
             const [profession] = staticData.professionBySkillLine[skillLineId];
             icon = professionSlugIcons[profession.slug];
         } else if (drop.limit?.[0] === 'profession') {
             icon = professionSlugIcons[drop.limit[1]];
         } else {
-            const item = itemData.items[drop.id];
+            const item = wowthingData.items.items[drop.id];
             icon = inventoryTypeIcons[item?.inventoryType];
         }
     } else if (drop.type === RewardType.Reputation) {

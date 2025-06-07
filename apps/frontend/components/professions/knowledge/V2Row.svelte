@@ -5,7 +5,7 @@
     import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { itemStore, userQuestStore } from '@/stores';
+    import { userQuestStore } from '@/stores';
     import type { Character } from '@/types';
     import type { TaskProfessionQuest } from '@/types/data';
 
@@ -53,7 +53,7 @@
                     const bookQuests = (profData.bookQuests || []).filter(
                         (bq) =>
                             bq.source === zone.shortName ||
-                            bq.source.startsWith(`${zone.shortName} `),
+                            bq.source.startsWith(`${zone.shortName} `)
                     );
 
                     const characterRenown = zone.reputationId
@@ -92,9 +92,9 @@
                     });
 
                     things.sort((a, b) =>
-                        $itemStore.items[a.contents[0].id].name.localeCompare(
-                            $itemStore.items[b.contents[0].id].name,
-                        ),
+                        wowthingData.items.items[a.contents[0].id].name.localeCompare(
+                            wowthingData.items.items[b.contents[0].id].name
+                        )
                     );
 
                     for (const thing of things) {
@@ -111,7 +111,7 @@
             zoneData.have = zoneData.items.filter((item) => item.have).length;
             zoneData.total = zoneData.items.length;
             zoneData.items.sort((a, b) =>
-                Profession[a.profession].localeCompare(Profession[b.profession]),
+                Profession[a.profession].localeCompare(Profession[b.profession])
             );
 
             if (zone.name.endsWith('Books')) {

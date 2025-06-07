@@ -5,9 +5,10 @@
     import { Faction } from '@/enums/faction';
     import { SkillSourceType } from '@/enums/skill-source-type';
     import { iconLibrary } from '@/shared/icons';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
-    import { itemStore, lazyStore, userQuestStore, userStore } from '@/stores';
+    import { lazyStore, userQuestStore, userStore } from '@/stores';
     import { newNavState, professionsRecipesState } from '@/stores/local-storage';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { useCharacterFilter } from '@/utils/characters';
@@ -36,31 +37,31 @@
     let subProfession: StaticDataSubProfession;
     $: {
         categoryChildren = profession.expansionCategory[expansion.id].children[0].children.filter(
-            (cat) => cat.abilities.length > 0,
+            (cat) => cat.abilities.length > 0
         );
         subProfession = profession.expansionSubProfession[expansion.id];
 
         characters = [];
         const collectorIds =
-            $settingsStore.professions.collectingCharactersV2?.[profession.id] || [];
+            settingsState.value.professions.collectingCharactersV2?.[profession.id] || [];
         if (collectorIds.length > 0) {
             characters.push(null);
             characters.push(
-                ...collectorIds.map((collectorId) => $userStore.characterMap[collectorId]),
+                ...collectorIds.map((collectorId) => $userStore.characterMap[collectorId])
             );
         }
 
         const professionCharacters = $userStore.characters.filter((char) =>
             useCharacterFilter(
                 $lazyStore,
-                $settingsStore,
+                settingsState.value,
                 $userQuestStore,
                 (c) =>
                     !collectorIds.includes(c.id) &&
                     !!c.professions?.[profession.id]?.[subProfession.id],
                 char,
-                $newNavState.characterFilter,
-            ),
+                $newNavState.characterFilter
+            )
         );
         if (professionCharacters.length > 0) {
             characters.push(null);
@@ -79,18 +80,18 @@
 
     const getAbilities = (
         category: StaticDataProfessionCategory,
-        includeTrainerRecipes: boolean,
+        includeTrainerRecipes: boolean
     ) => {
         const filteredAbilities = category.abilities.filter(
             (ability) =>
                 includeTrainerRecipes ||
                 (ability.source !== SkillSourceType.Trainer &&
                     ability.source !== SkillSourceType.Discovery &&
-                    !!$staticStore.skillLineAbilityItems[ability.id]),
+                    !!$staticStore.skillLineAbilityItems[ability.id])
         );
         return sortBy(filteredAbilities, (ability) => {
             const hasItems = !!$staticStore.skillLineAbilityItems[ability.id];
-            const item = $itemStore.items[ability.itemIds[0] || 0];
+            const item = wowthingData.items.items[ability.itemIds[0] || 0];
             return [
                 hasItems ? 0 : 1,
                 ability.itemIds[0] ? 9 - item.quality : 9,
@@ -187,7 +188,7 @@
         {#each categoryChildren as category}
             {@const abilities = getAbilities(
                 category,
-                $professionsRecipesState.includeTrainerRecipes,
+                $professionsRecipesState.includeTrainerRecipes
             )}
             {#if abilities.length > 0}
                 <tr class="spacer">
@@ -202,7 +203,7 @@
 
                 {#each abilities as ability}
                     {@const recipes = $staticStore.skillLineAbilityItems[ability.id]}
-                    {@const recipeItem = $itemStore.items[recipes?.[0]]}
+                    {@const recipeItem = wowthingData.items.items[recipes?.[0]]}
                     <tr data-id={ability.id}>
                         <td class="source">
                             {#if recipeItem}
@@ -223,19 +224,19 @@
                         </td>
                         <td
                             class="name {ability.itemIds[0]
-                                ? `quality${$itemStore.items[ability.itemIds[0]].quality}`
+                                ? `quality${wowthingData.items.items[ability.itemIds[0]].quality}`
                                 : undefined}"
                         >
                             <WowheadLink type="spell" id={ability.spellId}>
                                 {#if ability.name}
                                     {ability.name}
                                 {:else}
-                                    {$itemStore.items[ability.itemIds[0] || 0]?.name}
+                                    {wowthingData.items.items[ability.itemIds[0] || 0]?.name}
                                 {/if}
                             </WowheadLink>
                         </td>
                         <td class="auctions">
-                            {#if recipes && recipes.some((id) => $itemStore.items[id]?.bindType !== BindType.OnAcquire)}
+                            {#if recipes && recipes.some((id) => wowthingData.items.items[id]?.bindType !== BindType.OnAcquire)}
                                 <a
                                     href="#/auctions/specific-item/{recipes[0]}"
                                     target="_blank"

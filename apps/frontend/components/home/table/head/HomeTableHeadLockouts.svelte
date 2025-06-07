@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { activeView } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { staticStore } from '@/shared/stores/static';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { viewHasLockout } from '@/shared/utils/view-has-lockout';
@@ -24,7 +24,7 @@
 
 {#each $userStore.homeLockouts as { difficulty, instanceId }}
     {@const instance = $staticStore.instances[instanceId]}
-    {#if instance && viewHasLockout($activeView, difficulty, instanceId)}
+    {#if instance && viewHasLockout(settingsState.activeView, difficulty, instanceId)}
         {@const sortField = `lockout:${instanceId}-${difficulty?.id || 0}`}
         <td
             class="sortable"

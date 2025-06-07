@@ -1,24 +1,24 @@
 <script lang="ts">
-    import { weaponSubclassOrder, weaponSubclassToString } from '@/data/weapons'
-    import { lazyStore } from '@/stores'
-    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
-    import type { UserCount } from '@/types'
+    import { weaponSubclassOrder, weaponSubclassToString } from '@/data/weapons';
+    import { lazyStore } from '@/stores';
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
+    import type { UserCount } from '@/types';
 
-    import ProgressBar from '@/components/common/ProgressBar.svelte'
+    import ProgressBar from '@/components/common/ProgressBar.svelte';
     import Settings from '@/components/common/SidebarCollectingSettings.svelte';
-    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
-    import { settingsStore } from '@/shared/stores/settings';
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
+    import { settingsState } from '@/shared/state/settings.svelte';
 
-    export let basePath = ''
+    export let basePath = '';
 
-    let categories: SidebarItem[] = []
-    let stats: UserCount
+    let categories: SidebarItem[] = [];
+    let stats: UserCount;
     $: {
         categories = [
             {
                 name: 'Expansion',
                 slug: 'expansion',
-                children: settingsStore.expansions,
+                children: settingsState.expansions,
             },
             null,
             {
@@ -46,22 +46,23 @@
                 name: 'Weapons',
                 slug: 'weapons',
                 children: weaponChildren,
-            }
-        ]
-        stats = $lazyStore.appearances.stats.OVERALL
+            },
+        ];
+        stats = $lazyStore.appearances.stats.OVERALL;
     }
 
-    const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
+    const percentFunc = function (entry: SidebarItem, parentEntries?: SidebarItem[]) {
         if (parentEntries?.length < 1 && entry.name === 'Expansion') {
-            return -1
+            return -1;
         }
 
-        const slug = [...parentEntries, entry].slice(-2)
+        const slug = [...parentEntries, entry]
+            .slice(-2)
             .map((entry) => entry.slug)
-            .join('--')
-        const hasData = $lazyStore.appearances.stats[slug]
-        return (hasData?.have ?? 0) / (hasData?.total ?? 1) * 100
-    }
+            .join('--');
+        const hasData = $lazyStore.appearances.stats[slug];
+        return ((hasData?.have ?? 0) / (hasData?.total ?? 1)) * 100;
+    };
 
     const slots: SidebarItem[] = [
         {
@@ -96,13 +97,12 @@
             name: 'Feet',
             slug: 'feet',
         },
-    ]
+    ];
 
-    const weaponChildren: SidebarItem[] = weaponSubclassOrder
-        .map((subClass) => ({
-            name: weaponSubclassToString[subClass],
-            slug: weaponSubclassToString[subClass].toLowerCase().replace(/ /g, '-'),
-        }))
+    const weaponChildren: SidebarItem[] = weaponSubclassOrder.map((subClass) => ({
+        name: weaponSubclassToString[subClass],
+        slug: weaponSubclassToString[subClass].toLowerCase().replace(/ /g, '-'),
+    }));
 </script>
 
 <Sidebar
@@ -115,11 +115,7 @@
 >
     <svelte:fragment slot="before">
         <div>
-            <ProgressBar
-                title="Overall"
-                have={stats.have}
-                total={stats.total}
-            />
+            <ProgressBar title="Overall" have={stats.have} total={stats.total} />
         </div>
 
         <Settings />

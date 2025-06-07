@@ -3,5 +3,6 @@ export enum Gender {
     Male,
 }
 
-export const genderValues: string[] = Object.keys(Gender)
-    .filter((gender) => !isNaN(Number(gender)))
+export const genderValues: string[] = Object.keys(Gender).filter(
+    (gender) => !isNaN(Number(gender)),
+);

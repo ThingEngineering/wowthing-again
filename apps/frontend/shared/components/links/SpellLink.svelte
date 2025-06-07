@@ -1,23 +1,22 @@
 <script lang="ts">
-    import { settingsStore } from '@/shared/stores/settings'
+    import { settingsState } from '@/shared/state/settings.svelte';
 
-    export let id: number
-    export let itemLevel = 0
+    export let id: number;
+    export let itemLevel = 0;
 
-    let url = ''
+    let url = '';
     $: {
-        if ($settingsStore.general.useWowdb) {
-            url = `https://www.wowdb.com/spells/${id}`
-        }
-        else {
-            url = `https://${settingsStore.wowheadBaseUrl}/spell=${id}`
+        if (settingsState.value.general.useWowdb) {
+            url = `https://www.wowdb.com/spells/${id}`;
+        } else {
+            url = `https://${settingsState.wowheadBaseUrl}/spell=${id}`;
             if (itemLevel > 0) {
-                url += `?ilvl=${itemLevel}`
+                url += `?ilvl=${itemLevel}`;
             }
         }
     }
 </script>
 
-<a href="{url}">
+<a href={url}>
     <slot />
 </a>

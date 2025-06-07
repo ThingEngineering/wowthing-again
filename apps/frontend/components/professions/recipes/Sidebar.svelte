@@ -1,6 +1,6 @@
 <script lang="ts">
     import { isCraftingProfession } from '@/data/professions';
-    import { settingsStore } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { staticStore } from '@/shared/stores/static';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
 
@@ -29,7 +29,7 @@
         });
 
         categories = [];
-        for (const expansion of settingsStore.expansions) {
+        for (const expansion of settingsState.expansions) {
             categories.push({
                 name: expansion.name,
                 slug: expansion.slug,

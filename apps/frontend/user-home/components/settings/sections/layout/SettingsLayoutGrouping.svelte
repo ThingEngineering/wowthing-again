@@ -1,28 +1,30 @@
 <script lang="ts">
-    import { settingsState } from '@/stores/local-storage'
-    import { settingsStore } from '@/shared/stores/settings'
-    import type { SettingsCustomGroup } from '@/shared/stores/settings/types'
+    // import { settingsState } from '@/stores/local-storage';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import type { SettingsCustomGroup } from '@/shared/stores/settings/types';
 
-    import Group from './SettingsLayoutGroupingGroup.svelte'
-    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
+    import Group from './SettingsLayoutGroupingGroup.svelte';
+    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
+    import { browserStore } from '@/shared/stores/browser';
 
     const newGroup = () => {
         const group: SettingsCustomGroup = {
             filter: '',
             id: crypto.randomUUID(),
             name: 'GROUP',
-        }
+        };
 
-        const newCustomGroups = ($settingsStore.customGroups || []).slice()
-        newCustomGroups.push(group)
+        const newCustomGroups = (settingsState.value.customGroups || []).slice();
+        newCustomGroups.push(group);
 
-        $settingsStore.customGroups = newCustomGroups
-        $settingsState.selectedGroup = group.id
-    }
+        settingsState.value.customGroups = newCustomGroups;
+        $browserStore.settings.selectedGroup = group.id;
+    };
 
     const setActive = (groupId: string) => {
-        $settingsState.selectedGroup = groupId
-    }
+        console.log(groupId);
+        $browserStore.settings.selectedGroup = groupId;
+    };
 </script>
 
 <style lang="scss">
@@ -63,28 +65,27 @@
 
     <div class="groups-wrapper">
         <div class="group-list">
-            {#each $settingsStore.customGroups as customGroup}
+            {#each settingsState.value.customGroups as customGroup (customGroup.id)}
                 <button
                     class="group-entry text-overflow"
-                    class:active={$settingsState.selectedGroup === customGroup.id}
+                    class:active={$browserStore.settings.selectedGroup === customGroup.id}
                     on:click={() => setActive(customGroup.id)}
                 >
                     {customGroup.name}
                 </button>
             {/each}
-            
-            {#if $settingsStore.customGroups.length < 10}
-                <button
-                    class="group-entry"
-                    on:click={newGroup}
-                >
-                    New group
-                </button>
+
+            {#if settingsState.value.customGroups.length < 10}
+                <button class="group-entry" on:click={newGroup}> New group </button>
             {/if}
         </div>
 
-        {#if $settingsState.selectedGroup}
-            <Group group={$settingsStore.customGroups.filter(group => group.id === $settingsState.selectedGroup)[0]} />
+        {#if $browserStore.settings.selectedGroup}
+            <Group
+                group={settingsState.value.customGroups.filter(
+                    (group) => group.id === $browserStore.settings.selectedGroup,
+                )[0]}
+            />
         {/if}
     </div>
 </div>

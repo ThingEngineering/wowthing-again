@@ -3,8 +3,7 @@
 
     import { uiIcons } from '@/shared/icons';
     import { browserStore } from '@/shared/stores/browser';
-    import { activeView, settingsStore } from '@/shared/stores/settings';
-    import { settingsState } from '@/stores/local-storage';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import type { SettingsView } from '@/shared/stores/settings/types';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
@@ -20,7 +19,7 @@
             groups: ['groupBy'],
             groupBy: [],
             sortBy: [],
-            commonFields: $settingsStore.views[0].commonFields,
+            commonFields: settingsState.value.views[0].commonFields,
             homeFields: [],
             homeCurrencies: [],
             homeItems: [],
@@ -29,37 +28,37 @@
             disabledChores: {},
         };
 
-        const newCustomViews = ($settingsStore.views || []).slice();
+        const newCustomViews = (settingsState.value.views || []).slice();
         newCustomViews.push(view);
 
-        $settingsStore.views = newCustomViews;
-        $settingsState.selectedView = view.id;
+        settingsState.value.views = newCustomViews;
+        $browserStore.settings.selectedView = view.id;
     };
 
     const moveUpClick = (index: number) => {
-        const newViews = $settingsStore.views.slice();
+        const newViews = settingsState.value.views.slice();
         const temp = newViews[index - 1];
         newViews[index - 1] = newViews[index];
         newViews[index] = temp;
-        $settingsStore.views = newViews;
+        settingsState.value.views = newViews;
         $deleting = null;
     };
 
     const moveDownClick = (index: number) => {
-        const newViews = $settingsStore.views.slice();
+        const newViews = settingsState.value.views.slice();
         const temp = newViews[index + 1];
         newViews[index + 1] = newViews[index];
         newViews[index] = temp;
-        $settingsStore.views = newViews;
+        settingsState.value.views = newViews;
         $deleting = null;
     };
 
     const deleteConfirmClick = (viewId: string) => {
         $deleting = null;
-        $settingsStore.views = $settingsStore.views.filter((view) => view.id !== viewId);
+        settingsState.value.views = settingsState.value.views.filter((view) => view.id !== viewId);
 
-        if ($activeView.id === viewId) {
-            $browserStore.home.activeView = $settingsStore.views[0].id;
+        if (settingsState.activeView.id === viewId) {
+            $browserStore.home.activeView = settingsState.value.views[0].id;
         }
     };
 </script>
@@ -113,7 +112,7 @@
 
     <table class="table table-striped">
         <tbody>
-            {#each $settingsStore.views as view, viewIndex (view.id)}
+            {#each settingsState.value.views as view, viewIndex (view.id)}
                 <tr>
                     <td class="name text-overflow">
                         {view.name}
@@ -129,7 +128,7 @@
                         {/if}
                     </td>
                     <td class="icon">
-                        {#if viewIndex < $settingsStore.views.length - 1}
+                        {#if viewIndex < settingsState.value.views.length - 1}
                             <IconifyIcon
                                 icon={uiIcons.chevronDown}
                                 scale="1.2"
@@ -167,7 +166,7 @@
         </tbody>
     </table>
 
-    {#if $settingsStore.views.length < 10}
+    {#if settingsState.value.views.length < 10}
         <button class="group-entry" on:click={newView}> New View </button>
     {/if}
 </div>

@@ -2,8 +2,7 @@ export class DataItemSet {
     constructor(
         public id: number,
         public name: string,
-        public itemIds: number[]
-    )
-    { }
+        public itemIds: number[],
+    ) {}
 }
-export type DataItemSetArray = ConstructorParameters<typeof DataItemSet>
+export type DataItemSetArray = ConstructorParameters<typeof DataItemSet>;

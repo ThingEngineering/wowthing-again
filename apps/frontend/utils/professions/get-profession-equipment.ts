@@ -1,8 +1,6 @@
-import { get } from 'svelte/store';
-
 import { professionIdToSlug } from '@/data/professions';
 import { ProfessionSubclass } from '@/enums/profession-subclass';
-import { itemStore } from '@/stores';
+import { wowthingData } from '@/shared/stores/data';
 import type { Character, CharacterEquippedItem } from '@/types';
 
 const limitCategoryToSlot: Record<number, number> = {
@@ -32,9 +30,8 @@ const limitCategoryToSlot: Record<number, number> = {
 
 export function getProfessionEquipment(
     character: Character,
-    professionId: number,
+    professionId: number
 ): Record<number, CharacterEquippedItem> {
-    const itemData = get(itemStore);
     const professionSlug = professionIdToSlug[professionId];
 
     const equippedItems: Record<number, CharacterEquippedItem> = {};
@@ -52,7 +49,7 @@ export function getProfessionEquipment(
         for (let slot = 20; slot <= 25; slot++) {
             const equippedItem = character.equippedItems[slot];
             if (equippedItem) {
-                const item = itemData.items[equippedItem.itemId];
+                const item = wowthingData.items.items[equippedItem.itemId];
                 if (ProfessionSubclass[item.subclassId].toLowerCase() === professionSlug) {
                     if (item.limitCategory && limitCategoryToSlot[item.limitCategory]) {
                         equippedItems[limitCategoryToSlot[item.limitCategory]] = equippedItem;

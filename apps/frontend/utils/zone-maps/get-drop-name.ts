@@ -2,14 +2,14 @@ import find from 'lodash/find';
 import { get } from 'svelte/store';
 
 import { difficultyMap } from '@/data/difficulty';
-import { achievementStore, itemStore } from '@/stores';
-import { staticStore } from '@/shared/stores/static';
 import { RewardType } from '@/enums/reward-type';
+import { achievementStore } from '@/stores';
+import { wowthingData } from '@/shared/stores/data';
+import { staticStore } from '@/shared/stores/static';
 import type { ManualDataZoneMapDrop } from '@/types/data/manual';
 
 export function getDropName(drop: ManualDataZoneMapDrop): string {
     const achievementData = get(achievementStore);
-    const itemData = get(itemStore);
     const staticData = get(staticStore);
 
     if (
@@ -19,7 +19,7 @@ export function getDropName(drop: ManualDataZoneMapDrop): string {
         drop.type === RewardType.Weapon ||
         drop.type === RewardType.Transmog
     ) {
-        return itemData.items[drop.id]?.name || `Unknown item #${drop.id}`;
+        return wowthingData.items.items[drop.id]?.name || `Unknown item #${drop.id}`;
     } else if (drop.type === RewardType.Achievement) {
         if (drop.subType > 0) {
             return (
@@ -35,7 +35,7 @@ export function getDropName(drop: ManualDataZoneMapDrop): string {
         const enchantmentId = drop.appearanceIds[0][0];
         const illusion = find(
             Object.values(staticData.illusions || {}),
-            (illusion) => illusion.enchantmentId === enchantmentId,
+            (illusion) => illusion.enchantmentId === enchantmentId
         );
         return illusion?.name || `Illusion #${enchantmentId}`;
     } else if (drop.type === RewardType.Mount) {

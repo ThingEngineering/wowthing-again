@@ -1,11 +1,13 @@
 <script lang="ts">
-    import { itemSearchState, itemStore, userStore } from '@/stores';
+    import { itemSearchState } from '@/stores';
     import { toNiceNumber } from '@/utils/formatting';
+    import { wowthingData } from '@/shared/stores/data';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import type { ItemSearchResponseCharacter, ItemSearchResponseItem } from '@/types/items';
 
     import Row from './ItemsSearchItemRow.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { settingsState } from '@/shared/state/settings.svelte';
 
     export let response: ItemSearchResponseItem[];
 
@@ -40,8 +42,9 @@
             <thead>
                 <tr class="item-row">
                     <th
-                        class="item quality{$itemStore.items[item.itemId].quality} text-overflow"
-                        colspan={userStore.useAccountTags ? 4 : 3}
+                        class="item quality{wowthingData.items.items[item.itemId]
+                            .quality} text-overflow"
+                        colspan={settingsState.useAccountTags ? 4 : 3}
                     >
                         <WowthingImage name="item/{item.itemId}" size={20} border={1} />
                         {item.itemName}

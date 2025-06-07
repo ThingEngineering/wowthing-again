@@ -1,7 +1,7 @@
 <script lang="ts">
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import { inventoryTypeIcons } from '@/shared/icons/mappings';
-    import { itemStore } from '@/stores/item';
+    import { wowthingData } from '@/shared/stores/data';
     import type { Character, CharacterItem } from '@/types';
 
     export let character: Character;
@@ -28,10 +28,10 @@
         };
 
         if (ret.itemLevel === 0) {
-            const item = $itemStore.items[rewardItem.itemId];
+            const item = wowthingData.items.items[rewardItem.itemId];
             ret.itemLevel = item.itemLevel;
             for (const bonusId of rewardItem.bonusIds || []) {
-                const itemBonus = $itemStore.itemBonuses[bonusId];
+                const itemBonus = wowthingData.items.itemBonuses[bonusId];
                 if (!itemBonus) {
                     continue;
                 }
@@ -84,7 +84,7 @@
     </thead>
     <tbody>
         {#each rewards as [reward, calculated]}
-            {@const item = $itemStore.items[reward.itemId]}
+            {@const item = wowthingData.items.items[reward.itemId]}
             <tr>
                 <td class="icon">
                     <IconifyIcon icon={inventoryTypeIcons[item.inventoryType]} />

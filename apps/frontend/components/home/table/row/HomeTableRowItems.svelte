@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { activeView } from '@/shared/stores/settings'
-    import { basicTooltip } from '@/shared/utils/tooltips'
-    import { itemStore } from '@/stores/item'
-    import { toNiceNumber } from '@/utils/formatting'
-    import type { Character } from '@/types'
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import { basicTooltip } from '@/shared/utils/tooltips';
+    import { wowthingData } from '@/shared/stores/data';
+    import { toNiceNumber } from '@/utils/formatting';
+    import type { Character } from '@/types';
 
-    export let character: Character
+    export let character: Character;
 </script>
 
 <style lang="scss">
@@ -21,11 +21,11 @@
     }
 </style>
 
-{#each $activeView.homeItems as itemId}
+{#each settingsState.activeView.homeItems as itemId}
     {@const count = character.getItemCount(itemId)}
     <td
         class:faded={count === 0}
-        use:basicTooltip={`${count}x ${$itemStore.items[itemId].name}`}
+        use:basicTooltip={`${count}x ${wowthingData.items.items[itemId].name}`}
     >
         {toNiceNumber(count)}
     </td>

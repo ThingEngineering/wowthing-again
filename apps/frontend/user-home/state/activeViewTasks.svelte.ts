@@ -1,45 +1,47 @@
-import { derived } from 'svelte/store';
+import { get } from 'svelte/store';
 
-import { activeHolidays } from './active-holidays';
 import { holidayIds } from '@/data/holidays';
 import { multiTaskMap, taskMap } from '@/data/tasks';
-import { activeView } from '@/shared/stores/settings';
-import { lazyStore } from '@/stores/lazy';
+import { settingsState } from '@/shared/state/settings.svelte';
 import { staticStore } from '@/shared/stores/static';
+import { activeHolidays } from '@/stores/derived/active-holidays';
+import { lazyStore } from '@/stores';
 import type { Chore } from '@/types/tasks';
 
-export const activeViewTasks = derived(
-    [activeHolidays, activeView, lazyStore, staticStore],
-    ([$activeHolidays, $activeView, $lazyStore, $staticStore]) => {
-        console.time('activeViewTasks');
+export const activeViewTasks = () => {
+    const tasks = $derived.by(() => {
+        const activeHolidaysValue = get(activeHolidays);
+        const lazyStoreValue = get(lazyStore);
+        const staticStoreValue = get(staticStore);
 
         const activeTasks: string[] = [];
         const choreKeys = new Set(
-            Object.values($lazyStore.characters).flatMap((c) => Object.keys(c.chores)),
+            Object.values(lazyStoreValue.characters).flatMap((c) => Object.keys(c.chores))
         );
         const taskKeys = new Set(
-            Object.values($lazyStore.characters).flatMap((c) => Object.keys(c.tasks)),
+            Object.values(lazyStoreValue.characters).flatMap((c) => Object.keys(c.tasks))
         );
 
-        for (const fullTaskName of $activeView.homeTasks) {
+        for (const fullTaskName of settingsState.activeView.homeTasks) {
             const [taskName, choreName] = fullTaskName.split('|', 2);
             const task = taskMap[taskName];
             if (!task) {
                 continue;
             }
 
-            const taskViewKey = `${$activeView.id}|${fullTaskName}`;
+            const taskViewKey = `${settingsState.activeView.id}|${fullTaskName}`;
 
             if (!choreKeys.has(taskViewKey) && !taskKeys.has(taskViewKey)) {
                 continue;
             }
 
-            if (!$activeHolidays[taskName] && $staticStore.holidayIds[taskName]) {
+            if (!activeHolidaysValue[taskName] && staticStoreValue.holidayIds[taskName]) {
                 continue;
             }
 
             if (task.type === 'multi') {
-                const disabledChores = $activeView.disabledChores?.[fullTaskName] || [];
+                const disabledChores =
+                    settingsState.activeView.disabledChores?.[fullTaskName] || [];
                 const activeChores: Chore[] = [];
                 for (const chore of multiTaskMap[task.key]) {
                     if (!chore || disabledChores.includes(chore.taskKey)) {
@@ -50,8 +52,8 @@ export const activeViewTasks = derived(
                         if (
                             chore.requiredHolidays.some((holiday) =>
                                 holidayIds[holiday].some(
-                                    (holidayId) => $activeHolidays[`h${holidayId}`],
-                                ),
+                                    (holidayId) => activeHolidaysValue[`h${holidayId}`]
+                                )
                             )
                         ) {
                             activeChores.push(chore);
@@ -72,7 +74,12 @@ export const activeViewTasks = derived(
             }
         }
 
-        console.timeEnd('activeViewTasks');
         return activeTasks;
-    },
-);
+    });
+
+    return {
+        get value() {
+            return tasks;
+        },
+    };
+};

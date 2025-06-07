@@ -1,58 +1,54 @@
-import type { RenameRequest } from './types'
-
+import type { RenameRequest } from './types';
 
 class RenameRequestsStore {
-    private static url = '/admin/rename-requests'
+    private static url = '/admin/rename-requests';
 
     async fetch(): Promise<RenameRequest[]> {
-        const xsrf = document.getElementById('app')
-            .getAttribute('data-xsrf')
-            
+        const xsrf = document.getElementById('app').getAttribute('data-xsrf');
+
         const response = await fetch(RenameRequestsStore.url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'RequestVerificationToken': xsrf,
+                RequestVerificationToken: xsrf,
             },
-        })
+        });
 
         if (response.ok) {
-            const responseData = await response.json() as RenameRequest[]
-            return responseData
+            const responseData = (await response.json()) as RenameRequest[];
+            return responseData;
         }
 
-        return []
+        return [];
     }
 
     async approve(userId: number): Promise<boolean> {
-        const xsrf = document.getElementById('app')
-            .getAttribute('data-xsrf')
-        
-        const url = `${RenameRequestsStore.url}/approve/${userId}`
+        const xsrf = document.getElementById('app').getAttribute('data-xsrf');
+
+        const url = `${RenameRequestsStore.url}/approve/${userId}`;
         const response = await fetch(url, {
             method: 'POST',
             headers: {
-                'RequestVerificationToken': xsrf,
+                RequestVerificationToken: xsrf,
             },
-        })
+        });
 
-        return response.ok
+        return response.ok;
     }
 
     async decline(userId: number): Promise<boolean> {
-        const xsrf = document.getElementById('app')
-            .getAttribute('data-xsrf')
-        
-        const url = `${RenameRequestsStore.url}/decline/${userId}`
+        const xsrf = document.getElementById('app').getAttribute('data-xsrf');
+
+        const url = `${RenameRequestsStore.url}/decline/${userId}`;
         const response = await fetch(url, {
             method: 'POST',
             headers: {
-                'RequestVerificationToken': xsrf,
+                RequestVerificationToken: xsrf,
             },
-        })
+        });
 
-        return response.ok
+        return response.ok;
     }
 }
 
-export const renameRequestsStore = new RenameRequestsStore()
+export const renameRequestsStore = new RenameRequestsStore();

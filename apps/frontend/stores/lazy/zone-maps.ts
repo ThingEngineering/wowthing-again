@@ -31,7 +31,6 @@ import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { UserAchievementData, UserData } from '@/types';
 import type { UserQuestData } from '@/types/data';
-import type { ItemData } from '@/types/data/item';
 import type { DropStatus, FarmStatus } from '@/types/zone-maps';
 
 type classMaskStrings = keyof typeof PlayableClassMask;
@@ -39,7 +38,6 @@ type classMaskStrings = keyof typeof PlayableClassMask;
 interface LazyStores {
     settings: Settings;
     zoneMapState: ZoneMapState;
-    itemData: ItemData;
     staticData: StaticData;
     userData: UserData;
     userAchievementData: UserAchievementData;
@@ -68,7 +66,8 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
         (c) =>
             stores.settings.characters.hiddenCharacters.indexOf(c.id) === -1 &&
             stores.settings.characters.ignoredCharacters.indexOf(c.id) === -1 &&
-            (!stores.settings.characters.hideDisabledAccounts || c.account?.enabled !== false),
+            (!stores.settings.characters.hideDisabledAccounts ||
+                stores.settings.accounts?.[c.accountId]?.enabled !== false)
     );
     const overallCounts = (setCounts['OVERALL'] = new UserCount());
     const resetMap = Object.fromEntries(
@@ -77,18 +76,18 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
             {
                 daily: getNextDailyReset(
                     c[1].scannedAt,
-                    stores.userData.characterMap[parseInt(c[0])]?.realm?.region ?? 1,
+                    stores.userData.characterMap[parseInt(c[0])]?.realm?.region ?? 1
                 ),
                 biWeekly: getNextBiWeeklyReset(
                     c[1].scannedAt,
-                    stores.userData.characterMap[parseInt(c[0])]?.realm?.region ?? 1,
+                    stores.userData.characterMap[parseInt(c[0])]?.realm?.region ?? 1
                 ),
                 weekly: getNextWeeklyReset(
                     c[1].scannedAt,
-                    stores.userData.characterMap[parseInt(c[0])]?.realm?.region ?? 1,
+                    stores.userData.characterMap[parseInt(c[0])]?.realm?.region ?? 1
                 ),
             },
-        ]),
+        ])
     );
 
     for (const maps of wowthingData.manual.zoneMaps.sets) {
@@ -104,8 +103,8 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                 char.level >= maps[0].minimumLevel &&
                 (maps[0].requiredQuestIds.length === 0 ||
                     maps[0].requiredQuestIds.some((questId) =>
-                        stores.userQuestData.characters[char.id]?.quests?.has(questId),
-                    )),
+                        stores.userQuestData.characters[char.id]?.quests?.has(questId)
+                    ))
         );
 
         for (const map of maps.slice(1)) {
@@ -134,13 +133,13 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                     char.level >= map.minimumLevel &&
                     (map.requiredQuestIds.length === 0 ||
                         map.requiredQuestIds.some((questId) =>
-                            stores.userQuestData.characters[char.id]?.quests?.has(questId),
+                            stores.userQuestData.characters[char.id]?.quests?.has(questId)
                         )) &&
                     (mapClassMask === 0 ||
                         (mapClassMask & stores.staticData.characterClasses[char.classId].mask) >
                             0) &&
                     (stores.zoneMapState.maxLevelOnly === false ||
-                        char.level === Constants.characterMaxLevel),
+                        char.level === Constants.characterMaxLevel)
             );
 
             const farms = [...map.farms];
@@ -153,7 +152,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                 ...wowthingData.db
                     .search({ maps: [map.mapName] })
                     .map((thing) => thing.asZoneMapsFarm(map.mapName))
-                    .filter((farm) => !!farm),
+                    .filter((farm) => !!farm)
             );
 
             const farmStatuses: FarmStatus[] = [];
@@ -184,13 +183,13 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                 if (farm.requiredQuestIds?.length > 0) {
                     farmCharacters = farmCharacters.filter((c) =>
                         farm.requiredQuestIds.some((q) =>
-                            stores.userQuestData.characters[c.id]?.quests?.has(q),
-                        ),
+                            stores.userQuestData.characters[c.id]?.quests?.has(q)
+                        )
                     );
                 }
                 if (farm.faction) {
                     farmCharacters = farmCharacters.filter(
-                        (c) => c.faction === factionMap[farm.faction],
+                        (c) => c.faction === factionMap[farm.faction]
                     );
                 }
 
@@ -209,11 +208,11 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                         case RewardType.Item:
                             if (wowthingData.manual.dragonridingItemToQuest.has(drop.id)) {
                                 dropStatus.need = !stores.userQuestData.accountHas.has(
-                                    wowthingData.manual.dragonridingItemToQuest.get(drop.id),
+                                    wowthingData.manual.dragonridingItemToQuest.get(drop.id)
                                 );
                             } else if (wowthingData.manual.druidFormItemToQuest.has(drop.id)) {
                                 dropStatus.need = !stores.userQuestData.accountHas.has(
-                                    wowthingData.manual.druidFormItemToQuest.get(drop.id),
+                                    wowthingData.manual.druidFormItemToQuest.get(drop.id)
                                 );
                             } else if (stores.staticData.professionAbilityByItemId[drop.id]) {
                                 const abilityInfo =
@@ -268,7 +267,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                         case RewardType.CharacterTrackingQuest:
                             if (
                                 !Object.values(stores.userQuestData.characters).every((char) =>
-                                    char?.quests?.has(drop.id),
+                                    char?.quests?.has(drop.id)
                                 )
                             ) {
                                 dropStatus.need = true;
@@ -290,8 +289,8 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                             char.id
                                         ]?.dailyQuests?.has(drop.id) ||
                                         !!stores.userQuestData.characters[char.id]?.quests?.has(
-                                            drop.id,
-                                        ),
+                                            drop.id
+                                        )
                                 )
                             ) {
                                 dropStatus.need = true;
@@ -305,11 +304,11 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             if (drop.appearanceIds?.length > 0) {
                                 dropStatus.need = drop.appearanceIds[0].some(
                                     (appearanceId) =>
-                                        !stores.userData.hasAppearance.has(appearanceId),
+                                        !stores.userData.hasAppearance.has(appearanceId)
                                 );
                             } else {
                                 const itemAppearances =
-                                    stores.itemData.items[drop.id]?.appearances || {};
+                                    wowthingData.items.items[drop.id]?.appearances || {};
 
                                 let modifier = 0;
                                 // If there's no default appearanceId, check for there only being one possibility
@@ -323,7 +322,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                 dropStatus.need ||= completionistMode
                                     ? !stores.userData.hasSourceV2.get(modifier).has(drop.id)
                                     : !stores.userData.hasAppearance.has(
-                                          itemAppearances[modifier]?.appearanceId || 0,
+                                          itemAppearances[modifier]?.appearanceId || 0
                                       );
                             }
                             fixedType = RewardType.Transmog;
@@ -331,29 +330,27 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
 
                         case RewardType.Illusion:
                             dropStatus.need = stores.userData.hasIllusion.has(
-                                drop.appearanceIds[0][0],
+                                drop.appearanceIds[0][0]
                             );
                             break;
 
                         case RewardType.SetSpecial:
                             [dropStatus.setHave, dropStatus.setNeed] = getVendorDropStats(
                                 stores.settings,
-                                stores.itemData,
                                 stores.staticData,
                                 stores.userData,
                                 stores.userQuestData,
                                 stores.lazyTransmog,
                                 completionistMode,
-                                drop,
+                                drop
                             );
                             dropStatus.need = dropStatus.setHave < dropStatus.setNeed;
 
                             dropStatus.setNote = getSetCurrencyCostsString(
-                                stores.itemData,
                                 stores.staticData,
                                 drop.appearanceIds,
                                 drop.costs,
-                                (appearanceId) => stores.userData.hasAppearance.has(appearanceId),
+                                (appearanceId) => stores.userData.hasAppearance.has(appearanceId)
                             );
 
                             break;
@@ -422,7 +419,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                     (drop.classMask & classMask) > 0 &&
                                     (drop.classMask &
                                         stores.staticData.characterClasses[c.classId].mask) >
-                                        0,
+                                        0
                             );
                         }
 
@@ -432,8 +429,8 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                     dropCharacters = dropCharacters.filter(
                                         (c) =>
                                             classByArmorTypeString[drop.limit[1]].indexOf(
-                                                c.classId,
-                                            ) >= 0,
+                                                c.classId
+                                            ) >= 0
                                     );
                                     break;
 
@@ -444,8 +441,8 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                             .some(
                                                 (cl) =>
                                                     stores.staticData.characterClassesBySlug[cl]
-                                                        .id === c.classId,
-                                            ),
+                                                        .id === c.classId
+                                            )
                                     );
                                     break;
 
@@ -453,13 +450,13 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                     dropCharacters = dropCharacters.filter(
                                         (c) =>
                                             c.shadowlands?.covenantId ===
-                                            covenantSlugMap[drop.limit[1]].id,
+                                            covenantSlugMap[drop.limit[1]].id
                                     );
                                     break;
 
                                 case 'faction':
                                     dropCharacters = dropCharacters.filter(
-                                        (c) => c.faction === factionMap[drop.limit[1]],
+                                        (c) => c.faction === factionMap[drop.limit[1]]
                                     );
                                     break;
 
@@ -483,7 +480,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                             (subProfessionId
                                                 ? c.professions[professionId][subProfessionId]
                                                       ?.currentSkill >= parseInt(drop.limit[3])
-                                                : true),
+                                                : true)
                                     );
                                     break;
                                 }
@@ -494,8 +491,8 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                             .some(
                                                 (raceSlug) =>
                                                     stores.staticData.characterRacesBySlug[raceSlug]
-                                                        .id === c.raceId,
-                                            ),
+                                                        .id === c.raceId
+                                            )
                                     );
                                     break;
                             }
@@ -505,15 +502,15 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                         if (drop.requiredQuestId > 0) {
                             dropCharacters = dropCharacters.filter((c) =>
                                 stores.userQuestData.characters[c.id]?.quests?.has(
-                                    drop.requiredQuestId,
-                                ),
+                                    drop.requiredQuestId
+                                )
                             );
                         }
 
                         // Filter again for characters that haven't completed the quest
                         if (drop.type === RewardType.Quest) {
                             dropCharacters = dropCharacters.filter(
-                                (c) => !stores.userQuestData.characters[c.id]?.quests?.has(drop.id),
+                                (c) => !stores.userQuestData.characters[c.id]?.quests?.has(drop.id)
                             );
 
                             if (!dropStatus.skip && dropCharacters.length === 0) {
@@ -540,8 +537,8 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                         (q) =>
                                             !stores.userQuestData.characters[
                                                 c.id
-                                            ]?.dailyQuests?.has(q),
-                                    ),
+                                            ]?.dailyQuests?.has(q)
+                                    )
                             );
                         }
 
@@ -598,7 +595,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                             !charQuests?.dailyQuests?.has(q) &&
                                             !charQuests?.quests?.has(q) &&
                                             character.lockouts?.[`${questToLockout[q] || 0}-0`] ===
-                                                undefined,
+                                                undefined
                                     )
                                 ) {
                                     dropStatus.characterIds.push(character.id);

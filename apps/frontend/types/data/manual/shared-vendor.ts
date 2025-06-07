@@ -4,9 +4,9 @@ import { FarmIdType } from '@/enums/farm-id-type';
 import { FarmResetType } from '@/enums/farm-reset-type';
 import { FarmType } from '@/enums/farm-type';
 import { RewardType } from '@/enums/reward-type';
+import { wowthingData } from '@/shared/stores/data';
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from './zone-map';
 import type { StaticData } from '@/shared/stores/static/types';
-import type { ItemData } from '../item';
 
 export class ManualDataSharedVendor {
     private drops: ManualDataZoneMapDrop[];
@@ -23,7 +23,7 @@ export class ManualDataSharedVendor {
         sells: ManualDataVendorItemArray[],
         sets: ManualDataSharedVendorSetArray[],
         public note?: string,
-        public zoneMapsGroupId?: number,
+        public zoneMapsGroupId?: number
     ) {
         this.sells = sells.map((itemArray) => new ManualDataVendorItem(...itemArray));
         this.sets = sets.map((setArray) => new ManualDataSharedVendorSet(...setArray));
@@ -48,7 +48,7 @@ export class ManualDataSharedVendor {
         }
     }
 
-    createFarmData(itemData: ItemData, staticData: StaticData) {
+    createFarmData(staticData: StaticData) {
         const seen: Record<number, boolean> = {};
         const itemDrops: ManualDataZoneMapDrop[] = [];
         const setDrops: ManualDataZoneMapDrop[] = [];
@@ -88,7 +88,10 @@ export class ManualDataSharedVendor {
                     const itemAppearanceIds =
                         item.appearanceIds?.[0] > 0
                             ? item.appearanceIds
-                            : [itemData.items[item.id]?.appearances?.[0]?.appearanceId || 0];
+                            : [
+                                  wowthingData.items.items[item.id]?.appearances?.[0]
+                                      ?.appearanceId || 0,
+                              ];
                     appearanceIds.push(itemAppearanceIds);
 
                     for (const appearanceId of itemAppearanceIds) {
@@ -119,7 +122,7 @@ export class ManualDataSharedVendor {
                 const appearanceIds =
                     item.appearanceIds?.[0] > 0
                         ? item.appearanceIds
-                        : [itemData.items[item.id]?.appearances?.[0]?.appearanceId || 0];
+                        : [wowthingData.items.items[item.id]?.appearances?.[0]?.appearanceId || 0];
 
                 if (
                     appearanceIds.every((appearanceId) => appearanceId === 0 || !seen[appearanceId])
@@ -130,7 +133,7 @@ export class ManualDataSharedVendor {
                         subType: item.subType,
                         classMask: item.classMask,
                         appearanceIds: [appearanceIds],
-                        note: item.getNote(itemData, staticData),
+                        note: item.getNote(staticData),
                     });
                 }
             }
@@ -170,7 +173,7 @@ export class ManualDataSharedVendorSet {
         public sortKey?: string,
         public showNormalTag?: boolean,
         public skipTooltip?: boolean,
-        public bonusIds?: number[],
+        public bonusIds?: number[]
     ) {}
 }
 export type ManualDataSharedVendorSetArray = ConstructorParameters<

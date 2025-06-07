@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { settingsStore } from '@/shared/stores/settings'
+    import { settingsState } from '@/shared/state/settings.svelte';
 
-    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
 </script>
 
 <style lang="scss">
@@ -11,23 +11,18 @@
     <h2>Leaderboard</h2>
 
     <div class="setting">
-        <Checkbox
-            name="leaderboard_enabled"
-            bind:value={$settingsStore.leaderboard.enabled}
-        >Enabled</Checkbox>
-        <p>
-            Is the Leaderboard enabled for your account?
-        </p>
+        <Checkbox name="leaderboard_enabled" bind:value={settingsState.value.leaderboard.enabled}
+            >Enabled</Checkbox
+        >
+        <p>Is the Leaderboard enabled for your account?</p>
     </div>
 
     <div class="setting">
         <Checkbox
             name="leaderboard_anonymous"
-            disabled={!$settingsStore.leaderboard.enabled}
-            bind:value={$settingsStore.leaderboard.anonymous}
-        >Anonymous</Checkbox>
-        <p>
-            Hide your username on the leaderboard.
-        </p>
+            disabled={!settingsState.value.leaderboard.enabled}
+            bind:value={settingsState.value.leaderboard.anonymous}>Anonymous</Checkbox
+        >
+        <p>Hide your username on the leaderboard.</p>
     </div>
 </div>

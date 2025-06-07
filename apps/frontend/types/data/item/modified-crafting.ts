@@ -1,4 +1,4 @@
 export interface DataItemModifiedCrafting {
-    displayName: string
-    itemId: number
+    displayName: string;
+    itemId: number;
 }

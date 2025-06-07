@@ -1,8 +1,7 @@
-import type { DbThingContentType } from '../enums'
-
+import type { DbThingContentType } from '../enums';
 
 export class DbDataThingContent {
-    public costs: Record<number, number> = {}
+    public costs: Record<number, number> = {};
 
     constructor(
         public type: DbThingContentType,
@@ -11,11 +10,11 @@ export class DbDataThingContent {
         public note: string,
         public requirementIds: number[],
         public tagIds: number[],
-        costArrays: [number, number][]
+        costArrays: [number, number][],
     ) {
         for (const [currencyId, currencyAmount] of costArrays) {
-            this.costs[currencyId] = currencyAmount
+            this.costs[currencyId] = currencyAmount;
         }
     }
 }
-export type DbDataThingContentArray = ConstructorParameters<typeof DbDataThingContent>
+export type DbDataThingContentArray = ConstructorParameters<typeof DbDataThingContent>;

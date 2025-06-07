@@ -6,8 +6,9 @@
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
     import { RewardType } from '@/enums/reward-type';
     import { iconLibrary } from '@/shared/icons';
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
-    import { itemStore, userStore } from '@/stores';
+    import { userStore } from '@/stores';
     import { journalState } from '@/stores/local-storage';
     import { getItemUrl } from '@/utils/get-item-url';
     import { basicTooltip } from '@/shared/utils/tooltips';
@@ -32,7 +33,7 @@
         item.classMask in PlayableClassMask
             ? PlayableClass[PlayableClassMask[item.classMask] as keyof typeof PlayableClass]
             : 0;
-    $: dataItem = $itemStore.items[item.id];
+    $: dataItem = wowthingData.items.items[item.id];
 
     const getQuality = function (appearance: JournalDataEncounterItemAppearance): number {
         // Mythic Keystone/Mythic difficulties should probably set the quality to epic?

@@ -19,8 +19,7 @@ import { DbResetType, DbThingContentType, DbThingType } from '../enums';
 import { DbDataThingLocation } from './thing-location';
 import { DbDataThingContent, type DbDataThingContentArray } from './thing-content';
 import { DbDataThingGroup, type DbDataThingGroupArray } from './thing-group';
-import { wowthingData } from '../../data/store';
-import { itemStore } from '@/stores';
+import { wowthingData } from '../../data/store.svelte';
 
 export class DbDataThing {
     public accountWide: boolean;
@@ -44,7 +43,7 @@ export class DbDataThing {
         public tagIds: number[],
         locationArrays: [number, number][],
         contentsArrays: DbDataThingContentArray[],
-        groupsArrays?: DbDataThingGroupArray[],
+        groupsArrays?: DbDataThingGroupArray[]
     ) {
         this.accountWide = accountWide === 1;
 
@@ -94,7 +93,7 @@ export class DbDataThing {
                             costs: content.costs,
                             faction: Faction.Both,
                             trackingQuestId: content.trackingQuestId,
-                        },
+                        }
                 ),
             };
         }
@@ -110,7 +109,6 @@ export class DbDataThing {
                 return;
             }
 
-            const itemData = get(itemStore);
             const staticData = get(staticStore);
 
             let minimumLevel = 0;
@@ -128,19 +126,19 @@ export class DbDataThing {
             }
 
             const personalLoot = this.tagIds.some(
-                (tagId) => wowthingData.db.tagsById.get(tagId) === 'personal-loot',
+                (tagId) => wowthingData.db.tagsById.get(tagId) === 'personal-loot'
             );
 
             const drops: ManualDataZoneMapDrop[] = [];
             for (const content of this.contents) {
                 let classMask = 0;
                 if (personalLoot) {
-                    classMask = itemData.items[content.id]?.classMask || 0;
+                    classMask = wowthingData.items.items[content.id]?.classMask || 0;
                 }
 
                 const [type, subType] = getItemTypeAndSubtype(
                     content.id,
-                    thingContentTypeToRewardType[content.type],
+                    thingContentTypeToRewardType[content.type]
                 );
 
                 const drop: ManualDataZoneMapDrop = {

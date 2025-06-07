@@ -3,12 +3,14 @@
 
     import { InventoryType } from '@/enums/inventory-type';
     import { iconLibrary, uiIcons } from '@/shared/icons';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { userStore } from '@/stores';
     import { getGenderedName } from '@/utils/get-gendered-name';
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
     import type { StaticDataCharacterClass } from '@/shared/stores/static/types';
     import type { LazyConvertibleModifier } from '@/stores/lazy/convertible';
 
+    import CharacterTag from '@/shared/components/CharacterTag.svelte';
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
@@ -65,7 +67,7 @@
                     <td>Collected!</td>
                 </tr>
             {:else}
-                {#each characters as [characterId, characterData]}
+                {#each characters as [characterId, characterData] (characterId)}
                     {@const character = $userStore.characterMap[characterId]}
                     {@const canConvert = characterData.some((item) => item.canConvert)}
                     {@const canUpgrade = characterData.some((item) => item.canUpgrade)}
@@ -73,9 +75,10 @@
                     {@const isPurchased = characterData.some((item) => item.isPurchased)}
                     {@const isUpgradeable = characterData.some((item) => item.isUpgradeable)}
                     <tr>
-                        {#if userStore.useAccountTags}
-                            <td class="tag">{$userStore.accounts[character.accountId].tag || ''}</td
-                            >
+                        {#if settingsState.useAccountTags}
+                            <td class="tag">
+                                <CharacterTag {character} />
+                            </td>
                         {/if}
                         <td class="name">{character.name}</td>
                         <td class="realm">{character.realm.name}</td>

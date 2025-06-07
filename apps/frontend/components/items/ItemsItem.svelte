@@ -8,7 +8,7 @@
     import { Constants } from '@/data/constants';
     import { iconStrings } from '@/data/icons';
     import { staticStore } from '@/shared/stores/static';
-    import { itemStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
     import { getItemUrl } from '@/utils/get-item-url';
     import type { Character, CharacterGear } from '@/types';
 
@@ -26,11 +26,11 @@
     function getIconName(): [string, number] {
         let tiers: [number, number, number?][][];
         for (const bonusId of gear.equipped.bonusIds) {
-            if (!$itemStore.itemBonusCurrentSeason.has(bonusId)) {
+            if (!wowthingData.items.itemBonusCurrentSeason.has(bonusId)) {
                 continue;
             }
 
-            const upgrade = $itemStore.itemBonusToUpgrade[bonusId];
+            const upgrade = wowthingData.items.itemBonusToUpgrade[bonusId];
             if (upgrade?.[0] > 0 && upgrade[1] < upgrade[2]) {
                 if (upgrade[0] === Constants.upgradeTiers.explorer) {
                     tiers = [null, null];
@@ -72,8 +72,8 @@
 
     const getUpgradeData = () => {
         for (const bonusId of gear.equipped.bonusIds) {
-            if ($itemStore.itemBonusCurrentSeason.has(bonusId)) {
-                const upgrades = $itemStore.itemBonusToUpgrade[bonusId];
+            if (wowthingData.items.itemBonusCurrentSeason.has(bonusId)) {
+                const upgrades = wowthingData.items.itemBonusToUpgrade[bonusId];
                 if (upgrades) {
                     return upgrades;
                 }
@@ -174,7 +174,7 @@
 
 <td class="gear" class:no-problem={useHighlighting && !gear.highlight}>
     {#if gear.equipped !== undefined}
-        {@const item = $itemStore.items[gear.equipped.itemId]}
+        {@const item = wowthingData.items.items[gear.equipped.itemId]}
         <a
             class="quality{gear.equipped.quality}"
             href={getItemUrl(gear.equipped, character, tierPieces)}
@@ -227,7 +227,7 @@
                 <CraftedQualityIcon
                     quality={Math.max(
                         1,
-                        gear.equipped.craftedQuality || item?.craftingQuality || 0,
+                        gear.equipped.craftedQuality || item?.craftingQuality || 0
                     )}
                 />
             </div>

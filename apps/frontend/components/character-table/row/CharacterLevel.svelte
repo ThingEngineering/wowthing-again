@@ -1,10 +1,10 @@
 <script lang="ts">
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import Tooltip from '@/components/tooltips/character-level/TooltipCharacterLevel.svelte';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 </script>
 
 <style lang="scss">

@@ -1,23 +1,24 @@
 <script lang="ts">
-    import active from 'svelte-spa-router/active'
+    import active from 'svelte-spa-router/active';
 
-    import { navItems } from '@/data/nav'
-    import { iconLibrary } from '@/shared/icons'
-    import { settingsStore } from '@/shared/stores/settings'
-    import { basicTooltip } from '@/shared/utils/tooltips'
-    import { lazyStore, userStore } from '@/stores'
-    import getPercentClass from '@/utils/get-percent-class'
+    import { navItems } from '@/data/nav';
+    import { iconLibrary } from '@/shared/icons';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import { sharedState } from '@/shared/state/shared.svelte';
+    import { basicTooltip } from '@/shared/utils/tooltips';
+    import { lazyStore, userStore } from '@/stores';
+    import getPercentClass from '@/utils/get-percent-class';
 
-    import CharacterFilter from './CharacterFilter.svelte'
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import Sidebar from '@/components/main-sidebar/MainSidebar.svelte'
+    import CharacterFilter from './CharacterFilter.svelte';
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import Sidebar from '@/components/main-sidebar/MainSidebar.svelte';
 
-    $: filteredNavItems = navItems
-        .filter((navItem) =>
-            navItem === null ||
-            !navItem.showFunc ||
-            navItem.showFunc($settingsStore)
-        )
+    let filteredNavItems = $derived.by(() =>
+        navItems.filter(
+            (navItem) =>
+                navItem === null || !navItem.showFunc || navItem.showFunc(settingsState.value),
+        ),
+    );
 </script>
 
 <style lang="scss">
@@ -53,15 +54,14 @@
 </style>
 
 <Sidebar>
-    {#each filteredNavItems as navItem, navItemIndex}
+    {#each filteredNavItems as navItem, navItemIndex (navItemIndex)}
         {#if navItem !== null}
-            {#if !navItem.privateOnly
-                || (navItem.privateOnly && navItem.text === 'Currencies' && $settingsStore.privacy.publicCurrencies)
-                || ($userStore.loaded && !$userStore.public)
-            }
+            {#if !navItem.privateOnly || (navItem.privateOnly && navItem.text === 'Currencies' && settingsState.value.privacy.publicCurrencies) || ($userStore.loaded && !sharedState.public)}
                 {@const percent = navItem.percentFunc?.($lazyStore)}
                 <li
-                    use:active={navItem.path.endsWith('/') ? `/${navItem.path}*` : `/${navItem.path}`}
+                    use:active={navItem.path.endsWith('/')
+                        ? `/${navItem.path}*`
+                        : `/${navItem.path}`}
                     use:basicTooltip={navItem.text}
                 >
                     <a
@@ -69,10 +69,7 @@
                         class:wip={navItem.text.indexOf('WIP') >= 0}
                         href="#/{navItem.path}"
                     >
-                        <IconifyIcon
-                            icon={iconLibrary[navItem.icon]}
-                            dropShadow={true}
-                        />
+                        <IconifyIcon icon={iconLibrary[navItem.icon]} dropShadow={true} />
                         {navItem.text}
                     </a>
 

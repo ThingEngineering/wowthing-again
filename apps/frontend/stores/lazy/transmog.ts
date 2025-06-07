@@ -2,6 +2,7 @@ import groupBy from 'lodash/groupBy';
 
 import { weaponInventoryTypes } from '@/enums/inventory-type';
 import { ItemQuality } from '@/enums/item-quality';
+import { wowthingData } from '@/shared/stores/data';
 import { UserCount, type UserAchievementData, type UserData } from '@/types';
 import { fixedInventoryType } from '@/utils/fixed-inventory-type';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
@@ -9,9 +10,7 @@ import getSkipClasses from '@/utils/get-skip-classes';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { UserQuestData } from '@/types/data';
-import type { ItemData } from '@/types/data/item';
 import type { ManualDataTransmogCategory } from '@/types/data/manual';
-import { wowthingData } from '@/shared/stores/data';
 
 // [hasAny, [hasAppearance, hasSource, itemId, modifier, appearanceId]]
 export type TransmogSlot = [boolean, boolean, number, number, number];
@@ -27,7 +26,6 @@ export interface LazyTransmog {
 
 interface LazyStores {
     settings: Settings;
-    itemData: ItemData;
     staticData: StaticData;
     userAchievementData: UserAchievementData;
     userData: UserData;
@@ -49,7 +47,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
         maybeItemId: number,
         modifier: number,
         useSource: boolean,
-        overrideHas = false,
+        overrideHas = false
     ) => {
         // Dragonflight set mythic looks?
         // if (modifier >= 153 && modifier <= 156) {
@@ -57,7 +55,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
         // }
 
         const itemId = maybeItemId % 10_000_000;
-        const item = stores.itemData.items[itemId];
+        const item = wowthingData.items.items[itemId];
         if (!item) {
             return;
         }
@@ -70,7 +68,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
         }
 
         let appearanceId = item.appearances[modifier]?.appearanceId || 0;
-        appearanceId = stores.itemData.appearanceMap[appearanceId] || appearanceId;
+        appearanceId = wowthingData.items.appearanceMap[appearanceId] || appearanceId;
 
         const hasSource = overrideHas || stores.userData.hasSourceV2.get(modifier).has(itemId);
         const hasAppearance =
@@ -165,7 +163,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         }
                         if (groupSigh.questId) {
                             overrideHas ||= Object.values(stores.userQuestData.characters).some(
-                                (charQuests) => charQuests.quests?.has(groupSigh.questId),
+                                (charQuests) => charQuests.quests?.has(groupSigh.questId)
                             );
                         }
 
@@ -186,7 +184,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                             }
 
                             const anyPrimary = transmogSet.items.some(
-                                ([itemId]) => itemId > 10_000_000,
+                                ([itemId]) => itemId > 10_000_000
                             );
 
                             for (const [maybeItemId, maybeModifier] of transmogSet.items) {
@@ -205,7 +203,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                     itemId -= 10_000_000;
                                 }
 
-                                const item = stores.itemData.items[itemId];
+                                const item = wowthingData.items.items[itemId];
                                 if (!item) {
                                     continue;
                                 }
@@ -246,7 +244,8 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                             for (const appearanceIds of Object.values(groupSigh.items)) {
                                 for (const appearanceId of appearanceIds) {
                                     itemsWithModifiers.push(
-                                        ...(stores.itemData.appearanceToItems[appearanceId] || []),
+                                        ...(wowthingData.items.appearanceToItems[appearanceId] ||
+                                            [])
                                     );
                                 }
                             }
@@ -265,11 +264,11 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         if (completionistSets || manualItems) {
                             setDataStats.total = Object.values(slotData).reduce(
                                 (a, b) => a + b[1].length,
-                                0,
+                                0
                             );
                             setDataStats.have = Object.values(slotData).reduce(
                                 (a, b) => a + b[1].filter((hasSlot) => hasSlot[1] === true).length,
-                                0,
+                                0
                             );
 
                             if (ensembleStats) {
@@ -347,7 +346,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
 
     // generate stats for any transmog sets not seen in manual sets
     for (const [transmogSetId, transmogSet] of getNumberKeyedEntries(
-        stores.staticData.transmogSets,
+        stores.staticData.transmogSets
     )) {
         const setKey = `transmogSet:${transmogSetId}`;
         if (ret.stats[setKey]) {
@@ -368,7 +367,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
             setStats.total = Object.values(slotData).reduce((a, b) => a + b[1].length, 0);
             setStats.have = Object.values(slotData).reduce(
                 (a, b) => a + b[1].filter((hasSlot) => hasSlot[1] === true).length,
-                0,
+                0
             );
 
             if (ensembleStats) {
@@ -389,27 +388,27 @@ function buildStats(
     completionistMode: boolean,
     slotData: TransmogSlotData,
     setDataStats: UserCount,
-    ensembleStats: UserCount,
+    ensembleStats: UserCount
 ) {
     if (ensembleStats) {
         if (completionistMode) {
             ensembleStats.total = Object.values(slotData).reduce((a, b) => a + b[1].length, 0);
             ensembleStats.have = Object.values(slotData).reduce(
                 (a, b) => a + b[1].filter((hasSlot) => hasSlot[0] === true).length,
-                0,
+                0
             );
         } else {
             const byAppearanceId = groupBy(
                 Object.values(slotData)
                     .flatMap(([, items]) => items)
                     .filter((slot) => slot[4] > 0),
-                (slot) => slot[4],
+                (slot) => slot[4]
             );
 
             ensembleStats.total = Object.keys(byAppearanceId).length;
 
             ensembleStats.have = Object.values(byAppearanceId).filter((combos) =>
-                combos.some(([has]) => has),
+                combos.some(([has]) => has)
             ).length;
         }
     }
@@ -423,7 +422,7 @@ function buildStats(
         .map(([, b]) => b);
     const weaponsByAppearanceId = groupBy(
         weapons.flatMap(([, items]) => items),
-        (slot) => slot[4],
+        (slot) => slot[4]
     );
 
     setDataStats.total = armor.length + Object.keys(weaponsByAppearanceId).length;

@@ -1,7 +1,6 @@
-import type { IconifyIcon } from '@iconify/types'
+import type { IconifyIcon } from '@iconify/types';
 
-import * as iconLibrary from '../library'
-
+import * as iconLibrary from '../library';
 
 export const professionSlugIcons: Record<string, IconifyIcon> = {
     alchemy: iconLibrary.gameFizzingFlask,
@@ -17,4 +16,4 @@ export const professionSlugIcons: Record<string, IconifyIcon> = {
     mining: iconLibrary.gameWarPick,
     skinning: iconLibrary.gameAnimalHide,
     tailoring: iconLibrary.gameRolledCloth,
-}
+};

@@ -7,7 +7,7 @@
     import { progressQuestMap } from '@/data/quests';
     import { multiTaskMap, taskMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
-    import { activeView } from '@/shared/stores/settings';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { timeStore } from '@/shared/stores/time';
     import { lazyStore, userQuestStore, userStore } from '@/stores';
 
@@ -31,7 +31,7 @@
 
         const questName = progressQuestMap[taskName] || taskName;
         const task = taskMap[taskName];
-        disabledChores = $activeView.disabledChores?.[fullTaskName] || [];
+        disabledChores = settingsState.activeView.disabledChores?.[fullTaskName] || [];
 
         const multiMap: Record<string, number> = {};
         multiStats = [];
@@ -71,7 +71,8 @@
 
                 if (task.type === 'multi') {
                     const { chores: charChores } = $lazyStore.characters[characterId];
-                    const taskChores = charChores?.[`${$activeView.id}|${fullTaskName}`];
+                    const taskChores =
+                        charChores?.[`${settingsState.activeView.id}|${fullTaskName}`];
 
                     if (taskName !== 'dfProfessionWeeklies') {
                         for (const choreTask of taskChores?.tasks || []) {

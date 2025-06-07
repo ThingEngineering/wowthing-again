@@ -7,6 +7,7 @@ export const uiIcons = {
     minus: iconLibrary.mdiMinus,
     no: iconLibrary.mdiClose,
     plus: iconLibrary.mdiPlus,
+    question: iconLibrary.mdiQuestionMark,
     starEmpty: iconLibrary.mdiStarOutline,
     starHalf: iconLibrary.mdiStarHalfFull,
     starFull: iconLibrary.mdiStarFace,
