@@ -1,6 +1,6 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
-    import type { Component, ComponentType } from 'svelte';
+    import type { Component } from 'svelte';
     import MultiSelect from 'svelte-multiselect';
 
     import { ItemQuality } from '@/enums/item-quality';
@@ -53,14 +53,13 @@
         .map(([key, value]) => [parseInt(key), value] as [number, string])
         .filter(
             ([, value]) =>
-                ['Archaeology', 'Fishing', 'Herbalism', 'Mining', 'Skinning'].indexOf(value) === -1,
+                ['Archaeology', 'Fishing', 'Herbalism', 'Mining', 'Skinning'].indexOf(value) === -1
         );
     professionOptions.sort((a, b) => a[1].localeCompare(b[1]));
 
     const weaponOptions: [number, string][] = Object.entries(WeaponSubclass)
         .filter(
-            ([key, value]) =>
-                !isNaN(parseInt(key)) && value !== 'Thrown' && value !== 'FishingPole',
+            ([key, value]) => !isNaN(parseInt(key)) && value !== 'Thrown' && value !== 'FishingPole'
         )
         .map(([key, value]) => [parseInt(key), value as string]);
     weaponOptions.splice(0, 0, [-1, 'Any']);
@@ -99,16 +98,16 @@
     $: {
         characterOptions = sortBy(
             $userStore.activeCharacters.filter(
-                (char) => !settingsState.value.characters.ignoredCharacters.includes(char.id),
+                (char) => !settingsState.value.characters.ignoredCharacters.includes(char.id)
             ),
-            (char) => `${char.realm.slug}|${char.name}`,
+            (char) => `${char.realm.slug}|${char.name}`
         ).map((char) => ({
             id: char.id,
             label: `${char.name}-${char.realm.name}`,
         })) as CharacterOption[];
 
         characterOptionMap = Object.fromEntries(
-            characterOptions.map((option) => [option.id, option]),
+            characterOptions.map((option) => [option.id, option])
         );
 
         selectedCharacter = initialCharacters();
@@ -408,7 +407,7 @@
                                 selectedCharacter = [];
                             }
                             $auctionState.missingRecipeCharacterIds = selectedCharacter.map(
-                                (o) => o.id,
+                                (o) => o.id
                             );
                         }}
                     />

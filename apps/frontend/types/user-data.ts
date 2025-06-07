@@ -12,7 +12,7 @@ import type { UserCount } from './user-count';
 import type { ItemQuality } from '@/enums/item-quality';
 import type { WarbankItem, WarbankItemArray } from './items/warbank';
 
-type InstanceLockout = InstanceDifficulty & { characters: [Character, CharacterLockout][] };
+export type InstanceLockout = InstanceDifficulty & { characters: [Character, CharacterLockout][] };
 
 export interface UserData {
     lastApiCheck: string;
@@ -124,7 +124,7 @@ export class UserDataPet {
     constructor(
         public level: number,
         public quality: number,
-        public breedId: number,
+        public breedId: number
     ) {}
 }
 

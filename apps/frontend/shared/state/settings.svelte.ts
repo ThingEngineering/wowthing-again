@@ -37,6 +37,9 @@ function createSettingsState() {
     let settings = $state<Settings>();
     let saving = $state(0);
 
+    let reactiveLocation = $state('');
+    location.subscribe((state) => (reactiveLocation = state));
+
     const saveData = async () => {
         saving = 1;
 
@@ -64,10 +67,9 @@ function createSettingsState() {
 
     const activeView = $derived.by(() => {
         const browserStoreValue = get(browserStore);
-        const locationValue = get(location);
 
         return (
-            (locationValue === '/'
+            (reactiveLocation === '/'
                 ? settings.views.find((view) => view.id === browserStoreValue.home.activeView)
                 : settings.views[0]) || settings.views[0]
         );

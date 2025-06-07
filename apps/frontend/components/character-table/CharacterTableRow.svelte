@@ -20,7 +20,7 @@
     let intersected = $state(false);
 
     let accountEnabled = $derived(
-        !character?.accountId || settingsState.value.accounts?.[character?.accountId]?.enabled,
+        !character?.accountId || settingsState.value.accounts?.[character?.accountId]?.enabled
     );
     let commonFields = $derived(settingsState.activeView.commonFields);
     // $: accountEnabled = !character?.accountId || $userStore.accounts[character?.accountId]?.enabled;
