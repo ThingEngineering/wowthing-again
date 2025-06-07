@@ -524,7 +524,7 @@ public class JournalTool
                                 continue;
                             }
 
-                            if (item.InventoryType is WowInventoryType.Finger or WowInventoryType.Neck)
+                            if (item.InventoryType is WowInventoryType.Finger or WowInventoryType.Neck or WowInventoryType.Relic)
                             {
                                 continue;
                             }
