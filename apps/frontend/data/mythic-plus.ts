@@ -123,6 +123,7 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
             minLevel: 80,
             orders: [orderWarWithinS2],
             portalLevel: 10,
+            scoreType: MythicPlusScoreType.WarWithinSeason1_2,
             startPeriod: 1001, // 2024-03-04
         }),
         new MythicPlusSeason({
@@ -132,6 +133,7 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
             minLevel: 80,
             orders: [orderWarWithinS1],
             portalLevel: 10,
+            scoreType: MythicPlusScoreType.WarWithinSeason1_2,
             startPeriod: 977, // 2024-09-17
         }),
         new MythicPlusSeason({
@@ -242,7 +244,7 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
             portalLevel: 10,
             orders: [orderBattleForAzeroth],
         }),
-    ].map((season) => [season.id, season]),
+    ].map((season) => [season.id, season])
 );
 
 export const weeklyAffixes: string[][] = [

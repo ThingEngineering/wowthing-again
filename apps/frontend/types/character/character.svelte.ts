@@ -325,7 +325,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
         initializeContainsItems(this, items);
 
-        if (this.mythicPlus) {
+        if (this.mythicPlus?.rawSeasons) {
             this.mythicPlus.seasons = {};
             for (const [seasonId, seasonData] of getNumberKeyedEntries(
                 this.mythicPlus.rawSeasons || {}
@@ -342,14 +342,15 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
         if (this.mythicPlusAddon) {
             for (const seasonData of Object.values(this.mythicPlusAddon)) {
-                seasonData.runs = (seasonData.rawRuns || []).map(
-                    (runArray) => new CharacterMythicPlusAddonRun(...runArray)
-                );
-                seasonData.rawRuns = null;
+                if (seasonData.rawRuns) {
+                    seasonData.runs = (seasonData.rawRuns || []).map(
+                        (runArray) => new CharacterMythicPlusAddonRun(...runArray)
+                    );
+                    seasonData.rawRuns = null;
+                }
             }
         }
 
-        this.mythicPlusSeasons = {};
         for (const [seasonId, seasonData] of getNumberKeyedEntries(rawMythicPlusSeasons || {})) {
             this.mythicPlusSeasons[seasonId] = {};
             for (const [mapId, mapArray] of getNumberKeyedEntries(seasonData)) {
