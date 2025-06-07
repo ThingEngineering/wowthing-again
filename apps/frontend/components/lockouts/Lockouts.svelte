@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { userStore } from '@/stores';
     import { lockoutState } from '@/stores/local-storage';
+    import { userState } from '@/user-home/state/user';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import type { Character } from '@/types';
 
@@ -18,30 +18,26 @@
     };
     const hasSortedLockout = function (char: Character): string {
         return Object.keys(char.lockouts || {}).some((key) =>
-            key.startsWith(`${$lockoutState.sortBy}-`),
+            key.startsWith(`${$lockoutState.sortBy}-`)
         )
             ? 'a'
             : anyLockouts(char);
     };
 
-    let sorted: boolean;
-    let sortFunc: (char: Character) => string;
-
-    $: {
-        sorted = $lockoutState.sortBy > 0;
-        sortFunc = $getCharacterSortFunc(sorted ? hasSortedLockout : anyLockouts);
-    }
+    let sortFunc = $derived.by(() =>
+        $getCharacterSortFunc($lockoutState.sortBy > 0 ? hasSortedLockout : anyLockouts)
+    );
 </script>
 
 <CharacterTable skipGrouping={true} skipIgnored={true} {filterFunc} {sortFunc}>
     <CharacterTableHead slot="head">
-        {#each $userStore.allLockouts as instanceDifficulty}
+        {#each userState.general.allLockouts as instanceDifficulty (instanceDifficulty)}
             <HeadInstance {instanceDifficulty} />
         {/each}
     </CharacterTableHead>
 
     <svelte:fragment slot="rowExtra" let:character>
-        {#each $userStore.allLockouts as instanceDifficulty}
+        {#each userState.general.allLockouts as instanceDifficulty (instanceDifficulty)}
             <RowLockout {character} {instanceDifficulty} />
         {/each}
     </svelte:fragment>

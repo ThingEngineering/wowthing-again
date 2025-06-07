@@ -2,7 +2,7 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { staticStore } from '@/shared/stores/static';
     import { viewHasLockout } from '@/shared/utils/view-has-lockout';
-    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import type { CharacterProps } from '@/types/props';
 
     import RowLockout from '@/components/lockouts/LockoutsTableRowLockout.svelte';
@@ -10,7 +10,7 @@
     let { character }: CharacterProps = $props();
 
     let filteredLockouts = $derived.by(() =>
-        $userStore.homeLockouts.filter(
+        userState.general.homeLockouts.filter(
             (instanceDifficulty) =>
                 $staticStore.instances[instanceDifficulty.instanceId] &&
                 viewHasLockout(
