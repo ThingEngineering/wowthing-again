@@ -19,10 +19,12 @@
     let region = $derived(Region[character.realm.region].toLowerCase());
     let actualSeason = $derived(season || seasonMap[seasonId]);
 
-    let scores = $derived(actualSeason ? character.raiderIo?.[season.id] : null);
-    let tiers = $derived(actualSeason ? $userStore.raiderIoScoreTiers?.[season.id] : null);
+    let scores = $derived(actualSeason ? character.raiderIo?.[actualSeason.id] : null);
+    let tiers = $derived(actualSeason ? $userStore.raiderIoScoreTiers?.[actualSeason.id] : null);
     let overallScore = $derived(
-        actualSeason ? character.mythicPlusSeasonScores?.[season.id] || scores?.['all'] || 0 : 0
+        actualSeason
+            ? character.mythicPlusSeasonScores?.[actualSeason.id] || scores?.['all'] || 0
+            : 0
     );
 </script>
 

@@ -41,7 +41,7 @@ public class CharacterMythicKeystoneProfileJob : JobBase
             return;
         }
 
-        if (resultData?.CurrentPeriod?.Period == null || resultData.CurrentPeriod.BestRuns == null || resultData.Seasons == null)
+        if (resultData?.CurrentPeriod?.Period == null || resultData.Seasons == null)
         {
             Logger.Error("Bad data!");
             return;
@@ -60,25 +60,28 @@ public class CharacterMythicKeystoneProfileJob : JobBase
 
         mythicPlus.CurrentPeriodId = resultData.CurrentPeriod.Period.Id;
 
-        mythicPlus.PeriodRuns = resultData.CurrentPeriod.BestRuns
-            .EmptyIfNull()
-            .Select(run => new PlayerCharacterMythicPlusRun
-            {
-                Affixes = run.Affixes.Select(a => a.Id).ToList(),
-                Completed = run.CompletedTimestamp.AsUtcTimestamp(),
-                DungeonId = run.Dungeon.Id,
-                Duration = run.Duration,
-                KeystoneLevel = run.KeystoneLevel,
-                Members = run.Members.Select(member => new PlayerCharacterMythicPlusRunMember
+        if (resultData.CurrentPeriod.BestRuns != null)
+        {
+            mythicPlus.PeriodRuns = resultData.CurrentPeriod.BestRuns
+                .EmptyIfNull()
+                .Select(run => new PlayerCharacterMythicPlusRun
                 {
-                    ItemLevel = member.ItemLevel,
-                    Name = member.Character.Name,
-                    RealmId = member.Character.Realm.Id,
-                    SpecializationId = member.Specialization.Id,
-                }).ToList(),
-                Timed = run.Timed,
-            })
-            .ToList();
+                    Affixes = run.Affixes.Select(a => a.Id).ToList(),
+                    Completed = run.CompletedTimestamp.AsUtcTimestamp(),
+                    DungeonId = run.Dungeon.Id,
+                    Duration = run.Duration,
+                    KeystoneLevel = run.KeystoneLevel,
+                    Members = run.Members.Select(member => new PlayerCharacterMythicPlusRunMember
+                    {
+                        ItemLevel = member.ItemLevel,
+                        Name = member.Character.Name,
+                        RealmId = member.Character.Realm.Id,
+                        SpecializationId = member.Specialization.Id,
+                    }).ToList(),
+                    Timed = run.Timed,
+                })
+                .ToList();
+        }
 
         int updated = await Context.SaveChangesAsync(CancellationToken);
         if (updated > 0)
