@@ -3,16 +3,25 @@
     import { staticStore } from '@/shared/stores/static';
     import { viewHasLockout } from '@/shared/utils/view-has-lockout';
     import { userStore } from '@/stores';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import RowLockout from '@/components/lockouts/LockoutsTableRowLockout.svelte';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
+
+    let filteredLockouts = $derived.by(() =>
+        $userStore.homeLockouts.filter(
+            (instanceDifficulty) =>
+                $staticStore.instances[instanceDifficulty.instanceId] &&
+                viewHasLockout(
+                    settingsState.activeView,
+                    instanceDifficulty.difficulty,
+                    instanceDifficulty.instanceId
+                )
+        )
+    );
 </script>
 
-{#each $userStore.homeLockouts as instanceDifficulty}
-    {@const instance = $staticStore.instances[instanceDifficulty.instanceId]}
-    {#if instance && viewHasLockout(settingsState.activeView, instanceDifficulty.difficulty, instanceDifficulty.instanceId)}
-        <RowLockout showNumbers={false} {character} {instanceDifficulty} />
-    {/if}
+{#each filteredLockouts as instanceDifficulty (instanceDifficulty)}
+    <RowLockout showNumbers={false} {character} {instanceDifficulty} />
 {/each}

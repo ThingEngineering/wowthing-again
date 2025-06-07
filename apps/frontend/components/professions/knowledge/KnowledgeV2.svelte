@@ -1,20 +1,21 @@
 <script lang="ts">
-    import { warWithinProfessions } from '@/data/professions'
+    import { warWithinProfessions } from '@/data/professions';
     import { warWithinZones } from '@/data/zones';
-    import { basicTooltip } from '@/shared/utils/tooltips'
-    import type { Character } from '@/types'
+    import { basicTooltip } from '@/shared/utils/tooltips';
+    import type { Character } from '@/types';
 
     import CharacterKnowledge from './CharacterKnowledge.svelte';
-    import CharacterTable from '@/components/character-table/CharacterTable.svelte'
-    import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
-    import RowProfessions from '@/components/home/table/row/HomeTableRowProfessions.svelte'
-    import V2Row from './V2Row.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import CharacterTable from '@/components/character-table/CharacterTable.svelte';
+    import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte';
+    import RowProfessions from '@/components/home/table/row/HomeTableRowProfessions.svelte';
+    import V2Row from './V2Row.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let slug: string
+    let { slug }: { slug: string } = $props();
 
     // TODO: update this for more generic expansion stuff
-    const filterFunc = (char: Character) => warWithinProfessions.some((p) => char.professions?.[p.id])
+    const filterFunc = (char: Character) =>
+        warWithinProfessions.some((p) => char.professions?.[p.id]);
 </script>
 
 <style lang="scss">
@@ -46,10 +47,7 @@
             {#if zone === null}
                 <th class="spacer"></th>
             {:else}
-                <th
-                    class="zone"
-                    use:basicTooltip={zone.name}
-                >
+                <th class="zone" use:basicTooltip={zone.name}>
                     <WowthingImage name={zone.icon} size={48} />
                     <span class="pill abs-center">{zone.shortName}</span>
                 </th>

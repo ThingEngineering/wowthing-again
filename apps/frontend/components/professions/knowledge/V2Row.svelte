@@ -6,12 +6,12 @@
     import { staticStore } from '@/shared/stores/static';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { userQuestStore } from '@/stores';
-    import type { Character } from '@/types';
     import type { TaskProfessionQuest } from '@/types/data';
 
     import Tooltip from '@/components/tooltips/profession-knowledge/TooltipProfessionKnowledge.svelte';
+    import type { CharacterProps } from '@/types/props';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 
     type ZoneData = {
         have: number;
@@ -27,14 +27,13 @@
         source?: string;
     };
 
-    let data: ZoneData[];
-    $: {
-        data = [];
+    let data: ZoneData[] = $derived.by(() => {
+        const ret: ZoneData[] = [];
 
         // Zones
         for (const zone of warWithinZones) {
             if (zone === null) {
-                data.push(null);
+                ret.push(null);
                 continue;
             }
 
@@ -127,9 +126,11 @@
                           : 'success';
             }
 
-            data.push(zoneData);
+            ret.push(zoneData);
         }
-    }
+
+        return ret;
+    });
 </script>
 
 <style lang="scss">
@@ -145,7 +146,7 @@
 </style>
 
 <td class="spacer"></td>
-{#each warWithinZones as zone, zoneIndex}
+{#each warWithinZones as zone, zoneIndex (zoneIndex)}
     {@const zoneData = data[zoneIndex]}
     {#if zone === null}
         <td class="spacer"></td>

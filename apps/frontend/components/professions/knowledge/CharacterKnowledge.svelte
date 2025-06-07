@@ -9,21 +9,27 @@
     import getPercentClass from '@/utils/get-percent-class';
     import { getProfessionSortKey } from '@/utils/professions';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
-    import type { Character, CharacterProfession } from '@/types'
+    import type { Character, CharacterProfession } from '@/types';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character
-    export let expansionSlug: string
-    export let profession: number
+    type Props = {
+        character: Character;
+        expansionSlug: string;
+        profession: number;
+    };
+    let { character, expansionSlug, profession }: Props = $props();
 
-    let professions: [StaticDataProfession, Record<number, CharacterProfession>][]
-    $: {
-        professions = getNumberKeyedEntries(character.professions)
-            .filter(([id,]) => !isSecondaryProfession[id])
-            .map(([id, charProfession]) => [$staticStore.professions[id], charProfession])
-        professions.sort((a, b) => getProfessionSortKey(a[0]).localeCompare(getProfessionSortKey(b[0])))
-    }
+    let professions = $derived.by(() => {
+        const professions: [StaticDataProfession, Record<number, CharacterProfession>][] =
+            getNumberKeyedEntries(character.professions)
+                .filter(([id]) => !isSecondaryProfession[id])
+                .map(([id, charProfession]) => [$staticStore.professions[id], charProfession]);
+        professions.sort((a, b) =>
+            getProfessionSortKey(a[0]).localeCompare(getProfessionSortKey(b[0]))
+        );
+        return professions;
+    });
 </script>
 
 <style lang="scss">
@@ -37,21 +43,23 @@
 
 <td>
     {#if professions[profession]}
-        {@const [staticProfession,] = professions[profession]}
-        {@const staticSubProfession = staticProfession.expansionSubProfession[expansionSlugMap[expansionSlug].id]}
-        {@const lazyData = $lazyStore.characters[character.id].professions.professions[staticProfession.id]}
+        {@const [staticProfession] = professions[profession]}
+        {@const staticSubProfession =
+            staticProfession.expansionSubProfession[expansionSlugMap[expansionSlug].id]}
+        {@const lazyData =
+            $lazyStore.characters[character.id].professions.professions[staticProfession.id]}
         {@const charStats = lazyData.subProfessions[staticSubProfession.id]?.traitStats}
         <div
             class="flex-wrapper"
             use:basicTooltip={`${charStats.have} / ${charStats.total} knowledge`}
         >
-            <WowthingImage 
-                name="{imageStrings[professionIdToSlug[staticProfession.id]]}"
+            <WowthingImage
+                name={imageStrings[professionIdToSlug[staticProfession.id]]}
                 size={20}
                 border={1}
             />
             {#if charStats}
-                <span class="{getPercentClass(charStats.percent)}">
+                <span class={getPercentClass(charStats.percent)}>
                     {Math.floor(charStats.percent)} %
                 </span>
             {:else}
