@@ -17,10 +17,10 @@ export interface RawItems {
     raceMasks: number[];
 
     appearanceMap: Record<number, number>;
+    bonusIdToModifiedCrafting: Record<number, DataItemModifiedCrafting>;
     completesQuest: Record<number, number[]>;
     craftingQualities: Record<number, number[]>;
     itemBonusListGroups: Record<number, Record<number, number[]>>;
-    itemConversionBonus: Record<number, number>;
     itemConversionEntries: Record<number, number[]>;
     limitCategories: Record<number, number>;
     limitCategoryItems: Record<number, number[]>;
@@ -35,6 +35,7 @@ export interface RawItems {
 
 export class DataItems {
     public appearanceMap: RawItems['appearanceMap'];
+    public bonusIdToModifiedCrafting: RawItems['bonusIdToModifiedCrafting'];
     public completesQuest: RawItems['completesQuest'];
     public itemConversionEntries: RawItems['itemConversionEntries'];
     public limitCategories: RawItems['limitCategories'];
@@ -43,7 +44,6 @@ export class DataItems {
     public teachesTransmog: RawItems['teachesTransmog'];
 
     public appearanceToItems: Record<number, [number, number][]> = {};
-    public bonusIdToModifiedCrafting: Record<number, DataItemModifiedCrafting>;
     public items: Record<number, ItemDataItem> = {};
     public itemBonuses: Record<number, DataItemBonus> = {};
     public itemBonusCurrentSeason: Set<number> = new Set();

@@ -10,6 +10,7 @@ export function processItemsData(rawData: RawItems): DataItems {
     const data = new DataItems();
 
     data.appearanceMap = rawData.appearanceMap;
+    data.bonusIdToModifiedCrafting = rawData.bonusIdToModifiedCrafting;
     data.completesQuest = rawData.completesQuest;
     data.itemConversionEntries = rawData.itemConversionEntries;
     data.limitCategories = rawData.limitCategories;
