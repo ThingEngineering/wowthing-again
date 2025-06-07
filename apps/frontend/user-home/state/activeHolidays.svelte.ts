@@ -1,41 +1,40 @@
-import { derived } from 'svelte/store';
 import type { DateTime } from 'luxon';
+import { get } from 'svelte/store';
 
 import { holidayMap } from '@/data/holidays';
 import { Holiday } from '@/enums/holiday';
+import { timeState } from '@/shared/state/time.svelte';
 import { staticStore } from '@/shared/stores/static';
-import { timeStore } from '@/shared/stores/time';
+import { userState } from '@/user-home/state/user';
 import type { StaticDataHoliday } from '@/shared/stores/static/types';
 
-import { userStore } from '../user';
-import { userState } from '@/user-home/state/user';
+export type ActiveHolidayMap = Record<string, StaticDataHoliday>;
 
-export type ActiveHolidays = Record<string, StaticDataHoliday>;
+class ActiveHolidays {
+    private cachedActive: Record<number, ActiveHolidayMap> = {};
+    private cachedTime: Record<number, DateTime> = {};
 
-const cachedActive: Record<number, ActiveHolidays> = {};
-const cachedTime: Record<number, DateTime> = {};
-
-export const activeHolidays = derived(
-    [staticStore, timeStore, userStore],
-    ([$staticStore, $timeStore]) => {
+    value = $derived.by(() => {
         const allRegions = userState.general.allRegions || [];
         if (allRegions.length === 0) {
-            return {} as ActiveHolidays;
+            return {} as ActiveHolidayMap;
         }
+
+        const currentTime = timeState.time;
+        const staticData = get(staticStore);
 
         const regionMask = allRegions.reduce((a, b) => a + (1 << (b - 1)), 0);
-        console.log('activeHolidays', regionMask);
-        if (cachedTime[regionMask] === $timeStore) {
-            return cachedActive[regionMask];
+        if (this.cachedTime[regionMask] === currentTime) {
+            return this.cachedActive[regionMask];
         }
 
-        const filteredHolidays = Object.values($staticStore.holidays).filter(
+        const filteredHolidays = Object.values(staticData.holidays).filter(
             (holiday) => holiday.regionMask === 0 || (holiday.regionMask & regionMask) > 0
         );
 
-        const activeHolidays: ActiveHolidays = {};
+        const activeHolidays: ActiveHolidayMap = {};
         for (const holiday of filteredHolidays) {
-            const taskKeys = $staticStore.holidayIdToKeys[holiday.id];
+            const taskKeys = staticData.holidayIdToKeys[holiday.id];
             if (!taskKeys || taskKeys.every((key) => activeHolidays[key])) {
                 continue;
             }
@@ -44,9 +43,9 @@ export const activeHolidays = derived(
                 // Repeats, duration0 is duration and duration1 is time between
                 if (holiday.looping === 1) {
                     let actualStartDate = startDate;
-                    while (actualStartDate < $timeStore) {
+                    while (actualStartDate < currentTime) {
                         const endDate = actualStartDate.plus({ hours: holiday.durations[0] });
-                        if (endDate > $timeStore) {
+                        if (endDate > currentTime) {
                             if (holidayMap[holiday.id]) {
                                 activeHolidays[`h${holiday.id}`] = holiday;
                                 if (Holiday[holidayMap[holiday.id]].startsWith('Brawl')) {
@@ -59,17 +58,15 @@ export const activeHolidays = derived(
                         actualStartDate = endDate.plus({ hours: holiday.durations[1] });
                     }
                 } else {
-                    const actualStartDate = addOffset(
+                    const actualStartDate =
                         holiday.durations.length > 1
                             ? startDate.plus({ hours: holiday.durations[0] })
-                            : startDate
-                        //holiday.regionMask,
-                    );
+                            : startDate;
                     const endDate = actualStartDate.plus({
                         hours: holiday.durations[holiday.durations.length - 1],
                     });
 
-                    if (actualStartDate < $timeStore && endDate > $timeStore) {
+                    if (actualStartDate < currentTime && endDate > currentTime) {
                         for (const taskKey of taskKeys) {
                             activeHolidays[taskKey] = holiday;
                         }
@@ -79,22 +76,11 @@ export const activeHolidays = derived(
             }
         }
 
-        cachedActive[regionMask] = activeHolidays;
-        cachedTime[regionMask] = $timeStore;
+        this.cachedActive[regionMask] = activeHolidays;
+        this.cachedTime[regionMask] = currentTime;
 
         return activeHolidays;
-    }
-);
-
-function addOffset(dateTime: DateTime /*, regionMask: number*/): DateTime {
-    // US
-    // if (regionMask === 1) {
-    //     return dateTime.plus({ hours: -7 });
-    // }
-    // // EU
-    // else if (regionMask === 4) {
-    //     return dateTime.minus({ hours: 1 });
-    // } else {
-    return dateTime;
-    // }
+    });
 }
+
+export const activeHolidays = new ActiveHolidays();

@@ -12,7 +12,7 @@
 </script>
 
 {#key settingsState.activeView.id}
-    {#each activeViewTasks().value as fullTaskName (fullTaskName)}
+    {#each activeViewTasks.value as fullTaskName (fullTaskName)}
         {@const [taskName, choreName] = fullTaskName.split('|', 2)}
         {#if taskMap[taskName]?.type === 'multi'}
             <RowTaskChores {character} {taskName} {choreName} />
