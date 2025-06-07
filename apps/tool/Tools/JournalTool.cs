@@ -685,7 +685,7 @@ public class JournalTool
                                 .OrderBy(d => Array.IndexOf(_difficultyOrder, d))
                                 .ToArray();
 
-                            var itemAppearances = new Dictionary<int, OutJournalEncounterItemAppearance>();
+                            var itemAppearances = new Dictionary<(int, int), OutJournalEncounterItemAppearance>();
                             foreach (var difficultyId in difficulties)
                             {
                                 if (!(
@@ -702,15 +702,16 @@ public class JournalTool
                                     appearanceId = first.Value;
                                 }
 
-                                if (!itemAppearances.ContainsKey(appearanceId))
+                                var appearanceKey = (appearanceId, modifierId);
+                                if (!itemAppearances.ContainsKey(appearanceKey))
                                 {
-                                    itemAppearances[appearanceId] = new OutJournalEncounterItemAppearance
+                                    itemAppearances[appearanceKey] = new OutJournalEncounterItemAppearance
                                     {
                                         AppearanceId = appearanceId,
                                         ModifierId = modifierId,
                                     };
                                 }
-                                itemAppearances[appearanceId].Difficulties.Add(difficultyId);
+                                itemAppearances[appearanceKey].Difficulties.Add(difficultyId);
                             }
 
                             var group = GetGroup(itemGroups, item);
