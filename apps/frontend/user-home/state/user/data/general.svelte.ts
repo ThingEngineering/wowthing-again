@@ -31,6 +31,7 @@ export class DataUserGeneral {
     public regions: Region[] = $state([]);
 
     public allLockouts = $derived.by(() => this._lockoutData().allLockouts);
+    public allRegions = $derived.by(() => this._allRegions());
     public homeLockouts: InstanceDifficulty[] = $derived.by(() => this._homeLockouts());
 
     public process(userData: UserData): void {
@@ -38,6 +39,8 @@ export class DataUserGeneral {
         console.time('DataUserGeneral.process');
 
         const staticData = get(staticStore);
+
+        this.accountMap = userData.accounts;
 
         // Create or update Guild objects
         for (const guildArray of userData.guildsRaw) {
@@ -79,6 +82,20 @@ export class DataUserGeneral {
         this.regions = regions;
 
         console.timeEnd('DataUserGeneral.process');
+    }
+
+    private _allRegions() {
+        const regionSet = new Set<number>();
+        for (const account of Object.values(this.accountMap)) {
+            if (
+                settingsState.value.accounts?.[account.id]?.enabled ||
+                !settingsState.value.characters.hideDisabledAccounts
+            ) {
+                regionSet.add(account.region);
+            }
+        }
+
+        return Array.from(regionSet);
     }
 
     private lockoutData = $derived.by(() => this._lockoutData());

@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { commonChoices, homeChoices } from '../../data'
-    import type { SettingsView } from '@/shared/stores/settings/types'
+    import { commonChoices, homeChoices } from '../../data';
+    import type { SettingsView } from '@/shared/stores/settings/types';
 
-    import MagicLists from '../../MagicLists.svelte'
+    import MagicLists from '../../MagicLists.svelte';
 
-    export let view: SettingsView
+    let { view = $bindable() }: { view: SettingsView } = $props();
 </script>
 
 <style lang="scss">

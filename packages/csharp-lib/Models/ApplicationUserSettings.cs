@@ -115,6 +115,7 @@ public class ApplicationUserSettings
     public void Migrate()
     {
         Achievements ??= new ApplicationUserSettingsAchievements();
+        Accounts ??= new();
         Auctions ??= new ApplicationUserSettingsAuctions();
         Characters ??= new ApplicationUserSettingsCharacters();
         Collections ??= new ApplicationUserSettingsCollections();

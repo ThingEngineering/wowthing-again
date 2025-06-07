@@ -1,11 +1,10 @@
 <script lang="ts">
-    // import { settingsState } from '@/stores/local-storage';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { browserStore } from '@/shared/stores/browser';
     import type { SettingsCustomGroup } from '@/shared/stores/settings/types';
 
     import Group from './SettingsLayoutGroupingGroup.svelte';
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
-    import { browserStore } from '@/shared/stores/browser';
 
     const newGroup = () => {
         const group: SettingsCustomGroup = {
@@ -83,7 +82,7 @@
         {#if $browserStore.settings.selectedGroup}
             <Group
                 group={settingsState.value.customGroups.filter(
-                    (group) => group.id === $browserStore.settings.selectedGroup,
+                    (group) => group.id === $browserStore.settings.selectedGroup
                 )[0]}
             />
         {/if}

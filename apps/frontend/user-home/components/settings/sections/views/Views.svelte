@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { writable } from 'svelte/store';
-
     import { uiIcons } from '@/shared/icons';
     import { browserStore } from '@/shared/stores/browser';
     import { settingsState } from '@/shared/state/settings.svelte';
@@ -8,7 +6,7 @@
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
-    const deleting = writable<string>(null);
+    let deleting = $state<string>(null);
 
     const newView = () => {
         const view: SettingsView = {
@@ -41,7 +39,7 @@
         newViews[index - 1] = newViews[index];
         newViews[index] = temp;
         settingsState.value.views = newViews;
-        $deleting = null;
+        deleting = null;
     };
 
     const moveDownClick = (index: number) => {
@@ -50,11 +48,11 @@
         newViews[index + 1] = newViews[index];
         newViews[index] = temp;
         settingsState.value.views = newViews;
-        $deleting = null;
+        deleting = null;
     };
 
     const deleteConfirmClick = (viewId: string) => {
-        $deleting = null;
+        deleting = null;
         settingsState.value.views = settingsState.value.views.filter((view) => view.id !== viewId);
 
         if (settingsState.activeView.id === viewId) {
@@ -137,20 +135,17 @@
                             />
                         {/if}
                     </td>
-                    <td class="icon" class:border-right={$deleting === view.id}>
+                    <td class="icon" class:border-right={deleting === view.id}>
                         {#if viewIndex > 0}
                             <IconifyIcon
                                 extraClass="status-fail"
                                 icon={uiIcons.no}
                                 tooltip="Delete"
-                                on:click={() =>
-                                    deleting.update((current) =>
-                                        current === view.id ? null : view.id,
-                                    )}
+                                on:click={() => (deleting = deleting === view.id ? null : view.id)}
                             />
                         {/if}
                     </td>
-                    {#if $deleting === view.id}
+                    {#if deleting === view.id}
                         <td class="deleting">
                             Permanently delete?
                             <IconifyIcon
@@ -167,6 +162,6 @@
     </table>
 
     {#if settingsState.value.views.length < 10}
-        <button class="group-entry" on:click={newView}> New View </button>
+        <button class="group-entry" onclick={newView}> New View </button>
     {/if}
 </div>

@@ -5,18 +5,19 @@
 
     import { isCraftingProfession } from '@/data/professions';
     import { staticStore } from '@/shared/stores/static';
+    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import getSavedRoute from '@/utils/get-saved-route';
+    import { auctionsCommoditiesSpecificStore } from './auction-store';
 
     import Sidebar from './Sidebar.svelte';
     import Table from './Table.svelte';
-    import { userStore } from '@/stores';
-    import { auctionsCommoditiesSpecificStore } from './auction-store';
 
     export let slug: string;
 
     const sortedProfessions = sortBy(
         Object.values($staticStore.professions).filter((prof) => isCraftingProfession[prof.id]),
-        (prof) => [prof.type, prof.name],
+        (prof) => [prof.type, prof.name]
     );
 
     let itemIds: number[];
@@ -53,7 +54,7 @@
             itemIds = sortedItemIds;
         }
 
-        const sortedRegionIds = sortBy($userStore.allRegions, (region) => region);
+        const sortedRegionIds = sortBy(userState.general.allRegions, (region) => region);
         if (regionIds === undefined || xor(regionIds, sortedRegionIds).length > 0) {
             regionIds = sortedRegionIds;
         }

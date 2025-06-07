@@ -11,6 +11,7 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { userStore } from '@/stores';
     import { auctionState } from '@/stores/local-storage/auctions';
+    import { userState } from '@/user-home/state/user';
     import type { MultiSlugParams } from '@/types';
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
@@ -38,7 +39,7 @@
         page = parseInt(params.slug2) || 1;
 
         regions = [['0', 'All']];
-        for (const regionId of $userStore.allRegions) {
+        for (const regionId of userState.general.allRegions) {
             regions.push([regionId.toString(), Region[regionId]]);
         }
     }

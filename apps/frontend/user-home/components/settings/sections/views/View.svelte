@@ -17,7 +17,7 @@
     let { params }: { params: { viewId: string } } = $props();
 
     let view = $derived.by(() =>
-        (settingsState.value.views || []).find((view) => view.id === params.viewId),
+        (settingsState.value.views || []).find((view) => view.id === params.viewId)
     );
 
     const onHomeFieldsUpdated = (e: Event) => {

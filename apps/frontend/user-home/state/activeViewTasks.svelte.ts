@@ -4,13 +4,13 @@ import { holidayIds } from '@/data/holidays';
 import { multiTaskMap, taskMap } from '@/data/tasks';
 import { settingsState } from '@/shared/state/settings.svelte';
 import { staticStore } from '@/shared/stores/static';
-import { activeHolidays } from '@/stores/derived/active-holidays';
 import { lazyStore } from '@/stores';
 import type { Chore } from '@/types/tasks';
 
-export const activeViewTasks = () => {
-    const tasks = $derived.by(() => {
-        const activeHolidaysValue = get(activeHolidays);
+import { activeHolidays } from './activeHolidays.svelte';
+
+class ActiveViewTasks {
+    value = $derived.by(() => {
         const lazyStoreValue = get(lazyStore);
         const staticStoreValue = get(staticStore);
 
@@ -23,7 +23,7 @@ export const activeViewTasks = () => {
         );
 
         for (const fullTaskName of settingsState.activeView.homeTasks) {
-            const [taskName, choreName] = fullTaskName.split('|', 2);
+            const [taskName] = fullTaskName.split('|', 2);
             const task = taskMap[taskName];
             if (!task) {
                 continue;
@@ -35,7 +35,7 @@ export const activeViewTasks = () => {
                 continue;
             }
 
-            if (!activeHolidaysValue[taskName] && staticStoreValue.holidayIds[taskName]) {
+            if (!activeHolidays.value[taskName] && staticStoreValue.holidayIds[taskName]) {
                 continue;
             }
 
@@ -52,7 +52,7 @@ export const activeViewTasks = () => {
                         if (
                             chore.requiredHolidays.some((holiday) =>
                                 holidayIds[holiday].some(
-                                    (holidayId) => activeHolidaysValue[`h${holidayId}`]
+                                    (holidayId) => activeHolidays.value[`h${holidayId}`]
                                 )
                             )
                         ) {
@@ -76,10 +76,6 @@ export const activeViewTasks = () => {
 
         return activeTasks;
     });
+}
 
-    return {
-        get value() {
-            return tasks;
-        },
-    };
-};
+export const activeViewTasks = new ActiveViewTasks();

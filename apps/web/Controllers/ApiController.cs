@@ -115,22 +115,6 @@ public class ApiController : Controller
 
         await _userManager.UpdateAsync(user);
 
-        var accountMap = await _context.PlayerAccount
-            .Where(pa => pa.UserId == user.Id)
-            .ToDictionaryAsync(pa => pa.Id);
-
-        if (form.Accounts != null)
-        {
-            foreach (var (accountId, accountData) in form.Accounts)
-            {
-                if (accountMap.TryGetValue(accountId, out var account))
-                {
-                    account.Enabled = accountData.Enabled;
-                    account.Tag = accountData.Tag.WowthingTruncate(4);
-                }
-            }
-        }
-
         await _context.SaveChangesAsync();
 
         _logger.LogDebug("Resetting caches");
@@ -142,9 +126,6 @@ public class ApiController : Controller
 
         return Json(new
         {
-            Accounts = accountMap.Values
-                .Select(account => new ApiUserAccount(account))
-                .ToArray(),
             Settings = form.Settings,
         });
     }

@@ -10,14 +10,13 @@
     import Count from '@/components/collectible/CollectibleCount.svelte';
     import Item from './AppearancesItem.svelte';
 
-    export let set: AppearanceDataSet;
-    export let slug: string;
+    let { set, slug }: { set: AppearanceDataSet; slug: string } = $props();
 
-    let element: HTMLElement;
-    let intersected: boolean;
+    let counts = $derived($lazyStore.appearances.stats[slug]);
+    let masochist = $derived(settingsState.value.transmog.completionistMode);
 
-    $: counts = $lazyStore.appearances.stats[slug];
-    $: masochist = settingsState.value.transmog.completionistMode;
+    let element: HTMLElement = $state(null);
+    let intersected: boolean = $state(false);
 </script>
 
 {#if counts.total > 0}
@@ -30,12 +29,12 @@
         <div bind:this={element} class="collection-objects">
             <IntersectionObserver bind:intersecting={intersected} once {element}>
                 {#if intersected}
-                    {#each set.appearances as appearance}
+                    {#each set.appearances as appearance (appearance)}
                         {@const modifiedAppearances = appearance.modifiedAppearances.slice(
                             0,
-                            masochist ? 9999 : 1,
+                            masochist ? 9999 : 1
                         )}
-                        {#each modifiedAppearances as modifiedAppearance}
+                        {#each modifiedAppearances as modifiedAppearance (modifiedAppearance)}
                             {@const has = masochist
                                 ? $userStore.hasSourceV2
                                       .get(modifiedAppearance.modifier)

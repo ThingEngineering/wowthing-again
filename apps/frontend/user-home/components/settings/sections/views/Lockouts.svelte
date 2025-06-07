@@ -12,22 +12,20 @@
     import TextInput from '@/shared/components/forms/TextInput.svelte';
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty';
 
-    export let active: boolean;
-    export let view: SettingsView;
+    let { active, view = $bindable() }: { active: boolean; view: SettingsView } = $props();
 
-    let instanceFilter: string;
+    let instanceFilter = $state('');
 
-    let lockoutChoices: SettingsChoice[];
-    $: {
-        lockoutChoices = [];
-        const lowerFilter = (instanceFilter || '').toLocaleLowerCase();
+    let lockoutChoices = $derived.by(() => {
+        const lowerFilter = instanceFilter.toLocaleLowerCase();
+        const ret: SettingsChoice[] = [];
 
         const sortedInstances = sortBy(
             Object.values($staticStore.instances).filter(
                 (instance) =>
                     instance !== null &&
                     !ignoredLockoutInstances[instance.id] &&
-                    instance.name.toLocaleLowerCase().includes(lowerFilter),
+                    instance.name.toLocaleLowerCase().includes(lowerFilter)
             ),
             (instance) => {
                 const journalInstance = $journalStore.instanceById[instance.id];
@@ -37,17 +35,17 @@
                     leftPad(
                         journalInstance?.isRaid ? 999 - (journalInstance?.order || 0) : 0,
                         3,
-                        '0',
+                        '0'
                     ),
                     instance.name,
                 ].join('|');
-            },
+            }
         );
 
         for (const instance of sortedInstances) {
             const expansionName =
                 instance.expansion === 100 ? 'Event' : expansionMap[instance.expansion].shortName;
-            lockoutChoices.push({
+            ret.push({
                 id: instance.id.toString(),
                 name: `[${expansionName}] ${instance.name}`,
             });
@@ -60,7 +58,7 @@
                         (difficulty === 14 && journalInstance.bonusIds[16])
                     ) {
                         const difficultyName = difficultyMap[difficulty].shortName;
-                        lockoutChoices.push({
+                        ret.push({
                             id: `${difficulty * 10000000 + instance.id}`,
                             name: `[${expansionName}] [${difficultyName}] ${instance.name}`,
                         });
@@ -68,7 +66,9 @@
                 }
             }
         }
-    }
+
+        return ret;
+    });
 </script>
 
 <style lang="scss">

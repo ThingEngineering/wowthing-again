@@ -53,14 +53,14 @@
             for (const vendorId of wowthingData.manual.shared.vendorsByMap[categories[0].mapName] ||
                 []) {
                 farms.push(
-                    ...wowthingData.manual.shared.vendors[vendorId].asFarms(categories[0].mapName),
+                    ...wowthingData.manual.shared.vendors[vendorId].asFarms(categories[0].mapName)
                 );
             }
             farms.push(
                 ...wowthingData.db
                     .search({ maps: [categories[0].mapName] })
                     .map((thing) => thing.asZoneMapsFarm(categories[0].mapName))
-                    .filter((farm) => !!farm),
+                    .filter((farm) => !!farm)
             );
 
             farmStatuses = $lazyStore.zoneMaps.farmStatus[slugKey];
@@ -80,7 +80,7 @@
                         group: farm,
                         children: [],
                     } as FarmGroup,
-                ]),
+                ])
         );
         for (let farmIndex = 0; farmIndex < farms.length; farmIndex++) {
             const farm = farms[farmIndex];
@@ -152,7 +152,7 @@
 
     [width, height] = [1500, 1000];
 
-    $: lessHeight = settingsState.value?.layout?.newNavigation ? '6.4rem' : '4.4rem';
+    let lessHeight = settingsState.value.layout.newNavigation ? '6.4rem' : '4.4rem';
 
     const getGroupWidth = function (len: number): string {
         if (len < 3) {

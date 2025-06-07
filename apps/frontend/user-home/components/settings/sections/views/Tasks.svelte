@@ -8,23 +8,21 @@
     import Multi from './TasksMulti.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
 
-    export let active: boolean;
-    export let view: SettingsView;
-
-    let taskFilter: string;
+    let { active, view = $bindable() }: { active: boolean; view: SettingsView } = $props();
 
     const multiTasks = sortBy(Object.keys(multiTaskMap), (key) => key);
 
-    let taskChoices: SettingsChoice[];
-    $: {
+    let taskFilter = $state('');
+
+    let taskChoices = $derived.by(() => {
         const lowerFilter = (taskFilter || '').toLocaleLowerCase();
-        taskChoices = [];
+        const ret: SettingsChoice[] = [];
         for (const task of taskList) {
             if (!lowerFilter || task.name.toLocaleLowerCase().includes(lowerFilter)) {
-                taskChoices.push({ id: task.key, name: task.name });
+                ret.push({ id: task.key, name: task.name });
                 if (task.showSeparate && multiTaskMap[task.key]) {
                     for (const multiTask of multiTaskMap[task.key]) {
-                        taskChoices.push({
+                        ret.push({
                             id: `${task.key}|${multiTask.taskKey}`,
                             name: `${task.name} - ${multiTask.taskName}`,
                         });
@@ -32,7 +30,8 @@
                 }
             }
         }
-    }
+        return ret;
+    });
 </script>
 
 <style lang="scss">
@@ -63,7 +62,7 @@
             <div class="settings-block">
                 <div>
                     <h3>{taskMap[taskKey].name}</h3>
-                    <Multi multiTaskKey={taskKey} {view} />
+                    <Multi multiTaskKey={taskKey} bind:view />
                 </div>
             </div>
         {/if}

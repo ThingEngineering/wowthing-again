@@ -5,18 +5,16 @@
     import MagicLists from '../../MagicLists.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
 
-    export let active: boolean;
-    export let view: SettingsView;
+    let { active, view = $bindable() }: { active: boolean; view: SettingsView } = $props();
 
-    let itemFilter: string;
+    let itemFilter = $state('');
 
-    let itemChoices: SettingsChoice[] = [];
-    $: {
-        itemChoices = [];
+    let itemChoices = $derived.by(() => {
+        const ret: SettingsChoice[] = [];
 
         for (const itemId of view.homeItems) {
             const item = wowthingData.items.items[itemId];
-            itemChoices.push({
+            ret.push({
                 id: item.id.toString(),
                 name: item.name,
             });
@@ -32,19 +30,20 @@
                     itemWords.every((word) => lowerName.indexOf(word) >= 0) &&
                     !view.homeItems.includes(item.id)
                 ) {
-                    itemChoices.push({
+                    ret.push({
                         id: item.id.toString(),
                         name: item.name,
                     });
-                    if (itemChoices.length === 100) {
+                    if (ret.length === 100) {
                         break;
                     }
                 }
             }
         }
 
-        itemChoices.sort((a, b) => a.name.localeCompare(b.name));
-    }
+        ret.sort((a, b) => a.name.localeCompare(b.name));
+        return ret;
+    });
 </script>
 
 <style lang="scss">

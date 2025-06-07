@@ -17,7 +17,8 @@
     export let percentFunc: (entry: TItem, parentEntries?: TItem[]) => number = undefined;
 
     $: anyChildren = items.some((item) => (item?.children?.length ?? 0) > 0);
-    $: lessHeight = settingsState.value?.layout?.newNavigation ? '7rem' : '4.4rem';
+
+    let lessHeight = settingsState.value.layout.newNavigation ? '7rem' : '4.4rem';
 
     const scrollbarWidth = measureScrollbar();
 </script>

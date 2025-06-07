@@ -3,7 +3,7 @@
     import IntersectionObserver from 'svelte-intersection-observer';
 
     import { settingsState } from '@/shared/state/settings.svelte';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import CharacterLevel from './row/CharacterLevel.svelte';
     import CharacterName from './row/CharacterName.svelte';
@@ -12,7 +12,7 @@
     import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
     import TableIcon from '@/components/common/TableIcon.svelte';
 
-    let { character, last }: { character: Character; last: boolean } = $props();
+    let { character, last }: CharacterProps & { last: boolean } = $props();
 
     setContext('character', character);
 
