@@ -5,7 +5,7 @@
     import MagicLists from '../../MagicLists.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
 
-    let { active, view }: { active: boolean; view: SettingsView } = $props();
+    let { active, view = $bindable() }: { active: boolean; view: SettingsView } = $props();
 
     let itemFilter = $state('');
 

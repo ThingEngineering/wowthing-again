@@ -4,16 +4,19 @@
     import { navItems } from '@/data/nav';
     import { iconLibrary } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { sharedState } from '@/shared/state/shared.svelte';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { lazyStore, userStore } from '@/stores';
     import getPercentClass from '@/utils/get-percent-class';
 
     import CharacterFilter from './CharacterFilter.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
-    import { sharedState } from '@/shared/state/shared.svelte';
 
-    $: filteredNavItems = navItems.filter(
-        (navItem) => navItem === null || !navItem.showFunc || navItem.showFunc(settingsState.value),
+    let filteredNavItems = $derived.by(() =>
+        navItems.filter(
+            (navItem) =>
+                navItem === null || !navItem.showFunc || navItem.showFunc(settingsState.value)
+        )
     );
 </script>
 

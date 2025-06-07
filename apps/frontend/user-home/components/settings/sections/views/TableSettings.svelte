@@ -4,7 +4,7 @@
 
     import MagicLists from '../../MagicLists.svelte';
 
-    let { view }: { view: SettingsView } = $props();
+    let { view = $bindable() }: { view: SettingsView } = $props();
 </script>
 
 <style lang="scss">

@@ -16,7 +16,7 @@
     import MagicLists from '../../MagicLists.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
 
-    let { active, view }: { active: boolean; view: SettingsView } = $props();
+    let { active, view = $bindable() }: { active: boolean; view: SettingsView } = $props();
 
     const categoryPrefix: Record<number, string> = {
         260: '[TWW]', // The War Within

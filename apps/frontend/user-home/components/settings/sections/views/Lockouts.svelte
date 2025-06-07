@@ -12,7 +12,7 @@
     import TextInput from '@/shared/components/forms/TextInput.svelte';
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty';
 
-    let { active, view }: { active: boolean; view: SettingsView } = $props();
+    let { active, view = $bindable() }: { active: boolean; view: SettingsView } = $props();
 
     let instanceFilter = $state('');
 
