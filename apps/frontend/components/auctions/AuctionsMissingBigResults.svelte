@@ -295,7 +295,7 @@
                                             <ProfessionIcon id={profession.id} />
                                             {#each characterIds as characterId (characterId)}
                                                 {@const character =
-                                                    userState.general.characterMap[characterId]}
+                                                    userState.general.characterById[characterId]}
                                                 <span class="class-{character.classId}">
                                                     {character.name}
                                                 </span>

@@ -46,18 +46,12 @@ export interface UserData {
     rawWarbankItems: WarbankItemArray[];
 
     // Calculated
-    allLockouts: InstanceLockout[];
-    allLockoutsMap: Record<string, InstanceLockout>;
-    allRegions: number[];
     backgroundList: BackgroundImage[];
-    homeLockouts: InstanceDifficulty[];
 
     activeCharacters: Character[];
     apiUpdatedCharacters: Character[];
     characters: Character[];
     characterMap: Record<number, Character>;
-    charactersByConnectedRealm: Record<number, Character[]>;
-    charactersByRealm: Record<number, Character[]>;
 
     guildMap: Record<number, Guild>;
 

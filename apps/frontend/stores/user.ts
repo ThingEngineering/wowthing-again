@@ -1,17 +1,10 @@
 import groupBy from 'lodash/groupBy';
 import sortBy from 'lodash/sortBy';
-import uniq from 'lodash/uniq';
 import { get } from 'svelte/store';
 import type { DateTime } from 'luxon';
 
-import {
-    difficultyMap,
-    lockoutDifficultyOrder,
-    lockoutDifficultyOrderMap,
-} from '@/data/difficulty';
 import { seasonMap } from '@/data/mythic-plus';
 import { slotOrder } from '@/data/inventory-slot';
-import { singleLockoutRaids } from '@/data/raid';
 import { InventorySlot } from '@/enums/inventory-slot';
 import { ItemBonusType } from '@/enums/item-bonus-type';
 import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
@@ -30,8 +23,7 @@ import {
 } from '@/types';
 import { WarbankItem } from '@/types/items';
 import { userState } from '@/user-home/state/user';
-import base64ToRecord from '@/utils/base64-to-record';
-import { leftPad } from '@/utils/formatting';
+import base64ToRecord from '@/utils/base64';
 import getItemLevelQuality from '@/utils/get-item-level-quality';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { getDungeonScores } from '@/utils/mythic-plus/get-dungeon-scores';
@@ -132,8 +124,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         // Characters
         userData.maxReputation = new Map<number, number>();
         userData.characterMap = {};
-        userData.charactersByConnectedRealm = {};
-        userData.charactersByRealm = {};
         userData.characters = [];
         userData.hasRecipe = new Set<number>();
         for (const charArray of userData.charactersRaw || []) {
@@ -241,8 +231,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         // Initialize characters
         console.time('characters');
-        userData.charactersByConnectedRealm = {};
-        userData.charactersByRealm = {};
         const allLockouts: Record<string, [Character, CharacterLockout][]> = {};
         for (const character of userData.characters) {
             this.initializeCharacter(staticData, userData, character);
@@ -322,85 +310,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
         }
 
-        userData.allRegions = Array.from(regionSet);
-
-        // Pre-calculate lockouts
-        userData.allLockouts = [];
-        userData.allLockoutsMap = {};
-        for (const [instanceDifficulty, characters] of Object.entries(allLockouts)) {
-            const [instanceId, difficultyId] = instanceDifficulty
-                .split('-')
-                .map((s) => parseInt(s));
-            const difficulty = difficultyMap[difficultyId];
-
-            if (difficulty && instanceId) {
-                const lockoutKey = singleLockoutRaids.has(instanceId)
-                    ? `${instanceId}-`
-                    : instanceDifficulty;
-
-                if (!userData.allLockoutsMap[lockoutKey]) {
-                    userData.allLockouts.push({
-                        characters,
-                        difficulty,
-                        instanceId: instanceId,
-                        key: lockoutKey,
-                    });
-                    userData.allLockoutsMap[lockoutKey] = userData.allLockouts.at(-1);
-                } else {
-                    userData.allLockoutsMap[lockoutKey].characters.push(...characters);
-                }
-            } else {
-                console.log({ instanceId, difficultyId, difficulty });
-            }
-        }
-
-        userData.allLockouts = sortBy(userData.allLockouts, (diff /*: InstanceDifficulty*/) => {
-            const instance = staticData.instances[diff.instanceId];
-            const journalInstance = wowthingData.journal.instanceById[diff.instanceId];
-            if (!diff.difficulty || !instance) {
-                return 'z';
-            }
-
-            const orderIndex = 100 - (lockoutDifficultyOrderMap[diff.difficulty.id] || 99);
-            return [
-                leftPad(journalInstance?.order || 9999, 4, '0'),
-                leftPad(orderIndex, 2, '0'),
-                instance.shortName,
-                diff.difficulty.shortName,
-            ].join('|');
-        });
-
-        const instanceIds = uniq(settingsData.views.map((view) => view.homeLockouts).flat());
-        userData.homeLockouts = [];
-        for (const instanceId of instanceIds) {
-            let found = false;
-            for (const difficulty of lockoutDifficultyOrder) {
-                const id = userData.allLockoutsMap[`${instanceId}-${difficulty}`];
-                if (id !== undefined) {
-                    userData.homeLockouts.push(id);
-                    found = true;
-                }
-            }
-
-            if (!found) {
-                if (instanceId >= 10000000) {
-                    const actualDifficulty = Math.floor(instanceId / 10000000);
-                    const actualInstanceId = instanceId % 10000000;
-                    userData.homeLockouts.push({
-                        difficulty: difficultyMap[actualDifficulty],
-                        instanceId: actualInstanceId,
-                        key: `${actualInstanceId}-${actualDifficulty}`,
-                    });
-                } else {
-                    userData.homeLockouts.push({
-                        difficulty: null,
-                        instanceId,
-                        key: `${instanceId}-`,
-                    });
-                }
-            }
-        }
-
         // Toys
         userData.hasToy = {};
         for (const toyIdString of Object.keys(userData.hasToyById)) {
@@ -450,18 +359,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     ): void {
         // account
         character.account = this.value.accounts[character.accountId];
-
-        // realm
-        if (
-            settingsState.value.accounts?.[character.accountId]?.enabled &&
-            character.realmId > 0 &&
-            character.realm
-        ) {
-            (this.value.charactersByRealm[character.realmId] ||= []).push(character);
-            (this.value.charactersByConnectedRealm[character.realm.connectedRealmId] ||= []).push(
-                character
-            );
-        }
 
         // guild
         character.guild = this.value.guildMap[character.guildId];

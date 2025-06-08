@@ -2,18 +2,24 @@
     import sortBy from 'lodash/sortBy';
 
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import type { StaticDataConnectedRealm } from '@/shared/stores/static/types';
 
-    export let ageInMinutes: number = -1;
-    export let connectedRealm: StaticDataConnectedRealm;
-    export let price: number = -1;
+    type Props = {
+        ageInMinutes: number;
+        connectedRealm: StaticDataConnectedRealm;
+        price: number;
+    };
 
-    $: characters = sortBy(
-        $userStore.charactersByConnectedRealm[connectedRealm.id] || [],
-        (char) => -char.gold,
+    let { ageInMinutes = -1, connectedRealm, price = -1 }: Props = $props();
+
+    let characters = $derived.by(() =>
+        sortBy(
+            userState.general.charactersByConnectedRealmId[connectedRealm.id] || [],
+            (char) => -char.gold
+        )
     );
-    $: goldPrice = price / 10000;
+    let goldPrice = $derived(price / 10000);
 </script>
 
 <style lang="scss">

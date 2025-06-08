@@ -1,5 +1,7 @@
+import groupBy from 'lodash/groupBy';
 import sortBy from 'lodash/sortBy';
 import uniq from 'lodash/uniq';
+import { SvelteSet } from 'svelte/reactivity';
 import { get } from 'svelte/store';
 
 import {
@@ -8,6 +10,7 @@ import {
     lockoutDifficultyOrderMap,
 } from '@/data/difficulty';
 import { singleLockoutRaids } from '@/data/raid';
+import { TypedArray } from '@/enums/typed-array';
 import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
 import { staticStore } from '@/shared/stores/static';
@@ -20,19 +23,23 @@ import {
     type InstanceLockout,
     type UserData,
 } from '@/types';
+import { base64ToArray } from '@/utils/base64';
 import { leftPad } from '@/utils/formatting';
-import type { Region } from '@/enums/region';
 
 export class DataUserGeneral {
     public accountMap: Record<number, Account> = $state({});
     public characters: Character[] = $state([]);
-    public characterMap: Record<number, Character> = $state({});
+    public characterById: Record<number, Character> = $state({});
     public guildMap: Record<number, Guild> = $state({});
-    public regions: Region[] = $state([]);
+
+    public hasMountById = new SvelteSet<number>();
+    public hasToyById = new SvelteSet<number>();
 
     public allLockouts = $derived.by(() => this._lockoutData().allLockouts);
     public allRegions = $derived.by(() => this._allRegions());
-    public homeLockouts: InstanceDifficulty[] = $derived.by(() => this._homeLockouts());
+    public charactersByConnectedRealmId = $derived.by(() => this._charactersByConnectedRealmId());
+    public charactersByRealmId = $derived.by(() => this._charactersByRealmId());
+    public homeLockouts = $derived.by(() => this._homeLockouts());
 
     public process(userData: UserData): void {
         console.log(userData);
@@ -52,7 +59,7 @@ export class DataUserGeneral {
         // Create or update Character objects
         for (const characterArray of userData.charactersRaw) {
             const characterId = characterArray[0];
-            let character = this.characterMap[characterId];
+            let character = this.characterById[characterId];
             const existed = !!character;
 
             if (existed) {
@@ -69,18 +76,23 @@ export class DataUserGeneral {
                 character = new Character();
                 character.init(...characterArray);
                 this.characters.push(character);
-                this.characterMap[characterId] = character;
+                this.characterById[characterId] = character;
             }
 
             character.guild ||= this.guildMap[character.guildId];
             character.realm ||= staticData.realms[character.realmId];
         }
 
-        const regions = uniq(
-            this.characters.map((char) => char.realm?.region).filter((region) => !!region)
-        );
-        regions.sort();
-        this.regions = regions;
+        // Packed data
+        const mountIds = base64ToArray(TypedArray.Uint16, userData.mountsPacked);
+        for (const mountId of mountIds) {
+            this.hasMountById.add(mountId);
+        }
+
+        const toyIds = base64ToArray(TypedArray.Uint16, userData.toysPacked);
+        for (const toyId of toyIds) {
+            this.hasToyById.add(toyId);
+        }
 
         console.timeEnd('DataUserGeneral.process');
     }
@@ -97,6 +109,20 @@ export class DataUserGeneral {
         }
 
         return Array.from(regionSet);
+    }
+
+    private _charactersByConnectedRealmId() {
+        return groupBy(
+            this.characters.filter((character) => character.realm),
+            (character) => character.realm.connectedRealmId
+        );
+    }
+
+    private _charactersByRealmId() {
+        return groupBy(
+            this.characters.filter((character) => character.realm),
+            (character) => character.realmId
+        );
     }
 
     private lockoutData = $derived.by(() => this._lockoutData());
