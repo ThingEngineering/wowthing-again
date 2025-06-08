@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash/cloneDeep';
+
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import {
     StaticDataBag,
@@ -24,14 +26,14 @@ export function processStaticData(rawData: RawStatic): DataStatic {
 
     const data = new DataStatic();
 
-    data.characterClassById = new Map(getNumberKeyedEntries(rawData.characterClasses));
-    data.characterRaceById = new Map(getNumberKeyedEntries(rawData.characterRaces));
+    data.characterClassById = new Map(getNumberKeyedEntries(cloneDeep(rawData.characterClasses)));
+    data.characterRaceById = new Map(getNumberKeyedEntries(cloneDeep(rawData.characterRaces)));
     data.characterSpecializationById = new Map(
-        getNumberKeyedEntries(rawData.characterSpecializations)
+        getNumberKeyedEntries(cloneDeep(rawData.characterSpecializations))
     );
-    data.keystoneAffixById = new Map(getNumberKeyedEntries(rawData.keystoneAffixes));
-    data.questNameById = new Map(getNumberKeyedEntries(rawData.questNames));
-    data.reputationTierById = new Map(getNumberKeyedEntries(rawData.reputationTiers));
+    data.keystoneAffixById = new Map(getNumberKeyedEntries(cloneDeep(rawData.keystoneAffixes)));
+    data.questNameById = new Map(getNumberKeyedEntries(cloneDeep(rawData.questNames)));
+    data.reputationTierById = new Map(getNumberKeyedEntries(cloneDeep(rawData.reputationTiers)));
 
     data.bagById = createObjects(rawData.rawBags, StaticDataBag);
     data.campaignById = createObjects(rawData.rawCampaigns, StaticDataCampaign);
@@ -69,6 +71,43 @@ export function processStaticData(rawData: RawStatic): DataStatic {
             .push(characterSpecialization);
     }
 
+    for (const mount of data.mountById.values()) {
+        for (const itemId of mount.itemIds) {
+            data.mountByItemId.set(itemId, mount);
+        }
+    }
+
+    for (const pet of data.petById.values()) {
+        for (const itemId of pet.itemIds) {
+            data.petByItemId.set(itemId, pet);
+        }
+    }
+
+    for (const toy of data.toyById.values()) {
+        if (toy.itemId > 0) {
+            data.toyByItemId.set(toy.itemId, toy);
+        }
+    }
+
+    // Realms are fun
+    data.realmById.set(0, new StaticDataRealm(0, 1, 0, 'Honkstrasza', 'honkstrasza', 'zzZZ'));
+    data.realmById.set(
+        100001,
+        new StaticDataRealm(100001, 1, 100001, 'Commodities', 'commodities', 'zzZZ')
+    );
+    data.realmById.set(
+        100002,
+        new StaticDataRealm(100002, 2, 100002, 'Commodities', 'commodities', 'zzZZ')
+    );
+    data.realmById.set(
+        100003,
+        new StaticDataRealm(100003, 3, 100003, 'Commodities', 'commodities', 'zzZZ')
+    );
+    data.realmById.set(
+        100004,
+        new StaticDataRealm(100004, 4, 100004, 'Commodities', 'commodities', 'zzZZ')
+    );
+
     for (const realm of data.realmById.values()) {
         // if (settingsState.value?.general?.useEnglishRealmNames !== false && realm.englishName) {
         //     realm.name = realm.englishName;
@@ -91,24 +130,6 @@ export function processStaticData(rawData: RawStatic): DataStatic {
     for (const connectedRealm of data.connectedRealmById.values()) {
         connectedRealm.realmNames.sort();
         connectedRealm.displayText = connectedRealm.realmNames.join(' / ');
-    }
-
-    for (const mount of data.mountById.values()) {
-        for (const itemId of mount.itemIds) {
-            data.mountByItemId.set(itemId, mount);
-        }
-    }
-
-    for (const pet of data.petById.values()) {
-        for (const itemId of pet.itemIds) {
-            data.petByItemId.set(itemId, pet);
-        }
-    }
-
-    for (const toy of data.toyById.values()) {
-        if (toy.itemId > 0) {
-            data.toyByItemId.set(toy.itemId, toy);
-        }
     }
 
     console.timeEnd('processStaticData');
