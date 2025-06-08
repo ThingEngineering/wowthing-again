@@ -2,10 +2,12 @@ import { Language } from '@/enums/language';
 
 import { processDbData } from './db/process';
 import { processItemsData } from './items/process';
+import { processJournalData } from './journal/process';
 import { processManualData } from './manual/process';
 import type { DataDb, RawDb } from './db/types';
-import type { DataManual, RawManual } from './manual/types';
 import type { DataItems, RawItems } from './items/types';
+import type { DataJournal, RawJournal } from './journal/types';
+import type { DataManual, RawManual } from './manual/types';
 
 const requestInit: RequestInit = {
     credentials: 'include',
@@ -22,6 +24,7 @@ class WowthingData {
 
     public db: DataDb;
     public items: DataItems;
+    public journal: DataJournal;
     public manual: DataManual;
 
     async fetch(language: Language) {
@@ -35,6 +38,10 @@ class WowthingData {
             this.fetchAndProcess(
                 'item',
                 (rawData: RawItems) => (this.items = processItemsData(rawData))
+            ),
+            this.fetchAndProcess(
+                'journal',
+                (rawData: RawJournal) => (this.journal = processJournalData(rawData))
             ),
             this.fetchAndProcess(
                 'manual',

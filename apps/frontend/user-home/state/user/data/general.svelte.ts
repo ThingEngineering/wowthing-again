@@ -1,6 +1,14 @@
+import sortBy from 'lodash/sortBy';
 import uniq from 'lodash/uniq';
 import { get } from 'svelte/store';
 
+import {
+    difficultyMap,
+    lockoutDifficultyOrder,
+    lockoutDifficultyOrderMap,
+} from '@/data/difficulty';
+import { singleLockoutRaids } from '@/data/raid';
+import { settingsState } from '@/shared/state/settings.svelte';
 import { staticStore } from '@/shared/stores/static';
 import {
     Character,
@@ -11,17 +19,8 @@ import {
     type InstanceLockout,
     type UserData,
 } from '@/types';
-import type { Region } from '@/enums/region';
-import { settingsState } from '@/shared/state/settings.svelte';
-import {
-    difficultyMap,
-    lockoutDifficultyOrder,
-    lockoutDifficultyOrderMap,
-} from '@/data/difficulty';
-import { singleLockoutRaids } from '@/data/raid';
-import sortBy from 'lodash/sortBy';
-import { journalStore } from '@/stores';
 import { leftPad } from '@/utils/formatting';
+import type { Region } from '@/enums/region';
 
 export class DataUserGeneral {
     public accountMap: Record<number, Account> = $state({});
@@ -138,11 +137,10 @@ export class DataUserGeneral {
             }
         }
 
-        const journalData = get(journalStore);
         const staticData = get(staticStore);
         allLockouts = sortBy(allLockouts, (diff) => {
             const instance = staticData.instances[diff.instanceId];
-            const journalInstance = journalData.instanceById[diff.instanceId];
+            const journalInstance = wowthingData.journal.instanceById[diff.instanceId];
             if (!diff.difficulty || !instance) {
                 return 'z';
             }

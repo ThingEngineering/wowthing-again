@@ -3,7 +3,7 @@
     import { FarmType } from '@/enums/farm-type';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { timeStore } from '@/shared/stores/time';
-    import { journalStore, lazyStore, userQuestStore, userStore } from '@/stores';
+    import { lazyStore, userQuestStore, userStore } from '@/stores';
     import { zoneMapState } from '@/stores/local-storage/zone-map';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { worldQuestStore } from '@/user-home/components/world-quests/store';
@@ -38,10 +38,10 @@
             [status, drops] = getInstanceFarm(
                 settingsState.value,
                 $timeStore,
-                $journalStore,
+                wowthingData.journal,
                 $lazyStore,
                 $userStore,
-                farm,
+                farm
             );
             topOffset = '0px';
         } else {

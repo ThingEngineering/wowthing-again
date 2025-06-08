@@ -13,7 +13,7 @@ import { hashObject } from '@/utils/hash-object.svelte';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { FancyStoreType, UserAchievementData, UserData } from '@/types';
-import type { JournalData, UserQuestData } from '@/types/data';
+import type { UserQuestData } from '@/types/data';
 import type { ManualDataHeirloomItem, ManualDataIllusionItem } from '@/types/data/manual';
 
 import { doAchievements, type LazyAchievements } from './achievements';
@@ -43,7 +43,6 @@ import {
 } from '../local-storage';
 
 import { achievementStore } from '../achievements';
-import { journalStore } from '../journal';
 import { userStore } from '../user';
 import { userAchievementStore } from '../user-achievements';
 import { userQuestStore } from '../user-quests';
@@ -138,7 +137,6 @@ export const lazyStore = derived(
 export class LazyStore implements LazyUgh {
     private settings: Settings;
 
-    private journalData: JournalData;
     private staticData: StaticData;
 
     // private userAchievementData: UserAchievementData;
@@ -219,7 +217,6 @@ export class LazyStore implements LazyUgh {
         const changedHashes = Object.fromEntries(changedEntries);
         this.hashes = newHashes;
 
-        const journalData = (this.journalData = get(journalStore));
         const staticData = (this.staticData = get(staticStore));
 
         this.settings = settings;
@@ -350,7 +347,6 @@ export class LazyStore implements LazyUgh {
                 doJournal({
                     settings,
                     journalState,
-                    journalData,
                     staticData,
                     userData,
                     userQuestData,

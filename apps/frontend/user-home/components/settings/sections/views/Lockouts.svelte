@@ -3,8 +3,8 @@
 
     import { ignoredLockoutInstances } from '@/data/dungeon';
     import { expansionMap } from '@/data/expansion';
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
-    import { journalStore } from '@/stores';
     import { leftPad } from '@/utils/formatting';
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types';
 
@@ -28,7 +28,7 @@
                     instance.name.toLocaleLowerCase().includes(lowerFilter)
             ),
             (instance) => {
-                const journalInstance = $journalStore.instanceById[instance.id];
+                const journalInstance = wowthingData.journal.instanceById[instance.id];
                 return [
                     leftPad(instance.expansion, 2, '0'),
                     journalInstance?.isRaid ? 1 : 0,
@@ -50,7 +50,7 @@
                 name: `[${expansionName}] ${instance.name}`,
             });
 
-            const journalInstance = $journalStore.instanceById[instance.id];
+            const journalInstance = wowthingData.journal.instanceById[instance.id];
             if (instance.expansion < 100 && journalInstance?.isRaid) {
                 for (const difficulty of journalDifficultyOrder) {
                     if (

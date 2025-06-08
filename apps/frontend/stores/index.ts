@@ -1,6 +1,5 @@
 export * from './achievements';
 export * from './item-search';
-export * from './journal';
 export * from './parsed-text';
 export * from './user';
 export * from './user-achievements';

@@ -7,7 +7,7 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { staticStore } from '@/shared/stores/static';
     import { timeStore } from '@/shared/stores/time';
-    import { journalStore, userAchievementStore, userQuestStore, userStore } from '@/stores';
+    import { userAchievementStore, userQuestStore, userStore } from '@/stores';
     import { worldQuestStore } from '@/user-home/components/world-quests/store';
     import parseApiTime from '@/utils/parse-api-time';
     import type { Settings } from '@/shared/stores/settings/types/settings';
@@ -25,7 +25,6 @@
         sharedState.public = userStore.dataUrl.includes('/public-');
 
         await Promise.all([
-            journalStore.fetch({ language: settingsState.value.general.language }),
             staticStore.fetch({ language: settingsState.value.general.language }),
             wowthingData.fetch(settingsState.value.general.language),
         ]);

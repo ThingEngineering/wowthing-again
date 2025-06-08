@@ -11,7 +11,7 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
-    import { journalStore, userStore } from '@/stores';
+    import { userStore } from '@/stores';
     import { UserCount } from '@/types';
     import { fixedInventoryType } from '@/utils/fixed-inventory-type';
     import { getClassesFromMask } from '@/utils/get-classes-from-mask';
@@ -32,7 +32,7 @@
     let intersected = false;
 
     $: item = wowthingData.items.items[itemId];
-    $: expandsTo = $journalStore.itemExpansion[itemId];
+    $: expandsTo = wowthingData.journal.itemExpansion[itemId];
     $: haveItems = $userStore.itemsById[itemId];
     $: haveCount = haveItems.reduce((a, b) => a + b[1].length, 0);
 
