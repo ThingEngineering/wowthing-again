@@ -1,7 +1,6 @@
 <script lang="ts">
     import { Constants } from '@/data/constants';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
     import { timeStore } from '@/shared/stores/time';
     import { basicTooltip } from '@/shared/utils/tooltips';

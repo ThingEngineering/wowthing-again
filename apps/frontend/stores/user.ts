@@ -47,7 +47,6 @@ import type { StaticData } from '@/shared/stores/static/types';
 import type { ItemDataItem } from '@/types/data/item';
 import type { ContainsItems, HasNameAndRealm, UserItem } from '@/types/shared';
 
-import { journalStore } from './journal';
 import { userModifiedStore } from './user-modified';
 
 export class UserDataStore extends WritableFancyStore<UserData> {
@@ -180,7 +179,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     ): void {
         console.time('UserDataStore.setup');
 
-        const journalData = get(journalStore);
         const staticData = get(staticStore);
 
         this._itemCounts = {};
@@ -358,7 +356,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         userData.allLockouts = sortBy(userData.allLockouts, (diff /*: InstanceDifficulty*/) => {
             const instance = staticData.instances[diff.instanceId];
-            const journalInstance = journalData.instanceById[diff.instanceId];
+            const journalInstance = wowthingData.journal.instanceById[diff.instanceId];
             if (!diff.difficulty || !instance) {
                 return 'z';
             }

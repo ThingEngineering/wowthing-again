@@ -1,11 +1,13 @@
 <script lang="ts">
     import { FarmIdType } from '@/enums/farm-id-type';
     import { FarmType } from '@/enums/farm-type';
+    import { Region } from '@/enums/region';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { wowthingData } from '@/shared/stores/data';
     import { timeStore } from '@/shared/stores/time';
-    import { journalStore, lazyStore, userQuestStore, userStore } from '@/stores';
-    import { zoneMapState } from '@/stores/local-storage/zone-map';
     import { componentTooltip } from '@/shared/utils/tooltips';
+    import { lazyStore, userQuestStore, userStore } from '@/stores';
+    import { zoneMapState } from '@/stores/local-storage/zone-map';
     import { worldQuestStore } from '@/user-home/components/world-quests/store';
     import { getInstanceFarm } from '@/utils/get-instance-farm';
     import { getFarmIcon } from '@/utils/zone-maps';
@@ -17,9 +19,8 @@
     } from '@/types/data/manual';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import Tooltip from '@/components/tooltips/zone-maps/TooltipZoneMapsThing.svelte';
-    import { Region } from '@/enums/region';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
 
     export let farm: ManualDataZoneMapFarm;
     export let map: ManualDataZoneMapCategory;
@@ -38,10 +39,10 @@
             [status, drops] = getInstanceFarm(
                 settingsState.value,
                 $timeStore,
-                $journalStore,
+                wowthingData.journal,
                 $lazyStore,
                 $userStore,
-                farm,
+                farm
             );
             topOffset = '0px';
         } else {

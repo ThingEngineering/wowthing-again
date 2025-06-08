@@ -27,7 +27,6 @@ export interface LazyJournal {
 interface LazyStores {
     settings: Settings;
     journalState: JournalState;
-    journalData: JournalData;
     staticData: StaticData;
     userData: UserData;
     userQuestData: UserQuestData;
@@ -49,7 +48,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
     const overallRaidStats = (ret.stats['raids'] = new UserCount());
     const overallSeen = new Set<string>();
 
-    for (const tier of stores.journalData.tiers.filter(
+    for (const tier of wowthingData.journal.tiers.filter(
         (tier) => tier !== null && tier.slug !== 'dungeons' && tier.slug !== 'raids'
     )) {
         const tierStats = (ret.stats[tier.slug] = new UserCount());
@@ -88,7 +87,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                     const groupSeen = new Set<string>();
 
                     let filteredItems = getFilteredItems(
-                        stores.journalData,
+                        wowthingData.journal,
                         stores.journalState,
                         group,
                         classMask,

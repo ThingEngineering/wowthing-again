@@ -18,7 +18,7 @@
 
     $: anyChildren = items.some((item) => (item?.children?.length ?? 0) > 0);
 
-    let lessHeight = settingsState.value.layout.newNavigation ? '7rem' : '4.4rem';
+    let lessHeight = settingsState.value?.layout?.newNavigation ? '7rem' : '4.4rem';
 
     const scrollbarWidth = measureScrollbar();
 </script>

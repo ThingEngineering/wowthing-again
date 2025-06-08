@@ -15,10 +15,6 @@ import type { Settings } from '../stores/settings/types';
 
 import { browserStore } from '../stores/browser';
 
-// import { achievementStore } from '@/stores/achievements';
-// import { journalStore } from '@/stores/journal';
-// import { staticStore } from '@/shared/stores/static';
-
 const languageToSubdomain: Record<Language, string> = {
     [Language.deDE]: 'de',
     [Language.enUS]: 'www',

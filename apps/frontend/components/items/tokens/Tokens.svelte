@@ -3,7 +3,7 @@
 
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import { wowthingData } from '@/shared/stores/data';
-    import { journalStore, userStore } from '@/stores';
+    import { userStore } from '@/stores';
     import type { JournalDataInstance, JournalDataTier } from '@/types/data/journal';
 
     import Instance from './Instance.svelte';
@@ -14,10 +14,10 @@
     type TierData = [JournalDataTier, InstanceData][];
     let tiers: TierData;
     $: {
-        const lookup = new Set($journalStore.tokenEncounters);
+        const lookup = new Set(wowthingData.journal.tokenEncounters);
 
         tiers = [];
-        for (const tier of $journalStore.tiers) {
+        for (const tier of wowthingData.journal.tiers) {
             if (tier === null) {
                 break;
             }
@@ -41,7 +41,7 @@
 
                     for (const group of encounter.groups) {
                         for (const item of group.items) {
-                            const sourceIds = $journalStore.expandedItem[item.id] || [];
+                            const sourceIds = wowthingData.journal.expandedItem[item.id] || [];
                             for (const sourceId of sourceIds) {
                                 if ($userStore.itemsById[sourceId]) {
                                     items.add(sourceId);

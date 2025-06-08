@@ -7,20 +7,22 @@
     import { staticStore } from '@/shared/stores/static';
     import { getNameForFaction } from '@/utils/get-name-for-faction';
     import { getProfessionEquipment, getProfessionSortKey } from '@/utils/professions';
-    import type { Character, CharacterGear } from '@/types';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
+    import type { CharacterGear } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
+    import CurrenciesCell from '@/user-home/components/currencies/TableRow.svelte';
     import Empty from '../../items/ItemsEmpty.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import Item from '../../items/ItemsItem.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { someProfessions } from './some';
 
-    export let character: Character;
-    export let professionId: number;
+    let { character, professionId, slug }: CharacterProps & { professionId: number; slug: string } =
+        $props();
 
-    let professions: [Partial<StaticDataProfession>, boolean, Partial<CharacterGear>[]][];
-    $: {
-        professions = [];
+    let professions = $derived.by(() => {
+        const ret: [Partial<StaticDataProfession>, boolean, Partial<CharacterGear>[]][] = [];
         let type0s = 0;
         for (const profession of Object.values($staticStore.professions)) {
             if (professionId > 0 && profession.id !== professionId) {
@@ -30,8 +32,17 @@
                 continue;
             }
 
+            if (slug === 'some' && !someProfessions.includes(profession.id)) {
+                continue;
+            }
+
             const charProfession = character.professions?.[profession.id];
-            if (!charProfession && profession.slug !== 'cooking' && profession.slug !== 'fishing') {
+            if (
+                slug !== 'some' &&
+                !charProfession &&
+                profession.slug !== 'cooking' &&
+                profession.slug !== 'fishing'
+            ) {
                 continue;
             }
 
@@ -40,7 +51,7 @@
                 equipment[i] ||= undefined;
             }
 
-            professions.push([
+            ret.push([
                 profession,
                 !!charProfession,
                 orderBy(Object.entries(equipment), ([slot]) => slot).map(([, equipped]) => ({
@@ -55,7 +66,7 @@
 
         if (professionId === 0) {
             for (let i = type0s; i < 2; i++) {
-                professions.push([
+                ret.push([
                     {
                         type: 0,
                         name: 'ZZZ',
@@ -66,10 +77,9 @@
             }
         }
 
-        professions.sort((a, b) =>
-            getProfessionSortKey(a[0]).localeCompare(getProfessionSortKey(b[0])),
-        );
-    }
+        ret.sort((a, b) => getProfessionSortKey(a[0]).localeCompare(getProfessionSortKey(b[0])));
+        return ret;
+    });
 </script>
 
 <style lang="scss">
@@ -94,6 +104,9 @@
         color: $color-fail;
     }
 </style>
+
+<td class="spacer"></td>
+<CurrenciesCell {character} itemId={210814} sortingBy={false} />
 
 {#each professions as [profession, userHas, slots] (profession)}
     <td class="spacer"></td>
