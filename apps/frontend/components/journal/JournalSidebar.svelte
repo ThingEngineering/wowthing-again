@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { wowthingData } from '@/shared/stores/data';
     import { lazyStore } from '@/stores';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
     import type { UserCount } from '@/types';

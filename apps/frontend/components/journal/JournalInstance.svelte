@@ -3,6 +3,7 @@
     import { afterUpdate } from 'svelte';
 
     import { lazyStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
     import { journalState } from '@/stores/local-storage';
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import type { JournalDataInstance, JournalDataTier } from '@/types/data';
