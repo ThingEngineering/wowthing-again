@@ -1,21 +1,18 @@
 <script lang="ts">
-    import { staticStore } from '@/shared/stores/static'
-    import getItemLevelQuality from '@/utils/get-item-level-quality'
-    import getRealmName from '@/utils/get-realm-name'
-    import type { CharacterMythicPlusRunMember } from '@/types'
-    import type { StaticDataCharacterClass, StaticDataCharacterSpecialization } from '@/shared/stores/static/types/character'
+    import { wowthingData } from '@/shared/stores/data';
+    import getItemLevelQuality from '@/utils/get-item-level-quality';
+    import getRealmName from '@/utils/get-realm-name';
+    import type { CharacterMythicPlusRunMember } from '@/types';
 
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
-    import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
+    import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
 
-    export let member: CharacterMythicPlusRunMember
+    let { member }: { member: CharacterMythicPlusRunMember } = $props();
 
-    let cls: StaticDataCharacterClass
-    let spec: StaticDataCharacterSpecialization
-    $: {
-        spec = $staticStore.characterSpecializations[member.specializationId]
-        cls = $staticStore.characterClasses[spec.classId]
-    }
+    let spec = $derived(
+        wowthingData.static.characterSpecializationById.get(member.specializationId)
+    );
+    let cls = $derived(wowthingData.static.characterClassById.get(spec.classId));
 </script>
 
 <tr>

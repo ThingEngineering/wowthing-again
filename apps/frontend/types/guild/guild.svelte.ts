@@ -1,10 +1,7 @@
-import { get } from 'svelte/store';
-
-import { staticStore } from '@/shared/stores/static';
+import { wowthingData } from '@/shared/stores/data';
 import type { StaticDataRealm } from '@/shared/stores/static/types';
 
 import { GuildItem, type GuildItemArray } from './item';
-
 import type { ContainsItems, HasNameAndRealm } from '../shared';
 
 export class Guild implements ContainsItems, HasNameAndRealm {
@@ -25,7 +22,7 @@ export class Guild implements ContainsItems, HasNameAndRealm {
         realmId: number,
         name: string,
         slug: string,
-        rawItems?: GuildItemArray[],
+        rawItems?: GuildItemArray[]
     ) {
         this.id = id;
         this.realmId = realmId;
@@ -43,9 +40,7 @@ export class Guild implements ContainsItems, HasNameAndRealm {
         this.itemsByAppearanceSource = {};
         this.itemsById = {};
 
-        const staticData = get(staticStore);
-
-        this.realm = staticData.realms[this.realmId];
+        this.realm = wowthingData.static.realmById.get(this.realmId);
     }
 }
 export type GuildArray = Parameters<Guild['init']>;

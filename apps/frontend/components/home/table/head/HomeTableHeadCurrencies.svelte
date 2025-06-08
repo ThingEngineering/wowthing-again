@@ -34,7 +34,7 @@
         use:componentTooltip={{
             component: Tooltip,
             props: {
-                currency: $staticStore.currencies[currencyId],
+                currency: wowthingData.static.currencyById.get(currencyId),
                 item: wowthingData.items.items[currencyId - 1000000],
             },
         }}

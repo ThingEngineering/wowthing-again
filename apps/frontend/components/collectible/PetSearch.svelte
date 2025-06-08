@@ -2,7 +2,7 @@
     import sortBy from 'lodash/sortBy';
 
     import { ItemQuality } from '@/enums/item-quality';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { userStore } from '@/stores';
     import { collectibleState } from '@/stores/local-storage';
     import { leftPad } from '@/utils/formatting';
@@ -19,7 +19,7 @@
         const noMaxLevel = $collectibleState.petSearchNoMaxLevel;
         const noRare = $collectibleState.petSearchNoRare;
         for (const [speciesId, thesePets] of getNumberKeyedEntries($userStore.pets)) {
-            const staticPet = $staticStore.pets[speciesId];
+            const staticPet = wowthingData.static.petById.get(speciesId);
             if (staticPet?.canBattle === false) {
                 continue;
             }
@@ -39,7 +39,7 @@
         }
 
         pets = sortBy(pets, ([, pet, name]) =>
-            [5 - pet.quality, leftPad(pet.level, 2, '0'), name].join('|'),
+            [5 - pet.quality, leftPad(pet.level, 2, '0'), name].join('|')
         );
     }
 
@@ -85,8 +85,8 @@
     </div>
 
     <div class="pets">
-        {#each pets as [speciesId, pet, name]}
-            {@const staticPet = $staticStore.pets[speciesId]}
+        {#each pets as [speciesId, pet, name] (speciesId)}
+            {@const staticPet = wowthingData.static.petById.get(speciesId)}
             <div class="flex-wrapper no-break pet" data-species-id={speciesId}>
                 <div class="quality{pet.quality} text-overflow">
                     {#if staticPet}

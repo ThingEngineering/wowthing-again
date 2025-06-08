@@ -5,45 +5,48 @@
         emberCourtUpgrades,
         emberCourtUpgrades2,
         type EmberCourtFeature,
-        type EmberCourtFeatureType
-    } from '@/data/covenant'
-    import { userQuestStore } from '@/stores'
-    import { staticStore } from '@/shared/stores/static'
-    import findReputationTier from '@/utils/find-reputation-tier'
-    import { basicTooltip,  componentTooltip } from '@/shared/utils/tooltips'
-    import type { Character, ReputationTier } from '@/types'
+        type EmberCourtFeatureType,
+    } from '@/data/covenant';
+    import { wowthingData } from '@/shared/stores/data';
+    import { userQuestStore } from '@/stores';
+    import findReputationTier from '@/utils/find-reputation-tier';
+    import { basicTooltip, componentTooltip } from '@/shared/utils/tooltips';
+    import type { Character, ReputationTier } from '@/types';
 
-    export let character: Character
+    import ReputationText from '@/components/common/ReputationText.svelte';
+    import Tooltip from '@/components/tooltips/reputation/TooltipReputation.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    import ReputationText from '@/components/common/ReputationText.svelte'
-    import Tooltip from '@/components/tooltips/reputation/TooltipReputation.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    export let character: Character;
 
-    let quests: Set<number>
-    let tier: ReputationTier
+    let quests: Set<number>;
+    let tier: ReputationTier;
     $: {
         tier = findReputationTier(
-            $staticStore.reputationTiers[$staticStore.reputations[2445].tierId],
+            wowthingData.static.reputationTierById.get(
+                wowthingData.static.reputationById.get(2445).tierId
+            ),
             character.reputations?.[2445] ?? 0
-        )
+        );
 
-        quests = $userQuestStore.characters[character.id]?.quests
+        quests = $userQuestStore.characters[character.id]?.quests;
     }
 
     const thingSets: [EmberCourtFeature[], number][] = [
         [emberCourtFeatures, 40],
         [emberCourtUpgrades, 32],
         [emberCourtUpgrades2, 48],
-    ]
+    ];
 
-    const getTooltip = function(type: EmberCourtFeatureType): string {
-        let ret = type.name
+    const getTooltip = function (type: EmberCourtFeatureType): string {
+        let ret = type.name;
         if (type.unlockReputation > 0) {
-            const tierName = $staticStore.reputationTiers[0].names[8 - type.unlockReputation]
-            ret += `<br><br>Requires <span class="reputation${type.unlockReputation}">${tierName}</span> reputation`
+            const tierName =
+                wowthingData.static.reputationTierById.get(0).names[8 - type.unlockReputation];
+            ret += `<br><br>Requires <span class="reputation${type.unlockReputation}">${tierName}</span> reputation`;
         }
-        return ret
-    }
+        return ret;
+    };
 </script>
 
 <style lang="scss">
@@ -106,7 +109,7 @@
         &:nth-child(odd) {
             border-right: 1px solid $border-color;
         }
-        &:nth-child(n+3) {
+        &:nth-child(n + 3) {
             border-top: 1px solid $border-color;
         }
         &:only-child {
@@ -138,26 +141,21 @@
                     use:componentTooltip={{
                         component: Tooltip,
                         props: {
-                            bottom: bff ? `<span class="status-success">Friend of a Friend!</span>` : undefined,
+                            bottom: bff
+                                ? `<span class="status-success">Friend of a Friend!</span>`
+                                : undefined,
                             character,
                             characterRep: character.reputations?.[friend.reputationId] ?? 0,
-                            dataRep: $staticStore.reputations[friend.reputationId],
+                            dataRep: wowthingData.static.reputationById.get(friend.reputationId),
                         },
                     }}
                 >
-                    <div
-                        class="name text-overflow"
-                        class:bff
-                        class:unlocked={rsvp}
-                    >
+                    <div class="name text-overflow" class:bff class:unlocked={rsvp}>
                         {friend.name}
                     </div>
-                    
+
                     <div class="reputation">
-                        <ReputationText
-                            reputationId={friend.reputationId}
-                            {character}
-                        />
+                        <ReputationText reputationId={friend.reputationId} {character} />
                     </div>
                 </div>
             {/each}
@@ -169,10 +167,7 @@
     <div class="court features border">
         {#each things as thing}
             {@const featureUnlocked = quests?.has(thing.unlockQuestId)}
-            <div
-                class="feature"
-                class:unlocked={featureUnlocked}
-            >
+            <div class="feature" class:unlocked={featureUnlocked}>
                 {#each thing.types as type}
                     {@const typeUnlocked = quests?.has(type.unlockQuestId)}
                     {@const typeReputation = type.unlockReputation || thing.unlockReputation || 0}
@@ -186,11 +181,7 @@
                             content: getTooltip(type),
                         }}
                     >
-                        <WowthingImage
-                            name={type.icon}
-                            size={iconSize}
-                            border={2}
-                        />
+                        <WowthingImage name={type.icon} size={iconSize} border={2} />
                     </div>
                 {/each}
             </div>

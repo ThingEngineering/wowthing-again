@@ -4,10 +4,12 @@ import { processDbData } from './db/process';
 import { processItemsData } from './items/process';
 import { processJournalData } from './journal/process';
 import { processManualData } from './manual/process';
+import { processStaticData } from './static/process';
 import type { DataDb, RawDb } from './db/types';
 import type { DataItems, RawItems } from './items/types';
 import type { DataJournal, RawJournal } from './journal/types';
 import type { DataManual, RawManual } from './manual/types';
+import type { DataStatic, RawStatic } from './static/types';
 
 const requestInit: RequestInit = {
     credentials: 'include',
@@ -19,6 +21,7 @@ interface WowthingDataOptions {
     loadItems: boolean;
     loadJournal: boolean;
     loadManual: boolean;
+    loadStatic: boolean;
 }
 
 // Wrap loaded db/item/journal/manual/static data
@@ -33,6 +36,7 @@ class WowthingData {
     public items: DataItems;
     public journal: DataJournal;
     public manual: DataManual;
+    public static: DataStatic;
 
     async fetch(language: Language, options: Partial<WowthingDataOptions> = {}) {
         console.time('WowthingData.fetch');
@@ -67,6 +71,14 @@ class WowthingData {
                 this.fetchAndProcess(
                     'manual',
                     (rawData: RawManual) => (this.manual = processManualData(rawData))
+                )
+            );
+        }
+        if (options.loadStatic !== false) {
+            promises.push(
+                this.fetchAndProcess(
+                    'static',
+                    (rawData: RawStatic) => (this.static = processStaticData(rawData))
                 )
             );
         }

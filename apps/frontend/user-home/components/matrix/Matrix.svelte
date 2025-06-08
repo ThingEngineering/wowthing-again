@@ -23,6 +23,7 @@
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte';
     import Row from './Row.svelte';
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
+    import { wowthingData } from '@/shared/stores/data';
 
     let matrix: Record<string, Character[]>;
     let xCounts: Record<string, number>;
@@ -37,7 +38,7 @@
                 settingsState.value.characters.hiddenCharacters.indexOf(char.id) === -1 &&
                 settingsState.value.characters.ignoredCharacters.indexOf(char.id) === -1 &&
                 char.level >= $browserStore.matrix.minLevel &&
-                settingsState.value.accounts?.[char.accountId]?.enabled === true,
+                settingsState.value.accounts?.[char.accountId]?.enabled === true
         );
 
         const realmMap: Record<number, StaticDataRealm> = {};
@@ -47,7 +48,7 @@
 
         const realms: [string, string, StaticDataRealm][] = Object.values(realmMap).map((realm) => [
             Region[realm.region],
-            $staticStore.connectedRealms[realm.connectedRealmId]?.displayText ||
+            wowthingData.static.connectedRealmById.get(realm.connectedRealmId)?.displayText ||
                 `Realm #${realm.connectedRealmId}`,
             realm,
         ]);
@@ -58,7 +59,7 @@
 
         const allAxis = sortBy(
             [...$browserStore.matrix.xAxis, ...$browserStore.matrix.yAxis],
-            (key) => axisOrder.indexOf(key),
+            (key) => axisOrder.indexOf(key)
         );
 
         matrix = Object.fromEntries(
@@ -68,14 +69,14 @@
                         const parts: (number | string)[] = [];
 
                         parts.push(
-                            allAxis.indexOf('realm') >= 0 ? char.realm.connectedRealmId : null,
+                            allAxis.indexOf('realm') >= 0 ? char.realm.connectedRealmId : null
                         );
 
                         parts.push(
                             allAxis.indexOf('account') >= 0
                                 ? settingsState.value.accounts?.[char.accountId]?.tag ||
                                       char.accountId
-                                : null,
+                                : null
                         );
 
                         parts.push(allAxis.indexOf('faction') >= 0 ? char.faction : null);
@@ -88,17 +89,17 @@
                             .filter((professionId) => !isSecondaryProfession[professionId]);
 
                         parts.push(
-                            allAxis.indexOf('profession') >= 0 ? professionIds[0] || null : null,
+                            allAxis.indexOf('profession') >= 0 ? professionIds[0] || null : null
                         );
                         parts.push(
-                            allAxis.indexOf('profession') >= 0 ? professionIds[1] || null : null,
+                            allAxis.indexOf('profession') >= 0 ? professionIds[1] || null : null
                         );
 
                         return parts;
-                    }),
+                    })
                 ).map(([key, characters]) => [key, sortBy(characters, (char) => -char.level)]),
-                ([key]) => key,
-            ),
+                ([key]) => key
+            )
         );
 
         // unique ID|display text?
@@ -111,8 +112,8 @@
                 combos.push(
                     realms.map(
                         ([region, displayText, realm]) =>
-                            `${realm.connectedRealmId}|[${region}] ${displayText}`,
-                    ),
+                            `${realm.connectedRealmId}|[${region}] ${displayText}`
+                    )
                 );
             } else {
                 combos.push(['']);
@@ -123,15 +124,15 @@
                     sortBy(
                         Object.values($userStore.accounts)
                             .filter(
-                                (account) => settingsState.value.accounts?.[account.id]?.enabled,
+                                (account) => settingsState.value.accounts?.[account.id]?.enabled
                             )
                             .map((account) => {
                                 const tag =
                                     settingsState.value.accounts?.[account.id].tag || account.id;
                                 return `${tag}|${tag}`;
                             }),
-                        (key) => key.split('|')[0],
-                    ),
+                        (key) => key.split('|')[0]
+                    )
                 );
             } else {
                 combos.push(['']);
@@ -139,7 +140,7 @@
 
             if (axis.indexOf('faction') >= 0) {
                 combos.push(
-                    [':alliance:', ':horde:'].map((faction, index) => `${index}|${faction}`),
+                    [':alliance:', ':horde:'].map((faction, index) => `${index}|${faction}`)
                 );
             } else {
                 combos.push(['']);
@@ -153,9 +154,9 @@
 
             if (axis.indexOf('race') >= 0) {
                 combos.push(
-                    Object.keys($staticStore.characterRaces).map(
-                        (raceId) => `${raceId}|:race-${raceId}:`,
-                    ),
+                    [...wowthingData.static.characterRaceById.keys()].map(
+                        (raceId) => `${raceId}|:race-${raceId}:`
+                    )
                 );
             } else {
                 combos.push(['']);
@@ -170,8 +171,8 @@
             if (axis.indexOf('profession') >= 0) {
                 combos.push(
                     professionOrder.map(
-                        (professionId) => `${professionId}|:profession-${professionId}:`,
-                    ),
+                        (professionId) => `${professionId}|:profession-${professionId}:`
+                    )
                 );
             } else {
                 combos.push(['']);

@@ -26,7 +26,7 @@
 
 {#if costs}
     <span class="costs">
-        {#each getCurrencyCosts($staticStore, costs, true, true) as [linkType, linkId, value] (`${linkType}-${linkId}`)}
+        {#each getCurrencyCosts(costs, true, true) as [linkType, linkId, value] (`${linkType}-${linkId}`)}
             <div>
                 <CurrencyLink
                     currencyId={linkType === 'currency' ? linkId : undefined}

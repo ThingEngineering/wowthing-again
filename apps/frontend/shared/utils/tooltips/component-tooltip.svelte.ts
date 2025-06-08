@@ -9,7 +9,7 @@ import type { ComponentTooltipProps, SvelteActionResult } from './types';
 // TODO: fix typing of this mess
 export function componentTooltip<TComponent extends Component<any, any, any>>(
     node: SingleTarget,
-    componentProps: ComponentTooltipProps<TComponent>,
+    componentProps: ComponentTooltipProps<TComponent>
 ): SvelteActionResult<{ props: Partial<ComponentProps<TComponent>> }> {
     if (!componentProps) {
         return;
@@ -21,45 +21,54 @@ export function componentTooltip<TComponent extends Component<any, any, any>>(
         return;
     }
 
-    let cmp: Record<string, unknown>;
-    const elementProps = $state(props);
+    let cmp: Record<string, unknown> = $state.raw();
+    // const elementProps = $state(props);
 
     const finalProps = {
         ...defaultProps,
         ...(tippyProps || {}),
     };
 
-    const tp = tippy(node, {
-        ...finalProps,
-        allowHTML: true,
-        onShow(instance: Instance<Props>) {
-            cmp = mount(component, {
-                target: instance.popper.querySelector('.tippy-content'),
-                props: elementProps,
-            });
-            // console.log('mount', component, cmp);
-        },
-        onHide() {
-            if (cmp) {
+    $effect(() => {
+        const tp = tippy(node, {
+            ...finalProps,
+            allowHTML: true,
+            onShow(instance: Instance<Props>) {
+                cmp = mount(component, {
+                    target: instance.popper.querySelector('.tippy-content'),
+                    props,
+                });
+            },
+            onHide() {
                 unmount(cmp);
-            }
-        },
-    });
+                cmp = null;
+            },
+        });
 
-    return {
-        update(params: { props: Partial<ComponentProps<TComponent>> }) {
-            Object.assign(elementProps, params.props);
-            // if (cmp) {
-            //     cmp.$set(params.props);
-            // }
-        },
-        destroy() {
+        return () => {
+            if (cmp) {
+                console.log('destroy unmount');
+                unmount(cmp);
+                cmp = null;
+            }
             tp.destroy();
-            // if (cmp) {
-            //     console.log('unmount', cmp);
-            //     unmount(cmp);
-            //     cmp = {};
-            // }
-        },
-    };
+        };
+    });
+    //meow
+    // return {
+    //     update(params: { props: Partial<ComponentProps<TComponent>> }) {
+    //         Object.assign(elementProps, params.props);
+    //         // if (cmp) {
+    //         //     cmp.$set(params.props);
+    //         // }
+    //     },
+    //     destroy() {
+    //         if (cmp) {
+    //             console.log('unmount', cmp);
+    //             unmount(cmp);
+    //             cmp = {};
+    //         }
+    //         tp.destroy();
+    //     },
+    // };
 }

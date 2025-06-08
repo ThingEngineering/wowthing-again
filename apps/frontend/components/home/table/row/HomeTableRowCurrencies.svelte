@@ -7,6 +7,7 @@
     import { userStore } from '@/stores';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import type { Character } from '@/types';
+    import { wowthingData } from '@/shared/stores/data';
 
     export let character: Character;
 </script>
@@ -24,7 +25,8 @@
 </style>
 
 {#each settingsState.activeView.homeCurrencies as currencyId (currencyId)}
-    {@const currency = currencyId < 1000000 ? $staticStore.currencies[currencyId] : undefined}
+    {@const currency =
+        currencyId < 1000000 ? wowthingData.static.currencyById.get(currencyId) : undefined}
     {@const itemId = currencyId > 1000000 ? currencyId - 1000000 : 0}
     {@const { amount, amountRaw, percent, tooltip } = getCurrencyData(
         $timeStore,

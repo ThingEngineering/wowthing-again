@@ -306,7 +306,7 @@
                                 {/if}
                             {/if}
                         {:else if drop.type === RewardType.Item}
-                            {@const [lookupType] = rewardToLookup($staticStore, drop.type, drop.id)}
+                            {@const [lookupType] = rewardToLookup(drop.type, drop.id)}
                             {#if lookupType !== LookupType.None}
                                 {LookupType[lookupType].toLowerCase()}
                             {:else}

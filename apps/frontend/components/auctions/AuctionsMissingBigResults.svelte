@@ -40,7 +40,8 @@
     let { page, slug1 }: { page: number; slug1: string } = $props();
 
     function setRealmSearch(connectedRealmId: number) {
-        const realmName = $staticStore.connectedRealms[connectedRealmId].realmNames[0];
+        const realmName =
+            wowthingData.static.connectedRealmById.get(connectedRealmId).realmNames[0];
         if (slug1 === 'missing-recipes') {
             $auctionState.missingRecipeRealmSearch = realmName;
         } else {
@@ -405,8 +406,9 @@
                         </thead>
                         <tbody>
                             {#each auctions as auction (auction)}
-                                {@const connectedRealm =
-                                    $staticStore.connectedRealms[auction.connectedRealmId]}
+                                {@const connectedRealm = wowthingData.static.connectedRealmById.get(
+                                    auction.connectedRealmId
+                                )}
                                 {@const ageInMinutes = Math.floor(
                                     $timeStore
                                         .diff(

@@ -45,7 +45,9 @@
                     parts.push(amount.toString());
                     parts.push('rep with');
                 }
-                parts.push($staticStore.reputations[repId]?.name ?? `Reputation #${repId}`);
+                parts.push(
+                    wowthingData.static.reputationById.get(repId)?.name ?? `Reputation #${repId}`
+                );
                 return parts.join(' ');
             }
         );
@@ -54,7 +56,7 @@
             /\{repPrice:(\d+)\|(\d+)\|(\d+)(?:\|([-\d]+))?\}/g,
             (_, repId: number, repLevel: number, amount: number, currencyId: number) => {
                 const parts: string[] = [];
-                const rep = $staticStore.reputations[repId];
+                const rep = wowthingData.static.reputationById.get(repId);
 
                 if (currencyId) {
                     parts.push(`{price:${amount}|${Math.abs(currencyId)}}`);

@@ -97,7 +97,7 @@
 
                 const niceRemaining = toNiceDuration(diff).replace('&nbsp;', '');
                 const [reputationId, rank] = contractAuras[spellId];
-                const reputation = $staticStore.reputations[reputationId];
+                const reputation = wowthingData.static.reputationById.get(reputationId);
                 images.push([
                     `spell/${spellId}`,
                     `<div class="center">{craftedQuality:${rank}} ${reputation.name}<br>${niceRemaining} remaining</div>`,

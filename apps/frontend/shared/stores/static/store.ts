@@ -32,28 +32,28 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
     initialize(data: StaticData): void {
         console.time('StaticDataStore.initialize');
 
-        data.characterClassesBySlug = {};
-        for (const cls of Object.values(data.characterClasses)) {
-            data.characterClassesBySlug[cls.slug] = cls;
+        // data.characterClassesBySlug = {};
+        // for (const cls of Object.values(data.characterClasses)) {
+        //     data.characterClassesBySlug[cls.slug] = cls;
 
-            cls.mask = 2 ** (cls.id - 1);
-            cls.specializationIds = [];
+        //     cls.mask = 2 ** (cls.id - 1);
+        //     cls.specializationIds = [];
 
-            const specs = Object.values(data.characterSpecializations).filter(
-                (spec) => spec.classId === cls.id
-            );
-            specs.sort((a, b) => a.order - b.order);
-            cls.specializationIds = specs.map((spec) => spec.id);
-        }
+        //     const specs = Object.values(data.characterSpecializations).filter(
+        //         (spec) => spec.classId === cls.id
+        //     );
+        //     specs.sort((a, b) => a.order - b.order);
+        //     cls.specializationIds = specs.map((spec) => spec.id);
+        // }
 
-        data.characterRacesBySlug = Object.fromEntries(
-            Object.values(data.characterRaces).map((race) => [
-                ['dracthyr', 'pandaren'].includes(race.slug)
-                    ? `${race.slug}${race.faction}`
-                    : race.slug,
-                race,
-            ])
-        );
+        // data.characterRacesBySlug = Object.fromEntries(
+        //     Object.values(data.characterRaces).map((race) => [
+        //         ['dracthyr', 'pandaren'].includes(race.slug)
+        //             ? `${race.slug}${race.faction}`
+        //             : race.slug,
+        //         race,
+        //     ])
+        // );
 
         data.professionBySkillLine = {};
         for (const profession of Object.values(data.professions)) {

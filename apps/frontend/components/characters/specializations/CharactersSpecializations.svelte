@@ -1,15 +1,15 @@
 <script lang="ts">
-    import { staticStore } from '@/shared/stores/static'
-    import type { Character } from '@/types'
+    import { wowthingData } from '@/shared/stores/data';
+    import type { Character } from '@/types';
 
     //import Talents from './CharacterSpecializationsTalents.svelte'
-    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
+    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
 
-    export let character: Character
+    export let character: Character;
 
-    let specIds: number[]
+    let specIds: number[];
     $: {
-        specIds = $staticStore.characterClasses[character.classId].specializationIds
+        specIds = wowthingData.static.characterClassById.get(character.classId).specializationIds;
     }
 </script>
 

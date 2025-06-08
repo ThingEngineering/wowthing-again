@@ -18,7 +18,7 @@ import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { initializeContainsItems } from '@/utils/items/initialize-contains-items';
 import type { InventoryType } from '@/enums/inventory-type';
 import type { Region } from '@/enums/region';
-import type { StaticData, StaticDataRealm } from '@/shared/stores/static/types';
+import type { StaticDataRealm } from '@/shared/stores/static/types';
 import type { Guild } from '@/types/guild';
 
 import type { CharacterConfiguration } from './configuration';
@@ -253,22 +253,23 @@ export class Character implements ContainsItems, HasNameAndRealm {
         // rawSpecializations
         // rawStatistics
 
-        const staticData = get(staticStore);
-
         // account relies on UserStore data
         // guild relies on UserStore data
-        this.realm = staticData.realms[this.realmId];
+        this.realm = wowthingData.static.realmById.get(this.realmId);
         this.region = this.realm?.region;
 
         // names
         this.className = getGenderedName(
-            staticData.characterClasses[this.classId].name,
+            wowthingData.static.characterClassById.get(this.classId).name,
             this.gender
         );
-        this.raceName = getGenderedName(staticData.characterRaces[this.raceId].name, this.gender);
+        this.raceName = getGenderedName(
+            wowthingData.static.characterRaceById.get(this.raceId).name,
+            this.gender
+        );
         if (this.activeSpecId > 0) {
             this.specializationName = getGenderedName(
-                staticData.characterSpecializations[this.activeSpecId].name,
+                wowthingData.static.characterSpecializationById.get(this.activeSpecId).name,
                 this.gender
             );
         }
@@ -463,8 +464,8 @@ export class Character implements ContainsItems, HasNameAndRealm {
     }
 
     public bestItemLevels: Record<number, [string, InventoryType[]]>;
-    getBestItemLevels(staticData: StaticData): Record<number, [string, InventoryType[]]> {
-        this.bestItemLevels ||= getBestItemLevels(staticData, this);
+    getBestItemLevels(): Record<number, [string, InventoryType[]]> {
+        this.bestItemLevels ||= getBestItemLevels(this);
         return this.bestItemLevels;
     }
 

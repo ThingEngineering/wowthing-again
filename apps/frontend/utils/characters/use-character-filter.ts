@@ -1,5 +1,3 @@
-import { get } from 'svelte/store';
-
 import { classByArmorType } from '@/data/character-class';
 import { Constants } from '@/data/constants';
 import {
@@ -11,7 +9,7 @@ import { ArmorType } from '@/enums/armor-type';
 import { Faction } from '@/enums/faction';
 import { QuestStatus } from '@/enums/quest-status';
 import { Role } from '@/enums/role';
-import { staticStore } from '@/shared/stores/static';
+import { wowthingData } from '@/shared/stores/data';
 import { parseBooleanQuery } from '@/shared/utils/boolean-parser';
 import { LazyStore } from '@/stores';
 import type { Settings } from '@/shared/stores/settings/types';
@@ -28,12 +26,10 @@ export function useCharacterFilter(
     userQuestData: UserQuestData,
     filterFunc: FilterFunc,
     char: Character,
-    filterString: string,
+    filterString: string
 ): boolean {
     let result = true;
     if (filterString?.length >= 2) {
-        const staticData = get(staticStore);
-
         const filterLower = filterString.toLocaleLowerCase();
         let partArrays: string[][];
         if (_cache[filterLower] !== undefined) {
@@ -68,7 +64,7 @@ export function useCharacterFilter(
                                 return compareValues(
                                     match[2].toString(),
                                     char.level,
-                                    parseInt(match[3]),
+                                    parseInt(match[3])
                                 );
                             }
 
@@ -78,7 +74,7 @@ export function useCharacterFilter(
                                 return compareValues(
                                     match[2].toString(),
                                     char.equippedItemLevel,
-                                    parseInt(match[3]),
+                                    parseInt(match[3])
                                 );
                             }
 
@@ -93,7 +89,7 @@ export function useCharacterFilter(
 
                                 if (isNaN(questId)) {
                                     const matchingQuests = Object.entries(
-                                        charQuests?.progressQuests || {},
+                                        charQuests?.progressQuests || {}
                                     )
                                         .filter(([key]) => key.toLocaleLowerCase() === questString)
                                         .map(([, value]) => value);
@@ -124,7 +120,7 @@ export function useCharacterFilter(
                             if (match) {
                                 const tagName = match[1].toString().toLocaleLowerCase();
                                 const tag = (settings.tags || []).find(
-                                    (t) => t.name.toLocaleLowerCase() === tagName,
+                                    (t) => t.name.toLocaleLowerCase() === tagName
                                 );
                                 return (
                                     tag &&
@@ -153,8 +149,9 @@ export function useCharacterFilter(
                             const raceSlug = ['dracthyr', 'pandaren'].includes(part)
                                 ? `${part}${char.faction}`
                                 : part;
-                            if (staticData.characterRacesBySlug[raceSlug]) {
-                                return char.raceId === staticData.characterRacesBySlug[raceSlug].id;
+                            const maybeRace = wowthingData.static.characterRaceBySlug.get(raceSlug);
+                            if (maybeRace) {
+                                return char.raceId === maybeRace.id;
                             }
 
                             // Class slug
@@ -164,10 +161,10 @@ export function useCharacterFilter(
                             } else if (classSlug === 'dk') {
                                 classSlug = 'death-knight';
                             }
-                            if (staticData.characterClassesBySlug[classSlug]) {
-                                return (
-                                    char.classId === staticData.characterClassesBySlug[classSlug].id
-                                );
+                            const maybeClass =
+                                wowthingData.static.characterClassBySlug.get(classSlug);
+                            if (maybeClass) {
+                                return char.classId === maybeClass.id;
                             }
 
                             // Armor type
@@ -185,13 +182,19 @@ export function useCharacterFilter(
 
                             // Specializations
                             if (part === 'tank') {
-                                const spec = staticData.characterSpecializations[char.activeSpecId];
+                                const spec = wowthingData.static.characterSpecializationById.get(
+                                    char.activeSpecId
+                                );
                                 return spec?.role === Role.Tank;
                             } else if (part === 'heal' || part === 'healer' || part === 'heals') {
-                                const spec = staticData.characterSpecializations[char.activeSpecId];
+                                const spec = wowthingData.static.characterSpecializationById.get(
+                                    char.activeSpecId
+                                );
                                 return spec?.role === Role.Healer;
                             } else if (part === 'dps' || part === 'deeps') {
-                                const spec = staticData.characterSpecializations[char.activeSpecId];
+                                const spec = wowthingData.static.characterSpecializationById.get(
+                                    char.activeSpecId
+                                );
                                 return (
                                     spec?.role === Role.MeleeDps || spec?.role === Role.RangedDps
                                 );
@@ -206,7 +209,7 @@ export function useCharacterFilter(
                                     return compareValues(
                                         match[2].toString(),
                                         mythicPlusScore,
-                                        parseInt(match[3]),
+                                        parseInt(match[3])
                                     );
                                 }
                                 return mythicPlusScore > 0;
@@ -221,12 +224,12 @@ export function useCharacterFilter(
                             // Profession type
                             if (part.match(/^(craft|crafter|crafting)$/)) {
                                 return Object.keys(char.professions || {}).some(
-                                    (professionId) => isCraftingProfession[parseInt(professionId)],
+                                    (professionId) => isCraftingProfession[parseInt(professionId)]
                                 );
                             }
                             if (part.match(/^(gather|gatherer|gathering)$/)) {
                                 return Object.keys(char.professions || {}).some(
-                                    (professionId) => isGatheringProfession[parseInt(professionId)],
+                                    (professionId) => isGatheringProfession[parseInt(professionId)]
                                 );
                             }
 
@@ -238,8 +241,8 @@ export function useCharacterFilter(
                             return false;
                         })(outerPart.replace(/^!/, '')) === outerPart.startsWith('!')
                             ? false
-                            : true),
-            ),
+                            : true)
+            )
         );
     }
 

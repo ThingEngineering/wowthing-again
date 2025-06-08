@@ -136,7 +136,8 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             stores.userQuestData.characters[char.id]?.quests?.has(questId)
                         )) &&
                     (mapClassMask === 0 ||
-                        (mapClassMask & stores.staticData.characterClasses[char.classId].mask) >
+                        (mapClassMask &
+                            wowthingData.static.characterClassById.get(char.classId).mask) >
                             0) &&
                     (stores.zoneMapState.maxLevelOnly === false ||
                         char.level === Constants.characterMaxLevel)
@@ -347,7 +348,6 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             dropStatus.need = dropStatus.setHave < dropStatus.setNeed;
 
                             dropStatus.setNote = getSetCurrencyCostsString(
-                                stores.staticData,
                                 drop.appearanceIds,
                                 drop.costs,
                                 (appearanceId) => stores.userData.hasAppearance.has(appearanceId)
@@ -418,7 +418,8 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                 (c) =>
                                     (drop.classMask & classMask) > 0 &&
                                     (drop.classMask &
-                                        stores.staticData.characterClasses[c.classId].mask) >
+                                        wowthingData.static.characterClassById.get(c.classId)
+                                            .mask) >
                                         0
                             );
                         }
@@ -439,9 +440,10 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                         drop.limit
                                             .slice(1)
                                             .some(
-                                                (cl) =>
-                                                    stores.staticData.characterClassesBySlug[cl]
-                                                        .id === c.classId
+                                                (classSlug) =>
+                                                    wowthingData.static.characterClassBySlug.get(
+                                                        classSlug
+                                                    ).id === c.classId
                                             )
                                     );
                                     break;
@@ -490,8 +492,9 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                             .slice(1)
                                             .some(
                                                 (raceSlug) =>
-                                                    stores.staticData.characterRacesBySlug[raceSlug]
-                                                        .id === c.raceId
+                                                    wowthingData.static.characterRaceBySlug.get(
+                                                        raceSlug
+                                                    ).id === c.raceId
                                             )
                                     );
                                     break;

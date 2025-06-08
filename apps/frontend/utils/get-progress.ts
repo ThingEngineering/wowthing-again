@@ -6,6 +6,7 @@ import { factionIdMap } from '@/data/faction';
 import { garrisonBuildingIcon, garrisonTrees, garrisonUnlockQuests } from '@/data/garrison';
 import { ProgressDataType } from '@/enums/progress-data-type';
 import { QuestStatus } from '@/enums/quest-status';
+import { wowthingData } from '@/shared/stores/data';
 import type {
     Character,
     CharacterShadowlandsCovenant,
@@ -19,16 +20,14 @@ import type {
     ManualDataProgressData,
     ManualDataProgressGroup,
 } from '@/types/data/manual';
-import type { StaticData } from '@/shared/stores/static/types';
 
 export default function getProgress(
-    staticData: StaticData,
     userData: UserData,
     userAchievementData: UserAchievementData,
     userQuestData: UserQuestData,
     character: Character,
     category: ManualDataProgressCategory,
-    group: ManualDataProgressGroup,
+    group: ManualDataProgressGroup
 ): ProgressInfo {
     let have = 0;
     let missingRequired = false;
@@ -56,11 +55,11 @@ export default function getProgress(
         (skipRequiredQuests ||
             ((category.requiredQuestIds.length === 0 ||
                 category.requiredQuestIds.some((questId) =>
-                    userQuestData.characters[character.id]?.quests?.has(questId),
+                    userQuestData.characters[character.id]?.quests?.has(questId)
                 )) &&
                 ((group.requiredQuestIds?.length || 0) === 0 ||
                     group.requiredQuestIds.some((questId) =>
-                        userQuestData.characters[character.id]?.quests?.has(questId),
+                        userQuestData.characters[character.id]?.quests?.has(questId)
                     ))))
     ) {
         if (group.type === 'dragon-racing') {
@@ -101,10 +100,10 @@ export default function getProgress(
         } else if (group.type === 'campaign') {
             datas = [];
             const lookupKey = group.lookup === 'faction' ? factionIdMap[character.faction] : 0;
-            const campaign = staticData.campaigns[group.data[lookupKey][0].ids[0]];
+            const campaign = wowthingData.static.campaignById.get(group.data[lookupKey][0].ids[0]);
 
             for (const questLineId of campaign.questLineIds) {
-                const questLine = staticData.questLines[questLineId];
+                const questLine = wowthingData.static.questLineById.get(questLineId);
                 if (!questLine) {
                     console.warn('bad questLine?', campaign.id, questLineId);
                     return;
@@ -123,7 +122,7 @@ export default function getProgress(
             const lookupKey = group.lookup === 'faction' ? factionIdMap[character.faction] : 0;
 
             for (const thing of group.data[lookupKey]) {
-                const questLine = staticData.questLines[thing.ids[0]];
+                const questLine = wowthingData.static.questLineById.get(thing.ids[0]);
                 if (!questLine) {
                     console.warn('bad questLine?', thing.ids);
                     return;
@@ -143,7 +142,10 @@ export default function getProgress(
             switch (group.lookup) {
                 case 'class':
                     //(c) => some(drop.limit.slice(1), (cl) => classSlugMap[cl].id === c.classId)
-                    datas = group.data[staticData.characterClasses[character.classId].slug];
+                    datas =
+                        group.data[
+                            wowthingData.static.characterClassById.get(character.classId).slug
+                        ];
                     break;
 
                 case 'covenant':
@@ -180,7 +182,8 @@ export default function getProgress(
 
                 if (['accountQuest', 'quest'].includes(group.type) && !data.name) {
                     nameOverride[dataIndex] =
-                        staticData.questNames[data.ids[0]] || `Quest #${data.ids[0]}`;
+                        wowthingData.static.questNameById.get(data.ids[0]) ||
+                        `Quest #${data.ids[0]}`;
                 }
 
                 let haveThis = false;
@@ -196,7 +199,7 @@ export default function getProgress(
                     }
                 } else if (group.type === 'campaign' || group.type === 'questline') {
                     const haveQuests = data.ids.filter((questId) =>
-                        userQuestData.characters[character.id]?.quests?.has(questId),
+                        userQuestData.characters[character.id]?.quests?.has(questId)
                     ).length;
                     haveThis = haveQuests === data.ids.length;
 
@@ -241,7 +244,7 @@ export default function getProgress(
                                     if (data.ids[0] === 11160) {
                                         have = (cheev.criteria || []).reduce(
                                             (a, b) => a + Math.min(1, b),
-                                            0,
+                                            0
                                         );
                                     } else {
                                         have = (cheev.criteria || []).reduce((a, b) => a + b, 0);
@@ -281,7 +284,7 @@ export default function getProgress(
                             haveThis = checkCharacterQuestIds(
                                 userQuestData,
                                 character.id,
-                                data.ids,
+                                data.ids
                             );
                             break;
                         }
@@ -387,8 +390,8 @@ export default function getProgress(
                                     if (
                                         garrisonUnlockQuests.some((questId) =>
                                             userQuestData.characters[character.id].quests?.has(
-                                                questId,
-                                            ),
+                                                questId
+                                            )
                                         )
                                     ) {
                                         total = 3;
@@ -400,7 +403,7 @@ export default function getProgress(
                             } else if (garrison) {
                                 const building = find(
                                     garrison.buildings,
-                                    (building) => building.plotId === data.ids[0],
+                                    (building) => building.plotId === data.ids[0]
                                 );
 
                                 if (building) {
@@ -448,14 +451,14 @@ export default function getProgress(
 
 function checkAccountQuestIds(userQuestData: UserQuestData, questIds: number[]) {
     return Object.values(userQuestData.characters).some((char) =>
-        questIds.some((id) => char.quests?.has(id)),
+        questIds.some((id) => char.quests?.has(id))
     );
 }
 
 function checkCharacterQuestIds(
     userQuestData: UserQuestData,
     characterId: number,
-    questIds: number[],
+    questIds: number[]
 ) {
     return questIds.some((id) => userQuestData.characters[characterId]?.quests?.has(id));
 }

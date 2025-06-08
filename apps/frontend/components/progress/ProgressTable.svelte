@@ -52,7 +52,7 @@
         const minimumLevel = minimumLevels.length > 0 ? Math.min(...minimumLevels) : 0;
 
         const requiredQuestIds = firstCategory.requiredQuestIds.concat(
-            categories[0].requiredQuestIds,
+            categories[0].requiredQuestIds
         );
         filterFunc = (char: Character) => {
             if (minimumLevel > 0 && char.level < minimumLevel) {
@@ -77,9 +77,9 @@
                             .filter((group) => !!group)
                             .some((group) =>
                                 group.data[0].some(
-                                    (data) => char.currencies?.[data.ids[0]]?.quantity > 0,
-                                ),
-                            ),
+                                    (data) => char.currencies?.[data.ids[0]]?.quantity > 0
+                                )
+                            )
                     );
             }
 
@@ -97,13 +97,12 @@
                 for (const character of characters) {
                     const data = (progress[`${category.slug}|${groupIndex}|${character.id}`] =
                         getProgress(
-                            $staticStore,
                             $userStore,
                             $userAchievementStore,
                             $userQuestStore,
                             character,
                             category,
-                            group,
+                            group
                         ));
 
                     // Hardcoded hacks for Mage Tower artifact appearances

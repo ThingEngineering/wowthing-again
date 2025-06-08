@@ -154,9 +154,11 @@ export class UserAuctionMissingTransmogDataStore {
                 .slice(0, auctionState.limitToCheapestRealm ? 1 : undefined)
                 .some(
                     (auction) =>
-                        staticData.connectedRealms[auction.connectedRealmId].realmNames.filter(
-                            (name) => name.toLocaleLowerCase().indexOf(realmLower) >= 0
-                        ).length > 0
+                        wowthingData.static.connectedRealmById
+                            .get(auction.connectedRealmId)
+                            .realmNames.filter(
+                                (name) => name.toLocaleLowerCase().indexOf(realmLower) >= 0
+                            ).length > 0
                 );
 
             let matchesArmor = true;

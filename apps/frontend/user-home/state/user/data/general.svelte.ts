@@ -2,7 +2,6 @@ import groupBy from 'lodash/groupBy';
 import sortBy from 'lodash/sortBy';
 import uniq from 'lodash/uniq';
 import { SvelteSet } from 'svelte/reactivity';
-import { get } from 'svelte/store';
 
 import {
     difficultyMap,
@@ -13,7 +12,6 @@ import { singleLockoutRaids } from '@/data/raid';
 import { TypedArray } from '@/enums/typed-array';
 import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
-import { staticStore } from '@/shared/stores/static';
 import {
     Character,
     Guild,
@@ -44,8 +42,6 @@ export class DataUserGeneral {
     public process(userData: UserData): void {
         console.log(userData);
         console.time('DataUserGeneral.process');
-
-        const staticData = get(staticStore);
 
         this.accountMap = userData.accounts;
 
@@ -80,7 +76,7 @@ export class DataUserGeneral {
             }
 
             character.guild ||= this.guildMap[character.guildId];
-            character.realm ||= staticData.realms[character.realmId];
+            character.realm ||= wowthingData.static.realmById.get(character.realmId);
         }
 
         // Packed data
@@ -164,9 +160,8 @@ export class DataUserGeneral {
             }
         }
 
-        const staticData = get(staticStore);
         allLockouts = sortBy(allLockouts, (diff) => {
-            const instance = staticData.instances[diff.instanceId];
+            const instance = wowthingData.static.instanceById.get(diff.instanceId);
             const journalInstance = wowthingData.journal.instanceById[diff.instanceId];
             if (!diff.difficulty || !instance) {
                 return 'z';

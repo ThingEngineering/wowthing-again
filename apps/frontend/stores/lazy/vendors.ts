@@ -220,7 +220,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
 
                     item.faction = vendor.faction;
 
-                    item.sortedCosts = getCurrencyCosts(stores.staticData, item.costs);
+                    item.sortedCosts = getCurrencyCosts(item.costs);
 
                     if (groupKey) {
                         const autoGroup = (autoGroups[groupKey] ||= new ManualDataVendorGroup(
@@ -336,7 +336,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                 const appearanceMap: Record<number, ManualDataVendorItem> = {};
 
                 for (const item of group.sells) {
-                    item.sortedCosts = getCurrencyCosts(stores.staticData, item.costs);
+                    item.sortedCosts = getCurrencyCosts(item.costs);
 
                     if (item.classMask > 0 && (item.classMask & classMask) === 0) {
                         continue;
@@ -424,7 +424,6 @@ export function doVendors(stores: LazyStores): LazyVendors {
 
                     // Skip filtered things
                     const [lookupType, lookupId] = rewardToLookup(
-                        stores.staticData,
                         item.type,
                         item.id,
                         item.trackingQuestId
@@ -538,10 +537,18 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         const bSpecs = wowthingData.items.specOverrides[b.id];
                         if (aSpecs?.length > 0 && bSpecs?.length > 0) {
                             const aSpecString = aSpecs
-                                .map((id) => stores.staticData.characterSpecializations[id].order)
+                                .map(
+                                    (id) =>
+                                        wowthingData.static.characterSpecializationById.get(id)
+                                            .order
+                                )
                                 .join('-');
                             const bSpecString = bSpecs
-                                .map((id) => stores.staticData.characterSpecializations[id].order)
+                                .map(
+                                    (id) =>
+                                        wowthingData.static.characterSpecializationById.get(id)
+                                            .order
+                                )
                                 .join('-');
                             return aSpecString.localeCompare(bSpecString);
                         }

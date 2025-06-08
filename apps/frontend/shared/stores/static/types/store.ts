@@ -45,12 +45,6 @@ export interface StaticData {
     soulbinds: Record<number, StaticDataSoulbind[]>;
     talents: Record<number, number[][]>;
 
-    characterClasses: Record<number, StaticDataCharacterClass>;
-    characterClassesBySlug: Record<string, StaticDataCharacterClass>;
-    characterRaces: Record<number, StaticDataCharacterRace>;
-    characterRacesBySlug: Record<string, StaticDataCharacterRace>;
-    characterSpecializations: Record<number, StaticDataCharacterSpecialization>;
-
     itemToRequiredAbility: Record<number, number>; // hardcoded
     itemToSkillLine: Record<number, [number, number]>; // [requiredSkill, requiredSkillRank]
     professions: Record<number, StaticDataProfession>;

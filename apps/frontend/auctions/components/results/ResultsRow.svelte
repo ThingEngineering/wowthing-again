@@ -54,7 +54,7 @@
             ret.itemLevel = item?.itemLevel || 1;
             ret.name = `{${groupKey}}`;
         } else if (groupKey.startsWith('pet:')) {
-            const pet = $staticStore.pets[parseInt(groupKey.split(':')[1])];
+            const pet = wowthingData.static.petById.get(parseInt(groupKey.split(':')[1]));
             ret.icon = `npc/${pet.creatureId}`;
             ret.itemLevel = 1;
             ret.name = pet.name;

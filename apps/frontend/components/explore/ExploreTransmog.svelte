@@ -25,7 +25,7 @@
     let transmogSet: StaticDataTransmogSet;
     $: {
         slots = {};
-        transmogSet = $staticStore.transmogSets[$exploreState.transmogSetId];
+        transmogSet = wowthingData.static.transmogSetById.get($exploreState.transmogSetId);
         if (transmogSet) {
             for (const [itemId] of transmogSet.items) {
                 const isPrimary = itemId > 10_000_000;

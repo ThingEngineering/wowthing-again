@@ -82,7 +82,8 @@
             const item = wowthingData.items.items[itemId];
             if (item?.classMask > 0) {
                 for (const playableClass of getClassesFromMask(item.classMask)) {
-                    const characterClass = $staticStore.characterClasses[playableClass];
+                    const characterClass =
+                        wowthingData.static.characterClassById.get(playableClass);
                     specIds.push(...characterClass.specializationIds);
                 }
             }

@@ -1,7 +1,5 @@
-import { get } from 'svelte/store';
-
 import { Constants } from '@/data/constants';
-import { staticStore } from '@/shared/stores/static';
+import { wowthingData } from '@/shared/stores/data';
 import type { Character } from '@/types';
 import type { Settings } from '@/shared/stores/settings/types';
 
@@ -53,7 +51,7 @@ export function getCharacterGroupContext(
                     );
                 } else if (thing === 'realm') {
                     out.push(
-                        get(staticStore).connectedRealms[char.realm.connectedRealmId]
+                        wowthingData.static.connectedRealmById.get(char.realm.connectedRealmId)
                             ?.displayText || '???'
                     );
                 } else if (thing.startsWith('tag:')) {

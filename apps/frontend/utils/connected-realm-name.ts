@@ -1,10 +1,9 @@
 import { get } from 'svelte/store';
 
+import { wowthingData } from '@/shared/stores/data';
 import { userStore } from '@/stores';
-import { staticStore } from '@/shared/stores/static';
 
 export default function connectedRealmName(realmId: number): string {
-    const staticData = get(staticStore);
     const userData = get(userStore);
 
     const realmNames: Record<string, boolean> = {};
@@ -12,7 +11,7 @@ export default function connectedRealmName(realmId: number): string {
         realmNames[character.realm.name] = true;
     }
 
-    const connectedRealm = staticData.connectedRealms[realmId];
+    const connectedRealm = wowthingData.static.connectedRealmById.get(realmId);
     const useMe: string[] = [];
     let extra = 0;
     for (const realmName of connectedRealm.realmNames) {

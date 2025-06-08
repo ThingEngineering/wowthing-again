@@ -1,22 +1,22 @@
 <script lang="ts">
-    import { auctionsAppState } from '@/auctions/stores/state'
-    import { specificStore } from '@/auctions/stores/specific'
-    import { euLocales } from '@/data/region'
-    import { Region } from '@/enums/region'
-    import { staticStore } from '@/shared/stores/static'
-    import { basicTooltip } from '@/shared/utils/tooltips'
-    import { leftPad } from '@/utils/formatting'
+    import { auctionsAppState } from '@/auctions/stores/state';
+    import { specificStore } from '@/auctions/stores/specific';
+    import { euLocales } from '@/data/region';
+    import { Region } from '@/enums/region';
+    import { wowthingData } from '@/shared/stores/data';
+    import { basicTooltip } from '@/shared/utils/tooltips';
+    import { leftPad } from '@/utils/formatting';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
-    export let selected: string
+    export let selected: string;
 
     function formatPrice(price: number): string {
-        price = price / 100
-        const silver = leftPad(price % 100, 2, '&nbsp;')
-        const gold = Math.floor(price / 100)
+        price = price / 100;
+        const silver = leftPad(price % 100, 2, '&nbsp;');
+        const gold = Math.floor(price / 100);
 
-        return gold ? `${gold.toLocaleString()}g ${silver}s` : `${silver}s`
+        return gold ? `${gold.toLocaleString()}g ${silver}s` : `${silver}s`;
     }
 </script>
 
@@ -71,15 +71,15 @@
                 </tr>
             {:then auctions}
                 {#each auctions as auction}
-                    {@const realm = $staticStore.connectedRealms[auction.connectedRealmId]}
+                    {@const realm = wowthingData.static.connectedRealmById.get(
+                        auction.connectedRealmId
+                    )}
                     <tr>
-                        <td
-                            class="realm text-overflow"
-                            use:basicTooltip={realm.displayText}
-                        >
+                        <td class="realm text-overflow" use:basicTooltip={realm.displayText}>
                             <!-- <code>[{Region[realm.region]}]</code> -->
                             {#if realm.region === Region.EU && euLocales[realm.locale]}
-                                {@const { icon: countryIcon, name: countryName } = euLocales[realm.locale]}
+                                {@const { icon: countryIcon, name: countryName } =
+                                    euLocales[realm.locale]}
                                 <IconifyIcon
                                     dropShadow={true}
                                     icon={countryIcon}
@@ -111,9 +111,7 @@
                     </tr>
                 {:else}
                     <tr>
-                        <td class="realm">
-                            No results!
-                        </td>
+                        <td class="realm"> No results! </td>
                         <td class="quantity"></td>
                         <td class="price">
                             <code></code>

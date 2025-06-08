@@ -4,9 +4,9 @@
     import sortBy from 'lodash/sortBy';
 
     import { Region } from '@/enums/region';
-    import { staticStore } from '@/shared/stores/static';
-    import { userStore } from '@/stores';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { wowthingData } from '@/shared/stores/data';
+    import { userStore } from '@/stores';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import { splitOnce } from '@/utils/split-once';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
@@ -21,15 +21,15 @@
             $userStore.characters.filter(
                 (char) =>
                     settingsState.value.characters.hiddenCharacters.indexOf(char.id) === -1 &&
-                    settingsState.value.characters.ignoredCharacters.indexOf(char.id) === -1,
+                    settingsState.value.characters.ignoredCharacters.indexOf(char.id) === -1
             ),
-            (char) => char.realmId,
+            (char) => char.realmId
         );
 
         categories = [];
         const sortFunc = $getCharacterSortFunc();
         for (const realmId in realmCharacters) {
-            const realm = $staticStore.realms[parseInt(realmId)];
+            const realm = wowthingData.static.realmById.get(parseInt(realmId));
             const characters = sortBy(realmCharacters[realmId], (character) => sortFunc(character));
 
             categories.push({
@@ -43,7 +43,7 @@
         }
 
         categories = sortBy(categories, (category) =>
-            [100 - category.children.length, category.name].join('|'),
+            [100 - category.children.length, category.name].join('|')
         );
 
         decorationFunc = (entry: SidebarItem, parentEntries?: SidebarItem[]) => {
@@ -56,7 +56,7 @@
                     (character: Character) =>
                         Region[character.realm.region].toLowerCase() === region &&
                         character.realm.slug === realm &&
-                        character.name === entry.name.split(' ')[1],
+                        character.name === entry.name.split(' ')[1]
                 );
                 return character?.level.toString() ?? '??';
             }

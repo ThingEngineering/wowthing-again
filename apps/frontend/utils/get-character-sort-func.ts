@@ -5,7 +5,7 @@ import { Constants } from '@/data/constants';
 import { PlayableClass } from '@/enums/playable-class';
 import { Region } from '@/enums/region';
 import { settingsState } from '@/shared/state/settings.svelte';
-import { staticStore } from '@/shared/stores/static';
+import { wowthingData } from '@/shared/stores/data';
 import { leftPad } from '@/utils/formatting';
 import type { Character } from '@/types';
 
@@ -14,8 +14,8 @@ type SortValueFunction = (char: Character) => string;
 export const getCharacterSortFunc: Readable<
     (prefixFunc?: SortValueFunction, viewSortBy?: string[]) => SortValueFunction
 > = derived(
-    [staticStore],
-    ([$staticStore]) =>
+    [],
+    () =>
         (prefixFunc?: SortValueFunction, viewSortBy?: string[]): SortValueFunction => {
             const sortBy = viewSortBy || settingsState.value.views[0].sortBy || ['level', 'name'];
 
@@ -34,7 +34,7 @@ export const getCharacterSortFunc: Readable<
                     if (thing === 'account') {
                         out.push(
                             settingsState.value.accounts?.[char.accountId]?.tag ??
-                                `account${char.accountId}`,
+                                `account${char.accountId}`
                         );
                     } else if (thing === 'armor' || thing === '-armor') {
                         const desc = thing === '-armor';
@@ -69,7 +69,7 @@ export const getCharacterSortFunc: Readable<
                                 break;
                         }
                     } else if (thing === 'class') {
-                        out.push($staticStore.characterClasses[char.classId].name);
+                        out.push(wowthingData.static.characterClassById.get(char.classId).name);
                     } else if (thing === 'enabled') {
                         const enabled =
                             settingsState.value.accounts?.[char.accountId]?.enabled ?? true;
@@ -93,8 +93,8 @@ export const getCharacterSortFunc: Readable<
                                 10000 -
                                     Math.floor(parseFloat(char.calculatedItemLevel || '0.0') * 10),
                                 5,
-                                '0',
-                            ),
+                                '0'
+                            )
                         );
                     } else if (thing === 'level') {
                         // in descending order
@@ -103,7 +103,7 @@ export const getCharacterSortFunc: Readable<
                             [
                                 leftPad(Constants.characterMaxLevel - levelData.level, 2, '0'),
                                 (levelData.level > 10 ? 9 - levelData.partial : 0).toString(),
-                            ].join('.'),
+                            ].join('.')
                         );
                     } else if (thing === 'mplusrating') {
                         const rating =
@@ -129,5 +129,5 @@ export const getCharacterSortFunc: Readable<
                 return out.join('|');
             };
         },
-    undefined,
+    undefined
 );

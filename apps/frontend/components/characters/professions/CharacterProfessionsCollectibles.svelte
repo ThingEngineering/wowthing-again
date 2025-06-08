@@ -72,7 +72,7 @@
     }
 
     $: acRepTier = findReputationTier(
-        $staticStore.reputationTiers[398],
+        wowthingData.static.reputationTierById.get(398),
         maxBy(
             $userStore.characters,
             (c) => c.reputations?.[Constants.reputations.artisansConsortium] || 0

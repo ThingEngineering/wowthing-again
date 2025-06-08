@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';
     import findReputationTier from '@/utils/find-reputation-tier';
@@ -37,7 +37,7 @@
         }
 
         characterRep = character.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
-        dataRep = $staticStore.reputations[characterRep.reputationId];
+        dataRep = wowthingData.static.reputationById.get(characterRep.reputationId);
 
         if (!dataRep) {
             break $;
@@ -48,17 +48,18 @@
             : $userStore.apiUpdatedCharacters.find(
                   (char) =>
                       char.reputationData[slug].sets[reputationsIndex][reputationSetsIndex]
-                          .value !== -1,
+                          .value !== -1
               ) || $userStore.apiUpdatedCharacters[0];
 
         characterRep =
             actualCharacter.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
 
         if (characterRep.value !== -1) {
-            dataRep = $staticStore.reputations[characterRep.reputationId];
+            dataRep = wowthingData.static.reputationById.get(characterRep.reputationId);
             if (dataRep) {
                 const tiers: StaticDataReputationTier =
-                    $staticStore.reputationTiers[dataRep.tierId] || $staticStore.reputationTiers[0];
+                    wowthingData.static.reputationTierById.get(dataRep.tierId) ||
+                    wowthingData.static.reputationTierById.get(0);
                 repTier = findReputationTier(tiers, characterRep.value);
 
                 if (reputation.paragon && repTier.maxValue === 0) {

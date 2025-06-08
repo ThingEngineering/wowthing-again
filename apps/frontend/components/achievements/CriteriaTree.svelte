@@ -2,6 +2,7 @@
     import { forceShowCriteriaTree } from '@/data/achievements';
     import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator';
     import { CriteriaType } from '@/enums/criteria-type';
+    import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
     import { achievementStore, userAchievementStore } from '@/stores';
     import type {
@@ -88,7 +89,7 @@
             } else if (criteria?.type === CriteriaType.GainAura) {
                 description = `Gain aura #${criteria.asset}`;
             } else if (criteria?.type === CriteriaType.ReputationGained) {
-                const faction = $staticStore.reputations[criteria.asset];
+                const faction = wowthingData.static.reputationById.get(criteria.asset);
                 description = `Gain reputation with ${faction?.name || `Faction #${criteria.asset}`}`;
             } else {
                 // console.log('Unknown criteria', criteriaTree, criteria)

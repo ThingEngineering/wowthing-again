@@ -133,7 +133,7 @@ export class ManualDataSharedVendor {
                         subType: item.subType,
                         classMask: item.classMask,
                         appearanceIds: [appearanceIds],
-                        note: item.getNote(staticData),
+                        note: item.getNote(),
                     });
                 }
             }

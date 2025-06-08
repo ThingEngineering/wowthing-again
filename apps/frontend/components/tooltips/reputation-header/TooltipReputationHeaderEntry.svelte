@@ -97,7 +97,7 @@
                 {:else if faction === Faction.Horde}
                     <WowthingImage name={Constants.icons.horde} size={20} />
                 {/if}
-                {$staticStore.reputations[reputation.id].name}
+                {wowthingData.static.reputationById.get(reputation.id).name}
             </td>
         </tr>
 

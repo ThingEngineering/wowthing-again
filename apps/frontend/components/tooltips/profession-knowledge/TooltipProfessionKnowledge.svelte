@@ -119,7 +119,7 @@
         <div class="bottom">
             {#if reputationId}
                 <span>
-                    {$staticStore.reputations[reputationId].name}
+                    {wowthingData.static.reputationById.get(reputationId).name}
                     {characterRenown}
                 </span>
             {/if}

@@ -1,23 +1,25 @@
 <script lang="ts">
-    import find from 'lodash/find'
+    import find from 'lodash/find';
 
-    import { staticStore } from '@/shared/stores/static'
-    import { getGenderedName } from '@/utils/get-gendered-name'
-    import type { Character } from '@/types'
+    import { wowthingData } from '@/shared/stores/data';
+    import { staticStore } from '@/shared/stores/static';
+    import { getGenderedName } from '@/utils/get-gendered-name';
+    import type { Character } from '@/types';
 
-    import SpellLink from '@/shared/components/links/SpellLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import SpellLink from '@/shared/components/links/SpellLink.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character
-    export let specializationId: number
+    export let character: Character;
+    export let specializationId: number;
 
-    let selectedTalent: number[]
+    let selectedTalent: number[];
     $: {
-        selectedTalent = $staticStore.talents[specializationId]
-            .map((spellIds, tier) => find(
+        selectedTalent = $staticStore.talents[specializationId].map((spellIds, tier) =>
+            find(
                 spellIds,
                 (spellId) => character.specializations?.[specializationId]?.[tier] === spellId
-            ))
+            )
+        );
     }
 </script>
 
@@ -58,30 +60,20 @@
     }
 </style>
 
-<div
-    class="specialization border"
-    class:selected={character.activeSpecId === specializationId}
->
-    <h3>{getGenderedName($staticStore.characterSpecializations[specializationId].name, character.gender)}</h3>
+<div class="specialization border" class:selected={character.activeSpecId === specializationId}>
+    <h3>
+        {getGenderedName(
+            wowthingData.static.characterSpecializationById.get(specializationId).name,
+            character.gender
+        )}
+    </h3>
 
     {#each $staticStore.talents[specializationId] as tier, tierIndex}
-        <div
-            class="tier"
-            class:none-chosen={selectedTalent[tierIndex] === undefined}
-        >
+        <div class="tier" class:none-chosen={selectedTalent[tierIndex] === undefined}>
             {#each tier as spellId}
-                <div
-                    class="talent"
-                    class:selected={selectedTalent[tierIndex] === spellId}
-                >
-                    <SpellLink
-                        id={spellId}
-                    >
-                        <WowthingImage
-                            name="spell/{spellId}"
-                            size={48}
-                            border={2}
-                        />
+                <div class="talent" class:selected={selectedTalent[tierIndex] === spellId}>
+                    <SpellLink id={spellId}>
+                        <WowthingImage name="spell/{spellId}" size={48} border={2} />
                     </SpellLink>
                 </div>
             {/each}
