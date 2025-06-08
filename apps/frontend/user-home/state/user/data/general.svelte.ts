@@ -9,6 +9,7 @@ import {
 } from '@/data/difficulty';
 import { singleLockoutRaids } from '@/data/raid';
 import { settingsState } from '@/shared/state/settings.svelte';
+import { wowthingData } from '@/shared/stores/data';
 import { staticStore } from '@/shared/stores/static';
 import {
     Character,
