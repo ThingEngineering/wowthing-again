@@ -11,6 +11,8 @@
     import Routes from './Routes.svelte';
     import Sidebar from './Sidebar.svelte';
 
+    let ready = $state(false);
+
     onMount(async () => {
         if (!$auctionsAppState.region) {
             $auctionsAppState.region = Region.US;
@@ -19,25 +21,20 @@
         await Promise.all([
             auctionStore.fetch(),
             staticStore.fetch(),
-            wowthingData.fetch(Language.enUS),
+            wowthingData.fetch(Language.enUS, {
+                loadDb: false,
+                loadJournal: false,
+                loadManual: false,
+            }),
         ]);
+
+        staticStore.setup();
+
+        ready = true;
     });
-
-    let error: boolean;
-    let loaded: boolean;
-    $: {
-        error = $auctionStore.error || $staticStore.error;
-        loaded = $auctionStore.loaded && $staticStore.loaded;
-
-        if (loaded) {
-            staticStore.setup();
-        }
-    }
 </script>
 
-{#if error}
-    <p>KABOOM! Something has gone horribly wrong, try reloading the page?</p>
-{:else if !loaded}
+{#if !ready}
     <p>L O A D I N G</p>
 {:else}
     <Sidebar />

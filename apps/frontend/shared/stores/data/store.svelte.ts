@@ -14,6 +14,13 @@ const requestInit: RequestInit = {
     mode: 'cors',
 };
 
+interface WowthingDataOptions {
+    loadDb: boolean;
+    loadItems: boolean;
+    loadJournal: boolean;
+    loadManual: boolean;
+}
+
 // Wrap loaded db/item/journal/manual/static data
 class WowthingData {
     private baseUri: string;
@@ -27,27 +34,44 @@ class WowthingData {
     public journal: DataJournal;
     public manual: DataManual;
 
-    async fetch(language: Language) {
+    async fetch(language: Language, options: Partial<WowthingDataOptions> = {}) {
         console.time('WowthingData.fetch');
 
         this.baseUri = document.getElementById('app')?.getAttribute('data-base-uri');
         this.language = language;
 
-        await Promise.all([
-            this.fetchAndProcess('db', (rawData: RawDb) => (this.db = processDbData(rawData))),
-            this.fetchAndProcess(
-                'item',
-                (rawData: RawItems) => (this.items = processItemsData(rawData))
-            ),
-            this.fetchAndProcess(
-                'journal',
-                (rawData: RawJournal) => (this.journal = processJournalData(rawData))
-            ),
-            this.fetchAndProcess(
-                'manual',
-                (rawData: RawManual) => (this.manual = processManualData(rawData))
-            ),
-        ]);
+        const promises: Promise<void>[] = [];
+        if (options.loadDb !== false) {
+            promises.push(
+                this.fetchAndProcess('db', (rawData: RawDb) => (this.db = processDbData(rawData)))
+            );
+        }
+        if (options.loadItems !== false) {
+            promises.push(
+                this.fetchAndProcess(
+                    'item',
+                    (rawData: RawItems) => (this.items = processItemsData(rawData))
+                )
+            );
+        }
+        if (options.loadJournal !== false) {
+            promises.push(
+                this.fetchAndProcess(
+                    'journal',
+                    (rawData: RawJournal) => (this.journal = processJournalData(rawData))
+                )
+            );
+        }
+        if (options.loadManual !== false) {
+            promises.push(
+                this.fetchAndProcess(
+                    'manual',
+                    (rawData: RawManual) => (this.manual = processManualData(rawData))
+                )
+            );
+        }
+
+        await Promise.all(promises);
 
         console.timeEnd('WowthingData.fetch');
 
