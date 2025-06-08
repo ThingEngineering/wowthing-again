@@ -7,16 +7,19 @@
     import { staticStore } from '@/shared/stores/static';
     import { getNameForFaction } from '@/utils/get-name-for-faction';
     import { getProfessionEquipment, getProfessionSortKey } from '@/utils/professions';
-    import type { Character, CharacterGear } from '@/types';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
+    import type { CharacterGear } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
+    import CurrenciesCell from '@/user-home/components/currencies/TableRow.svelte';
     import Empty from '../../items/ItemsEmpty.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import Item from '../../items/ItemsItem.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import type { CharacterProps } from '@/types/props';
+    import { someProfessions } from './some';
 
-    let { character, professionId }: CharacterProps & { professionId: number } = $props();
+    let { character, professionId, slug }: CharacterProps & { professionId: number; slug: string } =
+        $props();
 
     let professions = $derived.by(() => {
         const ret: [Partial<StaticDataProfession>, boolean, Partial<CharacterGear>[]][] = [];
@@ -29,8 +32,17 @@
                 continue;
             }
 
+            if (slug === 'some' && !someProfessions.includes(profession.id)) {
+                continue;
+            }
+
             const charProfession = character.professions?.[profession.id];
-            if (!charProfession && profession.slug !== 'cooking' && profession.slug !== 'fishing') {
+            if (
+                slug !== 'some' &&
+                !charProfession &&
+                profession.slug !== 'cooking' &&
+                profession.slug !== 'fishing'
+            ) {
                 continue;
             }
 
@@ -92,6 +104,9 @@
         color: $color-fail;
     }
 </style>
+
+<td class="spacer"></td>
+<CurrenciesCell {character} itemId={210814} sortingBy={false} />
 
 {#each professions as [profession, userHas, slots] (profession)}
     <td class="spacer"></td>
