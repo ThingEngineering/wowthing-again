@@ -16,7 +16,7 @@ export interface GroupByContext {
 export function getCharacterGroupContext(
     settingsData: Settings,
     viewGroupBy?: string[],
-    viewSortBy?: string[],
+    viewSortBy?: string[]
 ): GroupByContext {
     const groupBy = viewGroupBy || settingsData.views[0].groupBy || [];
     const sortBy = viewSortBy || settingsData.views[0].sortBy || [];
@@ -31,7 +31,7 @@ export function getCharacterGroupContext(
             for (const thing of groupBy) {
                 if (thing === 'account') {
                     out.push(
-                        settingsData.accounts?.[char.accountId]?.tag ?? `account${char.accountId}`,
+                        settingsData.accounts?.[char.accountId]?.tag ?? `account${char.accountId}`
                     );
                 } else if (thing === 'enabled') {
                     const enabled = settingsData.accounts?.[char.accountId]?.enabled ?? true;
@@ -49,12 +49,12 @@ export function getCharacterGroupContext(
                     out.push(char.level === Constants.characterMaxLevel ? 'a' : 'z');
                 } else if (thing === 'pinned') {
                     out.push(
-                        settingsData.characters.pinnedCharacters.indexOf(char.id) >= 0 ? 'a' : 'z',
+                        settingsData.characters.pinnedCharacters.indexOf(char.id) >= 0 ? 'a' : 'z'
                     );
                 } else if (thing === 'realm') {
                     out.push(
                         get(staticStore).connectedRealms[char.realm.connectedRealmId]
-                            ?.displayText || '???',
+                            ?.displayText || '???'
                     );
                 } else if (thing.startsWith('tag:')) {
                     const tagId = parseInt(thing.substring(4));

@@ -72,6 +72,7 @@ export class DataUserGeneral {
                 this.characterMap[characterId] = character;
             }
 
+            character.guild ||= this.guildMap[character.guildId];
             character.realm ||= staticData.realms[character.realmId];
         }
 
