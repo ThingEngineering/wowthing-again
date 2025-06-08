@@ -14,13 +14,12 @@
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import Item from '../../items/ItemsItem.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import type { CharacterProps } from '@/types/props';
 
-    export let character: Character;
-    export let professionId: number;
+    let { character, professionId }: CharacterProps & { professionId: number } = $props();
 
-    let professions: [Partial<StaticDataProfession>, boolean, Partial<CharacterGear>[]][];
-    $: {
-        professions = [];
+    let professions = $derived.by(() => {
+        const ret: [Partial<StaticDataProfession>, boolean, Partial<CharacterGear>[]][] = [];
         let type0s = 0;
         for (const profession of Object.values($staticStore.professions)) {
             if (professionId > 0 && profession.id !== professionId) {
@@ -40,7 +39,7 @@
                 equipment[i] ||= undefined;
             }
 
-            professions.push([
+            ret.push([
                 profession,
                 !!charProfession,
                 orderBy(Object.entries(equipment), ([slot]) => slot).map(([, equipped]) => ({
@@ -55,7 +54,7 @@
 
         if (professionId === 0) {
             for (let i = type0s; i < 2; i++) {
-                professions.push([
+                ret.push([
                     {
                         type: 0,
                         name: 'ZZZ',
@@ -66,10 +65,9 @@
             }
         }
 
-        professions.sort((a, b) =>
-            getProfessionSortKey(a[0]).localeCompare(getProfessionSortKey(b[0])),
-        );
-    }
+        ret.sort((a, b) => getProfessionSortKey(a[0]).localeCompare(getProfessionSortKey(b[0])));
+        return ret;
+    });
 </script>
 
 <style lang="scss">
