@@ -38,7 +38,11 @@ import {
 } from './mythic-plus';
 import type { CharacterProfession } from './profession';
 import type { CharacterRaiderIoSeason } from './raider-io-season';
-import type { CharacterReputation, CharacterReputationParagon } from './reputation';
+import type {
+    CharacterReputation,
+    CharacterReputationParagon,
+    CharacterReputationReputation,
+} from './reputation';
 import type { CharacterShadowlands } from './shadowlands';
 import type { CharacterSpecializationRaw } from './specialization';
 import {
@@ -56,6 +60,7 @@ import type { ContainsItems, HasNameAndRealm } from '../shared';
 import type { Account } from '../account';
 import type { CharacterAura } from './aura';
 import type { CharacterPatronOrder } from './patron-order';
+import { wowthingData } from '@/shared/stores/data';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Static
@@ -115,7 +120,6 @@ export class Character implements ContainsItems, HasNameAndRealm {
     );
     public mythicPlusWeeks: Record<number, CharacterMythicPlusAddonRun[]> = $state({});
     public professionSpecializations: Record<number, number> = $state({});
-    public reputationData: Record<string, CharacterReputation> = $state({});
     public specializations: Record<number, Record<number, number>> = $state({});
 
     public statistics: CharacterStatistics = new CharacterStatistics();
@@ -505,5 +509,49 @@ export class Character implements ContainsItems, HasNameAndRealm {
     knowsProfessionAbility(abilityId: number): boolean {
         return this.allProfessionAbilities.has(abilityId);
     }
+
+    reputationData = $derived.by(() => {
+        const ret: Record<string, CharacterReputation> = {};
+        for (const category of wowthingData.manual.reputationSets) {
+            if (category === null) {
+                continue;
+            }
+
+            const catData: CharacterReputation = {
+                sets: [],
+            };
+
+            for (const sets of category.reputations) {
+                const setsData: CharacterReputationReputation[] = [];
+
+                for (const reputation of sets) {
+                    let repId: number;
+                    if (reputation.both) {
+                        repId = reputation.both.id;
+                    } else {
+                        repId = this.faction === 0 ? reputation.alliance?.id : reputation.horde?.id;
+                    }
+
+                    // const repValue = this.reputations?.[repId];
+                    // if (
+                    //     repValue !== undefined &&
+                    //     repValue > (userData.maxReputation.get(repId) || -999999)
+                    // ) {
+                    //     userData.maxReputation.set(repId, repValue);
+                    // }
+
+                    setsData.push({
+                        reputationId: repId,
+                        value: this.reputations?.[repId] ?? -1,
+                    });
+                }
+
+                catData.sets.push(setsData);
+            }
+
+            ret[category.slug] = catData;
+        }
+        return ret;
+    });
 }
 export type CharacterArray = Parameters<Character['init']>;
