@@ -4,6 +4,7 @@ import { wowthingData } from '@/shared/stores/data';
 import { settingsState } from '@/shared/state/settings.svelte';
 import type { ManualDataIllusionItem } from '@/types/data/manual/illusion';
 import find from 'lodash/find';
+import type { ManualDataHeirloomItem } from '@/types/data/manual/heirloom';
 
 type GenericCategory<T> = {
     name: string;
@@ -23,12 +24,32 @@ class UserState {
     // userAchievementData: UserAchievementData;
     // userQuestData: UserQuestData;
 
+    public heirloomStats = $derived.by(() => this._heirlooms());
     public illusionStats = $derived.by(() => this._illusions());
 
     public something() {
         // TODO: fetch user/achievements/quests
         // TODO: process
         // this.general.process(userData);
+    }
+
+    private _heirlooms(): UserCounts {
+        return this.doGeneric({
+            categories: wowthingData.manual.heirlooms,
+            includeUnavailable: settingsState.value.collections.hideUnavailable,
+            haveFunc: (heirloom: ManualDataHeirloomItem) =>
+                this.general.heirlooms.get(
+                    wowthingData.static.heirloomByItemId.get(heirloom.itemId).id
+                ) !== undefined,
+            totalCountFunc: (heirloom: ManualDataHeirloomItem) =>
+                wowthingData.static.heirloomByItemId.get(heirloom.itemId).upgradeBonusIds.length +
+                1,
+            haveCountFunc: (heirloom: ManualDataHeirloomItem) => {
+                const staticHeirloom = wowthingData.static.heirloomByItemId.get(heirloom.itemId);
+                const userCount = this.general.heirlooms.get(staticHeirloom.id);
+                return userCount !== undefined ? userCount + 1 : 0;
+            },
+        });
     }
 
     private _illusions(): UserCounts {

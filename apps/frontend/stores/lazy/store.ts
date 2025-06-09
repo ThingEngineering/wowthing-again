@@ -13,7 +13,6 @@ import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { FancyStoreType, UserAchievementData, UserData } from '@/types';
 import type { UserQuestData } from '@/types/data';
-import type { ManualDataHeirloomItem, ManualDataIllusionItem } from '@/types/data/manual';
 
 import { doAchievements, type LazyAchievements } from './achievements';
 import { doAppearances, type LazyAppearances } from './appearances';
@@ -48,7 +47,7 @@ import { userQuestStore } from '../user-quests';
 
 import { activeHolidays, type ActiveHolidays } from '../derived/active-holidays';
 
-type LazyKey = 'heirlooms' | 'mounts' | 'pets' | 'toys';
+type LazyKey = 'mounts' | 'pets' | 'toys';
 
 type LazyUgh = {
     [k in LazyKey]: LazyCollectible | UserCounts;
@@ -146,7 +145,6 @@ export class LazyStore implements LazyUgh {
     private userQuestDataId: number;
 
     private customizationsFunc: () => UserCounts;
-    private heirloomsFunc: () => UserCounts;
 
     private achievementsFunc: () => LazyAchievements;
     private appearancesFunc: () => LazyAppearances;
@@ -327,10 +325,6 @@ export class LazyStore implements LazyUgh {
             );
         }
 
-        // if (changedData.userData || changedHashes.settingsCollections) {
-        //     this.heirloomsFunc = once(() => this.doHeirlooms(userData));
-        // }
-
         if (
             changedData.userData ||
             changedData.userQuestData ||
@@ -416,10 +410,6 @@ export class LazyStore implements LazyUgh {
     get customizations(): UserCounts {
         return this.customizationsFunc();
     }
-    get heirlooms(): UserCounts {
-        return {};
-        // return this.heirloomsFunc();
-    }
 
     get achievements(): LazyAchievements {
         return this.achievementsFunc();
@@ -456,42 +446,6 @@ export class LazyStore implements LazyUgh {
     }
     get zoneMaps(): LazyZoneMaps {
         return this.zoneMapsFunc();
-    }
-
-    private doGeneric<T extends GenericCategory<U>, U>(
-        params: DoGenericParameters<T, U>
-    ): UserCounts {
-        const counts: UserCounts = {};
-        const overallData = (counts['OVERALL'] = new UserCount());
-
-        for (const category of params.categories) {
-            const categoryUnavailable = category.name.startsWith('Unavailable');
-            const availabilityData = (counts[categoryUnavailable ? 'UNAVAILABLE' : 'AVAILABLE'] ||=
-                new UserCount());
-            const categoryData = (counts[category.name] = new UserCount());
-
-            for (const item of category.items) {
-                const userHas = params.haveFunc(item);
-
-                if (categoryUnavailable && params.includeUnavailable !== true && !userHas) {
-                    continue;
-                }
-
-                const totalCount = params.totalCountFunc?.(item) || 1;
-                overallData.total += totalCount;
-                availabilityData.total += totalCount;
-                categoryData.total += totalCount;
-
-                if (userHas) {
-                    const haveCount = params.haveCountFunc?.(item) || 1;
-                    overallData.have += haveCount;
-                    availabilityData.have += haveCount;
-                    categoryData.have += haveCount;
-                }
-            }
-        }
-
-        return counts;
     }
 
     private doCustomizations(
@@ -543,23 +497,6 @@ export class LazyStore implements LazyUgh {
         }
 
         return counts;
-    }
-
-    private doHeirlooms(userData: UserData): UserCounts {
-        return this.doGeneric({
-            categories: wowthingData.manual.heirlooms,
-            includeUnavailable: !this.settings.collections.hideUnavailable,
-            haveFunc: (heirloom: ManualDataHeirloomItem) =>
-                userData.heirlooms?.[this.staticData.heirloomsByItemId[heirloom.itemId].id] !==
-                undefined,
-            totalCountFunc: (heirloom: ManualDataHeirloomItem) =>
-                this.staticData.heirloomsByItemId[heirloom.itemId].upgradeBonusIds.length + 1,
-            haveCountFunc: (heirloom: ManualDataHeirloomItem) => {
-                const staticHeirloom = this.staticData.heirloomsByItemId[heirloom.itemId];
-                const userCount = userData.heirlooms?.[staticHeirloom.id];
-                return userCount !== undefined ? userCount + 1 : 0;
-            },
-        });
     }
 }
 

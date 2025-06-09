@@ -1,15 +1,15 @@
 <script lang="ts">
     import { afterUpdate } from 'svelte';
 
-    import { lazyStore } from '@/stores';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { wowthingData } from '@/shared/stores/data';
+    import { userState } from '@/user-home/state/user';
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import type { ManualDataHeirloomGroup } from '@/types/data/manual';
 
     import Group from './HeirloomsGroup.svelte';
     import Options from './HeirloomsOptions.svelte';
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
-    import { wowthingData } from '@/shared/stores/data';
 
     let sections: [string, ManualDataHeirloomGroup[]][];
     $: {
@@ -17,19 +17,19 @@
             [
                 'Available',
                 wowthingData.manual.heirlooms.filter(
-                    (group) => !group.name.startsWith('Unavailable'),
+                    (group) => !group.name.startsWith('Unavailable')
                 ),
             ],
         ];
 
         if (
             !settingsState.value.collections.hideUnavailable ||
-            $lazyStore.heirlooms['UNAVAILABLE'].have > 0
+            userState.heirloomStats.UNAVAILABLE.have > 0
         ) {
             sections.push([
                 'Unavailable',
                 wowthingData.manual.heirlooms.filter((group) =>
-                    group.name.startsWith('Unavailable'),
+                    group.name.startsWith('Unavailable')
                 ),
             ]);
         }
@@ -48,7 +48,7 @@
                     columnCount: '--column-count',
                     gap: 30,
                     padding: '1.5rem',
-                },
+                }
             );
             debouncedResize();
         } else {
@@ -67,7 +67,7 @@
     <div class="collection thing-container" bind:this={resizeableElement}>
         {#each sections as [sectionName, groups]}
             <SectionTitle
-                count={$lazyStore.heirlooms[sectionName.toUpperCase()]}
+                count={userState.heirloomStats[sectionName.toUpperCase()]}
                 title={sectionName}
             />
             <div class="collection-v2-section">

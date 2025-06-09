@@ -11,6 +11,7 @@ import type {
     StaticDataCurrencyArray,
     StaticDataCurrencyCategory,
     StaticDataCurrencyCategoryArray,
+    StaticDataHeirloom,
     StaticDataHoliday,
     StaticDataHolidayArray,
     StaticDataIllusion,
@@ -42,6 +43,7 @@ export interface RawStatic {
     characterClasses: Record<number, StaticDataCharacterClass>;
     characterRaces: Record<number, StaticDataCharacterRace>;
     characterSpecializations: Record<number, StaticDataCharacterSpecialization>;
+    heirlooms: Record<number, StaticDataHeirloom>;
     illusions: Record<number, StaticDataIllusion>;
     keystoneAffixes: Record<number, StaticDataKeystoneAffix>;
     questNames: Record<number, string>;
@@ -69,6 +71,7 @@ export class DataStatic {
     public characterClassById: Map<number, StaticDataCharacterClass>;
     public characterRaceById: Map<number, StaticDataCharacterRace>;
     public characterSpecializationById: Map<number, StaticDataCharacterSpecialization>;
+    public heirloomById: Map<number, StaticDataHeirloom>;
     public illusionById: Map<number, StaticDataIllusion>;
     public keystoneAffixById: Map<number, StaticDataKeystoneAffix>;
     public questNameById: Map<number, string>;
@@ -99,6 +102,7 @@ export class DataStatic {
         StaticDataCharacterSpecialization[]
     >();
     public connectedRealmById = new Map<number, StaticDataConnectedRealm>();
+    public heirloomByItemId = new Map<number, StaticDataHeirloom>();
     public illusionByEnchantmentId = new Map<number, StaticDataIllusion>();
     public mountByItemId = new Map<number, StaticDataMount>();
     public petByItemId = new Map<number, StaticDataPet>();

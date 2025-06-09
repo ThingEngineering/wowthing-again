@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { lazyStore } from '@/stores';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { userState } from '@/user-home/state/user';
     import getPercentClass from '@/utils/get-percent-class';
     import type { ManualDataHeirloomGroup } from '@/types/data/manual';
 
@@ -9,7 +9,7 @@
 
     export let group: ManualDataHeirloomGroup;
 
-    $: groupCount = $lazyStore.heirlooms[group.name];
+    $: groupCount = userState.heirloomStats[group.name];
     $: isUnavailable = group.name.startsWith('Unavailable - ');
     $: show = !(
         settingsState.value.collections.hideUnavailable &&

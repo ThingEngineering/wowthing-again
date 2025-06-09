@@ -1,7 +1,7 @@
 import groupBy from 'lodash/groupBy';
 import sortBy from 'lodash/sortBy';
 import uniq from 'lodash/uniq';
-import { SvelteSet } from 'svelte/reactivity';
+import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 
 import {
     difficultyMap,
@@ -23,6 +23,7 @@ import {
 } from '@/types';
 import { base64ToArray } from '@/utils/base64';
 import { leftPad } from '@/utils/formatting';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
 export class DataUserGeneral {
     public accountMap: Record<number, Account> = $state({});
@@ -33,6 +34,7 @@ export class DataUserGeneral {
     public hasIllusionByEnchantmentId = new SvelteSet<number>();
     public hasMountById = new SvelteSet<number>();
     public hasToyById = new SvelteSet<number>();
+    public heirlooms = new SvelteMap<number, number>();
 
     public allLockouts = $derived.by(() => this._lockoutData().allLockouts);
     public allRegions = $derived.by(() => this._allRegions());
@@ -92,6 +94,10 @@ export class DataUserGeneral {
         }
 
         // Misc
+        for (const [heirloomId, level] of getNumberKeyedEntries(userData.heirlooms)) {
+            this.heirlooms.set(heirloomId, level);
+        }
+
         for (const illusionId of userData.illusionIds) {
             this.hasIllusionByEnchantmentId.add(illusionId);
         }

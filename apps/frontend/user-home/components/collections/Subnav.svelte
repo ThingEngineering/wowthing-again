@@ -36,7 +36,7 @@
 
         <a href="#/collections/heirlooms" use:active>
             Heirlooms
-            <Percent percent={$lazyStore.heirlooms?.AVAILABLE?.percent || 0} />
+            <Percent percent={userState.heirloomStats.AVAILABLE.percent} />
         </a>
 
         <a href="#/collections/illusions" use:active>

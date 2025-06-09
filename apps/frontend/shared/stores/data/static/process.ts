@@ -31,6 +31,7 @@ export function processStaticData(rawData: RawStatic): DataStatic {
     data.characterSpecializationById = new Map(
         getNumberKeyedEntries(cloneDeep(rawData.characterSpecializations))
     );
+    data.heirloomById = new Map(getNumberKeyedEntries(cloneDeep(rawData.heirlooms)));
     data.illusionById = new Map(getNumberKeyedEntries(cloneDeep(rawData.illusions)));
     data.keystoneAffixById = new Map(getNumberKeyedEntries(cloneDeep(rawData.keystoneAffixes)));
     data.questNameById = new Map(getNumberKeyedEntries(cloneDeep(rawData.questNames)));
@@ -70,6 +71,10 @@ export function processStaticData(rawData: RawStatic): DataStatic {
         data.characterSpecializationsByClassId
             .get(characterSpecialization.classId)
             .push(characterSpecialization);
+    }
+
+    for (const heirloom of data.heirloomById.values()) {
+        data.heirloomByItemId.set(heirloom.itemId, heirloom);
     }
 
     for (const illusion of data.illusionById.values()) {
