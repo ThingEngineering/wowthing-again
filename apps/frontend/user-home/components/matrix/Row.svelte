@@ -2,7 +2,7 @@
     import IntersectionObserver from 'svelte-intersection-observer';
 
     import { Constants } from '@/data/constants';
-    import { browserState } from '@/shared/state/browser';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';

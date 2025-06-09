@@ -2,6 +2,7 @@
     import { mount, onDestroy, onMount } from 'svelte';
 
     import { Region } from '@/enums/region';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { settingsState } from '@/shared/state/settings.svelte';
@@ -93,6 +94,10 @@
         (headerLinks[0] as HTMLElement).style.display = settingsState.value.leaderboard.enabled
             ? 'inline-block'
             : 'none';
+    });
+
+    $effect(() => {
+        browserState.save($state.snapshot(browserState.current));
     });
 </script>
 

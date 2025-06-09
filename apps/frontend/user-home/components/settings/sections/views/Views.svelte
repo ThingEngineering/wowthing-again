@@ -1,6 +1,6 @@
 <script lang="ts">
     import { uiIcons } from '@/shared/icons';
-    import { browserState } from '@/shared/state/browser';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import type { SettingsView } from '@/shared/stores/settings/types';
 

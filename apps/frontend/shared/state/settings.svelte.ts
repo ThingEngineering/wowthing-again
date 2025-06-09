@@ -11,7 +11,7 @@ import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { hashObject } from '@/utils/hash-object.svelte';
 import type { Expansion } from '@/types';
 
-import { browserState } from './browser';
+import { browserState } from './browser.svelte';
 import type { Settings } from '../stores/settings/types';
 
 const languageToSubdomain: Record<Language, string> = {
@@ -60,7 +60,15 @@ function createSettingsState() {
         Object.values(settings.accounts).some((account) => !!account.tag)
     );
 
+    // const activeView = $derived(
+    //     (reactiveLocation === '/'
+    //         ? settings.views.find((view) => view.id === browserState.current.home.activeView)
+    //         : settings.views[0]) || settings.views[0]
+    // );
+
     const activeView = $derived.by(() => {
+        console.log(reactiveLocation);
+        console.log(browserState.current.home.activeView);
         return (
             (reactiveLocation === '/'
                 ? settings.views.find((view) => view.id === browserState.current.home.activeView)

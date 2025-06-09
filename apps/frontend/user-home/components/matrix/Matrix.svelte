@@ -8,7 +8,7 @@
     import { isSecondaryProfession, professionOrder } from '@/data/professions';
     import { Gender, genderValues } from '@/enums/gender';
     import { Region } from '@/enums/region';
-    import { browserState } from '@/shared/state/browser';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { staticStore } from '@/shared/stores/static';
     import { userStore } from '@/stores';

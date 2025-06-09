@@ -7,7 +7,7 @@
     import { Profession } from '@/enums/profession';
     import { Region } from '@/enums/region';
     import { WeaponSubclass } from '@/enums/weapon-subclass';
-    import { browserState } from '@/shared/state/browser';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { userStore } from '@/stores';
     import { auctionState } from '@/stores/local-storage/auctions';

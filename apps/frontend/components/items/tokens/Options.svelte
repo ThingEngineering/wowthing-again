@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { browserState } from '@/shared/state/browser';
+    import { browserState } from '@/shared/state/browser.svelte';
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import SidebarCollectingSettings from '@/components/common/SidebarCollectingSettings.svelte';

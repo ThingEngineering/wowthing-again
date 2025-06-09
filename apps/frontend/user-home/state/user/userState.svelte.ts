@@ -1,10 +1,10 @@
 import { UserCount } from '@/types';
-import { DataUserGeneral } from './data/general.svelte';
-import { wowthingData } from '@/shared/stores/data';
 import { settingsState } from '@/shared/state/settings.svelte';
-import type { ManualDataIllusionItem } from '@/types/data/manual/illusion';
-import find from 'lodash/find';
+import { wowthingData } from '@/shared/stores/data';
 import type { ManualDataHeirloomItem } from '@/types/data/manual/heirloom';
+import type { ManualDataIllusionItem } from '@/types/data/manual/illusion';
+
+import { DataUserGeneral } from './data/general.svelte';
 
 type GenericCategory<T> = {
     name: string;

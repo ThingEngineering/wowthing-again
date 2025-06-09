@@ -1,6 +1,6 @@
 <script lang="ts">
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { browserState } from '@/shared/state/browser';
+    import { browserState } from '@/shared/state/browser.svelte';
     import type { SettingsCustomGroup } from '@/shared/stores/settings/types';
 
     import Group from './SettingsLayoutGroupingGroup.svelte';

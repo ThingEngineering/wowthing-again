@@ -7,7 +7,7 @@
     import { ItemClass } from '@/enums/item-class';
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
     import { inventoryTypeIcons, weaponSubclassIcons } from '@/shared/icons/mappings';
-    import { browserState } from '@/shared/state/browser';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
