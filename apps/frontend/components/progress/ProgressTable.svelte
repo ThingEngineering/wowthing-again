@@ -3,7 +3,6 @@
 
     import { userAchievementStore, userQuestStore, userStore } from '@/stores';
     import { progressState } from '@/stores/local-storage';
-    import { staticStore } from '@/shared/stores/static';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import getProgress from '@/utils/get-progress';
     import { leftPad } from '@/utils/formatting';

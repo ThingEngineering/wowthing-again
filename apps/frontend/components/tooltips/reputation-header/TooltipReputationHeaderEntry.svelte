@@ -5,7 +5,6 @@
     import { userStore } from '@/stores';
     import { rewardTypeIcons } from '@/shared/icons/mappings';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import type { Character } from '@/types';
     import type {
         ManualDataReputationReputation,
@@ -14,6 +13,7 @@
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { userState } from '@/user-home/state/user';
 
     export let faction: Faction = Faction.Neutral;
     export let reputation: ManualDataReputationReputation;
@@ -39,16 +39,16 @@
                     let have = false;
                     let name: string;
                     if (reward.type === RewardType.Mount) {
-                        have = $userStore.hasMount[reward.id] === true;
-                        const mount = $staticStore.mounts[reward.id];
+                        have = userState.general.hasMountById.has(reward.id);
+                        const mount = wowthingData.static.mountById.get(reward.id);
                         name = mount ? mount.name : `Mount #${reward.id}`;
                     } else if (reward.type === RewardType.Pet) {
-                        have = $userStore.hasPet[reward.id] === true;
-                        const pet = $staticStore.pets[reward.id];
+                        have = userState.general.hasPetById.has(reward.id);
+                        const pet = wowthingData.static.petById.get(reward.id);
                         name = pet ? pet.name : `Pet #${reward.id}`;
                     } else if (reward.type === RewardType.Toy) {
-                        have = $userStore.hasToy[reward.id] === true;
-                        const toy = $staticStore.toys[reward.id];
+                        have = userState.general.hasToyById.has(reward.id);
+                        const toy = wowthingData.static.toyById.get(reward.id);
                         name = toy ? toy.name : `Toy #${reward.id}`;
                     } else if (reward.type === RewardType.Transmog) {
                         const item = wowthingData.items.items[reward.id];

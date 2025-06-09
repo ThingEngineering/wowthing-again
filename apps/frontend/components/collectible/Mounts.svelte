@@ -1,15 +1,14 @@
 <script lang="ts">
+    import { wowthingData } from '@/shared/stores/data';
+    import { lazyStore, userStore } from '@/stores';
+    import type { MultiSlugParams } from '@/types';
 
-    import { lazyStore, userStore}  from '@/stores'
-    import { staticStore } from '@/shared/stores/static'
-    import type { MultiSlugParams } from '@/types'
+    import Collectible from './Collectible.svelte';
 
-    import Collectible from './Collectible.svelte'
+    export let basePath = '';
+    export let params: MultiSlugParams;
 
-    export let basePath = ''
-    export let params: MultiSlugParams
-
-    const thingMapFunc = (thing: number) => $staticStore.mounts[thing]?.spellId
+    const thingMapFunc = (thing: number) => wowthingData.static.mountById.get(thing)?.spellId;
 </script>
 
 <Collectible

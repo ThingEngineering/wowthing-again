@@ -1,27 +1,27 @@
 <script lang="ts">
-    import { Constants } from '@/data/constants'
-    import { staticStore } from '@/shared/stores/static'
-    import type { StaticDataReputation } from '@/shared/stores/static/types'
-    import type { Character, CharacterReputationParagon } from '@/types'
+    import { Constants } from '@/data/constants';
+    import { wowthingData } from '@/shared/stores/data';
+    import type { StaticDataReputation } from '@/shared/stores/static/types';
+    import type { Character, CharacterReputationParagon } from '@/types';
     import type { ManualDataReputationSet } from '@/types/data/manual';
 
-    import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import ProgressBar from '@/components/common/ProgressBar.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character
-    export let characterParagon: CharacterReputationParagon = undefined
-    export let characterRep: number
-    export let dataRep: StaticDataReputation
-    export let reputation: ManualDataReputationSet = undefined
+    export let character: Character;
+    export let characterParagon: CharacterReputationParagon = undefined;
+    export let characterRep: number;
+    export let dataRep: StaticDataReputation;
+    export let reputation: ManualDataReputationSet = undefined;
 
-    let progress: number
-    let tier: number
+    let progress: number;
+    let tier: number;
 
-    $: maxRenown = $staticStore.currencies[dataRep.renownCurrencyId]?.maxTotal || 1
-    $: renownValue = dataRep.maxValues[0] || 2500
+    $: maxRenown = wowthingData.static.currencyById.get(dataRep.renownCurrencyId)?.maxTotal || 1;
+    $: renownValue = dataRep.maxValues[0] || 2500;
     $: {
-        tier = Math.floor(characterRep / renownValue)
-        progress = tier < maxRenown ? characterRep % renownValue : (characterParagon?.current || 0)
+        tier = Math.floor(characterRep / renownValue);
+        progress = tier < maxRenown ? characterRep % renownValue : characterParagon?.current || 0;
     }
 </script>
 

@@ -1,9 +1,8 @@
 <script lang="ts">
-    import { userStore } from '@/stores/user';
-
     import { Region } from '@/enums/region';
     import { uiIcons } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { userState } from '@/user-home/state/user';
 
     import { commoditiesState } from './local-storage';
     import type { CharacterCommodities } from './get-character-commodities';
@@ -17,7 +16,7 @@
     export let characterData: CharacterCommodities;
     export let commodities: CommodityData;
 
-    $: character = $userStore.characterMap[characterData.characterId];
+    $: character = userState.general.characterById[characterData.characterId];
 
     let items: [number, number, number][];
     $: {

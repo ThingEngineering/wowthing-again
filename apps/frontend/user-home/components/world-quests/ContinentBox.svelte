@@ -1,24 +1,24 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
+    import { wowthingData } from '@/shared/stores/data';
     import { leftPad } from '@/utils/formatting';
     import type { ApiWorldQuest, WorldQuestZone } from './types';
 
     import WorldQuest from './WorldQuest.svelte';
-    import { staticStore } from '@/shared/stores/static';
 
     export let worldQuests: ApiWorldQuest[];
     export let zone: WorldQuestZone;
 
     $: sortedQuests = sortBy(worldQuests, (worldQuest) =>
-        [worldQuest.expires, sortFields(worldQuest)].join('|'),
+        [worldQuest.expires, sortFields(worldQuest)].join('|')
     );
 
     const sortFields = (worldQuest: ApiWorldQuest): string => {
         const reward = worldQuest.rewards[0][1][0];
 
         const faction: number =
-            (($staticStore.worldQuests[worldQuest.questId]?.faction ?? 2) + 1) % 3;
+            ((wowthingData.static.worldQuestById.get(worldQuest.questId)?.faction ?? 2) + 1) % 3;
 
         // Currency
         const parts: string[] = [

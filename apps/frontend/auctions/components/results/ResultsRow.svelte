@@ -4,7 +4,6 @@
     import { itemModifierMap } from '@/data/item-modifier';
     import { Faction } from '@/enums/faction';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import { leftPad } from '@/utils/formatting';
     import type { AuctionEntry } from '@/auctions/types/auction-entry';
 

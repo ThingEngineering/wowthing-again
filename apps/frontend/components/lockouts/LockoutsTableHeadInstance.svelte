@@ -1,28 +1,26 @@
 <script lang="ts">
-    import { lockoutState } from '@/stores/local-storage'
-    import { staticStore } from '@/shared/stores/static'
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import type { Difficulty, InstanceDifficulty } from '@/types'
-    import type { StaticDataInstance } from '@/shared/stores/static/types'
-
-    import TableSortedBy from '@/components/common/TableSortedBy.svelte'
-    import Tooltip from '@/components/tooltips/lockout-header/TooltipLockoutHeader.svelte'
     import { singleLockoutRaids } from '@/data/raid';
+    import { wowthingData } from '@/shared/stores/data';
+    import { lockoutState } from '@/stores/local-storage';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import type { StaticDataInstance } from '@/shared/stores/static/types';
+    import type { Difficulty, InstanceDifficulty } from '@/types';
 
-    export let instanceDifficulty: InstanceDifficulty
+    import TableSortedBy from '@/components/common/TableSortedBy.svelte';
+    import Tooltip from '@/components/tooltips/lockout-header/TooltipLockoutHeader.svelte';
 
-    let difficulty: Difficulty
-    let instance: StaticDataInstance
-    $: {
-        difficulty = instanceDifficulty.difficulty
-        instance = $staticStore.instances[instanceDifficulty.instanceId]
-    }
+    let { instanceDifficulty }: { instanceDifficulty: InstanceDifficulty } = $props();
 
-    $: sortingBy = $lockoutState.sortBy === instanceDifficulty.instanceId
+    let difficulty: Difficulty = instanceDifficulty.difficulty;
+    let instance: StaticDataInstance = wowthingData.static.instanceById.get(
+        instanceDifficulty.instanceId
+    );
 
-    const onClick = function() {
-        $lockoutState.sortBy = sortingBy ? 0 : instanceDifficulty.instanceId
-    }
+    let sortingBy = $derived($lockoutState.sortBy === instanceDifficulty.instanceId);
+
+    const onClick = function () {
+        $lockoutState.sortBy = sortingBy ? 0 : instanceDifficulty.instanceId;
+    };
 </script>
 
 <style lang="scss">
@@ -39,7 +37,7 @@
 <th
     data-difficulty={instanceDifficulty?.difficulty}
     data-instance={instanceDifficulty?.instanceId}
-    on:click|preventDefault={onClick}
+    onclick={onClick}
     use:componentTooltip={{
         component: Tooltip,
         props: {
@@ -51,7 +49,8 @@
     {#if singleLockoutRaids.has(instanceDifficulty.instanceId)}
         {instance?.shortName ?? instanceDifficulty.instanceId.toString()}
     {:else}
-        {instanceDifficulty.difficulty.shortName}-{instance?.shortName ?? instanceDifficulty.instanceId.toString()}
+        {instanceDifficulty.difficulty.shortName}-{instance?.shortName ??
+            instanceDifficulty.instanceId.toString()}
     {/if}
 
     {#if sortingBy}

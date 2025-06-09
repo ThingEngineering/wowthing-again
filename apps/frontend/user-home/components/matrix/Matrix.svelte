@@ -10,7 +10,6 @@
     import { Region } from '@/enums/region';
     import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { staticStore } from '@/shared/stores/static';
     import { userStore } from '@/stores';
     import { cartesianProduct } from '@/utils/cartesian-product';
     import type { StaticDataRealm } from '@/shared/stores/static/types';

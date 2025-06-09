@@ -10,7 +10,6 @@
     import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import { userStore } from '@/stores';
     import { UserCount } from '@/types';
     import { fixedInventoryType } from '@/utils/fixed-inventory-type';

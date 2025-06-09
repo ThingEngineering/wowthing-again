@@ -1,6 +1,5 @@
 <script lang="ts">
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { staticStore } from '@/shared/stores/static';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { wowthingData } from '@/shared/stores/data';
     import { homeState } from '@/stores/local-storage';

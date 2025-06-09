@@ -1,12 +1,12 @@
 <script lang="ts">
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
     import type { Difficulty } from '@/types';
 
     let { difficulty, instanceId }: { difficulty: Difficulty; instanceId: number } = $props();
 
-    let instance = $derived($staticStore.instances[instanceId]);
+    let instance = $derived(wowthingData.static.instanceById.get(instanceId));
 
     let byDifficulty = $derived.by(() => {
         const ret: Record<number, number> = {};

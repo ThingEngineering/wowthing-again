@@ -1,7 +1,6 @@
 <script lang="ts">
     import find from 'lodash/find';
 
-    import { staticStore } from '@/shared/stores/static';
     import { reputationState } from '@/stores/local-storage';
     import { leftPad } from '@/utils/formatting';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';

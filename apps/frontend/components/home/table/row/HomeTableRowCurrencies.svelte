@@ -1,7 +1,6 @@
 <script lang="ts">
     import { Constants } from '@/data/constants';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { staticStore } from '@/shared/stores/static';
     import { timeStore } from '@/shared/stores/time';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';

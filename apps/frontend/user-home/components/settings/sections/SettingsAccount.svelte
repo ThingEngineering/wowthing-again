@@ -10,6 +10,7 @@
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import Select from '@/shared/components/forms/Select.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
+    import { userState } from '@/user-home/state/user';
 
     let apiKey = $state('');
 
@@ -192,7 +193,7 @@
             </tr>
         </thead>
         <tbody>
-            {#each sortBy(Object.values($userStore.accounts), (a) => a.accountId) as account (account.id)}
+            {#each sortBy(Object.values(userState.general.accountMap), (a) => a.accountId) as account (account.id)}
                 {@const accountState = settingsState.value.accounts?.[account.id]}
                 {@const accountCharacters = getAccountCharacters($userStore, account.id)}
                 <tr>

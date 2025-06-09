@@ -7,7 +7,6 @@
     import { iconLibrary, aliasedIcons, uiIcons } from '@/shared/icons';
     import { wowthingData } from '@/shared/stores/data';
     import { parsedTextStore } from '@/stores';
-    import { staticStore } from '@/shared/stores/static';
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
@@ -82,7 +81,7 @@
 
         // {currency:currencyId}
         html = html.replaceAll(/\{currency:(\d+)\}/g, (_, currencyIdString: string) => {
-            const currency = $staticStore.currencies[parseInt(currencyIdString)];
+            const currency = wowthingData.static.currencyById.get(parseInt(currencyIdString));
             return `<span data-icon="currency/${currencyIdString}"></span> ${currency?.name || `Currency #${currencyIdString}`}`;
         });
 
@@ -105,7 +104,7 @@
                             return `${amount}x Item #${itemId}`;
                         }
                     } else {
-                        const currency = $staticStore.currencies[currencyId];
+                        const currency = wowthingData.static.currencyById.get(currencyId);
                         if (currency) {
                             if (short !== undefined) {
                                 return `<span data-icon="currency/${currencyId}"></span> ${amount}`;

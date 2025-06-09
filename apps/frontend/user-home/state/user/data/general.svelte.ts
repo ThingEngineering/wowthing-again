@@ -33,6 +33,7 @@ export class DataUserGeneral {
 
     public hasIllusionByEnchantmentId = new SvelteSet<number>();
     public hasMountById = new SvelteSet<number>();
+    public hasPetById = new SvelteSet<number>();
     public hasToyById = new SvelteSet<number>();
     public heirlooms = new SvelteMap<number, number>();
 

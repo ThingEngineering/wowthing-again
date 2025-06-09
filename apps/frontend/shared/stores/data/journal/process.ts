@@ -16,7 +16,6 @@ export function processJournalData(rawData: RawJournal): DataJournal {
     const data = new DataJournal();
 
     data.itemExpansion = cloneDeep(rawData.itemExpansion);
-    data.tiers = cloneDeep(rawData.tiers);
     data.tokenEncounters = cloneDeep(rawData.tokenEncounters);
 
     for (const [tokenId, itemIds] of getNumberKeyedEntries(rawData.itemExpansion)) {
@@ -25,8 +24,10 @@ export function processJournalData(rawData: RawJournal): DataJournal {
         }
     }
 
+    data.tiers = [];
     for (let tierIndex = 0; tierIndex < rawData.tiers.length; tierIndex++) {
         const tier = cloneDeep(rawData.tiers[tierIndex]);
+        data.tiers.push(tier);
         if (!tier) {
             continue;
         }

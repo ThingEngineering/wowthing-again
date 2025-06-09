@@ -1,6 +1,5 @@
 <script lang="ts">
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import type { Profession } from '@/enums/profession';
     import type { Character } from '@/types';
     import type { TaskProfessionQuest } from '@/types/data';

@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { staticStore } from '@/shared/stores/static';
     import { getCurrencyCosts } from '@/utils/get-currency-costs';
 
     import CurrencyLink from '@/shared/components/links/CurrencyLink.svelte';

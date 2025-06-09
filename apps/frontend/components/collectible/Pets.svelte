@@ -1,20 +1,20 @@
 <script lang="ts">
-    import { lazyStore, userStore } from '@/stores'
-    import { staticStore } from '@/shared/stores/static'
-    import type { MultiSlugParams } from '@/types'
-
-    import Collectible from './Collectible.svelte'
-    import ProgressBar from '../common/ProgressBar.svelte';
     import { ItemQuality } from '@/enums/item-quality';
+    import { lazyStore, userStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
+    import type { MultiSlugParams } from '@/types';
+
+    import Collectible from './Collectible.svelte';
+    import ProgressBar from '../common/ProgressBar.svelte';
     import RarityBar from '../common/RarityBar.svelte';
 
-    export let basePath = ''
-    export let params: MultiSlugParams
+    export let basePath = '';
+    export let params: MultiSlugParams;
 
-    const thingMapFunc = (thing: number) => $staticStore.pets[thing]?.creatureId
+    const thingMapFunc = (thing: number) => wowthingData.static.petById.get(thing)?.creatureId;
 
-    let maxLevelQuality: number
-    let qualities: number[]
+    let maxLevelQuality: number;
+    let qualities: number[];
     $: {
         maxLevelQuality = 0;
         qualities = [0, 0, 0, 0];
@@ -25,7 +25,7 @@
 
             for (const pet of pets) {
                 bestQuality = Math.max(bestQuality, pet.quality);
-                hasMaxed ||= (pet.level === 25 && pet.quality === ItemQuality.Rare);
+                hasMaxed ||= pet.level === 25 && pet.quality === ItemQuality.Rare;
             }
 
             qualities[bestQuality]++;
@@ -63,10 +63,7 @@
         </div>
 
         <div class="progress">
-            <RarityBar
-                {qualities}
-                total={$lazyStore.pets.stats.OVERALL.have}
-            />
+            <RarityBar {qualities} total={$lazyStore.pets.stats.OVERALL.have} />
         </div>
     </svelte:fragment>
 </Collectible>

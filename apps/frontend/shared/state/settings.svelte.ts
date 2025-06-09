@@ -60,21 +60,11 @@ function createSettingsState() {
         Object.values(settings.accounts).some((account) => !!account.tag)
     );
 
-    // const activeView = $derived(
-    //     (reactiveLocation === '/'
-    //         ? settings.views.find((view) => view.id === browserState.current.home.activeView)
-    //         : settings.views[0]) || settings.views[0]
-    // );
-
-    const activeView = $derived.by(() => {
-        console.log(reactiveLocation);
-        console.log(browserState.current.home.activeView);
-        return (
-            (reactiveLocation === '/'
-                ? settings.views.find((view) => view.id === browserState.current.home.activeView)
-                : settings.views[0]) || settings.views[0]
-        );
-    });
+    const activeView = $derived(
+        (reactiveLocation === '/'
+            ? settings.views.find((view) => view.id === browserState.current.home.activeView)
+            : settings.views[0]) || settings.views[0]
+    );
 
     const commonColspan = $derived.by(() => {
         return (

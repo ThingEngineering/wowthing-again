@@ -8,6 +8,7 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { basicTooltip } from '@/shared/utils/tooltips';
+    import { userState } from '@/user-home/state/user';
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import getPercentClass from '@/utils/get-percent-class';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
@@ -18,7 +19,6 @@
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
     import Count from '@/components/collectible/CollectibleCount.svelte';
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
-    import { userState } from '@/user-home/state/user';
 
     let sections: [string, ManualDataIllusionGroup[]][];
     $: {
@@ -142,7 +142,9 @@
                                     $staticStore.illusions,
                                     (illusion) => illusion.enchantmentId === item.enchantmentId
                                 )}
-                                {@const have = $userStore.hasIllusion.has(illusion.enchantmentId)}
+                                {@const have = userState.general.hasIllusionByEnchantmentId.has(
+                                    illusion.enchantmentId
+                                )}
                                 <div
                                     class="collection-object"
                                     class:missing={($illusionState.highlightMissing && have) ||

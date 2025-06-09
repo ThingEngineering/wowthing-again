@@ -7,7 +7,6 @@
     import { dragonflightProfessionMap, warWithinProfessionMap } from '@/data/professions';
     import { zoneShortName } from '@/data/zones';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import { userQuestStore, userStore } from '@/stores';
     import findReputationTier from '@/utils/find-reputation-tier';
     import type { Character } from '@/types';

@@ -1,9 +1,9 @@
 <script lang="ts">
     import debounce from 'lodash/debounce';
 
-    import { userStore } from '@/stores';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
+    import { userState } from '@/user-home/state/user';
     import type { StaticDataConnectedRealm } from '@/shared/stores/static/types';
 
     import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte';
@@ -11,7 +11,7 @@
 
     const crIds: Record<number, boolean> = {};
     const realmNames: Record<string, boolean> = {};
-    for (const character of $userStore.characters) {
+    for (const character of userState.general.characters) {
         crIds[character.realm.connectedRealmId] = true;
         realmNames[character.realm.name] = true;
     }

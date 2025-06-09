@@ -4,7 +4,6 @@
     import { Faction } from '@/enums/faction';
     import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
     import { WeaponSubclass } from '@/enums/weapon-subclass';
-    import { staticStore } from '@/shared/stores/static';
     import { wowthingData } from '@/shared/stores/data';
     import { exploreState } from '@/stores/local-storage';
     import { fixedInventoryType } from '@/utils/fixed-inventory-type';
