@@ -13,6 +13,7 @@ import type {
     StaticDataCurrencyCategoryArray,
     StaticDataHoliday,
     StaticDataHolidayArray,
+    StaticDataIllusion,
     StaticDataInstance,
     StaticDataInstanceArray,
     StaticDataKeystoneAffix,
@@ -41,6 +42,7 @@ export interface RawStatic {
     characterClasses: Record<number, StaticDataCharacterClass>;
     characterRaces: Record<number, StaticDataCharacterRace>;
     characterSpecializations: Record<number, StaticDataCharacterSpecialization>;
+    illusions: Record<number, StaticDataIllusion>;
     keystoneAffixes: Record<number, StaticDataKeystoneAffix>;
     questNames: Record<number, string>;
     reputationTiers: Record<number, StaticDataReputationTier>;
@@ -67,6 +69,7 @@ export class DataStatic {
     public characterClassById: Map<number, StaticDataCharacterClass>;
     public characterRaceById: Map<number, StaticDataCharacterRace>;
     public characterSpecializationById: Map<number, StaticDataCharacterSpecialization>;
+    public illusionById: Map<number, StaticDataIllusion>;
     public keystoneAffixById: Map<number, StaticDataKeystoneAffix>;
     public questNameById: Map<number, string>;
     public reputationTierById: Map<number, StaticDataReputationTier>;
@@ -96,6 +99,7 @@ export class DataStatic {
         StaticDataCharacterSpecialization[]
     >();
     public connectedRealmById = new Map<number, StaticDataConnectedRealm>();
+    public illusionByEnchantmentId = new Map<number, StaticDataIllusion>();
     public mountByItemId = new Map<number, StaticDataMount>();
     public petByItemId = new Map<number, StaticDataPet>();
     public toyByItemId = new Map<number, StaticDataToy>();

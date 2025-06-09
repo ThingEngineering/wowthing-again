@@ -1,5 +1,4 @@
 import debounce from 'lodash/debounce';
-import find from 'lodash/find';
 import once from 'lodash/once';
 import { derived, get } from 'svelte/store';
 import type { DateTime } from 'luxon';
@@ -49,7 +48,7 @@ import { userQuestStore } from '../user-quests';
 
 import { activeHolidays, type ActiveHolidays } from '../derived/active-holidays';
 
-type LazyKey = 'heirlooms' | 'illusions' | 'mounts' | 'pets' | 'toys';
+type LazyKey = 'heirlooms' | 'mounts' | 'pets' | 'toys';
 
 type LazyUgh = {
     [k in LazyKey]: LazyCollectible | UserCounts;
@@ -148,7 +147,6 @@ export class LazyStore implements LazyUgh {
 
     private customizationsFunc: () => UserCounts;
     private heirloomsFunc: () => UserCounts;
-    private illusionsFunc: () => UserCounts;
 
     private achievementsFunc: () => LazyAchievements;
     private appearancesFunc: () => LazyAppearances;
@@ -333,10 +331,6 @@ export class LazyStore implements LazyUgh {
         //     this.heirloomsFunc = once(() => this.doHeirlooms(userData));
         // }
 
-        if (changedData.userData || changedHashes.settingsCollections) {
-            this.illusionsFunc = once(() => this.doIllusions(userData));
-        }
-
         if (
             changedData.userData ||
             changedData.userQuestData ||
@@ -425,9 +419,6 @@ export class LazyStore implements LazyUgh {
     get heirlooms(): UserCounts {
         return {};
         // return this.heirloomsFunc();
-    }
-    get illusions(): UserCounts {
-        return this.illusionsFunc();
     }
 
     get achievements(): LazyAchievements {
@@ -568,20 +559,6 @@ export class LazyStore implements LazyUgh {
                 const userCount = userData.heirlooms?.[staticHeirloom.id];
                 return userCount !== undefined ? userCount + 1 : 0;
             },
-        });
-    }
-
-    private doIllusions(userData: UserData): UserCounts {
-        return this.doGeneric({
-            categories: wowthingData.manual.illusions,
-            includeUnavailable: !this.settings.collections.hideUnavailable,
-            haveFunc: (illusion: ManualDataIllusionItem) =>
-                userData.hasIllusion.has(
-                    find(
-                        this.staticData.illusions,
-                        (staticIllusion) => staticIllusion.enchantmentId === illusion.enchantmentId
-                    )?.enchantmentId
-                ),
         });
     }
 }

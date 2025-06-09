@@ -2,13 +2,15 @@
     import find from 'lodash/find';
     import { afterUpdate } from 'svelte';
 
-    import { lazyStore, userStore } from '@/stores';
+    import { userStore } from '@/stores';
     import { staticStore } from '@/shared/stores/static';
     import { illusionState } from '@/stores/local-storage';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { wowthingData } from '@/shared/stores/data';
+    import { basicTooltip } from '@/shared/utils/tooltips';
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import getPercentClass from '@/utils/get-percent-class';
-    import { basicTooltip } from '@/shared/utils/tooltips';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import type { ManualDataIllusionGroup } from '@/types/data/manual';
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
@@ -16,8 +18,7 @@
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
     import Count from '@/components/collectible/CollectibleCount.svelte';
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { wowthingData } from '@/shared/stores/data';
+    import { userState } from '@/user-home/state/user';
 
     let sections: [string, ManualDataIllusionGroup[]][];
     $: {
@@ -25,19 +26,19 @@
             [
                 'Available',
                 wowthingData.manual.illusions.filter(
-                    (group) => !group.name.startsWith('Unavailable'),
+                    (group) => !group.name.startsWith('Unavailable')
                 ),
             ],
         ];
 
         if (
             !settingsState.value.collections.hideUnavailable ||
-            $lazyStore.illusions['UNAVAILABLE'].have > 0
+            userState.illusionStats['UNAVAILABLE'].have > 0
         ) {
             sections.push([
                 'Unavailable',
                 wowthingData.manual.illusions.filter((group) =>
-                    group.name.startsWith('Unavailable'),
+                    group.name.startsWith('Unavailable')
                 ),
             ]);
         }
@@ -56,7 +57,7 @@
                     columnCount: '--column-count',
                     gap: 30,
                     padding: '1.5rem',
-                },
+                }
             );
             debouncedResize();
         } else {
@@ -124,12 +125,12 @@
     <div class="collection thing-container" bind:this={resizeableElement}>
         {#each sections as [sectionName, groups]}
             <SectionTitle
-                count={$lazyStore.illusions[sectionName.toUpperCase()]}
+                count={userState.illusionStats[sectionName.toUpperCase()]}
                 title={sectionName}
             />
             <div class="collection-v2-section">
                 {#each groups as group}
-                    {@const groupCount = $lazyStore.illusions[group.name]}
+                    {@const groupCount = userState.illusionStats[group.name]}
                     <div class="collection-v2-group">
                         <h4 class="drop-shadow text-overflow {getPercentClass(groupCount.percent)}">
                             {group.name.replace('Unavailable - ', '')}
@@ -139,7 +140,7 @@
                             {#each group.items as item}
                                 {@const illusion = find(
                                     $staticStore.illusions,
-                                    (illusion) => illusion.enchantmentId === item.enchantmentId,
+                                    (illusion) => illusion.enchantmentId === item.enchantmentId
                                 )}
                                 {@const have = $userStore.hasIllusion.has(illusion.enchantmentId)}
                                 <div

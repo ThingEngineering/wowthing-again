@@ -2,6 +2,7 @@
     import active from 'svelte-spa-router/active';
 
     import { lazyStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
 
     import Percent from '@/components/common/Percent.svelte';
 </script>
@@ -40,7 +41,7 @@
 
         <a href="#/collections/illusions" use:active>
             Illusions
-            <Percent percent={$lazyStore.illusions.AVAILABLE.percent} />
+            <Percent percent={userState.illusionStats.AVAILABLE.percent} />
         </a>
 
         <a href="#/collections/recipes" use:active={'/collections/recipes/*'}>

@@ -31,6 +31,7 @@ export function processStaticData(rawData: RawStatic): DataStatic {
     data.characterSpecializationById = new Map(
         getNumberKeyedEntries(cloneDeep(rawData.characterSpecializations))
     );
+    data.illusionById = new Map(getNumberKeyedEntries(cloneDeep(rawData.illusions)));
     data.keystoneAffixById = new Map(getNumberKeyedEntries(cloneDeep(rawData.keystoneAffixes)));
     data.questNameById = new Map(getNumberKeyedEntries(cloneDeep(rawData.questNames)));
     data.reputationTierById = new Map(getNumberKeyedEntries(cloneDeep(rawData.reputationTiers)));
@@ -69,6 +70,10 @@ export function processStaticData(rawData: RawStatic): DataStatic {
         data.characterSpecializationsByClassId
             .get(characterSpecialization.classId)
             .push(characterSpecialization);
+    }
+
+    for (const illusion of data.illusionById.values()) {
+        data.illusionByEnchantmentId.set(illusion.enchantmentId, illusion);
     }
 
     for (const mount of data.mountById.values()) {

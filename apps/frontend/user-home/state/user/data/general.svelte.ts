@@ -30,6 +30,7 @@ export class DataUserGeneral {
     public characterById: Record<number, Character> = $state({});
     public guildMap: Record<number, Guild> = $state({});
 
+    public hasIllusionByEnchantmentId = new SvelteSet<number>();
     public hasMountById = new SvelteSet<number>();
     public hasToyById = new SvelteSet<number>();
 
@@ -88,6 +89,11 @@ export class DataUserGeneral {
         const toyIds = base64ToArray(TypedArray.Uint16, userData.toysPacked);
         for (const toyId of toyIds) {
             this.hasToyById.add(toyId);
+        }
+
+        // Misc
+        for (const illusionId of userData.illusionIds) {
+            this.hasIllusionByEnchantmentId.add(illusionId);
         }
 
         console.timeEnd('DataUserGeneral.process');
