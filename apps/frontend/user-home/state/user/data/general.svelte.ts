@@ -15,6 +15,7 @@ import { wowthingData } from '@/shared/stores/data';
 import {
     Character,
     Guild,
+    UserDataPet,
     type Account,
     type CharacterLockout,
     type InstanceDifficulty,
@@ -30,11 +31,18 @@ export class DataUserGeneral {
     public characters: Character[] = $state([]);
     public characterById: Record<number, Character> = $state({});
     public guildMap: Record<number, Guild> = $state({});
+    public petsById: Record<number, UserDataPet[]> = $state({});
+
+    public honorCurrent = $state(0);
+    public honorLevel = $state(0);
+    public honorMax = $state(0);
+    public warbankGold = $state(0);
 
     public hasIllusionByEnchantmentId = new SvelteSet<number>();
     public hasMountById = new SvelteSet<number>();
     public hasPetById = new SvelteSet<number>();
     public hasToyById = new SvelteSet<number>();
+    public hasToyByItemId = new SvelteSet<number>();
     public heirlooms = new SvelteMap<number, number>();
 
     public allLockouts = $derived.by(() => this._lockoutData().allLockouts);
@@ -92,6 +100,32 @@ export class DataUserGeneral {
         const toyIds = base64ToArray(TypedArray.Uint16, userData.toysPacked);
         for (const toyId of toyIds) {
             this.hasToyById.add(toyId);
+            const toy = wowthingData.static.toyById.get(toyId);
+            this.hasToyByItemId.add(toy.itemId);
+        }
+
+        for (const [speciesId, petArrays] of getNumberKeyedEntries(userData.petsRaw)) {
+            this.hasPetById.add(speciesId);
+
+            const pets = (this.petsById[speciesId] ||= []);
+            if (pets.length !== petArrays.length) {
+                this.petsById[speciesId] = petArrays.map(
+                    (petArray) => new UserDataPet(...petArray)
+                );
+            } else {
+                // merge to avoid complete recalc if possible
+                petArrays.forEach((petArray, index) => {
+                    const pet = pets[index];
+                    // level, quality, breedId
+                    if (
+                        pet.level !== petArray[0] ||
+                        pet.quality !== petArray[1] ||
+                        pet.breedId !== petArray[2]
+                    ) {
+                        pets[index] = new UserDataPet(...petArray);
+                    }
+                });
+            }
         }
 
         // Misc

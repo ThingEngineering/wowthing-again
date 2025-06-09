@@ -1,7 +1,8 @@
 <script lang="ts">
     import { ItemQuality } from '@/enums/item-quality';
-    import { lazyStore, userStore } from '@/stores';
     import { wowthingData } from '@/shared/stores/data';
+    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import type { MultiSlugParams } from '@/types';
 
     import Collectible from './Collectible.svelte';
@@ -47,9 +48,10 @@
 
 <Collectible
     route={basePath ? `${basePath}/pets` : 'pets'}
-    sets={$lazyStore.pets.filteredCategories}
+    sets={userState.pets.filteredCategories}
+    stats={userState.pets.stats}
     thingType="npc"
-    userHas={$userStore.hasPet}
+    userHas={userState.general.hasPetById}
     {params}
     {thingMapFunc}
 >
@@ -58,12 +60,12 @@
             <ProgressBar
                 title="Max level + quality"
                 have={maxLevelQuality}
-                total={$lazyStore.pets.stats.OVERALL.total}
+                total={userState.pets.stats.OVERALL.total}
             />
         </div>
 
         <div class="progress">
-            <RarityBar {qualities} total={$lazyStore.pets.stats.OVERALL.have} />
+            <RarityBar {qualities} total={userState.pets.stats.OVERALL.have} />
         </div>
     </svelte:fragment>
 </Collectible>

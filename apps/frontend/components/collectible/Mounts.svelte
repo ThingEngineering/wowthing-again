@@ -1,6 +1,6 @@
 <script lang="ts">
     import { wowthingData } from '@/shared/stores/data';
-    import { lazyStore, userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import type { MultiSlugParams } from '@/types';
 
     import Collectible from './Collectible.svelte';
@@ -13,9 +13,10 @@
 
 <Collectible
     route={basePath ? `${basePath}/mounts` : 'mounts'}
-    sets={$lazyStore.mounts.filteredCategories}
+    sets={userState.mounts.filteredCategories}
+    stats={userState.mounts.stats}
     thingType="spell"
-    userHas={$userStore.hasMount}
+    userHas={userState.general.hasMountById}
     {params}
     {thingMapFunc}
 />

@@ -2,7 +2,6 @@
     import find from 'lodash/find';
     import { getContext, tick } from 'svelte';
 
-    // import { CollectibleState, collectibleState } from '@/stores/local-storage';
     import { browserState, type CollectibleState } from '@/shared/state/browser.svelte';
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import type { ManualDataSetCategory } from '@/types/data/manual';
@@ -65,7 +64,7 @@
 
         <button>
             <Checkbox name="show_collected" bind:value={collectibleState.showCollected}
-                >Collectedss</Checkbox
+                >Collected</Checkbox
             >
         </button>
 
@@ -80,7 +79,7 @@
 
     <div class="categories" bind:this={resizeableElement}>
         {#each categories as category}
-            <Category {category} {slug1} {thingType} />
+            <Category {category} {collectibleState} {slug1} {thingType} />
         {/each}
     </div>
 </div>

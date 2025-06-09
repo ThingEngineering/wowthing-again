@@ -17,7 +17,6 @@ import type { UserQuestData } from '@/types/data';
 import { doAchievements, type LazyAchievements } from './achievements';
 import { doAppearances, type LazyAppearances } from './appearances';
 import { doCharacters, type LazyCharacter } from './character';
-import { doCollectible, type LazyCollectible } from './collectible';
 import { doConvertible, type LazyConvertible } from './convertible';
 import { doJournal, type LazyJournal } from './journal';
 import { doRecipes, LazyRecipes } from './recipes';
@@ -29,12 +28,10 @@ import {
     AchievementsState,
     achievementState,
     appearanceState,
-    collectibleState,
     journalState,
     vendorState,
     zoneMapState,
     type AppearancesState,
-    type CollectibleState,
     type JournalState,
     type VendorState,
     type ZoneMapState,
@@ -47,25 +44,6 @@ import { userQuestStore } from '../user-quests';
 
 import { activeHolidays, type ActiveHolidays } from '../derived/active-holidays';
 
-type LazyKey = 'mounts' | 'pets' | 'toys';
-
-type LazyUgh = {
-    [k in LazyKey]: LazyCollectible | UserCounts;
-};
-
-type GenericCategory<T> = {
-    name: string;
-    items: T[];
-};
-
-type DoGenericParameters<T, U> = {
-    categories: T[];
-    haveFunc: (item: U) => boolean;
-    includeUnavailable: boolean;
-    haveCountFunc?: (item: U) => number;
-    totalCountFunc?: (item: U) => number;
-};
-
 type UserCounts = Record<string, UserCount>;
 
 export const lazyStore = derived(
@@ -73,7 +51,6 @@ export const lazyStore = derived(
         timeStore,
         achievementState,
         appearanceState,
-        collectibleState,
         journalState,
         vendorState,
         zoneMapState,
@@ -87,7 +64,6 @@ export const lazyStore = derived(
             $timeStore,
             $achievementState,
             $appearanceState,
-            $collectibleState,
             $journalState,
             $vendorState,
             $zoneMapState,
@@ -99,7 +75,6 @@ export const lazyStore = derived(
             DateTime,
             AchievementsState,
             AppearancesState,
-            CollectibleState,
             JournalState,
             VendorState,
             ZoneMapState,
@@ -113,7 +88,6 @@ export const lazyStore = derived(
                 $timeStore,
                 $achievementState,
                 $appearanceState,
-                $collectibleState,
                 $journalState,
                 $vendorState,
                 $zoneMapState,
@@ -132,7 +106,7 @@ export const lazyStore = derived(
     )
 );
 
-export class LazyStore implements LazyUgh {
+export class LazyStore {
     private settings: Settings;
 
     private staticData: StaticData;
@@ -151,10 +125,7 @@ export class LazyStore implements LazyUgh {
     private charactersFunc: () => Record<string, LazyCharacter>;
     private convertibleFunc: () => LazyConvertible;
     private journalFunc: () => LazyJournal;
-    private mountsFunc: () => LazyCollectible;
-    private petsFunc: () => LazyCollectible;
     private recipesFunc: () => LazyRecipes;
-    private toysFunc: () => LazyCollectible;
     private transmogFunc: () => LazyTransmog;
     private vendorsFunc: () => LazyVendors;
     private zoneMapsFunc: () => LazyZoneMaps;
@@ -166,7 +137,6 @@ export class LazyStore implements LazyUgh {
         currentTime: DateTime,
         achievementState: AchievementsState,
         appearanceState: AppearancesState,
-        collectibleState: CollectibleState,
         journalState: JournalState,
         vendorState: VendorState,
         zoneMapState: ZoneMapState,
@@ -180,7 +150,8 @@ export class LazyStore implements LazyUgh {
 
             achievementState: hashObject(achievementState),
             appearanceState: hashObject(appearanceState),
-            collectibleState: hashObject(collectibleState),
+            collectibleState: 'meow',
+            // collectibleState: hashObject(collectibleState),
             journalState: hashObject(journalState, ['filtersExpanded', 'highlightMissing']),
             vendorState: hashObject(vendorState, ['filtersExpanded']),
             zoneMapState: hashObject(zoneMapState),
@@ -283,42 +254,6 @@ export class LazyStore implements LazyUgh {
             );
         }
 
-        if (
-            changedData.userData ||
-            changedHashes.collectibleState ||
-            changedHashes.hideUnavailable
-        ) {
-            const collectibleStores = {
-                collectibleState,
-                settings,
-            };
-
-            this.mountsFunc = once(() =>
-                doCollectible(
-                    collectibleStores,
-                    'mounts',
-                    wowthingData.manual.mountSets,
-                    userData.hasMount
-                )
-            );
-            this.petsFunc = once(() =>
-                doCollectible(
-                    collectibleStores,
-                    'pets',
-                    wowthingData.manual.petSets,
-                    userData.hasPet
-                )
-            );
-            this.toysFunc = once(() =>
-                doCollectible(
-                    collectibleStores,
-                    'toys',
-                    wowthingData.manual.toySets,
-                    userData.hasToy
-                )
-            );
-        }
-
         if (changedData.userQuestData) {
             this.customizationsFunc = once(() =>
                 this.doCustomizations(userAchievementData, userData, userQuestData)
@@ -403,10 +338,6 @@ export class LazyStore implements LazyUgh {
         // console.timeEnd('LazyStore.update')
     }
 
-    lookup(key: string): LazyCollectible | UserCounts {
-        return this[key as LazyKey];
-    }
-
     get customizations(): UserCounts {
         return this.customizationsFunc();
     }
@@ -426,17 +357,8 @@ export class LazyStore implements LazyUgh {
     get journal(): LazyJournal {
         return this.journalFunc();
     }
-    get mounts(): LazyCollectible {
-        return this.mountsFunc();
-    }
-    get pets(): LazyCollectible {
-        return this.petsFunc();
-    }
     get recipes(): LazyRecipes {
         return this.recipesFunc();
-    }
-    get toys(): LazyCollectible {
-        return this.toysFunc();
     }
     get transmog(): LazyTransmog {
         return this.transmogFunc();
