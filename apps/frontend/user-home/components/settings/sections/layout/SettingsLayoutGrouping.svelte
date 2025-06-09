@@ -1,6 +1,6 @@
 <script lang="ts">
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { browserStore } from '@/shared/stores/browser';
+    import { browserState } from '@/shared/state/browser';
     import type { SettingsCustomGroup } from '@/shared/stores/settings/types';
 
     import Group from './SettingsLayoutGroupingGroup.svelte';
@@ -17,12 +17,12 @@
         newCustomGroups.push(group);
 
         settingsState.value.customGroups = newCustomGroups;
-        $browserStore.settings.selectedGroup = group.id;
+        browserState.current.settings.selectedGroup = group.id;
     };
 
     const setActive = (groupId: string) => {
         console.log(groupId);
-        $browserStore.settings.selectedGroup = groupId;
+        browserState.current.settings.selectedGroup = groupId;
     };
 </script>
 
@@ -67,7 +67,7 @@
             {#each settingsState.value.customGroups as customGroup (customGroup.id)}
                 <button
                     class="group-entry text-overflow"
-                    class:active={$browserStore.settings.selectedGroup === customGroup.id}
+                    class:active={browserState.current.settings.selectedGroup === customGroup.id}
                     on:click={() => setActive(customGroup.id)}
                 >
                     {customGroup.name}
@@ -79,10 +79,10 @@
             {/if}
         </div>
 
-        {#if $browserStore.settings.selectedGroup}
+        {#if browserState.current.settings.selectedGroup}
             <Group
                 group={settingsState.value.customGroups.filter(
-                    (group) => group.id === $browserStore.settings.selectedGroup
+                    (group) => group.id === browserState.current.settings.selectedGroup
                 )[0]}
             />
         {/if}

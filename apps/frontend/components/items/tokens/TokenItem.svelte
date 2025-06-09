@@ -7,7 +7,7 @@
     import { ItemClass } from '@/enums/item-class';
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
     import { inventoryTypeIcons, weaponSubclassIcons } from '@/shared/icons/mappings';
-    import { browserStore } from '@/shared/stores/browser';
+    import { browserState } from '@/shared/state/browser';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
@@ -195,11 +195,12 @@
             {#each expandsData as [expandedItemId, expandedItem, hasItem]}
                 {@const classId = playableClassFromMask(expandedItem.classMask)}
                 {@const specIds = getSpecIds(expandedItemId)}
-                {#if ($browserStore.tokens.showCollected && hasItem) || ($browserStore.tokens.showUncollected && !hasItem)}
+                {#if (browserState.current.tokens.showCollected && hasItem) || (browserState.current.tokens.showUncollected && !hasItem)}
                     <div
                         class="collection-object {classId ? `class-${classId}` : ''}"
-                        class:missing={(!$browserStore.tokens.highlightMissing && !hasItem) ||
-                            ($browserStore.tokens.highlightMissing && hasItem)}
+                        class:missing={(!browserState.current.tokens.highlightMissing &&
+                            !hasItem) ||
+                            (browserState.current.tokens.highlightMissing && hasItem)}
                     >
                         {#if intersected}
                             <WowheadLink id={expandedItemId} type="item">

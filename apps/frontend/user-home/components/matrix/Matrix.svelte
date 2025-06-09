@@ -8,7 +8,7 @@
     import { isSecondaryProfession, professionOrder } from '@/data/professions';
     import { Gender, genderValues } from '@/enums/gender';
     import { Region } from '@/enums/region';
-    import { browserStore } from '@/shared/stores/browser';
+    import { browserState } from '@/shared/state/browser';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { staticStore } from '@/shared/stores/static';
     import { userStore } from '@/stores';
@@ -37,7 +37,7 @@
             (char) =>
                 settingsState.value.characters.hiddenCharacters.indexOf(char.id) === -1 &&
                 settingsState.value.characters.ignoredCharacters.indexOf(char.id) === -1 &&
-                char.level >= $browserStore.matrix.minLevel &&
+                char.level >= browserState.current.matrix.minLevel &&
                 settingsState.value.accounts?.[char.accountId]?.enabled === true
         );
 
@@ -54,11 +54,11 @@
         ]);
         //realms.sort()
 
-        const sortedX = sortBy($browserStore.matrix.xAxis, (key) => axisOrder.indexOf(key));
-        const sortedY = sortBy($browserStore.matrix.yAxis, (key) => axisOrder.indexOf(key));
+        const sortedX = sortBy(browserState.current.matrix.xAxis, (key) => axisOrder.indexOf(key));
+        const sortedY = sortBy(browserState.current.matrix.yAxis, (key) => axisOrder.indexOf(key));
 
         const allAxis = sortBy(
-            [...$browserStore.matrix.xAxis, ...$browserStore.matrix.yAxis],
+            [...browserState.current.matrix.xAxis, ...browserState.current.matrix.yAxis],
             (key) => axisOrder.indexOf(key)
         );
 
@@ -359,11 +359,11 @@
             {#each axisOptions as [value, label]}
                 <GroupedCheckbox
                     name="x_{value}"
-                    disabled={$browserStore.matrix.yAxis.indexOf(value) >= 0 ||
-                        ($browserStore.matrix.xAxis.indexOf(value) === -1 &&
-                            $browserStore.matrix.xAxis.length >= 2)}
+                    disabled={browserState.current.matrix.yAxis.indexOf(value) >= 0 ||
+                        (browserState.current.matrix.xAxis.indexOf(value) === -1 &&
+                            browserState.current.matrix.xAxis.length >= 2)}
                     {value}
-                    bind:bindGroup={$browserStore.matrix.xAxis}>{label}</GroupedCheckbox
+                    bind:bindGroup={browserState.current.matrix.xAxis}>{label}</GroupedCheckbox
                 >
             {/each}
         </div>
@@ -374,11 +374,11 @@
             {#each axisOptions as [value, label]}
                 <GroupedCheckbox
                     name="y_{value}"
-                    disabled={$browserStore.matrix.xAxis.indexOf(value) >= 0 ||
-                        ($browserStore.matrix.yAxis.indexOf(value) === -1 &&
-                            $browserStore.matrix.yAxis.length >= 3)}
+                    disabled={browserState.current.matrix.xAxis.indexOf(value) >= 0 ||
+                        (browserState.current.matrix.yAxis.indexOf(value) === -1 &&
+                            browserState.current.matrix.yAxis.length >= 3)}
                     {value}
-                    bind:bindGroup={$browserStore.matrix.yAxis}>{label}</GroupedCheckbox
+                    bind:bindGroup={browserState.current.matrix.yAxis}>{label}</GroupedCheckbox
                 >
             {/each}
         </div>
@@ -390,7 +390,7 @@
                 name="min_level"
                 minValue={0}
                 maxValue={Constants.characterMaxLevel}
-                bind:value={$browserStore.matrix.minLevel}
+                bind:value={browserState.current.matrix.minLevel}
             />
         </div>
 
@@ -398,7 +398,7 @@
             Show as:&nbsp;
             <RadioGroup
                 name="show_character_as"
-                bind:value={$browserStore.matrix.showCharacterAs}
+                bind:value={browserState.current.matrix.showCharacterAs}
                 options={[
                     ['level', 'Level'],
                     ['name', 'Name'],
@@ -407,7 +407,10 @@
         </div>
 
         <div class="options-container background-box">
-            <CheckboxInput name="show_empty_rows" bind:value={$browserStore.matrix.showEmptyRows}>
+            <CheckboxInput
+                name="show_empty_rows"
+                bind:value={browserState.current.matrix.showEmptyRows}
+            >
                 Show empty rows
             </CheckboxInput>
         </div>
@@ -429,7 +432,7 @@
         </thead>
         <tbody>
             {#each yKeys as yKey, yIndex}
-                {#if $browserStore.matrix.showEmptyRows || yCounts[yKey] > 0}
+                {#if browserState.current.matrix.showEmptyRows || yCounts[yKey] > 0}
                     <Row
                         count={yCounts[yKey]}
                         {getCharacters}

@@ -329,9 +329,9 @@ export class LazyStore implements LazyUgh {
             );
         }
 
-        if (changedData.userData || changedHashes.settingsCollections) {
-            this.heirloomsFunc = once(() => this.doHeirlooms(userData));
-        }
+        // if (changedData.userData || changedHashes.settingsCollections) {
+        //     this.heirloomsFunc = once(() => this.doHeirlooms(userData));
+        // }
 
         if (changedData.userData || changedHashes.settingsCollections) {
             this.illusionsFunc = once(() => this.doIllusions(userData));
@@ -423,7 +423,8 @@ export class LazyStore implements LazyUgh {
         return this.customizationsFunc();
     }
     get heirlooms(): UserCounts {
-        return this.heirloomsFunc();
+        return {};
+        // return this.heirloomsFunc();
     }
     get illusions(): UserCounts {
         return this.illusionsFunc();

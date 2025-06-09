@@ -7,7 +7,7 @@
     import { Profession } from '@/enums/profession';
     import { Region } from '@/enums/region';
     import { WeaponSubclass } from '@/enums/weapon-subclass';
-    import { browserStore } from '@/shared/stores/browser';
+    import { browserState } from '@/shared/state/browser';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { userStore } from '@/stores';
     import { auctionState } from '@/stores/local-storage/auctions';
@@ -208,7 +208,7 @@
             <div class="options-group">
                 <Checkbox
                     name="current_expansion"
-                    bind:value={$browserStore.auctions.commoditiesCurrentExpansion}
+                    bind:value={browserState.current.auctions.commoditiesCurrentExpansion}
                     >Current expansion only</Checkbox
                 >
             </div>

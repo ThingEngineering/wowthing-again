@@ -1,5 +1,4 @@
 import debounce from 'lodash/debounce';
-import { get } from 'svelte/store';
 import { location } from 'svelte-spa-router';
 
 // WARNING: do NOT import any of the other stores!
@@ -11,9 +10,9 @@ import { sharedState } from '@/shared/state/shared.svelte';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { hashObject } from '@/utils/hash-object.svelte';
 import type { Expansion } from '@/types';
-import type { Settings } from '../stores/settings/types';
 
-import { browserStore } from '../stores/browser';
+import { browserState } from './browser';
+import type { Settings } from '../stores/settings/types';
 
 const languageToSubdomain: Record<Language, string> = {
     [Language.deDE]: 'de',
@@ -62,11 +61,9 @@ function createSettingsState() {
     );
 
     const activeView = $derived.by(() => {
-        const browserStoreValue = get(browserStore);
-
         return (
             (reactiveLocation === '/'
-                ? settings.views.find((view) => view.id === browserStoreValue.home.activeView)
+                ? settings.views.find((view) => view.id === browserState.current.home.activeView)
                 : settings.views[0]) || settings.views[0]
         );
     });

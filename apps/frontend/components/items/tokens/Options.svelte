@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { browserStore } from '@/shared/stores/browser';
+    import { browserState } from '@/shared/state/browser';
 
-    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import SidebarCollectingSettings from '@/components/common/SidebarCollectingSettings.svelte';
 </script>
 
@@ -16,7 +16,7 @@
         :global(.collecting-settings button.expand) {
             border-width: 0 !important;
         }
-        :global(.collecting-settings > *:nth-child(n+4)) {
+        :global(.collecting-settings > *:nth-child(n + 4)) {
             display: none;
         }
     }
@@ -26,25 +26,22 @@
     <SidebarCollectingSettings />
 
     <button style="margin-left: 1rem">
-        <Checkbox
-            name="highlight_missing"
-            bind:value={$browserStore.tokens.highlightMissing}
-        >Highlight missing</Checkbox>
+        <Checkbox name="highlight_missing" bind:value={browserState.current.tokens.highlightMissing}
+            >Highlight missing</Checkbox
+        >
     </button>
 
     <span>Show:</span>
 
     <button>
-        <Checkbox
-            name="show_collected"
-            bind:value={$browserStore.tokens.showCollected}
-        >Collected</Checkbox>
+        <Checkbox name="show_collected" bind:value={browserState.current.tokens.showCollected}
+            >Collected</Checkbox
+        >
     </button>
 
     <button>
-        <Checkbox
-            name="show_uncollected"
-            bind:value={$browserStore.tokens.showUncollected}
-        >Missing</Checkbox>
+        <Checkbox name="show_uncollected" bind:value={browserState.current.tokens.showUncollected}
+            >Missing</Checkbox
+        >
     </button>
 </div>

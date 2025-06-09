@@ -4,7 +4,7 @@
     import { iconLibrary } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
-    import { browserStore } from '@/shared/stores/browser';
+    import { browserState } from '@/shared/state/browser';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';
 
@@ -12,7 +12,7 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
     const setActiveView = (viewId: string) => {
-        $browserStore.home.activeView = viewId;
+        browserState.current.home.activeView = viewId;
     };
 </script>
 
