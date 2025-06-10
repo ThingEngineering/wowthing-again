@@ -21,6 +21,7 @@ import {
     StaticDataWorldQuest,
 } from '../../static/types';
 import { DataStatic, type RawStatic } from './types';
+import { StaticDataEnchantment } from '../../static/types/enchantment';
 
 export function processStaticData(rawData: RawStatic): DataStatic {
     console.time('processStaticData');
@@ -33,6 +34,7 @@ export function processStaticData(rawData: RawStatic): DataStatic {
         getNumberKeyedEntries(cloneDeep(rawData.characterSpecializations))
     );
     data.heirloomById = new Map(getNumberKeyedEntries(cloneDeep(rawData.heirlooms)));
+    data.holidayIds = new Map(Object.entries(cloneDeep(rawData.holidayIds)));
     data.illusionById = new Map(getNumberKeyedEntries(cloneDeep(rawData.illusions)));
     data.inventorySlotById = new Map(getNumberKeyedEntries(cloneDeep(rawData.inventorySlots)));
     data.inventoryTypeById = new Map(getNumberKeyedEntries(cloneDeep(rawData.inventoryTypes)));
@@ -43,6 +45,10 @@ export function processStaticData(rawData: RawStatic): DataStatic {
     );
     data.reputationTierById = new Map(getNumberKeyedEntries(cloneDeep(rawData.reputationTiers)));
     data.sharedStringById = new Map(getNumberKeyedEntries(cloneDeep(rawData.sharedStrings)));
+
+    data.itemToRequiredAbility = cloneDeep(rawData.itemToRequiredAbility);
+    data.itemToSkillLine = cloneDeep(rawData.itemToSkillLine);
+    data.skillLineAbilityItems = cloneDeep(rawData.skillLineAbilityItems);
 
     data.bagById = createObjects(rawData.rawBags, StaticDataBag);
     data.campaignById = createObjects(rawData.rawCampaigns, StaticDataCampaign);
@@ -64,6 +70,21 @@ export function processStaticData(rawData: RawStatic): DataStatic {
     data.transmogSetById = createObjects(rawData.rawTransmogSets, StaticDataTransmogSet);
     data.worldQuestById = createObjects(rawData.rawWorldQuests, StaticDataWorldQuest);
 
+    // Enchantments are weird
+    for (const [enchantString, enchantIds] of Object.entries(rawData.enchantmentStrings)) {
+        for (const enchantId of enchantIds) {
+            data.enchantmentById.set(enchantId, new StaticDataEnchantment(enchantString));
+        }
+    }
+
+    for (const [enchantId, enchantValues] of getNumberKeyedEntries(rawData.enchantmentValues)) {
+        if (!data.enchantmentById.has(enchantId)) {
+            data.enchantmentById.set(enchantId, new StaticDataEnchantment(`Enchant #${enchantId}`));
+        }
+        data.enchantmentById.get(enchantId).values = enchantValues;
+    }
+
+    // Extra mappings
     for (const characterClass of data.characterClassById.values()) {
         data.characterClassBySlug.set(characterClass.slug, characterClass);
     }
@@ -83,6 +104,18 @@ export function processStaticData(rawData: RawStatic): DataStatic {
 
     for (const heirloom of data.heirloomById.values()) {
         data.heirloomByItemId.set(heirloom.itemId, heirloom);
+    }
+
+    for (const [key, ids] of data.holidayIds.entries()) {
+        for (const id of ids) {
+            if (!data.holidayIdToKeys.has(id)) {
+                data.holidayIdToKeys.set(id, []);
+            }
+            const keys = data.holidayIdToKeys.get(id);
+            if (keys.indexOf(key) === -1) {
+                keys.push(key);
+            }
+        }
     }
 
     for (const illusion of data.illusionById.values()) {

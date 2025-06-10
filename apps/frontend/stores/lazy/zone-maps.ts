@@ -27,7 +27,6 @@ import { isRecipeKnown } from '@/utils/professions/is-recipe-known';
 import type { LazyTransmog } from './transmog';
 import type { ZoneMapState } from '../local-storage';
 import type { Settings } from '@/shared/stores/settings/types';
-import type { StaticData } from '@/shared/stores/static/types';
 import type { UserAchievementData, UserData } from '@/types';
 import type { UserQuestData } from '@/types/data';
 import type { DropStatus, FarmStatus } from '@/types/zone-maps';
@@ -37,7 +36,6 @@ type classMaskStrings = keyof typeof PlayableClassMask;
 interface LazyStores {
     settings: Settings;
     zoneMapState: ZoneMapState;
-    staticData: StaticData;
     userData: UserData;
     userAchievementData: UserAchievementData;
     userQuestData: UserQuestData;

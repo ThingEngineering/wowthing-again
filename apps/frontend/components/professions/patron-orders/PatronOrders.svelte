@@ -4,7 +4,7 @@
     import { afterUpdate } from 'svelte';
 
     import { isCraftingProfession } from '@/data/professions';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { userStore } from '@/stores';
     import { userState } from '@/user-home/state/user';
     import getSavedRoute from '@/utils/get-saved-route';
@@ -12,12 +12,13 @@
 
     import Sidebar from './Sidebar.svelte';
     import Table from './Table.svelte';
-    import { wowthingData } from '@/shared/stores/data';
 
     export let slug: string;
 
     const sortedProfessions = sortBy(
-        Object.values($staticStore.professions).filter((prof) => isCraftingProfession[prof.id]),
+        Array.from(wowthingData.static.professionById.values()).filter(
+            (prof) => isCraftingProfession[prof.id]
+        ),
         (prof) => [prof.type, prof.name]
     );
 
@@ -39,7 +40,9 @@
                     );
                     for (const reagent of ability.categoryReagents) {
                         for (const categoryId of reagent.categoryIds) {
-                            for (const itemId of $staticStore.reagentCategories[categoryId] || []) {
+                            for (const itemId of wowthingData.static.reagentCategoriesById.get(
+                                categoryId
+                            ) || []) {
                                 uniqueItemIds.add(itemId);
                             }
                         }

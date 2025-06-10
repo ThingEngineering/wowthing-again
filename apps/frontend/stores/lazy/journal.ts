@@ -14,7 +14,6 @@ import getFilteredItems from '@/utils/journal/get-filtered-items';
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import { isRecipeKnown } from '@/utils/professions/is-recipe-known';
 import { JournalDataEncounterItem, type UserQuestData } from '@/types/data';
-import type { StaticData } from '@/shared/stores/static/types';
 import type { Settings } from '@/shared/stores/settings/types';
 
 import type { JournalState } from '../local-storage';
@@ -27,7 +26,6 @@ export interface LazyJournal {
 interface LazyStores {
     settings: Settings;
     journalState: JournalState;
-    staticData: StaticData;
     userData: UserData;
     userQuestData: UserQuestData;
 }
@@ -390,7 +388,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                         if (group.name === 'Recipe') {
                             let aOrder = recipeOrder[a.id];
                             if (!aOrder) {
-                                const aSkillLine = stores.staticData.itemToSkillLine[a.id];
+                                const aSkillLine = wowthingData.static.itemToSkillLine[a.id];
                                 const [aProfession] =
                                     wowthingData.static.professionBySkillLineId.get(aSkillLine[0]);
                                 aOrder = recipeOrder[a.id] = professionOrderMap[aProfession?.id];
@@ -398,7 +396,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
 
                             let bOrder = recipeOrder[b.id];
                             if (!bOrder) {
-                                const bSkillLine = stores.staticData.itemToSkillLine[b.id];
+                                const bSkillLine = wowthingData.static.itemToSkillLine[b.id];
                                 const [bProfession] =
                                     wowthingData.static.professionBySkillLineId.get(bSkillLine[0]);
                                 bOrder = recipeOrder[b.id] = professionOrderMap[bProfession?.id];

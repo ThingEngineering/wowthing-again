@@ -1,5 +1,3 @@
-import { get } from 'svelte/store';
-
 import type {
     ManualDataSharedVendor,
     ManualDataSharedVendorSet,
@@ -12,14 +10,13 @@ import { FarmIdType } from '@/enums/farm-id-type';
 import { FarmResetType } from '@/enums/farm-reset-type';
 import { FarmType } from '@/enums/farm-type';
 import { RewardType } from '@/enums/reward-type';
-import { staticStore } from '@/shared/stores/static';
+import { wowthingData } from '@/shared/stores/data';
 import { getItemTypeAndSubtype } from '@/utils/items/get-item-type-and-subtype';
 
 import { DbResetType, DbThingContentType, DbThingType } from '../enums';
 import { DbDataThingLocation } from './thing-location';
 import { DbDataThingContent, type DbDataThingContentArray } from './thing-content';
 import { DbDataThingGroup, type DbDataThingGroupArray } from './thing-group';
-import { wowthingData } from '../../data/store.svelte';
 
 export class DbDataThing {
     public accountWide: boolean;
@@ -109,8 +106,6 @@ export class DbDataThing {
                 return;
             }
 
-            const staticData = get(staticStore);
-
             let minimumLevel = 0;
             const requiredQuestIds: number[] = [];
             const requirementIds = this.requirementIds || [];
@@ -152,7 +147,7 @@ export class DbDataThing {
 
                 if (type === RewardType.Item) {
                     // if this is an item that teaches a skill, add a profession skill limit
-                    const requiredSkillLine = staticData.itemToSkillLine[drop.id];
+                    const requiredSkillLine = wowthingData.static.itemToSkillLine[drop.id];
                     if (requiredSkillLine) {
                         const profession = wowthingData.static.professionBySkillLineId.get(
                             requiredSkillLine[0]

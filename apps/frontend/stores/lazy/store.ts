@@ -5,12 +5,10 @@ import type { DateTime } from 'luxon';
 
 import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
-import { staticStore } from '@/shared/stores/static';
 import { timeStore } from '@/shared/stores/time';
 import { UserCount } from '@/types';
 import { hashObject } from '@/utils/hash-object.svelte';
 import type { Settings } from '@/shared/stores/settings/types';
-import type { StaticData } from '@/shared/stores/static/types';
 import type { FancyStoreType, UserAchievementData, UserData } from '@/types';
 import type { UserQuestData } from '@/types/data';
 
@@ -109,8 +107,6 @@ export const lazyStore = derived(
 export class LazyStore {
     private settings: Settings;
 
-    private staticData: StaticData;
-
     // private userAchievementData: UserAchievementData;
     // private userData: UserData;
     // private userQuestData: UserQuestData;
@@ -183,8 +179,6 @@ export class LazyStore {
         const changedHashes = Object.fromEntries(changedEntries);
         this.hashes = newHashes;
 
-        const staticData = (this.staticData = get(staticStore));
-
         this.settings = settings;
 
         this.userDataId = userStore.id;
@@ -233,7 +227,6 @@ export class LazyStore {
                 doCharacters({
                     currentTime,
                     settings: this.settings,
-                    staticData: this.staticData,
                     userData,
                     userQuestData,
                     activeHolidays,
@@ -268,7 +261,6 @@ export class LazyStore {
                 doJournal({
                     settings,
                     journalState,
-                    staticData,
                     userData,
                     userQuestData,
                 })
@@ -288,7 +280,6 @@ export class LazyStore {
             this.transmogFunc = once(() =>
                 doTransmog({
                     settings,
-                    staticData,
                     userAchievementData,
                     userData,
                     userQuestData,
@@ -322,7 +313,6 @@ export class LazyStore {
                     doZoneMaps({
                         settings,
                         zoneMapState,
-                        staticData,
                         userData,
                         userAchievementData,
                         userQuestData,

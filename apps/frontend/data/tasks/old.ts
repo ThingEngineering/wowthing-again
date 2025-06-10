@@ -1,5 +1,3 @@
-import { get } from 'svelte/store';
-
 import { Constants } from '@/data/constants';
 import {
     dragonflightProfessions,
@@ -9,7 +7,6 @@ import {
 import { Holiday } from '@/enums/holiday';
 import { Profession } from '@/enums/profession';
 import { DbResetType } from '@/shared/stores/db/enums';
-import { staticStore } from '@/shared/stores/static';
 import { userQuestStore } from '@/stores';
 import type { Character } from '@/types';
 import type { TaskProfession } from '@/types/data';
@@ -970,7 +967,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskName: 'Show Your Mettle',
             minimumLevel: 60,
             couldGetFunc: (char) =>
-                Object.values(get(staticStore).professions)
+                Array.from(wowthingData.static.professionById.values())
                     .filter((prof) => prof.type === 0)
                     .some(
                         (profession) =>

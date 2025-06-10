@@ -1,52 +1,57 @@
 <script lang="ts">
-    import { DateTime } from 'luxon'
+    import { DateTime } from 'luxon';
 
-    import { Constants } from '@/data/constants'
-    import { covenantFeatureOrder, covenantFeatureReputation } from '@/data/covenant'
-    import { staticStore } from '@/shared/stores/static'
-    import { timeStore } from '@/shared/stores/time'
-    import getPercentClass from '@/utils/get-percent-class'
-    import { basicTooltip } from '@/shared/utils/tooltips'
-    import { toNiceDuration, toNiceNumber } from '@/utils/formatting'
-    import type { Character, CharacterShadowlandsCovenant, CharacterShadowlandsCovenantFeature } from '@/types'
+    import { Constants } from '@/data/constants';
+    import { covenantFeatureOrder, covenantFeatureReputation } from '@/data/covenant';
+    import { timeStore } from '@/shared/stores/time';
+    import getPercentClass from '@/utils/get-percent-class';
+    import { basicTooltip } from '@/shared/utils/tooltips';
+    import { toNiceDuration, toNiceNumber } from '@/utils/formatting';
+    import type {
+        Character,
+        CharacterShadowlandsCovenant,
+        CharacterShadowlandsCovenantFeature,
+    } from '@/types';
 
-    import EmberCourt from './CharactersShadowlandsEmberCourt.svelte'
-    import PathOfAscension from './CharactersShadowlandsPathOfAscension.svelte'
-    import ReputationBar from '@/components/common/ReputationBar.svelte'
-    import Soulbind from './CharactersShadowlandsSoulbind.svelte'
-    import Soulshapes from './CharactersShadowlandsSoulshapes.svelte'
-    import Stitchyard from './necrolord/Stitchyard.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import EmberCourt from './CharactersShadowlandsEmberCourt.svelte';
+    import PathOfAscension from './CharactersShadowlandsPathOfAscension.svelte';
+    import ReputationBar from '@/components/common/ReputationBar.svelte';
+    import Soulbind from './CharactersShadowlandsSoulbind.svelte';
+    import Soulshapes from './CharactersShadowlandsSoulshapes.svelte';
+    import Stitchyard from './necrolord/Stitchyard.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character
-    export let covenantId: number
+    export let character: Character;
+    export let covenantId: number;
 
-    let characterCovenant: CharacterShadowlandsCovenant
+    let characterCovenant: CharacterShadowlandsCovenant;
     let features: {
-        feature: CharacterShadowlandsCovenantFeature,
-        key: string,
-        maxRank: number,
-        name: string,
-        rank: number,
-        researching: string
-    }[]
+        feature: CharacterShadowlandsCovenantFeature;
+        key: string;
+        maxRank: number;
+        name: string;
+        rank: number;
+        researching: string;
+    }[];
 
-    let anima: number
-    let progress: number
-    let renown: number
-    let souls: number
+    let anima: number;
+    let progress: number;
+    let renown: number;
+    let souls: number;
 
     $: {
-        characterCovenant = character.shadowlands?.covenants?.[covenantId]
-        
-        anima = characterCovenant?.anima ?? 0
-        renown = characterCovenant?.renown ?? 0
-        souls = characterCovenant?.souls ?? 0
-        progress = character.currencies?.[1889]?.quantity ?? 0
+        characterCovenant = character.shadowlands?.covenants?.[covenantId];
 
-        features = []
+        anima = characterCovenant?.anima ?? 0;
+        renown = characterCovenant?.renown ?? 0;
+        souls = characterCovenant?.souls ?? 0;
+        progress = character.currencies?.[1889]?.quantity ?? 0;
+
+        features = [];
         for (const [key, name, maxRank] of covenantFeatureOrder) {
-            const characterFeature = characterCovenant?.[key as keyof CharacterShadowlandsCovenant] as CharacterShadowlandsCovenantFeature
+            const characterFeature = characterCovenant?.[
+                key as keyof CharacterShadowlandsCovenant
+            ] as CharacterShadowlandsCovenantFeature;
 
             const featureData = {
                 feature: characterFeature,
@@ -55,26 +60,25 @@
                 name,
                 rank: 0,
                 researching: '',
-            }
+            };
 
             if (characterFeature) {
-                featureData.name = characterFeature.name
-                featureData.rank = characterFeature.rank
+                featureData.name = characterFeature.name;
+                featureData.rank = characterFeature.rank;
 
                 if (characterFeature.researchEnds > 0) {
-                    const ends: DateTime = DateTime.fromSeconds(characterFeature.researchEnds)
+                    const ends: DateTime = DateTime.fromSeconds(characterFeature.researchEnds);
                     if (ends <= $timeStore) {
-                        featureData.rank++
-                    }
-                    else {
-                        const duration = toNiceDuration(ends.diff($timeStore).toMillis())
-                        featureData.rank++
-                        featureData.researching = `<code class="status-shrug">${duration}</code> until&nbsp;`
+                        featureData.rank++;
+                    } else {
+                        const duration = toNiceDuration(ends.diff($timeStore).toMillis());
+                        featureData.rank++;
+                        featureData.researching = `<code class="status-shrug">${duration}</code> until&nbsp;`;
                     }
                 }
             }
 
-            features.push(featureData)
+            features.push(featureData);
         }
     }
 </script>
@@ -145,12 +149,10 @@
         <div class="info">
             <div class="info-row large info-icons">
                 <div class="info-icon" use:basicTooltip={`${renown} Renown`}>
-                    <WowthingImage
-                        name="spell/370359"
-                        size={40}
-                        border={2}
-                    />
-                    <span class="drop-shadow {getPercentClass(renown / Constants.maxRenown * 100)}">
+                    <WowthingImage name="spell/370359" size={40} border={2} />
+                    <span
+                        class="drop-shadow {getPercentClass((renown / Constants.maxRenown) * 100)}"
+                    >
                         {renown}
                     </span>
                 </div>
@@ -159,12 +161,8 @@
                     class="info-icon"
                     use:basicTooltip={`${progress.toLocaleString()} Adventure Campaign Progress`}
                 >
-                    <WowthingImage
-                        name="currency/1889"
-                        size={40}
-                        border={2}
-                    />
-                    <span class="drop-shadow {getPercentClass(progress / 20 * 100)}">
+                    <WowthingImage name="currency/1889" size={40} border={2} />
+                    <span class="drop-shadow {getPercentClass((progress / 20) * 100)}">
                         {toNiceNumber(progress)}
                     </span>
                 </div>
@@ -173,11 +171,7 @@
                     class="info-icon"
                     use:basicTooltip={`${souls.toLocaleString()} Redeemed Souls`}
                 >
-                    <WowthingImage
-                        name="currency/1810"
-                        size={40}
-                        border={2}
-                    />
+                    <WowthingImage name="currency/1810" size={40} border={2} />
                     <span class="drop-shadow">
                         {toNiceNumber(souls)}
                     </span>
@@ -187,11 +181,7 @@
                     class="info-icon"
                     use:basicTooltip={`${anima.toLocaleString()} Reservoir Anima`}
                 >
-                    <WowthingImage
-                        name="currency/1813"
-                        size={40}
-                        border={2}
-                    />
+                    <WowthingImage name="currency/1813" size={40} border={2} />
                     <span class="drop-shadow">
                         {toNiceNumber(anima)}
                     </span>
@@ -207,7 +197,10 @@
                         {#if featureData.researching}
                             {@html featureData.researching}
                         {/if}
-                        <span class="{getPercentClass(featureData.rank / featureData.maxRank * 100)}">Rank {featureData.rank}</span>
+                        <span
+                            class={getPercentClass((featureData.rank / featureData.maxRank) * 100)}
+                            >Rank {featureData.rank}</span
+                        >
                     </div>
                 </div>
 
@@ -220,43 +213,28 @@
 
                 {#if featureData.key === 'unique'}
                     {#if covenantId === 1}
-                        <PathOfAscension
-                            {character}
-                            feature={featureData.feature}
-                        />
+                        <PathOfAscension {character} feature={featureData.feature} />
                     {:else if covenantId === 2}
-                        <EmberCourt
-                            {character}
-                        />
+                        <EmberCourt {character} />
                     {:else if covenantId === 4}
-                        <Stitchyard
-                            {character}
-                            feature={featureData.feature}
-                        />
+                        <Stitchyard {character} feature={featureData.feature} />
                     {/if}
                 {/if}
 
-                {#if featureIndex < (features.length - 1)}
+                {#if featureIndex < features.length - 1}
                     <div class="spacer"></div>
                 {/if}
             {/each}
-
         </div>
 
         {#if covenantId === 3}
-            <Soulshapes
-                {character}
-            />
+            <Soulshapes {character} />
         {/if}
     </div>
 
     <div class="soulbinds">
-        {#each $staticStore.soulbinds[covenantId] as soulbind}
-            <Soulbind
-                {character}
-                {covenantId}
-                {soulbind}
-            />
-        {/each}
+        <!-- {#each $staticStore.soulbinds[covenantId] as soulbind}
+            <Soulbind {character} {covenantId} {soulbind} />
+        {/each} -->
     </div>
 </div>

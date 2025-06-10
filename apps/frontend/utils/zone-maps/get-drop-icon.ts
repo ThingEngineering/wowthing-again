@@ -14,13 +14,8 @@ import {
 } from '@/shared/icons/mappings';
 import { wowthingData } from '@/shared/stores/data';
 import type { ManualDataZoneMapDrop } from '@/types/data/manual';
-import type { StaticData } from '@/shared/stores/static/types';
 
-export function getDropIcon(
-    staticData: StaticData,
-    drop: ManualDataZoneMapDrop,
-    isCriteria: boolean
-): IconifyIcon {
+export function getDropIcon(drop: ManualDataZoneMapDrop, isCriteria: boolean): IconifyIcon {
     const manualData = wowthingData.manual;
 
     let icon: IconifyIcon;
@@ -46,7 +41,7 @@ export function getDropIcon(
         } else if (wowthingData.static.petByItemId.has(drop.id)) {
             icon = rewardTypeIcons[RewardType.Pet];
         } else if (wowthingData.items.teachesSpell[drop.id]) {
-            const [skillLineId] = staticData.itemToSkillLine[drop.id];
+            const [skillLineId] = wowthingData.static.itemToSkillLine[drop.id];
             const [profession] = wowthingData.static.professionBySkillLineId.get(skillLineId);
             icon = professionSlugIcons[profession.slug];
         } else if (drop.limit?.[0] === 'profession') {

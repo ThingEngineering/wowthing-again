@@ -1,7 +1,6 @@
 <script lang="ts">
     import { craftedTiers } from '@/data/crafted-gear';
     import { InventorySlot } from '@/enums/inventory-slot';
-    import { staticStore } from '@/shared/stores/static';
     import { wowthingData } from '@/shared/stores/data';
     import { getEnchantmentText } from '@/utils/get-enchantment-text';
     import { getItemUrl } from '@/utils/get-item-url';
@@ -181,7 +180,7 @@
                                 cls="quality2"
                                 text={getEnchantmentText(
                                     enchantId,
-                                    $staticStore.enchantments[enchantId]
+                                    wowthingData.static.enchantmentById.get(enchantId)
                                 )}
                             />
                         </span>

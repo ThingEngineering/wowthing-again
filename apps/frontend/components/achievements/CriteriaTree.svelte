@@ -3,7 +3,6 @@
     import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator';
     import { CriteriaType } from '@/enums/criteria-type';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import { achievementStore, userAchievementStore } from '@/stores';
     import type {
         AchievementDataAchievement,
@@ -120,11 +119,11 @@
                 criteria.type === CriteriaType.AccountKnowsPet ||
                 criteria.type === CriteriaType.ObtainPetThroughBattle
             ) {
-                const pet = $staticStore.petsByName[criteriaTree.description];
-                if (pet) {
-                    linkType = 'npc';
-                    linkId = pet.creatureId;
-                }
+                // const pet = $staticStore.petsByName[criteriaTree.description];
+                // if (pet) {
+                //     linkType = 'npc';
+                //     linkId = pet.creatureId;
+                // }
             }
 
             if (criteriaTree.description === 'Engineers and Archaeologists') {

@@ -2,7 +2,6 @@ import { costOrderMap } from '@/data/vendors';
 import { wowthingData } from '@/shared/stores/data';
 import { leftPad } from '@/utils/formatting';
 import { toNiceNumber } from '@/utils/formatting';
-import type { StaticData } from '@/shared/stores/static/types';
 
 type CurrencyArray = [string, number, string, number, number];
 

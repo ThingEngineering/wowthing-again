@@ -3,7 +3,6 @@
     import { weaponSubclassOrder, weaponSubclassToString } from '@/data/weapons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import getPercentClass from '@/utils/get-percent-class';
     import type { TransmogSlotData } from '@/stores/lazy/transmog';
     import type { ManualDataTransmogGroupData } from '@/types/data/manual';
@@ -26,7 +25,9 @@
     let completionist = $derived(settingsState.value.transmog.completionistMode);
 
     let setName = $derived.by(() => {
-        let name = set.transmogSetId ? $staticStore.transmogSets[set.transmogSetId].name : set.name;
+        let name = set.transmogSetId
+            ? wowthingData.static.transmogSetById.get(set.transmogSetId).name
+            : set.name;
         if (!name && set.itemsV2?.length === 1) {
             name = wowthingData.items.items[set.itemsV2[0]?.[0]]?.name;
         }

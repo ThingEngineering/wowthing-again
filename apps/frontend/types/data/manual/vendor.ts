@@ -2,7 +2,6 @@ import { Faction } from '@/enums/faction';
 import { RewardType } from '@/enums/reward-type';
 import { getCurrencyCostsString } from '@/utils/get-currency-costs';
 import type { ItemQuality } from '@/enums/item-quality';
-import type { StaticData } from '@/shared/stores/static/types/store';
 import type { UserCount } from '@/types';
 
 export type ManualDataVendorCategoryArray = [

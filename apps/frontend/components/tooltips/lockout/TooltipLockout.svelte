@@ -1,18 +1,18 @@
 <script lang="ts">
-    import { difficultyMap } from '@/data/difficulty'
-    import { staticStore } from '@/shared/stores/static'
-    import type { Character, CharacterLockout, Difficulty } from '@/types'
-    import type { StaticDataInstance } from '@/shared/stores/static/types'
+    import { difficultyMap } from '@/data/difficulty';
+    import { wowthingData } from '@/shared/stores/data';
+    import type { StaticDataInstance } from '@/shared/stores/static/types';
+    import type { Character, CharacterLockout, Difficulty } from '@/types';
 
-    export let character: Character
-    export let instanceId = 0
-    export let lockout: CharacterLockout
+    export let character: Character;
+    export let instanceId = 0;
+    export let lockout: CharacterLockout;
 
-    let instance: StaticDataInstance
-    let difficulty: Difficulty
+    let instance: StaticDataInstance;
+    let difficulty: Difficulty;
     $: {
-        instance = $staticStore.instances[lockout?.id || instanceId]
-        difficulty = difficultyMap[lockout?.difficulty]
+        instance = wowthingData.static.instanceById.get(lockout?.id || instanceId);
+        difficulty = difficultyMap[lockout?.difficulty];
     }
 </script>
 
@@ -35,7 +35,7 @@
     </h5>
     <table class="table-tooltip-lockout table-striped">
         <tbody>
-            {#each (lockout?.bosses || []) as boss}
+            {#each lockout?.bosses || [] as boss}
                 <tr class:status-success={boss.dead} class:status-fail={!boss.dead}>
                     <td class="boss-name">{boss.name}</td>
                     <td>{boss.dead ? 'Dead' : 'Alive'}</td>

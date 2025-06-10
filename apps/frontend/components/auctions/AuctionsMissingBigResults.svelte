@@ -12,7 +12,6 @@
     import { iconLibrary } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import { timeStore } from '@/shared/stores/time';
     import { basicTooltip, componentTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';
@@ -253,7 +252,7 @@
 
 <UnderConstruction />
 
-{#await slug1 === 'missing-recipes' ? userAuctionMissingRecipeStore.search(settingsState.value, $auctionState, $staticStore, $userStore) : userAuctionMissingTransmogStore.search(settingsState.value, $auctionState, $userStore, slug1.replace('missing-appearance-', ''))}
+{#await slug1 === 'missing-recipes' ? userAuctionMissingRecipeStore.search(settingsState.value, $auctionState, $userStore) : userAuctionMissingTransmogStore.search(settingsState.value, $auctionState, $userStore, slug1.replace('missing-appearance-', ''))}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then [things, updated]}
     {#if things.length > 0}
@@ -283,7 +282,8 @@
                         <thead>
                             {#if slug1 === 'missing-recipes' && $auctionState.missingRecipeProfessionId === -2}
                                 {@const skillLineId =
-                                    $staticStore.itemToSkillLine[auctions[0].itemId]?.[0] || 0}
+                                    wowthingData.static.itemToSkillLine[auctions[0].itemId]?.[0] ||
+                                    0}
                                 {@const profession =
                                     wowthingData.static.professionBySkillLineId.get(
                                         skillLineId

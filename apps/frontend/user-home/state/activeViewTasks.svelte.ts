@@ -3,7 +3,7 @@ import { get } from 'svelte/store';
 import { holidayIds } from '@/data/holidays';
 import { multiTaskMap, taskMap } from '@/data/tasks';
 import { settingsState } from '@/shared/state/settings.svelte';
-import { staticStore } from '@/shared/stores/static';
+import { wowthingData } from '@/shared/stores/data';
 import { lazyStore } from '@/stores';
 import type { Chore } from '@/types/tasks';
 
@@ -12,7 +12,6 @@ import { activeHolidays } from './activeHolidays.svelte';
 class ActiveViewTasks {
     value = $derived.by(() => {
         const lazyStoreValue = get(lazyStore);
-        const staticStoreValue = get(staticStore);
 
         const activeTasks: string[] = [];
         const choreKeys = new Set(
@@ -35,7 +34,7 @@ class ActiveViewTasks {
                 continue;
             }
 
-            if (!activeHolidays.value[taskName] && staticStoreValue.holidayIds[taskName]) {
+            if (!activeHolidays.value[taskName] && wowthingData.static.holidayIds.get(taskName)) {
                 continue;
             }
 

@@ -24,7 +24,7 @@ export interface LazyAppearances {
 }
 
 export function doAppearances(stores: LazyStores): LazyAppearances {
-    const appearanceData = buildAppearanceData(stores);
+    const appearanceData = buildAppearanceData();
 
     const ret: LazyAppearances = {
         appearances: appearanceData,
@@ -87,7 +87,7 @@ export function doAppearances(stores: LazyStores): LazyAppearances {
     return ret;
 }
 
-function buildAppearanceData(stores: LazyStores): Record<string, AppearanceDataSet[]> {
+function buildAppearanceData(): Record<string, AppearanceDataSet[]> {
     console.time('buildAppearanceData');
 
     const byExpansion: Record<number, Record<string, AppearanceDataSet>> = Object.fromEntries(
