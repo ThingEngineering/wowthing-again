@@ -34,7 +34,8 @@
     }
 </style>
 
-{#each filteredLockouts as { difficulty, instanceId } (`${difficulty}|${instanceId}`)}
+{#each filteredLockouts as instanceDifficulty (instanceDifficulty)}
+    {@const { difficulty, instanceId } = instanceDifficulty}
     {@const instance = wowthingData.static.instanceById.get(instanceId)}
     {@const sortField = `lockout:${instanceId}-${difficulty?.id || 0}`}
     <td
