@@ -6,8 +6,6 @@
     import { ArmorType } from '@/enums/armor-type';
     import { RewardType } from '@/enums/reward-type';
     import { farmTypeIcons } from '@/shared/icons/mappings';
-    import { staticStore } from '@/shared/stores/static';
-    import { wowthingData } from '@/shared/stores/data';
     import { leftPad } from '@/utils/formatting';
     import { getDropData, getDropIcon } from '@/utils/zone-maps';
     import type { ManualDataZoneMapFarm } from '@/types/data/manual';
@@ -120,7 +118,7 @@
                     {#each dropIndexes.slice(0, dropCount) as dropIndex, dataIndex}
                         {@const drop = farms[0].drops[dropIndex]}
                         {@const dropData = dropDatas[dataIndex]}
-                        {@const icon = getDropIcon($staticStore, drop, false)}
+                        {@const icon = getDropIcon(drop, false)}
                         <div>
                             <IconifyIcon {icon} />
                             <span class="quality{dropData.quality}">

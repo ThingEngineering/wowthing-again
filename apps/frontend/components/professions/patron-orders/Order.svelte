@@ -2,11 +2,12 @@
     import { DateTime } from 'luxon';
 
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import { timeStore } from '@/shared/stores/time';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { lazyStore } from '@/stores';
     import { toNiceDuration, toNiceNumber } from '@/utils/formatting';
+    import type { StaticDataProfessionAbility } from '@/shared/stores/static/types';
+    import type { LazyCharacterProfessions } from '@/stores/lazy/character';
     import type { Character, CharacterPatronOrder } from '@/types/character';
 
     import type { CommodityData } from './auction-store';
@@ -14,8 +15,6 @@
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import type { LazyCharacterProfessions } from '@/stores/lazy/character';
-    import type { StaticDataProfessionAbility } from '@/shared/stores/static/types';
 
     export let character: Character;
     export let commodities: CommodityData = undefined;
@@ -44,7 +43,8 @@
                 .toMillis();
 
             for (const reagent of ability.categoryReagents) {
-                const itemIds = $staticStore.reagentCategories[reagent.categoryIds[0]] || [];
+                const itemIds =
+                    wowthingData.static.reagentCategoriesById.get(reagent.categoryIds[0]) || [];
                 if (itemIds.some((itemId) => providedReagents[itemId] !== undefined)) {
                     continue;
                 }
@@ -205,7 +205,9 @@
             {/each}
 
             {#each ability.categoryReagents as abilityReagent}
-                {@const category = $staticStore.reagentCategories[abilityReagent.categoryIds[0]]}
+                {@const category = wowthingData.static.reagentCategoriesById.get(
+                    abilityReagent.categoryIds[0]
+                )}
                 {#if category}
                     {@const provided = category.reduce((a, b) => a + (providedReagents[b] || 0), 0)}
                     <div

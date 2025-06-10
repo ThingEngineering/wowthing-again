@@ -8,7 +8,6 @@ import {
     UserAuctionDataMissingRecipeAuction,
 } from '@/types/data';
 import type { UserData } from '@/types';
-import type { StaticData } from '@/shared/stores/static/types';
 import type { AuctionState } from '../local-storage';
 import type { UserAuctionEntry } from '../user-auctions';
 import type { Settings } from '@/shared/stores/settings/types';
@@ -20,7 +19,6 @@ export class UserAuctionMissingRecipeDataStore {
     async search(
         settings: Settings,
         auctionState: AuctionState,
-        staticData: StaticData,
         userData: UserData
     ): Promise<[UserAuctionEntry[], Record<number, number>]> {
         let things: UserAuctionEntry[] = [];
@@ -116,7 +114,7 @@ export class UserAuctionMissingRecipeDataStore {
             const meetsDontHave = auctionState.showDontHave || thing.hasItems.length > 0;
             const meetsHave = auctionState.showHave || thing.hasItems.length === 0;
 
-            const [skillLineId] = staticData.itemToSkillLine[item.id];
+            const [skillLineId] = wowthingData.static.itemToSkillLine[item.id];
             const [profession, skillLineExpansion] =
                 wowthingData.static.professionBySkillLineId.get(skillLineId);
 
@@ -164,7 +162,7 @@ export class UserAuctionMissingRecipeDataStore {
                             (item.hordeOnly && character.faction === Faction.Horde);
                     }
 
-                    const requiredAbility = staticData.itemToRequiredAbility[item.id];
+                    const requiredAbility = wowthingData.static.itemToRequiredAbility[item.id];
                     if (professionSpecializationSpells[requiredAbility]) {
                         const charSpecialization =
                             character.professionSpecializations[profession.id];

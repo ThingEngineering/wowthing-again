@@ -30,7 +30,6 @@ import {
 } from '@/types';
 import type { Settings } from '@/shared/stores/settings/types';
 import type {
-    StaticData,
     StaticDataProfessionAbility,
     StaticDataProfessionCategory,
     StaticDataSubProfessionTraitNode,
@@ -106,7 +105,6 @@ interface LazyStores {
     activeHolidays: ActiveHolidays;
     currentTime: DateTime;
     settings: Settings;
-    staticData: StaticData;
     userData: UserData;
     userQuestData: UserQuestData;
 }
@@ -218,8 +216,7 @@ class ProcessCharacterProfessions {
                 continue;
             }
 
-            const requiredAbility =
-                this.stores.staticData.itemToRequiredAbility[ability.itemIds[0]];
+            const requiredAbility = wowthingData.static.itemToRequiredAbility[ability.itemIds[0]];
             if (professionSpecializationSpells[requiredAbility]) {
                 const charSpecialization =
                     this.character.professionSpecializations[this.currentProfession.professionId];

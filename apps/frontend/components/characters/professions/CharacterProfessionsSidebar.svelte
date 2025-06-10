@@ -19,7 +19,10 @@
             return {
                 name: expansion.name,
                 slug: expansion.slug,
-                children: subProfession?.traitTrees ? [{ name: 'Traits', slug: 'traits' }] : [],
+                children:
+                    subProfession?.traitTrees?.length > 0
+                        ? [{ name: 'Traits', slug: 'traits' }]
+                        : [],
             };
         });
     }

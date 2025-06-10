@@ -44,20 +44,28 @@ import {
     type StaticDataWorldQuestArray,
 } from '../../static/types';
 import { wowthingData } from '../store.svelte';
+import type { StaticDataEnchantment } from '../../static/types/enchantment';
 
 export interface RawStatic {
     characterClasses: Record<number, StaticDataCharacterClass>;
     characterRaces: Record<number, StaticDataCharacterRace>;
     characterSpecializations: Record<number, StaticDataCharacterSpecialization>;
+    enchantments: Record<number, StaticDataEnchantment>;
+    enchantmentStrings: Record<string, number[]>;
+    enchantmentValues: Record<number, number[]>;
     heirlooms: Record<number, StaticDataHeirloom>;
+    holidayIds: Record<string, number[]>;
     illusions: Record<number, StaticDataIllusion>;
     inventorySlots: Record<number, string>;
     inventoryTypes: Record<number, string>;
+    itemToRequiredAbility: Record<number, number>; // hardcoded
+    itemToSkillLine: Record<number, [number, number]>; // [requiredSkill, requiredSkillRank]
     keystoneAffixes: Record<number, StaticDataKeystoneAffix>;
     questNames: Record<number, string>;
     reagentCategories: Record<number, number[]>;
     reputationTiers: Record<number, StaticDataReputationTier>;
     sharedStrings: Record<number, string>;
+    skillLineAbilityItems: Record<number, number[]>; // skillLineId -> [itemIds]
 
     rawBags: StaticDataBagArray[];
     rawCampaigns: StaticDataCampaignArray[];
@@ -83,6 +91,7 @@ export class DataStatic {
     public characterRaceById: Map<number, StaticDataCharacterRace>;
     public characterSpecializationById: Map<number, StaticDataCharacterSpecialization>;
     public heirloomById: Map<number, StaticDataHeirloom>;
+    public holidayIds = new Map<string, number[]>();
     public illusionById: Map<number, StaticDataIllusion>;
     public inventorySlotById: Map<number, string>;
     public inventoryTypeById: Map<number, string>;
@@ -91,6 +100,10 @@ export class DataStatic {
     public reagentCategoriesById: Map<number, number[]>;
     public reputationTierById: Map<number, StaticDataReputationTier>;
     public sharedStringById: Map<number, string>;
+
+    public itemToRequiredAbility: Record<number, number>; // hardcoded
+    public itemToSkillLine: Record<number, [number, number]>; // [requiredSkill, requiredSkillRank]
+    public skillLineAbilityItems: Record<number, number[]>; // skillLineId -> [itemIds]
 
     // Raw
     public bagById: Map<number, StaticDataBag>;
@@ -118,7 +131,10 @@ export class DataStatic {
         StaticDataCharacterSpecialization[]
     >();
     public connectedRealmById = new Map<number, StaticDataConnectedRealm>();
+    public currencyCategoryBySlug = new Map<string, StaticDataCurrencyCategory>();
+    public enchantmentById = new Map<number, StaticDataEnchantment>();
     public heirloomByItemId = new Map<number, StaticDataHeirloom>();
+    public holidayIdToKeys = new Map<number, string[]>();
     public illusionByEnchantmentId = new Map<number, StaticDataIllusion>();
     public keystoneAffixBySlug = new Map<string, StaticDataKeystoneAffix>();
     public mountByItemId = new Map<number, StaticDataMount>();
@@ -144,12 +160,13 @@ export class DataStatic {
             this.professionBySlug.set(profession.slug, profession);
 
             for (let i = 0; i < profession.subProfessions.length; i++) {
-                this.professionBySkillLineId.set(profession.subProfessions[i].id, [profession, i]);
+                const subProfession = profession.subProfessions[i];
+                this.professionBySkillLineId.set(subProfession.id, [profession, i]);
 
                 this.recurseProfession(
                     profession.categories[i],
                     profession.id,
-                    profession.subProfessions[i].id,
+                    subProfession.id,
                     spellToItem
                 );
             }

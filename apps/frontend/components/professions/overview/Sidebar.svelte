@@ -1,7 +1,7 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
@@ -20,7 +20,7 @@
             null,
         ];
 
-        const sorted = sortBy(Object.values($staticStore.professions), (prof) => [
+        const sorted = sortBy(Array.from(wowthingData.static.professionById.values()), (prof) => [
             prof.type,
             prof.name,
         ]);

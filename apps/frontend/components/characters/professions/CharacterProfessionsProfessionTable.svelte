@@ -3,7 +3,6 @@
     import { Faction } from '@/enums/faction';
     import { uiIcons } from '@/shared/icons';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import { userQuestStore } from '@/stores';
     import { charactersState } from '@/stores/local-storage';
     import type {
@@ -33,7 +32,7 @@
         abilities = [];
         hasRanks = false;
         for (const ability of filteredCategories[category.id] || []) {
-            let requiredAbility = $staticStore.itemToRequiredAbility[ability.itemIds[0]];
+            let requiredAbility = wowthingData.static.itemToRequiredAbility[ability.itemIds[0]];
             if (!professionSpecializationSpells[requiredAbility]) {
                 requiredAbility = 0;
             }

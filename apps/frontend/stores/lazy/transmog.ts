@@ -5,10 +5,8 @@ import { ItemQuality } from '@/enums/item-quality';
 import { wowthingData } from '@/shared/stores/data';
 import { UserCount, type UserAchievementData, type UserData } from '@/types';
 import { fixedInventoryType } from '@/utils/fixed-inventory-type';
-import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import getSkipClasses from '@/utils/get-skip-classes';
 import type { Settings } from '@/shared/stores/settings/types';
-import type { StaticData } from '@/shared/stores/static/types';
 import type { UserQuestData } from '@/types/data';
 import type { ManualDataTransmogCategory } from '@/types/data/manual';
 
@@ -26,7 +24,6 @@ export interface LazyTransmog {
 
 interface LazyStores {
     settings: Settings;
-    staticData: StaticData;
     userAchievementData: UserAchievementData;
     userData: UserData;
     userQuestData: UserQuestData;
@@ -176,8 +173,9 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                             ensembleStats = ret.stats[`ensemble:${groupSigh.transmogSetId}`] =
                                 new UserCount();
 
-                            const transmogSet =
-                                stores.staticData.transmogSets[groupSigh.transmogSetId];
+                            const transmogSet = wowthingData.static.transmogSetById.get(
+                                groupSigh.transmogSetId
+                            );
                             if (!transmogSet) {
                                 console.warn('Invalid transmog set ID', groupSigh.transmogSetId);
                                 continue;
@@ -345,9 +343,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
     } // categories of wowthingData.manual.transmog.sets
 
     // generate stats for any transmog sets not seen in manual sets
-    for (const [transmogSetId, transmogSet] of getNumberKeyedEntries(
-        stores.staticData.transmogSets
-    )) {
+    for (const [transmogSetId, transmogSet] of wowthingData.static.transmogSetById.entries()) {
         const setKey = `transmogSet:${transmogSetId}`;
         if (ret.stats[setKey]) {
             continue;

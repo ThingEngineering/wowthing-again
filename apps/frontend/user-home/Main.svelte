@@ -6,7 +6,6 @@
     import { sharedState } from '@/shared/state/shared.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { staticStore } from '@/shared/stores/static';
     import { timeStore } from '@/shared/stores/time';
     import { userAchievementStore, userQuestStore, userStore } from '@/stores';
     import { worldQuestStore } from '@/user-home/components/world-quests/store';
@@ -25,10 +24,7 @@
     onMount(async () => {
         sharedState.public = userStore.dataUrl.includes('/public-');
 
-        await Promise.all([
-            staticStore.fetch({ language: settingsState.value.general.language }),
-            wowthingData.fetch(settingsState.value.general.language),
-        ]);
+        await wowthingData.fetch(settingsState.value.general.language);
 
         await Promise.all([
             userAchievementStore.fetch(),
@@ -38,7 +34,6 @@
             worldQuestStore.fetch(Region.EU),
         ]);
 
-        staticStore.setup();
         userStore.setup(settingsState.value, $userStore);
         // FIX: should likely be derived
         userQuestStore.setup($timeStore);

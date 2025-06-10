@@ -7,7 +7,6 @@
     import { iconLibrary } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import { lazyStore, userQuestStore, userStore } from '@/stores';
     import { newNavState, professionsRecipesState } from '@/stores/local-storage';
     import { basicTooltip } from '@/shared/utils/tooltips';
@@ -87,10 +86,10 @@
                 includeTrainerRecipes ||
                 (ability.source !== SkillSourceType.Trainer &&
                     ability.source !== SkillSourceType.Discovery &&
-                    !!$staticStore.skillLineAbilityItems[ability.id])
+                    !!wowthingData.static.skillLineAbilityItems[ability.id])
         );
         return sortBy(filteredAbilities, (ability) => {
-            const hasItems = !!$staticStore.skillLineAbilityItems[ability.id];
+            const hasItems = !!wowthingData.static.skillLineAbilityItems[ability.id];
             const item = wowthingData.items.items[ability.itemIds[0] || 0];
             return [
                 hasItems ? 0 : 1,
@@ -202,7 +201,7 @@
                 </tr>
 
                 {#each abilities as ability}
-                    {@const recipes = $staticStore.skillLineAbilityItems[ability.id]}
+                    {@const recipes = wowthingData.static.skillLineAbilityItems[ability.id]}
                     {@const recipeItem = wowthingData.items.items[recipes?.[0]]}
                     <tr data-id={ability.id}>
                         <td class="source">

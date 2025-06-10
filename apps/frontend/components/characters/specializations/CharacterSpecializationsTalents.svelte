@@ -2,7 +2,6 @@
     import find from 'lodash/find';
 
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import { getGenderedName } from '@/utils/get-gendered-name';
     import type { Character } from '@/types';
 
@@ -12,15 +11,16 @@
     export let character: Character;
     export let specializationId: number;
 
-    let selectedTalent: number[];
-    $: {
-        selectedTalent = $staticStore.talents[specializationId].map((spellIds, tier) =>
-            find(
-                spellIds,
-                (spellId) => character.specializations?.[specializationId]?.[tier] === spellId
-            )
-        );
-    }
+    let selectedTalent: number[] = [];
+    // $: {
+    //     selectedTalent = [];
+    //     selectedTalent = $staticStore.talents[specializationId].map((spellIds, tier) =>
+    //         find(
+    //             spellIds,
+    //             (spellId) => character.specializations?.[specializationId]?.[tier] === spellId
+    //         )
+    //     );
+    // }
 </script>
 
 <style lang="scss">
@@ -67,7 +67,7 @@
             character.gender
         )}
     </h3>
-
+    <!-- 
     {#each $staticStore.talents[specializationId] as tier, tierIndex}
         <div class="tier" class:none-chosen={selectedTalent[tierIndex] === undefined}>
             {#each tier as spellId}
@@ -78,5 +78,5 @@
                 </div>
             {/each}
         </div>
-    {/each}
+    {/each} -->
 </div>

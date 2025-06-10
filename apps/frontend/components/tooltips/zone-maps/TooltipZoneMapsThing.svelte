@@ -13,7 +13,6 @@
     import { RewardType } from '@/enums/reward-type';
     import { rewardTypeIcons } from '@/shared/icons/mappings';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import { achievementStore, lazyStore, userAchievementStore, userStore } from '@/stores';
     import { leftPad } from '@/utils/formatting';
     import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
@@ -244,7 +243,7 @@
                             ? 'fail'
                             : 'success'}"
                     >
-                        <IconifyIcon icon={getDropIcon($staticStore, drop, isCriteria)} />
+                        <IconifyIcon icon={getDropIcon(drop, isCriteria)} />
                     </td>
                     <td class="name" class:status-success={!dropStatus.need}>
                         {#if drop.amount > 0}

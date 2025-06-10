@@ -1,16 +1,15 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
+    import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty';
     import { ignoredLockoutInstances } from '@/data/dungeon';
     import { expansionMap } from '@/data/expansion';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import { leftPad } from '@/utils/formatting';
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types';
 
     import MagicLists from '../../MagicLists.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
-    import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty';
 
     let { active, view = $bindable() }: { active: boolean; view: SettingsView } = $props();
 
@@ -21,7 +20,7 @@
         const ret: SettingsChoice[] = [];
 
         const sortedInstances = sortBy(
-            Object.values($staticStore.instances).filter(
+            Array.from(wowthingData.static.instanceById.values()).filter(
                 (instance) =>
                     instance !== null &&
                     !ignoredLockoutInstances[instance.id] &&

@@ -1,10 +1,9 @@
 import type { DateTime } from 'luxon';
-import { get } from 'svelte/store';
 
 import { holidayMap } from '@/data/holidays';
 import { Holiday } from '@/enums/holiday';
 import { timeState } from '@/shared/state/time.svelte';
-import { staticStore } from '@/shared/stores/static';
+import { wowthingData } from '@/shared/stores/data';
 import { userState } from '@/user-home/state/user';
 import type { StaticDataHoliday } from '@/shared/stores/static/types';
 
@@ -21,20 +20,19 @@ class ActiveHolidays {
         }
 
         const currentTime = timeState.time;
-        const staticData = get(staticStore);
 
         const regionMask = allRegions.reduce((a, b) => a + (1 << (b - 1)), 0);
         if (this.cachedTime[regionMask] === currentTime) {
             return this.cachedActive[regionMask];
         }
 
-        const filteredHolidays = Object.values(staticData.holidays).filter(
+        const filteredHolidays = Array.from(wowthingData.static.holidayById.values()).filter(
             (holiday) => holiday.regionMask === 0 || (holiday.regionMask & regionMask) > 0
         );
 
         const activeHolidays: ActiveHolidayMap = {};
         for (const holiday of filteredHolidays) {
-            const taskKeys = staticData.holidayIdToKeys[holiday.id];
+            const taskKeys = wowthingData.static.holidayIdToKeys.get(holiday.id);
             if (!taskKeys || taskKeys.every((key) => activeHolidays[key])) {
                 continue;
             }

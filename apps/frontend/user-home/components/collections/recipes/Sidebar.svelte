@@ -1,14 +1,14 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
+    import { expansionSlugMap } from '@/data/expansion';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { lazyStore } from '@/stores';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
 
     import ProgressBar from '@/components/common/ProgressBar.svelte';
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
-    import { expansionSlugMap } from '@/data/expansion';
 
     let sidebarItems: SidebarItem[];
     $: {
@@ -17,10 +17,10 @@
 
         const sortedExpansions = settingsState.expansions.slice();
         const sortedProfessions = sortBy(
-            Object.values($staticStore.professions).filter(
-                (prof) => prof.type === 0 || prof.slug === 'cooking' || prof.slug === 'fishing',
+            Array.from(wowthingData.static.professionById.values()).filter(
+                (prof) => prof.type === 0 || prof.slug === 'cooking' || prof.slug === 'fishing'
             ),
-            (prof) => [prof.type, prof.name],
+            (prof) => [prof.type, prof.name]
         );
 
         for (const profession of sortedProfessions) {
@@ -50,7 +50,7 @@
             };
 
             for (const profession of sortedProfessions.filter(
-                (prof) => byExpansion[expansion.id][prof.id],
+                (prof) => byExpansion[expansion.id][prof.id]
             )) {
                 expansionSidebarItem.children.push({
                     name: profession.name.split('|')[0],

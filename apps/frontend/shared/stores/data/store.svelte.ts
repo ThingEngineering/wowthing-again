@@ -85,6 +85,9 @@ class WowthingData {
 
         await Promise.all(promises);
 
+        // relies on item data
+        this.static.buildProfessionData();
+
         console.timeEnd('WowthingData.fetch');
 
         this.loaded = true;

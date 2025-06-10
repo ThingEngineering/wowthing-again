@@ -5,7 +5,6 @@
     import { Language } from '@/enums/language';
     import { Region } from '@/enums/region';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import { auctionStore } from '@/stores/auction';
 
     import Routes from './Routes.svelte';
@@ -20,15 +19,12 @@
 
         await Promise.all([
             auctionStore.fetch(),
-            staticStore.fetch(),
             wowthingData.fetch(Language.enUS, {
                 loadDb: false,
                 loadJournal: false,
                 loadManual: false,
             }),
         ]);
-
-        staticStore.setup();
 
         ready = true;
     });
