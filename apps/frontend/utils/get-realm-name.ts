@@ -1,8 +1,6 @@
-import { get } from 'svelte/store';
-
-import { staticStore } from '@/shared/stores/static';
+import { wowthingData } from '@/shared/stores/data';
 
 export default function getRealmName(realmId: number): string {
-    const realm = get(staticStore).realms[realmId];
+    const realm = wowthingData.static.realmById.get(realmId);
     return realm?.name ?? 'Honkstrasza';
 }

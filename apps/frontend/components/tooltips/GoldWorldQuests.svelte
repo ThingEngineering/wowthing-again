@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { zoneMap } from '@/user-home/components/world-quests/data';
-    import type { Character } from '@/types';
     import { toNiceDuration } from '@/utils/formatting';
+    import type { Character } from '@/types';
 
     export let active: [number, number, number, number][];
     export let character: Character;
@@ -48,7 +48,7 @@
                         >{zoneMap[zoneId]?.name || `Zone #${zoneId}`}</td
                     >
                     <td class="quest sized b-l text-overflow">
-                        {$staticStore.questNames[questId] || `Quest #${questId}`}
+                        {wowthingData.static.questNameById.get(questId) || `Quest #${questId}`}
                     </td>
                     <td class="gold sized b-l">{gold}g</td>
                 </tr>

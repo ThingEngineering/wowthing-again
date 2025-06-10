@@ -1,5 +1,8 @@
-﻿namespace Wowthing.Tool.Models.Professions;
+﻿using Wowthing.Tool.Converters.Professions;
 
+namespace Wowthing.Tool.Models.Professions;
+
+[JsonConverter(typeof(OutProfessionConverter))]
 public class OutProfession
 {
     public int Id { get; set; }
@@ -7,7 +10,6 @@ public class OutProfession
     public string Name { get; set; } = string.Empty;
     public string Slug { get; set; } = string.Empty;
 
+    public List<OutProfessionCategory> Categories { get; set; } = new();
     public List<OutSubProfession> SubProfessions { get; set; } = new();
-
-    public List<OutProfessionCategory> RawCategories { get; set; } = new();
 }

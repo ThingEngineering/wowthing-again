@@ -123,7 +123,9 @@
                 <span class="item-level pill abs-center">{equippedItem.itemLevel}</span>
 
                 {#if upgradeData?.[0] > 0}
-                    {@const upgradeString = $staticStore.sharedStrings[upgradeData[0]]}
+                    {@const upgradeString = wowthingData.static.sharedStringById.get(
+                        upgradeData[0]
+                    )}
                     {@const percent = (upgradeData[1] / upgradeData[2]) * 100}
                     <span
                         class="upgrade-level pill abs-center"

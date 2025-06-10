@@ -5,7 +5,9 @@
 
     import { ItemLocation } from '@/enums/item-location';
     import { ItemQuality } from '@/enums/item-quality';
-    import { itemSearchState, userStore } from '@/stores';
+    import { sharedState } from '@/shared/state/shared.svelte';
+    import { itemSearchState } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import type { ItemSearchResponseItem } from '@/types/items';
 
@@ -15,7 +17,6 @@
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte';
     import Select from '@/shared/components/forms/Select.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
-    import { sharedState } from '@/shared/state/shared.svelte';
 
     let response: ItemSearchResponseItem[] = $state([]);
 
@@ -38,7 +39,7 @@
         for (const item of response) {
             item.characters = sortBy(item.characters, (char) => [
                 1000000000 - char.count,
-                $userStore.characterMap[char.characterId].name,
+                userState.general.characterById[char.characterId].name,
             ]);
         }
     };

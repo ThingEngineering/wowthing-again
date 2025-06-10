@@ -41,13 +41,13 @@ export function getDropIcon(
             icon = iconLibrary.gameSpikedDragonHead;
         } else if (manualData.druidFormItemToQuest.get(drop.id)) {
             icon = iconLibrary.gameBearFace;
-        } else if (staticData.mountsByItem[drop.id]) {
+        } else if (wowthingData.static.mountByItemId.has(drop.id)) {
             icon = rewardTypeIcons[RewardType.Mount];
-        } else if (staticData.petsByItem[drop.id]) {
+        } else if (wowthingData.static.petByItemId.has(drop.id)) {
             icon = rewardTypeIcons[RewardType.Pet];
         } else if (wowthingData.items.teachesSpell[drop.id]) {
             const [skillLineId] = staticData.itemToSkillLine[drop.id];
-            const [profession] = staticData.professionBySkillLine[skillLineId];
+            const [profession] = wowthingData.static.professionBySkillLineId.get(skillLineId);
             icon = professionSlugIcons[profession.slug];
         } else if (drop.limit?.[0] === 'profession') {
             icon = professionSlugIcons[drop.limit[1]];

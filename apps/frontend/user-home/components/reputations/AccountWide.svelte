@@ -1,6 +1,5 @@
 <script lang="ts">
     import { getRenownData } from './get-renown-data';
-    import { staticStore } from '@/shared/stores/static';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';
     import type { ManualDataReputationSet } from '@/types/data/manual';
@@ -51,7 +50,6 @@
                     reputationsIndex,
                     reputationSetsIndex,
                     slug,
-                    staticData: $staticStore,
                     userData: $userStore,
                 })}
                 <div

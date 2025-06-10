@@ -1,9 +1,8 @@
 <script lang="ts">
-    import { staticStore } from '@/shared/stores/static';
-    import findReputationTier from '@/utils/find-reputation-tier';
     import { wowthingData } from '@/shared/stores/data';
-    import type { Character, ReputationTier } from '@/types';
+    import findReputationTier from '@/utils/find-reputation-tier';
     import type { StaticDataReputationTier } from '@/shared/stores/static/types';
+    import type { Character, ReputationTier } from '@/types';
 
     import ProgressBar from '@/components/common/ProgressBar.svelte';
 
@@ -16,7 +15,8 @@
         const have = character.reputations?.[reputationId] ?? 0;
         const reputation = wowthingData.static.reputationById.get(reputationId);
         const tiers: StaticDataReputationTier =
-            $staticStore.reputationTiers[reputation.tierId] || $staticStore.reputationTiers[0];
+            wowthingData.static.reputationTierById.get(reputation.tierId) ||
+            wowthingData.static.reputationTierById.get(0);
         tier = findReputationTier(tiers, have);
     }
 </script>

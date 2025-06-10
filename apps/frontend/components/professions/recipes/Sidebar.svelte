@@ -1,7 +1,7 @@
 <script lang="ts">
     import { isCraftingProfession } from '@/data/professions';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
@@ -9,7 +9,7 @@
     let categories: SidebarItem[];
     $: {
         const children: SidebarItem[] = [];
-        for (const profession of Object.values($staticStore.professions)) {
+        for (const profession of wowthingData.static.professionById.values()) {
             if (!isCraftingProfession[profession.id]) {
                 continue;
             }
@@ -21,7 +21,7 @@
         }
         children.sort((a, b) => a.slug.localeCompare(b.slug));
 
-        const cooking = Object.values($staticStore.professions).find((p) => p.slug === 'cooking');
+        const cooking = wowthingData.static.professionBySlug.get('cooking');
         children.push(null);
         children.push({
             name: `:profession-${cooking.id}: ${cooking.name.split('|')[0]}`,

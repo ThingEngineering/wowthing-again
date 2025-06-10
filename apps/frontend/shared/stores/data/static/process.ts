@@ -11,6 +11,7 @@ import {
     StaticDataInstance,
     StaticDataMount,
     StaticDataPet,
+    StaticDataProfession,
     StaticDataQuestInfo,
     StaticDataQuestLine,
     StaticDataRealm,
@@ -33,9 +34,15 @@ export function processStaticData(rawData: RawStatic): DataStatic {
     );
     data.heirloomById = new Map(getNumberKeyedEntries(cloneDeep(rawData.heirlooms)));
     data.illusionById = new Map(getNumberKeyedEntries(cloneDeep(rawData.illusions)));
+    data.inventorySlotById = new Map(getNumberKeyedEntries(cloneDeep(rawData.inventorySlots)));
+    data.inventoryTypeById = new Map(getNumberKeyedEntries(cloneDeep(rawData.inventoryTypes)));
     data.keystoneAffixById = new Map(getNumberKeyedEntries(cloneDeep(rawData.keystoneAffixes)));
     data.questNameById = new Map(getNumberKeyedEntries(cloneDeep(rawData.questNames)));
+    data.reagentCategoriesById = new Map(
+        getNumberKeyedEntries(cloneDeep(rawData.reagentCategories))
+    );
     data.reputationTierById = new Map(getNumberKeyedEntries(cloneDeep(rawData.reputationTiers)));
+    data.sharedStringById = new Map(getNumberKeyedEntries(cloneDeep(rawData.sharedStrings)));
 
     data.bagById = createObjects(rawData.rawBags, StaticDataBag);
     data.campaignById = createObjects(rawData.rawCampaigns, StaticDataCampaign);
@@ -48,6 +55,7 @@ export function processStaticData(rawData: RawStatic): DataStatic {
     data.instanceById = createObjects(rawData.instancesRaw, StaticDataInstance);
     data.mountById = createObjects(rawData.rawMounts, StaticDataMount);
     data.petById = createObjects(rawData.rawPets, StaticDataPet);
+    data.professionById = createObjects(rawData.rawProfessions, StaticDataProfession);
     data.questInfoById = createObjects(rawData.rawQuestInfo, StaticDataQuestInfo);
     data.questLineById = createObjects(rawData.rawQuestLines, StaticDataQuestLine);
     data.realmById = createObjects(rawData.rawRealms, StaticDataRealm);
@@ -79,6 +87,10 @@ export function processStaticData(rawData: RawStatic): DataStatic {
 
     for (const illusion of data.illusionById.values()) {
         data.illusionByEnchantmentId.set(illusion.enchantmentId, illusion);
+    }
+
+    for (const keystoneAffix of data.keystoneAffixById.values()) {
+        data.keystoneAffixBySlug.set(keystoneAffix.slug, keystoneAffix);
     }
 
     for (const mount of data.mountById.values()) {

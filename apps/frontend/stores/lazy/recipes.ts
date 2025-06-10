@@ -1,7 +1,7 @@
 import { Constants } from '@/data/constants';
 import { expansionMap, expansionOrder } from '@/data/expansion';
+import { wowthingData } from '@/shared/stores/data';
 import { UserCount } from '@/types';
-import type { StaticData } from '@/shared/stores/static/types';
 import type { UserData } from '@/types';
 import type { Settings } from '@/shared/stores/settings/types';
 
@@ -13,7 +13,6 @@ export class LazyRecipes {
 
 interface LazyStores {
     settings: Settings;
-    staticData: StaticData;
     userData: UserData;
 }
 
@@ -24,7 +23,7 @@ export function doRecipes(stores: LazyStores): LazyRecipes {
 
     const overallData = (ret.stats['OVERALL'] = new UserCount());
 
-    for (const profession of Object.values(stores.staticData.professions)) {
+    for (const profession of wowthingData.static.professionById.values()) {
         const professionKey = profession.slug;
         const professionData = (ret.stats[professionKey] = new UserCount());
 
@@ -36,7 +35,7 @@ export function doRecipes(stores: LazyStores): LazyRecipes {
                 : stores.userData.characters;
         for (const character of characters || []) {
             for (const subProfession of Object.values(
-                character?.professions?.[profession.id] || {},
+                character?.professions?.[profession.id] || {}
             )) {
                 for (const recipeId of subProfession.knownRecipes || []) {
                     allKnown.add(recipeId);
@@ -55,7 +54,7 @@ export function doRecipes(stores: LazyStores): LazyRecipes {
                 console.warn(
                     'Uhhhh this profession category has no expansion?',
                     profession,
-                    categoryIndex,
+                    categoryIndex
                 );
                 continue;
             }
@@ -84,7 +83,7 @@ export function doRecipes(stores: LazyStores): LazyRecipes {
                     // a multi-rank ability is collected if you know that specific rank OR
                     // any higher rank
                     ret.hasAbility[ability.id] = abilityIds.map((_, index) =>
-                        abilityIds.slice(index).some((abilityId) => allKnown.has(abilityId)),
+                        abilityIds.slice(index).some((abilityId) => allKnown.has(abilityId))
                     );
 
                     const abilityCount = abilityIds.length;

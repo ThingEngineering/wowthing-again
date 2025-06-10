@@ -4,7 +4,6 @@
 
     import { expansionMap } from '@/data/expansion';
     import { iconStrings, imageStrings } from '@/data/icons';
-    import { professionSlugToId } from '@/data/professions';
     import { weaponSubclassToString } from '@/data/weapons';
     import { ArmorType } from '@/enums/armor-type';
     import { FarmIdType } from '@/enums/farm-id-type';
@@ -12,10 +11,10 @@
     import { FarmType } from '@/enums/farm-type';
     import { LookupType } from '@/enums/lookup-type';
     import { RewardType } from '@/enums/reward-type';
-    import { achievementStore, lazyStore, userAchievementStore, userStore } from '@/stores';
     import { rewardTypeIcons } from '@/shared/icons/mappings';
     import { wowthingData } from '@/shared/stores/data';
     import { staticStore } from '@/shared/stores/static';
+    import { achievementStore, lazyStore, userAchievementStore, userStore } from '@/stores';
     import { leftPad } from '@/utils/formatting';
     import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
     import { getDropIcon, getDropName } from '@/utils/zone-maps';
@@ -259,9 +258,9 @@
                         {:else if drop.type === RewardType.Armor}
                             {ArmorType[drop.subType].toLowerCase()}
                             {#if drop.subType >= 1 && drop.subType <= 4}
-                                {$staticStore.inventoryTypes[
-                                    wowthingData.items.items[drop.id]?.inventoryType
-                                ].toLowerCase()}
+                                {wowthingData.static.inventoryTypeById
+                                    .get(wowthingData.items.items[drop.id]?.inventoryType)
+                                    .toLowerCase()}
                             {/if}
                         {:else if drop.type === RewardType.Weapon}
                             {weaponSubclassToString[drop.subType].toLowerCase()}
@@ -285,11 +284,11 @@
                                     {#if drop.limit[2]?.match(/^\d+$/)}
                                         {@const expansion =
                                             expansionMap[
-                                                $staticStore.professions[
-                                                    professionSlugToId[drop.limit[1]]
-                                                ].subProfessions.findIndex(
-                                                    (sub) => sub.id === parseInt(drop.limit[2])
-                                                )
+                                                wowthingData.static.professionBySlug
+                                                    .get(drop.limit[1])
+                                                    .subProfessions.findIndex(
+                                                        (sub) => sub.id === parseInt(drop.limit[2])
+                                                    )
                                             ]}
                                         [<span class="status-shrug"
                                             >{expansion.shortName.toLocaleLowerCase()}

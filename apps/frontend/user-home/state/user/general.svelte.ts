@@ -52,7 +52,6 @@ export class DataUserGeneral {
     public homeLockouts = $derived.by(() => this._homeLockouts());
 
     public process(userData: UserData): void {
-        console.log(userData);
         console.time('DataUserGeneral.process');
 
         this.accountMap = userData.accounts;

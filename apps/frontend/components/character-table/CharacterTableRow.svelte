@@ -23,8 +23,6 @@
         !character?.accountId || settingsState.value.accounts?.[character?.accountId]?.enabled
     );
     let commonFields = $derived(settingsState.activeView.commonFields);
-    // $: accountEnabled = !character?.accountId || $userStore.accounts[character?.accountId]?.enabled;
-    // $: commonFields = settingsState.activeView.commonFields;
 </script>
 
 <style lang="scss">

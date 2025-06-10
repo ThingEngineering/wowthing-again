@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon';
-import { get } from 'svelte/store';
 
 import { Constants } from '@/data/constants';
 import { slotOrder } from '@/data/inventory-slot';
@@ -8,7 +7,7 @@ import { Faction } from '@/enums/faction';
 import { InventorySlot } from '@/enums/inventory-slot';
 import { Profession } from '@/enums/profession';
 import { settingsState } from '@/shared/state/settings.svelte';
-import { staticStore } from '@/shared/stores/static';
+import { wowthingData } from '@/shared/stores/data';
 import { getBestItemLevels } from '@/utils/characters/get-best-item-levels';
 import { leftPad } from '@/utils/formatting';
 import { getCharacterLevel } from '@/utils/get-character-level';
@@ -60,7 +59,6 @@ import type { ContainsItems, HasNameAndRealm } from '../shared';
 import type { Account } from '../account';
 import type { CharacterAura } from './aura';
 import type { CharacterPatronOrder } from './patron-order';
-import { wowthingData } from '@/shared/stores/data';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Static
@@ -481,7 +479,6 @@ export class Character implements ContainsItems, HasNameAndRealm {
     get allProfessionAbilities(): Set<number> {
         if (this._professionKnownAbilities === undefined) {
             this._professionKnownAbilities = new Set<number>();
-            const staticData = get(staticStore);
 
             for (const profession of Object.values(this.professions || {})) {
                 for (const subProfession of Object.values(profession)) {
@@ -490,7 +487,8 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
                         // known abilities often only has the highest rank, backfill lower ranks
                         const { ability } =
-                            staticData.professionAbilityByAbilityId[knownAbilityId] || {};
+                            wowthingData.static.professionAbilityByAbilityId.get(knownAbilityId) ||
+                            {};
                         if (ability?.extraRanks && ability.id !== knownAbilityId) {
                             this._professionKnownAbilities.add(ability.id);
                             for (const [rankAbilityId] of ability.extraRanks) {

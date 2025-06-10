@@ -110,7 +110,7 @@
                             {#if type >= 100}
                                 {weaponSubclassToString[type - 100]}
                             {:else}
-                                {$staticStore.inventoryTypes[type]}
+                                {wowthingData.static.inventoryTypeById.get(type)}
                             {/if}
                             {#if completionist && slotItems?.length >= 2}
                                 <div

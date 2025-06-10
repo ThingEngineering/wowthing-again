@@ -3,7 +3,7 @@
     import { imageStrings } from '@/data/icons';
     import { professionIdToSlug } from '@/data/professions';
     import { Region } from '@/enums/region';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { getProfessionSortKey } from '@/utils/professions';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { settingsState } from '@/shared/state/settings.svelte';
@@ -19,12 +19,11 @@
     let professions: [StaticDataProfession, CharacterProfession, boolean][];
     $: {
         professions = [];
-        for (const professionId in $staticStore.professions) {
-            if (professionId === '794' && !settingsState.value.layout.includeArchaeology) {
+        for (const [professionId, profession] of wowthingData.static.professionById.entries()) {
+            if (professionId === 794 && !settingsState.value.layout.includeArchaeology) {
                 continue;
             }
 
-            const profession: StaticDataProfession = $staticStore.professions[professionId];
             if (profession?.type === professionType) {
                 if (profession.subProfessions.length > 0) {
                     let best: [CharacterProfession, number];
@@ -52,7 +51,7 @@
             }
         }
         professions.sort((a, b) =>
-            getProfessionSortKey(a[0]).localeCompare(getProfessionSortKey(b[0])),
+            getProfessionSortKey(a[0]).localeCompare(getProfessionSortKey(b[0]))
         );
     }
 </script>

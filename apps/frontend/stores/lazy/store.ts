@@ -118,12 +118,11 @@ export class LazyStore {
     private userDataId: number;
     private userQuestDataId: number;
 
-    private customizationsFunc: () => UserCounts;
-
     private achievementsFunc: () => LazyAchievements;
     private appearancesFunc: () => LazyAppearances;
     private charactersFunc: () => Record<string, LazyCharacter>;
     private convertibleFunc: () => LazyConvertible;
+    private customizationsFunc: () => UserCounts;
     private journalFunc: () => LazyJournal;
     private recipesFunc: () => LazyRecipes;
     private transmogFunc: () => LazyTransmog;
@@ -218,7 +217,6 @@ export class LazyStore {
                 doAppearances({
                     appearanceState,
                     settings: this.settings,
-                    staticData: this.staticData,
                     userData,
                 })
             );
@@ -281,7 +279,6 @@ export class LazyStore {
             this.recipesFunc = once(() =>
                 doRecipes({
                     settings,
-                    staticData,
                     userData,
                 })
             );
@@ -304,7 +301,6 @@ export class LazyStore {
                 doVendors({
                     settings,
                     vendorState,
-                    staticData,
                     userData,
                     userQuestData,
                     lazyTransmog: this.transmogFunc(),

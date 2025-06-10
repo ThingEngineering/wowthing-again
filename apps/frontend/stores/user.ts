@@ -8,22 +8,18 @@ import { slotOrder } from '@/data/inventory-slot';
 import { InventorySlot } from '@/enums/inventory-slot';
 import { ItemBonusType } from '@/enums/item-bonus-type';
 import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
-import { TypedArray } from '@/enums/typed-array';
 import { wowthingData } from '@/shared/stores/data';
 import { settingsState } from '@/shared/state/settings.svelte';
 import { sharedState } from '@/shared/state/shared.svelte';
-import { staticStore } from '@/shared/stores/static';
 import {
     Character,
     CharacterMythicPlusRunMember,
     Guild,
     UserDataCurrentPeriod,
-    UserDataPet,
     WritableFancyStore,
 } from '@/types';
 import { WarbankItem } from '@/types/items';
 import { userState } from '@/user-home/state/user';
-import base64ToRecord from '@/utils/base64';
 import getItemLevelQuality from '@/utils/get-item-level-quality';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { getDungeonScores } from '@/utils/mythic-plus/get-dungeon-scores';
@@ -35,7 +31,6 @@ import type {
     UserData,
 } from '@/types';
 import type { Settings } from '@/shared/stores/settings/types';
-import type { StaticData } from '@/shared/stores/static/types';
 import type { ItemDataItem } from '@/types/data/item';
 import type { ContainsItems, HasNameAndRealm, UserItem } from '@/types/shared';
 
@@ -69,24 +64,24 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         // Unpack packed data
         if (userData.mountsPacked !== null) {
-            userData.hasMount = base64ToRecord(TypedArray.Uint16, userData.mountsPacked);
+            // userData.hasMount = base64ToRecord(TypedArray.Uint16, userData.mountsPacked);
             userData.mountsPacked = null;
         }
 
         if (userData.toysPacked !== null) {
-            userData.hasToyById = base64ToRecord(TypedArray.Uint16, userData.toysPacked);
+            // userData.hasToyById = base64ToRecord(TypedArray.Uint16, userData.toysPacked);
             userData.toysPacked = null;
         }
 
         if (userData.petsRaw !== null) {
-            userData.pets = {};
-            userData.hasPet = {};
-            for (const petId in userData.petsRaw) {
-                userData.pets[petId] = userData.petsRaw[petId].map(
-                    (petArray) => new UserDataPet(...petArray)
-                );
-                userData.hasPet[petId] = true;
-            }
+            // userData.pets = {};
+            // userData.hasPet = {};
+            // for (const petId in userData.petsRaw) {
+            //     userData.pets[petId] = userData.petsRaw[petId].map(
+            //         (petArray) => new UserDataPet(...petArray)
+            //     );
+            //     userData.hasPet[petId] = true;
+            // }
             userData.petsRaw = null;
         }
 
@@ -169,8 +164,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     ): void {
         console.time('UserDataStore.setup');
 
-        const staticData = get(staticStore);
-
         this._itemCounts = {};
 
         // Initialize warbanks
@@ -216,7 +209,9 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         for (const guild of Object.values(userData.guildMap)) {
             this.initializeGuild(guild);
 
-            guild.realm = staticData.realms[guild.realmId] || staticData.realms[0];
+            guild.realm =
+                wowthingData.static.realmById.get(guild.realmId) ||
+                wowthingData.static.realmById.get(0);
 
             for (const [appearanceId, items] of getNumberKeyedEntries(guild.itemsByAppearanceId)) {
                 (userData.itemsByAppearanceId[appearanceId] ||= []).push([guild, items]);
@@ -233,7 +228,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         console.time('characters');
         const allLockouts: Record<string, [Character, CharacterLockout][]> = {};
         for (const character of userData.characters) {
-            this.initializeCharacter(staticData, userData, character);
+            this.initializeCharacter(userData, character);
 
             for (const [key, lockout] of Object.entries(character.lockouts || {})) {
                 // Addon gets the wrong ID for Uldir for some reason?
@@ -312,15 +307,15 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         // Toys
         userData.hasToy = {};
-        for (const toyIdString of Object.keys(userData.hasToyById)) {
-            const toyId = parseInt(toyIdString);
-            const toy = staticData.toysById[toyId];
-            if (toy) {
-                userData.hasToy[toy.itemId] = true;
-            } else {
-                console.error('Missing toy id', toyId);
-            }
-        }
+        // for (const toyIdString of Object.keys(userData.hasToyById)) {
+        //     const toyId = parseInt(toyIdString);
+        //     const toy = staticData.toysById[toyId];
+        //     if (toy) {
+        //         userData.hasToy[toy.itemId] = true;
+        //     } else {
+        //         console.error('Missing toy id', toyId);
+        //     }
+        // }
 
         // Transmog
         console.time('transmog');
@@ -352,11 +347,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         console.timeEnd('UserDataStore.setup');
     }
 
-    private initializeCharacter(
-        staticData: StaticData,
-        userData: UserData,
-        character: Character
-    ): void {
+    private initializeCharacter(userData: UserData, character: Character): void {
         // account
         character.account = this.value.accounts[character.accountId];
 

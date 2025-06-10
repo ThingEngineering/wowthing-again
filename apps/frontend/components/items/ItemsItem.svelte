@@ -7,7 +7,6 @@
     } from './convertible/data';
     import { Constants } from '@/data/constants';
     import { iconStrings } from '@/data/icons';
-    import { staticStore } from '@/shared/stores/static';
     import { wowthingData } from '@/shared/stores/data';
     import { getItemUrl } from '@/utils/get-item-url';
     import type { Character, CharacterGear } from '@/types';
@@ -234,7 +233,7 @@
         {:else}
             {@const upgradeData = getUpgradeData()}
             {#if upgradeData?.[0] > 0}
-                {@const upgradeString = $staticStore.sharedStrings[upgradeData[0]]}
+                {@const upgradeString = wowthingData.static.sharedStringById.get(upgradeData[0])}
                 {@const percent = (upgradeData[1] / upgradeData[2]) * 100}
                 <span
                     class="upgrade-level pill abs-center"

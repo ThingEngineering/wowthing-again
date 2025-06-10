@@ -88,8 +88,6 @@ class WowthingData {
         console.timeEnd('WowthingData.fetch');
 
         this.loaded = true;
-
-        console.log(this);
     }
 
     private async fetchAndProcess<TRawData, TData>(

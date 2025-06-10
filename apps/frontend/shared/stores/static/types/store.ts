@@ -19,7 +19,11 @@ import type { StaticDataInstance, StaticDataInstanceArray } from './instance';
 import type { StaticDataKeystoneAffix } from './keystone-affix';
 import type { StaticDataMount, StaticDataMountArray } from './mount';
 import type { StaticDataPet, StaticDataPetArray } from './pet';
-import type { StaticDataProfession, StaticDataProfessionAbilityInfo } from './profession';
+import type {
+    StaticDataProfession,
+    StaticDataProfessionAbilityInfo,
+    StaticDataProfessionArray,
+} from './profession';
 import type { StaticDataQuestInfo, StaticDataQuestInfoArray } from './quest-info';
 import type { StaticDataQuestLine, StaticDataQuestLineArray } from './quest-line';
 import type { StaticDataConnectedRealm, StaticDataRealm, StaticDataRealmArray } from './realm';
@@ -47,7 +51,6 @@ export interface StaticData {
 
     itemToRequiredAbility: Record<number, number>; // hardcoded
     itemToSkillLine: Record<number, [number, number]>; // [requiredSkill, requiredSkillRank]
-    professions: Record<number, StaticDataProfession>;
     skillLineAbilityItems: Record<number, number[]>; // skillLineId -> [itemIds]
 
     // Generated
@@ -94,6 +97,9 @@ export interface StaticData {
     petsByItem: Record<number, StaticDataPet>;
     petsByName: Record<string, StaticDataPet>;
     rawPets: StaticDataPetArray[];
+
+    professions: Record<number, StaticDataProfession>;
+    rawProfessions: StaticDataProfessionArray[];
 
     questInfo: Record<number, StaticDataQuestInfo>;
     rawQuestInfo: StaticDataQuestInfoArray[];

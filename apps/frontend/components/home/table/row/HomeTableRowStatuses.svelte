@@ -5,7 +5,6 @@
     import { openables } from '@/data/openables';
     import { contractAuras } from '@/data/reputation';
     import { durationAuras, staticAuras } from '@/data/spells';
-    import { staticStore } from '@/shared/stores/static';
     import { timeStore } from '@/shared/stores/time';
     import { wowthingData } from '@/shared/stores/data';
     import { toNiceDuration } from '@/utils/formatting';

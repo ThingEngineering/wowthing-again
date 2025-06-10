@@ -2,7 +2,7 @@
     import { expansionSlugMap } from '@/data/expansion';
     import { imageStrings } from '@/data/icons';
     import { isSecondaryProfession, professionIdToSlug } from '@/data/professions';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { lazyStore } from '@/stores';
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
@@ -24,7 +24,10 @@
         const professions: [StaticDataProfession, Record<number, CharacterProfession>][] =
             getNumberKeyedEntries(character.professions)
                 .filter(([id]) => !isSecondaryProfession[id])
-                .map(([id, charProfession]) => [$staticStore.professions[id], charProfession]);
+                .map(([id, charProfession]) => [
+                    wowthingData.static.professionById.get(id),
+                    charProfession,
+                ]);
         professions.sort((a, b) =>
             getProfessionSortKey(a[0]).localeCompare(getProfessionSortKey(b[0]))
         );

@@ -117,7 +117,8 @@ export class UserAuctionMissingRecipeDataStore {
             const meetsHave = auctionState.showHave || thing.hasItems.length === 0;
 
             const [skillLineId] = staticData.itemToSkillLine[item.id];
-            const [profession, skillLineExpansion] = staticData.professionBySkillLine[skillLineId];
+            const [profession, skillLineExpansion] =
+                wowthingData.static.professionBySkillLineId.get(skillLineId);
 
             const meetsExpansion =
                 auctionState.missingRecipeExpansion === -1 ||

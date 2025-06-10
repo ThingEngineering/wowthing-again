@@ -1,57 +1,54 @@
 <script lang="ts">
-    import { Constants } from '@/data/constants'
-    import { staticStore } from '@/shared/stores/static'
-    import { leftPad } from '@/utils/formatting'
+    import { Constants } from '@/data/constants';
+    import { wowthingData } from '@/shared/stores/data';
+    import { leftPad } from '@/utils/formatting';
     import {
         getRunQuality,
         getRunQualityAffix,
         getWeeklyAffixes,
-        isKeystoneUpgrade
-    } from '@/utils/mythic-plus'
-    import type { Character, CharacterMythicPlusAddonMapAffix, Dungeon } from '@/types'
-    import type { StaticDataKeystoneAffix } from '@/shared/stores/static/types'
+        isKeystoneUpgrade,
+    } from '@/utils/mythic-plus';
+    import type { StaticDataKeystoneAffix } from '@/shared/stores/static/types';
+    import type { Character, CharacterMythicPlusAddonMapAffix, Dungeon } from '@/types';
 
-    import AffixIcon from '@/shared/components/images/AffixIcon.svelte'
+    import AffixIcon from '@/shared/components/images/AffixIcon.svelte';
 
-    export let character: Character
-    export let dungeon: Dungeon
+    export let character: Character;
+    export let dungeon: Dungeon;
 
-    let affixes: StaticDataKeystoneAffix[]
-    let isUpgrade = false
-    let mapInfo: CharacterMythicPlusAddonMapAffix
-    let mapInfoAlt: CharacterMythicPlusAddonMapAffix
-    let mapInfos: [StaticDataKeystoneAffix, CharacterMythicPlusAddonMapAffix][]
-    let maxScoreIncrease = 0
-    let minScoreIncrease = 0
+    let affixes: StaticDataKeystoneAffix[];
+    let isUpgrade = false;
+    let mapInfo: CharacterMythicPlusAddonMapAffix;
+    let mapInfoAlt: CharacterMythicPlusAddonMapAffix;
+    let mapInfos: [StaticDataKeystoneAffix, CharacterMythicPlusAddonMapAffix][];
+    let maxScoreIncrease = 0;
+    let minScoreIncrease = 0;
     $: {
-        affixes = getWeeklyAffixes(character)
+        affixes = getWeeklyAffixes(character);
         if (affixes && dungeon) {
-            ({
-                isUpgrade,
-                mapInfo,
-                mapInfoAlt,
-                minScoreIncrease,
-                maxScoreIncrease
-            } = isKeystoneUpgrade(character, Constants.mythicPlusSeason, dungeon.id))
+            ({ isUpgrade, mapInfo, mapInfoAlt, minScoreIncrease, maxScoreIncrease } =
+                isKeystoneUpgrade(character, Constants.mythicPlusSeason, dungeon.id));
         }
 
-        mapInfos = []
+        mapInfos = [];
         if (affixes.length > 0) {
-            const otherAffix = $staticStore.keystoneAffixes[affixes[0].id === 9 ? 10 : 9]
+            const otherAffix = wowthingData.static.keystoneAffixById.get(
+                affixes[0].id === 9 ? 10 : 9
+            );
             if (affixes[0].slug === 'fortified') {
-                mapInfos.push([affixes[0], mapInfo])
-                mapInfos.push([otherAffix, mapInfoAlt])
+                mapInfos.push([affixes[0], mapInfo]);
+                mapInfos.push([otherAffix, mapInfoAlt]);
             } else {
-                mapInfos.push([otherAffix, mapInfoAlt])
-                mapInfos.push([affixes[0], mapInfo])
+                mapInfos.push([otherAffix, mapInfoAlt]);
+                mapInfos.push([affixes[0], mapInfo]);
             }
         }
     }
 
     const getPlus = (info: CharacterMythicPlusAddonMapAffix): string => {
-        const timedData = dungeon.getTimed(info?.durationSec * 1000)
-        return '+'.repeat(timedData?.plus || 0)
-    }
+        const timedData = dungeon.getTimed(info?.durationSec * 1000);
+        return '+'.repeat(timedData?.plus || 0);
+    };
 </script>
 
 <style lang="scss">
@@ -83,7 +80,7 @@
 
         padding: 0.5rem 0.5rem;
 
-        & :global(img:nth-child(n+2)) {
+        & :global(img:nth-child(n + 2)) {
             margin-left: 5px;
         }
     }
@@ -100,7 +97,7 @@
                 <tr>
                     <td colspan="2">
                         {dungeon.name}
-                        <span class="{getRunQuality(character.weekly.keystoneLevel)}">
+                        <span class={getRunQuality(character.weekly.keystoneLevel)}>
                             {character.weekly.keystoneLevel}
                         </span>
                     </td>
@@ -112,15 +109,21 @@
                             <div class="view">
                                 {#if info}
                                     {@const level = leftPad(info.level, 2)}
-                                    <div class="best-text" class:status-success={affix.id === affixes[0].id}>
+                                    <div
+                                        class="best-text"
+                                        class:status-success={affix.id === affixes[0].id}
+                                    >
                                         Best {affix.name} key:
                                     </div>
                                     <div class="best-key">
-                                        <code class="{getRunQualityAffix(info)}">{@html level}</code>
+                                        <code class={getRunQualityAffix(info)}>{@html level}</code>
                                     </div>
                                     <div class="best-plus">{getPlus(info)}</div>
                                 {:else}
-                                    <div class="best-text" class:status-success={affix.id === affixes[0].id}>
+                                    <div
+                                        class="best-text"
+                                        class:status-success={affix.id === affixes[0].id}
+                                    >
                                         No {affix.name} score!
                                     </div>
                                     <div class="best-key"></div>
@@ -130,7 +133,7 @@
                         {/each}
                     </td>
                 </tr>
-                
+
                 {#if isUpgrade}
                     <tr>
                         <td class="info" colspan="2">
@@ -139,7 +142,12 @@
                             {:else}
                                 <p>This key could be a score upgrade.</p>
                             {/if}
-                            <p>Expected score increase is <span class="score-increase status-success">{minScoreIncrease} - {maxScoreIncrease}</span></p>
+                            <p>
+                                Expected score increase is <span
+                                    class="score-increase status-success"
+                                    >{minScoreIncrease} - {maxScoreIncrease}</span
+                                >
+                            </p>
                         </td>
                     </tr>
                 {/if}

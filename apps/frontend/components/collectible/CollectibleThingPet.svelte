@@ -5,14 +5,13 @@
     import IntersectionObserver from 'svelte-intersection-observer';
 
     import { petBreedMap } from '@/data/pet-breed';
-    import { userStore } from '@/stores';
-    import type { UserDataPet } from '@/types';
+    import { userState } from '@/user-home/state/user';
+    import type { CollectibleState } from '@/shared/state/browser.svelte';
     import type { CollectibleContext } from '@/types/contexts';
 
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
     import NpcLink from '@/shared/components/links/NpcLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import type { CollectibleState } from '@/shared/state/browser.svelte';
 
     type Props = {
         collectibleState: CollectibleState;
@@ -26,9 +25,9 @@
     let element = $state<HTMLElement>(null);
     let intersected = $state(false);
 
-    let userHasThing = $derived(find(things, (petId) => $userStore.hasPet[petId] === true));
+    let userHasThing = $derived(find(things, (petId) => userState.general.hasPetById.has(petId)));
     let origId = $derived(userHasThing ?? things[0]);
-    let pets = $derived(userHasThing ? $userStore.pets[origId] : []);
+    let pets = $derived(userHasThing ? userState.general.petsById[origId] : []);
     let quality = $derived(maxBy(pets, (pet) => pet.quality)?.quality || 2);
     let showAsMissing = $derived(
         userHasThing ? collectibleState.highlightMissing : !collectibleState.highlightMissing

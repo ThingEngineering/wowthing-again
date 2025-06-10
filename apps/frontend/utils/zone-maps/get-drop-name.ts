@@ -1,16 +1,13 @@
-import find from 'lodash/find';
 import { get } from 'svelte/store';
 
 import { difficultyMap } from '@/data/difficulty';
 import { RewardType } from '@/enums/reward-type';
 import { achievementStore } from '@/stores';
 import { wowthingData } from '@/shared/stores/data';
-import { staticStore } from '@/shared/stores/static';
 import type { ManualDataZoneMapDrop } from '@/types/data/manual';
 
 export function getDropName(drop: ManualDataZoneMapDrop): string {
     const achievementData = get(achievementStore);
-    const staticData = get(staticStore);
 
     if (
         drop.type === RewardType.Item ||
@@ -30,27 +27,27 @@ export function getDropName(drop: ManualDataZoneMapDrop): string {
             return achievementData.achievement[drop.id]?.name ?? `Achievement #${drop.id}`;
         }
     } else if (drop.type === RewardType.Currency) {
-        return staticData.currencies[drop.id]?.name ?? `Currency #${drop.id}`;
+        const currency = wowthingData.static.currencyById.get(drop.id);
+        return currency?.name ?? `Currency #${drop.id}`;
     } else if (drop.type === RewardType.Illusion) {
         const enchantmentId = drop.appearanceIds[0][0];
-        const illusion = find(
-            Object.values(staticData.illusions || {}),
-            (illusion) => illusion.enchantmentId === enchantmentId
-        );
+        const illusion = wowthingData.static.illusionByEnchantmentId.get(enchantmentId);
         return illusion?.name || `Illusion #${enchantmentId}`;
     } else if (drop.type === RewardType.Mount) {
-        const mount = staticData.mounts[drop.id];
+        const mount = wowthingData.static.mountById.get(drop.id);
         return mount ? mount.name : `Unknown mount #${drop.id}`;
     } else if (drop.type === RewardType.Pet) {
-        const pet = staticData.pets[drop.id];
+        const pet = wowthingData.static.petById.get(drop.id);
         return pet ? pet.name : `Unknown pet #${drop.id}`;
     } else if (drop.type === RewardType.Quest || drop.type === RewardType.AccountQuest) {
-        return staticData.questNames[drop.id] || `Quest #${drop.id}`;
+        const questName = wowthingData.static.questNameById.get(drop.id);
+        return questName || `Quest #${drop.id}`;
     } else if (drop.type === RewardType.Reputation) {
-        return staticData.reputations[drop.id]?.name || `Reputation #${drop.id}`;
+        const reputation = wowthingData.static.reputationById.get(drop.id);
+        return reputation?.name || `Reputation #${drop.id}`;
     } else if (drop.type === RewardType.Toy) {
-        const toy = staticData.toys[drop.id];
-        return toy ? toy.name : `Unknown toy #${drop.id}`;
+        const toy = wowthingData.static.toyById.get(drop.id);
+        return toy?.name || `Unknown toy #${drop.id}`;
     } else if (drop.type === RewardType.XpQuest) {
         return 'Bonus XP';
     } else if (drop.type === RewardType.InstanceSpecial) {

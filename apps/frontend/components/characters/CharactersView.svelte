@@ -1,13 +1,13 @@
 <script lang="ts">
     import find from 'lodash/find';
-    import type { Component, ComponentType } from 'svelte';
+    import type { Component } from 'svelte';
     import { replace } from 'svelte-spa-router';
     import active from 'svelte-spa-router/active';
 
-    import { userStore } from '@/stores';
-    import { charactersState } from '@/stores/local-storage';
     import { Gender } from '@/enums/gender';
     import { Region } from '@/enums/region';
+    import { userState } from '@/user-home/state/user';
+    import { charactersState } from '@/stores/local-storage';
     import { splitOnce } from '@/utils/split-once';
     import type { Character, MultiSlugParams } from '@/types';
 
@@ -17,33 +17,35 @@
     import Shadowlands from './shadowlands/CharactersShadowlands.svelte';
     import Specializations from './specializations/CharactersSpecializations.svelte';
 
-    export let params: MultiSlugParams;
+    let { params }: { params: MultiSlugParams } = $props();
 
-    let baseUrl: string;
-    let character: Character;
-    $: {
-        baseUrl = `/characters/${params.slug1}/${params.slug2}`;
+    let baseUrl = $derived(`/characters/${params.slug1}/${params.slug2}`);
 
+    let character = $derived.by(() => {
         if (params.slug1 && params.slug2) {
             const [region, realm] = splitOnce(params.slug1, '-');
 
-            character = find(
-                $userStore.characters,
+            return find(
+                userState.general.characters,
                 (char: Character) =>
                     Region[char.realm.region].toLowerCase() === region &&
                     char.realm.slug === realm &&
-                    char.name === params.slug2,
+                    char.name === params.slug2
             );
-
-            if (!componentMap[params.slug3]) {
-                const stored = $charactersState.lastTab;
-
-                replace(`${baseUrl}/${stored || 'paperdoll'}`);
-            } else {
-                $charactersState.lastTab = params.slug3;
-            }
+        } else {
+            return null;
         }
-    }
+    });
+
+    $effect(() => {
+        if (!componentMap[params.slug3]) {
+            const stored = $charactersState.lastTab;
+
+            replace(`${baseUrl}/${stored || 'paperdoll'}`);
+        } else {
+            $charactersState.lastTab = params.slug3;
+        }
+    });
 
     const componentMap: Record<string, Component<any, any, any>> = {
         items: Items,
@@ -108,7 +110,7 @@
 
                 {#if character.guildId}
                     <span class="guild-name"
-                        >&lt;{$userStore.guildMap[character.guildId]?.name ||
+                        >&lt;{userState.general.guildMap[character.guildId]?.name ||
                             'Unknown Guild'}&gt;</span
                     >
                 {/if}

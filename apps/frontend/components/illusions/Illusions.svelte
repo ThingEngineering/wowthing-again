@@ -1,9 +1,6 @@
 <script lang="ts">
-    import find from 'lodash/find';
     import { afterUpdate } from 'svelte';
 
-    import { userStore } from '@/stores';
-    import { staticStore } from '@/shared/stores/static';
     import { illusionState } from '@/stores/local-storage';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
@@ -138,9 +135,8 @@
                         </h4>
                         <div class="collection-objects">
                             {#each group.items as item}
-                                {@const illusion = find(
-                                    $staticStore.illusions,
-                                    (illusion) => illusion.enchantmentId === item.enchantmentId
+                                {@const illusion = wowthingData.static.illusionByEnchantmentId.get(
+                                    item.enchantmentId
                                 )}
                                 {@const have = userState.general.hasIllusionByEnchantmentId.has(
                                     illusion.enchantmentId

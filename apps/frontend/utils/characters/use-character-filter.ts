@@ -1,10 +1,6 @@
 import { classByArmorType } from '@/data/character-class';
 import { Constants } from '@/data/constants';
-import {
-    isGatheringProfession,
-    isCraftingProfession,
-    professionSlugToId,
-} from '@/data/professions';
+import { isGatheringProfession, isCraftingProfession } from '@/data/professions';
 import { ArmorType } from '@/enums/armor-type';
 import { Faction } from '@/enums/faction';
 import { QuestStatus } from '@/enums/quest-status';
@@ -216,9 +212,11 @@ export function useCharacterFilter(
                             }
 
                             // Profession slug
-                            const professionSlug = professionSlugMap[part] || part;
-                            if (professionSlugToId[professionSlug]) {
-                                return !!char.professions?.[professionSlugToId[professionSlug]];
+                            const slugProfession = wowthingData.static.professionBySlug.get(
+                                professionSlugMap[part] || part
+                            );
+                            if (slugProfession) {
+                                return !!char.professions?.[slugProfession.id];
                             }
 
                             // Profession type

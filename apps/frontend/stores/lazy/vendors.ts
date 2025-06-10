@@ -1,5 +1,4 @@
 import intersectionWith from 'lodash/intersectionWith';
-import { get } from 'svelte/store';
 
 import { classByArmorType } from '@/data/character-class';
 import { pvpCurrencies } from '@/data/currencies';
@@ -24,7 +23,6 @@ import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
 import { userHasLookup } from '@/utils/rewards/user-has-lookup';
 import type { DbDataQuery } from '@/shared/stores/db/types';
 import type { Settings } from '@/shared/stores/settings/types';
-import type { StaticData } from '@/shared/stores/static/types';
 import type {
     ManualDataSharedVendor,
     ManualDataVendorCategory,
@@ -45,7 +43,6 @@ export interface LazyVendors {
 interface LazyStores {
     settings: Settings;
     vendorState: VendorState;
-    staticData: StaticData;
     userData: UserData;
     userQuestData: UserQuestData;
     lazyTransmog: LazyTransmog;
@@ -55,7 +52,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
     console.time('LazyStore.doVendors');
 
     for (const vendor of Object.values(wowthingData.manual.shared.vendors)) {
-        vendor.createFarmData(stores.staticData);
+        vendor.createFarmData();
     }
 
     const visitCategory = (category: ManualDataVendorCategory) => {
@@ -203,15 +200,15 @@ export function doVendors(stores: LazyStores): LazyVendors {
                             [groupKey, groupName] = ['00dragonriding', 'Dragonriding'];
                         } else if (wowthingData.manual.druidFormItemToQuest.has(item.id)) {
                             [groupKey, groupName] = ['00druids', 'Druids'];
-                        } else if (stores.staticData.mountsByItem[item.id]) {
+                        } else if (wowthingData.static.mountByItemId.has(item.id)) {
                             [groupKey, groupName] = ['00mounts', 'Mounts'];
-                        } else if (stores.staticData.petsByItem[item.id]) {
+                        } else if (wowthingData.static.petByItemId.has(item.id)) {
                             [groupKey, groupName] = ['00pets', 'Pets'];
-                        } else if (stores.staticData.toys[item.id]) {
+                        } else if (wowthingData.static.toyByItemId.has(item.id)) {
                             [groupKey, groupName] = ['00toys', 'Toys'];
                         } else if (wowthingData.items.completesQuest[item.id]) {
                             [groupKey, groupName] = ['10misc', 'Misc'];
-                        } else if (stores.staticData.professionAbilityByItemId[item.id]) {
+                        } else if (wowthingData.static.professionAbilityByItemId.has(item.id)) {
                             [groupKey, groupName] = ['10recipes', 'Recipes'];
                         } else {
                             [groupKey, groupName] = ['90transmog', 'Transmog'];
@@ -345,7 +342,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     // Transmog sets are annoying
                     const transmogSetId = wowthingData.items.teachesTransmog[item.id];
                     if (transmogSetId) {
-                        const transmogSet = stores.staticData.transmogSets[transmogSetId];
+                        const transmogSet = wowthingData.static.transmogSetById.get(transmogSetId);
                         if (
                             transmogSet.classMask > 0 &&
                             (transmogSet.classMask & classMask) === 0
@@ -468,7 +465,6 @@ export function doVendors(stores: LazyStores): LazyVendors {
 
                     const hasDrop = userHasLookup(
                         stores.settings,
-                        stores.staticData,
                         stores.userData,
                         stores.userQuestData,
                         stores.lazyTransmog,

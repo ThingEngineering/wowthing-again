@@ -1,7 +1,6 @@
 <script lang="ts">
     import { Faction } from '@/enums/faction';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import { lazyStore } from '@/stores';
     import { vendorState } from '@/stores/local-storage';
     import { getClassesFromMask } from '@/utils/get-classes-from-mask';
@@ -110,7 +109,9 @@
         {@const teachesTransmog = wowthingData.items.teachesTransmog[thing.item.id]}
         {@const item = wowthingData.items.items[thing.item.id]}
         {@const classes = getClassesFromMask(item?.classMask || 0)}
-        {@const professionAbility = $staticStore.professionAbilityByItemId[thing.item.id]}
+        {@const professionAbility = wowthingData.static.professionAbilityByItemId.get(
+            thing.item.id
+        )}
         {@const specIds = wowthingData.items.specOverrides[thing.item.id]}
         <WowheadLink
             id={thing.linkId}

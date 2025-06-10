@@ -10,7 +10,6 @@ import {
     type UserAuctionDataMissingTransmogAuctionArray,
     UserAuctionDataMissingTransmogAuction,
 } from '@/types/data';
-import type { StaticData } from '@/shared/stores/static/types';
 import type { UserData } from '@/types';
 import type { Settings } from '@/shared/stores/settings/types';
 
@@ -24,7 +23,6 @@ export class UserAuctionMissingTransmogDataStore {
     async search(
         settings: Settings,
         auctionState: AuctionState,
-        staticData: StaticData,
         userData: UserData,
         searchType: string
     ): Promise<[UserAuctionEntry[], Record<number, number>]> {
@@ -191,7 +189,7 @@ export class UserAuctionMissingTransmogDataStore {
             let matchesSource = true;
             if (!auctionState.missingTransmogShowCrafted) {
                 matchesSource =
-                    staticData.professionAbilityByItemId[item.id] === undefined &&
+                    !wowthingData.static.professionAbilityByItemId.has(item.id) &&
                     !extraCraftedItemIds.has(item.id);
             }
 

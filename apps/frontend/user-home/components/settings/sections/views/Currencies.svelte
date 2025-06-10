@@ -10,7 +10,6 @@
         skipCurrenciesMap,
     } from '@/data/currencies';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types';
 
     import MagicLists from '../../MagicLists.svelte';

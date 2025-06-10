@@ -6,6 +6,7 @@
     import type { Guild } from '@/types';
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
+    import { userState } from '@/user-home/state/user';
 
     type GuildBankSidebarItem = SidebarItem & { count: number };
 
@@ -15,9 +16,9 @@
 
         const charactersByGuildId = groupBy(
             $userStore.activeCharacters.filter((char) => !!char.guild),
-            (char) => char.guildId,
+            (char) => char.guildId
         );
-        for (const guild of Object.values($userStore.guildMap)) {
+        for (const guild of Object.values(userState.general.guildMap)) {
             const characterCount = charactersByGuildId[guild.id]?.length || 0;
             if (characterCount > 0) {
                 guildData.push({

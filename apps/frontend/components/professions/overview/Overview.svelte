@@ -4,7 +4,7 @@
 
     import { professionOrder } from '@/data/professions';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import getSavedRoute from '@/utils/get-saved-route';
 
     import Sidebar from './Sidebar.svelte';
@@ -12,7 +12,7 @@
 
     export let slug: string;
 
-    $: allProfessions = professionOrder.map((id) => $staticStore.professions[id]);
+    const allProfessions = professionOrder.map((id) => wowthingData.static.professionById.get(id));
 
     afterUpdate(() => getSavedRoute('professions/overview', slug));
 </script>

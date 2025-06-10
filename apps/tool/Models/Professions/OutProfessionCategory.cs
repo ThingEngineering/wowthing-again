@@ -1,6 +1,5 @@
 ﻿namespace Wowthing.Tool.Models.Professions;
 
-[JsonConverter(typeof(OutProfessionCategoryConverter))]
 public class OutProfessionCategory
 {
     public int Id { get; set; }

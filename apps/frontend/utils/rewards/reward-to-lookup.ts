@@ -30,10 +30,9 @@ export function rewardToLookup(
             ret = [LookupType.Toy, rewardId];
         } else if (wowthingData.items.teachesTransmog[rewardId]) {
             ret = [LookupType.TransmogSet, wowthingData.items.teachesTransmog[rewardId]];
-            // FIXME
-            // } else if (staticData.professionAbilityByItemId[rewardId]) {
-            //     const ability = staticData.professionAbilityByItemId[rewardId];
-            //     ret = [LookupType.Recipe, ability.abilityId];
+        } else if (wowthingData.static.professionAbilityByItemId.has(rewardId)) {
+            const ability = wowthingData.static.professionAbilityByItemId.get(rewardId);
+            ret = [LookupType.Recipe, ability.abilityId];
         } else if (manualData.dragonridingItemToQuest.has(rewardId)) {
             ret = [LookupType.Quest, manualData.dragonridingItemToQuest.get(rewardId)];
         } else if (manualData.druidFormItemToQuest.has(rewardId)) {

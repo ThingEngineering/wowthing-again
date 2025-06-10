@@ -57,7 +57,6 @@ class ActiveViewTasks {
                             )
                         ) {
                             activeChores.push(chore);
-                            // meow
                         }
                     } else {
                         activeChores.push(chore);

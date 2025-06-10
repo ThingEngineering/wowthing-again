@@ -253,7 +253,7 @@
 
 <UnderConstruction />
 
-{#await slug1 === 'missing-recipes' ? userAuctionMissingRecipeStore.search(settingsState.value, $auctionState, $staticStore, $userStore) : userAuctionMissingTransmogStore.search(settingsState.value, $auctionState, $staticStore, $userStore, slug1.replace('missing-appearance-', ''))}
+{#await slug1 === 'missing-recipes' ? userAuctionMissingRecipeStore.search(settingsState.value, $auctionState, $staticStore, $userStore) : userAuctionMissingTransmogStore.search(settingsState.value, $auctionState, $userStore, slug1.replace('missing-appearance-', ''))}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then [things, updated]}
     {#if things.length > 0}
@@ -285,7 +285,9 @@
                                 {@const skillLineId =
                                     $staticStore.itemToSkillLine[auctions[0].itemId]?.[0] || 0}
                                 {@const profession =
-                                    $staticStore.professionBySkillLine[skillLineId]?.[0]}
+                                    wowthingData.static.professionBySkillLineId.get(
+                                        skillLineId
+                                    )?.[0]}
                                 {@const characterIds =
                                     settingsState.value.professions.collectingCharactersV2?.[
                                         profession?.id || 0
@@ -328,9 +330,9 @@
 
                                                 {#if slug1.startsWith('missing-appearance-')}
                                                     {@const abilityInfo =
-                                                        $staticStore.professionAbilityByItemId[
+                                                        wowthingData.static.professionAbilityByItemId.get(
                                                             auctions[0].itemId
-                                                        ]}
+                                                        )}
                                                     {#if abilityInfo}
                                                         <span class="border-shrug">
                                                             <ProfessionIcon

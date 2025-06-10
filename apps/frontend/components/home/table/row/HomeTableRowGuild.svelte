@@ -1,12 +1,14 @@
 <script lang="ts">
-    import { userStore } from '@/stores';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import type { Character } from '@/types';
+    import { type Character } from '@/types';
 
     let { character }: { character: Character } = $props();
 
-    let guild = $derived($userStore.guildMap[character.guildId]);
-    let guildName = $derived(guild?.name || 'Unknown Guild');
+    let guildName = $derived(
+        character.guild
+            ? `${character.guild.name} - ${character.guild.realm?.name || 'Unknown Realm'}`
+            : 'Unknown Guild - Unknown Realm'
+    );
 </script>
 
 <style lang="scss">
@@ -17,11 +19,10 @@
     }
 </style>
 
-<td
-    class="text-overflow"
-    use:basicTooltip={guild ? `${guildName} - ${guild?.realm?.name || 'Unknown Realm'}` : null}
->
+<td class="text-overflow" use:basicTooltip={character.guildId ? guildName : null}>
     {#if character.guildId}
         {guildName}
+    {:else}
+        ---
     {/if}
 </td>

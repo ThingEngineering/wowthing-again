@@ -10,6 +10,7 @@
     import { Region } from '@/enums/region';
     import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { wowthingData } from '@/shared/stores/data';
     import { userStore } from '@/stores';
     import { cartesianProduct } from '@/utils/cartesian-product';
     import type { StaticDataRealm } from '@/shared/stores/static/types';
@@ -22,7 +23,6 @@
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte';
     import Row from './Row.svelte';
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
-    import { wowthingData } from '@/shared/stores/data';
 
     let matrix: Record<string, Character[]>;
     let xCounts: Record<string, number>;

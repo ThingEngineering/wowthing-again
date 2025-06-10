@@ -3,7 +3,8 @@
 
     import { Region } from '@/enums/region';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { itemSearchState, userStore } from '@/stores';
+    import { itemSearchState } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import type { Character } from '@/types';
     import type { ItemSearchResponseCharacter, ItemSearchResponseItem } from '@/types/items';
 
@@ -46,11 +47,11 @@
 
         characters = sortBy(
             Object.entries(characterMap).map(([characterId, data]) => [
-                $userStore.characterMap[parseInt(characterId)],
+                userState.general.characterById[parseInt(characterId)],
                 data,
             ]),
             ([character]) =>
-                [Region[character.realm.region], character.realm.name, character.name].join('|'),
+                [Region[character.realm.region], character.realm.name, character.name].join('|')
         );
     }
 </script>

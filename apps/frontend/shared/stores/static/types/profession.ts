@@ -1,41 +1,105 @@
 import type { Faction } from '@/enums/faction';
 import type { SkillSourceType } from '@/enums/skill-source-type';
 
-export interface StaticDataProfession {
-    id: number;
-    name: string;
-    slug: string;
-    type: number;
+export class StaticDataProfession {
+    public categories: StaticDataProfessionCategory[];
+    public subProfessions: StaticDataSubProfession[];
+    public expansionSubProfession: Record<number, StaticDataSubProfession>;
+    public expansionCategory: Record<number, StaticDataProfessionCategory>;
 
-    expansionSubProfession: Record<number, StaticDataSubProfession>;
-    subProfessions: StaticDataSubProfession[];
+    constructor(
+        public id: number,
+        public type: number,
+        public name: string,
+        public slug: string,
+        rawCategories: StaticDataProfessionCategoryArray[],
+        rawSubProfessions: StaticDataSubProfessionArray[]
+    ) {
+        this.categories = rawCategories.map(
+            (categoryArray) => new StaticDataProfessionCategory(...categoryArray)
+        );
+        this.subProfessions = rawSubProfessions.map(
+            (subProfessionArray) => new StaticDataSubProfession(...subProfessionArray)
+        );
 
-    categories: StaticDataProfessionCategory[];
-    expansionCategory: Record<number, StaticDataProfessionCategory>;
-    rawCategories: StaticDataProfessionCategoryArray[];
+        this.expansionCategory = Object.fromEntries(
+            this.categories.map((cat, index) => [index, cat])
+        );
+        this.expansionSubProfession = Object.fromEntries(
+            this.subProfessions.map((cat, index) => [index, cat])
+        );
+    }
 }
+export type StaticDataProfessionArray = ConstructorParameters<typeof StaticDataProfession>;
 
-export interface StaticDataSubProfession {
-    id: number;
-    name: string;
-    traitTrees?: StaticDataSubProfessionTraitTree[];
+export class StaticDataSubProfession {
+    public traitTrees: StaticDataSubProfessionTraitTree[];
+
+    constructor(
+        public id: number,
+        public name: string,
+        rawTraitTrees: StaticDataSubProfessionTraitTreeArray[]
+    ) {
+        this.traitTrees = rawTraitTrees.map(
+            (traitTreeArray) => new StaticDataSubProfessionTraitTree(...traitTreeArray)
+        );
+    }
 }
+type StaticDataSubProfessionArray = ConstructorParameters<typeof StaticDataSubProfession>;
 
-export interface StaticDataSubProfessionTraitTree {
-    id: number;
-    name: string;
-    firstNode: StaticDataSubProfessionTraitNode;
+export class StaticDataSubProfessionTraitTree {
+    public firstNode: StaticDataSubProfessionTraitNode;
+
+    constructor(
+        public id: number,
+        rawFirstNode: StaticDataSubProfessionTraitNodeArray
+    ) {
+        this.firstNode = new StaticDataSubProfessionTraitNode(...rawFirstNode);
+    }
 }
+type StaticDataSubProfessionTraitTreeArray = ConstructorParameters<
+    typeof StaticDataSubProfessionTraitTree
+>;
 
-export interface StaticDataSubProfessionTraitNode {
-    name: string;
-    nodeId: number;
-    rankEntryId: number;
-    rankMax: number;
-    unlockEntryId: number;
-
-    children: StaticDataSubProfessionTraitNode[];
+export class StaticDataSubProfessionPerk {
+    constructor(
+        public nodeId: number,
+        public maxRank: number,
+        public description: string
+    ) {}
 }
+type StaticDataSubProfessionPerkArray = ConstructorParameters<typeof StaticDataSubProfessionPerk>;
+
+type StaticDataSubProfessionTraitNodeArray = [
+    nodeId: number,
+    rankEntryId: number,
+    rankMax: number,
+    unlockEntryId: number,
+    name: string,
+    perkArrays: StaticDataSubProfessionPerkArray[],
+    childArrays: StaticDataSubProfessionTraitNodeArray[],
+];
+export class StaticDataSubProfessionTraitNode {
+    public children: StaticDataSubProfessionTraitNode[];
+    public perks: StaticDataSubProfessionPerk[];
+
+    constructor(
+        public nodeId: number,
+        public rankEntryId: number,
+        public rankMax: number,
+        public unlockEntryId: number,
+        public name: string,
+        perkArrays: StaticDataSubProfessionPerkArray[],
+        childArrays: StaticDataSubProfessionTraitNodeArray[]
+    ) {
+        this.perks = perkArrays.map((perkArray) => new StaticDataSubProfessionPerk(...perkArray));
+        this.children = childArrays.map(
+            (childArray) => new StaticDataSubProfessionTraitNode(...childArray)
+        );
+    }
+}
+// Can't use this and have it reference itself, alas
+//type StaticDataSubProfessionTraitNodeArray = ConstructorParameters<typeof StaticDataSubProfessionTraitNode>;
 
 export type StaticDataProfessionCategoryArray = [
     id: number,
@@ -54,13 +118,13 @@ export class StaticDataProfessionCategory {
         public order: number,
         public name: string,
         childArrays: StaticDataProfessionCategoryArray[],
-        abilityArrays: StaticDataProfessionAbilityArray[],
+        abilityArrays: StaticDataProfessionAbilityArray[]
     ) {
         this.children = childArrays.map(
-            (childArray) => new StaticDataProfessionCategory(...childArray),
+            (childArray) => new StaticDataProfessionCategory(...childArray)
         );
         this.abilities = abilityArrays.map(
-            (abilityArray) => new StaticDataProfessionAbility(...abilityArray),
+            (abilityArray) => new StaticDataProfessionAbility(...abilityArray)
         );
     }
 }
@@ -85,11 +149,11 @@ export class StaticDataProfessionAbility {
         public name: string,
         categoryReagentArrays: StaticDataProfessionReagentArray[],
         public itemReagents: [number, number][],
-        public extraRanks?: [number, number][],
+        public extraRanks?: [number, number][]
     ) {
         this.itemIds = typeof itemId === 'number' ? [itemId] : itemId;
         this.categoryReagents = categoryReagentArrays.map(
-            (reagentArray) => new StaticDataProfessionCategoryReagent(...reagentArray),
+            (reagentArray) => new StaticDataProfessionCategoryReagent(...reagentArray)
         );
     }
 }
@@ -104,14 +168,14 @@ export class StaticDataProfessionAbilityInfo {
         public ability: StaticDataProfessionAbility,
         public abilityId: number,
         public itemIds: number[],
-        public spellId: number,
+        public spellId: number
     ) {}
 }
 
 export class StaticDataProfessionCategoryReagent {
     constructor(
         public count: number,
-        public categoryIds: number[],
+        public categoryIds: number[]
     ) {}
 }
 export type StaticDataProfessionReagentArray = ConstructorParameters<

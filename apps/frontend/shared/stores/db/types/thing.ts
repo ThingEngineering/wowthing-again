@@ -154,8 +154,9 @@ export class DbDataThing {
                     // if this is an item that teaches a skill, add a profession skill limit
                     const requiredSkillLine = staticData.itemToSkillLine[drop.id];
                     if (requiredSkillLine) {
-                        const profession =
-                            staticData.professionBySkillLine[requiredSkillLine[0]]?.[0];
+                        const profession = wowthingData.static.professionBySkillLineId.get(
+                            requiredSkillLine[0]
+                        )?.[0];
                         if (profession) {
                             drop.limit = [
                                 'profession',

@@ -392,7 +392,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                             if (!aOrder) {
                                 const aSkillLine = stores.staticData.itemToSkillLine[a.id];
                                 const [aProfession] =
-                                    stores.staticData.professionBySkillLine[aSkillLine[0]];
+                                    wowthingData.static.professionBySkillLineId.get(aSkillLine[0]);
                                 aOrder = recipeOrder[a.id] = professionOrderMap[aProfession?.id];
                             }
 
@@ -400,7 +400,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                             if (!bOrder) {
                                 const bSkillLine = stores.staticData.itemToSkillLine[b.id];
                                 const [bProfession] =
-                                    stores.staticData.professionBySkillLine[bSkillLine[0]];
+                                    wowthingData.static.professionBySkillLineId.get(bSkillLine[0]);
                                 bOrder = recipeOrder[b.id] = professionOrderMap[bProfession?.id];
                             }
 

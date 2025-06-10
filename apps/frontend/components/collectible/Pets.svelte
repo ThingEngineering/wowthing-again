@@ -1,7 +1,6 @@
 <script lang="ts">
     import { ItemQuality } from '@/enums/item-quality';
     import { wowthingData } from '@/shared/stores/data';
-    import { userStore } from '@/stores';
     import { userState } from '@/user-home/state/user';
     import type { MultiSlugParams } from '@/types';
 
@@ -9,18 +8,15 @@
     import ProgressBar from '../common/ProgressBar.svelte';
     import RarityBar from '../common/RarityBar.svelte';
 
-    export let basePath = '';
-    export let params: MultiSlugParams;
+    let { basePath = '', params }: { basePath: string; params: MultiSlugParams } = $props();
 
     const thingMapFunc = (thing: number) => wowthingData.static.petById.get(thing)?.creatureId;
 
-    let maxLevelQuality: number;
-    let qualities: number[];
-    $: {
-        maxLevelQuality = 0;
-        qualities = [0, 0, 0, 0];
+    let [maxLevelQuality, qualities] = $derived.by(() => {
+        let countMaxLevel = 0;
+        let countQualities = [0, 0, 0, 0];
 
-        for (const pets of Object.values($userStore.pets)) {
+        for (const pets of Object.values(userState.general.petsById)) {
             let bestQuality = 0;
             let hasMaxed = false;
 
@@ -29,12 +25,14 @@
                 hasMaxed ||= pet.level === 25 && pet.quality === ItemQuality.Rare;
             }
 
-            qualities[bestQuality]++;
+            countQualities[bestQuality]++;
             if (hasMaxed) {
-                maxLevelQuality++;
+                countMaxLevel++;
             }
         }
-    }
+
+        return [countMaxLevel, countQualities];
+    });
 </script>
 
 <style lang="scss">

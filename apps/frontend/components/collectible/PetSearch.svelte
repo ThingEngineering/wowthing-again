@@ -4,7 +4,7 @@
     import { ItemQuality } from '@/enums/item-quality';
     import { browserState } from '@/shared/state/browser.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import { leftPad } from '@/utils/formatting';
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
     import type { UserDataPet } from '@/types';
@@ -18,7 +18,7 @@
 
         const noMaxLevel = browserState.current['collectible-pets'].searchNoMaxLevel;
         const noRare = browserState.current['collectible-pets'].searchNoRare;
-        for (const [speciesId, thesePets] of getNumberKeyedEntries($userStore.pets)) {
+        for (const [speciesId, thesePets] of getNumberKeyedEntries(userState.general.petsById)) {
             const staticPet = wowthingData.static.petById.get(speciesId);
             if (staticPet?.canBattle === false) {
                 continue;
