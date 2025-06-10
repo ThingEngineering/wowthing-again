@@ -31,10 +31,7 @@
     let sorted: boolean;
     let sortFunc: (char: Character) => string;
     $: {
-        category = find(
-            Object.values(wowthingData.static.currencyCategoryById),
-            (cat) => cat.slug === params.slug1
-        );
+        category = wowthingData.static.currencyCategoryBySlug.get(params.slug1);
         if (params.slug2) {
             category = find(categoryChildren[category.id], (cat) => cat.slug === params.slug2);
         }

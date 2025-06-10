@@ -1,5 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep';
 
+import { extraInstances } from '@/data/dungeon';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import {
     StaticDataBag,
@@ -84,8 +85,23 @@ export function processStaticData(rawData: RawStatic): DataStatic {
         data.enchantmentById.get(enchantId).values = enchantValues;
     }
 
+    // Extra instances
+    for (const instance of extraInstances) {
+        data.instanceById.set(instance.id, instance);
+    }
+
     // Extra mappings
     for (const characterClass of data.characterClassById.values()) {
+        // FIXME: precalculate these in StaticTool
+        characterClass.mask = 2 ** (characterClass.id - 1);
+        characterClass.specializationIds = [];
+
+        const specs = Array.from(data.characterSpecializationById.values()).filter(
+            (spec) => spec.classId === characterClass.id
+        );
+        specs.sort((a, b) => a.order - b.order);
+        characterClass.specializationIds = specs.map((spec) => spec.id);
+
         data.characterClassBySlug.set(characterClass.slug, characterClass);
     }
 
@@ -100,6 +116,10 @@ export function processStaticData(rawData: RawStatic): DataStatic {
         data.characterSpecializationsByClassId
             .get(characterSpecialization.classId)
             .push(characterSpecialization);
+    }
+
+    for (const currencyCategory of data.currencyCategoryById.values()) {
+        data.currencyCategoryBySlug.set(currencyCategory.slug, currencyCategory);
     }
 
     for (const heirloom of data.heirloomById.values()) {

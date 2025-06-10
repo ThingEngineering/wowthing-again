@@ -131,6 +131,7 @@ export class DataStatic {
         StaticDataCharacterSpecialization[]
     >();
     public connectedRealmById = new Map<number, StaticDataConnectedRealm>();
+    public currencyCategoryBySlug = new Map<string, StaticDataCurrencyCategory>();
     public enchantmentById = new Map<number, StaticDataEnchantment>();
     public heirloomByItemId = new Map<number, StaticDataHeirloom>();
     public holidayIdToKeys = new Map<number, string[]>();
@@ -159,12 +160,13 @@ export class DataStatic {
             this.professionBySlug.set(profession.slug, profession);
 
             for (let i = 0; i < profession.subProfessions.length; i++) {
-                this.professionBySkillLineId.set(profession.subProfessions[i].id, [profession, i]);
+                const subProfession = profession.subProfessions[i];
+                this.professionBySkillLineId.set(subProfession.id, [profession, i]);
 
                 this.recurseProfession(
                     profession.categories[i],
                     profession.id,
-                    profession.subProfessions[i].id,
+                    subProfession.id,
                     spellToItem
                 );
             }

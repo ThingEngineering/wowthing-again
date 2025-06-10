@@ -218,16 +218,16 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                 dropStatus.need = !isRecipeKnown(stores, { abilityInfo });
                             } else if (wowthingData.static.mountByItemId.has(drop.id)) {
                                 dropStatus.need =
-                                    !stores.userData.hasMount[
+                                    !stores.userData.hasMount?.[
                                         wowthingData.static.mountByItemId.get(drop.id).id
                                     ];
                             } else if (wowthingData.static.petByItemId.has(drop.id)) {
                                 dropStatus.need =
-                                    !stores.userData.hasPet[
+                                    !stores.userData.hasPet?.[
                                         wowthingData.static.petByItemId.get(drop.id).id
                                     ];
                             } else if (wowthingData.static.toyByItemId.has(drop.id)) {
-                                dropStatus.need = !stores.userData.hasToy[drop.id];
+                                dropStatus.need = !stores.userData.hasToy?.[drop.id];
                             } else {
                                 dropStatus.need = true;
                             }
@@ -250,13 +250,13 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             break;
 
                         case RewardType.Mount:
-                            if (!stores.userData.hasMount[drop.id]) {
+                            if (!stores.userData.hasMount?.[drop.id]) {
                                 dropStatus.need = true;
                             }
                             break;
 
                         case RewardType.Pet:
-                            if (!stores.userData.hasPet[drop.id]) {
+                            if (!stores.userData.hasPet?.[drop.id]) {
                                 dropStatus.need = true;
                             }
                             break;
@@ -273,7 +273,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             break;
 
                         case RewardType.Toy:
-                            if (!stores.userData.hasToy[drop.id]) {
+                            if (!stores.userData.hasToy?.[drop.id]) {
                                 dropStatus.need = true;
                             }
                             break;

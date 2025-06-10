@@ -27,11 +27,11 @@ export function userHasLookup(
     if (type === LookupType.Illusion) {
         return userData.hasIllusion.has(appearanceIds[0]);
     } else if (type === LookupType.Mount) {
-        return !!userData.hasMount[id];
+        return !!userData.hasMount?.[id];
     } else if (type === LookupType.Pet) {
-        return !!userData.hasPet[id];
+        return !!userData.hasPet?.[id];
     } else if (type === LookupType.Toy) {
-        return !!userData.hasToy[id];
+        return !!userData.hasToy?.[id];
     } else if (type === LookupType.Recipe) {
         const abilityInfo = wowthingData.static.professionAbilityByAbilityId.get(id);
         return isRecipeKnown({ settings, userData }, { abilityInfo });

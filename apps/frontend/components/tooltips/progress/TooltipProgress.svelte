@@ -1,100 +1,102 @@
 <script lang="ts">
-    import { covenantFeatureCost } from '@/data/covenant'
+    import { covenantFeatureCost } from '@/data/covenant';
     import { Faction } from '@/enums/faction';
-    import { ProgressDataType } from '@/enums/progress-data-type'
-    import { achievementStore, userAchievementStore } from '@/stores'
+    import { ProgressDataType } from '@/enums/progress-data-type';
+    import { achievementStore, userAchievementStore } from '@/stores';
     import { getNameForFaction } from '@/utils/get-name-for-faction';
-    import type { Character } from '@/types'
-    import type { ManualDataProgressData, ManualDataProgressGroup } from '@/types/data/manual'
+    import type { Character } from '@/types';
+    import type { ManualDataProgressData, ManualDataProgressGroup } from '@/types/data/manual';
 
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character
-    export let datas: ManualDataProgressData[]
-    export let descriptionText: Record<number, string>
-    export let group: ManualDataProgressGroup
-    export let haveIndexes: number[]
-    export let iconOverride: string
-    export let nameOverride: Record<number, string>
-    export let showCurrencies: number[] = []
+    export let character: Character;
+    export let datas: ManualDataProgressData[];
+    export let descriptionText: Record<number, string>;
+    export let group: ManualDataProgressGroup;
+    export let haveIndexes: number[];
+    export let iconOverride: string;
+    export let nameOverride: Record<number, string>;
+    export let showCurrencies: number[] = [];
 
-    let cls: string
-    let dataChunks: [ManualDataProgressData, number][][]
+    let cls: string;
+    let dataChunks: [ManualDataProgressData, number][][];
     $: {
         cls = datas.some((data, i) => {
-            const desc = descriptionText[i] || data.description
+            const desc = descriptionText[i] || data.description;
             if (desc && desc.length > 20) {
-                return true
+                return true;
             }
-        }) ? 'long' : 'short'
+        })
+            ? 'long'
+            : 'short';
 
         // Special cases
         if (group.name === 'Valorous Appearances') {
-            const cheev = $achievementStore.achievement[datas[1].ids[0]]
-            const rootTree = $achievementStore.criteriaTree[cheev.criteriaTreeId]
-            const charCheev = $userAchievementStore.addonAchievements[character.id]?.[cheev.id]
-            const newDesc = {...descriptionText}
+            const cheev = $achievementStore.achievement[datas[1].ids[0]];
+            const rootTree = $achievementStore.criteriaTree[cheev.criteriaTreeId];
+            const charCheev = $userAchievementStore.addonAchievements[character.id]?.[cheev.id];
+            const newDesc = { ...descriptionText };
             if (charCheev?.earned !== true) {
                 for (let childIndex = 0; childIndex < rootTree.children.length; childIndex++) {
-                    const childTree = $achievementStore.criteriaTree[rootTree.children[childIndex]]
-                    newDesc[1] += `<br>${charCheev?.criteria?.[childIndex] > 0 ? '✔' : '❌'} ${childTree.description}`
+                    const childTree = $achievementStore.criteriaTree[rootTree.children[childIndex]];
+                    newDesc[1] += `<br>${charCheev?.criteria?.[childIndex] > 0 ? '✔' : '❌'} ${childTree.description}`;
                 }
             }
-            descriptionText = newDesc
-        }
-        else if (datas.length === 1 && datas[0].type === ProgressDataType.SlCovenant) {
-            const currentRank = parseInt(descriptionText[0].split(' ')[1].split('/')[0])
-            const isSpecial = datas[0].value === 4
-            const prices = covenantFeatureCost[datas[0].value]
+            descriptionText = newDesc;
+        } else if (datas.length === 1 && datas[0].type === ProgressDataType.SlCovenant) {
+            const currentRank = parseInt(descriptionText[0].split(' ')[1].split('/')[0]);
+            const isSpecial = datas[0].value === 4;
+            const prices = covenantFeatureCost[datas[0].value];
 
-            const newDatas: ManualDataProgressData[] = []
-            const newDescriptionText: Record<number, string> = {}
-            const newHaveIndexes: number[] = []
+            const newDatas: ManualDataProgressData[] = [];
+            const newDescriptionText: Record<number, string> = {};
+            const newHaveIndexes: number[] = [];
 
             for (let rank = 1; rank <= (isSpecial ? 5 : 3); rank++) {
                 newDatas.push({
                     ...datas[0],
                     name: `Rank ${rank}`,
-                })
+                });
 
-                newDescriptionText[rank - 1] = `{priceShort:${prices[rank - 1][0]}|1810}&nbsp;&nbsp;{priceShort:${prices[rank - 1][1]}|1813}`
+                newDescriptionText[rank - 1] =
+                    `{priceShort:${prices[rank - 1][0]}|1810}&nbsp;&nbsp;{priceShort:${prices[rank - 1][1]}|1813}`;
 
                 if (currentRank >= rank) {
-                    newHaveIndexes.push(rank - 1)
+                    newHaveIndexes.push(rank - 1);
                 }
             }
 
-            cls = 'short'
-            datas = newDatas
-            descriptionText = newDescriptionText
-            haveIndexes = newHaveIndexes
-            showCurrencies = [1810, 1813]
-        }
-        else {
-            showCurrencies = group.currencies || []
+            cls = 'short';
+            datas = newDatas;
+            descriptionText = newDescriptionText;
+            haveIndexes = newHaveIndexes;
+            showCurrencies = [1810, 1813];
+        } else {
+            showCurrencies = group.currencies || [];
         }
 
         // Split data
-        dataChunks = [[]]
+        dataChunks = [[]];
         for (let dataIndex = 0; dataIndex < datas.length; dataIndex++) {
-            const data = datas[dataIndex]
+            const data = datas[dataIndex];
             if (data.name === 'separator') {
-                dataChunks.push([])
-                continue
+                dataChunks.push([]);
+                continue;
             }
 
-            dataChunks[dataChunks.length - 1].push([data, dataIndex])
+            dataChunks[dataChunks.length - 1].push([data, dataIndex]);
         }
 
-        if (group.name.startsWith('Sojourner')) {
-            console.log({group, dataChunks, descriptionText, haveIndexes, nameOverride});
-        }
+        // if (group.name.startsWith('Sojourner')) {
+        //     console.log({group, dataChunks, descriptionText, haveIndexes, nameOverride});
+        // }
     }
 
-    $: groupName = group.lookup === 'faction'
-        ? `:${Faction[character.faction].toLocaleLowerCase()}: ${getNameForFaction(group.name, character.faction)}`
-        : group.name
+    $: groupName =
+        group.lookup === 'faction'
+            ? `:${Faction[character.faction].toLocaleLowerCase()}: ${getNameForFaction(group.name, character.faction)}`
+            : group.name;
 </script>
 
 <style lang="scss">
@@ -117,7 +119,7 @@
 
         :global(.description-short) {
             color: #00ccff;
-            white-space: nowrap; 
+            white-space: nowrap;
         }
         :global(.description-long) {
             color: #00ccff;
@@ -149,11 +151,7 @@
                     <tr>
                         <td class="progress">
                             {#if iconOverride}
-                                <WowthingImage
-                                    name="{iconOverride}"
-                                    size={20}
-                                    border={1}
-                                />
+                                <WowthingImage name={iconOverride} size={20} border={1} />
                             {:else}
                                 {haveIndexes.indexOf(dataIndex) >= 0 ? '✔' : '❌'}
                             {/if}
@@ -161,16 +159,9 @@
                         <td class="name">
                             <ParsedText text={nameOverride[dataIndex] || data.name} />
 
-                            {#if description && (
-                                haveIndexes.indexOf(dataIndex) === -1 ||
-                                group.type === 'dragon-racing' ||
-                                datas[0].type === ProgressDataType.GarrisonTree
-                            )}
+                            {#if description && (haveIndexes.indexOf(dataIndex) === -1 || group.type === 'dragon-racing' || datas[0].type === ProgressDataType.GarrisonTree)}
                                 {#if cls === 'short'}&ndash;{/if}
-                                <ParsedText
-                                    cls="description-{cls}"
-                                    text={description}
-                                />
+                                <ParsedText cls="description-{cls}" text={description} />
                             {/if}
                         </td>
                     </tr>
@@ -184,18 +175,10 @@
             {#each showCurrencies as currencyId}
                 <span>
                     {#if currencyId > 1000000}
-                        <WowthingImage
-                            name="item/{currencyId - 1000000}"
-                            size={20}
-                            border={1}
-                        />
-                        {(character.getItemCount(currencyId - 1000000)).toLocaleString()}
+                        <WowthingImage name="item/{currencyId - 1000000}" size={20} border={1} />
+                        {character.getItemCount(currencyId - 1000000).toLocaleString()}
                     {:else}
-                        <WowthingImage
-                            name="currency/{currencyId}"
-                            size={20}
-                            border={1}
-                        />
+                        <WowthingImage name="currency/{currencyId}" size={20} border={1} />
                         {(character.currencies?.[currencyId]?.quantity ?? 0).toLocaleString()}
                     {/if}
                 </span>

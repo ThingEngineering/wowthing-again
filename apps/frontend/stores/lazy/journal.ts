@@ -223,9 +223,9 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                 } else if (item.type === RewardType.Recipe) {
                                     appearance.userHas = isRecipeKnown(stores, { itemId: item.id });
                                 } else if (item.type === RewardType.Mount) {
-                                    appearance.userHas = stores.userData.hasMount[item.classId];
+                                    appearance.userHas = stores.userData.hasMount?.[item.classId];
                                 } else if (item.type === RewardType.Pet) {
-                                    appearance.userHas = stores.userData.hasPet[item.classId];
+                                    appearance.userHas = stores.userData.hasPet?.[item.classId];
                                 } else if (item.type === RewardType.Toy) {
                                     appearance.userHas = stores.userData.hasToy?.[item.id];
                                 } else if (item.type === RewardType.Quest) {

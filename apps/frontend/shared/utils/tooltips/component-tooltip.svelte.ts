@@ -47,8 +47,8 @@ export function componentTooltip<TComponent extends Component<any, any, any>>(
 
         return () => {
             if (cmp) {
-                console.log('destroy unmount');
-                unmount(cmp);
+                // console.log('destroy unmount');
+                // unmount(cmp);
                 cmp = null;
             }
             tp.destroy();

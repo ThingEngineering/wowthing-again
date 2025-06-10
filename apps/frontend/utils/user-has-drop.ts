@@ -21,10 +21,10 @@ export default function userHasDrop(
     const manualData = wowthingData.manual;
 
     if (
-        (type === RewardType.Mount && userData.hasMount[id] === true) ||
-        (type === RewardType.Pet && userData.hasPet[id] === true) ||
-        (type === RewardType.Toy && userData.hasToy[id] === true) ||
-        (type === RewardType.Illusion && userData.hasIllusion.has(appearanceIds[0]))
+        (type === RewardType.Mount && userData.hasMount?.[id] === true) ||
+        (type === RewardType.Pet && userData.hasPet?.[id] === true) ||
+        (type === RewardType.Toy && userData.hasToy?.[id] === true) ||
+        (type === RewardType.Illusion && userData.hasIllusion?.has(appearanceIds[0]))
     ) {
         return true;
     } else if (type === RewardType.Item) {
@@ -33,11 +33,11 @@ export default function userHasDrop(
         } else if (manualData.druidFormItemToQuest.has(id)) {
             return userQuestData.accountHas.has(manualData.druidFormItemToQuest.get(id));
         } else if (wowthingData.static.mountByItemId.has(id)) {
-            return userData.hasMount[wowthingData.static.mountByItemId.get(id).id] === true;
+            return userData.hasMount?.[wowthingData.static.mountByItemId.get(id).id] === true;
         } else if (wowthingData.static.petByItemId.has(id)) {
-            return userData.hasPet[wowthingData.static.petByItemId.get(id).id] === true;
+            return userData.hasPet?.[wowthingData.static.petByItemId.get(id).id] === true;
         } else if (wowthingData.static.toyByItemId.has(id)) {
-            return userData.hasToy[id] === true;
+            return userData.hasToy?.[id] === true;
         } else if (wowthingData.items.teachesTransmog[id]) {
             const statsKey = `ensemble:${wowthingData.items.teachesTransmog[id]}`;
             const stats = lazyTransmog.stats[statsKey];
