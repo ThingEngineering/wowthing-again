@@ -1,7 +1,6 @@
 <script lang="ts">
     import { expansionSlugMap } from '@/data/expansion';
-    import { professionSlugToId } from '@/data/professions';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { lazyStore } from '@/stores';
     import { UserCount } from '@/types';
@@ -22,9 +21,9 @@
     let subCategories: [StaticDataProfessionCategory, UserCount][];
     $: {
         const expansionId = expansionSlugMap[expansionSlug].id;
-        const professionId = professionSlugToId[professionSlug];
+        const professionId = wowthingData.static.professionBySlug.get(professionSlug).id;
 
-        const profession = $staticStore.professions[professionId];
+        const profession = wowthingData.static.professionById.get(professionId);
 
         category = profession.expansionCategory[expansionId].children[0];
         subCategories = [];

@@ -23,6 +23,7 @@ import {
     twwChoresChett,
     twwHorrificVisions,
 } from './the_war_within';
+import { wowthingData } from '@/shared/stores/data';
 
 const nameFire = '<span class="status-warn">:fire:</span>';
 const nameQuest = '<span class="status-shrug">:exclamation:</span>';
@@ -1377,9 +1378,7 @@ export const questResetMap = Object.fromEntries(
 );
 
 function couldGet(char: Character, professionId: number, subProfessionId: number): boolean {
-    const staticData = get(staticStore);
-
-    const profession = staticData.professions[professionId];
+    const profession = wowthingData.static.professionById.get(professionId);
     return !!char.professions?.[profession.id]?.[subProfessionId];
 }
 
@@ -1389,9 +1388,8 @@ function getExpansionSkill(
     expansion: number,
     minSkill: number
 ): string {
-    const staticData = get(staticStore);
     const currentSubProfession =
-        staticData.professions[professionId].expansionSubProfession[expansion];
+        wowthingData.static.professionById.get(professionId).expansionSubProfession[expansion];
     const skill = char.professions[professionId][currentSubProfession?.id]?.currentSkill ?? 0;
 
     return skill < minSkill ? `Need ${minSkill} skill` : '';

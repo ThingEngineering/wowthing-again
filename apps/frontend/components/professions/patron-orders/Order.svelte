@@ -33,8 +33,9 @@
         if (patronOrder) {
             characterProfessions = $lazyStore.characters[character.id].professions;
             notLearned = !characterProfessions.knownRecipes.has(patronOrder.skillLineAbilityId);
-            ability =
-                $staticStore.professionAbilityByAbilityId[patronOrder.skillLineAbilityId].ability;
+            ability = wowthingData.static.professionAbilityByAbilityId.get(
+                patronOrder.skillLineAbilityId
+            ).ability;
             providedReagents = Object.fromEntries(
                 patronOrder.reagents.map((reagent) => [reagent.itemId, reagent.count])
             );

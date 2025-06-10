@@ -7,7 +7,6 @@ import type { StaticData } from '@/shared/stores/static/types';
 type CurrencyArray = [string, number, string, number, number];
 
 export function getCurrencyCosts(
-    staticData: StaticData,
     costs: Record<number, number>,
     skipCostOrder?: boolean,
     skipNiceNumbers?: boolean
@@ -44,7 +43,7 @@ export function getCurrencyCosts(
             sortKey = [
                 '555555',
                 leftPad(999_999_999 - currencyData[4], 9, '0'),
-                staticData.currencies[currencyData[1]]?.name ?? 'ZZZ',
+                wowthingData.static.currencyById.get(currencyData[1])?.name ?? 'ZZZ',
             ].join('|');
         }
 
@@ -56,12 +55,11 @@ export function getCurrencyCosts(
 }
 
 export function getCurrencyCostsString(
-    staticData: StaticData,
     costs: Record<number, number>,
     reputation?: number[]
 ): string {
     const parts: string[] = [];
-    const sortedCosts = getCurrencyCosts(staticData, costs);
+    const sortedCosts = getCurrencyCosts(costs);
     for (const [type, , , id, value] of sortedCosts) {
         let price: string;
         if (type === 'currency' && id === 0) {
@@ -80,7 +78,6 @@ export function getCurrencyCostsString(
 }
 
 export function getSetCurrencyCostsString(
-    staticData: StaticData,
     allAppearanceIds: number[][],
     costses: Record<number, number>[],
     haveFunc: (appearanceId: number) => boolean
@@ -96,5 +93,5 @@ export function getSetCurrencyCostsString(
             totalCosts[keyNumber] = (totalCosts[keyNumber] || 0) + costses[i][keyNumber];
         }
     }
-    return getCurrencyCostsString(staticData, totalCosts);
+    return getCurrencyCostsString(totalCosts);
 }

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { browserStore } from '@/shared/stores/browser';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { userStore } from '@/stores';
     import { getColumnResizer } from '@/utils/get-column-resizer';
 
@@ -16,7 +16,7 @@
             ? getColumnResizer(auctionsContainer, wrapperDiv, 'table', {
                   columnCount: '--column-count',
               })
-            : null,
+            : null
     );
 
     $effect(() => debouncedResize?.());
@@ -37,7 +37,7 @@
     {@const characterDatas = getCharacterCommodities(
         $userStore,
         commodities,
-        $browserStore.auctions.commoditiesCurrentExpansion,
+        browserState.current.auctions.commoditiesCurrentExpansion
     )}
     <div class="wrapper" bind:this={wrapperDiv}>
         {#each characterDatas as characterData}

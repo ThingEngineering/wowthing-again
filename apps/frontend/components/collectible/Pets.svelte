@@ -1,39 +1,38 @@
 <script lang="ts">
-    import { lazyStore, userStore } from '@/stores'
-    import { staticStore } from '@/shared/stores/static'
-    import type { MultiSlugParams } from '@/types'
-
-    import Collectible from './Collectible.svelte'
-    import ProgressBar from '../common/ProgressBar.svelte';
     import { ItemQuality } from '@/enums/item-quality';
+    import { wowthingData } from '@/shared/stores/data';
+    import { userState } from '@/user-home/state/user';
+    import type { MultiSlugParams } from '@/types';
+
+    import Collectible from './Collectible.svelte';
+    import ProgressBar from '../common/ProgressBar.svelte';
     import RarityBar from '../common/RarityBar.svelte';
 
-    export let basePath = ''
-    export let params: MultiSlugParams
+    let { basePath = '', params }: { basePath: string; params: MultiSlugParams } = $props();
 
-    const thingMapFunc = (thing: number) => $staticStore.pets[thing]?.creatureId
+    const thingMapFunc = (thing: number) => wowthingData.static.petById.get(thing)?.creatureId;
 
-    let maxLevelQuality: number
-    let qualities: number[]
-    $: {
-        maxLevelQuality = 0;
-        qualities = [0, 0, 0, 0];
+    let [maxLevelQuality, qualities] = $derived.by(() => {
+        let countMaxLevel = 0;
+        let countQualities = [0, 0, 0, 0];
 
-        for (const pets of Object.values($userStore.pets)) {
+        for (const pets of Object.values(userState.general.petsById)) {
             let bestQuality = 0;
             let hasMaxed = false;
 
             for (const pet of pets) {
                 bestQuality = Math.max(bestQuality, pet.quality);
-                hasMaxed ||= (pet.level === 25 && pet.quality === ItemQuality.Rare);
+                hasMaxed ||= pet.level === 25 && pet.quality === ItemQuality.Rare;
             }
 
-            qualities[bestQuality]++;
+            countQualities[bestQuality]++;
             if (hasMaxed) {
-                maxLevelQuality++;
+                countMaxLevel++;
             }
         }
-    }
+
+        return [countMaxLevel, countQualities];
+    });
 </script>
 
 <style lang="scss">
@@ -47,9 +46,10 @@
 
 <Collectible
     route={basePath ? `${basePath}/pets` : 'pets'}
-    sets={$lazyStore.pets.filteredCategories}
+    sets={userState.pets.filteredCategories}
+    stats={userState.pets.stats}
     thingType="npc"
-    userHas={$userStore.hasPet}
+    userHas={userState.general.hasPetById}
     {params}
     {thingMapFunc}
 >
@@ -58,15 +58,12 @@
             <ProgressBar
                 title="Max level + quality"
                 have={maxLevelQuality}
-                total={$lazyStore.pets.stats.OVERALL.total}
+                total={userState.pets.stats.OVERALL.total}
             />
         </div>
 
         <div class="progress">
-            <RarityBar
-                {qualities}
-                total={$lazyStore.pets.stats.OVERALL.have}
-            />
+            <RarityBar {qualities} total={userState.pets.stats.OVERALL.have} />
         </div>
     </svelte:fragment>
 </Collectible>

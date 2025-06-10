@@ -1,12 +1,11 @@
 import { Faction } from '@/enums/faction';
 import { wowthingData } from '@/shared/stores/data';
 import type { Settings } from '@/shared/stores/settings/types';
-import type { StaticData, StaticDataProfessionAbilityInfo } from '@/shared/stores/static/types';
+import type { StaticDataProfessionAbilityInfo } from '@/shared/stores/static/types';
 import type { UserData } from '@/types';
 
 interface IsRecipeKnownStores {
     settings: Settings;
-    staticData: StaticData;
     userData: UserData;
 }
 interface IsRecipeKnownOptions {
@@ -17,7 +16,7 @@ interface IsRecipeKnownOptions {
 export function isRecipeKnown(stores: IsRecipeKnownStores, options: IsRecipeKnownOptions) {
     let abilityInfo = options.abilityInfo;
     if (options.itemId) {
-        abilityInfo = stores.staticData.professionAbilityByItemId[options.itemId];
+        abilityInfo = wowthingData.static.professionAbilityByItemId.get(options.itemId);
     }
 
     if (!abilityInfo) {

@@ -7,7 +7,6 @@ import { expansionOrder } from '@/data/expansion';
 import { holidayIds, holidayMinimumLevel } from '@/data/holidays';
 import {
     dragonflightProfessionMap,
-    professionSlugToId,
     professionSpecializationSpells,
     warWithinProfessionMap,
 } from '@/data/professions';
@@ -45,6 +44,7 @@ import type {
 import type { Chore } from '@/types/tasks';
 import type { ActiveHolidays } from '../derived/active-holidays';
 import { Region } from '@/enums/region';
+import { wowthingData } from '@/shared/stores/data';
 
 export interface LazyCharacter {
     chores: Record<string, LazyCharacterChore>;
@@ -161,7 +161,7 @@ class ProcessCharacterProfessions {
         for (const [professionId, characterSubProfessions] of getNumberKeyedEntries(
             this.character.professions || {}
         )) {
-            const staticProfession = this.stores.staticData.professions[professionId];
+            const staticProfession = wowthingData.static.professionById.get(professionId);
             // if (staticProfession.type !== 0) {
             //     continue;
             // }
@@ -331,7 +331,9 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                         charTask.quest = {
                             expires: expiresAt.toUnixInteger(),
                             id: questId,
-                            name: stores.staticData.questNames[questId] || choreTask.taskName,
+                            name:
+                                wowthingData.static.questNameById.get(questId) ||
+                                choreTask.taskName,
                             objectives: [],
                             status: QuestStatus.Completed,
                         };
@@ -494,7 +496,9 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                         stores.settings.professions.ignoreTasksWhenDoneWithTraits &&
                         choreTask.taskKey.match(/^[a-z]+Profession/)
                     ) {
-                        const professionId = professionSlugToId[nameParts[0].toLocaleLowerCase()];
+                        const professionId = wowthingData.static.professionBySlug.get(
+                            nameParts[0].toLocaleLowerCase()
+                        )?.id;
                         if (professionId) {
                             const professionData = choreTask.taskKey.startsWith('df')
                                 ? dragonflightProfessionMap[professionId]

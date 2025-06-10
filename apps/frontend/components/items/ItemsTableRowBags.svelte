@@ -1,23 +1,23 @@
 <script lang="ts">
-    import { bankBagSlots, characterBagSlots } from '@/data/inventory-slot'
-    import { staticStore } from '@/shared/stores/static'
-    import { gearState } from '@/stores/local-storage'
-    import { CharacterEquippedItem, type Character, type CharacterGear } from '@/types'
+    import { bankBagSlots, characterBagSlots } from '@/data/inventory-slot';
+    import { wowthingData } from '@/shared/stores/data';
+    import { gearState } from '@/stores/local-storage';
+    import { CharacterEquippedItem, type Character, type CharacterGear } from '@/types';
 
-    import Empty from './ItemsEmpty.svelte'
-    import Item from './ItemsItem.svelte'
+    import Empty from './ItemsEmpty.svelte';
+    import Item from './ItemsItem.svelte';
 
-    export let character: Character
+    export let character: Character;
 
-    let bagSets: [number, Partial<CharacterGear>][][]
+    let bagSets: [number, Partial<CharacterGear>][][];
     $: {
-        bagSets = []
+        bagSets = [];
         for (const bagSlots of [characterBagSlots, bankBagSlots]) {
-            const bagThings: [number, Partial<CharacterGear>][] = []
-            
+            const bagThings: [number, Partial<CharacterGear>][] = [];
+
             for (const bagSlot of bagSlots) {
-                const itemId = character.bags[bagSlot]
-                const bag = $staticStore.bags[itemId]
+                const itemId = character.bags[bagSlot];
+                const bag = wowthingData.static.bagById.get(itemId);
 
                 if (itemId && bag) {
                     bagThings.push([
@@ -31,32 +31,31 @@
                                 bag.quality,
                                 [],
                                 [],
-                                [],
+                                []
                             ),
-                            highlight: $gearState.minimumBagSize > 0 && bag.slots < $gearState.minimumBagSize
-                        }
-                    ])
-                }
-                else {
-                    bagThings.push([bagSlot, null])
+                            highlight:
+                                $gearState.minimumBagSize > 0 &&
+                                bag.slots < $gearState.minimumBagSize,
+                        },
+                    ]);
+                } else {
+                    bagThings.push([bagSlot, null]);
                 }
             }
 
-            bagSets.push(bagThings)
+            bagSets.push(bagThings);
         }
     }
 
-    const getSlotText = function(slot: number): string {
+    const getSlotText = function (slot: number): string {
         if (slot < 5) {
-            return `Bag<br>${slot}`
+            return `Bag<br>${slot}`;
+        } else if (slot === 5) {
+            return 'Rea<br>gent';
+        } else {
+            return `Bank<br>${slot - 5}`;
         }
-        else if (slot === 5) {
-            return 'Rea<br>gent'
-        }
-        else {
-            return `Bank<br>${slot - 5}`
-        }
-    }
+    };
 </script>
 
 {#each bagSets as bagSlots}

@@ -3,14 +3,12 @@ import { wowthingData } from '@/shared/stores/data';
 import { fixedInventoryType } from '../fixed-inventory-type';
 import { isRecipeKnown } from '../professions/is-recipe-known';
 import type { Settings } from '@/shared/stores/settings/types/settings';
-import type { StaticData } from '@/shared/stores/static/types';
 import type { LazyTransmog } from '@/stores/lazy/transmog';
 import type { UserQuestData } from '@/types/data';
 import type { UserData } from '@/types/user-data';
 
 export function userHasLookup(
     settings: Settings,
-    staticData: StaticData,
     userData: UserData,
     userQuestData: UserQuestData,
     lazyTransmog: LazyTransmog,
@@ -35,8 +33,8 @@ export function userHasLookup(
     } else if (type === LookupType.Toy) {
         return !!userData.hasToy[id];
     } else if (type === LookupType.Recipe) {
-        const abilityInfo = staticData.professionAbilityByAbilityId[id];
-        return isRecipeKnown({ settings, staticData, userData }, { abilityInfo });
+        const abilityInfo = wowthingData.static.professionAbilityByAbilityId.get(id);
+        return isRecipeKnown({ settings, userData }, { abilityInfo });
     } else if (type === LookupType.Quest) {
         return accountTrackingQuest(userQuestData, [id]);
     } else if (type === LookupType.Spell) {

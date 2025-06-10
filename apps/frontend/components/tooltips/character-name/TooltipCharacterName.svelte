@@ -18,8 +18,8 @@
 
     let enabledChoices = $derived.by(() =>
         characterNameTooltipChoices.filter(
-            (choice) => !settingsState.value.characters.disabledNameTooltip.includes(choice.id),
-        ),
+            (choice) => !settingsState.value.characters.disabledNameTooltip.includes(choice.id)
+        )
     );
 </script>
 
@@ -47,11 +47,10 @@
     <h4>{character.name} - {character.realm.name}</h4>
 
     {#if character.guildId && !settingsState.value.characters.disabledNameTooltip.includes('guild')}
-        {@const guild = $userStore.guildMap[character.guildId]}
         <h5>
-            {#if guild}
-                &lt;{guild.name || 'Unknown Guild'}&gt;
-                {guild.realm?.name || 'Unknown Realm'}
+            {#if character.guild}
+                &lt;{character.guild.name || 'Unknown Guild'}&gt;
+                {character.guild.realm?.name || 'Unknown Realm'}
             {:else}
                 &lt;Unknown Guild #{character.guildId}&gt;
             {/if}
@@ -117,7 +116,7 @@
                             <code
                                 >{@html toNiceDuration(character.playedTotal * 1000).replace(
                                     '&nbsp;',
-                                    '',
+                                    ''
                                 )}</code
                             >
                         </td>

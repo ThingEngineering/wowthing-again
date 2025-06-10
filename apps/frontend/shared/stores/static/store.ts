@@ -11,6 +11,7 @@ import {
     StaticDataInstance,
     StaticDataMount,
     StaticDataPet,
+    StaticDataProfession,
     StaticDataProfessionCategory,
     StaticDataRealm,
     StaticDataReputation,
@@ -32,52 +33,44 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
     initialize(data: StaticData): void {
         console.time('StaticDataStore.initialize');
 
-        data.characterClassesBySlug = {};
-        for (const cls of Object.values(data.characterClasses)) {
-            data.characterClassesBySlug[cls.slug] = cls;
+        // data.characterClassesBySlug = {};
+        // for (const cls of Object.values(data.characterClasses)) {
+        //     data.characterClassesBySlug[cls.slug] = cls;
 
-            cls.mask = 2 ** (cls.id - 1);
-            cls.specializationIds = [];
+        //     cls.mask = 2 ** (cls.id - 1);
+        //     cls.specializationIds = [];
 
-            const specs = Object.values(data.characterSpecializations).filter(
-                (spec) => spec.classId === cls.id
-            );
-            specs.sort((a, b) => a.order - b.order);
-            cls.specializationIds = specs.map((spec) => spec.id);
-        }
+        //     const specs = Object.values(data.characterSpecializations).filter(
+        //         (spec) => spec.classId === cls.id
+        //     );
+        //     specs.sort((a, b) => a.order - b.order);
+        //     cls.specializationIds = specs.map((spec) => spec.id);
+        // }
 
-        data.characterRacesBySlug = Object.fromEntries(
-            Object.values(data.characterRaces).map((race) => [
-                ['dracthyr', 'pandaren'].includes(race.slug)
-                    ? `${race.slug}${race.faction}`
-                    : race.slug,
-                race,
-            ])
-        );
+        // data.characterRacesBySlug = Object.fromEntries(
+        //     Object.values(data.characterRaces).map((race) => [
+        //         ['dracthyr', 'pandaren'].includes(race.slug)
+        //             ? `${race.slug}${race.faction}`
+        //             : race.slug,
+        //         race,
+        //     ])
+        // );
 
+        data.professions = {};
         data.professionBySkillLine = {};
-        for (const profession of Object.values(data.professions)) {
-            if (profession.rawCategories != null) {
-                profession.categories = profession.rawCategories.map(
-                    (categoryArray) => new StaticDataProfessionCategory(...categoryArray)
-                );
+        if (data.rawProfessions !== null) {
+            for (const professionArray of Object.values(data.rawProfessions)) {
+                const profession = new StaticDataProfession(...professionArray);
+                data.professions[profession.id] = profession;
 
-                profession.expansionCategory = Object.fromEntries(
-                    profession.categories.map((cat, index) => [index, cat])
-                );
-
-                profession.rawCategories = null;
+                data.professionBySkillLine[profession.id] = [profession, 0];
+                for (let i = 0; i < profession.subProfessions.length; i++) {
+                    const subProfession = profession.subProfessions[i];
+                    data.professionBySkillLine[subProfession.id] = [profession, i];
+                }
             }
 
-            profession.expansionSubProfession = Object.fromEntries(
-                profession.subProfessions.map((cat, index) => [index, cat])
-            );
-
-            data.professionBySkillLine[profession.id] = [profession, 0];
-            for (let i = 0; i < profession.subProfessions.length; i++) {
-                const subProfession = profession.subProfessions[i];
-                data.professionBySkillLine[subProfession.id] = [profession, i];
-            }
+            data.rawProfessions = null;
         }
 
         if (data.rawBags !== null) {

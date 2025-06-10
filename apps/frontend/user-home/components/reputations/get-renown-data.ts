@@ -1,4 +1,8 @@
-import type { StaticData, StaticDataReputation } from '@/shared/stores/static/types';
+import { brannHack } from '@/components/tooltips/reputation/brann-hack';
+import { wowthingData } from '@/shared/stores/data';
+import findReputationTier from '@/utils/find-reputation-tier';
+
+import type { StaticDataReputation } from '@/shared/stores/static/types';
 import type {
     Character,
     CharacterReputationParagon,
@@ -6,8 +10,6 @@ import type {
     UserData,
 } from '@/types';
 import type { ManualDataReputationSet } from '@/types/data/manual';
-import findReputationTier from '@/utils/find-reputation-tier';
-import { brannHack } from '@/components/tooltips/reputation/brann-hack';
 
 interface GetRenownDataParameters {
     character?: Character;
@@ -15,7 +17,6 @@ interface GetRenownDataParameters {
     reputationsIndex: number;
     reputationSetsIndex: number;
     slug: string;
-    staticData: StaticData;
     userData: UserData;
 }
 
@@ -35,7 +36,6 @@ export function getRenownData({
     reputationsIndex,
     reputationSetsIndex,
     slug,
-    staticData,
     userData,
 }: GetRenownDataParameters): RenownData {
     const ret = new RenownData();
@@ -47,21 +47,20 @@ export function getRenownData({
     character ||= userData.characters[0];
 
     ret.characterRep = character.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
-    ret.dataRep = staticData.reputations[ret.characterRep.reputationId];
+    ret.dataRep = wowthingData.static.reputationById.get(ret.characterRep.reputationId);
 
     const actualCharacter = !ret.dataRep.accountWide
         ? character
         : userData.apiUpdatedCharacters.find(
               (char) =>
-                  char.reputationData[slug].sets[reputationsIndex][reputationSetsIndex].value !==
-                  -1,
+                  char.reputationData[slug].sets[reputationsIndex][reputationSetsIndex].value !== -1
           ) || userData.apiUpdatedCharacters[0];
 
     ret.characterRep =
         actualCharacter.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
     if (ret.characterRep.value !== -1) {
         if (ret.dataRep.renownCurrencyId > 0) {
-            const currency = staticData.currencies[ret.dataRep.renownCurrencyId];
+            const currency = wowthingData.static.currencyById.get(ret.dataRep.renownCurrencyId);
             const maxRenown = currency.maxTotal;
 
             let tier = ret.characterRep.value / (ret.dataRep.maxValues[0] || 2500);
@@ -75,7 +74,8 @@ export function getRenownData({
             ret.renownLevel = (Math.floor(tier * 100) / 100).toFixed(2);
         } else {
             const tiers =
-                staticData.reputationTiers[ret.dataRep.tierId] || staticData.reputationTiers[0];
+                wowthingData.static.reputationTierById.get(ret.dataRep.tierId) ||
+                wowthingData.static.reputationTierById.get(0);
             const repTier = findReputationTier(tiers, ret.characterRep.value);
 
             if (ret.dataRep.id === brannId) {

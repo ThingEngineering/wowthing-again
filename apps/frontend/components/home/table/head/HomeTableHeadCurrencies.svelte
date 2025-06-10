@@ -1,6 +1,5 @@
 <script lang="ts">
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { staticStore } from '@/shared/stores/static';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { wowthingData } from '@/shared/stores/data';
     import { homeState } from '@/stores/local-storage';
@@ -34,7 +33,7 @@
         use:componentTooltip={{
             component: Tooltip,
             props: {
-                currency: $staticStore.currencies[currencyId],
+                currency: wowthingData.static.currencyById.get(currencyId),
                 item: wowthingData.items.items[currencyId - 1000000],
             },
         }}

@@ -13,7 +13,7 @@ import { leftPad } from '@/utils/formatting';
 import getFilteredItems from '@/utils/journal/get-filtered-items';
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import { isRecipeKnown } from '@/utils/professions/is-recipe-known';
-import { JournalDataEncounterItem, type JournalData, type UserQuestData } from '@/types/data';
+import { JournalDataEncounterItem, type UserQuestData } from '@/types/data';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { Settings } from '@/shared/stores/settings/types';
 
@@ -65,12 +65,13 @@ export function doJournal(stores: LazyStores): LazyJournal {
             const instanceStats = (ret.stats[instanceKey] = new UserCount());
             const instanceSeen = new Set<string>();
 
-            const instanceExpansion = stores.staticData.instances[instance.id]?.expansion ?? 0;
+            const instanceExpansion =
+                wowthingData.static.instanceById.get(instance.id)?.expansion ?? 0;
 
             for (const encounter of instance.encounters) {
                 // Chi-Ji, The Red Crane -> The August Celestials
                 if (encounter.id === 857) {
-                    encounter.name = stores.staticData.reputations[1341].name;
+                    encounter.name = wowthingData.static.reputationById.get(1341).name;
                 }
 
                 const encounterKey = `${instanceKey}--${encounter.name}`;
@@ -216,10 +217,9 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                 appearanceKey = `z-${item.type}-${item.id}`;
 
                                 if (item.type === RewardType.Illusion) {
-                                    const enchantmentId =
-                                        stores.staticData.illusions[
-                                            item.appearances[0].appearanceId
-                                        ].enchantmentId;
+                                    const enchantmentId = wowthingData.static.illusionById.get(
+                                        item.appearances[0].appearanceId
+                                    ).enchantmentId;
                                     appearance.userHas =
                                         stores.userData.hasIllusion.has(enchantmentId);
                                 } else if (item.type === RewardType.Recipe) {
@@ -229,7 +229,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                 } else if (item.type === RewardType.Pet) {
                                     appearance.userHas = stores.userData.hasPet[item.classId];
                                 } else if (item.type === RewardType.Toy) {
-                                    appearance.userHas = stores.userData.hasToy[item.id];
+                                    appearance.userHas = stores.userData.hasToy?.[item.id];
                                 } else if (item.type === RewardType.Quest) {
                                     appearance.userHas = stores.userQuestData.accountHas.has(
                                         item.id
@@ -392,7 +392,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                             if (!aOrder) {
                                 const aSkillLine = stores.staticData.itemToSkillLine[a.id];
                                 const [aProfession] =
-                                    stores.staticData.professionBySkillLine[aSkillLine[0]];
+                                    wowthingData.static.professionBySkillLineId.get(aSkillLine[0]);
                                 aOrder = recipeOrder[a.id] = professionOrderMap[aProfession?.id];
                             }
 
@@ -400,7 +400,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                             if (!bOrder) {
                                 const bSkillLine = stores.staticData.itemToSkillLine[b.id];
                                 const [bProfession] =
-                                    stores.staticData.professionBySkillLine[bSkillLine[0]];
+                                    wowthingData.static.professionBySkillLineId.get(bSkillLine[0]);
                                 bOrder = recipeOrder[b.id] = professionOrderMap[bProfession?.id];
                             }
 

@@ -12,6 +12,7 @@
 
     import Sidebar from './Sidebar.svelte';
     import Table from './Table.svelte';
+    import { wowthingData } from '@/shared/stores/data';
 
     export let slug: string;
 
@@ -33,8 +34,9 @@
 
             for (const patronOrders of Object.values(character.patronOrders)) {
                 for (const patronOrder of patronOrders) {
-                    const { ability } =
-                        $staticStore.professionAbilityByAbilityId[patronOrder.skillLineAbilityId];
+                    const { ability } = wowthingData.static.professionAbilityByAbilityId.get(
+                        patronOrder.skillLineAbilityId
+                    );
                     for (const reagent of ability.categoryReagents) {
                         for (const categoryId of reagent.categoryIds) {
                             for (const itemId of $staticStore.reagentCategories[categoryId] || []) {

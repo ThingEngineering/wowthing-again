@@ -84,7 +84,8 @@
     {#each filteredNavItems as navItem, navIndex (navIndex)}
         {#if navItem !== null}
             {#if !navItem.privateOnly || (navItem.privateOnly && navItem.text === 'Currencies' && settingsState.value.privacy.publicCurrencies) || ($userStore.loaded && !sharedState.public)}
-                {@const percent = navItem.percentFunc?.($lazyStore)}
+                <!-- {@const percent = navItem.percentFunc?.($lazyStore)} -->
+                {@const percent = 1}
                 <a
                     class:spacer={navIndex < filteredNavItems.length &&
                         !filteredNavItems[navIndex + 1]?.path}

@@ -1,6 +1,7 @@
 <script lang="ts">
+    import { Faction } from '@/enums/faction';
     import { RewardType } from '@/enums/reward-type';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { timeStore } from '@/shared/stores/time';
     import { userQuestStore, userStore } from '@/stores';
     import { toNiceDuration } from '@/utils/formatting';
@@ -10,38 +11,40 @@
     import type { ApiWorldQuest } from './types';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
-    import { Faction } from '@/enums/faction';
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
 
-    export let worldQuest: ApiWorldQuest;
+    let { worldQuest }: { worldQuest: ApiWorldQuest } = $props();
 
-    $: bestRewards = worldQuest.rewards[0][1];
-    $: millis = worldQuest.expires.diff($timeStore).toMillis();
-    $: staticWorldQuest = $staticStore.worldQuests[worldQuest.questId];
-    $: questInfo = $staticStore.questInfo[staticWorldQuest?.questInfoId];
+    let bestRewards = $derived(worldQuest.rewards[0][1]);
+    let millis = $derived.by(() => worldQuest.expires.diff($timeStore).toMillis());
+    let staticWorldQuest = $derived.by(() =>
+        wowthingData.static.worldQuestById.get(worldQuest.questId)
+    );
+    let questInfo = $derived.by(() =>
+        wowthingData.static.questInfoById.get(staticWorldQuest?.questInfoId)
+    );
 
-    let characters: string;
-    $: {
+    let characters = $derived.by(() => {
         let validCharacters = $userStore.characters.filter((char) => char.level >= 60);
 
         if (staticWorldQuest) {
             if (staticWorldQuest.minLevel) {
                 validCharacters = validCharacters.filter(
-                    (char) => char.level >= staticWorldQuest.minLevel,
+                    (char) => char.level >= staticWorldQuest.minLevel
                 );
             }
 
             // TODO check all? one?
             if (staticWorldQuest.needQuestIds) {
                 validCharacters = validCharacters.filter((char) =>
-                    userQuestStore.hasAny(char.id, staticWorldQuest.needQuestIds[0]),
+                    userQuestStore.hasAny(char.id, staticWorldQuest.needQuestIds[0])
                 );
             }
         }
 
         if (worldQuestPrereqs[worldQuest.questId]) {
             validCharacters = validCharacters.filter((char) =>
-                userQuestStore.hasAny(char.id, worldQuestPrereqs[worldQuest.questId]),
+                userQuestStore.hasAny(char.id, worldQuestPrereqs[worldQuest.questId])
             );
         }
 
@@ -59,11 +62,11 @@
         complete.sort((a, b) => a.name.localeCompare(b.name));
         incomplete.sort((a, b) => a.name.localeCompare(b.name));
 
-        characters = [
+        return [
             ...incomplete.map((c) => `<span class="class-${c.classId}">${c.name}</span>`),
             ...complete.map((c) => `<span class="class-${c.classId} completed">${c.name}</span>`),
         ].join(' ');
-    }
+    });
 </script>
 
 <style lang="scss">
@@ -127,7 +130,7 @@
                             {#if reward.id === 0}
                                 gold
                             {:else}
-                                {$staticStore.currencies[reward.id]?.name}
+                                {wowthingData.static.currencyById.get(reward.id)?.name}
                             {/if}
                         {:else if reward.type === RewardType.Item}
                             <ParsedText text={`{item:${reward.id}}`} />

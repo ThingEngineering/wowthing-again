@@ -2,7 +2,7 @@
     import { timeLeft } from '@/data/auctions';
     import { Region } from '@/enums/region';
     import { userStore, userAuctionSpecificItemStore } from '@/stores';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { auctionState } from '@/stores/local-storage';
     import connectedRealmName from '@/utils/connected-realm-name';
     import { basicTooltip } from '@/shared/utils/tooltips';
@@ -100,7 +100,9 @@
 
             <tbody>
                 {#each auctions as auction}
-                    {@const connectedRealm = $staticStore.connectedRealms[auction.connectedRealmId]}
+                    {@const connectedRealm = wowthingData.static.connectedRealmById.get(
+                        auction.connectedRealmId
+                    )}
                     <tr>
                         <td
                             class="realm text-overflow"

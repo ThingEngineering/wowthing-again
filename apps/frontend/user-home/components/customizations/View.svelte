@@ -2,8 +2,9 @@
     import find from 'lodash/find';
     import { afterUpdate } from 'svelte';
 
+    import { browserState } from '@/shared/state/browser.svelte';
+    import { wowthingData } from '@/shared/stores/data';
     import { lazyStore } from '@/stores';
-    import { collectibleState } from '@/stores/local-storage';
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import getPercentClass from '@/utils/get-percent-class';
     import type { MultiSlugParams } from '@/types';
@@ -11,7 +12,6 @@
 
     import Options from './Options.svelte';
     import Thing from './Thing.svelte';
-    import { wowthingData } from '@/shared/stores/data';
 
     export let params: MultiSlugParams;
 
@@ -19,7 +19,7 @@
     $: {
         const categories = find(
             wowthingData.manual.customizationCategories,
-            (c) => c !== null && c[0].slug === params.slug1,
+            (c) => c !== null && c[0].slug === params.slug1
         );
         if (!categories) {
             break $;
@@ -44,7 +44,7 @@
                     columnCount: '--column-count',
                     gap: 30,
                     padding: '1.5rem',
-                },
+                }
             );
             debouncedResize();
         } else {
@@ -89,11 +89,11 @@
         <Options />
 
         <div class="idk" bind:this={resizeableElement}>
-            {#each category.groups as group}
+            {#each category.groups as group (group)}
                 {@const groupStats =
                     $lazyStore.customizations[`${params.slug1}--${params.slug2}--${group.name}`]}
                 {@const color = getPercentClass(groupStats.percent)}
-                {#if ($collectibleState.showCollected['customizations'] && groupStats.have > 0) || ($collectibleState.showUncollected['customizations'] && groupStats.have < groupStats.total)}
+                {#if (browserState.current['collectible-customizations'].showCollected && groupStats.have > 0) || (browserState.current['collectible-customizations'].showUncollected && groupStats.have < groupStats.total)}
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -112,7 +112,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {#each group.things as thing}
+                            {#each group.things as thing (thing)}
                                 <Thing {thing} />
                             {/each}
                         </tbody>

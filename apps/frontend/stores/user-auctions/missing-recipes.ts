@@ -117,7 +117,8 @@ export class UserAuctionMissingRecipeDataStore {
             const meetsHave = auctionState.showHave || thing.hasItems.length === 0;
 
             const [skillLineId] = staticData.itemToSkillLine[item.id];
-            const [profession, skillLineExpansion] = staticData.professionBySkillLine[skillLineId];
+            const [profession, skillLineExpansion] =
+                wowthingData.static.professionBySkillLineId.get(skillLineId);
 
             const meetsExpansion =
                 auctionState.missingRecipeExpansion === -1 ||
@@ -182,9 +183,11 @@ export class UserAuctionMissingRecipeDataStore {
                 .slice(0, auctionState.limitToCheapestRealm ? 1 : undefined)
                 .some(
                     (auction) =>
-                        staticData.connectedRealms[auction.connectedRealmId].realmNames.filter(
-                            (name) => name.toLocaleLowerCase().indexOf(realmLower) >= 0
-                        ).length > 0
+                        wowthingData.static.connectedRealmById
+                            .get(auction.connectedRealmId)
+                            .realmNames.filter(
+                                (name) => name.toLocaleLowerCase().indexOf(realmLower) >= 0
+                            ).length > 0
                 );
 
             return (

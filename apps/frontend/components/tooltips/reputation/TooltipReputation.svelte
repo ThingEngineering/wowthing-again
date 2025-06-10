@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Constants } from '@/data/constants';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { toNiceNumber } from '@/utils/formatting';
     import type {
         StaticDataReputation,
@@ -8,10 +8,10 @@
     } from '@/shared/stores/static/types';
     import type { Character, CharacterReputationParagon } from '@/types';
     import type { ManualDataReputationSet } from '@/types/data/manual';
+    import { brannHack } from './brann-hack';
 
     import RenownTooltip from './TooltipReputationRenown.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { brannHack } from './brann-hack';
 
     export let bottom: string = undefined;
     export let character: Character = undefined;
@@ -32,7 +32,8 @@
 
     $: {
         const tiers: StaticDataReputationTier =
-            $staticStore.reputationTiers[dataRep.tierId] || $staticStore.reputationTiers[0];
+            wowthingData.static.reputationTierById.get(dataRep.tierId) ||
+            wowthingData.static.reputationTierById.get(0);
 
         reps = [];
         let foundIndex = -1;
@@ -166,11 +167,11 @@
                                     {toNiceNumber(
                                         characterRep < 0
                                             ? Math.abs(characterRep) + rep.minValue
-                                            : characterRep - rep.minValue,
+                                            : characterRep - rep.minValue
                                     )}
                                 {:else}
                                     {toNiceNumber(
-                                        rep.minValue < 0 ? rep.minValue - rep.maxValue : 0,
+                                        rep.minValue < 0 ? rep.minValue - rep.maxValue : 0
                                     )}
                                 {/if}
                             </td>
@@ -179,7 +180,7 @@
                                 {toNiceNumber(
                                     rep.minValue < 0
                                         ? rep.minValue - rep.maxValue
-                                        : rep.maxValue - rep.minValue,
+                                        : rep.maxValue - rep.minValue
                                 )}
                             </td>
                         {/if}

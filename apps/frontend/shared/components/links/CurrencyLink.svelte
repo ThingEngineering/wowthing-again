@@ -1,6 +1,5 @@
 <script lang="ts">
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import type { ItemDataItem } from '@/types/data/item';
@@ -18,7 +17,7 @@
         url = `https://${settingsState.wowheadBaseUrl}/`;
 
         if (currencyId !== undefined) {
-            currency = $staticStore.currencies[currencyId];
+            currency = wowthingData.static.currencyById.get(currencyId);
             item = undefined;
         } else if (itemId !== undefined) {
             currency = undefined;

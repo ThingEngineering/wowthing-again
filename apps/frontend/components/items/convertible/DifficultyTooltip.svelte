@@ -4,7 +4,7 @@
     import { InventoryType } from '@/enums/inventory-type';
     import { iconLibrary, uiIcons } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import { getGenderedName } from '@/utils/get-gendered-name';
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
     import type { StaticDataCharacterClass } from '@/shared/stores/static/types';
@@ -14,13 +14,19 @@
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
-    export let characterClass: StaticDataCharacterClass;
-    export let inventoryType: InventoryType;
-    export let modifier: LazyConvertibleModifier;
+    type Props = {
+        characterClass: StaticDataCharacterClass;
+        inventoryType: InventoryType;
+        modifier: LazyConvertibleModifier;
+    };
 
-    $: characters = sortBy(
-        getNumberKeyedEntries(modifier.characters),
-        ([id]) => $userStore.characterMap[id].realm.name + '|' + $userStore.characterMap[id].name,
+    let { characterClass, inventoryType, modifier }: Props = $props();
+
+    let characters = $derived.by(() =>
+        sortBy(getNumberKeyedEntries(modifier.characters), ([id]) => {
+            const character = userState.general.characterById[id];
+            return `${character.realm.name}|${character.name}`;
+        })
     );
 </script>
 
@@ -68,7 +74,7 @@
                 </tr>
             {:else}
                 {#each characters as [characterId, characterData] (characterId)}
-                    {@const character = $userStore.characterMap[characterId]}
+                    {@const character = userState.general.characterById[characterId]}
                     {@const canConvert = characterData.some((item) => item.canConvert)}
                     {@const canUpgrade = characterData.some((item) => item.canUpgrade)}
                     {@const isConvertible = characterData.some((item) => item.isConvertible)}

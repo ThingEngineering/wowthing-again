@@ -5,7 +5,6 @@
     import { openables } from '@/data/openables';
     import { contractAuras } from '@/data/reputation';
     import { durationAuras, staticAuras } from '@/data/spells';
-    import { staticStore } from '@/shared/stores/static';
     import { timeStore } from '@/shared/stores/time';
     import { wowthingData } from '@/shared/stores/data';
     import { toNiceDuration } from '@/utils/formatting';
@@ -97,7 +96,7 @@
 
                 const niceRemaining = toNiceDuration(diff).replace('&nbsp;', '');
                 const [reputationId, rank] = contractAuras[spellId];
-                const reputation = $staticStore.reputations[reputationId];
+                const reputation = wowthingData.static.reputationById.get(reputationId);
                 images.push([
                     `spell/${spellId}`,
                     `<div class="center">{craftedQuality:${rank}} ${reputation.name}<br>${niceRemaining} remaining</div>`,

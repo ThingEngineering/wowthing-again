@@ -1,9 +1,7 @@
 <script lang="ts">
     import { afterUpdate, setContext } from 'svelte';
 
-    import { lazyStore } from '@/stores';
     import getSavedRoute from '@/utils/get-saved-route';
-    import type { LazyCollectible } from '@/stores/lazy/collectible';
     import type { MultiSlugParams } from '@/types';
     import type { CollectibleContext } from '@/types/contexts';
     import type { ManualDataSetCategory } from '@/types/data/manual';
@@ -15,16 +13,17 @@
     export let params: MultiSlugParams;
     export let route: string;
     export let sets: ManualDataSetCategory[][];
+    export let stats: CollectibleContext['stats'];
     export let thingMapFunc: (thing: number) => number = undefined;
     export let thingType: string;
-    export let userHas: Record<number, boolean> = {};
+    export let userHas: Set<number>;
 
     $: {
         const countsKey = route.split('/').slice(-1)[0];
         const context: CollectibleContext = {
             countsKey,
             route,
-            stats: ($lazyStore.lookup(countsKey) as LazyCollectible).stats,
+            stats,
             thingMapFunc,
             thingType,
             userHas,

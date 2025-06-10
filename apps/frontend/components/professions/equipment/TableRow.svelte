@@ -4,19 +4,20 @@
     import { imageStrings } from '@/data/icons';
     import { uiIcons } from '@/shared/icons';
     import { professionIdToSlug } from '@/data/professions';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { getNameForFaction } from '@/utils/get-name-for-faction';
     import { getProfessionEquipment, getProfessionSortKey } from '@/utils/professions';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
     import type { CharacterGear } from '@/types';
     import type { CharacterProps } from '@/types/props';
 
+    import { someProfessions } from './some';
+
     import CurrenciesCell from '@/user-home/components/currencies/TableRow.svelte';
     import Empty from '../../items/ItemsEmpty.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import Item from '../../items/ItemsItem.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { someProfessions } from './some';
 
     let { character, professionId, slug }: CharacterProps & { professionId: number; slug: string } =
         $props();
@@ -24,7 +25,7 @@
     let professions = $derived.by(() => {
         const ret: [Partial<StaticDataProfession>, boolean, Partial<CharacterGear>[]][] = [];
         let type0s = 0;
-        for (const profession of Object.values($staticStore.professions)) {
+        for (const profession of wowthingData.static.professionById.values()) {
             if (professionId > 0 && profession.id !== professionId) {
                 continue;
             }

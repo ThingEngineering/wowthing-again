@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { staticStore } from '@/shared/stores/static';
     import { getCurrencyCosts } from '@/utils/get-currency-costs';
 
     import CurrencyLink from '@/shared/components/links/CurrencyLink.svelte';
@@ -26,7 +25,7 @@
 
 {#if costs}
     <span class="costs">
-        {#each getCurrencyCosts($staticStore, costs, true, true) as [linkType, linkId, value] (`${linkType}-${linkId}`)}
+        {#each getCurrencyCosts(costs, true, true) as [linkType, linkId, value] (`${linkType}-${linkId}`)}
             <div>
                 <CurrencyLink
                     currencyId={linkType === 'currency' ? linkId : undefined}

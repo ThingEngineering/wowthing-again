@@ -1,9 +1,12 @@
-export interface StaticDataConnectedRealm {
-    displayText: string;
-    id: number;
-    locale: string;
-    realmNames: string[];
-    region: number;
+export class StaticDataConnectedRealm {
+    public displayText: string;
+    public realmNames: string[] = [];
+
+    constructor(
+        public id: number,
+        public region: number,
+        public locale: string
+    ) {}
 }
 
 export class StaticDataRealm {
@@ -14,7 +17,7 @@ export class StaticDataRealm {
         public name: string,
         public slug: string,
         public locale: string,
-        public englishName?: string,
+        public englishName?: string
     ) {}
 }
 export type StaticDataRealmArray = ConstructorParameters<typeof StaticDataRealm>;

@@ -4,14 +4,12 @@ import { isRecipeKnown } from './professions/is-recipe-known';
 import { transmogTypes } from '@/data/transmog';
 import { RewardType } from '@/enums/reward-type';
 import type { Settings } from '@/shared/stores/settings/types/settings';
-import type { StaticData } from '@/shared/stores/static/types';
 import type { LazyTransmog } from '@/stores/lazy/transmog';
 import type { UserQuestData } from '@/types/data';
 import type { UserData } from '@/types/user-data';
 
 export default function userHasDrop(
     settings: Settings,
-    staticData: StaticData,
     userData: UserData,
     userQuestData: UserQuestData,
     lazyTransmog: LazyTransmog,
@@ -34,11 +32,11 @@ export default function userHasDrop(
             return userQuestData.accountHas.has(manualData.dragonridingItemToQuest.get(id));
         } else if (manualData.druidFormItemToQuest.has(id)) {
             return userQuestData.accountHas.has(manualData.druidFormItemToQuest.get(id));
-        } else if (staticData.mountsByItem[id]) {
-            return userData.hasMount[staticData.mountsByItem[id].id] === true;
-        } else if (staticData.petsByItem[id]) {
-            return userData.hasPet[staticData.petsByItem[id].id] === true;
-        } else if (staticData.toys[id]) {
+        } else if (wowthingData.static.mountByItemId.has(id)) {
+            return userData.hasMount[wowthingData.static.mountByItemId.get(id).id] === true;
+        } else if (wowthingData.static.petByItemId.has(id)) {
+            return userData.hasPet[wowthingData.static.petByItemId.get(id).id] === true;
+        } else if (wowthingData.static.toyByItemId.has(id)) {
             return userData.hasToy[id] === true;
         } else if (wowthingData.items.teachesTransmog[id]) {
             const statsKey = `ensemble:${wowthingData.items.teachesTransmog[id]}`;
@@ -48,9 +46,9 @@ export default function userHasDrop(
             }
         } else if (wowthingData.items.completesQuest[id]) {
             return accountTrackingQuest(userQuestData, id);
-        } else if (staticData.professionAbilityByItemId[id]) {
-            const abilityInfo = staticData.professionAbilityByItemId[id];
-            return isRecipeKnown({ settings, staticData, userData }, { abilityInfo });
+        } else if (wowthingData.static.professionAbilityByItemId.has(id)) {
+            const abilityInfo = wowthingData.static.professionAbilityByItemId.get(id);
+            return isRecipeKnown({ settings, userData }, { abilityInfo });
         }
     } else if (type === RewardType.AccountQuest) {
         return accountTrackingQuest(userQuestData, id);

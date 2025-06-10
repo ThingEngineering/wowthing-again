@@ -3,24 +3,26 @@
 
     import { imageStrings } from '@/data/icons';
     import { professionConcentration } from '@/data/professions/cooldowns';
-    import { staticStore } from '@/shared/stores/static';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import { wowthingData } from '@/shared/stores/data';
     import { timeStore } from '@/shared/stores/time';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import { getProfessionSortKey } from '@/utils/professions';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { settingsState } from '@/shared/state/settings.svelte';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 
-    $: professions = sortBy(
-        Object.values($staticStore.professions).filter(
-            (prof) => professionConcentration[prof.id] && character.professions?.[prof.id]
-        ),
-        (prof) => getProfessionSortKey(prof)
+    let professions = $derived.by(() =>
+        sortBy(
+            Object.keys(professionConcentration)
+                .filter((id) => !!character.professions?.[parseInt(id)])
+                .map((id) => wowthingData.static.professionById.get(parseInt(id))),
+            (prof) => getProfessionSortKey(prof)
+        )
     );
 
     function statusClass(fullIsBad: boolean, percent: number) {
@@ -70,7 +72,7 @@
                 $timeStore,
                 userStore,
                 character,
-                $staticStore.currencies[professionConcentration[profession.id]]
+                wowthingData.static.currencyById.get(professionConcentration[profession.id])
             )}
             <div
                 class="concentration {statusClass(

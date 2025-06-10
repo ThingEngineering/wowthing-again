@@ -1,7 +1,7 @@
 <script lang="ts">
     import { tick } from 'svelte';
 
-    import { professionSlugToId } from '@/data/professions';
+    import { wowthingData } from '@/shared/stores/data';
     import getSavedRoute from '@/utils/get-saved-route';
     import type { Character } from '@/types';
     import { someProfessions } from './some';
@@ -12,7 +12,7 @@
 
     let { slug }: { slug: string } = $props();
 
-    let professionId = $derived(professionSlugToId[slug] || 0);
+    let professionId = $derived(wowthingData.static.professionBySlug.get(slug)?.id || 0);
 
     const filterFunc = (char: Character): boolean => {
         if (slug === 'all') {

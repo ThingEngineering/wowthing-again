@@ -1,31 +1,26 @@
 <script lang="ts">
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty';
-    import { staticStore } from '@/shared/stores/static';
-    import { userStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
+    import { userState } from '@/user-home/state/user';
     import type { Difficulty } from '@/types';
 
-    export let difficulty: Difficulty;
-    export let instanceId: number;
+    let { difficulty, instanceId }: { difficulty: Difficulty; instanceId: number } = $props();
 
-    $: instance = $staticStore.instances[instanceId];
+    let instance = $derived(wowthingData.static.instanceById.get(instanceId));
 
-    let byDifficulty: Record<number, number>;
-    let count: number;
-    $: {
-        byDifficulty = {};
-        count = 0;
-
-        const lockouts = $userStore.allLockouts.filter(
-            (lockout) => lockout.instanceId === instanceId,
+    let byDifficulty = $derived.by(() => {
+        const ret: Record<number, number> = {};
+        const lockouts = userState.general.allLockouts.filter(
+            (lockout) => lockout.instanceId === instanceId
         );
         for (const lockout of lockouts) {
             for (const [, characterLockout] of lockout.characters) {
-                byDifficulty[characterLockout.difficulty] =
-                    (byDifficulty[characterLockout.difficulty] || 0) + 1;
-                count++;
+                ret[characterLockout.difficulty] = (ret[characterLockout.difficulty] || 0) + 1;
             }
         }
-    }
+        return ret;
+    });
+    let count = $derived(Object.values(byDifficulty).reduce((t, v) => t + v, 0));
 </script>
 
 <div class="wowthing-tooltip">
@@ -38,7 +33,7 @@
     <table class="table-tooltip-lockout table-striped">
         <tbody>
             {#if count > 0}
-                {#each journalDifficultyOrder as difficulty}
+                {#each journalDifficultyOrder as difficulty (difficulty)}
                     {@const difficultyCount = byDifficulty[difficulty]}
                     {#if difficultyCount}
                         <tr>

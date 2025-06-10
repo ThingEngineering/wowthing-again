@@ -1,37 +1,25 @@
 import groupBy from 'lodash/groupBy';
 import sortBy from 'lodash/sortBy';
-import uniq from 'lodash/uniq';
 import { get } from 'svelte/store';
 import type { DateTime } from 'luxon';
 
-import {
-    difficultyMap,
-    lockoutDifficultyOrder,
-    lockoutDifficultyOrderMap,
-} from '@/data/difficulty';
 import { seasonMap } from '@/data/mythic-plus';
 import { slotOrder } from '@/data/inventory-slot';
-import { singleLockoutRaids } from '@/data/raid';
 import { InventorySlot } from '@/enums/inventory-slot';
 import { ItemBonusType } from '@/enums/item-bonus-type';
 import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
-import { TypedArray } from '@/enums/typed-array';
 import { wowthingData } from '@/shared/stores/data';
 import { settingsState } from '@/shared/state/settings.svelte';
 import { sharedState } from '@/shared/state/shared.svelte';
-import { staticStore } from '@/shared/stores/static';
 import {
     Character,
     CharacterMythicPlusRunMember,
     Guild,
     UserDataCurrentPeriod,
-    UserDataPet,
     WritableFancyStore,
 } from '@/types';
 import { WarbankItem } from '@/types/items';
 import { userState } from '@/user-home/state/user';
-import base64ToRecord from '@/utils/base64-to-record';
-import { leftPad } from '@/utils/formatting';
 import getItemLevelQuality from '@/utils/get-item-level-quality';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { getDungeonScores } from '@/utils/mythic-plus/get-dungeon-scores';
@@ -43,7 +31,6 @@ import type {
     UserData,
 } from '@/types';
 import type { Settings } from '@/shared/stores/settings/types';
-import type { StaticData } from '@/shared/stores/static/types';
 import type { ItemDataItem } from '@/types/data/item';
 import type { ContainsItems, HasNameAndRealm, UserItem } from '@/types/shared';
 
@@ -77,24 +64,24 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         // Unpack packed data
         if (userData.mountsPacked !== null) {
-            userData.hasMount = base64ToRecord(TypedArray.Uint16, userData.mountsPacked);
+            // userData.hasMount = base64ToRecord(TypedArray.Uint16, userData.mountsPacked);
             userData.mountsPacked = null;
         }
 
         if (userData.toysPacked !== null) {
-            userData.hasToyById = base64ToRecord(TypedArray.Uint16, userData.toysPacked);
+            // userData.hasToyById = base64ToRecord(TypedArray.Uint16, userData.toysPacked);
             userData.toysPacked = null;
         }
 
         if (userData.petsRaw !== null) {
-            userData.pets = {};
-            userData.hasPet = {};
-            for (const petId in userData.petsRaw) {
-                userData.pets[petId] = userData.petsRaw[petId].map(
-                    (petArray) => new UserDataPet(...petArray)
-                );
-                userData.hasPet[petId] = true;
-            }
+            // userData.pets = {};
+            // userData.hasPet = {};
+            // for (const petId in userData.petsRaw) {
+            //     userData.pets[petId] = userData.petsRaw[petId].map(
+            //         (petArray) => new UserDataPet(...petArray)
+            //     );
+            //     userData.hasPet[petId] = true;
+            // }
             userData.petsRaw = null;
         }
 
@@ -132,8 +119,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         // Characters
         userData.maxReputation = new Map<number, number>();
         userData.characterMap = {};
-        userData.charactersByConnectedRealm = {};
-        userData.charactersByRealm = {};
         userData.characters = [];
         userData.hasRecipe = new Set<number>();
         for (const charArray of userData.charactersRaw || []) {
@@ -178,8 +163,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         // userAchievementData: UserAchievementData,
     ): void {
         console.time('UserDataStore.setup');
-
-        const staticData = get(staticStore);
 
         this._itemCounts = {};
 
@@ -226,7 +209,9 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         for (const guild of Object.values(userData.guildMap)) {
             this.initializeGuild(guild);
 
-            guild.realm = staticData.realms[guild.realmId] || staticData.realms[0];
+            guild.realm =
+                wowthingData.static.realmById.get(guild.realmId) ||
+                wowthingData.static.realmById.get(0);
 
             for (const [appearanceId, items] of getNumberKeyedEntries(guild.itemsByAppearanceId)) {
                 (userData.itemsByAppearanceId[appearanceId] ||= []).push([guild, items]);
@@ -241,11 +226,9 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         // Initialize characters
         console.time('characters');
-        userData.charactersByConnectedRealm = {};
-        userData.charactersByRealm = {};
         const allLockouts: Record<string, [Character, CharacterLockout][]> = {};
         for (const character of userData.characters) {
-            this.initializeCharacter(staticData, userData, character);
+            this.initializeCharacter(userData, character);
 
             for (const [key, lockout] of Object.entries(character.lockouts || {})) {
                 // Addon gets the wrong ID for Uldir for some reason?
@@ -322,96 +305,17 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
         }
 
-        userData.allRegions = Array.from(regionSet);
-
-        // Pre-calculate lockouts
-        userData.allLockouts = [];
-        userData.allLockoutsMap = {};
-        for (const [instanceDifficulty, characters] of Object.entries(allLockouts)) {
-            const [instanceId, difficultyId] = instanceDifficulty
-                .split('-')
-                .map((s) => parseInt(s));
-            const difficulty = difficultyMap[difficultyId];
-
-            if (difficulty && instanceId) {
-                const lockoutKey = singleLockoutRaids.has(instanceId)
-                    ? `${instanceId}-`
-                    : instanceDifficulty;
-
-                if (!userData.allLockoutsMap[lockoutKey]) {
-                    userData.allLockouts.push({
-                        characters,
-                        difficulty,
-                        instanceId: instanceId,
-                        key: lockoutKey,
-                    });
-                    userData.allLockoutsMap[lockoutKey] = userData.allLockouts.at(-1);
-                } else {
-                    userData.allLockoutsMap[lockoutKey].characters.push(...characters);
-                }
-            } else {
-                console.log({ instanceId, difficultyId, difficulty });
-            }
-        }
-
-        userData.allLockouts = sortBy(userData.allLockouts, (diff /*: InstanceDifficulty*/) => {
-            const instance = staticData.instances[diff.instanceId];
-            const journalInstance = wowthingData.journal.instanceById[diff.instanceId];
-            if (!diff.difficulty || !instance) {
-                return 'z';
-            }
-
-            const orderIndex = 100 - (lockoutDifficultyOrderMap[diff.difficulty.id] || 99);
-            return [
-                leftPad(journalInstance?.order || 9999, 4, '0'),
-                leftPad(orderIndex, 2, '0'),
-                instance.shortName,
-                diff.difficulty.shortName,
-            ].join('|');
-        });
-
-        const instanceIds = uniq(settingsData.views.map((view) => view.homeLockouts).flat());
-        userData.homeLockouts = [];
-        for (const instanceId of instanceIds) {
-            let found = false;
-            for (const difficulty of lockoutDifficultyOrder) {
-                const id = userData.allLockoutsMap[`${instanceId}-${difficulty}`];
-                if (id !== undefined) {
-                    userData.homeLockouts.push(id);
-                    found = true;
-                }
-            }
-
-            if (!found) {
-                if (instanceId >= 10000000) {
-                    const actualDifficulty = Math.floor(instanceId / 10000000);
-                    const actualInstanceId = instanceId % 10000000;
-                    userData.homeLockouts.push({
-                        difficulty: difficultyMap[actualDifficulty],
-                        instanceId: actualInstanceId,
-                        key: `${actualInstanceId}-${actualDifficulty}`,
-                    });
-                } else {
-                    userData.homeLockouts.push({
-                        difficulty: null,
-                        instanceId,
-                        key: `${instanceId}-`,
-                    });
-                }
-            }
-        }
-
         // Toys
         userData.hasToy = {};
-        for (const toyIdString of Object.keys(userData.hasToyById)) {
-            const toyId = parseInt(toyIdString);
-            const toy = staticData.toysById[toyId];
-            if (toy) {
-                userData.hasToy[toy.itemId] = true;
-            } else {
-                console.error('Missing toy id', toyId);
-            }
-        }
+        // for (const toyIdString of Object.keys(userData.hasToyById)) {
+        //     const toyId = parseInt(toyIdString);
+        //     const toy = staticData.toysById[toyId];
+        //     if (toy) {
+        //         userData.hasToy[toy.itemId] = true;
+        //     } else {
+        //         console.error('Missing toy id', toyId);
+        //     }
+        // }
 
         // Transmog
         console.time('transmog');
@@ -443,25 +347,9 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         console.timeEnd('UserDataStore.setup');
     }
 
-    private initializeCharacter(
-        staticData: StaticData,
-        userData: UserData,
-        character: Character
-    ): void {
+    private initializeCharacter(userData: UserData, character: Character): void {
         // account
         character.account = this.value.accounts[character.accountId];
-
-        // realm
-        if (
-            settingsState.value.accounts?.[character.accountId]?.enabled &&
-            character.realmId > 0 &&
-            character.realm
-        ) {
-            (this.value.charactersByRealm[character.realmId] ||= []).push(character);
-            (this.value.charactersByConnectedRealm[character.realm.connectedRealmId] ||= []).push(
-                character
-            );
-        }
 
         // guild
         character.guild = this.value.guildMap[character.guildId];

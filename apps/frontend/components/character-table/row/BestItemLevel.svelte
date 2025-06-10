@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { staticStore } from '@/shared/stores/static';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import getItemLevelQuality from '@/utils/get-item-level-quality';
     import type { CharacterProps } from '@/types/props';
@@ -8,7 +7,7 @@
 
     let { character }: CharacterProps = $props();
 
-    let bestItemLevels = $derived.by(() => character.getBestItemLevels($staticStore));
+    let bestItemLevels = $derived.by(() => character.getBestItemLevels());
     let itemLevel = $derived(bestItemLevels?.[character.activeSpecId]?.[0]);
 </script>
 

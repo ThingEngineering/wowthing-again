@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { userStore } from '@/stores';
-    import { staticStore } from '@/shared/stores/static';
-    import { heirloomState } from '@/stores/local-storage';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { wowthingData } from '@/shared/stores/data';
+    import { heirloomState } from '@/stores/local-storage';
+    import { userState } from '@/user-home/state/user';
     import getPercentClass from '@/utils/get-percent-class';
     import type { ManualDataHeirloomItem } from '@/types/data/manual';
 
@@ -10,16 +10,17 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let isUnavailable: boolean;
-    export let item: ManualDataHeirloomItem;
+    let { isUnavailable, item }: { isUnavailable: boolean; item: ManualDataHeirloomItem } =
+        $props();
 
-    $: heirloom = $staticStore.heirloomsByItemId[item.itemId];
-    $: level = $userStore.heirlooms?.[heirloom.id];
-    $: userHas = level !== undefined;
-    $: show =
+    let heirloom = $derived(wowthingData.static.heirloomByItemId.get(item.itemId));
+    let level = $derived(userState.general.heirlooms.get(heirloom.id));
+    let userHas = $derived(level !== undefined);
+    let show = $derived(
         ((userHas && $heirloomState.showCollected) ||
             (!userHas && $heirloomState.showUncollected)) &&
-        !(settingsState.value.collections.hideUnavailable && isUnavailable && !userHas);
+            !(settingsState.value.collections.hideUnavailable && isUnavailable && !userHas)
+    );
 </script>
 
 <style lang="scss">

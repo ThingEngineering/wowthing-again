@@ -7,7 +7,6 @@
     import { iconLibrary, aliasedIcons, uiIcons } from '@/shared/icons';
     import { wowthingData } from '@/shared/stores/data';
     import { parsedTextStore } from '@/stores';
-    import { staticStore } from '@/shared/stores/static';
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
@@ -45,7 +44,9 @@
                     parts.push(amount.toString());
                     parts.push('rep with');
                 }
-                parts.push($staticStore.reputations[repId]?.name ?? `Reputation #${repId}`);
+                parts.push(
+                    wowthingData.static.reputationById.get(repId)?.name ?? `Reputation #${repId}`
+                );
                 return parts.join(' ');
             }
         );
@@ -54,7 +55,7 @@
             /\{repPrice:(\d+)\|(\d+)\|(\d+)(?:\|([-\d]+))?\}/g,
             (_, repId: number, repLevel: number, amount: number, currencyId: number) => {
                 const parts: string[] = [];
-                const rep = $staticStore.reputations[repId];
+                const rep = wowthingData.static.reputationById.get(repId);
 
                 if (currencyId) {
                     parts.push(`{price:${amount}|${Math.abs(currencyId)}}`);
@@ -80,7 +81,7 @@
 
         // {currency:currencyId}
         html = html.replaceAll(/\{currency:(\d+)\}/g, (_, currencyIdString: string) => {
-            const currency = $staticStore.currencies[parseInt(currencyIdString)];
+            const currency = wowthingData.static.currencyById.get(parseInt(currencyIdString));
             return `<span data-icon="currency/${currencyIdString}"></span> ${currency?.name || `Currency #${currencyIdString}`}`;
         });
 
@@ -103,7 +104,7 @@
                             return `${amount}x Item #${itemId}`;
                         }
                     } else {
-                        const currency = $staticStore.currencies[currencyId];
+                        const currency = wowthingData.static.currencyById.get(currencyId);
                         if (currency) {
                             if (short !== undefined) {
                                 return `<span data-icon="currency/${currencyId}"></span> ${amount}`;

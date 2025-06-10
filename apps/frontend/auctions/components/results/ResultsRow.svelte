@@ -4,7 +4,6 @@
     import { itemModifierMap } from '@/data/item-modifier';
     import { Faction } from '@/enums/faction';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import { leftPad } from '@/utils/formatting';
     import type { AuctionEntry } from '@/auctions/types/auction-entry';
 
@@ -54,7 +53,7 @@
             ret.itemLevel = item?.itemLevel || 1;
             ret.name = `{${groupKey}}`;
         } else if (groupKey.startsWith('pet:')) {
-            const pet = $staticStore.pets[parseInt(groupKey.split(':')[1])];
+            const pet = wowthingData.static.petById.get(parseInt(groupKey.split(':')[1]));
             ret.icon = `npc/${pet.creatureId}`;
             ret.itemLevel = 1;
             ret.name = pet.name;

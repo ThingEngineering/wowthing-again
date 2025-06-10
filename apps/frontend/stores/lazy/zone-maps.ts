@@ -6,7 +6,6 @@ import { Constants } from '@/data/constants';
 import { covenantSlugMap } from '@/data/covenant';
 import { expansionShortNameMap } from '@/data/expansion';
 import { factionMap } from '@/data/faction';
-import { professionSlugToId } from '@/data/professions';
 import { questToLockout } from '@/data/quests';
 import { transmogTypes } from '@/data/transmog';
 import { FarmResetType } from '@/enums/farm-reset-type';
@@ -136,7 +135,8 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             stores.userQuestData.characters[char.id]?.quests?.has(questId)
                         )) &&
                     (mapClassMask === 0 ||
-                        (mapClassMask & stores.staticData.characterClasses[char.classId].mask) >
+                        (mapClassMask &
+                            wowthingData.static.characterClassById.get(char.classId).mask) >
                             0) &&
                     (stores.zoneMapState.maxLevelOnly === false ||
                         char.level === Constants.characterMaxLevel)
@@ -214,21 +214,21 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                 dropStatus.need = !stores.userQuestData.accountHas.has(
                                     wowthingData.manual.druidFormItemToQuest.get(drop.id)
                                 );
-                            } else if (stores.staticData.professionAbilityByItemId[drop.id]) {
+                            } else if (wowthingData.static.professionAbilityByItemId.has(drop.id)) {
                                 const abilityInfo =
-                                    stores.staticData.professionAbilityByItemId[drop.id];
+                                    wowthingData.static.professionAbilityByItemId.get(drop.id);
                                 dropStatus.need = !isRecipeKnown(stores, { abilityInfo });
-                            } else if (stores.staticData.mountsByItem[drop.id]) {
+                            } else if (wowthingData.static.mountByItemId.has(drop.id)) {
                                 dropStatus.need =
                                     !stores.userData.hasMount[
-                                        stores.staticData.mountsByItem[drop.id].id
+                                        wowthingData.static.mountByItemId.get(drop.id).id
                                     ];
-                            } else if (stores.staticData.petsByItem[drop.id]) {
+                            } else if (wowthingData.static.petByItemId.has(drop.id)) {
                                 dropStatus.need =
                                     !stores.userData.hasPet[
-                                        stores.staticData.petsByItem[drop.id].id
+                                        wowthingData.static.petByItemId.get(drop.id).id
                                     ];
-                            } else if (stores.staticData.toys[drop.id]) {
+                            } else if (wowthingData.static.toyByItemId.has(drop.id)) {
                                 dropStatus.need = !stores.userData.hasToy[drop.id];
                             } else {
                                 dropStatus.need = true;
@@ -337,7 +337,6 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                         case RewardType.SetSpecial:
                             [dropStatus.setHave, dropStatus.setNeed] = getVendorDropStats(
                                 stores.settings,
-                                stores.staticData,
                                 stores.userData,
                                 stores.userQuestData,
                                 stores.lazyTransmog,
@@ -347,7 +346,6 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             dropStatus.need = dropStatus.setHave < dropStatus.setNeed;
 
                             dropStatus.setNote = getSetCurrencyCostsString(
-                                stores.staticData,
                                 drop.appearanceIds,
                                 drop.costs,
                                 (appearanceId) => stores.userData.hasAppearance.has(appearanceId)
@@ -418,7 +416,8 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                 (c) =>
                                     (drop.classMask & classMask) > 0 &&
                                     (drop.classMask &
-                                        stores.staticData.characterClasses[c.classId].mask) >
+                                        wowthingData.static.characterClassById.get(c.classId)
+                                            .mask) >
                                         0
                             );
                         }
@@ -439,9 +438,10 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                         drop.limit
                                             .slice(1)
                                             .some(
-                                                (cl) =>
-                                                    stores.staticData.characterClassesBySlug[cl]
-                                                        .id === c.classId
+                                                (classSlug) =>
+                                                    wowthingData.static.characterClassBySlug.get(
+                                                        classSlug
+                                                    ).id === c.classId
                                             )
                                     );
                                     break;
@@ -461,7 +461,9 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                     break;
 
                                 case 'profession': {
-                                    const professionId = professionSlugToId[drop.limit[1]];
+                                    const professionId = wowthingData.static.professionBySlug.get(
+                                        drop.limit[1]
+                                    )?.id;
                                     let subProfessionId = 0;
                                     if (drop.limit.length === 4) {
                                         if (drop.limit[2].match(/^\d+$/)) {
@@ -469,7 +471,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                         } else {
                                             const expansion = expansionShortNameMap[drop.limit[2]];
                                             subProfessionId =
-                                                stores.staticData.professions[professionId]
+                                                wowthingData.static.professionById.get(professionId)
                                                     .expansionSubProfession[expansion.id].id;
                                         }
                                     }
@@ -490,8 +492,9 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                             .slice(1)
                                             .some(
                                                 (raceSlug) =>
-                                                    stores.staticData.characterRacesBySlug[raceSlug]
-                                                        .id === c.raceId
+                                                    wowthingData.static.characterRaceBySlug.get(
+                                                        raceSlug
+                                                    ).id === c.raceId
                                             )
                                     );
                                     break;
@@ -558,10 +561,10 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                 }
                             } else if (
                                 drop.type === RewardType.Item &&
-                                stores.staticData.professionAbilityByItemId[drop.id]
+                                wowthingData.static.professionAbilityByItemId.has(drop.id)
                             ) {
                                 const professionInfo =
-                                    stores.staticData.professionAbilityByItemId[drop.id];
+                                    wowthingData.static.professionAbilityByItemId.get(drop.id);
                                 if (!character.knowsProfessionAbility(professionInfo.abilityId)) {
                                     dropStatus.characterIds.push(character.id);
                                 } else {

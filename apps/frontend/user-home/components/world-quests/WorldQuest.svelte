@@ -2,7 +2,7 @@
     import { Faction } from '@/enums/faction';
     import { RewardType } from '@/enums/reward-type';
     import { iconLibrary } from '@/shared/icons';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { QuestInfoFlags, QuestInfoType } from '@/shared/stores/static/enums';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { timeStore } from '@/shared/stores/time';
@@ -17,33 +17,33 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let worldQuest: ApiWorldQuest;
+    let { worldQuest }: { worldQuest: ApiWorldQuest } = $props();
 
-    $: hoursRemaining = worldQuest.expires.diff($timeStore).toMillis() / 1000 / 60 / 60;
-    $: staticWorldQuest = $staticStore.worldQuests[worldQuest.questId];
-    $: questInfo = $staticStore.questInfo[staticWorldQuest?.questInfoId];
+    let hoursRemaining = $derived(worldQuest.expires.diff($timeStore).toMillis() / 1000 / 60 / 60);
+    let staticWorldQuest = $derived(wowthingData.static.worldQuestById.get(worldQuest.questId));
+    let questInfo = $derived(wowthingData.static.questInfoById.get(staticWorldQuest?.questInfoId));
 
-    let iconName: string;
-    let rewardString: string;
-    $: {
-        iconName = undefined;
-        rewardString = undefined;
+    let [iconName, rewardString] = $derived.by(() => {
+        let retIcon: string = undefined;
+        let retReward: string = undefined;
 
         const firstReward = worldQuest.rewards[0][1][0];
         if (firstReward.type === RewardType.Item) {
-            iconName = `item/${firstReward.id}`;
+            retIcon = `item/${firstReward.id}`;
             if (firstReward.amount > 1) {
-                rewardString = toNiceNumber(firstReward.amount);
+                retReward = toNiceNumber(firstReward.amount);
             }
         } else if (firstReward.type === RewardType.Currency) {
-            iconName = `currency/${firstReward.id}`;
+            retIcon = `currency/${firstReward.id}`;
             if (firstReward.id === 0) {
-                rewardString = toNiceNumber(Math.floor(firstReward.amount / 10000));
+                retReward = toNiceNumber(Math.floor(firstReward.amount / 10000));
             } else {
-                rewardString = toNiceNumber(firstReward.amount);
+                retReward = toNiceNumber(firstReward.amount);
             }
         }
-    }
+
+        return [retIcon, retReward];
+    });
 </script>
 
 <style lang="scss">

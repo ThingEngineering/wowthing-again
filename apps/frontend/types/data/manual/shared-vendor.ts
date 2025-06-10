@@ -6,7 +6,6 @@ import { FarmType } from '@/enums/farm-type';
 import { RewardType } from '@/enums/reward-type';
 import { wowthingData } from '@/shared/stores/data';
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from './zone-map';
-import type { StaticData } from '@/shared/stores/static/types';
 
 export class ManualDataSharedVendor {
     private drops: ManualDataZoneMapDrop[];
@@ -48,7 +47,7 @@ export class ManualDataSharedVendor {
         }
     }
 
-    createFarmData(staticData: StaticData) {
+    createFarmData() {
         const seen: Record<number, boolean> = {};
         const itemDrops: ManualDataZoneMapDrop[] = [];
         const setDrops: ManualDataZoneMapDrop[] = [];
@@ -133,7 +132,7 @@ export class ManualDataSharedVendor {
                         subType: item.subType,
                         classMask: item.classMask,
                         appearanceIds: [appearanceIds],
-                        note: item.getNote(staticData),
+                        note: item.getNote(),
                     });
                 }
             }

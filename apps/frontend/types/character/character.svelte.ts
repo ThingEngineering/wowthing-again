@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon';
-import { get } from 'svelte/store';
 
 import { Constants } from '@/data/constants';
 import { slotOrder } from '@/data/inventory-slot';
@@ -8,7 +7,7 @@ import { Faction } from '@/enums/faction';
 import { InventorySlot } from '@/enums/inventory-slot';
 import { Profession } from '@/enums/profession';
 import { settingsState } from '@/shared/state/settings.svelte';
-import { staticStore } from '@/shared/stores/static';
+import { wowthingData } from '@/shared/stores/data';
 import { getBestItemLevels } from '@/utils/characters/get-best-item-levels';
 import { leftPad } from '@/utils/formatting';
 import { getCharacterLevel } from '@/utils/get-character-level';
@@ -18,7 +17,7 @@ import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { initializeContainsItems } from '@/utils/items/initialize-contains-items';
 import type { InventoryType } from '@/enums/inventory-type';
 import type { Region } from '@/enums/region';
-import type { StaticData, StaticDataRealm } from '@/shared/stores/static/types';
+import type { StaticDataRealm } from '@/shared/stores/static/types';
 import type { Guild } from '@/types/guild';
 
 import type { CharacterConfiguration } from './configuration';
@@ -60,7 +59,6 @@ import type { ContainsItems, HasNameAndRealm } from '../shared';
 import type { Account } from '../account';
 import type { CharacterAura } from './aura';
 import type { CharacterPatronOrder } from './patron-order';
-import { wowthingData } from '@/shared/stores/data';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Static
@@ -253,22 +251,23 @@ export class Character implements ContainsItems, HasNameAndRealm {
         // rawSpecializations
         // rawStatistics
 
-        const staticData = get(staticStore);
-
         // account relies on UserStore data
         // guild relies on UserStore data
-        this.realm = staticData.realms[this.realmId];
+        this.realm = wowthingData.static.realmById.get(this.realmId);
         this.region = this.realm?.region;
 
         // names
         this.className = getGenderedName(
-            staticData.characterClasses[this.classId].name,
+            wowthingData.static.characterClassById.get(this.classId).name,
             this.gender
         );
-        this.raceName = getGenderedName(staticData.characterRaces[this.raceId].name, this.gender);
+        this.raceName = getGenderedName(
+            wowthingData.static.characterRaceById.get(this.raceId).name,
+            this.gender
+        );
         if (this.activeSpecId > 0) {
             this.specializationName = getGenderedName(
-                staticData.characterSpecializations[this.activeSpecId].name,
+                wowthingData.static.characterSpecializationById.get(this.activeSpecId).name,
                 this.gender
             );
         }
@@ -463,8 +462,8 @@ export class Character implements ContainsItems, HasNameAndRealm {
     }
 
     public bestItemLevels: Record<number, [string, InventoryType[]]>;
-    getBestItemLevels(staticData: StaticData): Record<number, [string, InventoryType[]]> {
-        this.bestItemLevels ||= getBestItemLevels(staticData, this);
+    getBestItemLevels(): Record<number, [string, InventoryType[]]> {
+        this.bestItemLevels ||= getBestItemLevels(this);
         return this.bestItemLevels;
     }
 
@@ -480,7 +479,6 @@ export class Character implements ContainsItems, HasNameAndRealm {
     get allProfessionAbilities(): Set<number> {
         if (this._professionKnownAbilities === undefined) {
             this._professionKnownAbilities = new Set<number>();
-            const staticData = get(staticStore);
 
             for (const profession of Object.values(this.professions || {})) {
                 for (const subProfession of Object.values(profession)) {
@@ -489,7 +487,8 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
                         // known abilities often only has the highest rank, backfill lower ranks
                         const { ability } =
-                            staticData.professionAbilityByAbilityId[knownAbilityId] || {};
+                            wowthingData.static.professionAbilityByAbilityId.get(knownAbilityId) ||
+                            {};
                         if (ability?.extraRanks && ability.id !== knownAbilityId) {
                             this._professionKnownAbilities.add(ability.id);
                             for (const [rankAbilityId] of ability.extraRanks) {

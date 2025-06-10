@@ -2,7 +2,6 @@ import { transmogTypes } from '@/data/transmog';
 import { LookupType } from '@/enums/lookup-type';
 import { RewardType } from '@/enums/reward-type';
 import { wowthingData } from '@/shared/stores/data';
-import type { StaticData } from '@/shared/stores/static/types/store';
 
 const rewardLookupMap: Record<number, LookupType> = {
     [RewardType.AccountQuest]: LookupType.Quest,
@@ -13,7 +12,6 @@ const rewardLookupMap: Record<number, LookupType> = {
 };
 
 export function rewardToLookup(
-    staticData: StaticData,
     rewardType: RewardType,
     rewardId: number,
     trackingQuestId?: number
@@ -24,16 +22,16 @@ export function rewardToLookup(
     if (rewardLookupMap[rewardType]) {
         ret = [rewardLookupMap[rewardType], rewardId];
     } else if (rewardType === RewardType.Item) {
-        if (staticData.mountsByItem[rewardId]) {
-            ret = [LookupType.Mount, staticData.mountsByItem[rewardId].id];
-        } else if (staticData.petsByItem[rewardId]) {
-            ret = [LookupType.Pet, staticData.petsByItem[rewardId].id];
-        } else if (staticData.toys[rewardId]) {
+        if (wowthingData.static.mountByItemId.has(rewardId)) {
+            ret = [LookupType.Mount, wowthingData.static.mountByItemId.get(rewardId).id];
+        } else if (wowthingData.static.petByItemId.has(rewardId)) {
+            ret = [LookupType.Pet, wowthingData.static.petByItemId.get(rewardId).id];
+        } else if (wowthingData.static.toyByItemId.has(rewardId)) {
             ret = [LookupType.Toy, rewardId];
         } else if (wowthingData.items.teachesTransmog[rewardId]) {
             ret = [LookupType.TransmogSet, wowthingData.items.teachesTransmog[rewardId]];
-        } else if (staticData.professionAbilityByItemId[rewardId]) {
-            const ability = staticData.professionAbilityByItemId[rewardId];
+        } else if (wowthingData.static.professionAbilityByItemId.has(rewardId)) {
+            const ability = wowthingData.static.professionAbilityByItemId.get(rewardId);
             ret = [LookupType.Recipe, ability.abilityId];
         } else if (manualData.dragonridingItemToQuest.has(rewardId)) {
             ret = [LookupType.Quest, manualData.dragonridingItemToQuest.get(rewardId)];

@@ -1,6 +1,7 @@
+import groupBy from 'lodash/groupBy';
 import sortBy from 'lodash/sortBy';
 import uniq from 'lodash/uniq';
-import { get } from 'svelte/store';
+import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 
 import {
     difficultyMap,
@@ -8,37 +9,50 @@ import {
     lockoutDifficultyOrderMap,
 } from '@/data/difficulty';
 import { singleLockoutRaids } from '@/data/raid';
+import { TypedArray } from '@/enums/typed-array';
 import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
-import { staticStore } from '@/shared/stores/static';
 import {
     Character,
     Guild,
+    UserDataPet,
     type Account,
     type CharacterLockout,
     type InstanceDifficulty,
     type InstanceLockout,
     type UserData,
 } from '@/types';
+import { base64ToArray } from '@/utils/base64';
 import { leftPad } from '@/utils/formatting';
-import type { Region } from '@/enums/region';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
 export class DataUserGeneral {
     public accountMap: Record<number, Account> = $state({});
     public characters: Character[] = $state([]);
-    public characterMap: Record<number, Character> = $state({});
+    public characterById: Record<number, Character> = $state({});
     public guildMap: Record<number, Guild> = $state({});
-    public regions: Region[] = $state([]);
+    public petsById: Record<number, UserDataPet[]> = $state({});
+
+    public honorCurrent = $state(0);
+    public honorLevel = $state(0);
+    public honorMax = $state(0);
+    public warbankGold = $state(0);
+
+    public hasIllusionByEnchantmentId = new SvelteSet<number>();
+    public hasMountById = new SvelteSet<number>();
+    public hasPetById = new SvelteSet<number>();
+    public hasToyById = new SvelteSet<number>();
+    public hasToyByItemId = new SvelteSet<number>();
+    public heirlooms = new SvelteMap<number, number>();
 
     public allLockouts = $derived.by(() => this._lockoutData().allLockouts);
     public allRegions = $derived.by(() => this._allRegions());
-    public homeLockouts: InstanceDifficulty[] = $derived.by(() => this._homeLockouts());
+    public charactersByConnectedRealmId = $derived.by(() => this._charactersByConnectedRealmId());
+    public charactersByRealmId = $derived.by(() => this._charactersByRealmId());
+    public homeLockouts = $derived.by(() => this._homeLockouts());
 
     public process(userData: UserData): void {
-        console.log(userData);
         console.time('DataUserGeneral.process');
-
-        const staticData = get(staticStore);
 
         this.accountMap = userData.accounts;
 
@@ -52,7 +66,7 @@ export class DataUserGeneral {
         // Create or update Character objects
         for (const characterArray of userData.charactersRaw) {
             const characterId = characterArray[0];
-            let character = this.characterMap[characterId];
+            let character = this.characterById[characterId];
             const existed = !!character;
 
             if (existed) {
@@ -69,18 +83,58 @@ export class DataUserGeneral {
                 character = new Character();
                 character.init(...characterArray);
                 this.characters.push(character);
-                this.characterMap[characterId] = character;
+                this.characterById[characterId] = character;
             }
 
             character.guild ||= this.guildMap[character.guildId];
-            character.realm ||= staticData.realms[character.realmId];
+            character.realm ||= wowthingData.static.realmById.get(character.realmId);
         }
 
-        const regions = uniq(
-            this.characters.map((char) => char.realm?.region).filter((region) => !!region)
-        );
-        regions.sort();
-        this.regions = regions;
+        // Packed data
+        const mountIds = base64ToArray(TypedArray.Uint16, userData.mountsPacked);
+        for (const mountId of mountIds) {
+            this.hasMountById.add(mountId);
+        }
+
+        const toyIds = base64ToArray(TypedArray.Uint16, userData.toysPacked);
+        for (const toyId of toyIds) {
+            this.hasToyById.add(toyId);
+            const toy = wowthingData.static.toyById.get(toyId);
+            this.hasToyByItemId.add(toy.itemId);
+        }
+
+        for (const [speciesId, petArrays] of getNumberKeyedEntries(userData.petsRaw)) {
+            this.hasPetById.add(speciesId);
+
+            const pets = (this.petsById[speciesId] ||= []);
+            if (pets.length !== petArrays.length) {
+                this.petsById[speciesId] = petArrays.map(
+                    (petArray) => new UserDataPet(...petArray)
+                );
+            } else {
+                // merge to avoid complete recalc if possible
+                petArrays.forEach((petArray, index) => {
+                    const pet = pets[index];
+                    // level, quality, breedId
+                    if (
+                        pet.level !== petArray[0] ||
+                        pet.quality !== petArray[1] ||
+                        pet.breedId !== petArray[2]
+                    ) {
+                        pets[index] = new UserDataPet(...petArray);
+                    }
+                });
+            }
+        }
+
+        // Misc
+        for (const [heirloomId, level] of getNumberKeyedEntries(userData.heirlooms)) {
+            this.heirlooms.set(heirloomId, level);
+        }
+
+        for (const illusionId of userData.illusionIds) {
+            this.hasIllusionByEnchantmentId.add(illusionId);
+        }
 
         console.timeEnd('DataUserGeneral.process');
     }
@@ -97,6 +151,20 @@ export class DataUserGeneral {
         }
 
         return Array.from(regionSet);
+    }
+
+    private _charactersByConnectedRealmId() {
+        return groupBy(
+            this.characters.filter((character) => character.realm),
+            (character) => character.realm.connectedRealmId
+        );
+    }
+
+    private _charactersByRealmId() {
+        return groupBy(
+            this.characters.filter((character) => character.realm),
+            (character) => character.realmId
+        );
     }
 
     private lockoutData = $derived.by(() => this._lockoutData());
@@ -138,9 +206,8 @@ export class DataUserGeneral {
             }
         }
 
-        const staticData = get(staticStore);
         allLockouts = sortBy(allLockouts, (diff) => {
-            const instance = staticData.instances[diff.instanceId];
+            const instance = wowthingData.static.instanceById.get(diff.instanceId);
             const journalInstance = wowthingData.journal.instanceById[diff.instanceId];
             if (!diff.difficulty || !instance) {
                 return 'z';

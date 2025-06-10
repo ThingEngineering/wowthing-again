@@ -3,7 +3,6 @@
     import { warWithinZones } from '@/data/zones';
     import { Profession } from '@/enums/profession';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { userQuestStore } from '@/stores';
     import type { TaskProfessionQuest } from '@/types/data';
@@ -81,11 +80,12 @@
                         zoneData.items.push(bookData);
                     }
                 } else {
+                    const professionSlug = wowthingData.static.professionById.get(profData.id).slug;
                     const things = wowthingData.db.search({
                         maps: [zone.map],
                         tags: [
                             `expansion:10`,
-                            `profession:${$staticStore.professions[profData.id].slug}`,
+                            `profession:${professionSlug}`,
                             'treasure:profession',
                         ],
                     });

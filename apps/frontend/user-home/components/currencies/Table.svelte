@@ -8,7 +8,7 @@
         currencyItems,
         skipCurrenciesMap,
     } from '@/data/currencies';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { currencyState } from '@/stores/local-storage';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import { leftPad } from '@/utils/formatting';
@@ -31,7 +31,10 @@
     let sorted: boolean;
     let sortFunc: (char: Character) => string;
     $: {
-        category = find($staticStore.currencyCategories, (cat) => cat.slug === params.slug1);
+        category = find(
+            Object.values(wowthingData.static.currencyCategoryById),
+            (cat) => cat.slug === params.slug1
+        );
         if (params.slug2) {
             category = find(categoryChildren[category.id], (cat) => cat.slug === params.slug2);
         }
@@ -43,11 +46,13 @@
         slugKey = params.slug2 ? `${params.slug1}--${params.slug2}` : params.slug1;
 
         currencies = sortBy(
-            Object.values($staticStore.currencies).filter(
+            Object.values(wowthingData.static.currencyById).filter(
                 (c) => !skipCurrenciesMap[c.id] && c.categoryId === category.id
             ),
             (c) => c.name
-        ).concat((currencyExtra[category.id] || []).map((id) => $staticStore.currencies[id]));
+        ).concat(
+            (currencyExtra[category.id] || []).map((id) => wowthingData.static.currencyById.get(id))
+        );
 
         const order = $currencyState.sortOrder[slugKey];
         if (order > 0) {

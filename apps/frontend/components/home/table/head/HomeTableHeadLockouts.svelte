@@ -1,6 +1,6 @@
 <script lang="ts">
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { viewHasLockout } from '@/shared/utils/view-has-lockout';
     import { homeState } from '@/stores/local-storage';
@@ -13,7 +13,7 @@
     let filteredLockouts = $derived.by(() =>
         userState.general.homeLockouts.filter(
             (instanceDifficulty) =>
-                $staticStore.instances[instanceDifficulty.instanceId] &&
+                wowthingData.static.instanceById.has(instanceDifficulty.instanceId) &&
                 viewHasLockout(
                     settingsState.activeView,
                     instanceDifficulty.difficulty,
@@ -34,8 +34,9 @@
     }
 </style>
 
-{#each filteredLockouts as { difficulty, instanceId } (`${difficulty}|${instanceId}`)}
-    {@const instance = $staticStore.instances[instanceId]}
+{#each filteredLockouts as instanceDifficulty (instanceDifficulty)}
+    {@const { difficulty, instanceId } = instanceDifficulty}
+    {@const instance = wowthingData.static.instanceById.get(instanceId)}
     {@const sortField = `lockout:${instanceId}-${difficulty?.id || 0}`}
     <td
         class="sortable"

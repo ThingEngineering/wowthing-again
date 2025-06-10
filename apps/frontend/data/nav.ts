@@ -1,5 +1,6 @@
 import type { Settings } from '@/shared/stores/settings/types';
 import type { LazyStore } from '@/stores';
+import { userState } from '@/user-home/state/user';
 
 type NavItem = {
     path: string;
@@ -83,21 +84,21 @@ export const navItems: NavItem[] = [
         text: 'Mounts',
         icon: 'mdiUnicorn',
         showFunc: (settings) => settings.layout.navigationMounts,
-        percentFunc: (lazyStore) => lazyStore.mounts?.stats?.OVERALL?.percent || 0,
+        percentFunc: (lazyStore) => userState.mounts?.stats?.OVERALL?.percent || 0,
     },
     {
         path: 'pets/',
         text: 'Pets',
         icon: 'mdiDuck',
         showFunc: (settings) => settings.layout.navigationPets,
-        percentFunc: (lazyStore) => lazyStore.pets?.stats?.OVERALL?.percent || 0,
+        percentFunc: (lazyStore) => userState.pets?.stats?.OVERALL?.percent || 0,
     },
     {
         path: 'toys/',
         text: 'Toys',
         icon: 'mdiDiceMultiple',
         showFunc: (settings) => settings.layout.navigationToys,
-        percentFunc: (lazyStore) => lazyStore.toys?.stats?.OVERALL?.percent || 0,
+        percentFunc: (lazyStore) => userState.toys?.stats?.OVERALL?.percent || 0,
     },
     null,
     {

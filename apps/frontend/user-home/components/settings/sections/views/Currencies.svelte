@@ -10,7 +10,6 @@
         skipCurrenciesMap,
     } from '@/data/currencies';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types';
 
     import MagicLists from '../../MagicLists.svelte';
@@ -54,7 +53,7 @@
             }
 
             const currencies: SettingsChoice[] = [];
-            for (const currency of Object.values($staticStore.currencies)) {
+            for (const currency of wowthingData.static.currencyById.values()) {
                 if (
                     skipCurrenciesMap[currency.id] ||
                     categoryIds.indexOf(currency.categoryId) === -1
@@ -70,7 +69,7 @@
 
             for (const actualCategoryId of categoryIds) {
                 for (const currencyId of currencyExtra[actualCategoryId] || []) {
-                    const currency = $staticStore.currencies[currencyId];
+                    const currency = wowthingData.static.currencyById.get(currencyId);
                     if (currency) {
                         currencies.push({
                             id: currency.id.toString(),

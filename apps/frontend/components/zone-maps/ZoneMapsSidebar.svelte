@@ -17,9 +17,9 @@
                 : {
                       children: set.slice(1),
                       ...set[0],
-                  },
+                  }
         );
-        overall = $lazyStore.zoneMaps.counts['OVERALL'];
+        overall = $lazyStore.zoneMaps?.counts['OVERALL'];
     }
 
     const percentFunc = function (entry: SidebarItem, parentEntries?: SidebarItem[]) {
@@ -27,7 +27,7 @@
             .slice(-2)
             .map((entry) => entry.slug)
             .join('--');
-        return $lazyStore.zoneMaps.counts[slug].percent;
+        return $lazyStore.zoneMaps?.counts[slug]?.percent || 0;
     };
 </script>
 
@@ -41,7 +41,7 @@
 >
     <svelte:fragment slot="before">
         <div>
-            <ProgressBar title="Overall" have={overall.have} total={overall.total} />
+            <ProgressBar title="Overall" have={overall?.have || 0} total={overall?.total || 0} />
         </div>
 
         <Settings />

@@ -1,7 +1,6 @@
 <script lang="ts">
     import type { InventoryType } from '@/enums/inventory-type';
     import { inventoryTypeIcons } from '@/shared/icons/mappings';
-    import { staticStore } from '@/shared/stores/static';
     import { getGenderedName } from '@/utils/get-gendered-name';
     import getItemLevelQuality from '@/utils/get-item-level-quality';
     import type { StaticDataCharacterSpecialization } from '@/shared/stores/static/types';
@@ -9,15 +8,17 @@
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
+    import { wowthingData } from '@/shared/stores/data';
 
-    export let bestItemLevels: Record<number, [string, InventoryType[]]>
-    export let character: Character
+    export let bestItemLevels: Record<number, [string, InventoryType[]]>;
+    export let character: Character;
 
-    let specializations: StaticDataCharacterSpecialization[]
+    let specializations: StaticDataCharacterSpecialization[];
     $: {
-        specializations = Object.values($staticStore.characterSpecializations)
-            .filter((spec) => spec.classId === character.classId)
-        specializations.sort((a, b) => a.name.localeCompare(b.name))
+        specializations = wowthingData.static.characterSpecializationsByClassId.get(
+            character.classId
+        );
+        specializations.sort((a, b) => a.name.localeCompare(b.name));
     }
 </script>
 
@@ -48,13 +49,11 @@
     <h5>Best Item Levels</h5>
     <table class="table-striped">
         <tbody>
-            {#each specializations as specialization}
+            {#each specializations as specialization (specialization.id)}
                 {@const [itemLevel, missingSlots] = bestItemLevels[specialization.id]}
                 <tr>
                     <td class="icon">
-                        <SpecializationIcon
-                            specId={specialization.id}
-                        />
+                        <SpecializationIcon specId={specialization.id} />
                     </td>
                     <td class="name">
                         {getGenderedName(specialization.name, character.gender)}
@@ -63,7 +62,7 @@
                         {itemLevel}
                     </td>
                     <td class="slots status-warn">
-                        {#each missingSlots as missingSlot}
+                        {#each missingSlots as missingSlot (missingSlot)}
                             <IconifyIcon icon={inventoryTypeIcons[missingSlot]} />
                         {/each}
                     </td>

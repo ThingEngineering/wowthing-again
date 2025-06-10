@@ -1,12 +1,12 @@
 <script lang="ts">
     import { Constants } from '@/data/constants';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { staticStore } from '@/shared/stores/static';
     import { timeStore } from '@/shared/stores/time';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import type { Character } from '@/types';
+    import { wowthingData } from '@/shared/stores/data';
 
     export let character: Character;
 </script>
@@ -24,7 +24,8 @@
 </style>
 
 {#each settingsState.activeView.homeCurrencies as currencyId (currencyId)}
-    {@const currency = currencyId < 1000000 ? $staticStore.currencies[currencyId] : undefined}
+    {@const currency =
+        currencyId < 1000000 ? wowthingData.static.currencyById.get(currencyId) : undefined}
     {@const itemId = currencyId > 1000000 ? currencyId - 1000000 : 0}
     {@const { amount, amountRaw, percent, tooltip } = getCurrencyData(
         $timeStore,

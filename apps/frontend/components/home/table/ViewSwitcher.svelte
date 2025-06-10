@@ -4,7 +4,7 @@
     import { iconLibrary } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
-    import { browserStore } from '@/shared/stores/browser';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';
 
@@ -12,7 +12,7 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
     const setActiveView = (viewId: string) => {
-        $browserStore.home.activeView = viewId;
+        browserState.current.home.activeView = viewId;
     };
 </script>
 
@@ -53,7 +53,7 @@
     {#each settingsState.value.views as view (view.id)}
         <button
             class="tab border text-overflow"
-            class:active={settingsState.activeView.id === view.id}
+            class:active={browserState.current.home.activeView === view.id}
             data-id={view.id}
             onclick={() => setActiveView(view.id)}
             use:basicTooltip={view.name}
@@ -65,7 +65,7 @@
     {#if !sharedState.public}
         <a
             class="tab"
-            href="/settings/views/{settingsState.activeView.id}"
+            href="/settings/views/{browserState.current.home.activeView}"
             use:basicTooltip={'Settings'}
             use:link
         >

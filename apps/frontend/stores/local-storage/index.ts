@@ -2,7 +2,6 @@ export * from './achievements';
 export * from './appearances';
 export * from './auctions';
 export * from './characters';
-export * from './collectible';
 export * from './collecting-settings';
 export * from './currency';
 export * from './explore';

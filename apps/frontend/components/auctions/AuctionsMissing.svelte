@@ -4,7 +4,7 @@
     import { timeLeft } from '@/data/auctions';
     import { euLocales } from '@/data/region';
     import { Region } from '@/enums/region';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { timeStore } from '@/shared/stores/time';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { userAuctionMissingStore } from '@/stores';
@@ -186,8 +186,9 @@
                     {#if !ignored}
                         <tbody>
                             {#each auctions as auction (auction)}
-                                {@const connectedRealm =
-                                    $staticStore.connectedRealms[auction.connectedRealmId]}
+                                {@const connectedRealm = wowthingData.static.connectedRealmById.get(
+                                    auction.connectedRealmId
+                                )}
                                 {@const ageInMinutes = Math.floor(
                                     $timeStore
                                         .diff(

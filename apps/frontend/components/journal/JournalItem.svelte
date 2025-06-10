@@ -7,7 +7,6 @@
     import { RewardType } from '@/enums/reward-type';
     import { iconLibrary } from '@/shared/icons';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import { userStore } from '@/stores';
     import { journalState } from '@/stores/local-storage';
     import { getItemUrl } from '@/utils/get-item-url';
@@ -167,7 +166,7 @@
                     <CollectedIcon soon={true} />
                 {/if}
             {:else if item.type === RewardType.Recipe}
-                {@const ability = $staticStore.professionAbilityByItemId[item.id]}
+                {@const ability = wowthingData.static.professionAbilityByItemId.get(item.id)}
                 {#if ability}
                     <div class="overlay player-class drop-shadow">
                         <ProfessionIcon border={2} size={20} id={ability.professionId} />

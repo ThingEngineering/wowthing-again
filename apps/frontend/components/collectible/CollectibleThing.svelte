@@ -1,42 +1,40 @@
 <script lang="ts">
-    import find from 'lodash/find'
-    import { getContext } from 'svelte'
-    import IntersectionObserver from 'svelte-intersection-observer'
+    import find from 'lodash/find';
+    import { getContext } from 'svelte';
+    import IntersectionObserver from 'svelte-intersection-observer';
 
-    import { collectibleState } from '@/stores/local-storage'
-    import type { CollectibleContext } from '@/types/contexts'
+    import type { CollectibleContext } from '@/types/contexts';
 
-    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import type { CollectibleState } from '@/shared/state/browser.svelte';
 
-    export let things: number[] = []
+    type Props = {
+        collectibleState: CollectibleState;
+        things: number[];
+    };
 
-    const { countsKey, thingMapFunc, thingType, userHas } = getContext('collection') as CollectibleContext
+    let { collectibleState, things }: Props = $props();
 
-    let element: HTMLElement
-    let intersected = false
-    let origId: number
-    let showAsMissing: boolean
-    let userHasThing: number | undefined
-    $: {
-        userHasThing = find(
-            things,
-            (value: number): boolean => userHas[value] === true,
-        )
-        origId = userHasThing ?? things[0]
+    const { countsKey, thingMapFunc, thingType, userHas } = getContext(
+        'collection'
+    ) as CollectibleContext;
 
+    let element = $state<HTMLElement>(null);
+    let intersected = $state(false);
+
+    let userHasThing = $derived(find(things, (value: number): boolean => userHas.has(value)));
+    let origId = $derived.by(() => {
+        let id = userHasThing ?? things[0];
         if (thingMapFunc) {
-            origId = thingMapFunc(origId)
+            id = thingMapFunc(id);
         }
-
-        if (userHasThing) {
-            showAsMissing = $collectibleState.highlightMissing[countsKey]
-        }
-        else {
-            showAsMissing = !$collectibleState.highlightMissing[countsKey]
-        }
-    }
+        return id;
+    });
+    let showAsMissing = $derived(
+        userHasThing ? collectibleState.highlightMissing : !collectibleState.highlightMissing
+    );
 </script>
 
 <style lang="scss">
@@ -56,11 +54,7 @@
     >
         {#if intersected}
             <WowheadLink type={thingType} id={origId}>
-                <WowthingImage
-                    name="{thingType}/{origId}"
-                    size={40}
-                    border={2}
-                />
+                <WowthingImage name="{thingType}/{origId}" size={40} border={2} />
             </WowheadLink>
 
             {#if userHasThing}

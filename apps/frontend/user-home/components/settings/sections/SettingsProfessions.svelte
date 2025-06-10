@@ -1,17 +1,17 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
-    import { staticStore } from '@/shared/stores/static';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { wowthingData } from '@/shared/stores/data';
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
     import Collecting from './SettingsProfessionsCollecting.svelte';
     import Cooldowns from './SettingsProfessionsCooldowns.svelte';
 
-    const sortedProfessions = sortBy(Object.values($staticStore.professions), (prof) => [
-        prof.type,
-        prof.name,
-    ]);
+    const sortedProfessions = sortBy(
+        Array.from(wowthingData.static.professionById.values()),
+        (prof) => [prof.type, prof.name]
+    );
 </script>
 
 <div>

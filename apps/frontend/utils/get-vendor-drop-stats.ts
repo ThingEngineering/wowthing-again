@@ -1,5 +1,4 @@
 import type { Settings } from '@/shared/stores/settings/types/settings';
-import type { StaticData } from '@/shared/stores/static/types';
 import type { LazyTransmog } from '@/stores/lazy/transmog';
 import type { UserData } from '@/types';
 import type { UserQuestData } from '@/types/data';
@@ -9,7 +8,6 @@ import userHasDrop from './user-has-drop';
 
 export function getVendorDropStats(
     settings: Settings,
-    staticData: StaticData,
     userData: UserData,
     userQuestData: UserQuestData,
     lazyTransmog: LazyTransmog,
@@ -23,7 +21,6 @@ export function getVendorDropStats(
     for (const vendorItem of drop.vendorItems) {
         const hasDrop = userHasDrop(
             settings,
-            staticData,
             userData,
             userQuestData,
             lazyTransmog,

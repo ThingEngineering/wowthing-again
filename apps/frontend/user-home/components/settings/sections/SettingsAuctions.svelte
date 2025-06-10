@@ -1,9 +1,9 @@
 <script lang="ts">
     import debounce from 'lodash/debounce';
 
-    import { userStore } from '@/stores';
-    import { staticStore } from '@/shared/stores/static';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { wowthingData } from '@/shared/stores/data';
+    import { userState } from '@/user-home/state/user';
     import type { StaticDataConnectedRealm } from '@/shared/stores/static/types';
 
     import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte';
@@ -11,17 +11,17 @@
 
     const crIds: Record<number, boolean> = {};
     const realmNames: Record<string, boolean> = {};
-    for (const character of $userStore.characters) {
+    for (const character of userState.general.characters) {
         crIds[character.realm.connectedRealmId] = true;
         realmNames[character.realm.name] = true;
     }
 
     let shownRealms: string[] = Object.keys(crIds).filter(
-        (crId) => settingsState.value.auctions.ignoredRealms.indexOf(parseInt(crId)) === -1,
+        (crId) => settingsState.value.auctions.ignoredRealms.indexOf(parseInt(crId)) === -1
     );
 
-    const connectedRealms: StaticDataConnectedRealm[] = Object.keys(crIds).map(
-        (crId) => $staticStore.connectedRealms[parseInt(crId)],
+    const connectedRealms: StaticDataConnectedRealm[] = Object.keys(crIds).map((crId) =>
+        wowthingData.static.connectedRealmById.get(parseInt(crId))
     );
     connectedRealms.sort((a, b) => a.displayText.localeCompare(b.displayText));
 

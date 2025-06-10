@@ -1,6 +1,5 @@
-import { get } from 'svelte/store';
-
-import { staticStore } from '@/shared/stores/static';
+import { ItemQuality } from '@/enums/item-quality';
+import { wowthingData } from '@/shared/stores/data';
 import {
     UserAuctionDataAuction,
     type UserAuctionData,
@@ -8,8 +7,8 @@ import {
 } from '@/types/data';
 import { sortAuctions } from '@/utils/auctions/sort-auctions';
 import type { HasNameAndRealm, UserItem } from '@/types/shared';
+
 import type { AuctionState } from '../local-storage';
-import { ItemQuality } from '@/enums/item-quality';
 
 export type UserExtraPetEntry = {
     id: number;
@@ -60,13 +59,12 @@ export class UserAuctionExtraPetsStore {
                 responseData.auctions = {};
                 for (const [creatureId, rawAuctions] of Object.entries(responseData.rawAuctions)) {
                     responseData.auctions[parseInt(creatureId)] = rawAuctions.map(
-                        (auctionArray) => new UserAuctionDataAuction(...auctionArray),
+                        (auctionArray) => new UserAuctionDataAuction(...auctionArray)
                     );
                 }
 
-                const staticData = get(staticStore);
                 for (const petId in responseData.auctions) {
-                    const pet = staticData.pets[petId];
+                    const pet = wowthingData.static.petById.get(parseInt(petId));
                     things.push({
                         id: pet.creatureId,
                         name: pet.name,
@@ -138,7 +136,7 @@ export class UserAuctionMissingDataStore {
                 responseData.auctions = {};
                 for (const [creatureId, rawAuctions] of Object.entries(responseData.rawAuctions)) {
                     responseData.auctions[parseInt(creatureId)] = rawAuctions.map(
-                        (auctionArray) => new UserAuctionDataAuction(...auctionArray),
+                        (auctionArray) => new UserAuctionDataAuction(...auctionArray)
                     );
                 }
 
@@ -175,7 +173,7 @@ export class UserAuctionMissingDataStore {
         things = sortAuctions(
             auctionState.sortBy[`missing-${type}`],
             things,
-            !auctionState.includeBids,
+            !auctionState.includeBids
         );
         this.cache[cacheKey] = [things, updated];
         return [things, updated];

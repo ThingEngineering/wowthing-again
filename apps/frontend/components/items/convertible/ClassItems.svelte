@@ -1,15 +1,15 @@
 <script lang="ts">
-    import { AppearanceModifier } from '@/enums/appearance-modifier'
-    import { staticStore } from '@/shared/stores/static'
+    import { AppearanceModifier } from '@/enums/appearance-modifier';
+    import { wowthingData } from '@/shared/stores/data';
 
     import type { ConvertibleCategory } from './types';
 
-    import ClassTable from './ClassTable.svelte'
+    import ClassTable from './ClassTable.svelte';
 
-    export let classSlug: string
-    export let season: ConvertibleCategory
+    export let classSlug: string;
+    export let season: ConvertibleCategory;
 
-    $: playerClass = $staticStore.characterClassesBySlug[classSlug]
+    $: playerClass = wowthingData.static.characterClassBySlug.get(classSlug);
 </script>
 
 <style lang="scss">
@@ -22,10 +22,6 @@
 
 <div class="wrapper-column">
     {#each [AppearanceModifier.Mythic, AppearanceModifier.Heroic, AppearanceModifier.Normal, AppearanceModifier.LookingForRaid] as modifier}
-        <ClassTable
-            {modifier}
-            {playerClass}
-            {season}
-        />
+        <ClassTable {modifier} {playerClass} {season} />
     {/each}
 </div>

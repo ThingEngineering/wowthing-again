@@ -12,15 +12,14 @@ import {
 import { wowthingData } from '@/shared/stores/data';
 import type { Character } from '@/types/character';
 import type { ItemDataItem } from '@/types/data/item';
-import type { StaticData } from '@/shared/stores/static/types';
 
 type BestItemLevels = Record<number, [string, InventoryType[]]>;
 
-export function getBestItemLevels(staticData: StaticData, character: Character): BestItemLevels {
+export function getBestItemLevels(character: Character): BestItemLevels {
     const ret: BestItemLevels = {};
 
-    const specializations = Object.values(staticData.characterSpecializations).filter(
-        (spec) => spec.classId === character.classId
+    const specializations = wowthingData.static.characterSpecializationsByClassId.get(
+        character.classId
     );
     for (const specialization of specializations) {
         const bestItemLevels: Record<number, [ItemDataItem, number][]> = {};

@@ -4,7 +4,7 @@ import { TypedArray } from '@/enums/typed-array';
 
 export default function base64ToRecord(
     arrayType: TypedArray,
-    data: string,
+    data: string
 ): Record<number, boolean> {
     const ret: Record<number, boolean> = {};
     if (data !== null) {
@@ -30,7 +30,10 @@ export function base64ToAchievements(data: string): Record<number, number> {
     return ret;
 }
 
-function base64ToArray(arrayType: TypedArray, data: string): ArrayLike<number> {
+export function base64ToArray(
+    arrayType: TypedArray,
+    data: string
+): ArrayLike<number> & Iterable<number> {
     const bytes = decode(data);
 
     switch (arrayType) {

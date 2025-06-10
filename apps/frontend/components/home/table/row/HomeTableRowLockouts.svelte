@@ -1,6 +1,6 @@
 <script lang="ts">
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { viewHasLockout } from '@/shared/utils/view-has-lockout';
     import { userState } from '@/user-home/state/user';
     import type { CharacterProps } from '@/types/props';
@@ -12,7 +12,7 @@
     let filteredLockouts = $derived.by(() =>
         userState.general.homeLockouts.filter(
             (instanceDifficulty) =>
-                $staticStore.instances[instanceDifficulty.instanceId] &&
+                wowthingData.static.instanceById.has(instanceDifficulty.instanceId) &&
                 viewHasLockout(
                     settingsState.activeView,
                     instanceDifficulty.difficulty,

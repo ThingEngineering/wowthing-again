@@ -1,7 +1,6 @@
 <script lang="ts">
     import find from 'lodash/find';
 
-    import { staticStore } from '@/shared/stores/static';
     import { reputationState } from '@/stores/local-storage';
     import { leftPad } from '@/utils/formatting';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
@@ -65,9 +64,10 @@
 
     function isRenown(reputationSet: ManualDataReputationSet) {
         return reputationSet.both
-            ? $staticStore.reputations[reputationSet.both.id].renownCurrencyId > 0
-            : $staticStore.reputations[reputationSet.alliance?.id || reputationSet.horde.id]
-                  .renownCurrencyId > 0;
+            ? wowthingData.static.reputationById.get(reputationSet.both.id).renownCurrencyId > 0
+            : wowthingData.static.reputationById.get(
+                  reputationSet.alliance?.id || reputationSet.horde.id
+              ).renownCurrencyId > 0;
     }
 
     type RepSetData = [ManualDataReputationSet[], number][];
@@ -78,7 +78,7 @@
         for (let setIndex = 0; setIndex < reputationSets.length; setIndex++) {
             const reputationSet = reputationSets[setIndex];
             const hasAccountWide = reputationSet.some(
-                (rep) => $staticStore.reputations[rep.both?.id]?.accountWide,
+                (rep) => wowthingData.static.reputationById.get(rep.both?.id)?.accountWide
             );
             (hasAccountWide ? accountSets : characterSets).push([reputationSet, setIndex]);
         }

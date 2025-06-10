@@ -1,6 +1,6 @@
 <script lang="ts">
     import { uiIcons } from '@/shared/icons';
-    import { browserStore } from '@/shared/stores/browser';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import type { SettingsView } from '@/shared/stores/settings/types';
 
@@ -30,7 +30,7 @@
         newCustomViews.push(view);
 
         settingsState.value.views = newCustomViews;
-        $browserStore.settings.selectedView = view.id;
+        browserState.current.settings.selectedView = view.id;
     };
 
     const moveUpClick = (index: number) => {
@@ -56,7 +56,7 @@
         settingsState.value.views = settingsState.value.views.filter((view) => view.id !== viewId);
 
         if (settingsState.activeView.id === viewId) {
-            $browserStore.home.activeView = settingsState.value.views[0].id;
+            browserState.current.home.activeView = settingsState.value.views[0].id;
         }
     };
 </script>

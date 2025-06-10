@@ -391,7 +391,7 @@ public class StaticTool
 
             cacheData.RawQuestInfo = await LoadQuestInfo(language);
 
-            cacheData.Professions = professions[language];
+            cacheData.RawProfessions = professions[language];
             cacheData.Soulbinds = soulbinds[language];
 
             cacheData.EnchantmentStrings = _stringMap
@@ -536,7 +536,7 @@ public class StaticTool
         return languageName;
     }
 
-    private async Task<Dictionary<Language, Dictionary<int, OutProfession>>> LoadProfessions(
+    private async Task<Dictionary<Language, List<OutProfession>>> LoadProfessions(
         Dictionary<int, List<OutTraitTree>> outSkillLineTraitsMap)
     {
         var itemNameToId = _stringMap
@@ -643,7 +643,7 @@ public class StaticTool
             }
         }
 
-        var ret = new Dictionary<Language, Dictionary<int, OutProfession>>();
+        var ret = new Dictionary<Language, List<OutProfession>>();
         foreach (var language in Enum.GetValues<Language>())
         {
             var categories = await DataUtilities.LoadDumpCsvAsync<DumpTradeSkillCategory>(
@@ -912,8 +912,7 @@ public class StaticTool
             }
 
             ret[language] = professions
-                .ToDictionary(
-                    profession => profession.ID,
+                .Select(
                     profession => new OutProfession
                     {
                         Id = profession.ID,
@@ -933,9 +932,9 @@ public class StaticTool
                                 TraitTrees = outSkillLineTraitsMap.GetValueOrDefault(line.ID),
                             })
                             .ToList(),
-                        RawCategories = professionRootCategories.GetValueOrDefault(profession.ID),
+                        Categories = professionRootCategories.GetValueOrDefault(profession.ID),
                     }
-                );
+                ).ToList();
         }
 
 #if DEBUG

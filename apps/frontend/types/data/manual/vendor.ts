@@ -81,10 +81,8 @@ export class ManualDataVendorItem {
         }
     }
 
-    getNote(staticData: StaticData): string | undefined {
-        return this.costs
-            ? getCurrencyCostsString(staticData, this.costs, this.reputation)
-            : this.note;
+    getNote(): string | undefined {
+        return this.costs ? getCurrencyCostsString(this.costs, this.reputation) : this.note;
     }
 }
 export type ManualDataVendorItemArray = ConstructorParameters<typeof ManualDataVendorItem>;

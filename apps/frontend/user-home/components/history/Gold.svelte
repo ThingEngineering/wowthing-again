@@ -21,14 +21,13 @@
     import { colors } from '@/data/colors';
     import { resetTimes } from '@/data/region';
     import { Region } from '@/enums/region';
+    import { wowthingData } from '@/shared/stores/data';
     import { timeStore } from '@/shared/stores/time';
     import { userHistoryStore } from '@/stores';
-    import { staticStore } from '@/shared/stores/static';
     import { historyState } from '@/stores/local-storage';
     import parseApiTime from '@/utils/parse-api-time';
     import type { HistoryState } from '@/stores/local-storage';
     import type { UserHistoryData } from '@/types/data';
-    import type { StaticDataRealm } from '@/shared/stores/static/types';
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte';
@@ -44,7 +43,7 @@
         Filler,
         Legend,
         Title,
-        Tooltip,
+        Tooltip
     );
 
     type DateTimePoint = {
@@ -94,7 +93,7 @@
                 continue;
             }
 
-            const realm: StaticDataRealm = $staticStore.realms[realmId];
+            const realm = wowthingData.static.realmById.get(parseInt(realmId));
             realms.push([
                 realmId === '0' ? 'Warband Bank' : `[${Region[realm.region]}] ${realm.name}`,
                 parseInt(realmId),
@@ -126,7 +125,7 @@
                 firstRealmId = realmId;
             }
 
-            const realm = $staticStore.realms[realmId];
+            const realm = wowthingData.static.realmById.get(realmId);
             const resetData = resetTimes[realm.region as Region];
 
             const color = colors[(realmIndex + 1) * 2];
@@ -209,7 +208,7 @@
                     ([, [time, value]]) => ({
                         x: time,
                         y: value,
-                    }),
+                    })
                 );
             }
 
@@ -247,7 +246,7 @@
                 dataset.data.map((dataPoint: DateTimePoint) => [
                     dataPoint.x.toUnixInteger(),
                     dataPoint,
-                ]),
+                ])
             );
             const newData: DateTimePoint[] = [];
 
@@ -290,7 +289,7 @@
                 const anyUseful = Object.values(smalls).filter((value) => value.y > 0).length > 0;
                 if (anyUseful) {
                     const smallPoints = sortBy(Object.values(smalls), (point: DateTimePoint) =>
-                        point.x.toUnixInteger(),
+                        point.x.toUnixInteger()
                     );
 
                     data.datasets.push({

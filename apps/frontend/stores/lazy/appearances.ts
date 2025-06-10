@@ -10,13 +10,11 @@ import { UserCount, type UserData } from '@/types';
 import { AppearanceDataAppearance, AppearanceDataSet } from '@/types/data/appearance';
 import { leftPad } from '@/utils/formatting';
 import type { Settings } from '@/shared/stores/settings/types';
-import type { StaticData } from '@/shared/stores/static/types';
 import type { AppearancesState } from '../local-storage';
 
 interface LazyStores {
     appearanceState: AppearancesState;
     settings: Settings;
-    staticData: StaticData;
     userData: UserData;
 }
 
@@ -131,10 +129,7 @@ function buildAppearanceData(stores: LazyStores): Record<string, AppearanceDataS
         let nameParts: string[];
         switch (classId) {
             case ItemClass.Armor:
-                nameParts = [
-                    'Armor',
-                    getArmorSubType(stores.staticData, subclassId, inventoryType),
-                ];
+                nameParts = ['Armor', getArmorSubType(subclassId, inventoryType)];
                 if (subclassId >= 1 && subclassId <= 4) {
                     sortKey = `00|${leftPad(subclassId, 2, '0')}|${leftPad(typeOrderMap[inventoryType] || 99, 2, '0')}`;
                 } else {
@@ -222,8 +217,8 @@ function buildAppearanceData(stores: LazyStores): Record<string, AppearanceDataS
     return appearanceData;
 }
 
-function getArmorSubType(staticData: StaticData, subClass: number, inventoryType: number): string {
-    const slotString = staticData.inventoryTypes[inventoryType];
+function getArmorSubType(subClass: number, inventoryType: number): string {
+    const slotString = wowthingData.static.inventoryTypeById.get(inventoryType);
     //const slotString = (InventoryType[inventoryType] || `?${inventoryType}?`).replace('2', '')
     if (subClass >= 1 && subClass <= 4) {
         const typeString = ArmorType[subClass] || `?${subClass}?`;

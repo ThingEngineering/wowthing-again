@@ -2,7 +2,7 @@
     import sortBy from 'lodash/sortBy';
 
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import type { SettingsChoice } from '@/shared/stores/settings/types';
 
@@ -10,12 +10,12 @@
 
     const sortFunc = $getCharacterSortFunc();
 
-    const characterChoices: SettingsChoice[] = sortBy($userStore.characters, (char) =>
-        sortFunc(char),
-    ).map((char) => ({
-        id: char.id.toString(),
-        name: `${char.name}-${char.realm.name}`,
-    }));
+    let characterChoices: SettingsChoice[] = $derived.by(() =>
+        sortBy(userState.general.characters, (char) => sortFunc(char)).map((char) => ({
+            id: char.id.toString(),
+            name: `${char.name}-${char.realm.name}`,
+        }))
+    );
 </script>
 
 <style lang="scss">

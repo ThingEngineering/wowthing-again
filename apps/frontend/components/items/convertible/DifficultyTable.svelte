@@ -3,7 +3,7 @@
     import { AppearanceModifier } from '@/enums/appearance-modifier';
     import { InventoryType } from '@/enums/inventory-type';
     import { iconLibrary, uiIcons } from '@/shared/icons';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { getGenderedName } from '@/utils/get-gendered-name';
     import getPercentClass from '@/utils/get-percent-class';
@@ -69,12 +69,12 @@
             </thead>
             <tbody>
                 {#each classOrder as classId}
-                    {@const characterClass = $staticStore.characterClasses[classId]}
+                    {@const characterClass = wowthingData.static.characterClassById.get(classId)}
                     {@const slotsHave = Object.values(classData[classId] || {}).filter(
-                        (mod) => mod.userHas,
+                        (mod) => mod.userHas
                     ).length}
                     {@const slotsCouldHave = Object.values(classData[classId] || {}).filter(
-                        (mod) => mod.userHas || mod.anyIsConvertible || mod.anyIsUpgradeable,
+                        (mod) => mod.userHas || mod.anyIsConvertible || mod.anyIsUpgradeable
                     ).length}
                     {@const slotsTotal = Object.values(classData[classId] || {}).length}
                     <tr>

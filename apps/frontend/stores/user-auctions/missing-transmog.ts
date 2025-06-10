@@ -10,7 +10,6 @@ import {
     type UserAuctionDataMissingTransmogAuctionArray,
     UserAuctionDataMissingTransmogAuction,
 } from '@/types/data';
-import type { StaticData } from '@/shared/stores/static/types';
 import type { UserData } from '@/types';
 import type { Settings } from '@/shared/stores/settings/types';
 
@@ -24,7 +23,6 @@ export class UserAuctionMissingTransmogDataStore {
     async search(
         settings: Settings,
         auctionState: AuctionState,
-        staticData: StaticData,
         userData: UserData,
         searchType: string
     ): Promise<[UserAuctionEntry[], Record<number, number>]> {
@@ -154,9 +152,11 @@ export class UserAuctionMissingTransmogDataStore {
                 .slice(0, auctionState.limitToCheapestRealm ? 1 : undefined)
                 .some(
                     (auction) =>
-                        staticData.connectedRealms[auction.connectedRealmId].realmNames.filter(
-                            (name) => name.toLocaleLowerCase().indexOf(realmLower) >= 0
-                        ).length > 0
+                        wowthingData.static.connectedRealmById
+                            .get(auction.connectedRealmId)
+                            .realmNames.filter(
+                                (name) => name.toLocaleLowerCase().indexOf(realmLower) >= 0
+                            ).length > 0
                 );
 
             let matchesArmor = true;
@@ -189,7 +189,7 @@ export class UserAuctionMissingTransmogDataStore {
             let matchesSource = true;
             if (!auctionState.missingTransmogShowCrafted) {
                 matchesSource =
-                    staticData.professionAbilityByItemId[item.id] === undefined &&
+                    !wowthingData.static.professionAbilityByItemId.has(item.id) &&
                     !extraCraftedItemIds.has(item.id);
             }
 

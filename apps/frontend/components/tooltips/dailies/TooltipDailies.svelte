@@ -2,9 +2,8 @@
     import type { DateTime } from 'luxon';
 
     import { uiIcons } from '@/shared/icons';
-    import { staticStore } from '@/shared/stores/static';
-    import { timeStore } from '@/shared/stores/time';
     import { wowthingData } from '@/shared/stores/data';
+    import { timeStore } from '@/shared/stores/time';
     import { toNiceDuration } from '@/utils/formatting';
     import type { Character, DailyQuestsReward } from '@/types';
     import type { GlobalDailyQuest } from '@/types/data';
@@ -100,7 +99,9 @@
                                     x {rewards.quantity}
                                 {/if}
                             {:else if rewards.currencyId > 0}
-                                {@const currency = $staticStore.currencies[rewards.currencyId]}
+                                {@const currency = wowthingData.static.currencyById.get(
+                                    rewards.currencyId
+                                )}
 
                                 <WowthingImage
                                     name="currency/{rewards.currencyId}"

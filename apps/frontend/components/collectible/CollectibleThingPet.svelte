@@ -1,44 +1,37 @@
 <script lang="ts">
-    import find from 'lodash/find'
-    import maxBy from 'lodash/maxBy'
-    import { getContext } from 'svelte'
-    import IntersectionObserver from 'svelte-intersection-observer'
+    import find from 'lodash/find';
+    import maxBy from 'lodash/maxBy';
+    import { getContext } from 'svelte';
+    import IntersectionObserver from 'svelte-intersection-observer';
 
-    import { petBreedMap } from '@/data/pet-breed'
-    import { userStore } from '@/stores'
-    import { collectibleState } from '@/stores/local-storage'
-    import type { UserDataPet } from '@/types'
-    import type { CollectibleContext } from '@/types/contexts'
+    import { petBreedMap } from '@/data/pet-breed';
+    import { userState } from '@/user-home/state/user';
+    import type { CollectibleState } from '@/shared/state/browser.svelte';
+    import type { CollectibleContext } from '@/types/contexts';
 
-    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
-    import NpcLink from '@/shared/components/links/NpcLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
+    import NpcLink from '@/shared/components/links/NpcLink.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let things: number[] = []
+    type Props = {
+        collectibleState: CollectibleState;
+        things: number[];
+    };
 
-    const { thingMapFunc } = getContext('collection') as CollectibleContext
+    let { collectibleState, things }: Props = $props();
 
-    let element: HTMLElement
-    let intersected = false
-    let origId: number
-    let pets: UserDataPet[]
-    let quality: number
-    let showAsMissing: boolean
-    let userHasThing: number | undefined
-    $: {
-        userHasThing = find(things, (petId) => $userStore.hasPet[petId] === true)
-        origId = userHasThing ?? things[0]
+    const { thingMapFunc } = getContext('collection') as CollectibleContext;
 
-        if (userHasThing) {
-            pets = $userStore.pets[origId]
-            quality = maxBy(pets, (pet) => pet.quality).quality
-            showAsMissing = $collectibleState.highlightMissing['pets']
-        }
-        else {
-            pets = []
-            showAsMissing = !$collectibleState.highlightMissing['pets']
-        }
-    }
+    let element = $state<HTMLElement>(null);
+    let intersected = $state(false);
+
+    let userHasThing = $derived(find(things, (petId) => userState.general.hasPetById.has(petId)));
+    let origId = $derived(userHasThing ?? things[0]);
+    let pets = $derived(userHasThing ? userState.general.petsById[origId] : []);
+    let quality = $derived(maxBy(pets, (pet) => pet.quality)?.quality || 2);
+    let showAsMissing = $derived(
+        userHasThing ? collectibleState.highlightMissing : !collectibleState.highlightMissing
+    );
 </script>
 
 <style lang="scss">
@@ -61,17 +54,13 @@
         bind:this={element}
         class="collection-object {userHasThing ? `quality${quality}` : 'has-not'}"
         class:missing={showAsMissing}
-        style:height={pets.length > 0 ? `${44 + (18 * pets.length)}px` : null}
+        style:height={pets.length > 0 ? `${44 + 18 * pets.length}px` : null}
         data-id={origId}
     >
         {#if intersected}
             {@const creatureId = thingMapFunc(origId)}
             <NpcLink id={creatureId}>
-                <WowthingImage
-                    name="npc/{creatureId}"
-                    size={40}
-                    border={2}
-                />
+                <WowthingImage name="npc/{creatureId}" size={40} border={2} />
             </NpcLink>
 
             {#each pets as pet}

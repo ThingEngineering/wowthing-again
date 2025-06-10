@@ -6,5 +6,5 @@ export interface CollectibleContext {
     stats: Record<string, UserCount>;
     thingMapFunc: (thing: number) => number;
     thingType: string;
-    userHas: Record<number, boolean>;
+    userHas: Set<number>;
 }

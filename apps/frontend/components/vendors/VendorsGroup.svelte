@@ -5,7 +5,6 @@
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
     import { RewardType } from '@/enums/reward-type';
     import { wowthingData } from '@/shared/stores/data';
-    import { staticStore } from '@/shared/stores/static';
     import { lazyStore } from '@/stores';
     import { vendorState } from '@/stores/local-storage';
     import { ThingData } from '@/types/vendors';
@@ -40,10 +39,10 @@
 
                 if (thing.type === RewardType.Mount) {
                     thingData.linkType = 'spell';
-                    thingData.linkId = $staticStore.mounts[thing.id]?.spellId;
+                    thingData.linkId = wowthingData.static.mountById.get(thing.id)?.spellId;
                 } else if (thing.type === RewardType.Pet) {
                     thingData.linkType = 'npc';
-                    thingData.linkId = $staticStore.pets[thing.id].creatureId;
+                    thingData.linkId = wowthingData.static.petById.get(thing.id)?.creatureId;
                 } else {
                     thingData.linkType = 'item';
                     thingData.linkId = thing.id;

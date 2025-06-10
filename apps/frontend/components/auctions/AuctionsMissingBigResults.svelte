@@ -40,7 +40,8 @@
     let { page, slug1 }: { page: number; slug1: string } = $props();
 
     function setRealmSearch(connectedRealmId: number) {
-        const realmName = $staticStore.connectedRealms[connectedRealmId].realmNames[0];
+        const realmName =
+            wowthingData.static.connectedRealmById.get(connectedRealmId).realmNames[0];
         if (slug1 === 'missing-recipes') {
             $auctionState.missingRecipeRealmSearch = realmName;
         } else {
@@ -252,7 +253,7 @@
 
 <UnderConstruction />
 
-{#await slug1 === 'missing-recipes' ? userAuctionMissingRecipeStore.search(settingsState.value, $auctionState, $staticStore, $userStore) : userAuctionMissingTransmogStore.search(settingsState.value, $auctionState, $staticStore, $userStore, slug1.replace('missing-appearance-', ''))}
+{#await slug1 === 'missing-recipes' ? userAuctionMissingRecipeStore.search(settingsState.value, $auctionState, $staticStore, $userStore) : userAuctionMissingTransmogStore.search(settingsState.value, $auctionState, $userStore, slug1.replace('missing-appearance-', ''))}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then [things, updated]}
     {#if things.length > 0}
@@ -284,7 +285,9 @@
                                 {@const skillLineId =
                                     $staticStore.itemToSkillLine[auctions[0].itemId]?.[0] || 0}
                                 {@const profession =
-                                    $staticStore.professionBySkillLine[skillLineId]?.[0]}
+                                    wowthingData.static.professionBySkillLineId.get(
+                                        skillLineId
+                                    )?.[0]}
                                 {@const characterIds =
                                     settingsState.value.professions.collectingCharactersV2?.[
                                         profession?.id || 0
@@ -295,7 +298,7 @@
                                             <ProfessionIcon id={profession.id} />
                                             {#each characterIds as characterId (characterId)}
                                                 {@const character =
-                                                    userState.general.characterMap[characterId]}
+                                                    userState.general.characterById[characterId]}
                                                 <span class="class-{character.classId}">
                                                     {character.name}
                                                 </span>
@@ -327,9 +330,9 @@
 
                                                 {#if slug1.startsWith('missing-appearance-')}
                                                     {@const abilityInfo =
-                                                        $staticStore.professionAbilityByItemId[
+                                                        wowthingData.static.professionAbilityByItemId.get(
                                                             auctions[0].itemId
-                                                        ]}
+                                                        )}
                                                     {#if abilityInfo}
                                                         <span class="border-shrug">
                                                             <ProfessionIcon
@@ -405,8 +408,9 @@
                         </thead>
                         <tbody>
                             {#each auctions as auction (auction)}
-                                {@const connectedRealm =
-                                    $staticStore.connectedRealms[auction.connectedRealmId]}
+                                {@const connectedRealm = wowthingData.static.connectedRealmById.get(
+                                    auction.connectedRealmId
+                                )}
                                 {@const ageInMinutes = Math.floor(
                                     $timeStore
                                         .diff(

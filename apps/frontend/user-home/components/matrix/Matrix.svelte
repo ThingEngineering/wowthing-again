@@ -8,9 +8,9 @@
     import { isSecondaryProfession, professionOrder } from '@/data/professions';
     import { Gender, genderValues } from '@/enums/gender';
     import { Region } from '@/enums/region';
-    import { browserStore } from '@/shared/stores/browser';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { staticStore } from '@/shared/stores/static';
+    import { wowthingData } from '@/shared/stores/data';
     import { userStore } from '@/stores';
     import { cartesianProduct } from '@/utils/cartesian-product';
     import type { StaticDataRealm } from '@/shared/stores/static/types';
@@ -36,8 +36,8 @@
             (char) =>
                 settingsState.value.characters.hiddenCharacters.indexOf(char.id) === -1 &&
                 settingsState.value.characters.ignoredCharacters.indexOf(char.id) === -1 &&
-                char.level >= $browserStore.matrix.minLevel &&
-                settingsState.value.accounts?.[char.accountId]?.enabled === true,
+                char.level >= browserState.current.matrix.minLevel &&
+                settingsState.value.accounts?.[char.accountId]?.enabled === true
         );
 
         const realmMap: Record<number, StaticDataRealm> = {};
@@ -47,18 +47,18 @@
 
         const realms: [string, string, StaticDataRealm][] = Object.values(realmMap).map((realm) => [
             Region[realm.region],
-            $staticStore.connectedRealms[realm.connectedRealmId]?.displayText ||
+            wowthingData.static.connectedRealmById.get(realm.connectedRealmId)?.displayText ||
                 `Realm #${realm.connectedRealmId}`,
             realm,
         ]);
         //realms.sort()
 
-        const sortedX = sortBy($browserStore.matrix.xAxis, (key) => axisOrder.indexOf(key));
-        const sortedY = sortBy($browserStore.matrix.yAxis, (key) => axisOrder.indexOf(key));
+        const sortedX = sortBy(browserState.current.matrix.xAxis, (key) => axisOrder.indexOf(key));
+        const sortedY = sortBy(browserState.current.matrix.yAxis, (key) => axisOrder.indexOf(key));
 
         const allAxis = sortBy(
-            [...$browserStore.matrix.xAxis, ...$browserStore.matrix.yAxis],
-            (key) => axisOrder.indexOf(key),
+            [...browserState.current.matrix.xAxis, ...browserState.current.matrix.yAxis],
+            (key) => axisOrder.indexOf(key)
         );
 
         matrix = Object.fromEntries(
@@ -68,14 +68,14 @@
                         const parts: (number | string)[] = [];
 
                         parts.push(
-                            allAxis.indexOf('realm') >= 0 ? char.realm.connectedRealmId : null,
+                            allAxis.indexOf('realm') >= 0 ? char.realm.connectedRealmId : null
                         );
 
                         parts.push(
                             allAxis.indexOf('account') >= 0
                                 ? settingsState.value.accounts?.[char.accountId]?.tag ||
                                       char.accountId
-                                : null,
+                                : null
                         );
 
                         parts.push(allAxis.indexOf('faction') >= 0 ? char.faction : null);
@@ -88,17 +88,17 @@
                             .filter((professionId) => !isSecondaryProfession[professionId]);
 
                         parts.push(
-                            allAxis.indexOf('profession') >= 0 ? professionIds[0] || null : null,
+                            allAxis.indexOf('profession') >= 0 ? professionIds[0] || null : null
                         );
                         parts.push(
-                            allAxis.indexOf('profession') >= 0 ? professionIds[1] || null : null,
+                            allAxis.indexOf('profession') >= 0 ? professionIds[1] || null : null
                         );
 
                         return parts;
-                    }),
+                    })
                 ).map(([key, characters]) => [key, sortBy(characters, (char) => -char.level)]),
-                ([key]) => key,
-            ),
+                ([key]) => key
+            )
         );
 
         // unique ID|display text?
@@ -111,8 +111,8 @@
                 combos.push(
                     realms.map(
                         ([region, displayText, realm]) =>
-                            `${realm.connectedRealmId}|[${region}] ${displayText}`,
-                    ),
+                            `${realm.connectedRealmId}|[${region}] ${displayText}`
+                    )
                 );
             } else {
                 combos.push(['']);
@@ -123,15 +123,15 @@
                     sortBy(
                         Object.values($userStore.accounts)
                             .filter(
-                                (account) => settingsState.value.accounts?.[account.id]?.enabled,
+                                (account) => settingsState.value.accounts?.[account.id]?.enabled
                             )
                             .map((account) => {
                                 const tag =
                                     settingsState.value.accounts?.[account.id].tag || account.id;
                                 return `${tag}|${tag}`;
                             }),
-                        (key) => key.split('|')[0],
-                    ),
+                        (key) => key.split('|')[0]
+                    )
                 );
             } else {
                 combos.push(['']);
@@ -139,7 +139,7 @@
 
             if (axis.indexOf('faction') >= 0) {
                 combos.push(
-                    [':alliance:', ':horde:'].map((faction, index) => `${index}|${faction}`),
+                    [':alliance:', ':horde:'].map((faction, index) => `${index}|${faction}`)
                 );
             } else {
                 combos.push(['']);
@@ -153,9 +153,9 @@
 
             if (axis.indexOf('race') >= 0) {
                 combos.push(
-                    Object.keys($staticStore.characterRaces).map(
-                        (raceId) => `${raceId}|:race-${raceId}:`,
-                    ),
+                    [...wowthingData.static.characterRaceById.keys()].map(
+                        (raceId) => `${raceId}|:race-${raceId}:`
+                    )
                 );
             } else {
                 combos.push(['']);
@@ -170,8 +170,8 @@
             if (axis.indexOf('profession') >= 0) {
                 combos.push(
                     professionOrder.map(
-                        (professionId) => `${professionId}|:profession-${professionId}:`,
-                    ),
+                        (professionId) => `${professionId}|:profession-${professionId}:`
+                    )
                 );
             } else {
                 combos.push(['']);
@@ -358,11 +358,11 @@
             {#each axisOptions as [value, label]}
                 <GroupedCheckbox
                     name="x_{value}"
-                    disabled={$browserStore.matrix.yAxis.indexOf(value) >= 0 ||
-                        ($browserStore.matrix.xAxis.indexOf(value) === -1 &&
-                            $browserStore.matrix.xAxis.length >= 2)}
+                    disabled={browserState.current.matrix.yAxis.indexOf(value) >= 0 ||
+                        (browserState.current.matrix.xAxis.indexOf(value) === -1 &&
+                            browserState.current.matrix.xAxis.length >= 2)}
                     {value}
-                    bind:bindGroup={$browserStore.matrix.xAxis}>{label}</GroupedCheckbox
+                    bind:bindGroup={browserState.current.matrix.xAxis}>{label}</GroupedCheckbox
                 >
             {/each}
         </div>
@@ -373,11 +373,11 @@
             {#each axisOptions as [value, label]}
                 <GroupedCheckbox
                     name="y_{value}"
-                    disabled={$browserStore.matrix.xAxis.indexOf(value) >= 0 ||
-                        ($browserStore.matrix.yAxis.indexOf(value) === -1 &&
-                            $browserStore.matrix.yAxis.length >= 3)}
+                    disabled={browserState.current.matrix.xAxis.indexOf(value) >= 0 ||
+                        (browserState.current.matrix.yAxis.indexOf(value) === -1 &&
+                            browserState.current.matrix.yAxis.length >= 3)}
                     {value}
-                    bind:bindGroup={$browserStore.matrix.yAxis}>{label}</GroupedCheckbox
+                    bind:bindGroup={browserState.current.matrix.yAxis}>{label}</GroupedCheckbox
                 >
             {/each}
         </div>
@@ -389,7 +389,7 @@
                 name="min_level"
                 minValue={0}
                 maxValue={Constants.characterMaxLevel}
-                bind:value={$browserStore.matrix.minLevel}
+                bind:value={browserState.current.matrix.minLevel}
             />
         </div>
 
@@ -397,7 +397,7 @@
             Show as:&nbsp;
             <RadioGroup
                 name="show_character_as"
-                bind:value={$browserStore.matrix.showCharacterAs}
+                bind:value={browserState.current.matrix.showCharacterAs}
                 options={[
                     ['level', 'Level'],
                     ['name', 'Name'],
@@ -406,7 +406,10 @@
         </div>
 
         <div class="options-container background-box">
-            <CheckboxInput name="show_empty_rows" bind:value={$browserStore.matrix.showEmptyRows}>
+            <CheckboxInput
+                name="show_empty_rows"
+                bind:value={browserState.current.matrix.showEmptyRows}
+            >
                 Show empty rows
             </CheckboxInput>
         </div>
@@ -428,7 +431,7 @@
         </thead>
         <tbody>
             {#each yKeys as yKey, yIndex}
-                {#if $browserStore.matrix.showEmptyRows || yCounts[yKey] > 0}
+                {#if browserState.current.matrix.showEmptyRows || yCounts[yKey] > 0}
                     <Row
                         count={yCounts[yKey]}
                         {getCharacters}

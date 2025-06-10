@@ -36,10 +36,6 @@ export const professionIdToSlug: Record<number, string> = {
     [Profession.Fishing]: 'fishing',
 };
 
-export const professionSlugToId: Record<string, number> = Object.fromEntries(
-    Object.entries(professionIdToSlug).map(([id, slug]) => [slug, parseInt(id)]),
-);
-
 export const isGatheringProfession: Record<number, boolean> = {
     182: true, // Herbalism
     186: true, // Mining
@@ -54,14 +50,14 @@ export const isCraftingProfession: Record<number, boolean> = Object.fromEntries(
     Object.keys(professionIdToSlug)
         .map((id) => parseInt(id))
         .filter((id) => !isGatheringProfession[id] && !isSecondaryProfession[id])
-        .map((id) => [id, true]),
+        .map((id) => [id, true])
 );
 // I hate that object keys are always strings, ugh
 export const professionOrder: number[] = sortBy(Object.entries(professionIdToSlug), ([id, slug]) =>
     [
         isSecondaryProfession[parseInt(id)] ? 2 : isGatheringProfession[parseInt(id)] ? 1 : 0,
         slug,
-    ].join('|'),
+    ].join('|')
 ).map(([id]) => parseInt(id));
 
 export const professionOrderMap = toIndexRecord(professionOrder);
@@ -80,7 +76,7 @@ export const professionSpecializationSpells: Record<number, string> = Object.fro
     Object.entries(professionSpecializationToSpell).map(([spellName, spellId]) => [
         spellId,
         spellName,
-    ]),
+    ])
 );
 
 export const darkmoonFaireProfessionQuests: Record<number, number> = {
@@ -120,7 +116,7 @@ export const dragonflightProfessions: TaskProfession[] = [
 ];
 
 export const dragonflightProfessionMap: Record<number, TaskProfession> = Object.fromEntries(
-    dragonflightProfessions.map((profession) => [profession.id, profession]),
+    dragonflightProfessions.map((profession) => [profession.id, profession])
 );
 
 export const warWithinProfessions: TaskProfession[] = [
@@ -139,5 +135,5 @@ export const warWithinProfessions: TaskProfession[] = [
 ];
 
 export const warWithinProfessionMap: Record<number, TaskProfession> = Object.fromEntries(
-    warWithinProfessions.map((profession) => [profession.id, profession]),
+    warWithinProfessions.map((profession) => [profession.id, profession])
 );

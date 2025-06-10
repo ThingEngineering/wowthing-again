@@ -2,9 +2,9 @@
     import sortBy from 'lodash/sortBy';
 
     import { ItemQuality } from '@/enums/item-quality';
-    import { staticStore } from '@/shared/stores/static';
-    import { userStore } from '@/stores';
-    import { collectibleState } from '@/stores/local-storage';
+    import { browserState } from '@/shared/state/browser.svelte';
+    import { wowthingData } from '@/shared/stores/data';
+    import { userState } from '@/user-home/state/user';
     import { leftPad } from '@/utils/formatting';
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
     import type { UserDataPet } from '@/types';
@@ -16,10 +16,10 @@
     $: {
         pets = [];
 
-        const noMaxLevel = $collectibleState.petSearchNoMaxLevel;
-        const noRare = $collectibleState.petSearchNoRare;
-        for (const [speciesId, thesePets] of getNumberKeyedEntries($userStore.pets)) {
-            const staticPet = $staticStore.pets[speciesId];
+        const noMaxLevel = browserState.current['collectible-pets'].searchNoMaxLevel;
+        const noRare = browserState.current['collectible-pets'].searchNoRare;
+        for (const [speciesId, thesePets] of getNumberKeyedEntries(userState.general.petsById)) {
+            const staticPet = wowthingData.static.petById.get(speciesId);
             if (staticPet?.canBattle === false) {
                 continue;
             }
@@ -39,7 +39,7 @@
         }
 
         pets = sortBy(pets, ([, pet, name]) =>
-            [5 - pet.quality, leftPad(pet.level, 2, '0'), name].join('|'),
+            [5 - pet.quality, leftPad(pet.level, 2, '0'), name].join('|')
         );
     }
 
@@ -73,20 +73,24 @@
 <div class="flex-column">
     <div class="options-container">
         <button>
-            <Checkbox name="no_max_level" bind:value={$collectibleState.petSearchNoMaxLevel}
+            <Checkbox
+                name="no_max_level"
+                bind:value={browserState.current['collectible-pets'].searchNoMaxLevel}
                 >No level 25</Checkbox
             >
         </button>
         <button>
-            <Checkbox name="no_rare" bind:value={$collectibleState.petSearchNoRare}
+            <Checkbox
+                name="no_rare"
+                bind:value={browserState.current['collectible-pets'].searchNoRare}
                 >No rare quality</Checkbox
             >
         </button>
     </div>
 
     <div class="pets">
-        {#each pets as [speciesId, pet, name]}
-            {@const staticPet = $staticStore.pets[speciesId]}
+        {#each pets as [speciesId, pet, name] (speciesId)}
+            {@const staticPet = wowthingData.static.petById.get(speciesId)}
             <div class="flex-wrapper no-break pet" data-species-id={speciesId}>
                 <div class="quality{pet.quality} text-overflow">
                     {#if staticPet}
