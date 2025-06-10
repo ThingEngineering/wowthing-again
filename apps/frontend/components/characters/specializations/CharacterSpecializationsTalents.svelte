@@ -11,16 +11,16 @@
     export let character: Character;
     export let specializationId: number;
 
-    let selectedTalent: number[];
-    $: {
-        selectedTalent = [];
-        // selectedTalent = $staticStore.talents[specializationId].map((spellIds, tier) =>
-        //     find(
-        //         spellIds,
-        //         (spellId) => character.specializations?.[specializationId]?.[tier] === spellId
-        //     )
-        // );
-    }
+    let selectedTalent: number[] = [];
+    // $: {
+    //     selectedTalent = [];
+    //     selectedTalent = $staticStore.talents[specializationId].map((spellIds, tier) =>
+    //         find(
+    //             spellIds,
+    //             (spellId) => character.specializations?.[specializationId]?.[tier] === spellId
+    //         )
+    //     );
+    // }
 </script>
 
 <style lang="scss">
