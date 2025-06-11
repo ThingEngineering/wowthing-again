@@ -2,7 +2,7 @@ import { Constants } from '@/data/constants';
 import { ItemLocation } from '@/enums/item-location';
 import { ItemQuality } from '@/enums/item-quality';
 import { wowthingData } from '@/shared/stores/data';
-import type { UserData } from '@/types';
+import { userState } from '@/user-home/state/user';
 
 import type { CommodityData } from './store';
 
@@ -26,13 +26,12 @@ const skippedIds = new Set<number>([
 ]);
 
 export function getCharacterCommodities(
-    userData: UserData,
     commodities: CommodityData,
     currentExpansionOnly: boolean
 ): CharacterCommodities[] {
     let ret: CharacterCommodities[] = [];
 
-    for (const character of userData.characters) {
+    for (const character of userState.general.activeCharacters) {
         const characterCommodities = new CharacterCommodities(character.id);
         const regionCommodities = commodities.regions[character.realm.region];
 

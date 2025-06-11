@@ -1,12 +1,11 @@
 <script lang="ts">
     import groupBy from 'lodash/groupBy';
 
-    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
     import type { Guild } from '@/types';
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
-    import { userState } from '@/user-home/state/user';
 
     type GuildBankSidebarItem = SidebarItem & { count: number };
 
@@ -15,10 +14,10 @@
         const guildData: { characterCount: number; guild: Guild; maxTab: number }[] = [];
 
         const charactersByGuildId = groupBy(
-            $userStore.activeCharacters.filter((char) => !!char.guild),
+            userState.general.activeCharacters.filter((char) => !!char.guild),
             (char) => char.guildId
         );
-        for (const guild of Object.values(userState.general.guildMap)) {
+        for (const guild of Object.values(userState.general.guildById)) {
             const characterCount = charactersByGuildId[guild.id]?.length || 0;
             if (characterCount > 0) {
                 guildData.push({

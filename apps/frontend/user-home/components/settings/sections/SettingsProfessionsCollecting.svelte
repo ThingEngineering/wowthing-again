@@ -3,7 +3,7 @@
     import MultiSelect from 'svelte-multiselect';
 
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import { getGenderedName } from '@/utils/get-gendered-name';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
 
@@ -20,19 +20,20 @@
 
     let options = $derived.by(
         () =>
-            sortBy($userStore.activeCharacters, (char) => `${char.realm.slug}|${char.name}`).map(
-                (char) => ({
-                    id: char.id,
-                    label: `${char.name}-${char.realm.name}`,
-                }),
-            ) as CharacterOption[],
+            sortBy(
+                userState.general.activeCharacters,
+                (char) => `${char.realm.slug}|${char.name}`
+            ).map((char) => ({
+                id: char.id,
+                label: `${char.name}-${char.realm.name}`,
+            })) as CharacterOption[]
     );
     let optionMap = $derived.by(() =>
-        Object.fromEntries(options.map((option) => [option.id, option])),
+        Object.fromEntries(options.map((option) => [option.id, option]))
     );
 
     let selected: Record<number, CharacterOption[]> = $derived.by(() =>
-        Object.fromEntries(sortedProfessions.map((prof) => [prof.id, maybeOption(prof.id)])),
+        Object.fromEntries(sortedProfessions.map((prof) => [prof.id, maybeOption(prof.id)]))
     );
 
     function maybeOption(id: number) {
@@ -92,9 +93,9 @@
                         <MultiSelect
                             options={options.filter(
                                 (option) =>
-                                    !!$userStore.characterMap[option.id].professions?.[
+                                    !!userState.general.characterById[option.id].professions?.[
                                         profession.id
-                                    ],
+                                    ]
                             )}
                             placeholder="Any character"
                             bind:selected={selected[profession.id]}

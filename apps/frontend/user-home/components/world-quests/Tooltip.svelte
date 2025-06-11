@@ -3,7 +3,8 @@
     import { RewardType } from '@/enums/reward-type';
     import { wowthingData } from '@/shared/stores/data';
     import { timeStore } from '@/shared/stores/time';
-    import { userQuestStore, userStore } from '@/stores';
+    import { userQuestStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import { toNiceDuration } from '@/utils/formatting';
     import type { Character } from '@/types/character';
 
@@ -25,7 +26,9 @@
     );
 
     let characters = $derived.by(() => {
-        let validCharacters = $userStore.characters.filter((char) => char.level >= 60);
+        let validCharacters = userState.general.visibleCharacters.filter(
+            (char) => char.level >= 60
+        );
 
         if (staticWorldQuest) {
             if (staticWorldQuest.minLevel) {

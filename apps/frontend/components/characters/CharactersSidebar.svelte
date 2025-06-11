@@ -4,9 +4,8 @@
     import sortBy from 'lodash/sortBy';
 
     import { Region } from '@/enums/region';
-    import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import { splitOnce } from '@/utils/split-once';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
@@ -18,11 +17,7 @@
     let decorationFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => string;
     $: {
         const realmCharacters: Record<string, Character[]> = groupBy(
-            $userStore.characters.filter(
-                (char) =>
-                    settingsState.value.characters.hiddenCharacters.indexOf(char.id) === -1 &&
-                    settingsState.value.characters.ignoredCharacters.indexOf(char.id) === -1
-            ),
+            userState.general.activeCharacters,
             (char) => char.realmId
         );
 
@@ -52,7 +47,7 @@
             } else {
                 const [region, realm] = splitOnce(parentEntries.slice(-1)[0].slug, '-');
                 const character = find(
-                    $userStore.characters,
+                    userState.general.activeCharacters,
                     (character: Character) =>
                         Region[character.realm.region].toLowerCase() === region &&
                         character.realm.slug === realm &&

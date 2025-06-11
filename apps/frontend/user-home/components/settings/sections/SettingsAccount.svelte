@@ -193,7 +193,7 @@
             </tr>
         </thead>
         <tbody>
-            {#each sortBy(Object.values(userState.general.accountMap), (a) => a.accountId) as account (account.id)}
+            {#each sortBy(Object.values(userState.general.accountById), (a) => a.accountId) as account (account.id)}
                 {@const accountState = settingsState.value.accounts?.[account.id]}
                 {@const accountCharacters = getAccountCharacters($userStore, account.id)}
                 <tr>

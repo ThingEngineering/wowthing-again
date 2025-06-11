@@ -7,7 +7,8 @@
     import { dragonflightProfessionMap, warWithinProfessionMap } from '@/data/professions';
     import { zoneShortName } from '@/data/zones';
     import { wowthingData } from '@/shared/stores/data';
-    import { userQuestStore, userStore } from '@/stores';
+    import { userQuestStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import findReputationTier from '@/utils/find-reputation-tier';
     import type { Character } from '@/types';
     import type { TaskProfession } from '@/types/data';
@@ -17,35 +18,41 @@
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
     import Collectible from './CharacterProfessionsCollectible.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import type { CharacterProps } from '@/types/props';
+    import type _ from 'lodash';
 
-    export let character: Character;
-    export let expansionSlug: string;
-    export let staticProfession: StaticDataProfession;
+    type Props = CharacterProps & {
+        expansionSlug: string;
+        staticProfession: StaticDataProfession;
+    };
 
-    let taskProfession: TaskProfession;
-    let things: [DbDataThing, string][];
-    $: {
-        taskProfession = undefined;
-        things = [];
+    let { character, expansionSlug, staticProfession }: Props = $props();
 
+    let taskProfession = $derived.by(() => {
         const expansion = expansionSlugMap[expansionSlug];
         if (!expansion || expansion.id < 9) {
-            break $;
+            return;
         }
 
         const charProfession = character.professions[staticProfession.id];
         const charSubProfession =
             charProfession?.[staticProfession.expansionSubProfession[expansion.id].id];
         if (!charSubProfession) {
-            break $;
+            return;
         }
 
-        taskProfession =
-            expansion.id === 9
-                ? dragonflightProfessionMap[staticProfession.id]
-                : warWithinProfessionMap[staticProfession.id];
+        return expansion.id === 9
+            ? dragonflightProfessionMap[staticProfession.id]
+            : warWithinProfessionMap[staticProfession.id];
+    });
 
-        things = wowthingData.db
+    let things = $derived.by(() => {
+        if (!taskProfession) {
+            return;
+        }
+
+        const expansion = expansionSlugMap[expansionSlug];
+        const results = wowthingData.db
             .search({
                 tags: [
                     `expansion:${expansion.id}`,
@@ -53,13 +60,17 @@
                     'treasure:profession',
                 ],
             })
-            .map((thing) => [
-                thing,
-                zoneShortName[
-                    wowthingData.db.mapsById.get(parseInt(Object.keys(thing.locations)[0]))
-                ],
-            ]);
-        things.sort((a, b) => {
+            .map(
+                (thing) =>
+                    [
+                        thing,
+                        zoneShortName[
+                            wowthingData.db.mapsById.get(parseInt(Object.keys(thing.locations)[0]))
+                        ],
+                    ] as [DbDataThing, string]
+            );
+
+        results.sort((a, b) => {
             if (a[1] !== b[1]) {
                 return a[1].localeCompare(b[1]);
             }
@@ -68,20 +79,26 @@
                 wowthingData.items.items[b[0].contents[0].id].name
             );
         });
-    }
 
-    $: acRepTier = findReputationTier(
-        wowthingData.static.reputationTierById.get(398),
-        maxBy(
-            $userStore.characters,
-            (c) => c.reputations?.[Constants.reputations.artisansConsortium] || 0
-        ).reputations?.[Constants.reputations.artisansConsortium]
+        return results;
+    });
+
+    let acRepTier = $derived.by(() =>
+        findReputationTier(
+            wowthingData.static.reputationTierById.get(398),
+            maxBy(
+                userState.general.activeCharacters,
+                (c) => c.reputations?.[Constants.reputations.artisansConsortium] || 0
+            ).reputations?.[Constants.reputations.artisansConsortium]
+        )
     );
-    $: lnRep =
-        (maxBy(
-            $userStore.characters,
-            (c) => c.reputations?.[Constants.reputations.loammNiffen] || 0
-        ).reputations?.[Constants.reputations.loammNiffen] || 0) / 2500;
+    let lnRep = $derived.by(
+        () =>
+            (maxBy(
+                userState.general.activeCharacters,
+                (c) => c.reputations?.[Constants.reputations.loammNiffen] || 0
+            ).reputations?.[Constants.reputations.loammNiffen] || 0) / 2500
+    );
 </script>
 
 <style lang="scss">

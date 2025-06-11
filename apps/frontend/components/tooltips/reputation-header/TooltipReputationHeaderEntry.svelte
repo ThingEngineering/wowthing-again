@@ -29,7 +29,7 @@
     $: {
         rewards = [];
         if (set.paragon) {
-            totalParagon = $userStore.characters.reduce(
+            totalParagon = userState.general.activeCharacters.reduce(
                 (a: number, b: Character) => a + (b.paragons?.[reputation.id]?.received ?? 0),
                 0
             );

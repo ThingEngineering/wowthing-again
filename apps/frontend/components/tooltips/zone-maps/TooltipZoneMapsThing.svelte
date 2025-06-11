@@ -13,7 +13,8 @@
     import { RewardType } from '@/enums/reward-type';
     import { rewardTypeIcons } from '@/shared/icons/mappings';
     import { wowthingData } from '@/shared/stores/data';
-    import { achievementStore, lazyStore, userAchievementStore, userStore } from '@/stores';
+    import { achievementStore, lazyStore, userAchievementStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import { leftPad } from '@/utils/formatting';
     import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
     import { getDropIcon, getDropName } from '@/utils/zone-maps';
@@ -344,12 +345,12 @@
                             <tr>
                                 <td></td>
                                 <td class="characters" colspan="2">
-                                    {#each sortBy( dropStatus.characterIds.map((c) => $userStore.characterMap[c]), (c) => c.name ) as character (character.id)}
+                                    {#each sortBy( dropStatus.characterIds.map((c) => userState.general.characterById[c]), (c) => c.name ) as character (character.id)}
                                         <span class="class-{character.classId}">
                                             {character.name}
                                         </span>
                                     {/each}
-                                    {#each sortBy( dropStatus.completedCharacterIds.map((c) => $userStore.characterMap[c]), (c) => c.name ) as character (character.id)}
+                                    {#each sortBy( dropStatus.completedCharacterIds.map((c) => userState.general.characterById[c]), (c) => c.name ) as character (character.id)}
                                         <span class="completed class-{character.classId}">
                                             {character.name}
                                         </span>

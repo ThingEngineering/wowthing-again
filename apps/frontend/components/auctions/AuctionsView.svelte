@@ -9,7 +9,6 @@
     import { WeaponSubclass } from '@/enums/weapon-subclass';
     import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { userStore } from '@/stores';
     import { auctionState } from '@/stores/local-storage/auctions';
     import { userState } from '@/user-home/state/user';
     import type { MultiSlugParams } from '@/types';
@@ -98,7 +97,7 @@
     let selectedCharacter: CharacterOption[];
     $: {
         characterOptions = sortBy(
-            $userStore.activeCharacters.filter(
+            userState.general.activeCharacters.filter(
                 (char) => !settingsState.value.characters.ignoredCharacters.includes(char.id)
             ),
             (char) => `${char.realm.slug}|${char.name}`

@@ -1,6 +1,7 @@
 <script lang="ts">
     import { browserState } from '@/shared/state/browser.svelte';
     import { userAchievementStore, userQuestStore, userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import type { ManualDataCustomizationThing } from '@/types/data/manual';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
@@ -13,7 +14,9 @@
         (thing.achievementId > 0 && !!$userAchievementStore.achievements[thing.achievementId]) ||
             (thing.questId > 0 && $userQuestStore.accountHas.has(thing.questId)) ||
             (thing.spellId > 0 &&
-                $userStore.characters.some((char) => char.knownSpells?.includes(thing.spellId))) ||
+                userState.general.activeCharacters.some((char) =>
+                    char.knownSpells?.includes(thing.spellId)
+                )) ||
             (thing.appearanceModifier >= 0 &&
                 $userStore.hasSourceV2.get(thing.appearanceModifier).has(thing.itemId))
     );

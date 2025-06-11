@@ -43,7 +43,7 @@
         slugKey = params.slug2 ? `${params.slug1}--${params.slug2}` : params.slug1;
 
         currencies = sortBy(
-            Object.values(wowthingData.static.currencyById).filter(
+            Array.from(wowthingData.static.currencyById.values()).filter(
                 (c) => !skipCurrenciesMap[c.id] && c.categoryId === category.id
             ),
             (c) => c.name

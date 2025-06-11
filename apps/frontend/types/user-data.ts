@@ -48,7 +48,6 @@ export interface UserData {
     // Calculated
     backgroundList: BackgroundImage[];
 
-    activeCharacters: Character[];
     apiUpdatedCharacters: Character[];
     characters: Character[];
     characterMap: Record<number, Character>;

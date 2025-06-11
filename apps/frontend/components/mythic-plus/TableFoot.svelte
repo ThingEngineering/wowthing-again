@@ -3,6 +3,7 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { timeStore } from '@/shared/stores/time';
     import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import { getRunDungeonStats } from '@/utils/dungeon/get-run-dungeon-stats';
     import type { CharacterMythicPlusAddonRun, MythicPlusSeason } from '@/types';
 
@@ -16,7 +17,9 @@
         minCounts = {};
 
         const allRuns: CharacterMythicPlusAddonRun[] = [];
-        const characters = $userStore.characters.filter((char) => char.level >= season.minLevel);
+        const characters = userState.general.visibleCharacters.filter(
+            (char) => char.level >= season.minLevel
+        );
         if (season.id < 10) {
             for (const character of characters) {
                 allRuns.push(...(character.mythicPlusAddon?.[season.id]?.runs || []));
@@ -32,7 +35,7 @@
                         .getPeriodForCharacter(
                             $timeStore,
                             character,
-                            seasonMap[season.id].startPeriod,
+                            seasonMap[season.id].startPeriod
                         )
                         .startTime.toUnixInteger();
                 }
@@ -42,7 +45,7 @@
                     .endTime.toUnixInteger();
 
                 for (const [timestamp, weekRuns] of Object.entries(
-                    character.mythicPlusWeeks || {},
+                    character.mythicPlusWeeks || {}
                 )) {
                     const weekStamp = parseInt(timestamp);
                     if (weekStamp > startStamp && weekStamp <= endStamp) {

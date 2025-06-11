@@ -110,7 +110,7 @@
 
                 {#if character.guildId}
                     <span class="guild-name"
-                        >&lt;{userState.general.guildMap[character.guildId]?.name ||
+                        >&lt;{userState.general.guildById[character.guildId]?.name ||
                             'Unknown Guild'}&gt;</span
                     >
                 {/if}

@@ -2,10 +2,10 @@
     import { ItemLocation } from '@/enums/item-location';
     import { Region } from '@/enums/region';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { userStore } from '@/stores';
-    import { getItemUrlSearch } from '@/utils/get-item-url';
-    import { toNiceNumber } from '@/utils/formatting';
     import { wowthingData } from '@/shared/stores/data';
+    import { userState } from '@/user-home/state/user';
+    import { toNiceNumber } from '@/utils/formatting';
+    import { getItemUrlSearch } from '@/utils/get-item-url';
     import type { StaticDataRealm } from '@/shared/stores/static/types';
     import type { Character } from '@/types';
     import type {
@@ -34,11 +34,11 @@
         realm = undefined;
 
         if (characterItem) {
-            character = $userStore.characterMap[characterItem.characterId];
+            character = userState.general.characterById[characterItem.characterId];
             item = characterItem;
             realm = character.realm;
         } else if (guildBankItem) {
-            guild = $userStore.guildMap[guildBankItem.guildId];
+            guild = userState.general.guildById[guildBankItem.guildId];
             item = guildBankItem;
             realm = guild.realm;
         } else if (warbankItem) {

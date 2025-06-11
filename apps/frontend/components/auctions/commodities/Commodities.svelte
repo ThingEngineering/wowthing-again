@@ -35,12 +35,11 @@
     <div class="wrapper">L O A D I N G . . .</div>
 {:then commodities}
     {@const characterDatas = getCharacterCommodities(
-        $userStore,
         commodities,
         browserState.current.auctions.commoditiesCurrentExpansion
     )}
     <div class="wrapper" bind:this={wrapperDiv}>
-        {#each characterDatas as characterData}
+        {#each characterDatas as characterData (characterData.characterId)}
             <Table {characterData} {commodities} />
         {/each}
     </div>

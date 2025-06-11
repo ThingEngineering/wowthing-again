@@ -6,28 +6,30 @@
 
     import { Region } from '@/enums/region';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import type { Character } from '@/types';
 
     import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte';
 
-    const allCharacterIds: string[] = $userStore.characters.map((char) => char.id.toString());
+    const allCharacterIds: string[] = userState.general.activeCharacters.map((char) =>
+        char.id.toString()
+    );
 
-    let hiddenCharacters: string[] = $userStore.characters
-        .filter((char) => settingsState.value.characters.hiddenCharacters.indexOf(char.id) >= 0)
+    let hiddenCharacters: string[] = userState.general.activeCharacters
+        .filter((char) => settingsState.value.characters.hiddenCharacters.includes(char.id))
         .map((char) => char.id.toString());
 
-    let ignoredCharacters: string[] = $userStore.characters
-        .filter((char) => settingsState.value.characters.ignoredCharacters.indexOf(char.id) >= 0)
+    let ignoredCharacters: string[] = userState.general.activeCharacters
+        .filter((char) => settingsState.value.characters.ignoredCharacters.includes(char.id))
         .map((char) => char.id.toString());
 
     let realms: [string, Character[]][];
     $: {
         const sortFunc = $getCharacterSortFunc();
         const grouped: Record<string, Character[]> = groupBy(
-            $userStore.characters,
-            (c) => `${Region[c.realm.region]}|${c.realm.name}`,
+            userState.general.activeCharacters,
+            (c) => `${Region[c.realm.region]}|${c.realm.name}`
         );
         for (const realmName in grouped) {
             grouped[realmName] = sortBy(grouped[realmName], sortFunc);
@@ -56,19 +58,18 @@
         const realmString = `${tr.children[0].innerHTML.trim().substring(1, 3)}|${tr.children[1].innerHTML.trim()}`;
 
         const realmCharacters: string[] = find(realms, ([realm]) => realm === realmString)[1].map(
-            (char) => char.id.toString(),
+            (char) => char.id.toString()
         );
 
         const anyMissing: boolean = realmCharacters.some(
             (charId) =>
-                (type === 'hide' ? hiddenCharacters : ignoredCharacters).indexOf(charId) === -1,
+                (type === 'hide' ? hiddenCharacters : ignoredCharacters).indexOf(charId) === -1
         );
         const toChange: string[] = realmCharacters.filter(
             (charId) =>
                 !anyMissing ||
                 (anyMissing &&
-                    (type === 'hide' ? hiddenCharacters : ignoredCharacters).indexOf(charId) ===
-                        -1),
+                    (type === 'hide' ? hiddenCharacters : ignoredCharacters).indexOf(charId) === -1)
         );
 
         for (const charId of toChange) {
