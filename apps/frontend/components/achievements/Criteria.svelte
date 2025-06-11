@@ -9,6 +9,7 @@
     import CriteriaTree from './CriteriaTree.svelte';
     import ProgressBar from '@/components/common/ProgressBar.svelte';
     import { CriteriaTreeOperator } from '@/enums/wow';
+    import { userState } from '@/user-home/state/user';
 
     export let achievement: AchievementDataAchievement;
 
@@ -17,7 +18,7 @@
         $userAchievementStore,
         $userStore,
         $userQuestStore,
-        achievement,
+        achievement
     );
 
     $: rootCriteriaTree = $achievementStore.criteriaTree[achievement.criteriaTreeId];
@@ -124,11 +125,11 @@
     {#if !achievement.isAccountWide || data.reputation}
         {@const characters = data.characterCounts.slice(
             0,
-            $achievementState.showAllCharacters ? 9999 : 3,
+            $achievementState.showAllCharacters ? 9999 : 3
         )}
         {#if characters.length > 0}
             <div class="progress">
-                {#each characters.filter(([charId]) => $userStore.characterMap[charId]) as [characterId, count]}
+                {#each characters.filter(([charId]) => userState.general.characterById[charId]) as [characterId, count]}
                     {@const selected = selectedCharacterId === characterId}
                     <ProgressBar
                         on:click={() => (selectedCharacterId = characterId)}

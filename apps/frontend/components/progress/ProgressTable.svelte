@@ -18,6 +18,7 @@
     import RowProgress from './ProgressTableBody.svelte';
     import RowProgressRaidSkip from './ProgressTableBodyRaidSkip.svelte';
     import { wowthingData } from '@/shared/stores/data';
+    import { userState } from '@/user-home/state/user';
 
     export let slug1: string;
     export let slug2: string;
@@ -86,8 +87,8 @@
         };
 
         const characters: Character[] = filterFunc
-            ? $userStore.characters.filter((char) => filterFunc(char))
-            : $userStore.characters;
+            ? userState.general.visibleCharacters.filter((char) => filterFunc(char))
+            : userState.general.visibleCharacters;
 
         progress = {};
         for (const category of categories.filter((cat) => cat !== null)) {

@@ -11,7 +11,7 @@
     import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import { cartesianProduct } from '@/utils/cartesian-product';
     import type { StaticDataRealm } from '@/shared/stores/static/types';
     import type { Character } from '@/types';
@@ -32,12 +32,8 @@
     let yEntries: string[][];
     let yKeys: string[];
     $: {
-        const characters = $userStore.characters.filter(
-            (char) =>
-                settingsState.value.characters.hiddenCharacters.indexOf(char.id) === -1 &&
-                settingsState.value.characters.ignoredCharacters.indexOf(char.id) === -1 &&
-                char.level >= browserState.current.matrix.minLevel &&
-                settingsState.value.accounts?.[char.accountId]?.enabled === true
+        const characters = userState.general.visibleCharacters.filter(
+            (char) => char.level >= browserState.current.matrix.minLevel
         );
 
         const realmMap: Record<number, StaticDataRealm> = {};
@@ -121,7 +117,7 @@
             if (axis.indexOf('account') >= 0) {
                 combos.push(
                     sortBy(
-                        Object.values($userStore.accounts)
+                        Object.values(userState.general.accountById)
                             .filter(
                                 (account) => settingsState.value.accounts?.[account.id]?.enabled
                             )

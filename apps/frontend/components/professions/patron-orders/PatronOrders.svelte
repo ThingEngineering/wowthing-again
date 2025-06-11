@@ -5,7 +5,6 @@
 
     import { isCraftingProfession } from '@/data/professions';
     import { wowthingData } from '@/shared/stores/data';
-    import { userStore } from '@/stores';
     import { userState } from '@/user-home/state/user';
     import getSavedRoute from '@/utils/get-saved-route';
     import { auctionsCommoditiesSpecificStore } from './auction-store';
@@ -26,7 +25,7 @@
     let regionIds: number[];
     $: {
         const uniqueItemIds: Set<number> = new Set();
-        for (const character of $userStore.characters) {
+        for (const character of userState.general.visibleCharacters) {
             if (
                 !sortedProfessions.some((prof) => character.patronOrders?.[prof.id] !== undefined)
             ) {

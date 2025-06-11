@@ -7,6 +7,7 @@ import { DbResetType } from '@/shared/stores/db/enums';
 import { userQuestStore, userStore } from '@/stores';
 import type { Character } from '@/types';
 import type { Chore } from '@/types/tasks';
+import { userState } from '@/user-home/state/user';
 
 export const twwChores11_0: Chore[] = [
     {
@@ -223,11 +224,10 @@ const chettIds = [
 ];
 function couldChett(char: Character, chore: Chore): boolean {
     // did they get the initial list yet?
-    const userData = get(userStore);
     if (
         !userQuestStore.characterHas(char.id, 87296) &&
-        userData.characterMap[char.id]?.getItemCount(235053) === 0 &&
-        userData.characterMap[char.id]?.getItemCount(236682) === 0
+        userState.general.characterById[char.id]?.getItemCount(235053) === 0 &&
+        userState.general.characterById[char.id]?.getItemCount(236682) === 0
     ) {
         return false;
     }

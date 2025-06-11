@@ -9,7 +9,8 @@
     import { QuestStatus } from '@/enums/quest-status';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { timeStore } from '@/shared/stores/time';
-    import { lazyStore, userQuestStore, userStore } from '@/stores';
+    import { lazyStore, userQuestStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
@@ -38,9 +39,9 @@
         if (task.type === 'multi' && taskName !== 'dfProfessionWeeklies') {
             multiStats = sortBy(
                 multiTaskMap[taskName].filter(
-                    (chore) => !!chore && (!choreName || chore.taskKey === choreName),
+                    (chore) => !!chore && (!choreName || chore.taskKey === choreName)
                 ),
-                (multiTask) => disabledChores.indexOf(multiTask.taskKey) >= 0,
+                (multiTask) => disabledChores.indexOf(multiTask.taskKey) >= 0
             ).map((multi) => [multi.taskKey, multi.taskName, { 0: 0, 1: 0, 2: 0, 3: 0 }]);
 
             for (let i = 0; i < multiStats.length; i++) {
@@ -50,7 +51,7 @@
 
         // Check other characters for a quest title
         for (const characterId in $userQuestStore.characters) {
-            const character = $userStore.characterMap[characterId];
+            const character = userState.general.characterById[characterId];
             if (!character) {
                 continue;
             }

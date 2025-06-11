@@ -25,12 +25,13 @@ import {
 import { base64ToArray } from '@/utils/base64';
 import { leftPad } from '@/utils/formatting';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
+import { sharedState } from '@/shared/state/shared.svelte';
 
 export class DataUserGeneral {
-    public accountMap: Record<number, Account> = $state({});
+    public accountById: Record<number, Account> = $state({});
     public characters: Character[] = $state([]);
     public characterById: Record<number, Character> = $state({});
-    public guildMap: Record<number, Guild> = $state({});
+    public guildById: Record<number, Guild> = $state({});
     public petsById: Record<number, UserDataPet[]> = $state({});
 
     public honorCurrent = $state(0);
@@ -45,22 +46,24 @@ export class DataUserGeneral {
     public hasToyByItemId = new SvelteSet<number>();
     public heirlooms = new SvelteMap<number, number>();
 
+    public activeCharacters = $derived.by(() => this._activeCharacters());
     public allLockouts = $derived.by(() => this._lockoutData().allLockouts);
     public allRegions = $derived.by(() => this._allRegions());
     public charactersByConnectedRealmId = $derived.by(() => this._charactersByConnectedRealmId());
     public charactersByRealmId = $derived.by(() => this._charactersByRealmId());
     public homeLockouts = $derived.by(() => this._homeLockouts());
+    public visibleCharacters = $derived.by(() => this._visibleCharacters());
 
     public process(userData: UserData): void {
         console.time('DataUserGeneral.process');
 
-        this.accountMap = userData.accounts;
+        this.accountById = userData.accounts;
 
         // Create or update Guild objects
         for (const guildArray of userData.guildsRaw) {
             const guild = new Guild();
             guild.init(...guildArray);
-            this.guildMap[guild.id] = guild;
+            this.guildById[guild.id] = guild;
         }
 
         // Create or update Character objects
@@ -86,7 +89,7 @@ export class DataUserGeneral {
                 this.characterById[characterId] = character;
             }
 
-            character.guild ||= this.guildMap[character.guildId];
+            character.guild ||= this.guildById[character.guildId];
             character.realm ||= wowthingData.static.realmById.get(character.realmId);
         }
 
@@ -139,9 +142,23 @@ export class DataUserGeneral {
         console.timeEnd('DataUserGeneral.process');
     }
 
+    private _activeCharacters = () =>
+        this.characters.filter(
+            (character) =>
+                sharedState.public ||
+                settingsState.value.accounts?.[character.accountId]?.enabled === true
+        );
+
+    private _visibleCharacters = () =>
+        this._activeCharacters().filter(
+            (character) =>
+                !settingsState.value.characters.hiddenCharacters.includes(character.id) &&
+                !settingsState.value.characters.ignoredCharacters.includes(character.id)
+        );
+
     private _allRegions() {
         const regionSet = new Set<number>();
-        for (const account of Object.values(this.accountMap)) {
+        for (const account of Object.values(this.accountById)) {
             if (
                 settingsState.value.accounts?.[account.id]?.enabled ||
                 !settingsState.value.characters.hideDisabledAccounts

@@ -2,7 +2,7 @@
     import { Constants } from '@/data/constants';
     import { iconLibrary } from '@/shared/icons';
     import { wowthingData } from '@/shared/stores/data';
-    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import getItemLevelQuality from '@/utils/get-item-level-quality';
     import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible';
     import type { CharacterCurrency, Character } from '@/types';
@@ -21,7 +21,7 @@
         charCatalyst = character.currencies?.[Constants.currencies.catalyst];
 
         const accountMaxCharges = Math.max(
-            ...$userStore.characters.map(
+            ...userState.general.activeCharacters.map(
                 (char) => char.currencies?.[Constants.currencies.catalyst]?.max || 0
             )
         );

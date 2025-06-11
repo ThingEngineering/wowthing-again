@@ -285,16 +285,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         console.timeEnd('characters');
 
         // Accounts
-        userData.activeCharacters = [];
-        for (const character of userData.characters) {
-            if (
-                sharedState.public ||
-                settingsState.value.accounts?.[character.accountId]?.enabled === true
-            ) {
-                userData.activeCharacters.push(character);
-            }
-        }
-
         const regionSet = new Set<number>();
         for (const account of Object.values(userData.accounts)) {
             if (

@@ -26,6 +26,7 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
+    import { userState } from '@/user-home/state/user';
 
     export let expansion: Expansion;
     export let profession: StaticDataProfession;
@@ -46,11 +47,11 @@
         if (collectorIds.length > 0) {
             characters.push(null);
             characters.push(
-                ...collectorIds.map((collectorId) => $userStore.characterMap[collectorId])
+                ...collectorIds.map((collectorId) => userState.general.characterById[collectorId])
             );
         }
 
-        const professionCharacters = $userStore.characters.filter((char) =>
+        const professionCharacters = userState.general.visibleCharacters.filter((char) =>
             useCharacterFilter(
                 $lazyStore,
                 settingsState.value,
