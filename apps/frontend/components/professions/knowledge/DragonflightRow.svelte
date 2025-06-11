@@ -9,7 +9,7 @@
     import { Profession } from '@/enums/profession';
     import { wowthingData } from '@/shared/stores/data';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { userQuestStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import type { Character } from '@/types';
 
     import Tooltip from '@/components/tooltips/profession-knowledge/TooltipProfessionKnowledge.svelte';
@@ -50,7 +50,9 @@
                     const profData = dragonflightProfessionMap[professionId];
 
                     zoneData.items.push({
-                        have: userQuestStore.hasAny(character.id, profData.masterQuestId),
+                        have: userState.quests.characterById
+                            .get(character.id)
+                            .hasQuestById.has(profData.masterQuestId),
                         itemId: -1,
                         profession: professionId,
                     });
@@ -78,7 +80,9 @@
                         (bq) => wowthingData.items.items[bq.itemId].name
                     )) {
                         const bookData = {
-                            have: userQuestStore.hasAny(character.id, bookQuest.questId),
+                            have: userState.quests.characterById
+                                .get(character.id)
+                                .hasQuestById.has(bookQuest.questId),
                             itemId: bookQuest.itemId,
                             profession: profData.id,
                             source: bookQuest.source,
@@ -105,7 +109,9 @@
                     );
                     for (const treasureQuest of treasureQuests) {
                         zoneData.items.push({
-                            have: userQuestStore.hasAny(character.id, treasureQuest.questId),
+                            have: userState.quests.characterById
+                                .get(character.id)
+                                .hasQuestById.has(treasureQuest.questId),
                             itemId: treasureQuest.itemId,
                             profession: profData.id,
                         });

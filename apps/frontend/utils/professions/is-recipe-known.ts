@@ -1,19 +1,15 @@
 import { Faction } from '@/enums/faction';
+import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
-import type { Settings } from '@/shared/stores/settings/types';
+import { userState } from '@/user-home/state/user';
 import type { StaticDataProfessionAbilityInfo } from '@/shared/stores/static/types';
-import type { UserData } from '@/types';
 
-interface IsRecipeKnownStores {
-    settings: Settings;
-    userData: UserData;
-}
 interface IsRecipeKnownOptions {
     abilityInfo?: StaticDataProfessionAbilityInfo;
     itemId?: number;
 }
 
-export function isRecipeKnown(stores: IsRecipeKnownStores, options: IsRecipeKnownOptions) {
+export function isRecipeKnown(options: IsRecipeKnownOptions) {
     let abilityInfo = options.abilityInfo;
     if (options.itemId) {
         abilityInfo = wowthingData.static.professionAbilityByItemId.get(options.itemId);
@@ -24,9 +20,9 @@ export function isRecipeKnown(stores: IsRecipeKnownStores, options: IsRecipeKnow
     }
 
     const collectorIds =
-        stores.settings.professions.collectingCharactersV2?.[abilityInfo.professionId] || [];
+        settingsState.value.professions.collectingCharactersV2?.[abilityInfo.professionId] || [];
     if (collectorIds.length > 0) {
-        const primary = stores.userData.characterMap[collectorIds[0]];
+        const primary = userState.general.characterById[collectorIds[0]];
         if (!primary) {
             return false;
         }
@@ -59,7 +55,7 @@ export function isRecipeKnown(stores: IsRecipeKnownStores, options: IsRecipeKnow
         // different faction
         if (recipeFaction !== Faction.Neutral && recipeFaction !== primary.faction) {
             return collectorIds.slice(1).some((collectorId) => {
-                const character = stores.userData.characterMap[collectorId];
+                const character = userState.general.characterById[collectorId];
                 return (
                     character?.faction === recipeFaction &&
                     character.knowsProfessionAbility(abilityInfo.abilityId)
@@ -69,7 +65,9 @@ export function isRecipeKnown(stores: IsRecipeKnownStores, options: IsRecipeKnow
 
         // TODO: different specialization
     } else {
-        return stores.userData.hasRecipe.has(abilityInfo.abilityId);
+        // FIXME: derived?
+        // return userState.general.hasRecipe.has(abilityInfo.abilityId);
+        return false;
     }
 
     return false;

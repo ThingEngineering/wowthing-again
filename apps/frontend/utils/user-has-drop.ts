@@ -1,18 +1,15 @@
-import { wowthingData } from '@/shared/stores/data';
-import { fixedInventoryType } from './fixed-inventory-type';
-import { isRecipeKnown } from './professions/is-recipe-known';
 import { transmogTypes } from '@/data/transmog';
 import { RewardType } from '@/enums/reward-type';
+import { wowthingData } from '@/shared/stores/data';
+import { lazyState } from '@/user-home/state/lazy';
+import { userState } from '@/user-home/state/user';
 import type { Settings } from '@/shared/stores/settings/types/settings';
-import type { LazyTransmog } from '@/stores/lazy/transmog';
-import type { UserQuestData } from '@/types/data';
-import type { UserData } from '@/types/user-data';
+
+import { fixedInventoryType } from './fixed-inventory-type';
+import { isRecipeKnown } from './professions/is-recipe-known';
 
 export default function userHasDrop(
     settings: Settings,
-    userData: UserData,
-    userQuestData: UserQuestData,
-    lazyTransmog: LazyTransmog,
     type: RewardType,
     id: number,
     appearanceIds?: number[],
@@ -21,43 +18,45 @@ export default function userHasDrop(
     const manualData = wowthingData.manual;
 
     if (
-        (type === RewardType.Mount && userData.hasMount?.[id] === true) ||
-        (type === RewardType.Pet && userData.hasPet?.[id] === true) ||
-        (type === RewardType.Toy && userData.hasToy?.[id] === true) ||
-        (type === RewardType.Illusion && userData.hasIllusion?.has(appearanceIds[0]))
+        (type === RewardType.Mount && userState.general.hasMountById.has(id)) ||
+        (type === RewardType.Pet && userState.general.hasPetById.has(id)) ||
+        (type === RewardType.Toy && userState.general.hasToyById.has(id)) ||
+        (type === RewardType.Illusion &&
+            userState.general.hasIllusionByEnchantmentId.has(appearanceIds[0]))
     ) {
         return true;
     } else if (type === RewardType.Item) {
         if (manualData.dragonridingItemToQuest.has(id)) {
-            return userQuestData.accountHas.has(manualData.dragonridingItemToQuest.get(id));
+            return userState.quests.accountHasById.has(manualData.dragonridingItemToQuest.get(id));
         } else if (manualData.druidFormItemToQuest.has(id)) {
-            return userQuestData.accountHas.has(manualData.druidFormItemToQuest.get(id));
+            return userState.quests.accountHasById.has(manualData.druidFormItemToQuest.get(id));
+            return false;
         } else if (wowthingData.static.mountByItemId.has(id)) {
-            return userData.hasMount?.[wowthingData.static.mountByItemId.get(id).id] === true;
+            return userState.general.hasMountById.has(wowthingData.static.mountByItemId.get(id).id);
         } else if (wowthingData.static.petByItemId.has(id)) {
-            return userData.hasPet?.[wowthingData.static.petByItemId.get(id).id] === true;
+            return userState.general.hasPetById.has(wowthingData.static.petByItemId.get(id).id);
         } else if (wowthingData.static.toyByItemId.has(id)) {
-            return userData.hasToy?.[id] === true;
+            return userState.general.hasToyByItemId.has(id);
         } else if (wowthingData.items.teachesTransmog[id]) {
             const statsKey = `ensemble:${wowthingData.items.teachesTransmog[id]}`;
-            const stats = lazyTransmog.stats[statsKey];
+            const stats = lazyState.transmog.stats[statsKey];
             if (stats) {
                 return stats.percent >= 100;
             }
         } else if (wowthingData.items.completesQuest[id]) {
-            return accountTrackingQuest(userQuestData, id);
+            return accountTrackingQuest(id);
         } else if (wowthingData.static.professionAbilityByItemId.has(id)) {
             const abilityInfo = wowthingData.static.professionAbilityByItemId.get(id);
-            return isRecipeKnown({ settings, userData }, { abilityInfo });
+            return isRecipeKnown({ abilityInfo });
         }
     } else if (type === RewardType.AccountQuest) {
-        return accountTrackingQuest(userQuestData, id);
+        return accountTrackingQuest(id);
     }
 
     if (transmogTypes.has(type)) {
         if (wowthingData.items.teachesTransmog[id]) {
             const statsKey = `ensemble:${wowthingData.items.teachesTransmog[id]}`;
-            const stats = lazyTransmog.stats[statsKey];
+            const stats = lazyState.transmog.stats[statsKey];
             if (stats) {
                 return stats.percent >= 100;
             }
@@ -71,7 +70,7 @@ export default function userHasDrop(
                 for (const [itemId] of appearanceItemsAndModifiers) {
                     const appearanceItem = wowthingData.items.items[itemId];
                     const invType = fixedInventoryType(appearanceItem.inventoryType);
-                    bySlot[invType] ||= userData.hasAppearance.has(appearanceId);
+                    bySlot[invType] ||= userState.general.hasAppearanceById.has(appearanceId);
                 }
             }
             return Object.values(bySlot).every((hasSlot) => !!hasSlot);
@@ -87,10 +86,10 @@ export default function userHasDrop(
             const modifier = parseInt(keys.length === 1 ? keys[0] : '0');
 
             if (completionist) {
-                return userData.hasSourceV2.get(modifier).has(id);
+                return userState.general.hasAppearanceBySource.has(id * 1000 + modifier);
             } else {
                 const appearanceId = item.appearances?.[modifier]?.appearanceId || 0;
-                return userData.hasAppearance.has(appearanceId);
+                return userState.general.hasAppearanceById.has(appearanceId);
             }
         }
     }
@@ -98,13 +97,13 @@ export default function userHasDrop(
     return false;
 }
 
-function accountTrackingQuest(userQuestData: UserQuestData, id: number): boolean {
+function accountTrackingQuest(id: number): boolean {
     const questIds = wowthingData.items.completesQuest[id] || [];
     return questIds.some(
         (questId) =>
-            userQuestData.accountHas?.has(questId) ||
-            Object.values(userQuestData.characters).some(
-                (charData) => charData?.dailyQuests?.has(questId) || charData?.quests?.has(questId)
+            userState.quests.accountHasById.has(questId) ||
+            Array.from(userState.quests.characterById.values()).some((charData) =>
+                charData.hasQuestById.has(questId)
             )
     );
 }

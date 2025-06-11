@@ -1,14 +1,14 @@
-import groupBy from 'lodash/groupBy';
-
 import { weaponInventoryTypes } from '@/enums/inventory-type';
-import { ItemQuality } from '@/enums/item-quality';
 import { wowthingData } from '@/shared/stores/data';
-import { UserCount, type UserAchievementData, type UserData } from '@/types';
+import { settingsState } from '@/shared/state/settings.svelte';
+import { UserCount } from '@/types/user-count';
 import { fixedInventoryType } from '@/utils/fixed-inventory-type';
 import getSkipClasses from '@/utils/get-skip-classes';
-import type { Settings } from '@/shared/stores/settings/types';
-import type { UserQuestData } from '@/types/data';
-import type { ManualDataTransmogCategory } from '@/types/data/manual';
+import type { ManualDataTransmogCategory } from '@/types/data/manual/transmog';
+
+import { userState } from '../user';
+import { ItemQuality } from '@/enums/item-quality';
+import groupBy from 'lodash/groupBy';
 
 // [hasAny, [hasAppearance, hasSource, itemId, modifier, appearanceId]]
 export type TransmogSlot = [boolean, boolean, number, number, number];
@@ -22,14 +22,7 @@ export interface LazyTransmog {
     stats: Record<string, UserCount>;
 }
 
-interface LazyStores {
-    settings: Settings;
-    userAchievementData: UserAchievementData;
-    userData: UserData;
-    userQuestData: UserQuestData;
-}
-
-export function doTransmog(stores: LazyStores): LazyTransmog {
+export function doTransmog(): LazyTransmog {
     console.time('LazyStore.doTransmog');
 
     const ret: LazyTransmog = {
@@ -67,20 +60,21 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
         let appearanceId = item.appearances[modifier]?.appearanceId || 0;
         appearanceId = wowthingData.items.appearanceMap[appearanceId] || appearanceId;
 
-        const hasSource = overrideHas || stores.userData.hasSourceV2.get(modifier).has(itemId);
+        const hasSource =
+            overrideHas || userState.general.hasAppearanceBySource.has(itemId * 1000 + modifier);
         const hasAppearance =
-            hasSource || overrideHas || stores.userData.hasAppearance.has(appearanceId);
+            hasSource || overrideHas || userState.general.hasAppearanceById.has(appearanceId);
 
         slotData[actualSlot] ||= [false, []];
         slotData[actualSlot][0] ||= completionistMode ? hasSource : hasAppearance;
         slotData[actualSlot][1].push([hasAppearance, hasSource, itemId, modifier, appearanceId]);
     };
 
-    const completionistMode = stores.settings.transmog.completionistMode;
-    const completionistSets = completionistMode && stores.settings.transmog.completionistSets;
-    const skipAlliance = !stores.settings.transmog.showAllianceOnly;
-    const skipHorde = !stores.settings.transmog.showHordeOnly;
-    const skipClasses = getSkipClasses(stores.settings);
+    const completionistMode = settingsState.value.transmog.completionistMode;
+    const completionistSets = completionistMode && settingsState.value.transmog.completionistSets;
+    const skipAlliance = !settingsState.value.transmog.showAllianceOnly;
+    const skipHorde = !settingsState.value.transmog.showHordeOnly;
+    const skipClasses = getSkipClasses(settingsState.value);
 
     const overallSeen: Record<string, boolean> = {};
     const overallStats = (ret.stats['OVERALL'] = new UserCount());
@@ -154,14 +148,15 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         const countUncollected = !setName.endsWith('*');
 
                         let overrideHas = false;
-                        if (groupSigh.achievementId) {
-                            overrideHas ||=
-                                !!stores.userAchievementData.achievements[groupSigh.achievementId];
-                        }
+                        // FIXME: user achievement store
+                        // if (groupSigh.achievementId) {
+                        //     overrideHas ||=
+                        //         !!stores.userAchievementData.achievements[groupSigh.achievementId];
+                        // }
                         if (groupSigh.questId) {
-                            overrideHas ||= Object.values(stores.userQuestData.characters).some(
-                                (charQuests) => charQuests.quests?.has(groupSigh.questId)
-                            );
+                            overrideHas ||= Array.from(
+                                userState.quests.characterById.values()
+                            ).some((charQuests) => charQuests.hasQuestById.has(groupSigh.questId));
                         }
 
                         // Get itemId/modifier pairs from newer data

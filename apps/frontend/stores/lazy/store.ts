@@ -4,9 +4,7 @@ import { derived, get } from 'svelte/store';
 import type { DateTime } from 'luxon';
 
 import { settingsState } from '@/shared/state/settings.svelte';
-import { wowthingData } from '@/shared/stores/data';
 import { timeStore } from '@/shared/stores/time';
-import { UserCount } from '@/types';
 import { hashObject } from '@/utils/hash-object.svelte';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { FancyStoreType, UserAchievementData, UserData } from '@/types';
@@ -18,7 +16,6 @@ import { doCharacters, type LazyCharacter } from './character';
 import { doConvertible, type LazyConvertible } from './convertible';
 import { doJournal, type LazyJournal } from './journal';
 import { doRecipes, LazyRecipes } from './recipes';
-import { doTransmog, type LazyTransmog } from './transmog';
 import { doVendors, type LazyVendors } from './vendors';
 import { doZoneMaps, type LazyZoneMaps } from './zone-maps';
 
@@ -41,8 +38,6 @@ import { userAchievementStore } from '../user-achievements';
 import { userQuestStore } from '../user-quests';
 
 import { activeHolidays, type ActiveHolidays } from '../derived/active-holidays';
-
-type UserCounts = Record<string, UserCount>;
 
 export const lazyStore = derived(
     [
@@ -118,10 +113,8 @@ export class LazyStore {
     private appearancesFunc: () => LazyAppearances;
     private charactersFunc: () => Record<string, LazyCharacter>;
     private convertibleFunc: () => LazyConvertible;
-    private customizationsFunc: () => UserCounts;
     private journalFunc: () => LazyJournal;
     private recipesFunc: () => LazyRecipes;
-    private transmogFunc: () => LazyTransmog;
     private vendorsFunc: () => LazyVendors;
     private zoneMapsFunc: () => LazyZoneMaps;
 
@@ -245,12 +238,6 @@ export class LazyStore {
             );
         }
 
-        if (changedData.userQuestData) {
-            this.customizationsFunc = once(() =>
-                this.doCustomizations(userAchievementData, userData, userQuestData)
-            );
-        }
-
         if (
             changedData.userData ||
             changedData.userQuestData ||
@@ -276,17 +263,6 @@ export class LazyStore {
             );
         }
 
-        if (changedData.userData || changedHashes.settingsTransmog) {
-            this.transmogFunc = once(() =>
-                doTransmog({
-                    settings,
-                    userAchievementData,
-                    userData,
-                    userQuestData,
-                })
-            );
-        }
-
         if (changedData.userData || changedHashes.settingsTransmog || changedHashes.vendorState) {
             this.vendorsFunc = once(() =>
                 doVendors({
@@ -294,7 +270,6 @@ export class LazyStore {
                     vendorState,
                     userData,
                     userQuestData,
-                    lazyTransmog: this.transmogFunc(),
                 })
             );
         }
@@ -316,16 +291,11 @@ export class LazyStore {
                         userData,
                         userAchievementData,
                         userQuestData,
-                        lazyTransmog: this.transmogFunc(),
                     })
             );
         }
 
         // console.timeEnd('LazyStore.update')
-    }
-
-    get customizations(): UserCounts {
-        return this.customizationsFunc();
     }
 
     get achievements(): LazyAchievements {
@@ -346,65 +316,11 @@ export class LazyStore {
     get recipes(): LazyRecipes {
         return this.recipesFunc();
     }
-    get transmog(): LazyTransmog {
-        return this.transmogFunc();
-    }
     get vendors(): LazyVendors {
         return this.vendorsFunc();
     }
     get zoneMaps(): LazyZoneMaps {
         return this.zoneMapsFunc();
-    }
-
-    private doCustomizations(
-        userAchievementData: UserAchievementData,
-        userData: UserData,
-        userQuestData: UserQuestData
-    ): UserCounts {
-        const counts: UserCounts = {};
-        const overallData = (counts['OVERALL'] = new UserCount());
-
-        for (const categories of wowthingData.manual.customizationCategories) {
-            const sectionData = (counts[categories[0].slug] = new UserCount());
-
-            for (const category of categories.slice(1)) {
-                const categoryKey = `${categories[0].slug}--${category.slug}`;
-                const categoryData = (counts[categoryKey] = new UserCount());
-
-                for (const group of category.groups) {
-                    const groupKey = `${categoryKey}--${group.name}`;
-                    const groupData = (counts[groupKey] = new UserCount());
-
-                    for (const thing of group.things) {
-                        overallData.total++;
-                        sectionData.total++;
-                        categoryData.total++;
-                        groupData.total++;
-
-                        if (
-                            (thing.achievementId > 0 &&
-                                !!userAchievementData.achievements[thing.achievementId]) ||
-                            (thing.questId > 0 && userQuestData.accountHas.has(thing.questId)) ||
-                            (thing.spellId > 0 &&
-                                userData.characters.some((char) =>
-                                    char.knownSpells?.includes(thing.spellId)
-                                )) ||
-                            (thing.appearanceModifier >= 0 &&
-                                userData.hasSourceV2
-                                    .get(thing.appearanceModifier)
-                                    .has(thing.itemId))
-                        ) {
-                            overallData.have++;
-                            sectionData.have++;
-                            categoryData.have++;
-                            groupData.have++;
-                        }
-                    }
-                }
-            }
-        }
-
-        return counts;
     }
 }
 

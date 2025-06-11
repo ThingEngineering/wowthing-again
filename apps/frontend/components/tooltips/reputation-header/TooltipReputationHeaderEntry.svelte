@@ -52,7 +52,7 @@
                         name = toy ? toy.name : `Toy #${reward.id}`;
                     } else if (reward.type === RewardType.Transmog) {
                         const item = wowthingData.items.items[reward.id];
-                        have = $userStore.hasAppearance.has(
+                        have = userState.general.hasAppearanceById.has(
                             item?.appearances[0]?.appearanceId || 0
                         );
                         name = item?.name || `Item #${reward.id}`;

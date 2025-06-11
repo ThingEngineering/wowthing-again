@@ -9,6 +9,7 @@
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { userState } from '@/user-home/state/user';
 
     export let abomination: CovenantAbomination;
     export let character: Character;
@@ -25,7 +26,7 @@
         if (abomination.itemIds) {
             const itemIndex = classIdToArmorType[character.classId] - 1;
             questItemId = abomination.itemIds[itemIndex];
-            userHasQuestItem = $userStore.hasSourceV2.get(0).has(questItemId);
+            userHasQuestItem = userState.general.hasAppearanceBySource.has(questItemId * 1000);
         }
     }
 </script>

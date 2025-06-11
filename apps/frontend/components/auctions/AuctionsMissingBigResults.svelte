@@ -124,14 +124,17 @@
                 const [itemId, modifier] = result.id.split('_', 2).map((s) => parseInt(s));
                 const appearance = item.appearances?.[modifier];
                 needAppearance =
-                    !!appearance && !$userStore.hasAppearance.has(appearance.appearanceId);
-                needSource = !$userStore.hasSourceV2.get(modifier).has(itemId);
+                    !!appearance &&
+                    !userState.general.hasAppearanceById.has(appearance.appearanceId);
+                needSource = !userState.general.hasAppearanceBySource.has(itemId * 1000 + modifier);
             } else {
                 const appearanceId = parseInt(result.id);
-                needAppearance = !$userStore.hasAppearance.has(appearanceId);
+                needAppearance = !userState.general.hasAppearanceById.has(appearanceId);
                 for (const appearance of Object.values(item.appearances)) {
                     if (appearance.appearanceId === appearanceId) {
-                        needSource = !$userStore.hasSourceV2.get(appearance.modifier).has(item.id);
+                        needSource = !userState.general.hasAppearanceBySource.has(
+                            item.id * 1000 + appearance.modifier
+                        );
                         break;
                     }
                 }

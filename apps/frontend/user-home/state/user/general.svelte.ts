@@ -39,6 +39,8 @@ export class DataUserGeneral {
     public honorMax = $state(0);
     public warbankGold = $state(0);
 
+    public hasAppearanceById = new SvelteSet<number>();
+    public hasAppearanceBySource = new SvelteSet<number>();
     public hasIllusionByEnchantmentId = new SvelteSet<number>();
     public hasMountById = new SvelteSet<number>();
     public hasPetById = new SvelteSet<number>();
@@ -80,7 +82,7 @@ export class DataUserGeneral {
                     lastSeenAddonUnix > character.lastSeenAddonUnix
                 ) {
                     character.init(...characterArray);
-                    console.log('updated', character.id, character.name);
+                    console.log('general', character.id, character.name);
                 }
             } else {
                 character = new Character();
@@ -130,7 +132,32 @@ export class DataUserGeneral {
             }
         }
 
+        // Appearances
+        let lastAppearanceId = 0;
+        for (const diffedAppearanceId of userData.rawAppearanceIds) {
+            const appearanceId = diffedAppearanceId + lastAppearanceId;
+            this.hasAppearanceById.add(appearanceId);
+            lastAppearanceId = appearanceId;
+        }
+
+        for (const [modifier, diffedItemIds] of getNumberKeyedEntries(
+            userData.rawAppearanceSources
+        )) {
+            let lastItemId = 0;
+            for (const diffedItemId of diffedItemIds) {
+                const itemId = diffedItemId + lastItemId;
+                // 123456/4 => 123456004
+                this.hasAppearanceBySource.add(itemId * 1000 + modifier);
+                lastItemId = itemId;
+            }
+        }
+
         // Misc
+        this.honorCurrent = userData.honorCurrent;
+        this.honorLevel = userData.honorLevel;
+        this.honorMax = userData.honorMax;
+        this.warbankGold = userData.warbankGold;
+
         for (const [heirloomId, level] of getNumberKeyedEntries(userData.heirlooms)) {
             this.heirlooms.set(heirloomId, level);
         }

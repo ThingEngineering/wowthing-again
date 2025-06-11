@@ -49,7 +49,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     initialize(userData: UserData): void {
         console.time('UserDataStore.initialize');
 
-        userState.general.process({ ...userData });
+        userState.general.process(userData);
 
         // Background images
         userData.backgroundList = sortBy(Object.values(userData.backgrounds), (bg) => -bg.id);
@@ -91,29 +91,29 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.hasSource = new Set<string>();
         userData.hasSourceV2 = new Map();
 
-        let lastAppearanceId = 0;
-        for (const diffedAppearanceId of userData.rawAppearanceIds) {
-            const appearanceId = diffedAppearanceId + lastAppearanceId;
-            userData.hasAppearance.add(appearanceId);
-            lastAppearanceId = appearanceId;
-        }
+        // let lastAppearanceId = 0;
+        // for (const diffedAppearanceId of userData.rawAppearanceIds) {
+        //     const appearanceId = diffedAppearanceId + lastAppearanceId;
+        //     userData.hasAppearance.add(appearanceId);
+        //     lastAppearanceId = appearanceId;
+        // }
         userData.rawAppearanceIds = null;
 
         for (let modifier = 0; modifier < 256; modifier++) {
             userData.hasSourceV2.set(modifier, new Set());
         }
 
-        for (const [modifier, diffedItemIds] of getNumberKeyedEntries(
-            userData.rawAppearanceSources
-        )) {
-            let lastItemId = 0;
-            for (const diffedItemId of diffedItemIds) {
-                const itemId = diffedItemId + lastItemId;
-                userData.hasSource.add(`${itemId}_${modifier}`);
-                userData.hasSourceV2.get(modifier).add(itemId);
-                lastItemId = itemId;
-            }
-        }
+        // for (const [modifier, diffedItemIds] of getNumberKeyedEntries(
+        //     userData.rawAppearanceSources
+        // )) {
+        //     let lastItemId = 0;
+        //     for (const diffedItemId of diffedItemIds) {
+        //         const itemId = diffedItemId + lastItemId;
+        //         userData.hasSource.add(`${itemId}_${modifier}`);
+        //         userData.hasSourceV2.get(modifier).add(itemId);
+        //         lastItemId = itemId;
+        //     }
+        // }
         userData.rawAppearanceSources = null;
 
         // Characters

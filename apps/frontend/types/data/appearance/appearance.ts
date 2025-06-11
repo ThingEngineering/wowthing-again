@@ -5,10 +5,10 @@ export class AppearanceDataAppearance {
 
     constructor(
         public appearanceId: number,
-        modifiedAppearanceArrays: AppearanceDataModifiedAppearanceArray[],
+        modifiedAppearanceArrays: AppearanceDataModifiedAppearanceArray[]
     ) {
         this.modifiedAppearances = modifiedAppearanceArrays.map(
-            (maArray) => new AppearanceDataModifiedAppearance(...maArray),
+            (maArray) => new AppearanceDataModifiedAppearance(...maArray)
         );
     }
 }
@@ -18,8 +18,12 @@ export class AppearanceDataModifiedAppearance {
     constructor(
         public itemId: number,
         public quality: ItemQuality,
-        public modifier: number,
+        public modifier: number
     ) {}
+
+    get sourceId() {
+        return this.itemId * 1000 + this.modifier;
+    }
 }
 export type AppearanceDataModifiedAppearanceArray = ConstructorParameters<
     typeof AppearanceDataModifiedAppearance

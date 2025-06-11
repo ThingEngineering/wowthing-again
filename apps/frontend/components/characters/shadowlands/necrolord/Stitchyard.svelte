@@ -2,20 +2,23 @@
     import { abominations, CovenantAbomination } from '@/data/covenant';
     import { wowthingData } from '@/shared/stores/data';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { userQuestStore } from '@/stores';
-    import type { Character, CharacterShadowlandsCovenantFeature } from '@/types';
+    import { userState } from '@/user-home/state/user';
+    import type { CharacterShadowlandsCovenantFeature } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import Abomination from './Abomination.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character;
-    export let feature: CharacterShadowlandsCovenantFeature;
+    type Props = CharacterProps & { feature: CharacterShadowlandsCovenantFeature };
 
-    let charAboms: [CovenantAbomination, boolean][];
-    $: charAboms = abominations.map((abomination) => [
-        abomination,
-        userQuestStore.hasAny(character.id, abomination.questId),
-    ]);
+    let { character, feature }: Props = $props();
+
+    let charAboms: [CovenantAbomination, boolean][] = $derived.by(() =>
+        abominations.map((abomination) => [
+            abomination,
+            userState.quests.characterById.get(character.id).hasQuestById.has(abomination.questId),
+        ])
+    );
 </script>
 
 <style lang="scss">

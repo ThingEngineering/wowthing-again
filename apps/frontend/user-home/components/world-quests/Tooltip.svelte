@@ -3,7 +3,6 @@
     import { RewardType } from '@/enums/reward-type';
     import { wowthingData } from '@/shared/stores/data';
     import { timeStore } from '@/shared/stores/time';
-    import { userQuestStore } from '@/stores';
     import { userState } from '@/user-home/state/user';
     import { toNiceDuration } from '@/utils/formatting';
     import type { Character } from '@/types/character';
@@ -40,14 +39,18 @@
             // TODO check all? one?
             if (staticWorldQuest.needQuestIds) {
                 validCharacters = validCharacters.filter((char) =>
-                    userQuestStore.hasAny(char.id, staticWorldQuest.needQuestIds[0])
+                    userState.quests.characterById
+                        .get(char.id)
+                        .hasQuestById.has(staticWorldQuest.needQuestIds[0])
                 );
             }
         }
 
         if (worldQuestPrereqs[worldQuest.questId]) {
             validCharacters = validCharacters.filter((char) =>
-                userQuestStore.hasAny(char.id, worldQuestPrereqs[worldQuest.questId])
+                userState.quests.characterById
+                    .get(char.id)
+                    .hasQuestById.has(worldQuestPrereqs[worldQuest.questId])
             );
         }
 
@@ -55,7 +58,11 @@
         const incomplete: Character[] = [];
 
         for (const character of validCharacters) {
-            if (userQuestStore.hasAny(character.id, worldQuest.questId)) {
+            if (
+                userState.quests.characterById
+                    .get(character.id)
+                    .hasQuestById.has(worldQuest.questId)
+            ) {
                 complete.push(character);
             } else {
                 incomplete.push(character);

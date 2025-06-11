@@ -6,7 +6,6 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { lazyStore, userStore } from '@/stores';
     import getPercentClass from '@/utils/get-percent-class';
 
     import CharacterFilter from './CharacterFilter.svelte';
@@ -16,8 +15,8 @@
     let filteredNavItems = $derived.by(() =>
         navItems.filter(
             (navItem) =>
-                navItem === null || !navItem.showFunc || navItem.showFunc(settingsState.value),
-        ),
+                navItem === null || !navItem.showFunc || navItem.showFunc(settingsState.value)
+        )
     );
 </script>
 
@@ -56,8 +55,8 @@
 <Sidebar>
     {#each filteredNavItems as navItem, navItemIndex (navItemIndex)}
         {#if navItem !== null}
-            {#if !navItem.privateOnly || (navItem.privateOnly && navItem.text === 'Currencies' && settingsState.value.privacy.publicCurrencies) || ($userStore.loaded && !sharedState.public)}
-                {@const percent = navItem.percentFunc?.($lazyStore)}
+            {#if !navItem.privateOnly || (navItem.privateOnly && navItem.text === 'Currencies' && settingsState.value.privacy.publicCurrencies) || !sharedState.public}
+                {@const percent = navItem.percentFunc?.()}
                 <li
                     use:active={navItem.path.endsWith('/')
                         ? `/${navItem.path}*`

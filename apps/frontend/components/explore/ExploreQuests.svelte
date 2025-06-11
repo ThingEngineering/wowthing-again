@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { userQuestStore } from '@/stores'
-    import { exploreState } from '@/stores/local-storage'
+    import { exploreState } from '@/stores/local-storage';
+    import { userState } from '@/user-home/state/user';
 
-    import CharacterTable from '@/components/character-table/CharacterTable.svelte'
-    import NumberInput from '@/shared/components/forms/NumberInput.svelte'
+    import CharacterTable from '@/components/character-table/CharacterTable.svelte';
+    import NumberInput from '@/shared/components/forms/NumberInput.svelte';
 </script>
 
 <style lang="scss">
@@ -30,12 +30,13 @@
     />
 
     <CharacterTable
-        filterFunc={(char) => userQuestStore.hasAny(char.id, $exploreState.questId)}
+        filterFunc={(char) =>
+            userState.quests.characterById.get(char.id).hasQuestById.has($exploreState.questId)}
     >
         <svelte:fragment slot="rowExtra">
             <td>✔</td>
         </svelte:fragment>
-        
+
         <tr slot="emptyRow">
             <td colspan="999">You have no characters with this quest completed.</td>
         </tr>

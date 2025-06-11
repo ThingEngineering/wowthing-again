@@ -7,19 +7,15 @@
     import { dragonflightProfessionMap, warWithinProfessionMap } from '@/data/professions';
     import { zoneShortName } from '@/data/zones';
     import { wowthingData } from '@/shared/stores/data';
-    import { userQuestStore } from '@/stores';
     import { userState } from '@/user-home/state/user';
     import findReputationTier from '@/utils/find-reputation-tier';
-    import type { Character } from '@/types';
-    import type { TaskProfession } from '@/types/data';
     import type { DbDataThing } from '@/shared/stores/db/types';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
+    import type { CharacterProps } from '@/types/props';
 
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
     import Collectible from './CharacterProfessionsCollectible.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import type { CharacterProps } from '@/types/props';
-    import type _ from 'lodash';
 
     type Props = CharacterProps & {
         expansionSlug: string;
@@ -121,10 +117,9 @@
         {#if taskProfession.masterQuestId || taskProfession?.bookQuests?.length > 0 || things?.length > 0}
             <div class="collection-objects">
                 {#if taskProfession.masterQuestId}
-                    {@const userHas = userQuestStore.hasAny(
-                        character.id,
-                        taskProfession.masterQuestId
-                    )}
+                    {@const userHas = userState.quests.characterById
+                        .get(character.id)
+                        .hasQuestById.has(taskProfession.masterQuestId)}
                     <div class="quality5" class:missing={userHas}>
                         <WowthingImage
                             name="achievement/1683"
@@ -140,7 +135,9 @@
                 {/if}
 
                 {#each taskProfession.bookQuests || [] as bookQuest, questIndex}
-                    {@const userHas = userQuestStore.hasAny(character.id, bookQuest.questId)}
+                    {@const userHas = userState.quests.characterById
+                        .get(character.id)
+                        .hasQuestById.has(bookQuest.questId)}
                     {#if bookQuest.source.startsWith('AC ')}
                         {@const repRank = [2, 4, 5][questIndex]}
                         <Collectible
@@ -162,7 +159,9 @@
                 {/each}
 
                 {#each things as [thing, text]}
-                    {@const userHas = userQuestStore.hasAny(character.id, thing.trackingQuestId)}
+                    {@const userHas = userState.quests.characterById
+                        .get(character.id)
+                        .hasQuestById.has(thing.trackingQuestId)}
                     <Collectible itemId={thing.contents[0].id} {text} {userHas} />
                 {/each}
             </div>
@@ -174,7 +173,9 @@
                     <Collectible
                         itemId={treasureQuest.itemId}
                         text={treasureQuest.source}
-                        userHas={userQuestStore.hasAny(character.id, treasureQuest.questId)}
+                        userHas={userState.quests.characterById
+                            .get(character.id)
+                            .hasQuestById.has(treasureQuest.questId)}
                     />
                 {/each}
             </div>

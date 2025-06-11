@@ -24,7 +24,6 @@ import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import { getVendorDropStats } from '@/utils/get-vendor-drop-stats';
 import { isRecipeKnown } from '@/utils/professions/is-recipe-known';
 
-import type { LazyTransmog } from './transmog';
 import type { ZoneMapState } from '../local-storage';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { UserAchievementData, UserData } from '@/types';
@@ -39,7 +38,6 @@ interface LazyStores {
     userData: UserData;
     userAchievementData: UserAchievementData;
     userQuestData: UserQuestData;
-    lazyTransmog: LazyTransmog;
 }
 
 export interface LazyZoneMaps {
@@ -215,7 +213,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             } else if (wowthingData.static.professionAbilityByItemId.has(drop.id)) {
                                 const abilityInfo =
                                     wowthingData.static.professionAbilityByItemId.get(drop.id);
-                                dropStatus.need = !isRecipeKnown(stores, { abilityInfo });
+                                dropStatus.need = !isRecipeKnown({ abilityInfo });
                             } else if (wowthingData.static.mountByItemId.has(drop.id)) {
                                 dropStatus.need =
                                     !stores.userData.hasMount?.[
@@ -335,9 +333,6 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                         case RewardType.SetSpecial:
                             [dropStatus.setHave, dropStatus.setNeed] = getVendorDropStats(
                                 stores.settings,
-                                stores.userData,
-                                stores.userQuestData,
-                                stores.lazyTransmog,
                                 completionistMode,
                                 drop
                             );

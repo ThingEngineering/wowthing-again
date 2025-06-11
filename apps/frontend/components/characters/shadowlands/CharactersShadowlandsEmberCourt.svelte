@@ -8,29 +8,27 @@
         type EmberCourtFeatureType,
     } from '@/data/covenant';
     import { wowthingData } from '@/shared/stores/data';
-    import { userQuestStore } from '@/stores';
-    import findReputationTier from '@/utils/find-reputation-tier';
     import { basicTooltip, componentTooltip } from '@/shared/utils/tooltips';
-    import type { Character, ReputationTier } from '@/types';
+    import findReputationTier from '@/utils/find-reputation-tier';
+    import { userState } from '@/user-home/state/user';
+    import type { CharacterProps } from '@/types/props';
 
     import ReputationText from '@/components/common/ReputationText.svelte';
     import Tooltip from '@/components/tooltips/reputation/TooltipReputation.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 
-    let quests: Set<number>;
-    let tier: ReputationTier;
-    $: {
-        tier = findReputationTier(
+    let tier = $derived.by(() =>
+        findReputationTier(
             wowthingData.static.reputationTierById.get(
                 wowthingData.static.reputationById.get(2445).tierId
             ),
             character.reputations?.[2445] ?? 0
-        );
+        )
+    );
 
-        quests = $userQuestStore.characters[character.id]?.quests;
-    }
+    let quests = $derived.by(() => userState.quests.characterById.get(character.id).hasQuestById);
 
     const thingSets: [EmberCourtFeature[], number][] = [
         [emberCourtFeatures, 40],

@@ -221,7 +221,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                     appearance.userHas =
                                         stores.userData.hasIllusion.has(enchantmentId);
                                 } else if (item.type === RewardType.Recipe) {
-                                    appearance.userHas = isRecipeKnown(stores, { itemId: item.id });
+                                    appearance.userHas = isRecipeKnown({ itemId: item.id });
                                 } else if (item.type === RewardType.Mount) {
                                     appearance.userHas = stores.userData.hasMount?.[item.classId];
                                 } else if (item.type === RewardType.Pet) {

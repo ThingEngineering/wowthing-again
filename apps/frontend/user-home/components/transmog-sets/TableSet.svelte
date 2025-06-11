@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { lazyStore } from '@/stores';
     import { componentTooltip } from '@/shared/utils/tooltips';
+    import { lazyState } from '@/user-home/state/lazy';
     import getPercentClass from '@/utils/get-percent-class';
-    import type { TransmogSlotData } from '@/stores/lazy/transmog';
     import type { ManualDataTransmogGroupData } from '@/types/data/manual';
+    import type { TransmogSlotData } from '@/user-home/state/lazy/transmog.svelte';
 
     import Tooltip from '@/user-home/components/transmog-sets/Tooltip.svelte';
     import WowheadTransmogSetLink from '@/shared/components/links/WowheadTransmogSetLink.svelte';
@@ -24,12 +24,12 @@
         percent = 0;
         total = 0;
 
-        slotHave = $lazyStore.transmog.slots[setKey];
+        slotHave = lazyState.transmog.slots[setKey];
         if (!set || !slotHave) {
             break $;
         }
 
-        const stats = $lazyStore.transmog.stats[setKey];
+        const stats = lazyState.transmog.stats[setKey];
         if (stats?.total > 0) {
             have = stats.have;
             total = stats.total;

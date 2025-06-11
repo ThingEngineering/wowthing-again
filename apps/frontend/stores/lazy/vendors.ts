@@ -31,7 +31,6 @@ import type {
 import type { UserData } from '@/types';
 import type { UserQuestData } from '@/types/data';
 import type { VendorState } from '../local-storage';
-import type { LazyTransmog } from './transmog';
 
 const tierRegex = new RegExp(/ - T\d\d/);
 
@@ -45,7 +44,6 @@ interface LazyStores {
     vendorState: VendorState;
     userData: UserData;
     userQuestData: UserQuestData;
-    lazyTransmog: LazyTransmog;
 }
 
 export function doVendors(stores: LazyStores): LazyVendors {
@@ -467,7 +465,6 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         stores.settings,
                         stores.userData,
                         stores.userQuestData,
-                        stores.lazyTransmog,
                         lookupType,
                         lookupId,
                         {

@@ -4,11 +4,11 @@
     import { Profession } from '@/enums/profession';
     import { wowthingData } from '@/shared/stores/data';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { userQuestStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import type { TaskProfessionQuest } from '@/types/data';
+    import type { CharacterProps } from '@/types/props';
 
     import Tooltip from '@/components/tooltips/profession-knowledge/TooltipProfessionKnowledge.svelte';
-    import type { CharacterProps } from '@/types/props';
 
     let { character }: CharacterProps = $props();
 
@@ -60,7 +60,9 @@
 
                     for (const bookQuest of bookQuests) {
                         const bookData = {
-                            have: userQuestStore.hasAny(character.id, bookQuest.questId),
+                            have: userState.quests.characterById
+                                .get(character.id)
+                                .hasQuestById.has(bookQuest.questId),
                             quest: bookQuest,
                             profession: profData.id,
                         };
@@ -98,7 +100,9 @@
 
                     for (const thing of things) {
                         zoneData.items.push({
-                            have: userQuestStore.hasAny(character.id, thing.trackingQuestId),
+                            have: userState.quests.characterById
+                                .get(character.id)
+                                .hasQuestById.has(thing.trackingQuestId),
                             itemId: thing.contents[0].id,
                             profession: profData.id,
                             source: zone.shortName,

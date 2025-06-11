@@ -3,8 +3,8 @@
     import { Faction } from '@/enums/faction';
     import { uiIcons } from '@/shared/icons';
     import { wowthingData } from '@/shared/stores/data';
-    import { userQuestStore } from '@/stores';
     import { charactersState } from '@/stores/local-storage';
+    import { userState } from '@/user-home/state/user';
     import type {
         StaticDataProfessionAbility,
         StaticDataProfessionCategory,
@@ -74,7 +74,9 @@
 
                     if (
                         ability.firstCraftQuestId &&
-                        userQuestStore.hasAny(character.id, ability.firstCraftQuestId) &&
+                        userState.quests.characterById
+                            .get(character.id)
+                            .hasQuestById.has(ability.firstCraftQuestId) &&
                         !$charactersState.professionsShowAlreadyCrafted
                     ) {
                         continue;
@@ -213,10 +215,9 @@
                                     {#if hasFirstCraft}
                                         <span class="has-crafted">
                                             {#if ability.firstCraftQuestId}
-                                                {@const hasCrafted = userQuestStore.hasAny(
-                                                    character.id,
-                                                    ability.firstCraftQuestId
-                                                )}
+                                                {@const hasCrafted = userState.quests.characterById
+                                                    .get(character.id)
+                                                    .hasQuestById.has(ability.firstCraftQuestId)}
                                                 <IconifyIcon
                                                     extraClass={hasCrafted
                                                         ? 'status-success'

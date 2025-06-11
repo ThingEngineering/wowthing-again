@@ -8,6 +8,7 @@
     import type { ApiWorldQuest } from '@/user-home/components/world-quests/types';
 
     import Tooltip from '@/components/tooltips/GoldWorldQuests.svelte';
+    import { userState } from '@/user-home/state/user';
 
     export let character: Character;
 
@@ -17,7 +18,7 @@
     $: {
         const now = $timeStore.toUnixInteger();
         goldWorldQuests = ($userQuestStore.characters[character.id]?.goldWorldQuests || []).filter(
-            ([, expires]) => expires > now,
+            ([, expires]) => expires > now
         );
         questMap = Object.fromEntries(goldWorldQuests.map(([questId, , gold]) => [questId, gold]));
     }
@@ -25,7 +26,7 @@
     // zoneId: worldQuest[]
     function processQuests(
         worldQuests: Record<number, ApiWorldQuest[]>,
-        questMap: Record<number, number>,
+        questMap: Record<number, number>
     ): [number, [number, number, number, number][]] {
         let count = 0;
         let active: [number, number, number, number][] = [];
@@ -33,7 +34,9 @@
             for (const worldQuest of zoneQuests) {
                 if (
                     questMap[worldQuest.questId] &&
-                    !userQuestStore.hasAny(character.id, worldQuest.questId)
+                    !userState.quests.characterById
+                        .get(character.id)
+                        .hasQuestById.has(worldQuest.questId)
                 ) {
                     const expires = worldQuest.expires.diff($timeStore).toMillis();
                     if (expires > 0) {

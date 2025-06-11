@@ -12,6 +12,7 @@
     import { wowthingData } from '@/shared/stores/data';
     import { userStore } from '@/stores';
     import { UserCount } from '@/types';
+    import { userState } from '@/user-home/state/user';
     import { fixedInventoryType } from '@/utils/fixed-inventory-type';
     import { getClassesFromMask } from '@/utils/get-classes-from-mask';
     import type { ItemDataItem } from '@/types/data/item';
@@ -52,8 +53,10 @@
         let hasItem = false;
         if (appearance) {
             hasItem = settingsState.value.transmog.completionistMode
-                ? $userStore.hasSourceV2.get(appearance.modifier)?.has(expandedItemId)
-                : $userStore.hasAppearance.has(appearance.appearanceId);
+                ? userState.general.hasAppearanceBySource.has(
+                      expandedItemId * 1000 + appearance.modifier
+                  )
+                : userState.general.hasAppearanceById.has(appearance.appearanceId);
         }
         return [expandedItemId, expandedItem, hasItem];
     });

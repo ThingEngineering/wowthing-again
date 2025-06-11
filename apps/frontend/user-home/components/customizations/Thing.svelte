@@ -1,6 +1,6 @@
 <script lang="ts">
     import { browserState } from '@/shared/state/browser.svelte';
-    import { userAchievementStore, userQuestStore, userStore } from '@/stores';
+    import { userAchievementStore } from '@/stores';
     import { userState } from '@/user-home/state/user';
     import type { ManualDataCustomizationThing } from '@/types/data/manual';
 
@@ -12,13 +12,15 @@
 
     let have = $derived(
         (thing.achievementId > 0 && !!$userAchievementStore.achievements[thing.achievementId]) ||
-            (thing.questId > 0 && $userQuestStore.accountHas.has(thing.questId)) ||
+            (thing.questId > 0 && userState.quests.accountHasById.has(thing.questId)) ||
             (thing.spellId > 0 &&
                 userState.general.activeCharacters.some((char) =>
                     char.knownSpells?.includes(thing.spellId)
                 )) ||
             (thing.appearanceModifier >= 0 &&
-                $userStore.hasSourceV2.get(thing.appearanceModifier).has(thing.itemId))
+                userState.general.hasAppearanceBySource.has(
+                    thing.itemId * 1000 + thing.appearanceModifier
+                ))
     );
     let show = $derived(
         (have && browserState.current['collectible-customizations'].showCollected) ||

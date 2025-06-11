@@ -2,11 +2,11 @@
     import { link } from 'svelte-spa-router';
 
     import { iconLibrary } from '@/shared/icons';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
-    import { browserState } from '@/shared/state/browser.svelte';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
@@ -73,7 +73,7 @@
         </a>
 
         <span class="account-gold">
-            Warbank: {$userStore.warbankGold.toLocaleString()} g
+            Warbank: {userState.general.warbankGold.toLocaleString()} g
         </span>
     {/if}
 </div>
