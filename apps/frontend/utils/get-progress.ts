@@ -1,20 +1,19 @@
 import find from 'lodash/find';
 
-import { toNiceNumber } from '@/utils/formatting';
 import { covenantFeatureOrder, covenantMap } from '@/data/covenant';
 import { factionIdMap } from '@/data/faction';
 import { garrisonBuildingIcon, garrisonTrees, garrisonUnlockQuests } from '@/data/garrison';
 import { ProgressDataType } from '@/enums/progress-data-type';
 import { QuestStatus } from '@/enums/quest-status';
 import { wowthingData } from '@/shared/stores/data';
+import { userState } from '@/user-home/state/user';
+import { toNiceNumber } from '@/utils/formatting';
 import type {
     Character,
     CharacterShadowlandsCovenant,
     CharacterShadowlandsCovenantFeature,
-    UserAchievementData,
-    UserData,
+    UserAchievementDataAddonAchievement,
 } from '@/types';
-import type { UserQuestData } from '@/types/data';
 import type {
     ManualDataProgressCategory,
     ManualDataProgressData,
@@ -22,9 +21,6 @@ import type {
 } from '@/types/data/manual';
 
 export default function getProgress(
-    userData: UserData,
-    userAchievementData: UserAchievementData,
-    userQuestData: UserQuestData,
     character: Character,
     category: ManualDataProgressCategory,
     group: ManualDataProgressGroup
@@ -54,13 +50,9 @@ export default function getProgress(
         character.level >= (group.minimumLevel || 0) &&
         (skipRequiredQuests ||
             ((category.requiredQuestIds.length === 0 ||
-                category.requiredQuestIds.some((questId) =>
-                    userQuestData.characters[character.id]?.quests?.has(questId)
-                )) &&
+                checkCharacterQuestIds(character.id, category.requiredQuestIds)) &&
                 ((group.requiredQuestIds?.length || 0) === 0 ||
-                    group.requiredQuestIds.some((questId) =>
-                        userQuestData.characters[character.id]?.quests?.has(questId)
-                    ))))
+                    checkCharacterQuestIds(character.id, group.requiredQuestIds))))
     ) {
         if (group.type === 'dragon-racing') {
             datas = [];
@@ -135,9 +127,6 @@ export default function getProgress(
                     value: questLine.questIds.length,
                 });
             }
-            if (group.name.startsWith('Sojourner')) {
-                console.log(group, datas);
-            }
         } else {
             switch (group.lookup) {
                 case 'class':
@@ -188,9 +177,8 @@ export default function getProgress(
 
                 let haveThis = false;
                 if (
-                    (group.type === 'quest' &&
-                        checkCharacterQuestIds(userQuestData, character.id, data.ids)) ||
-                    (group.type === 'accountQuest' && checkAccountQuestIds(userQuestData, data.ids))
+                    (group.type === 'quest' && checkCharacterQuestIds(character.id, data.ids)) ||
+                    (group.type === 'accountQuest' && checkAccountQuestIds(data.ids))
                 ) {
                     haveThis = true;
 
@@ -199,7 +187,7 @@ export default function getProgress(
                     }
                 } else if (group.type === 'campaign' || group.type === 'questline') {
                     const haveQuests = data.ids.filter((questId) =>
-                        userQuestData.characters[character.id]?.quests?.has(questId)
+                        userState.quests.characterById.get(character.id)?.hasQuestById?.has(questId)
                     ).length;
                     haveThis = haveQuests === data.ids.length;
 
@@ -223,15 +211,18 @@ export default function getProgress(
                 } else if (group.type === 'mixed') {
                     switch (data.type) {
                         case ProgressDataType.Achievement: {
-                            haveThis = userAchievementData?.achievements[data.ids[0]] > 0;
+                            haveThis = userState.achievements.achievementEarnedById.has(
+                                data.ids[0]
+                            );
                             break;
                         }
 
                         case ProgressDataType.AddonAchievement: {
-                            const cheev =
-                                userAchievementData?.addonAchievements?.[character.id]?.[
-                                    data.ids[0]
-                                ];
+                            const cheev: UserAchievementDataAddonAchievement = null;
+                            // FIXME addonAchievements
+                            // userAchievementData?.addonAchievements?.[character.id]?.[
+                            //     data.ids[0]
+                            // ];
                             if (cheev) {
                                 if (cheev.earned) {
                                     haveThis = true;
@@ -269,28 +260,24 @@ export default function getProgress(
 
                         case ProgressDataType.Criteria: {
                             const criteria = (
-                                userAchievementData?.criteria[data.ids[0]] || []
+                                userState.achievements.criteriaById.get(data.ids[0]) || []
                             ).filter(([characterId]) => characterId === character.id);
                             haveThis = criteria.length === 1 && criteria[0][1] >= (data.value || 1);
                             break;
                         }
 
                         case ProgressDataType.HonorLevel: {
-                            haveThis = userData.honorLevel >= data.value;
+                            haveThis = userState.general.honorLevel >= data.value;
                             break;
                         }
 
                         case ProgressDataType.Quest: {
-                            haveThis = checkCharacterQuestIds(
-                                userQuestData,
-                                character.id,
-                                data.ids
-                            );
+                            haveThis = checkCharacterQuestIds(character.id, data.ids);
                             break;
                         }
 
                         case ProgressDataType.AccountQuest: {
-                            haveThis = checkAccountQuestIds(userQuestData, data.ids);
+                            haveThis = checkAccountQuestIds(data.ids);
                             break;
                         }
 
@@ -306,10 +293,9 @@ export default function getProgress(
                         }
 
                         case ProgressDataType.AddonQuest: {
-                            const quest =
-                                userQuestData.characters[character.id]?.progressQuests?.[
-                                    data.value
-                                ];
+                            const quest = userState.quests.characterById
+                                .get(character.id)
+                                ?.progressQuestByKey?.get(`q${data.value}`);
                             if (quest) {
                                 haveThis = quest.status === QuestStatus.Completed;
                                 have = haveThis
@@ -388,11 +374,7 @@ export default function getProgress(
                                     total = 3;
                                 } else {
                                     if (
-                                        garrisonUnlockQuests.some((questId) =>
-                                            userQuestData.characters[character.id].quests?.has(
-                                                questId
-                                            )
-                                        )
+                                        checkCharacterQuestIds(character.id, garrisonUnlockQuests)
                                     ) {
                                         total = 3;
                                     } else {
@@ -449,18 +431,16 @@ export default function getProgress(
     };
 }
 
-function checkAccountQuestIds(userQuestData: UserQuestData, questIds: number[]) {
-    return Object.values(userQuestData.characters).some((char) =>
-        questIds.some((id) => char.quests?.has(id))
+function checkAccountQuestIds(questIds: number[]) {
+    return Array.from(userState.quests.characterById.values()).some((char) =>
+        questIds.some((id) => char.hasQuestById.has(id))
     );
 }
 
-function checkCharacterQuestIds(
-    userQuestData: UserQuestData,
-    characterId: number,
-    questIds: number[]
-) {
-    return questIds.some((id) => userQuestData.characters[characterId]?.quests?.has(id));
+function checkCharacterQuestIds(characterId: number, questIds: number[]) {
+    return questIds.some((id) =>
+        userState.quests.characterById.get(characterId)?.hasQuestById?.has(id)
+    );
 }
 
 function getSpentCyphers(character: Character): number {

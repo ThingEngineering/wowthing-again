@@ -5,9 +5,9 @@
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
     import { RewardType } from '@/enums/reward-type';
     import { wowthingData } from '@/shared/stores/data';
-    import { lazyStore } from '@/stores';
     import { vendorState } from '@/stores/local-storage';
     import { ThingData } from '@/types/vendors';
+    import { lazyState } from '@/user-home/state/lazy';
     import getPercentClass from '@/utils/get-percent-class';
     import type { ManualDataVendorGroup } from '@/types/data/manual';
 
@@ -27,7 +27,7 @@
         things = [];
         for (const thing of group.sellsFiltered) {
             const thingKey = `${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`;
-            const userHas = $lazyStore.vendors.userHas[thingKey] === true;
+            const userHas = lazyState.vendors.userHas[thingKey] === true;
             if (
                 ($vendorState.showCollected && userHas) ||
                 ($vendorState.showUncollected && !userHas)

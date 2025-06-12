@@ -1,6 +1,6 @@
 import debounce from 'lodash/debounce';
 import once from 'lodash/once';
-import { derived, get } from 'svelte/store';
+import { derived } from 'svelte/store';
 import type { DateTime } from 'luxon';
 
 import { settingsState } from '@/shared/state/settings.svelte';
@@ -10,29 +10,21 @@ import type { Settings } from '@/shared/stores/settings/types';
 import type { FancyStoreType, UserAchievementData, UserData } from '@/types';
 import type { UserQuestData } from '@/types/data';
 
-import { doAchievements, type LazyAchievements } from './achievements';
 import { doAppearances, type LazyAppearances } from './appearances';
 import { doCharacters, type LazyCharacter } from './character';
 import { doConvertible, type LazyConvertible } from './convertible';
-import { doJournal, type LazyJournal } from './journal';
 import { doRecipes, LazyRecipes } from './recipes';
-import { doVendors, type LazyVendors } from './vendors';
 import { doZoneMaps, type LazyZoneMaps } from './zone-maps';
 
 import {
     AchievementsState,
     achievementState,
     appearanceState,
-    journalState,
-    vendorState,
     zoneMapState,
     type AppearancesState,
-    type JournalState,
-    type VendorState,
     type ZoneMapState,
 } from '../local-storage';
 
-import { achievementStore } from '../achievements';
 import { userStore } from '../user';
 import { userAchievementStore } from '../user-achievements';
 import { userQuestStore } from '../user-quests';
@@ -44,8 +36,6 @@ export const lazyStore = derived(
         timeStore,
         achievementState,
         appearanceState,
-        journalState,
-        vendorState,
         zoneMapState,
         userStore,
         userAchievementStore,
@@ -57,8 +47,6 @@ export const lazyStore = derived(
             $timeStore,
             $achievementState,
             $appearanceState,
-            $journalState,
-            $vendorState,
             $zoneMapState,
             $userStore,
             $userAchievementStore,
@@ -68,8 +56,6 @@ export const lazyStore = derived(
             DateTime,
             AchievementsState,
             AppearancesState,
-            JournalState,
-            VendorState,
             ZoneMapState,
             FancyStoreType<UserData>,
             FancyStoreType<UserAchievementData>,
@@ -81,8 +67,6 @@ export const lazyStore = derived(
                 $timeStore,
                 $achievementState,
                 $appearanceState,
-                $journalState,
-                $vendorState,
                 $zoneMapState,
                 $userStore,
                 $userAchievementStore,
@@ -109,13 +93,10 @@ export class LazyStore {
     private userDataId: number;
     private userQuestDataId: number;
 
-    private achievementsFunc: () => LazyAchievements;
     private appearancesFunc: () => LazyAppearances;
     private charactersFunc: () => Record<string, LazyCharacter>;
     private convertibleFunc: () => LazyConvertible;
-    private journalFunc: () => LazyJournal;
     private recipesFunc: () => LazyRecipes;
-    private vendorsFunc: () => LazyVendors;
     private zoneMapsFunc: () => LazyZoneMaps;
 
     private hashes: Record<string, string> = {};
@@ -125,8 +106,6 @@ export class LazyStore {
         currentTime: DateTime,
         achievementState: AchievementsState,
         appearanceState: AppearancesState,
-        journalState: JournalState,
-        vendorState: VendorState,
         zoneMapState: ZoneMapState,
         userData: UserData,
         userAchievementData: UserAchievementData,
@@ -140,8 +119,6 @@ export class LazyStore {
             appearanceState: hashObject(appearanceState),
             collectibleState: 'meow',
             // collectibleState: hashObject(collectibleState),
-            journalState: hashObject(journalState, ['filtersExpanded', 'highlightMissing']),
-            vendorState: hashObject(vendorState, ['filtersExpanded']),
             zoneMapState: hashObject(zoneMapState),
 
             hideUnavailable: `${settings.collections.hideUnavailable}`,
@@ -177,23 +154,6 @@ export class LazyStore {
         this.userDataId = userStore.id;
         this.userAchievementDataId = userAchievementStore.id;
         this.userQuestDataId = userQuestStore.id;
-
-        if (
-            changedData.userAchievementData ||
-            changedData.userData ||
-            changedData.userQuestData ||
-            changedHashes.achievementState
-        ) {
-            this.achievementsFunc = once(() =>
-                doAchievements({
-                    achievementState: achievementState,
-                    achievementData: get(achievementStore),
-                    userAchievementData,
-                    userData,
-                    userQuestData,
-                })
-            );
-        }
 
         if (
             changedData.userData ||
@@ -238,22 +198,6 @@ export class LazyStore {
             );
         }
 
-        if (
-            changedData.userData ||
-            changedData.userQuestData ||
-            changedHashes.journalState ||
-            changedHashes.settingsTransmog
-        ) {
-            this.journalFunc = once(() =>
-                doJournal({
-                    settings,
-                    journalState,
-                    userData,
-                    userQuestData,
-                })
-            );
-        }
-
         if (changedData.userData) {
             this.recipesFunc = once(() =>
                 doRecipes({
@@ -263,44 +207,27 @@ export class LazyStore {
             );
         }
 
-        if (changedData.userData || changedHashes.settingsTransmog || changedHashes.vendorState) {
-            this.vendorsFunc = once(() =>
-                doVendors({
-                    settings,
-                    vendorState,
-                    userData,
-                    userQuestData,
-                })
-            );
-        }
-
         if (
             changedData.userData ||
             changedData.userAchievementData ||
             changedData.userQuestData ||
-            changedData.userAchievementData ||
             changedHashes.settingsTransmog ||
             changedHashes.zoneMapState
         ) {
-            this.zoneMapsFunc = once(
-                () =>
-                    this.vendorsFunc() &&
-                    doZoneMaps({
-                        settings,
-                        zoneMapState,
-                        userData,
-                        userAchievementData,
-                        userQuestData,
-                    })
+            this.zoneMapsFunc = once(() =>
+                doZoneMaps({
+                    settings,
+                    zoneMapState,
+                    userData,
+                    userAchievementData,
+                    userQuestData,
+                })
             );
         }
 
         // console.timeEnd('LazyStore.update')
     }
 
-    get achievements(): LazyAchievements {
-        return this.achievementsFunc();
-    }
     get appearances(): LazyAppearances {
         return this.appearancesFunc();
     }
@@ -310,14 +237,8 @@ export class LazyStore {
     get convertible(): LazyConvertible {
         return this.convertibleFunc();
     }
-    get journal(): LazyJournal {
-        return this.journalFunc();
-    }
     get recipes(): LazyRecipes {
         return this.recipesFunc();
-    }
-    get vendors(): LazyVendors {
-        return this.vendorsFunc();
     }
     get zoneMaps(): LazyZoneMaps {
         return this.zoneMapsFunc();

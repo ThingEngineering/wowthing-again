@@ -2,7 +2,7 @@
     import { afterUpdate, onMount } from 'svelte';
 
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { achievementStore, lazyStore, userAchievementStore } from '@/stores';
+    import { achievementStore, userAchievementStore } from '@/stores';
     import { achievementState } from '@/stores/local-storage';
     import getSavedRoute from '@/utils/get-saved-route';
 
@@ -21,7 +21,7 @@
             await Promise.all([
                 achievementStore.fetch({ language: settingsState.value.general.language }),
                 //userAchievementStore.fetch(),
-            ]),
+            ])
     );
 
     afterUpdate(() => getSavedRoute('achievements', params.slug1, params.slug2));
@@ -35,8 +35,6 @@
         ready = false;
         if (!error && loaded) {
             userAchievementStore.setup($achievementState, $achievementStore);
-
-            const oof = $lazyStore.achievements;
             ready = true;
         }
     }

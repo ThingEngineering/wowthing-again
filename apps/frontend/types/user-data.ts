@@ -30,6 +30,7 @@ export interface UserData {
     honorLevel: number;
     honorMax: number;
     warbankGold: number;
+    warbankScannedAt: string;
 
     backgrounds: Record<number, BackgroundImage>;
     currentPeriod: Record<number, UserDataCurrentPeriod>;

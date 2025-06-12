@@ -24,6 +24,7 @@ public class ApiUser
     public short HonorLevel { get; set; }
     public short HonorMax { get; set; }
     public int WarbankGold { get; set; }
+    public DateTimeOffset? WarbankScannedAt { get; set; }
 
     public Dictionary<int, BackgroundImage> Backgrounds { get; set; }
     public Dictionary<int, WowPeriod> CurrentPeriod { get; init; }

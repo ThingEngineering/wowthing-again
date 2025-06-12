@@ -1,8 +1,9 @@
 <script lang="ts">
     import find from 'lodash/find';
 
-    import { userAchievementStore, userQuestStore, userStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
     import { progressState } from '@/stores/local-storage';
+    import { userState } from '@/user-home/state/user';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import getProgress from '@/utils/get-progress';
     import { leftPad } from '@/utils/formatting';
@@ -17,8 +18,6 @@
     import RowCovenant from '@/components/home/table/row/HomeTableRowCovenant.svelte';
     import RowProgress from './ProgressTableBody.svelte';
     import RowProgressRaidSkip from './ProgressTableBodyRaidSkip.svelte';
-    import { wowthingData } from '@/shared/stores/data';
-    import { userState } from '@/user-home/state/user';
 
     export let slug1: string;
     export let slug2: string;
@@ -61,7 +60,9 @@
 
             if (
                 requiredQuestIds.length > 0 &&
-                !requiredQuestIds.some((id) => $userQuestStore.characters[char.id]?.quests?.has(id))
+                !requiredQuestIds.some((id) =>
+                    userState.quests.characterById.get(char.id)?.hasQuestById?.has(id)
+                )
             ) {
                 return false;
             }
@@ -96,14 +97,7 @@
                 const group = category.groups[groupIndex];
                 for (const character of characters) {
                     const data = (progress[`${category.slug}|${groupIndex}|${character.id}`] =
-                        getProgress(
-                            $userStore,
-                            $userAchievementStore,
-                            $userQuestStore,
-                            character,
-                            category,
-                            group
-                        ));
+                        getProgress(character, category, group));
 
                     // Hardcoded hacks for Mage Tower artifact appearances
                     if (group.name === 'Challenge Unlocks' && data.have === 0) {

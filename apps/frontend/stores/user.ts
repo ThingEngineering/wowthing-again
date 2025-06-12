@@ -145,10 +145,10 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         // Warbanks
         userData.warbankItems = [];
-        for (const warbankItemArray of userData.rawWarbankItems || []) {
-            const warbankItem = new WarbankItem(...warbankItemArray);
-            userData.warbankItems.push(warbankItem);
-        }
+        // for (const warbankItemArray of userData.rawWarbankItems || []) {
+        //     const warbankItem = new WarbankItem(...warbankItemArray);
+        //     userData.warbankItems.push(warbankItem);
+        // }
         userData.rawWarbankItems = null;
 
         // Temporary until static data loads

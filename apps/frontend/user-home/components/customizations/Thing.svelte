@@ -1,6 +1,5 @@
 <script lang="ts">
     import { browserState } from '@/shared/state/browser.svelte';
-    import { userAchievementStore } from '@/stores';
     import { userState } from '@/user-home/state/user';
     import type { ManualDataCustomizationThing } from '@/types/data/manual';
 
@@ -11,7 +10,8 @@
     let { thing }: { thing: ManualDataCustomizationThing } = $props();
 
     let have = $derived(
-        (thing.achievementId > 0 && !!$userAchievementStore.achievements[thing.achievementId]) ||
+        (thing.achievementId > 0 &&
+            userState.achievements.achievementEarnedById.has(thing.achievementId)) ||
             (thing.questId > 0 && userState.quests.accountHasById.has(thing.questId)) ||
             (thing.spellId > 0 &&
                 userState.general.activeCharacters.some((char) =>

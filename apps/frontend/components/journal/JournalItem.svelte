@@ -7,10 +7,10 @@
     import { RewardType } from '@/enums/reward-type';
     import { iconLibrary } from '@/shared/icons';
     import { wowthingData } from '@/shared/stores/data';
-    import { userStore } from '@/stores';
     import { journalState } from '@/stores/local-storage';
     import { getItemUrl } from '@/utils/get-item-url';
     import { basicTooltip } from '@/shared/utils/tooltips';
+    import { userState } from '@/user-home/state/user';
     import type {
         JournalDataEncounterItem,
         JournalDataEncounterItemAppearance,
@@ -157,7 +157,9 @@
             {#if classId > 0}
                 {@const hasSoon =
                     !appearance.userHas &&
-                    $userStore.itemsByAppearanceSource[`${item.id}_${appearance.modifierId}`]}
+                    userState.general.hasAppearanceBySource.has(
+                        item.id * 1000 + appearance.modifierId
+                    )}
                 <div class="overlay player-class class-{classId} drop-shadow">
                     <ClassIcon border={2} size={20} {classId} />
                 </div>

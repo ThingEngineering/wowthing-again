@@ -17,6 +17,7 @@ export type ManualDataVendorCategoryArray = [
 export class ManualDataVendorCategory {
     public children: ManualDataVendorCategory[];
     public groups: ManualDataVendorGroup[];
+    public vendorIds: number[];
 
     constructor(
         public name: string,

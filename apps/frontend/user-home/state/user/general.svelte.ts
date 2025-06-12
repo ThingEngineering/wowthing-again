@@ -26,6 +26,7 @@ import { base64ToArray } from '@/utils/base64';
 import { leftPad } from '@/utils/formatting';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { sharedState } from '@/shared/state/shared.svelte';
+import { WarbankItem } from '@/types/items';
 
 export class DataUserGeneral {
     public accountById: Record<number, Account> = $state({});
@@ -33,6 +34,8 @@ export class DataUserGeneral {
     public characterById: Record<number, Character> = $state({});
     public guildById: Record<number, Guild> = $state({});
     public petsById: Record<number, UserDataPet[]> = $state({});
+    public warbankItems: WarbankItem[] = $state([]);
+    public warbankItemsByItemId: Record<number, WarbankItem[]> = $state({});
 
     public honorCurrent = $state(0);
     public honorLevel = $state(0);
@@ -55,6 +58,8 @@ export class DataUserGeneral {
     public charactersByRealmId = $derived.by(() => this._charactersByRealmId());
     public homeLockouts = $derived.by(() => this._homeLockouts());
     public visibleCharacters = $derived.by(() => this._visibleCharacters());
+
+    private _warbankScannedAt: string;
 
     public process(userData: UserData): void {
         console.time('DataUserGeneral.process');
@@ -150,6 +155,14 @@ export class DataUserGeneral {
                 this.hasAppearanceBySource.add(itemId * 1000 + modifier);
                 lastItemId = itemId;
             }
+        }
+
+        // Warbank items
+        if (!this._warbankScannedAt || userData.warbankScannedAt > this._warbankScannedAt) {
+            this.warbankItems = userData.rawWarbankItems.map(
+                (warbankItemArray) => new WarbankItem(...warbankItemArray)
+            );
+            this.warbankItemsByItemId = groupBy(this.warbankItems, (item) => item.itemId);
         }
 
         // Misc

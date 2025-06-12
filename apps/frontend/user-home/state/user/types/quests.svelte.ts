@@ -25,8 +25,6 @@ export class CharacterQuests {
             return;
         }
 
-        console.log(this.characterId, 'quests');
-
         this.scannedAt = scannedAt;
         this.scannedTime = parseApiTime(scannedAt);
 

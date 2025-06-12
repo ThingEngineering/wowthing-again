@@ -9,6 +9,7 @@ import type { ManualDataTransmogCategory } from '@/types/data/manual/transmog';
 import { userState } from '../user';
 import { ItemQuality } from '@/enums/item-quality';
 import groupBy from 'lodash/groupBy';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
 // [hasAny, [hasAppearance, hasSource, itemId, modifier, appearanceId]]
 export type TransmogSlot = [boolean, boolean, number, number, number];
@@ -23,7 +24,10 @@ export interface LazyTransmog {
 }
 
 export function doTransmog(): LazyTransmog {
-    console.time('LazyStore.doTransmog');
+    console.time('LazyState.doTransmog');
+
+    const hasAppearanceBySource = $state.snapshot(userState.general.hasAppearanceBySource);
+    const hasAppearanceById = $state.snapshot(userState.general.hasAppearanceById);
 
     const ret: LazyTransmog = {
         filteredCategories: [],
@@ -60,10 +64,8 @@ export function doTransmog(): LazyTransmog {
         let appearanceId = item.appearances[modifier]?.appearanceId || 0;
         appearanceId = wowthingData.items.appearanceMap[appearanceId] || appearanceId;
 
-        const hasSource =
-            overrideHas || userState.general.hasAppearanceBySource.has(itemId * 1000 + modifier);
-        const hasAppearance =
-            hasSource || overrideHas || userState.general.hasAppearanceById.has(appearanceId);
+        const hasSource = overrideHas || hasAppearanceBySource.has(itemId * 1000 + modifier);
+        const hasAppearance = hasSource || overrideHas || hasAppearanceById.has(appearanceId);
 
         slotData[actualSlot] ||= [false, []];
         slotData[actualSlot][0] ||= completionistMode ? hasSource : hasAppearance;
@@ -79,6 +81,7 @@ export function doTransmog(): LazyTransmog {
     const overallSeen: Record<string, boolean> = {};
     const overallStats = (ret.stats['OVERALL'] = new UserCount());
 
+    console.time('LazyState.doTransmog.categories');
     for (const categories of wowthingData.manual.transmog.sets) {
         if (categories === null) {
             ret.filteredCategories.push(null);
@@ -88,7 +91,9 @@ export function doTransmog(): LazyTransmog {
         const baseStats = (ret.stats[categories[0].slug] = new UserCount());
 
         const newCategories: ManualDataTransmogCategory[] = [];
-        for (const category of categories.slice(1)) {
+        // for (const category of categories.slice(1)) {
+        for (let categoryIndex = 1; categoryIndex < categories.length; categoryIndex++) {
+            const category = categories[categoryIndex];
             const catKey = `${categories[0].slug}--${category.slug}`;
             const catStats = (ret.stats[catKey] = new UserCount());
 
@@ -172,7 +177,7 @@ export function doTransmog(): LazyTransmog {
                                 groupSigh.transmogSetId
                             );
                             if (!transmogSet) {
-                                console.warn('Invalid transmog set ID', groupSigh.transmogSetId);
+                                // console.warn('Invalid transmog set ID', groupSigh.transmogSetId);
                                 continue;
                             }
 
@@ -254,12 +259,14 @@ export function doTransmog(): LazyTransmog {
                             doSlot(slotData, itemId, modifier, completionistMode, overrideHas);
                         }
 
+                        const slotDataValues = Object.values(slotData);
+
                         if (completionistSets || manualItems) {
-                            setDataStats.total = Object.values(slotData).reduce(
+                            setDataStats.total = slotDataValues.reduce(
                                 (a, b) => a + b[1].length,
                                 0
                             );
-                            setDataStats.have = Object.values(slotData).reduce(
+                            setDataStats.have = slotDataValues.reduce(
                                 (a, b) => a + b[1].filter((hasSlot) => hasSlot[1] === true).length,
                                 0
                             );
@@ -270,7 +277,7 @@ export function doTransmog(): LazyTransmog {
                             }
 
                             // [hasSlot, [hasSource, itemId, modifier][]][]
-                            for (const itemDatas of Object.values(slotData)) {
+                            for (const itemDatas of slotDataValues) {
                                 for (const [, hasSource, itemId, modifier] of itemDatas[1]) {
                                     const sourceKey = `${itemId}_${modifier}`;
 
@@ -336,8 +343,10 @@ export function doTransmog(): LazyTransmog {
             ret.filteredCategories.push(newCategories);
         }
     } // categories of wowthingData.manual.transmog.sets
+    console.timeEnd('LazyState.doTransmog.categories');
 
     // generate stats for any transmog sets not seen in manual sets
+    console.time('LazyState.doTransmog.sets');
     for (const [transmogSetId, transmogSet] of wowthingData.static.transmogSetById.entries()) {
         const setKey = `transmogSet:${transmogSetId}`;
         if (ret.stats[setKey]) {
@@ -369,8 +378,9 @@ export function doTransmog(): LazyTransmog {
             buildStats(completionistMode, slotData, setStats, ensembleStats);
         }
     }
+    console.timeEnd('LazyState.doTransmog.sets');
 
-    console.timeEnd('LazyStore.doTransmog');
+    console.timeEnd('LazyState.doTransmog');
 
     return ret;
 }
@@ -381,18 +391,18 @@ function buildStats(
     setDataStats: UserCount,
     ensembleStats: UserCount
 ) {
+    const slotEntries = getNumberKeyedEntries(slotData);
+
     if (ensembleStats) {
         if (completionistMode) {
-            ensembleStats.total = Object.values(slotData).reduce((a, b) => a + b[1].length, 0);
-            ensembleStats.have = Object.values(slotData).reduce(
-                (a, b) => a + b[1].filter((hasSlot) => hasSlot[0] === true).length,
+            ensembleStats.total = slotEntries.reduce((a, b) => a + b[1][1].length, 0);
+            ensembleStats.have = slotEntries.reduce(
+                (a, b) => a + b[1][1].filter((hasSlot) => hasSlot[0] === true).length,
                 0
             );
         } else {
             const byAppearanceId = groupBy(
-                Object.values(slotData)
-                    .flatMap(([, items]) => items)
-                    .filter((slot) => slot[4] > 0),
+                slotEntries.flatMap(([, [, items]]) => items).filter((slot) => slot[4] > 0),
                 (slot) => slot[4]
             );
 
@@ -404,13 +414,8 @@ function buildStats(
         }
     }
 
-    const armor = Object.entries(slotData)
-        .filter(([key]) => parseInt(key) < 100)
-        .map(([, value]) => value);
-
-    const weapons = Object.entries(slotData)
-        .filter(([a]) => parseInt(a) >= 100)
-        .map(([, b]) => b);
+    const armor = slotEntries.filter(([key]) => key < 100).map(([, value]) => value);
+    const weapons = slotEntries.filter(([key]) => key >= 100).map(([, value]) => value);
     const weaponsByAppearanceId = groupBy(
         weapons.flatMap(([, items]) => items),
         (slot) => slot[4]

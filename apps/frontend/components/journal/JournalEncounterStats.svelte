@@ -4,10 +4,11 @@
     import { classOrderMap } from '@/data/character-class';
     import { difficultyMap, journalDifficultyMap, journalDifficultyOrder } from '@/data/difficulty';
     import { PlayableClass, playableClasses } from '@/enums/playable-class';
-    import { lazyStore, userAchievementStore } from '@/stores';
-    import { UserCount } from '@/types';
-    import { leftPad } from '@/utils/formatting';
     import { basicTooltip } from '@/shared/utils/tooltips';
+    import { userAchievementStore } from '@/stores';
+    import { UserCount } from '@/types';
+    import { lazyState } from '@/user-home/state/lazy';
+    import { leftPad } from '@/utils/formatting';
     import type { JournalDataEncounter } from '@/types/data';
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
@@ -22,7 +23,7 @@
         difficulties = [];
         for (const difficulty of journalDifficultyOrder) {
             const difficultyKey = `${statsKey}--${difficulty}`;
-            const difficultyStats = $lazyStore.journal.stats[difficultyKey];
+            const difficultyStats = lazyState.journal.stats[difficultyKey];
             if (difficultyStats) {
                 let kills = -1;
 
@@ -34,9 +35,9 @@
                                 a +
                                 ($userAchievementStore.statistics?.[b] || []).reduce(
                                     (c, d) => c + d[1],
-                                    0,
+                                    0
                                 ),
-                            0,
+                            0
                         );
                         kills = kills === -1 ? newKills : kills + newKills;
                     }
@@ -83,7 +84,7 @@
         classCounts = [];
         for (const [className] of playableClasses) {
             const classKey = `${statsKey}--class:${className}`;
-            const classStats = $lazyStore.journal.stats[classKey];
+            const classStats = lazyState.journal.stats[classKey];
             if (classStats) {
                 classCounts.push([classStats.total, className as keyof typeof PlayableClass]);
             }

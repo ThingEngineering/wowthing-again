@@ -33,6 +33,35 @@ interface BrowserStateIdk {
         showCollected: boolean;
         showUncollected: boolean;
     };
+    vendors: {
+        filtersExpanded: boolean;
+
+        highlightMissing: boolean;
+        showCollected: boolean;
+        showUncollected: boolean;
+        showCollectedPrices: boolean;
+
+        showCloth: boolean;
+        showLeather: boolean;
+        showMail: boolean;
+        showPlate: boolean;
+
+        showCloaks: boolean;
+        showCosmetics: boolean;
+        showWeapons: boolean;
+
+        showDragonriding: boolean;
+        showIllusions: boolean;
+        showMounts: boolean;
+        showPets: boolean;
+        showRecipes: boolean;
+        showToys: boolean;
+
+        showPvp: boolean;
+        showTier: boolean;
+
+        showAwakened: boolean;
+    };
 
     'collectible-customizations': CollectibleState;
     'collectible-mounts': CollectibleState;
@@ -64,6 +93,35 @@ const initialState: BrowserStateIdk = {
         showCollected: true,
         showUncollected: true,
     },
+    vendors: {
+        filtersExpanded: false,
+        highlightMissing: true,
+        showCollected: true,
+        showUncollected: true,
+        showCollectedPrices: false,
+
+        showCloth: true,
+        showLeather: true,
+        showMail: true,
+        showPlate: true,
+
+        showCloaks: true,
+        showCosmetics: true,
+        showWeapons: true,
+
+        showDragonriding: true,
+        showIllusions: true,
+        showMounts: true,
+        showPets: true,
+        showRecipes: true,
+        showToys: true,
+
+        showPvp: true,
+        showTier: true,
+
+        showAwakened: true,
+    },
+
     'collectible-customizations': {
         highlightMissing: true,
         showCollected: true,
@@ -114,7 +172,7 @@ class BrowserState {
     }
 
     // triggered via an $effect in @/user-home/Main.svelte, seems silly but it works
-    public save(state: BrowserStateIdk) {
+    save(state: BrowserStateIdk) {
         if (this._firstSave) {
             this._firstSave = false;
         } else {

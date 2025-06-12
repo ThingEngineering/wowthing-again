@@ -541,7 +541,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
                     setsData.push({
                         reputationId: repId,
-                        value: this.reputations?.[repId] ?? -1,
+                        value: this.reputations[repId] ?? -1,
                     });
                 }
 

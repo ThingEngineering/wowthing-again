@@ -13,6 +13,7 @@ import type { Expansion } from '@/types';
 
 import { browserState } from './browser.svelte';
 import type { Settings } from '../stores/settings/types';
+import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 
 const languageToSubdomain: Record<Language, string> = {
     [Language.deDE]: 'de',
@@ -72,6 +73,8 @@ function createSettingsState() {
             (activeView.commonFields.indexOf('accountTag') >= 0 ? (useAccountTags ? 0 : -1) : 0)
         );
     });
+
+    const derivedTransmogClassMask = $derived.by(() => getTransmogClassMask());
 
     return {
         set(newSettings: Settings) {
@@ -142,6 +145,9 @@ function createSettingsState() {
         },
         get wowheadBaseUrl(): string {
             return `${languageToSubdomain[settings.general.language]}.wowhead.com`;
+        },
+        get transmogClassMask(): number {
+            return derivedTransmogClassMask;
         },
     };
 }

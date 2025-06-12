@@ -3,10 +3,10 @@ import type { DateTime } from 'luxon';
 
 import { journalDifficultyMap } from '@/data/difficulty';
 import { RewardType } from '@/enums/reward-type';
+import { lazyState } from '@/user-home/state/lazy';
 import { leftPad } from '@/utils/formatting';
 import parseApiTime from '@/utils/parse-api-time';
 import type { Settings } from '@/shared/stores/settings/types';
-import type { LazyStore } from '@/stores';
 import type { FarmStatus, UserData } from '@/types';
 import type { JournalData, JournalDataInstance } from '@/types/data';
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual';
@@ -15,9 +15,8 @@ export function getInstanceFarm(
     settings: Settings,
     currentTime: DateTime,
     journalData: JournalData,
-    lazyData: LazyStore,
     userData: UserData,
-    farm: ManualDataZoneMapFarm,
+    farm: ManualDataZoneMapFarm
 ): [FarmStatus, ManualDataZoneMapDrop[]] {
     const drops: ManualDataZoneMapDrop[] = [];
     const status: FarmStatus = {
@@ -34,7 +33,7 @@ export function getInstanceFarm(
             instance = instances[0];
 
             const instanceKey = `${tier.slug}--${instance.slug}`;
-            const stats = lazyData.journal.stats[instanceKey];
+            const stats = lazyState.journal.stats[instanceKey];
             status.link = `${tier.slug}/${instance.slug}`;
             status.need = stats.have < stats.total;
 
@@ -53,11 +52,11 @@ export function getInstanceFarm(
 
             const sortedDifficulties = sortBy(
                 Array.from(difficulties.values()),
-                (diff) => journalDifficultyMap[diff],
+                (diff) => journalDifficultyMap[diff]
             );
             for (const difficulty of sortedDifficulties) {
                 const difficultyKey = `${instanceKey}--${difficulty}`;
-                const difficultyStats = lazyData.journal.stats[difficultyKey];
+                const difficultyStats = lazyState.journal.stats[difficultyKey];
                 if (!difficultyStats) {
                     console.log(`no difficulty stats for key "${difficultyKey}"`);
                     continue;
@@ -71,7 +70,7 @@ export function getInstanceFarm(
                     (char) =>
                         char.level > 10 &&
                         (!settings.characters.hideDisabledAccounts ||
-                            settings.accounts[char.accountId]?.enabled !== false),
+                            settings.accounts[char.accountId]?.enabled !== false)
                 );
 
                 for (const character of characters) {
