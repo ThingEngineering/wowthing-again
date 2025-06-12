@@ -27,7 +27,7 @@ export function userHasLookup(
     } else if (type === LookupType.Pet) {
         return userState.general.hasPetById.has(id);
     } else if (type === LookupType.Toy) {
-        return userState.general.hasToyById.has(id);
+        return userState.general.hasToyByItemId.has(id);
     } else if (type === LookupType.Recipe) {
         const abilityInfo = wowthingData.static.professionAbilityByAbilityId.get(id);
         return isRecipeKnown({ abilityInfo });
