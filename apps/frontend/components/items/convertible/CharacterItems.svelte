@@ -4,12 +4,12 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { WarbankItem } from '@/types/items';
     import { getItemUrl } from '@/utils/get-item-url';
-    import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible';
+    import type { LazyConvertibleCharacterItem } from '@/user-home/state/lazy/convertible.svelte';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let data: LazyConvertibleCharacterItem[];
+    let { data }: { data: LazyConvertibleCharacterItem[] } = $props();
 </script>
 
 <style lang="scss">

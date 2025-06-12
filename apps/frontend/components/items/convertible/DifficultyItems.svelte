@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { lazyStore } from '@/stores';
+    import { lazyState } from '@/user-home/state/lazy';
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
-    import type { LazyConvertibleModifier } from '@/stores/lazy/convertible';
+    import type { LazyConvertibleModifier } from '@/user-home/state/lazy/convertible.svelte';
 
     import type { ConvertibleCategory } from './types';
 
@@ -16,7 +16,7 @@
     $: {
         classData = {};
         for (const [classId, slots] of getNumberKeyedEntries(
-            $lazyStore.convertible.seasons[season.id]
+            lazyState.convertible.seasons[season.id]
         )) {
             classData[classId] = {};
 

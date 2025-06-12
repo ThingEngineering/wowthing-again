@@ -1,14 +1,9 @@
 import { wowthingData } from '@/shared/stores/data';
 import { UserCount } from '@/types';
-import type { UserCounts } from './types';
-import { get } from 'svelte/store';
-import { userAchievementStore } from '@/stores';
 import { userState } from '../user';
+import type { UserCounts } from './types';
 
 export function doCustomizations(): UserCounts {
-    // FIXME: move to state
-    const userAchievementData = get(userAchievementStore);
-
     const counts: UserCounts = {};
     const overallData = (counts['OVERALL'] = new UserCount());
 
@@ -31,7 +26,9 @@ export function doCustomizations(): UserCounts {
 
                     if (
                         (thing.achievementId > 0 &&
-                            !!userAchievementData.achievements[thing.achievementId]) ||
+                            userState.achievements.achievementEarnedById.has(
+                                thing.achievementId
+                            )) ||
                         (thing.questId > 0 && userState.quests.accountHasById.has(thing.questId)) ||
                         (thing.spellId > 0 &&
                             userState.general.characters.some((char) =>

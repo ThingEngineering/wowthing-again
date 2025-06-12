@@ -40,7 +40,6 @@
                 settingsState.value,
                 $timeStore,
                 wowthingData.journal,
-                $lazyStore,
                 $userStore,
                 farm
             );

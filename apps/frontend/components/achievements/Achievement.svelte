@@ -10,6 +10,7 @@
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { userState } from '@/user-home/state/user';
 
     export let achievementId: number;
     export let allAchievementIds: number[] = undefined;
@@ -30,7 +31,7 @@
 
         if (allAchievementIds) {
             for (const possibleId of allAchievementIds) {
-                const possibleEarned = $userAchievementStore.achievements[possibleId];
+                const possibleEarned = userState.achievements.achievementEarnedById.get(possibleId);
                 if (possibleEarned && (!earned || possibleEarned < earned)) {
                     earned = possibleEarned;
                 }

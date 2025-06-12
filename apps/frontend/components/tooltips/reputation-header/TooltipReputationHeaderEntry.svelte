@@ -2,7 +2,6 @@
     import { Constants } from '@/data/constants';
     import { Faction } from '@/enums/faction';
     import { RewardType } from '@/enums/reward-type';
-    import { userStore } from '@/stores';
     import { rewardTypeIcons } from '@/shared/icons/mappings';
     import { wowthingData } from '@/shared/stores/data';
     import type { Character } from '@/types';

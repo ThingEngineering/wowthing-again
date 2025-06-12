@@ -7,7 +7,6 @@
     import { wowthingData } from '@/shared/stores/data';
     import { timeStore } from '@/shared/stores/time';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { userStore } from '@/stores';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import { getProfessionSortKey } from '@/utils/professions';
     import type { CharacterProps } from '@/types/props';
@@ -70,7 +69,6 @@
         {#each professions as profession}
             {@const { amount, percent, tooltip } = getCurrencyData(
                 $timeStore,
-                userStore,
                 character,
                 wowthingData.static.currencyById.get(professionConcentration[profession.id])
             )}

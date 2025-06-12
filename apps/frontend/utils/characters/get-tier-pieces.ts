@@ -1,7 +1,7 @@
 import { typeOrder } from '@/data/inventory-type';
 import { InventoryType } from '@/enums/inventory-type';
 import { wowthingData } from '@/shared/stores/data';
-import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible';
+import type { LazyConvertibleCharacterItem } from '@/user-home/state/lazy/convertible.svelte';
 import type { Character } from '@/types';
 
 type TierPieces = [string, number, number, LazyConvertibleCharacterItem?][];

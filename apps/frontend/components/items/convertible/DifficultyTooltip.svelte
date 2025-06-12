@@ -8,7 +8,7 @@
     import { getGenderedName } from '@/utils/get-gendered-name';
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
     import type { StaticDataCharacterClass } from '@/shared/stores/static/types';
-    import type { LazyConvertibleModifier } from '@/stores/lazy/convertible';
+    import type { LazyConvertibleModifier } from '@/user-home/state/lazy/convertible.svelte';
 
     import CharacterTag from '@/shared/components/CharacterTag.svelte';
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';

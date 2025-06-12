@@ -8,20 +8,19 @@ import type {
     AchievementDataAchievement,
     AchievementDataCriteriaTree,
     UserAchievementData,
-    UserData,
 } from '@/types';
 import type { UserQuestData } from '@/types/data';
 import type { AchievementStatus } from './types';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
+import { userState } from '@/user-home/state/user';
 
 const debugId = 41095;
 
 export function getAchievementStatus(
     achievementData: AchievementData,
     userAchievementData: UserAchievementData,
-    userData: UserData,
     userQuestData: UserQuestData,
-    achievement: AchievementDataAchievement,
+    achievement: AchievementDataAchievement
 ): AchievementStatus {
     const ret: AchievementStatus = {
         characterCounts: [],
@@ -35,11 +34,11 @@ export function getAchievementStatus(
 
     let leaves = 0;
 
-    const characters = userData.characters.filter(
+    const characters = userState.general.characters.filter(
         (char) =>
             (achievement.faction === 0 && char.faction === 1) ||
             (achievement.faction === 1 && char.faction === 0) ||
-            achievement.faction === -1,
+            achievement.faction === -1
     );
     const characterIds = new Set(characters.map((char) => char.id));
 
@@ -47,7 +46,7 @@ export function getAchievementStatus(
         parentCriteriaTree: AchievementDataCriteriaTree,
         criteriaTree: AchievementDataCriteriaTree,
         addStuff = true,
-        first = false,
+        first = false
     ) {
         if (!criteriaTree) {
             return;
@@ -191,7 +190,7 @@ export function getAchievementStatus(
 
     ret.characterCounts = sortBy(
         getNumberKeyedEntries(characterCounts),
-        ([, total]) => 1000000 - total,
+        ([, total]) => 1000000 - total
     );
 
     ret.oneCriteria = leaves === 1;

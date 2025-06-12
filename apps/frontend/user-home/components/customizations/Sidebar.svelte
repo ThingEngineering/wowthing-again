@@ -1,13 +1,12 @@
 <script lang="ts">
-    import { lazyStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
     import { lazyState } from '@/user-home/state/lazy';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
 
     import ProgressBar from '@/components/common/ProgressBar.svelte';
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
-    import { wowthingData } from '@/shared/stores/data';
 
-    export let basePath = '';
+    let { basePath = '' }: { basePath: string } = $props();
 
     let categories: SidebarItem[] = wowthingData.manual.customizationCategories.map((cat) =>
         cat === null
@@ -26,7 +25,7 @@
               }
     );
 
-    $: stats = lazyState.customizations.OVERALL;
+    let stats = $derived(lazyState.customizations.OVERALL);
 
     const percentFunc = function (entry: SidebarItem, parentEntries?: SidebarItem[]) {
         if (parentEntries?.length < 1 && entry.name === 'Expansion') {

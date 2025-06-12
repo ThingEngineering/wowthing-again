@@ -10,28 +10,29 @@ import { UserCount, type UserData } from '@/types';
 import { AppearanceDataAppearance, AppearanceDataSet } from '@/types/data/appearance';
 import { leftPad } from '@/utils/formatting';
 import type { Settings } from '@/shared/stores/settings/types';
-import type { AppearancesState } from '../local-storage';
-
-interface LazyStores {
-    appearanceState: AppearancesState;
-    settings: Settings;
-    userData: UserData;
-}
+import { settingsState } from '@/shared/state/settings.svelte';
+import { appearanceState } from '@/stores/local-storage';
+import { get } from 'svelte/store';
+import { userState } from '../user';
 
 export interface LazyAppearances {
     appearances: Record<string, AppearanceDataSet[]>;
     stats: Record<string, UserCount>;
 }
 
-export function doAppearances(stores: LazyStores): LazyAppearances {
+export function doAppearances(): LazyAppearances {
     const appearanceData = buildAppearanceData();
+
+    const appearanceStateValue = get(appearanceState);
+    const hasAppearanceById = $state.snapshot(userState.general.hasAppearanceById);
+    const hasAppearanceBySource = $state.snapshot(userState.general.hasAppearanceBySource);
 
     const ret: LazyAppearances = {
         appearances: appearanceData,
         stats: {},
     };
 
-    const masochist = stores.settings.transmog.completionistMode;
+    const masochist = settingsState.value.transmog.completionistMode;
     const overallData = (ret.stats['OVERALL'] = new UserCount());
     const overallSeen: Record<string, boolean> = {};
 
@@ -48,7 +49,7 @@ export function doAppearances(stores: LazyStores): LazyAppearances {
                     : appearance.modifiedAppearances.slice(0, 1);
                 for (const modifiedAppearance of checkModified) {
                     if (
-                        stores.appearanceState[`showQuality${modifiedAppearance.quality}`] === false
+                        appearanceStateValue[`showQuality${modifiedAppearance.quality}`] === false
                     ) {
                         continue;
                     }
@@ -66,8 +67,8 @@ export function doAppearances(stores: LazyStores): LazyAppearances {
                     setData.total++;
 
                     const userHas = masochist
-                        ? stores.userData.hasSource.has(sourceKey)
-                        : stores.userData.hasAppearance.has(appearance.appearanceId);
+                        ? hasAppearanceBySource.has(modifiedAppearance.sourceId)
+                        : hasAppearanceById.has(appearance.appearanceId);
                     if (userHas) {
                         if (!overallSeen[sourceKey]) {
                             overallData.have++;

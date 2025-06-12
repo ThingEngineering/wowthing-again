@@ -7,6 +7,7 @@ import {
     type UserAuctionDataMissingRecipeAuctionArray,
     UserAuctionDataMissingRecipeAuction,
 } from '@/types/data';
+import { userState } from '@/user-home/state/user';
 import type { UserData } from '@/types';
 import type { AuctionState } from '../local-storage';
 import type { UserAuctionEntry } from '../user-auctions';
@@ -128,7 +129,7 @@ export class UserAuctionMissingRecipeDataStore {
                 let anyMeetsCollector = false;
 
                 for (const characterId of collectingCharacters[profession.id] || []) {
-                    const character = userData.characterMap[characterId];
+                    const character = userState.general.characterById[characterId];
                     if (!character) {
                         continue;
                     }
@@ -151,7 +152,7 @@ export class UserAuctionMissingRecipeDataStore {
                 let anyMeetsFaction: boolean = undefined;
                 let anyMeetsSpecialization: boolean = undefined;
                 for (const characterId of auctionState.missingRecipeCharacterIds) {
-                    const character = userData.characterMap[characterId];
+                    const character = userState.general.characterById[characterId];
                     if (!character) {
                         continue;
                     }

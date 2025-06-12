@@ -1,15 +1,15 @@
 <script lang="ts">
-    import { lazyStore } from '@/stores'
-    import getPercentClass from '@/utils/get-percent-class'
-    import type { RewardType } from '@/enums/reward-type'
-    import type { UserCount } from '@/types'
+    import { lazyState } from '@/user-home/state/lazy';
+    import getPercentClass from '@/utils/get-percent-class';
+    import type { RewardType } from '@/enums/reward-type';
+    import type { UserCount } from '@/types';
 
-    export let key: string
-    export let type: RewardType
+    export let key: string;
+    export let type: RewardType;
 
-    let counts: UserCount
+    let counts: UserCount;
     $: {
-        counts = $lazyStore.zoneMaps.typeCounts[key]?.[type]
+        counts = lazyState.zoneMaps.typeCounts[key]?.[type];
     }
 </script>
 
@@ -29,5 +29,7 @@
 </style>
 
 {#if counts && counts.total > 0}
-    <div class="{getPercentClass(counts.have / counts.total * 100)}">{counts.have} / {counts.total}</div>
+    <div class={getPercentClass((counts.have / counts.total) * 100)}>
+        {counts.have} / {counts.total}
+    </div>
 {/if}

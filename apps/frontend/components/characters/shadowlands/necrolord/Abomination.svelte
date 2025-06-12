@@ -2,7 +2,6 @@
     import { classIdToArmorType } from '@/data/character-class';
     import { wowthingData } from '@/shared/stores/data';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { userStore } from '@/stores';
     import type { CovenantAbomination } from '@/data/covenant';
     import type { Character, CharacterShadowlandsCovenantFeature } from '@/types';
 

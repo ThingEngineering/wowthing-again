@@ -5,9 +5,9 @@
     import { difficultyMap, journalDifficultyMap, journalDifficultyOrder } from '@/data/difficulty';
     import { PlayableClass, playableClasses } from '@/enums/playable-class';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { userAchievementStore } from '@/stores';
     import { UserCount } from '@/types';
     import { lazyState } from '@/user-home/state/lazy';
+    import { userState } from '@/user-home/state/user';
     import { leftPad } from '@/utils/formatting';
     import type { JournalDataEncounter } from '@/types/data';
 
@@ -31,13 +31,7 @@
                     const statisticIds = encounter?.statistics?.[difficultyId] ?? [];
                     if (statisticIds.length > 0) {
                         const newKills = statisticIds.reduce(
-                            (a, b) =>
-                                a +
-                                ($userAchievementStore.statistics?.[b] || []).reduce(
-                                    (c, d) => c + d[1],
-                                    0
-                                ),
-                            0
+                            (a, b) => a + userState.achievements.statisticById.get(b) || 0
                         );
                         kills = kills === -1 ? newKills : kills + newKills;
                     }

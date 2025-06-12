@@ -15,6 +15,7 @@ import { wowthingData } from '@/shared/stores/data';
 import {
     Character,
     Guild,
+    UserDataCurrentPeriod,
     UserDataPet,
     type Account,
     type CharacterLockout,
@@ -32,6 +33,7 @@ export class DataUserGeneral {
     public accountById: Record<number, Account> = $state({});
     public characters: Character[] = $state([]);
     public characterById: Record<number, Character> = $state({});
+    public currentPeriod: Record<number, UserDataCurrentPeriod> = $state({});
     public guildById: Record<number, Guild> = $state({});
     public petsById: Record<number, UserDataPet[]> = $state({});
     public warbankItems: WarbankItem[] = $state([]);
@@ -170,6 +172,13 @@ export class DataUserGeneral {
         this.honorLevel = userData.honorLevel;
         this.honorMax = userData.honorMax;
         this.warbankGold = userData.warbankGold;
+
+        this.currentPeriod = Object.fromEntries(
+            Object.entries(userData.currentPeriod).map(([region, cp]) => [
+                region,
+                Object.assign(new UserDataCurrentPeriod(), cp),
+            ])
+        );
 
         for (const [heirloomId, level] of getNumberKeyedEntries(userData.heirlooms)) {
             this.heirlooms.set(heirloomId, level);

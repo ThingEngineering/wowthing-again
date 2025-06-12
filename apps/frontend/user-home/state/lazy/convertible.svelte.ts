@@ -6,23 +6,14 @@ import { ItemLocation } from '@/enums/item-location';
 import { inventoryTypeToItemRedundancySlot } from '@/enums/item-redundancy-slot';
 import { PlayableClass, playableClasses } from '@/enums/playable-class';
 import { QuestStatus } from '@/enums/quest-status';
+import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
-import {
-    UserCount,
-    type Character,
-    type CharacterEquippedItem,
-    type CharacterItem,
-    type UserAchievementData,
-    type UserData,
-} from '@/types';
+import { UserCount, type Character, type CharacterEquippedItem, type CharacterItem } from '@/types';
 import { fixedInventoryType } from '@/utils/fixed-inventory-type';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
-import type { UserQuestData } from '@/types/data';
 import type { ItemDataItem } from '@/types/data/item';
-import type { Settings } from '@/shared/stores/settings/types';
 import type { WarbankItem } from '@/types/items';
 import { userState } from '../user';
-import { settingsState } from '@/shared/state/settings.svelte';
 
 export class LazyConvertibleCharacterItem {
     public canAfford = true;
@@ -66,9 +57,11 @@ type SeasonData = Record<number, Record<number, LazyConvertibleSlot>>;
 type WhateverItem = CharacterEquippedItem | CharacterItem | WarbankItem;
 
 export function doConvertible(): LazyConvertible {
-    console.time('doConvertible');
+    console.time('LazyState.doConvertible');
 
     const completionistMode = settingsState.value.transmog.completionistMode;
+    const hasAppearanceById = $state.snapshot(userState.general.hasAppearanceById);
+    const hasAppearanceBySource = $state.snapshot(userState.general.hasAppearanceBySource);
 
     const maskToClass: Record<number, number> = Object.fromEntries(
         playableClasses.map(([name, mask]) => [
@@ -85,6 +78,11 @@ export function doConvertible(): LazyConvertible {
         ([, item]) => fixedInventoryType(item.inventoryType)
     );
 
+    const itemConversionBonusEntries = getNumberKeyedEntries(
+        wowthingData.items.itemConversionBonus
+    );
+
+    const charBagItems: Record<number, CharacterItem[]> = {};
     const itemCounts: Record<number, number> = {};
     const ret: LazyConvertible = {
         seasons: {},
@@ -94,9 +92,9 @@ export function doConvertible(): LazyConvertible {
         const seasonData: SeasonData = (ret.seasons[convertibleCategory.id] = {});
 
         const bonusIds = new Set<number>(
-            Object.entries(wowthingData.items.itemConversionBonus)
+            itemConversionBonusEntries
                 .filter(([, convertSeason]) => convertSeason === convertibleCategory.id)
-                .map(([bonusId]) => parseInt(bonusId))
+                .map(([bonusId]) => bonusId)
         );
 
         const hasUpgrades = convertibleCategory.tiers.some(
@@ -123,8 +121,8 @@ export function doConvertible(): LazyConvertible {
                 (char) => [
                     char,
                     [
-                        ...(char.itemsByLocation?.[ItemLocation.Bags] || []),
-                        ...Object.values(char.equippedItems),
+                        ...char.itemsByLocation.get(ItemLocation.Bags),
+                        // ...Object.values(char.equippedItems),
                         ...(warbankByType[setItemInventoryType] || []).map(([wbi]) => wbi),
                     ].filter(
                         (item) =>
@@ -141,9 +139,9 @@ export function doConvertible(): LazyConvertible {
                 const modifierData = (slotData.modifiers[modifier] = new LazyConvertibleModifier());
 
                 if (completionistMode) {
-                    modifierData.userHas = stores.userData.hasSourceV2.get(modifier).has(setItemId);
+                    modifierData.userHas = hasAppearanceBySource.has(setItemId * 1000 + modifier);
                 } else {
-                    modifierData.userHas = stores.userData.hasAppearance.has(
+                    modifierData.userHas = hasAppearanceById.has(
                         setItem.appearances[modifier]?.appearanceId ?? -1
                     );
                 }
@@ -288,13 +286,8 @@ export function doConvertible(): LazyConvertible {
                         const charArmorType = classIdToArmorType[character.classId];
                         const sourceItemId =
                             convertibleCategory.sources[charArmorType][setItemInventoryType];
-                        const userCount = (itemCounts[sourceItemId] ||= stores.userData.characters
-                            .map((char) =>
-                                (char.itemsById[sourceItemId] || []).reduce(
-                                    (a, b) => a + b.count,
-                                    0
-                                )
-                            )
+                        const userCount = (itemCounts[sourceItemId] ||= userState.general.characters
+                            .map((char) => char.getItemCount(sourceItemId))
                             .reduce((a, b) => a + b, 0));
                         if (userCount > 0) {
                             characterData.push(
@@ -327,9 +320,10 @@ export function doConvertible(): LazyConvertible {
                         for (const purchase of usefulPurchases) {
                             if (
                                 purchase.progressKey &&
-                                stores.userQuestData.characters[character.id]?.progressQuests?.[
-                                    purchase.progressKey
-                                ]?.status === QuestStatus.Completed
+                                userState.quests.characterById
+                                    .get(character.id)
+                                    ?.progressQuestByKey?.get(purchase.progressKey)?.status ===
+                                    QuestStatus.Completed
                             ) {
                                 continue;
                             }
@@ -391,9 +385,9 @@ export function doConvertible(): LazyConvertible {
                                         ] of tier.lowUpgrade) {
                                             const actualCost =
                                                 tier.achievementId &&
-                                                stores.userAchievementData.achievements[
+                                                userState.achievements.achievementEarnedById.has(
                                                     tier.achievementId
-                                                ]
+                                                )
                                                     ? achieveUpgradeCost || upgradeCost
                                                     : upgradeCost;
 
@@ -432,9 +426,9 @@ export function doConvertible(): LazyConvertible {
                                         ] of tier.highUpgrade) {
                                             const actualCost =
                                                 nextTier?.achievementId &&
-                                                stores.userAchievementData.achievements[
+                                                userState.achievements.achievementEarnedById.has(
                                                     nextTier.achievementId
-                                                ]
+                                                )
                                                     ? achieveUpgradeCost || upgradeCost
                                                     : upgradeCost;
 
@@ -520,7 +514,7 @@ export function doConvertible(): LazyConvertible {
         }
     } // for convertibleCategory
 
-    console.timeEnd('doConvertible');
+    console.timeEnd('LazyState.doConvertible');
 
     return ret;
 }

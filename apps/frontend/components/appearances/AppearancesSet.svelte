@@ -2,8 +2,8 @@
     import IntersectionObserver from 'svelte-intersection-observer';
 
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { lazyStore } from '@/stores';
     import { appearanceState } from '@/stores/local-storage';
+    import { lazyState } from '@/user-home/state/lazy';
     import { userState } from '@/user-home/state/user';
     import getPercentClass from '@/utils/get-percent-class';
     import type { AppearanceDataSet } from '@/types/data/appearance';
@@ -13,7 +13,7 @@
 
     let { set, slug }: { set: AppearanceDataSet; slug: string } = $props();
 
-    let counts = $derived($lazyStore.appearances.stats[slug]);
+    let counts = $derived(lazyState.appearances.stats[slug]);
     let masochist = $derived(settingsState.value.transmog.completionistMode);
 
     let element: HTMLElement = $state(null);

@@ -36,7 +36,7 @@ export function getCharacterCommodities(
         const regionCommodities = commodities.regions[character.realm.region];
 
         for (const location of locations) {
-            for (const characterItem of character.itemsByLocation[location] || []) {
+            for (const characterItem of character.itemsByLocation.get(location)) {
                 if (skippedIds.has(characterItem.itemId)) {
                     continue;
                 }

@@ -26,8 +26,8 @@ export interface LazyTransmog {
 export function doTransmog(): LazyTransmog {
     console.time('LazyState.doTransmog');
 
-    const hasAppearanceBySource = $state.snapshot(userState.general.hasAppearanceBySource);
     const hasAppearanceById = $state.snapshot(userState.general.hasAppearanceById);
+    const hasAppearanceBySource = $state.snapshot(userState.general.hasAppearanceBySource);
 
     const ret: LazyTransmog = {
         filteredCategories: [],

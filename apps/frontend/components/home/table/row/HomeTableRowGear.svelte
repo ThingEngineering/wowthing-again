@@ -5,10 +5,10 @@
     import { InventoryType } from '@/enums/inventory-type';
     import { wowthingData } from '@/shared/stores/data';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { lazyStore } from '@/stores';
+    import { lazyState } from '@/user-home/state/lazy';
     import { getTierPieces } from '@/utils/characters/get-tier-pieces';
-    import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible';
     import type { Character } from '@/types';
+    import type { LazyConvertibleCharacterItem } from '@/user-home/state/lazy/convertible.svelte';
 
     import TooltipSet from '@/components/tooltips/tier-set/TooltipTierSet.svelte';
 
@@ -36,7 +36,7 @@
 
         // Convertibles
         const category = convertibleCategories[0];
-        const seasonData = $lazyStore.convertible.seasons[category.id][character.classId];
+        const seasonData = lazyState.convertible.seasons[category.id][character.classId];
         if (!seasonData) {
             break $;
         }

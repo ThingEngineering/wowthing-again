@@ -4,18 +4,16 @@ import type { DateTime } from 'luxon';
 import { journalDifficultyMap } from '@/data/difficulty';
 import { RewardType } from '@/enums/reward-type';
 import { lazyState } from '@/user-home/state/lazy';
+import { userState } from '@/user-home/state/user';
 import { leftPad } from '@/utils/formatting';
 import parseApiTime from '@/utils/parse-api-time';
-import type { Settings } from '@/shared/stores/settings/types';
-import type { FarmStatus, UserData } from '@/types';
+import type { FarmStatus } from '@/types';
 import type { JournalData, JournalDataInstance } from '@/types/data';
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual';
 
 export function getInstanceFarm(
-    settings: Settings,
     currentTime: DateTime,
     journalData: JournalData,
-    userData: UserData,
     farm: ManualDataZoneMapFarm
 ): [FarmStatus, ManualDataZoneMapDrop[]] {
     const drops: ManualDataZoneMapDrop[] = [];
@@ -66,11 +64,8 @@ export function getInstanceFarm(
                 const completedCharacterIds: number[] = [];
                 const lockoutKey = `${instance.id}-${difficulty}`;
 
-                const characters = userData.characters.filter(
-                    (char) =>
-                        char.level > 10 &&
-                        (!settings.characters.hideDisabledAccounts ||
-                            settings.accounts[char.accountId]?.enabled !== false)
+                const characters = userState.general.activeCharacters.filter(
+                    (char) => char.level > 10
                 );
 
                 for (const character of characters) {

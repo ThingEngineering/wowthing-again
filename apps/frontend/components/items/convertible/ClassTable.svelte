@@ -4,7 +4,7 @@
     import { InventoryType } from '@/enums/inventory-type';
     import { uiIcons } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { lazyStore } from '@/stores';
+    import { lazyState } from '@/user-home/state/lazy';
     import getPercentClass from '@/utils/get-percent-class';
     import type { ConvertibleCategory } from './types';
     import type { StaticDataCharacterClass } from '@/shared/stores/static/types';
@@ -20,9 +20,9 @@
     export let playerClass: StaticDataCharacterClass;
     export let season: ConvertibleCategory;
 
-    $: data = $lazyStore.convertible.seasons[season.id]?.[playerClass.id];
+    $: data = lazyState.convertible.seasons[season.id]?.[playerClass.id];
     $: hasEverySlot = convertibleTypes.every((type) => data?.[type]?.modifiers[modifier]?.userHas);
-    $: stats = $lazyStore.convertible.stats[`${season.id}--c${playerClass.id}--m${modifier}`];
+    $: stats = lazyState.convertible.stats[`${season.id}--c${playerClass.id}--m${modifier}`];
 
     const filterFunc = function (char: Character): boolean {
         return (

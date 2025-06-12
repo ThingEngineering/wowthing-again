@@ -121,12 +121,12 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.characterMap = {};
         userData.characters = [];
         userData.hasRecipe = new Set<number>();
-        for (const charArray of userData.charactersRaw || []) {
-            const character = new Character();
-            character.init(...charArray);
-            userData.characters.push(character);
-            userData.characterMap[character.id] = character;
-        }
+        // for (const charArray of userData.charactersRaw || []) {
+        //     const character = new Character();
+        //     character.init(...charArray);
+        //     userData.characters.push(character);
+        //     userData.characterMap[character.id] = character;
+        // }
         userData.charactersRaw = null;
 
         userData.apiUpdatedCharacters = sortBy(
@@ -474,7 +474,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         // item appearance data
         character.itemsByAppearanceId = {};
         character.itemsByAppearanceSource = {};
-        for (const characterItems of Object.values(character.itemsByLocation)) {
+        for (const characterItems of character.itemsByLocation.values()) {
             for (const characterItem of characterItems) {
                 const item = wowthingData.items.items[characterItem.itemId];
                 if (Object.values(item?.appearances || {}).length === 0) {

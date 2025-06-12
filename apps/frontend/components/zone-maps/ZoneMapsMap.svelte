@@ -9,8 +9,8 @@
     import { RewardType } from '@/enums/reward-type';
     import { wowthingData } from '@/shared/stores/data';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { lazyStore } from '@/stores';
     import { zoneMapState } from '@/stores/local-storage/zone-map';
+    import { lazyState } from '@/user-home/state/lazy';
     import { leftPad } from '@/utils/formatting';
     import { toIndexRecord } from '@/utils/to-index-record';
     import type { FarmStatus } from '@/types';
@@ -63,7 +63,7 @@
                     .filter((farm) => !!farm)
             );
 
-            farmStatuses = $lazyStore.zoneMaps.farmStatus[slugKey];
+            farmStatuses = lazyState.zoneMaps.farmStatus[slugKey];
         }
 
         if ($zoneMapState.classFilters[slugKey] === undefined) {

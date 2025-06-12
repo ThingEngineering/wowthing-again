@@ -1,13 +1,9 @@
-import { get } from 'svelte/store';
-
 import { wowthingData } from '@/shared/stores/data';
-import { userStore } from '@/stores';
+import { userState } from '@/user-home/state/user';
 
 export default function connectedRealmName(realmId: number): string {
-    const userData = get(userStore);
-
     const realmNames: Record<string, boolean> = {};
-    for (const character of userData.characters) {
+    for (const character of userState.general.characters) {
         realmNames[character.realm.name] = true;
     }
 

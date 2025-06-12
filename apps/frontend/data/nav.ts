@@ -71,7 +71,7 @@ export const navItems: NavItem[] = [
         text: 'Appearances',
         icon: 'gameClothes',
         showFunc: (settings) => settings.layout.navigationAppearances,
-        percentFunc: () => 0, //lazyStore.appearances?.stats.OVERALL?.percent || 0,
+        percentFunc: () => lazyState.appearances.stats.OVERALL?.percent || 0,
     },
     {
         path: 'customizations/',

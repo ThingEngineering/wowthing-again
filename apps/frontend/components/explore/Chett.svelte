@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { userQuestStore, userStore } from '@/stores';
+    import { userQuestStore } from '@/stores';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import type { Character } from '@/types';
 

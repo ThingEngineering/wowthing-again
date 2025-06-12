@@ -4,7 +4,7 @@
     import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
     import getItemLevelQuality from '@/utils/get-item-level-quality';
-    import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible';
+    import type { LazyConvertibleCharacterItem } from '@/user-home/state/lazy/convertible.svelte';
     import type { CharacterCurrency, Character } from '@/types';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
