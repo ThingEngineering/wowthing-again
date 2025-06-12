@@ -1,12 +1,12 @@
 import type { DateTime } from 'luxon';
-import { get } from 'svelte/store';
 
 import { toNiceDuration, toNiceNumber } from '../formatting';
 import { currencyItemCurrencies, currencyProfession } from '@/data/currencies';
 import { wowthingData } from '@/shared/stores/data';
 import { CharacterCurrency, type Character } from '@/types/character';
+import { userState } from '@/user-home/state/user';
 import type { StaticDataCurrency } from '@/shared/stores/static/types';
-import type { UserDataStore } from '@/stores';
+import { userStore } from '@/stores/user';
 
 interface CharacterCurrencyData {
     amount: string;
@@ -18,7 +18,6 @@ interface CharacterCurrencyData {
 
 export function getCurrencyData(
     time: DateTime,
-    userStore: UserDataStore,
     character: Character,
     currency: StaticDataCurrency = undefined,
     itemId: number = 0
@@ -118,7 +117,7 @@ export function getCurrencyData(
                 ret.tooltip = ret.tooltip.replace('x ', ` / ${item.unique} `);
             }
         } else {
-            const warbankItems = get(userStore).warbankItemsByItemId[itemId] || [];
+            const warbankItems = userState.general.warbankItemsByItemId[itemId] || [];
             const quantity = warbankItems.reduce((a, b) => a + b.count, 0);
             ret.amount = toNiceNumber(quantity);
             ret.tooltip = `${quantity.toLocaleString()}x ${name}`;

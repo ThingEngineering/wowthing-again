@@ -1,6 +1,5 @@
 <script lang="ts">
     import { browserState } from '@/shared/state/browser.svelte';
-    import { userStore } from '@/stores';
     import { getColumnResizer } from '@/utils/get-column-resizer';
 
     import { getCharacterCommodities } from './get-character-commodities';

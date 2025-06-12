@@ -7,19 +7,18 @@ import type {
     AchievementDataAchievement,
     AchievementDataCriteriaTree,
     UserAchievementData,
-    UserData,
 } from '@/types';
 import type { UserQuestData } from '@/types/data';
 import { CriteriaTreeOperator } from '@/enums/wow';
+import { userState } from '@/user-home/state/user';
 
 const debugId = 40882;
 
 export function getAccountData(
     achievementData: AchievementData,
     userAchievementData: UserAchievementData,
-    userData: UserData,
     userQuestData: UserQuestData,
-    achievement: AchievementDataAchievement,
+    achievement: AchievementDataAchievement
 ): AchievementDataAccount {
     //const ctMap = get(achievementStore).criteriaTree
     //const userCrits = get(userAchievementStore).criteria
@@ -27,11 +26,11 @@ export function getAccountData(
     const ret = new AchievementDataAccount();
 
     const characterCounts: Record<number, number> = {};
-    const characters = userData.characters.filter(
+    const characters = userState.general.characters.filter(
         (char) =>
             (achievement.faction === 0 && char.faction === 1) ||
             (achievement.faction === 1 && char.faction === 0) ||
-            achievement.faction === -1,
+            achievement.faction === -1
     );
     // const characterIds = characters.map((char) => char.id);
 
@@ -107,7 +106,7 @@ export function getAccountData(
                 console.log(
                     childTree,
                     achievementData.criteria[childTree.criteriaId],
-                    userAchievementData.criteria[childId],
+                    userAchievementData.criteria[childId]
                 );
             }
 
@@ -121,7 +120,7 @@ export function getAccountData(
                 forceGarrisonTalent[childId]
             ) {
                 const [talentId, minRank] = forceGarrisonTalent[childId];
-                for (const character of userData.characters) {
+                for (const character of userState.general.characters) {
                     for (const garrisonTree of Object.values(character.garrisonTrees || {})) {
                         if (garrisonTree[talentId]) {
                             if (garrisonTree[talentId]?.[0] >= minRank) {
@@ -133,7 +132,7 @@ export function getAccountData(
                 }
             } else if (criteria?.type === CriteriaType.CompleteQuest) {
                 ret.have[childId] = Object.values(userQuestData.characters).filter((char) =>
-                    char.quests?.has(criteria.asset),
+                    char.quests?.has(criteria.asset)
                 ).length;
 
                 // Fall back to criteria lookup
@@ -141,7 +140,7 @@ export function getAccountData(
                     checkCriteria = true;
                 }
             } else if (criteria?.type === CriteriaType.RaiseSkillLine) {
-                for (const character of userData.characters) {
+                for (const character of userState.general.characters) {
                     for (const subProfessions of Object.values(character.professions || {})) {
                         const subProfession = subProfessions[criteria.asset];
                         if (subProfession?.currentSkill >= childTree.amount) {
@@ -160,12 +159,14 @@ export function getAccountData(
                 }
 
                 ret.have[childId] = Math.max(
-                    ...userData.characters.map((char) => char.reputations?.[criteria.asset] || 0),
+                    ...userState.general.characters.map(
+                        (char) => char.reputations?.[criteria.asset] || 0
+                    )
                 );
             } else if (criteria?.type === CriteriaType.HonorMaybe) {
                 console.log(criteria);
                 console.log(childTree);
-                ret.have[childId] = userData.honorLevel || 0;
+                ret.have[childId] = userState.general.honorLevel || 0;
             } else {
                 checkCriteria = true;
             }
@@ -190,7 +191,7 @@ export function getAccountData(
 
     ret.characters = sortBy(
         Object.entries(characterCounts).filter(([, count]) => count > 0),
-        ([characterId, count]) => [10000000 - count, characterId],
+        ([characterId, count]) => [10000000 - count, characterId]
     ).map(([characterId, count]) => [parseInt(characterId), count]);
 
     if (achievement.id === debugId) {

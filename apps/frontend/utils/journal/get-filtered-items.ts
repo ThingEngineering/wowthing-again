@@ -1,8 +1,8 @@
 import { Constants } from '@/data/constants';
+import { wowthingData } from '@/shared/stores/data';
 import type { JournalState } from '@/stores/local-storage';
 import {
     JournalDataEncounterItemAppearance,
-    type JournalData,
     type JournalDataEncounterItem,
     type JournalDataEncounterItemGroup,
 } from '@/types/data';
@@ -26,15 +26,14 @@ const weaponGroups = Object.fromEntries(
         'Warglaive',
         'Shield',
         'Off-hand',
-    ].map((name) => [name, true]),
+    ].map((name) => [name, true])
 );
 
 export default function getFilteredItems(
-    journalData: JournalData,
     journalState: JournalState,
     group: JournalDataEncounterItemGroup,
     classMask: number,
-    instanceExpansion: number,
+    instanceExpansion: number
 ): JournalDataEncounterItem[] {
     const items: JournalDataEncounterItem[] = [];
     for (const item of group.items) {
@@ -46,7 +45,7 @@ export default function getFilteredItems(
         }
 
         // Filter types
-        if (keep && journalData.expandedItem[item.id]) {
+        if (keep && wowthingData.journal.expandedItem[item.id]) {
             keep = journalState.showTokens;
         } else if (keep && group.name === 'Cloth') {
             keep = journalState.showCloth;
@@ -153,8 +152,8 @@ export default function getFilteredItems(
                     new JournalDataEncounterItemAppearance(
                         appearance.appearanceId,
                         appearance.modifierId,
-                        difficulties,
-                    ),
+                        difficulties
+                    )
                 );
             }
         }

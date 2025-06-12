@@ -2,7 +2,8 @@
     import { afterUpdate } from 'svelte';
 
     import { RewardType } from '@/enums/reward-type';
-    import { lazyStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
+    import { lazyState } from '@/user-home/state/lazy';
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import type { MultiSlugParams } from '@/types';
     import type { ManualDataVendorCategory } from '@/types/data/manual';
@@ -11,7 +12,6 @@
     import Costs from './VendorsCosts.svelte';
     import Options from './VendorsOptions.svelte';
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
-    import { wowthingData } from '@/shared/stores/data';
 
     export let params: MultiSlugParams;
 
@@ -56,7 +56,7 @@
                     }
 
                     if (
-                        !$lazyStore.vendors.userHas[
+                        !lazyState.vendors.userHas[
                             `${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`
                         ]
                     ) {
@@ -112,7 +112,7 @@
                 {#if firstCategory && !params.slug2}
                     <SectionTitle
                         title={firstCategory.name}
-                        count={$lazyStore.vendors.stats[params.slug1]}
+                        count={lazyState.vendors.stats[params.slug1]}
                     >
                         <Costs costs={totalCosts.OVERALL} />
                     </SectionTitle>

@@ -13,7 +13,8 @@
     import { RewardType } from '@/enums/reward-type';
     import { rewardTypeIcons } from '@/shared/icons/mappings';
     import { wowthingData } from '@/shared/stores/data';
-    import { achievementStore, lazyStore, userAchievementStore } from '@/stores';
+    import { achievementStore, userAchievementStore } from '@/stores';
+    import { lazyState } from '@/user-home/state/lazy';
     import { userState } from '@/user-home/state/user';
     import { leftPad } from '@/utils/formatting';
     import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
@@ -223,7 +224,7 @@
             {/if}
 
             {#if farm.idType == FarmIdType.Instance}
-                {@const stats = $lazyStore.journal.stats[status.link.replace('/', '--')]}
+                {@const stats = lazyState.journal.stats[status.link.replace('/', '--')]}
                 <tr>
                     <td colspan="3">
                         {stats.have} / {stats.total} unique drops

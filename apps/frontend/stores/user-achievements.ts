@@ -6,6 +6,7 @@ import {
     UserAchievementDataCategory,
     type UserAchievementData,
 } from '@/types/user-achievement-data';
+import { userState } from '@/user-home/state/user';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type { AchievementsState } from '@/stores/local-storage';
 import type { AchievementData } from '@/types/achievement-data';
@@ -23,6 +24,8 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
     initialize(data: UserAchievementData): void {
         console.time('UserAchievementDataStore.initialize');
 
+        userState.achievements.process(data);
+
         data.criteria = {};
         for (const criteriaData of data.rawCriteria) {
             const baseArray: number[][] = (data.criteria[criteriaData[0]] = []);
@@ -38,7 +41,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
         // { characterId: { achievementId: data, ... } }
         for (const characterAchievements of Object.values(data.addonAchievements || {})) {
             for (const [achievementId, addonData] of getNumberKeyedEntries(
-                characterAchievements || {},
+                characterAchievements || {}
             )) {
                 if (addonData.earned) {
                     data.achievements[achievementId] = 1;

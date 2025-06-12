@@ -31,7 +31,7 @@ import type {
 import type { UserData } from '@/types';
 import type { UserQuestData } from '@/types/data';
 import type { VendorState } from '../local-storage';
-import type { LazyTransmog } from './transmog';
+import { userState } from '@/user-home/state/user';
 
 const tierRegex = new RegExp(/ - T\d\d/);
 
@@ -45,7 +45,6 @@ interface LazyStores {
     vendorState: VendorState;
     userData: UserData;
     userQuestData: UserQuestData;
-    lazyTransmog: LazyTransmog;
 }
 
 export function doVendors(stores: LazyStores): LazyVendors {
@@ -254,7 +253,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
     }
 
     // stats
-    const classMask = getTransmogClassMask(stores.settings);
+    const classMask = getTransmogClassMask();
     const masochist = stores.settings.transmog.completionistMode;
 
     let armorClassMask = 0;
@@ -464,10 +463,8 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     }
 
                     const hasDrop = userHasLookup(
-                        stores.settings,
-                        stores.userData,
-                        stores.userQuestData,
-                        stores.lazyTransmog,
+                        userState.general.hasAppearanceById,
+                        userState.general.hasAppearanceBySource,
                         lookupType,
                         lookupId,
                         {

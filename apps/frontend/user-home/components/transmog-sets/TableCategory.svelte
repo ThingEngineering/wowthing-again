@@ -1,15 +1,20 @@
 <script lang="ts">
+    import { classByArmorType } from '@/data/character-class';
     import { Constants } from '@/data/constants';
     import { transmogSets } from '@/data/transmog';
     import { iconLibrary, uiIcons } from '@/shared/icons';
-    import { lazyStore, userStore } from '@/stores';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { basicTooltip } from '@/shared/utils/tooltips';
+    import { userStore } from '@/stores';
     import { transmogSetsState } from '@/stores/local-storage';
     import getPercentClass from '@/utils/get-percent-class';
     import getTransmogSpan from '@/utils/get-transmog-span';
-    import { basicTooltip } from '@/shared/utils/tooltips';
+    import { TransmogSetData } from '@/types';
+    import { lazyState } from '@/user-home/state/lazy';
     import getFilteredSets from '@/utils/transmog/get-filtered-sets';
     import type { ManualDataTransmogCategory, ManualDataTransmogGroup } from '@/types/data/manual';
+
+    import { tradingPostKeys } from './data';
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte';
@@ -17,28 +22,25 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import TableSet from './TableSet.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { TransmogSetData } from '@/types';
-    import { classByArmorType } from '@/data/character-class';
-    import { tradingPostKeys } from './data';
 
-    export let anyClasses: boolean;
-    export let category: ManualDataTransmogCategory;
-    export let skipClasses: Record<string, boolean | number>;
-    export let slugs: string[];
-    export let startSpacer = false;
+    type Props = {
+        anyClasses: boolean;
+        category: ManualDataTransmogCategory;
+        skipClasses: Record<string, boolean | number>;
+        slugs: string[];
+        startSpacer: boolean;
+    };
+    let { anyClasses, category, skipClasses, slugs, startSpacer }: Props = $props();
 
-    let categoryPercent: number;
-    let setKey: string;
-    $: {
-        categoryPercent = $lazyStore.transmog.stats[`${slugs[0]}--${category.slug}`].percent;
-
-        setKey = slugs.join('--');
-    }
+    let categoryPercent = $derived(
+        lazyState.transmog.stats[`${slugs[0]}--${category.slug}`].percent
+    );
+    let setKey = $derived(slugs.join('--'));
 
     const getTransmogSets = function (group: ManualDataTransmogGroup): TransmogSetData[] {
         if (group.type === 'multi') {
             return Object.keys(group.data).map(
-                (_, index) => new TransmogSetData(index.toString(), index),
+                (_, index) => new TransmogSetData(index.toString(), index)
             );
         } else {
             return transmogSets[group.type].sets;
@@ -52,7 +54,7 @@
         } else {
             key = `${slugs[0]}--${category.slug}--${groupIndex}`;
         }
-        return $lazyStore.transmog.stats[key]?.percent;
+        return lazyState.transmog.stats[key]?.percent;
     };
 
     const fakeArmorSpan = function (type: string): number {
@@ -68,10 +70,10 @@
 
     const completionistReady = function (
         group: ManualDataTransmogGroup,
-        _setIndex: number,
+        _setIndex: number
     ): boolean {
         return group.data?.[transmogSets[group.type].sets[0].type]?.every(
-            (groupData) => groupData === null || !!groupData.transmogSetId,
+            (groupData) => groupData === null || !!groupData.transmogSetId
         );
     };
 

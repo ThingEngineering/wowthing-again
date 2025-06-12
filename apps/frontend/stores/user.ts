@@ -49,7 +49,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     initialize(userData: UserData): void {
         console.time('UserDataStore.initialize');
 
-        userState.general.process({ ...userData });
+        userState.general.process(userData);
 
         // Background images
         userData.backgroundList = sortBy(Object.values(userData.backgrounds), (bg) => -bg.id);
@@ -91,29 +91,29 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.hasSource = new Set<string>();
         userData.hasSourceV2 = new Map();
 
-        let lastAppearanceId = 0;
-        for (const diffedAppearanceId of userData.rawAppearanceIds) {
-            const appearanceId = diffedAppearanceId + lastAppearanceId;
-            userData.hasAppearance.add(appearanceId);
-            lastAppearanceId = appearanceId;
-        }
+        // let lastAppearanceId = 0;
+        // for (const diffedAppearanceId of userData.rawAppearanceIds) {
+        //     const appearanceId = diffedAppearanceId + lastAppearanceId;
+        //     userData.hasAppearance.add(appearanceId);
+        //     lastAppearanceId = appearanceId;
+        // }
         userData.rawAppearanceIds = null;
 
         for (let modifier = 0; modifier < 256; modifier++) {
             userData.hasSourceV2.set(modifier, new Set());
         }
 
-        for (const [modifier, diffedItemIds] of getNumberKeyedEntries(
-            userData.rawAppearanceSources
-        )) {
-            let lastItemId = 0;
-            for (const diffedItemId of diffedItemIds) {
-                const itemId = diffedItemId + lastItemId;
-                userData.hasSource.add(`${itemId}_${modifier}`);
-                userData.hasSourceV2.get(modifier).add(itemId);
-                lastItemId = itemId;
-            }
-        }
+        // for (const [modifier, diffedItemIds] of getNumberKeyedEntries(
+        //     userData.rawAppearanceSources
+        // )) {
+        //     let lastItemId = 0;
+        //     for (const diffedItemId of diffedItemIds) {
+        //         const itemId = diffedItemId + lastItemId;
+        //         userData.hasSource.add(`${itemId}_${modifier}`);
+        //         userData.hasSourceV2.get(modifier).add(itemId);
+        //         lastItemId = itemId;
+        //     }
+        // }
         userData.rawAppearanceSources = null;
 
         // Characters
@@ -121,12 +121,12 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.characterMap = {};
         userData.characters = [];
         userData.hasRecipe = new Set<number>();
-        for (const charArray of userData.charactersRaw || []) {
-            const character = new Character();
-            character.init(...charArray);
-            userData.characters.push(character);
-            userData.characterMap[character.id] = character;
-        }
+        // for (const charArray of userData.charactersRaw || []) {
+        //     const character = new Character();
+        //     character.init(...charArray);
+        //     userData.characters.push(character);
+        //     userData.characterMap[character.id] = character;
+        // }
         userData.charactersRaw = null;
 
         userData.apiUpdatedCharacters = sortBy(
@@ -145,10 +145,10 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         // Warbanks
         userData.warbankItems = [];
-        for (const warbankItemArray of userData.rawWarbankItems || []) {
-            const warbankItem = new WarbankItem(...warbankItemArray);
-            userData.warbankItems.push(warbankItem);
-        }
+        // for (const warbankItemArray of userData.rawWarbankItems || []) {
+        //     const warbankItem = new WarbankItem(...warbankItemArray);
+        //     userData.warbankItems.push(warbankItem);
+        // }
         userData.rawWarbankItems = null;
 
         // Temporary until static data loads
@@ -474,7 +474,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         // item appearance data
         character.itemsByAppearanceId = {};
         character.itemsByAppearanceSource = {};
-        for (const characterItems of Object.values(character.itemsByLocation)) {
+        for (const characterItems of character.itemsByLocation.values()) {
             for (const characterItem of characterItems) {
                 const item = wowthingData.items.items[characterItem.itemId];
                 if (Object.values(item?.appearances || {}).length === 0) {

@@ -2,7 +2,7 @@
     import { itemModifierMap } from '@/data/item-modifier';
     import { wowthingData } from '@/shared/stores/data';
     import { getClassesFromMask } from '@/utils/get-classes-from-mask';
-    import type { TransmogSlot } from '@/stores/lazy/transmog';
+    import type { TransmogSlot } from '@/user-home/state/lazy/transmog.svelte';
     import type { ItemDataItem } from '@/types/data/item';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';

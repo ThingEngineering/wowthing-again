@@ -1,5 +1,6 @@
 import type { Settings } from '@/shared/stores/settings/types';
 import type { LazyStore } from '@/stores';
+import { lazyState } from '@/user-home/state/lazy';
 import { userState } from '@/user-home/state/user';
 
 type NavItem = {
@@ -8,7 +9,7 @@ type NavItem = {
     icon: string;
     privateOnly?: boolean;
     showFunc?: (settings: Settings) => boolean;
-    percentFunc?: (lazyStore: LazyStore) => number;
+    percentFunc?: () => number;
 };
 
 export const navItems: NavItem[] = [
@@ -70,35 +71,35 @@ export const navItems: NavItem[] = [
         text: 'Appearances',
         icon: 'gameClothes',
         showFunc: (settings) => settings.layout.navigationAppearances,
-        percentFunc: (lazyStore) => lazyStore.appearances?.stats.OVERALL?.percent || 0,
+        percentFunc: () => lazyState.appearances.stats.OVERALL?.percent || 0,
     },
     {
         path: 'customizations/',
         text: 'Customizations',
         icon: 'gameTotemHead',
         showFunc: (settings) => settings.layout.navigationCustomizations,
-        percentFunc: (lazyStore) => lazyStore.customizations?.OVERALL?.percent || 0,
+        percentFunc: () => lazyState.customizations?.OVERALL?.percent || 0,
     },
     {
         path: 'mounts/',
         text: 'Mounts',
         icon: 'mdiUnicorn',
         showFunc: (settings) => settings.layout.navigationMounts,
-        percentFunc: (lazyStore) => userState.mounts?.stats?.OVERALL?.percent || 0,
+        percentFunc: () => userState.mounts?.stats?.OVERALL?.percent || 0,
     },
     {
         path: 'pets/',
         text: 'Pets',
         icon: 'mdiDuck',
         showFunc: (settings) => settings.layout.navigationPets,
-        percentFunc: (lazyStore) => userState.pets?.stats?.OVERALL?.percent || 0,
+        percentFunc: () => userState.pets?.stats?.OVERALL?.percent || 0,
     },
     {
         path: 'toys/',
         text: 'Toys',
         icon: 'mdiDiceMultiple',
         showFunc: (settings) => settings.layout.navigationToys,
-        percentFunc: (lazyStore) => userState.toys?.stats?.OVERALL?.percent || 0,
+        percentFunc: () => userState.toys?.stats?.OVERALL?.percent || 0,
     },
     null,
     {

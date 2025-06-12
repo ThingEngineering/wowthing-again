@@ -1,17 +1,13 @@
 import { LookupType } from '@/enums/lookup-type';
 import { wowthingData } from '@/shared/stores/data';
-import { fixedInventoryType } from '../fixed-inventory-type';
-import { isRecipeKnown } from '../professions/is-recipe-known';
-import type { Settings } from '@/shared/stores/settings/types/settings';
-import type { LazyTransmog } from '@/stores/lazy/transmog';
-import type { UserQuestData } from '@/types/data';
-import type { UserData } from '@/types/user-data';
+import { lazyState } from '@/user-home/state/lazy';
+import { userState } from '@/user-home/state/user';
+import { fixedInventoryType } from '@/utils/fixed-inventory-type';
+import { isRecipeKnown } from '@/utils/professions/is-recipe-known';
 
 export function userHasLookup(
-    settings: Settings,
-    userData: UserData,
-    userQuestData: UserQuestData,
-    lazyTransmog: LazyTransmog,
+    hasAppearanceById: Set<number>,
+    hasAppearanceBySource: Set<number>,
     type: LookupType,
     id: number,
     {
@@ -25,23 +21,23 @@ export function userHasLookup(
     }
 ): boolean {
     if (type === LookupType.Illusion) {
-        return userData.hasIllusion.has(appearanceIds[0]);
+        return userState.general.hasIllusionByEnchantmentId.has(appearanceIds[0]);
     } else if (type === LookupType.Mount) {
-        return !!userData.hasMount?.[id];
+        return userState.general.hasMountById.has(id);
     } else if (type === LookupType.Pet) {
-        return !!userData.hasPet?.[id];
+        return userState.general.hasPetById.has(id);
     } else if (type === LookupType.Toy) {
-        return !!userData.hasToy?.[id];
+        return userState.general.hasToyByItemId.has(id);
     } else if (type === LookupType.Recipe) {
         const abilityInfo = wowthingData.static.professionAbilityByAbilityId.get(id);
-        return isRecipeKnown({ settings, userData }, { abilityInfo });
+        return isRecipeKnown({ abilityInfo });
     } else if (type === LookupType.Quest) {
-        return accountTrackingQuest(userQuestData, [id]);
+        return accountTrackingQuest([id]);
     } else if (type === LookupType.Spell) {
-        return userData.characters.some((char) => char.knownSpells?.includes(id));
+        return userState.general.characters.some((char) => char.knownSpells?.includes(id));
     } else if (type === LookupType.TransmogSet) {
         const statsKey = `ensemble:${id}`;
-        const stats = lazyTransmog.stats[statsKey];
+        const stats = lazyState.transmog.stats[statsKey];
         return stats?.percent >= 100;
     } else if (type === LookupType.Transmog) {
         if (appearanceIds?.[0] > 0) {
@@ -52,7 +48,7 @@ export function userHasLookup(
                 for (const [itemId] of appearanceItemsAndModifiers) {
                     const appearanceItem = wowthingData.items.items[itemId];
                     const invType = fixedInventoryType(appearanceItem.inventoryType);
-                    bySlot[invType] ||= userData.hasAppearance.has(appearanceId);
+                    bySlot[invType] ||= hasAppearanceById.has(appearanceId);
                 }
             }
             return Object.values(bySlot).every((hasSlot) => !!hasSlot);
@@ -73,10 +69,10 @@ export function userHasLookup(
             }
 
             if (completionist) {
-                return userData.hasSourceV2.get(itemModifier).has(id);
+                return hasAppearanceBySource.has(id * 1000 + itemModifier);
             } else {
                 const appearanceId = item.appearances?.[itemModifier]?.appearanceId || 0;
-                return userData.hasAppearance.has(appearanceId);
+                return hasAppearanceById.has(appearanceId);
             }
         }
     }
@@ -84,12 +80,12 @@ export function userHasLookup(
     return false;
 }
 
-function accountTrackingQuest(userQuestData: UserQuestData, questIds: number[]): boolean {
+function accountTrackingQuest(questIds: number[]): boolean {
     return questIds.some(
         (questId) =>
-            userQuestData.accountHas?.has(questId) ||
-            Object.values(userQuestData.characters).some(
-                (charData) => charData?.dailyQuests?.has(questId) || charData?.quests?.has(questId)
+            userState.quests.accountHasById.has(questId) ||
+            Array.from(userState.quests.characterById.values()).some((charData) =>
+                charData.hasQuestById.has(questId)
             )
     );
 }

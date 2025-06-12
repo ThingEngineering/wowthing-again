@@ -1,16 +1,10 @@
 import type { Settings } from '@/shared/stores/settings/types/settings';
-import type { LazyTransmog } from '@/stores/lazy/transmog';
-import type { UserData } from '@/types';
-import type { UserQuestData } from '@/types/data';
 import type { ManualDataZoneMapDrop } from '@/types/data/manual';
 
 import userHasDrop from './user-has-drop';
 
 export function getVendorDropStats(
     settings: Settings,
-    userData: UserData,
-    userQuestData: UserQuestData,
-    lazyTransmog: LazyTransmog,
     masochist: boolean,
     drop: ManualDataZoneMapDrop
 ): [number, number] {
@@ -21,9 +15,6 @@ export function getVendorDropStats(
     for (const vendorItem of drop.vendorItems) {
         const hasDrop = userHasDrop(
             settings,
-            userData,
-            userQuestData,
-            lazyTransmog,
             vendorItem.type,
             vendorItem.id,
             vendorItem.appearanceIds

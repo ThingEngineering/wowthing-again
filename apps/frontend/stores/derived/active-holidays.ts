@@ -3,19 +3,17 @@ import type { DateTime } from 'luxon';
 
 import { holidayMap } from '@/data/holidays';
 import { Holiday } from '@/enums/holiday';
-import { timeStore } from '@/shared/stores/time';
-import type { StaticDataHoliday } from '@/shared/stores/static/types';
-
-import { userStore } from '../user';
-import { userState } from '@/user-home/state/user';
 import { wowthingData } from '@/shared/stores/data';
+import { timeStore } from '@/shared/stores/time';
+import { userState } from '@/user-home/state/user';
+import type { StaticDataHoliday } from '@/shared/stores/static/types';
 
 export type ActiveHolidays = Record<string, StaticDataHoliday>;
 
 const cachedActive: Record<number, ActiveHolidays> = {};
 const cachedTime: Record<number, DateTime> = {};
 
-export const activeHolidays = derived([timeStore, userStore], ([$timeStore]) => {
+export const activeHolidays = derived([timeStore], ([$timeStore]) => {
     const allRegions = userState.general.allRegions || [];
     if (allRegions.length === 0) {
         return {} as ActiveHolidays;

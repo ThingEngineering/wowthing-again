@@ -2,7 +2,6 @@
     import { Constants } from '@/data/constants';
     import { timeStore } from '@/shared/stores/time';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { userStore } from '@/stores';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import type { StaticDataCurrency } from '@/shared/stores/static/types';
     import type { Character } from '@/types/character';
@@ -14,7 +13,6 @@
 
     $: ({ amount, amountRaw, percent, tooltip } = getCurrencyData(
         $timeStore,
-        userStore,
         character,
         currency,
         itemId

@@ -316,6 +316,7 @@ export const currencyItems: Record<number, number[]> = {
         229899, // Coffer Key Shard
         235897, // Radiant Echo
         230793, // Algari Token of Merit
+        237578, // Counterfeit Dealer's Chip
         230905, // Fractured Spark of Fortunes
         230906, // Spark of Fortunes
         230937, // Enchanted Weathered Undermine Crest
@@ -502,7 +503,7 @@ const skipCurrencies: number[] = [
 ];
 
 export const skipCurrenciesMap: Record<number, boolean> = Object.fromEntries(
-    skipCurrencies.map((currencyId) => [currencyId, true]),
+    skipCurrencies.map((currencyId) => [currencyId, true])
 );
 
 export const pvpCurrencies = new Set<number>([

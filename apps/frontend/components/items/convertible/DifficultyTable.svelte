@@ -7,7 +7,7 @@
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { getGenderedName } from '@/utils/get-gendered-name';
     import getPercentClass from '@/utils/get-percent-class';
-    import type { LazyConvertibleModifier } from '@/stores/lazy/convertible';
+    import type { LazyConvertibleModifier } from '@/user-home/state/lazy/convertible.svelte';
 
     import { convertibleTypes } from './data';
 

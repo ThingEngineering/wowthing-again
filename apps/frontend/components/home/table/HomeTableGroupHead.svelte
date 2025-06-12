@@ -3,7 +3,6 @@
 
     import { iconStrings } from '@/data/icons';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { userStore } from '@/stores';
     import { homeState } from '@/stores/local-storage';
     import { sharedState } from '@/shared/state/shared.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
@@ -39,7 +38,7 @@
         isPublic = sharedState.public;
 
         commonSpan = settingsState.activeView.commonFields.filter(
-            (field) => !(field === 'accountTag' && !settingsState.useAccountTags),
+            (field) => !(field === 'accountTag' && !settingsState.useAccountTags)
         ).length;
 
         gold = sumBy(group, (c: Character) => c.gold);

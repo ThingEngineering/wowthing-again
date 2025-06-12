@@ -1,4 +1,5 @@
 import sortBy from 'lodash/sortBy';
+import { get } from 'svelte/store';
 
 import { classMaskOrderMap } from '@/data/character-class';
 import { journalDifficultyMap } from '@/data/difficulty';
@@ -8,38 +9,35 @@ import { BindType } from '@/enums/bind-type';
 import { playableClasses, PlayableClassMask } from '@/enums/playable-class';
 import { RewardType } from '@/enums/reward-type';
 import { wowthingData } from '@/shared/stores/data';
-import { UserCount, type UserData } from '@/types';
+import { UserCount } from '@/types';
 import { leftPad } from '@/utils/formatting';
 import getFilteredItems from '@/utils/journal/get-filtered-items';
-import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import { isRecipeKnown } from '@/utils/professions/is-recipe-known';
-import { JournalDataEncounterItem, type UserQuestData } from '@/types/data';
-import type { Settings } from '@/shared/stores/settings/types';
-
-import type { JournalState } from '../local-storage';
+import { JournalDataEncounterItem } from '@/types/data';
+import { settingsState } from '@/shared/state/settings.svelte';
+import { journalState } from '@/stores/local-storage/journal';
+import { userState } from '../user';
 
 export interface LazyJournal {
     filteredItems: Record<string, JournalDataEncounterItem[]>;
     stats: Record<string, UserCount>;
 }
 
-interface LazyStores {
-    settings: Settings;
-    journalState: JournalState;
-    userData: UserData;
-    userQuestData: UserQuestData;
-}
-
-export function doJournal(stores: LazyStores): LazyJournal {
-    console.time('LazyStore.doJournal');
+export function doJournal(): LazyJournal {
+    console.time('LazyState.doJournal');
 
     const ret: LazyJournal = {
         filteredItems: {},
         stats: {},
     };
 
-    const classMask = getTransmogClassMask(stores.settings);
-    const masochist = stores.settings.transmog.completionistMode;
+    const hasAppearanceById = $state.snapshot(userState.general.hasAppearanceById);
+    const hasAppearanceBySource = $state.snapshot(userState.general.hasAppearanceBySource);
+
+    const journalStateValue = get(journalState);
+
+    const classMask = settingsState.transmogClassMask;
+    const masochist = settingsState.value.transmog.completionistMode;
 
     const overallStats = (ret.stats['OVERALL'] = new UserCount());
     const overallDungeonStats = (ret.stats['dungeons'] = new UserCount());
@@ -76,7 +74,8 @@ export function doJournal(stores: LazyStores): LazyJournal {
                 const encounterStats = (ret.stats[encounterKey] = new UserCount());
                 const encounterSeen = new Set<string>();
 
-                if (!stores.journalState.showTrash && encounter.name === 'Trash Drops') {
+                // FIXME: journal state -> browser state
+                if (!journalStateValue.showTrash && encounter.name === 'Trash Drops') {
                     continue;
                 }
 
@@ -86,8 +85,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                     const groupSeen = new Set<string>();
 
                     let filteredItems = getFilteredItems(
-                        wowthingData.journal,
-                        stores.journalState,
+                        journalStateValue,
                         group,
                         classMask,
                         instanceExpansion
@@ -193,21 +191,23 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                     oppositeKey = `${actualItem.oppositeFactionId}_${appearance.modifierId}`;
                                 }
 
-                                appearance.userHas = stores.userData.hasSource.has(appearanceKey);
+                                appearance.userHas = hasAppearanceBySource.has(
+                                    item.id * 1000 + appearance.modifierId
+                                );
 
                                 if (
                                     !masochist &&
                                     !appearance.userHas &&
-                                    stores.userData.hasAppearance.has(appearance.appearanceId)
+                                    hasAppearanceById.has(appearance.appearanceId)
                                 ) {
                                     // Make sure that the class mask of this item is actually collected
-                                    appearance.userHas =
-                                        item.classMask === 0 ||
-                                        (stores.userData.appearanceMask.get(
+                                    // FIXME: appearanceMask
+                                    appearance.userHas = item.classMask === 0; /*||
+                                        (userState.general.appearanceMask.get(
                                             appearance.appearanceId
                                         ) &
                                             item.classMask) ===
-                                            item.classMask;
+                                            item.classMask;*/
 
                                     appearanceKey = appearance.appearanceId.toString();
                                 }
@@ -219,17 +219,25 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                         item.appearances[0].appearanceId
                                     ).enchantmentId;
                                     appearance.userHas =
-                                        stores.userData.hasIllusion.has(enchantmentId);
+                                        userState.general.hasIllusionByEnchantmentId.has(
+                                            enchantmentId
+                                        );
                                 } else if (item.type === RewardType.Recipe) {
-                                    appearance.userHas = isRecipeKnown(stores, { itemId: item.id });
+                                    appearance.userHas = isRecipeKnown({ itemId: item.id });
                                 } else if (item.type === RewardType.Mount) {
-                                    appearance.userHas = stores.userData.hasMount?.[item.classId];
+                                    appearance.userHas = userState.general.hasMountById.has(
+                                        item.classId
+                                    );
                                 } else if (item.type === RewardType.Pet) {
-                                    appearance.userHas = stores.userData.hasPet?.[item.classId];
+                                    appearance.userHas = userState.general.hasPetById.has(
+                                        item.classId
+                                    );
                                 } else if (item.type === RewardType.Toy) {
-                                    appearance.userHas = stores.userData.hasToy?.[item.id];
+                                    appearance.userHas = userState.general.hasToyByItemId.has(
+                                        item.id
+                                    );
                                 } else if (item.type === RewardType.Quest) {
-                                    appearance.userHas = stores.userQuestData.accountHas.has(
+                                    appearance.userHas = userState.quests.accountHasById.has(
                                         item.id
                                     );
                                 }
@@ -351,8 +359,8 @@ export function doJournal(stores: LazyStores): LazyJournal {
                         }
 
                         if (
-                            (stores.journalState.showUncollected && !allCollected) ||
-                            (stores.journalState.showCollected && allCollected)
+                            (journalStateValue.showUncollected && !allCollected) ||
+                            (journalStateValue.showCollected && allCollected)
                         ) {
                             item.show = true;
                         }
@@ -437,12 +445,12 @@ export function doJournal(stores: LazyStores): LazyJournal {
 
                     ret.filteredItems[groupKey] = filteredItems;
                     //group.filteredItems = filteredItems
-                }
-            }
-        }
-    }
+                } //group
+            } // encounter
+        } // instance
+    } // tier
 
-    console.timeEnd('LazyStore.doJournal');
+    console.timeEnd('LazyState.doJournal');
 
     return ret;
 }

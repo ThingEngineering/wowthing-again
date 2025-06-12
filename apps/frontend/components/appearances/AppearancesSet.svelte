@@ -2,8 +2,9 @@
     import IntersectionObserver from 'svelte-intersection-observer';
 
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { lazyStore, userStore } from '@/stores';
     import { appearanceState } from '@/stores/local-storage';
+    import { lazyState } from '@/user-home/state/lazy';
+    import { userState } from '@/user-home/state/user';
     import getPercentClass from '@/utils/get-percent-class';
     import type { AppearanceDataSet } from '@/types/data/appearance';
 
@@ -12,7 +13,7 @@
 
     let { set, slug }: { set: AppearanceDataSet; slug: string } = $props();
 
-    let counts = $derived($lazyStore.appearances.stats[slug]);
+    let counts = $derived(lazyState.appearances.stats[slug]);
     let masochist = $derived(settingsState.value.transmog.completionistMode);
 
     let element: HTMLElement = $state(null);
@@ -36,10 +37,10 @@
                         )}
                         {#each modifiedAppearances as modifiedAppearance (modifiedAppearance)}
                             {@const has = masochist
-                                ? $userStore.hasSourceV2
-                                      .get(modifiedAppearance.modifier)
-                                      .has(modifiedAppearance.itemId)
-                                : $userStore.hasAppearance.has(appearance.appearanceId)}
+                                ? userState.general.hasAppearanceBySource.has(
+                                      modifiedAppearance.sourceId
+                                  )
+                                : userState.general.hasAppearanceById.has(appearance.appearanceId)}
                             {@const show =
                                 ((has && $appearanceState.showCollected) ||
                                     (!has && $appearanceState.showUncollected)) &&

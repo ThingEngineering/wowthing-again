@@ -1,24 +1,28 @@
 <script lang="ts">
-    import IntersectionObserver from 'svelte-intersection-observer'
+    import IntersectionObserver from 'svelte-intersection-observer';
 
-    import { lazyStore } from '@/stores'
-    import getPercentClass from '@/utils/get-percent-class'
-    import type { JournalDataEncounterItem, JournalDataEncounterItemGroup, JournalDataInstance } from '@/types/data'
+    import { lazyState } from '@/user-home/state/lazy';
+    import getPercentClass from '@/utils/get-percent-class';
+    import type {
+        JournalDataEncounterItem,
+        JournalDataEncounterItemGroup,
+        JournalDataInstance,
+    } from '@/types/data';
 
-    import CollectibleCount from '@/components/collectible/CollectibleCount.svelte'
-    import Item from './JournalItem.svelte'
+    import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
+    import Item from './JournalItem.svelte';
 
-    export let bonusIds: Record<number, number>
-    export let group: JournalDataEncounterItemGroup
-    export let groupKey: string
-    export let instance: JournalDataInstance
-    export let useV2: boolean
+    export let bonusIds: Record<number, number>;
+    export let group: JournalDataEncounterItemGroup;
+    export let groupKey: string;
+    export let instance: JournalDataInstance;
+    export let useV2: boolean;
 
-    let element: HTMLElement
-    let intersected: boolean
-    let items: JournalDataEncounterItem[]
+    let element: HTMLElement;
+    let intersected: boolean;
+    let items: JournalDataEncounterItem[];
     $: {
-        items = $lazyStore.journal.filteredItems[groupKey].filter((item) => item.show)
+        items = (lazyState.journal.filteredItems[groupKey] || []).filter((item) => item.show);
     }
 </script>
 
@@ -35,29 +39,18 @@
 </style>
 
 {#if items.length > 0}
-    {@const stats = $lazyStore.journal.stats[groupKey]}
+    {@const stats = lazyState.journal.stats[groupKey]}
     <div class="collection{useV2 ? '-v2' : ''}-group">
         <h4 class="drop-shadow {getPercentClass(stats.percent)}">
             {group.name}
             <CollectibleCount counts={stats} />
         </h4>
 
-        <div
-            bind:this={element}
-            class="collection-objects"
-        >
-            <IntersectionObserver
-                bind:intersecting={intersected}
-                once
-                {element}
-            >
+        <div bind:this={element} class="collection-objects">
+            <IntersectionObserver bind:intersecting={intersected} once {element}>
                 {#if intersected}
                     {#each items as item}
-                        <Item
-                            {bonusIds}
-                            {instance}
-                            {item}
-                        />
+                        <Item {bonusIds} {instance} {item} />
                     {/each}
                 {/if}
             </IntersectionObserver>

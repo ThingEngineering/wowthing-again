@@ -1,10 +1,11 @@
 import sortBy from 'lodash/sortBy';
 
-import type { Character, UserData } from '@/types';
+import type { Character } from '@/types';
+import { userState } from '@/user-home/state/user';
 
-export default function getAccountCharacters(userData: UserData, accountId: number): Character[] {
+export default function getAccountCharacters(accountId: number): Character[] {
     return sortBy(
-        userData.characters.filter((character) => character.accountId === accountId),
-        (character) => character.name,
+        userState.general.characters.filter((character) => character.accountId === accountId),
+        (character) => character.name
     );
 }

@@ -2,7 +2,7 @@
     import { afterUpdate } from 'svelte';
     import active from 'svelte-spa-router/active';
 
-    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import getSavedRoute from '@/utils/get-saved-route';
     import type { Guild } from '@/types';
 
@@ -15,8 +15,8 @@
     let maxTab: number;
     $: {
         const [realmSlug, guildSlug] = slug1.split('--', 2);
-        guild = Object.values($userStore.guildMap).find(
-            (guild) => guild.realm.slug === realmSlug && guild.slug === guildSlug,
+        guild = Object.values(userState.general.guildById).find(
+            (guild) => guild.realm.slug === realmSlug && guild.slug === guildSlug
         );
 
         maxTab = Math.max(0, ...(guild?.items || []).map((item) => item.tabId));

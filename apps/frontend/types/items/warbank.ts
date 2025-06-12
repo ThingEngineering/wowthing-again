@@ -24,7 +24,7 @@ export class WarbankItem /*implements UserItem*/ {
         public quality: ItemQuality,
         public suffix: number,
         bonusIds?: number[],
-        gemIds?: number[],
+        gemIds?: number[]
     ) {
         this.enchantmentIds = enchantId ? [enchantId] : [];
         this.bonusIds = bonusIds || [];

@@ -4,8 +4,10 @@ import { wowthingData } from '@/shared/stores/data';
 import type { ManualDataHeirloomItem } from '@/types/data/manual/heirloom';
 import type { ManualDataIllusionItem } from '@/types/data/manual/illusion';
 
+import { DataUserAchievements } from './achievements.svelte';
 import { DataUserDerived } from './derived.svelte';
 import { DataUserGeneral } from './general.svelte';
+import { DataUserQuests } from './quests.svelte';
 
 type GenericCategory<T> = {
     name: string;
@@ -22,10 +24,10 @@ type DoGenericParameters<T, U> = {
 type UserCounts = Record<string, UserCount>;
 
 class UserState {
+    public achievements = new DataUserAchievements();
     public derived = new DataUserDerived();
     public general = new DataUserGeneral();
-    // userAchievementData: UserAchievementData;
-    // userQuestData: UserQuestData;
+    public quests = new DataUserQuests();
 
     public heirloomStats = $derived.by(() => this._heirlooms());
     public illusionStats = $derived.by(() => this._illusions());

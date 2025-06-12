@@ -1,14 +1,14 @@
 import sortBy from 'lodash/sortBy';
-import { get, writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 
 import { ItemLocation } from '@/enums/item-location';
 import { ItemQuality } from '@/enums/item-quality';
-import { userStore } from '@/stores/user';
 import type {
     ItemSearchResponseCharacter,
     ItemSearchResponseGuildBank,
     ItemSearchResponseItem,
 } from '@/types/items';
+import { userState } from '@/user-home/state/user';
 
 type ItemSearchGroupBy = 'character' | 'item';
 
@@ -41,7 +41,6 @@ export class ItemSearchState {
 
         if (response.ok) {
             const result = (await response.json()) as ItemSearchResponseItem[];
-            const userData = get(userStore);
 
             for (const item of result) {
                 // Combine character items into a single stack
@@ -66,10 +65,11 @@ export class ItemSearchState {
                     newCharacters.push(character);
                 }
 
-                item.characters = sortBy(newCharacters, (char) => [
-                    userData.characterMap[char.characterId].realm.region,
-                    userData.characterMap[char.characterId].realm.name,
-                ]);
+                item.characters = sortBy(newCharacters, (characterResposne) => {
+                    const character =
+                        userState.general.characterById[characterResposne.characterId];
+                    return [character.realm.region, character.realm.name];
+                });
 
                 // Combine guild items into a single stack
                 const guildBankMap: Record<string, ItemSearchResponseGuildBank[]> = {};
@@ -93,13 +93,16 @@ export class ItemSearchState {
                     newGuildBanks.push(guildBank);
                 }
 
-                item.guildBanks = sortBy(newGuildBanks, (guild) => [
-                    userData.guildMap[guild.guildId].realm.region,
-                    userData.guildMap[guild.guildId].realm.name,
-                    userData.guildMap[guild.guildId].name,
-                    guild.tab,
-                    guild.slot,
-                ]);
+                item.guildBanks = sortBy(newGuildBanks, (guildResponse) => {
+                    const guild = userState.general.guildById[guildResponse.guildId];
+                    return [
+                        guild.realm.region,
+                        guild.realm.name,
+                        guild.name,
+                        guildResponse.tab,
+                        guildResponse.slot,
+                    ];
+                });
             }
 
             return result;

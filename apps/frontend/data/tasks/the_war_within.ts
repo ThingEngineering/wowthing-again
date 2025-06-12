@@ -410,10 +410,17 @@ export const twwChores11_1_5: Chore[] = [
     },
 ];
 
-export const twwHorrificVisions: Chore[] = [1, 2, 3, 4, 5].map((n) => ({
-    taskKey: `twwHorrific${n}`,
-    taskName: `[W] Horrific Visions ${n} mask`,
+export const twwHorrificVisions: Chore[] = (<[number, string][]>[
+    [88905, 'Kill boss'],
+    [88908, '0 mask clear'],
+    [88909, '1 mask clear'],
+    [88910, '2 mask clear'],
+    [88911, '3 mask clear'],
+    [88912, '4 mask clear'],
+]).map(([questId, name]) => ({
+    taskKey: `twwHorrific${questId}`,
+    taskName: `[W] ${name}`,
     minimumLevel: 80,
-    questIds: [88907 + n],
+    questIds: [questId],
     questReset: DbResetType.Weekly,
 }));

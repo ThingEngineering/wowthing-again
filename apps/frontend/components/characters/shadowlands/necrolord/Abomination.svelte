@@ -2,13 +2,13 @@
     import { classIdToArmorType } from '@/data/character-class';
     import { wowthingData } from '@/shared/stores/data';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { userStore } from '@/stores';
     import type { CovenantAbomination } from '@/data/covenant';
     import type { Character, CharacterShadowlandsCovenantFeature } from '@/types';
 
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { userState } from '@/user-home/state/user';
 
     export let abomination: CovenantAbomination;
     export let character: Character;
@@ -25,7 +25,7 @@
         if (abomination.itemIds) {
             const itemIndex = classIdToArmorType[character.classId] - 1;
             questItemId = abomination.itemIds[itemIndex];
-            userHasQuestItem = $userStore.hasSourceV2.get(0).has(questItemId);
+            userHasQuestItem = userState.general.hasAppearanceBySource.has(questItemId * 1000);
         }
     }
 </script>

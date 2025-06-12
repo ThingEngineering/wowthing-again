@@ -10,6 +10,7 @@ import type {
     UserData,
 } from '@/types';
 import type { ManualDataReputationSet } from '@/types/data/manual';
+import { userState } from '@/user-home/state/user';
 
 interface GetRenownDataParameters {
     character?: Character;
@@ -44,7 +45,7 @@ export function getRenownData({
         return ret;
     }
 
-    character ||= userData.characters[0];
+    character ||= userState.general.characters[0];
 
     ret.characterRep = character.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
     ret.dataRep = wowthingData.static.reputationById.get(ret.characterRep.reputationId);

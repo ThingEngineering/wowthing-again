@@ -6,6 +6,7 @@ import { userModifiedStore } from './user-modified';
 import { WritableFancyStore } from '@/types/fancy-store';
 import { UserQuestDataCharacterProgress, type UserQuestData } from '@/types/data';
 import parseApiTime from '@/utils/parse-api-time';
+import { userState } from '@/user-home/state/user';
 
 export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
     get dataUrl(): string {
@@ -19,6 +20,8 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
 
     initialize(userQuestData: UserQuestData): void {
         console.time('UserQuestDataStore.initialize');
+
+        userState.quests.process(userQuestData);
 
         if (userQuestData.accountHas === undefined) {
             userQuestData.accountHas = new Set<number>(userQuestData.account || []);
@@ -50,10 +53,10 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
             characterData.progressQuests ||= {};
             if (characterData.rawProgressQuests) {
                 for (const [questKey, questArray] of Object.entries(
-                    characterData.rawProgressQuests,
+                    characterData.rawProgressQuests
                 )) {
                     characterData.progressQuests[questKey] = new UserQuestDataCharacterProgress(
-                        ...questArray,
+                        ...questArray
                     );
                 }
 

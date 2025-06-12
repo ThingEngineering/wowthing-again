@@ -7,7 +7,6 @@ import {
 import { Holiday } from '@/enums/holiday';
 import { Profession } from '@/enums/profession';
 import { DbResetType } from '@/shared/stores/db/enums';
-import { userQuestStore } from '@/stores';
 import type { Character } from '@/types';
 import type { TaskProfession } from '@/types/data';
 import type { Chore, Task } from '@/types/tasks';
@@ -21,6 +20,7 @@ import {
     twwHorrificVisions,
 } from './the_war_within';
 import { wowthingData } from '@/shared/stores/data';
+import { userState } from '@/user-home/state/user';
 
 const nameFire = '<span class="status-warn">:fire:</span>';
 const nameQuest = '<span class="status-shrug">:exclamation:</span>';
@@ -438,11 +438,15 @@ export const taskMap: Record<string, Task> = Object.fromEntries(
 );
 
 function garrisonCouldGet(char: Character): boolean {
-    return userQuestStore.hasAny(char.id, 36592) || userQuestStore.hasAny(char.id, 36567);
+    return [36592, 36567].some((questId) =>
+        userState.quests.characterById.get(char.id).hasQuestById.has(questId)
+    );
 }
 
 function winterVeilCouldGet(char: Character): boolean {
-    return userQuestStore.hasAny(char.id, 36615) || userQuestStore.hasAny(char.id, 36614);
+    return [36615, 36614].some((questId) =>
+        userState.quests.characterById.get(char.id).hasQuestById.has(questId)
+    );
 }
 
 export const multiTaskMap: Record<string, Chore[]> = {
@@ -693,7 +697,9 @@ export const multiTaskMap: Record<string, Chore[]> = {
             ],
             questReset: DbResetType.Daily,
             couldGetFunc: (char) =>
-                [79322, 79575].some((questId) => userQuestStore.hasAny(char.id, questId)),
+                [79322, 79575].some((questId) =>
+                    userState.quests.characterById.get(char.id).hasQuestById.has(questId)
+                ),
         },
         {
             minimumLevel: 1,

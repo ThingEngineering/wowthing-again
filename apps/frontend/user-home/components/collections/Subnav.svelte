@@ -2,6 +2,7 @@
     import active from 'svelte-spa-router/active';
 
     import { lazyStore } from '@/stores';
+    import { lazyState } from '@/user-home/state/lazy';
     import { userState } from '@/user-home/state/user';
 
     import Percent from '@/components/common/Percent.svelte';
@@ -26,12 +27,12 @@
     <nav class="subnav" id="collections-subnav">
         <a href="#/collections/appearances" use:active={'/collections/appearances/*'}>
             Appearances
-            <Percent percent={$lazyStore.appearances.stats.OVERALL.percent} />
+            <Percent percent={lazyState.appearances.stats.OVERALL.percent} />
         </a>
 
         <a href="#/collections/customizations" use:active={'/collections/customizations/*'}>
             Customizations
-            <Percent percent={$lazyStore.customizations.OVERALL.percent} />
+            <Percent percent={lazyState.customizations.OVERALL.percent} />
         </a>
 
         <a href="#/collections/heirlooms" use:active>

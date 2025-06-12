@@ -24,23 +24,16 @@ import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import { getVendorDropStats } from '@/utils/get-vendor-drop-stats';
 import { isRecipeKnown } from '@/utils/professions/is-recipe-known';
 
-import type { LazyTransmog } from './transmog';
-import type { ZoneMapState } from '../local-storage';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { UserAchievementData, UserData } from '@/types';
 import type { UserQuestData } from '@/types/data';
 import type { DropStatus, FarmStatus } from '@/types/zone-maps';
+import { userState } from '../user';
+import { settingsState } from '@/shared/state/settings.svelte';
+import { zoneMapState } from '@/stores/local-storage';
+import { get } from 'svelte/store';
 
 type classMaskStrings = keyof typeof PlayableClassMask;
-
-interface LazyStores {
-    settings: Settings;
-    zoneMapState: ZoneMapState;
-    userData: UserData;
-    userAchievementData: UserAchievementData;
-    userQuestData: UserQuestData;
-    lazyTransmog: LazyTransmog;
-}
 
 export interface LazyZoneMaps {
     counts: Record<string, UserCount>;
@@ -48,43 +41,47 @@ export interface LazyZoneMaps {
     typeCounts: Record<string, Record<RewardType, UserCount>>;
 }
 
-export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
+export function doZoneMaps(): LazyZoneMaps {
     console.time('LazyStore.doZoneMaps');
 
-    const classMask = getTransmogClassMask(stores.settings);
-    const completionistMode = stores.settings.transmog.completionistMode;
+    const classMask = getTransmogClassMask();
+    const completionistMode = settingsState.value.transmog.completionistMode;
+    const zoneMapStateValue = get(zoneMapState);
+
     const now = DateTime.utc();
 
     const farmData: Record<string, FarmStatus[]> = {};
     const setCounts: Record<string, UserCount> = {};
     const typeCounts: Record<string, Record<number, UserCount>> = {};
 
-    const shownCharacters = stores.userData.characters.filter(
+    const shownCharacters = userState.general.characters.filter(
         (c) =>
-            stores.settings.characters.hiddenCharacters.indexOf(c.id) === -1 &&
-            stores.settings.characters.ignoredCharacters.indexOf(c.id) === -1 &&
-            (!stores.settings.characters.hideDisabledAccounts ||
-                stores.settings.accounts?.[c.accountId]?.enabled !== false)
+            settingsState.value.characters.hiddenCharacters.indexOf(c.id) === -1 &&
+            settingsState.value.characters.ignoredCharacters.indexOf(c.id) === -1 &&
+            (!settingsState.value.characters.hideDisabledAccounts ||
+                settingsState.value.accounts?.[c.accountId]?.enabled !== false)
     );
     const overallCounts = (setCounts['OVERALL'] = new UserCount());
     const resetMap = Object.fromEntries(
-        Object.entries(stores.userQuestData.characters).map((c) => [
-            c[0],
-            {
-                daily: getNextDailyReset(
-                    c[1].scannedAt,
-                    stores.userData.characterMap[parseInt(c[0])]?.realm?.region ?? 1
-                ),
-                biWeekly: getNextBiWeeklyReset(
-                    c[1].scannedAt,
-                    stores.userData.characterMap[parseInt(c[0])]?.realm?.region ?? 1
-                ),
-                weekly: getNextWeeklyReset(
-                    c[1].scannedAt,
-                    stores.userData.characterMap[parseInt(c[0])]?.realm?.region ?? 1
-                ),
-            },
-        ])
+        Array.from(userState.quests.characterById.entries()).map(
+            ([characterId, characterQuests]) => [
+                characterId,
+                {
+                    daily: getNextDailyReset(
+                        characterQuests.scannedAt,
+                        userState.general.characterById[characterId]?.realm?.region ?? 1
+                    ),
+                    biWeekly: getNextBiWeeklyReset(
+                        characterQuests.scannedAt,
+                        userState.general.characterById[characterId]?.realm?.region ?? 1
+                    ),
+                    weekly: getNextWeeklyReset(
+                        characterQuests.scannedAt,
+                        userState.general.characterById[characterId]?.realm?.region ?? 1
+                    ),
+                },
+            ]
+        )
     );
 
     for (const maps of wowthingData.manual.zoneMaps.sets) {
@@ -100,7 +97,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                 char.level >= maps[0].minimumLevel &&
                 (maps[0].requiredQuestIds.length === 0 ||
                     maps[0].requiredQuestIds.some((questId) =>
-                        stores.userQuestData.characters[char.id]?.quests?.has(questId)
+                        userState.quests.characterById.get(char.id)?.hasQuestById?.has(questId)
                     ))
         );
 
@@ -117,7 +114,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
             const mapSeen: Record<string, Record<number, boolean>> = {};
 
             let mapClassMask = 0;
-            const activeClasses = Object.entries(stores.zoneMapState.classFilters[mapKey] || {})
+            const activeClasses = Object.entries(zoneMapStateValue.classFilters[mapKey] || {})
                 .filter(([, value]) => value === true)
                 .map(([key]) => parseInt(key));
 
@@ -130,13 +127,13 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                     char.level >= map.minimumLevel &&
                     (map.requiredQuestIds.length === 0 ||
                         map.requiredQuestIds.some((questId) =>
-                            stores.userQuestData.characters[char.id]?.quests?.has(questId)
+                            userState.quests.characterById.get(char.id)?.hasQuestById?.has(questId)
                         )) &&
                     (mapClassMask === 0 ||
                         (mapClassMask &
                             wowthingData.static.characterClassById.get(char.classId).mask) >
                             0) &&
-                    (stores.zoneMapState.maxLevelOnly === false ||
+                    (zoneMapStateValue.maxLevelOnly === false ||
                         char.level === Constants.characterMaxLevel)
             );
 
@@ -181,7 +178,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                 if (farm.requiredQuestIds?.length > 0) {
                     farmCharacters = farmCharacters.filter((c) =>
                         farm.requiredQuestIds.some((q) =>
-                            stores.userQuestData.characters[c.id]?.quests?.has(q)
+                            userState.quests.characterById.get(c.id)?.hasQuestById?.has(q)
                         )
                     );
                 }
@@ -205,43 +202,43 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                     switch (drop.type) {
                         case RewardType.Item:
                             if (wowthingData.manual.dragonridingItemToQuest.has(drop.id)) {
-                                dropStatus.need = !stores.userQuestData.accountHas.has(
+                                dropStatus.need = !userState.quests.accountHasById.has(
                                     wowthingData.manual.dragonridingItemToQuest.get(drop.id)
                                 );
                             } else if (wowthingData.manual.druidFormItemToQuest.has(drop.id)) {
-                                dropStatus.need = !stores.userQuestData.accountHas.has(
+                                dropStatus.need = !userState.quests.accountHasById.has(
                                     wowthingData.manual.druidFormItemToQuest.get(drop.id)
                                 );
                             } else if (wowthingData.static.professionAbilityByItemId.has(drop.id)) {
                                 const abilityInfo =
                                     wowthingData.static.professionAbilityByItemId.get(drop.id);
-                                dropStatus.need = !isRecipeKnown(stores, { abilityInfo });
+                                dropStatus.need = !isRecipeKnown({ abilityInfo });
                             } else if (wowthingData.static.mountByItemId.has(drop.id)) {
-                                dropStatus.need =
-                                    !stores.userData.hasMount?.[
-                                        wowthingData.static.mountByItemId.get(drop.id).id
-                                    ];
+                                dropStatus.need = !userState.general.hasMountById.has(
+                                    wowthingData.static.mountByItemId.get(drop.id).id
+                                );
                             } else if (wowthingData.static.petByItemId.has(drop.id)) {
-                                dropStatus.need =
-                                    !stores.userData.hasPet?.[
-                                        wowthingData.static.petByItemId.get(drop.id).id
-                                    ];
+                                dropStatus.need = !userState.general.hasPetById.has(
+                                    wowthingData.static.petByItemId.get(drop.id).id
+                                );
                             } else if (wowthingData.static.toyByItemId.has(drop.id)) {
-                                dropStatus.need = !stores.userData.hasToy?.[drop.id];
+                                dropStatus.need = !userState.general.hasToyByItemId.has(drop.id);
                             } else {
                                 dropStatus.need = true;
                             }
                             break;
 
                         case RewardType.Achievement:
-                            if (drop.subType > 0) {
-                                if (!stores.userAchievementData.criteria[drop.subType]) {
-                                    dropStatus.need = true;
-                                }
-                            } else {
-                                dropStatus.need =
-                                    stores.userAchievementData.achievements[drop.id] === undefined;
-                            }
+                            // FIXME criteria
+                            // if (drop.subType > 0) {
+                            //     if (!stores.userAchievementData.criteria[drop.subType]) {
+                            //         dropStatus.need = true;
+                            //     }
+                            // } else {
+                            dropStatus.need = !userState.achievements.achievementEarnedById.has(
+                                drop.id
+                            );
+                            // }
                             break;
 
                         case RewardType.Currency:
@@ -250,13 +247,13 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             break;
 
                         case RewardType.Mount:
-                            if (!stores.userData.hasMount?.[drop.id]) {
+                            if (!userState.general.hasMountById.has(drop.id)) {
                                 dropStatus.need = true;
                             }
                             break;
 
                         case RewardType.Pet:
-                            if (!stores.userData.hasPet?.[drop.id]) {
+                            if (!userState.general.hasPetById.has(drop.id)) {
                                 dropStatus.need = true;
                             }
                             break;
@@ -264,8 +261,8 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                         case RewardType.Quest:
                         case RewardType.CharacterTrackingQuest:
                             if (
-                                !Object.values(stores.userQuestData.characters).every((char) =>
-                                    char?.quests?.has(drop.id)
+                                !Array.from(userState.quests.characterById.values()).every((char) =>
+                                    char.hasQuestById.has(drop.id)
                                 )
                             ) {
                                 dropStatus.need = true;
@@ -273,22 +270,19 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             break;
 
                         case RewardType.Toy:
-                            if (!stores.userData.hasToy?.[drop.id]) {
+                            if (!userState.general.hasToyById.has(drop.id)) {
                                 dropStatus.need = true;
                             }
                             break;
 
                         case RewardType.XpQuest:
                             if (
-                                !Object.values(stores.userData.characters).every(
+                                !Object.values(userState.general.characters).every(
                                     (char) =>
                                         char.isMaxLevel ||
-                                        !!stores.userQuestData.characters[
-                                            char.id
-                                        ]?.dailyQuests?.has(drop.id) ||
-                                        !!stores.userQuestData.characters[char.id]?.quests?.has(
-                                            drop.id
-                                        )
+                                        !!userState.quests.characterById
+                                            .get(char.id)
+                                            ?.hasQuestById?.has(drop.id)
                                 )
                             ) {
                                 dropStatus.need = true;
@@ -302,7 +296,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             if (drop.appearanceIds?.length > 0) {
                                 dropStatus.need = drop.appearanceIds[0].some(
                                     (appearanceId) =>
-                                        !stores.userData.hasAppearance.has(appearanceId)
+                                        !userState.general.hasAppearanceById.has(appearanceId)
                                 );
                             } else {
                                 const itemAppearances =
@@ -318,8 +312,10 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                 }
 
                                 dropStatus.need ||= completionistMode
-                                    ? !stores.userData.hasSourceV2.get(modifier).has(drop.id)
-                                    : !stores.userData.hasAppearance.has(
+                                    ? !userState.general.hasAppearanceBySource.has(
+                                          drop.id * 1000 + modifier
+                                      )
+                                    : !userState.general.hasAppearanceById.has(
                                           itemAppearances[modifier]?.appearanceId || 0
                                       );
                             }
@@ -327,17 +323,14 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             break;
 
                         case RewardType.Illusion:
-                            dropStatus.need = stores.userData.hasIllusion.has(
+                            dropStatus.need = userState.general.hasIllusionByEnchantmentId.has(
                                 drop.appearanceIds[0][0]
                             );
                             break;
 
                         case RewardType.SetSpecial:
                             [dropStatus.setHave, dropStatus.setNeed] = getVendorDropStats(
-                                stores.settings,
-                                stores.userData,
-                                stores.userQuestData,
-                                stores.lazyTransmog,
+                                settingsState.value,
                                 completionistMode,
                                 drop
                             );
@@ -346,7 +339,8 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             dropStatus.setNote = getSetCurrencyCostsString(
                                 drop.appearanceIds,
                                 drop.costs,
-                                (appearanceId) => stores.userData.hasAppearance.has(appearanceId)
+                                (appearanceId) =>
+                                    userState.general.hasAppearanceById.has(appearanceId)
                             );
 
                             break;
@@ -354,19 +348,19 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
 
                     dropStatus.skip =
                         (farm.type === FarmType.Achievement &&
-                            !stores.zoneMapState.trackAchievements) ||
-                        (farm.type === FarmType.Quest && !stores.zoneMapState.trackQuests) ||
-                        (farm.type === FarmType.Vendor && !stores.zoneMapState.trackVendors) ||
+                            !zoneMapStateValue.trackAchievements) ||
+                        (farm.type === FarmType.Quest && !zoneMapStateValue.trackQuests) ||
+                        (farm.type === FarmType.Vendor && !zoneMapStateValue.trackVendors) ||
                         (drop.type === RewardType.Achievement &&
-                            !stores.zoneMapState.trackAchievements) ||
-                        (drop.type === RewardType.Mount && !stores.zoneMapState.trackMounts) ||
-                        (drop.type === RewardType.Pet && !stores.zoneMapState.trackPets) ||
+                            !zoneMapStateValue.trackAchievements) ||
+                        (drop.type === RewardType.Mount && !zoneMapStateValue.trackMounts) ||
+                        (drop.type === RewardType.Pet && !zoneMapStateValue.trackPets) ||
                         ((drop.type === RewardType.Quest ||
                             drop.type === RewardType.XpQuest ||
                             drop.type === RewardType.CharacterTrackingQuest) &&
-                            !stores.zoneMapState.trackQuests) ||
-                        (drop.type === RewardType.Toy && !stores.zoneMapState.trackToys) ||
-                        (transmogTypes.has(drop.type) && !stores.zoneMapState.trackTransmog);
+                            !zoneMapStateValue.trackQuests) ||
+                        (drop.type === RewardType.Toy && !zoneMapStateValue.trackToys) ||
+                        (transmogTypes.has(drop.type) && !zoneMapStateValue.trackTransmog);
 
                     if (!dropStatus.skip) {
                         if (categorySeen[drop.type] === undefined) {
@@ -502,16 +496,19 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                         // Filter again for pre-req quests
                         if (drop.requiredQuestId > 0) {
                             dropCharacters = dropCharacters.filter((c) =>
-                                stores.userQuestData.characters[c.id]?.quests?.has(
-                                    drop.requiredQuestId
-                                )
+                                userState.quests.characterById
+                                    .get(c.id)
+                                    ?.hasQuestById?.has(drop.requiredQuestId)
                             );
                         }
 
                         // Filter again for characters that haven't completed the quest
                         if (drop.type === RewardType.Quest) {
                             dropCharacters = dropCharacters.filter(
-                                (c) => !stores.userQuestData.characters[c.id]?.quests?.has(drop.id)
+                                (c) =>
+                                    !userState.quests.characterById
+                                        .get(c.id)
+                                        ?.hasQuestById?.has(drop.id)
                             );
 
                             if (!dropStatus.skip && dropCharacters.length === 0) {
@@ -536,23 +533,23 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                     expiredFunc(c.id) ||
                                     drop.questIds.every(
                                         (q) =>
-                                            !stores.userQuestData.characters[
-                                                c.id
-                                            ]?.dailyQuests?.has(q)
+                                            !userState.quests.characterById
+                                                .get(c.id)
+                                                ?.hasQuestById?.has(q)
                                     )
                             );
                         }
 
                         for (const character of dropCharacters) {
-                            const charQuests = stores.userQuestData.characters[character.id];
+                            const charQuests = userState.quests.characterById.get(character.id);
                             if (farm.type === FarmType.Quest) {
-                                if (farm.questIds.every((q) => !charQuests?.quests?.has(q))) {
+                                if (farm.questIds.every((q) => !charQuests?.hasQuestById?.has(q))) {
                                     dropStatus.characterIds.push(character.id);
                                 } else {
                                     dropStatus.completedCharacterIds.push(character.id);
                                 }
                             } else if (drop.type === RewardType.CharacterTrackingQuest) {
-                                if (!charQuests?.quests?.has(drop.id)) {
+                                if (!charQuests?.hasQuestById?.has(drop.id)) {
                                     dropStatus.characterIds.push(character.id);
                                 } else {
                                     dropStatus.completedCharacterIds.push(character.id);
@@ -570,31 +567,28 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                 }
                                 dropStatus.need = dropStatus.characterIds.length > 0;
                             } else if (drop.type === RewardType.XpQuest) {
-                                if (
-                                    !charQuests?.dailyQuests?.has(drop.id) &&
-                                    !charQuests?.quests?.has(drop.id)
-                                ) {
+                                if (!charQuests?.hasQuestById?.has(drop.id)) {
                                     dropStatus.characterIds.push(character.id);
                                 } else {
                                     dropStatus.completedCharacterIds.push(character.id);
                                 }
                             } else if (farm.criteriaId) {
-                                const hasCriteria =
-                                    (
-                                        stores.userAchievementData.criteria[farm.criteriaId] || []
-                                    ).filter(([charId]) => charId === character.id).length > 0;
-                                if (!hasCriteria) {
-                                    dropStatus.characterIds.push(character.id);
-                                } else {
-                                    dropStatus.completedCharacterIds.push(character.id);
-                                }
+                                // FIXME: ugh criteria
+                                // const hasCriteria =
+                                //     (
+                                //         stores.userAchievementData.criteria[farm.criteriaId] || []
+                                //     ).filter(([charId]) => charId === character.id).length > 0;
+                                // if (!hasCriteria) {
+                                dropStatus.characterIds.push(character.id);
+                                // } else {
+                                //     dropStatus.completedCharacterIds.push(character.id);
+                                // }
                             } else {
                                 if (
                                     expiredFunc(character.id) ||
                                     farm.questIds.every(
                                         (q) =>
-                                            !charQuests?.dailyQuests?.has(q) &&
-                                            !charQuests?.quests?.has(q) &&
+                                            !charQuests?.hasQuestById?.has(q) &&
                                             character.lockouts?.[`${questToLockout[q] || 0}-0`] ===
                                                 undefined
                                     )

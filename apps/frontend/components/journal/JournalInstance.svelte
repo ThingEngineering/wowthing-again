@@ -2,9 +2,9 @@
     import find from 'lodash/find';
     import { afterUpdate } from 'svelte';
 
-    import { lazyStore } from '@/stores';
     import { wowthingData } from '@/shared/stores/data';
     import { journalState } from '@/stores/local-storage';
+    import { lazyState } from '@/user-home/state/lazy';
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import type { JournalDataInstance, JournalDataTier } from '@/types/data';
 
@@ -76,7 +76,7 @@
 
         {#if instance}
             <div class="collection thing-container" data-instance-id={instance.id}>
-                <SectionTitle title={instance.name} count={$lazyStore.journal.stats[slugKey]}>
+                <SectionTitle title={instance.name} count={lazyState.journal.stats[slugKey]}>
                     <EncounterStats statsKey={slugKey} />
                 </SectionTitle>
 

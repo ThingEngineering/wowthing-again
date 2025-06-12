@@ -4,13 +4,13 @@
     import { AppearanceModifier } from '@/enums/appearance-modifier';
     import { Gender } from '@/enums/gender';
     import { wowthingData } from '@/shared/stores/data';
-    import { lazyStore } from '@/stores';
+    import { lazyState } from '@/user-home/state/lazy';
     import { getGenderedName } from '@/utils/get-gendered-name';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
+    import type { LazyConvertible } from '@/user-home/state/lazy/convertible.svelte';
 
     import Settings from '@/components/common/SidebarCollectingSettings.svelte';
     import SubSidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
-    import type { LazyConvertible } from '@/stores/lazy/convertible';
 
     const children = [
         ...classOrder.map((classId) => {
@@ -68,8 +68,7 @@
     noVisitRoot={true}
     scrollable={true}
     width="15rem"
-    percentFunc={(entry, parentEntries) =>
-        percentFunc($lazyStore.convertible, entry, parentEntries)}
+    percentFunc={(entry, parentEntries) => percentFunc(lazyState.convertible, entry, parentEntries)}
 >
     <svelte:fragment slot="before">
         <Settings />

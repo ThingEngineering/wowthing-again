@@ -23,12 +23,12 @@
     }[];
     $: {
         const temp: Record<number, UserItem[]> = {};
-        for (const item of character.itemsByLocation[location] || []) {
+        for (const item of character.itemsByLocation.get(location)) {
             (temp[item.containerId] ||= []).push(item);
         }
 
         if (location === ItemLocation.Bank) {
-            for (const item of character.itemsByLocation[ItemLocation.Reagent] || []) {
+            for (const item of character.itemsByLocation.get(ItemLocation.Reagent)) {
                 (temp[item.containerId] ||= []).push(item);
             }
         }

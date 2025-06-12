@@ -59,6 +59,8 @@ import type { ContainsItems, HasNameAndRealm } from '../shared';
 import type { Account } from '../account';
 import type { CharacterAura } from './aura';
 import type { CharacterPatronOrder } from './patron-order';
+import { ItemLocation } from '@/enums/item-location';
+import { SvelteMap } from 'svelte/reactivity';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Static
@@ -111,7 +113,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public itemsByAppearanceId: Record<number, CharacterItem[]> = $state({});
     public itemsByAppearanceSource: Record<string, CharacterItem[]> = $state({});
     public itemsById: Record<number, CharacterItem[]> = $state({});
-    public itemsByLocation: Record<number, CharacterItem[]> = $state({});
+    public itemsByLocation = new SvelteMap<ItemLocation, CharacterItem[]>();
     public mythicPlusSeasonScores: Record<number, number> = $state({});
     public mythicPlusSeasons: Record<number, Record<number, CharacterMythicPlusAddonMap>> = $state(
         {}
@@ -295,10 +297,10 @@ export class Character implements ContainsItems, HasNameAndRealm {
         }
 
         this._itemCounts = {};
-        this.itemsByAppearanceId = {};
-        this.itemsByAppearanceSource = {};
-        this.itemsById = {};
-        this.itemsByLocation = {};
+
+        for (const itemLocation of Object.values(ItemLocation)) {
+            this.itemsByLocation.set(itemLocation as number, []);
+        }
 
         if (rawWeekly) {
             this.weekly = new CharacterWeekly(...rawWeekly);
@@ -322,11 +324,16 @@ export class Character implements ContainsItems, HasNameAndRealm {
                 this.bags[obj.bagId] = obj.itemId;
             } else {
                 items.push(obj);
-                (this.itemsByLocation[obj.location] ||= []).push(obj);
+                this.itemsByLocation.get(obj.location).push(obj);
             }
         }
 
+        // itemsByAppearanceId, itemsByAppearanceSource, itemsById
         initializeContainsItems(this, items);
+
+        for (const [itemId, itemIdItems] of getNumberKeyedEntries(this.itemsById)) {
+            this._itemCounts[itemId] = itemIdItems.reduce((a, b) => a + b.count, 0);
+        }
 
         if (this.mythicPlus?.rawSeasons) {
             this.mythicPlus.seasons = {};
@@ -469,10 +476,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
     private _itemCounts: Record<number, number>;
     getItemCount(itemId: number): number {
-        return (this._itemCounts[itemId] ||= (this.itemsById[itemId] || []).reduce(
-            (a, b) => a + b.count,
-            0
-        ));
+        return this._itemCounts[itemId] || 0;
     }
 
     private _professionKnownAbilities: Set<number> = undefined;
@@ -541,7 +545,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
                     setsData.push({
                         reputationId: repId,
-                        value: this.reputations?.[repId] ?? -1,
+                        value: this.reputations[repId] ?? -1,
                     });
                 }
 

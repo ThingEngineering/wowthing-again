@@ -1,8 +1,8 @@
 <script lang="ts">
     import { Faction } from '@/enums/faction';
     import { wowthingData } from '@/shared/stores/data';
-    import { lazyStore } from '@/stores';
     import { vendorState } from '@/stores/local-storage';
+    import { lazyState } from '@/user-home/state/lazy';
     import { getClassesFromMask } from '@/utils/get-classes-from-mask';
     import getPercentClass from '@/utils/get-percent-class';
     import type { ThingData } from '@/types/vendors';
@@ -152,7 +152,7 @@
         {/if}
 
         {#if teachesTransmog}
-            {@const setStats = $lazyStore.transmog.stats[`ensemble:${teachesTransmog}`]}
+            {@const setStats = lazyState.transmog.stats[`ensemble:${teachesTransmog}`]}
             {#if setStats}
                 <div class="stats pill">
                     <span class={getPercentClass(setStats.percent)}>{setStats.have}</span>

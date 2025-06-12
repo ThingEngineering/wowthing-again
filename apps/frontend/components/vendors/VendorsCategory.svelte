@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { lazyStore } from '@/stores';
+    import { lazyState } from '@/user-home/state/lazy';
     import type { ManualDataVendorCategory } from '@/types/data/manual';
 
     import Costs from './VendorsCosts.svelte';
@@ -23,7 +23,7 @@
     }
 </style>
 
-<SectionTitle {title} count={$lazyStore.vendors.stats[`${statsSlug}--${category.slug}`]}>
+<SectionTitle {title} count={lazyState.vendors.stats[`${statsSlug}--${category.slug}`]}>
     <Costs {costs} />
 </SectionTitle>
 

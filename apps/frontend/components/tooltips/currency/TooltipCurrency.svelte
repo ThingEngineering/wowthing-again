@@ -1,10 +1,8 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
-    import { userStore } from '@/stores';
-    import { settingsState } from '@/shared/state/settings.svelte';
+    import { userState } from '@/user-home/state/user';
     import { getCharacterNameRealm } from '@/utils/get-character-name-realm';
-    import { getFilteredCharacters } from '@/utils/get-filtered-characters';
     import { leftPad } from '@/utils/formatting';
     import type { Character } from '@/types';
     import type { ItemDataItem } from '@/types/data/item';
@@ -22,7 +20,7 @@
     let iconName: string;
     $: {
         currencies = [];
-        for (const character of getFilteredCharacters(settingsState.value, $userStore)) {
+        for (const character of userState.general.activeCharacters) {
             let quantity = 0;
             if (currency) {
                 currencyName = currency.name;
@@ -50,7 +48,7 @@
         currencies = sortBy(currencies, ([, amount]) => leftPad(10_000_000 - amount, 8, '0'));
 
         if (item || itemId) {
-            const warbankItems = $userStore.warbankItemsByItemId[item?.id || itemId] || [];
+            const warbankItems = userState.general.warbankItemsByItemId[item?.id || itemId] || [];
             const quantity = warbankItems.reduce((a, b) => a + b.count, 0);
             if (quantity > 0) {
                 currencies.unshift([null, quantity]);

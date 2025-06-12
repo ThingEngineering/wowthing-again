@@ -15,6 +15,7 @@ import { wowthingData } from '@/shared/stores/data';
 import {
     Character,
     Guild,
+    UserDataCurrentPeriod,
     UserDataPet,
     type Account,
     type CharacterLockout,
@@ -26,19 +27,25 @@ import { base64ToArray } from '@/utils/base64';
 import { leftPad } from '@/utils/formatting';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { sharedState } from '@/shared/state/shared.svelte';
+import { WarbankItem } from '@/types/items';
 
 export class DataUserGeneral {
     public accountById: Record<number, Account> = $state({});
     public characters: Character[] = $state([]);
     public characterById: Record<number, Character> = $state({});
+    public currentPeriod: Record<number, UserDataCurrentPeriod> = $state({});
     public guildById: Record<number, Guild> = $state({});
     public petsById: Record<number, UserDataPet[]> = $state({});
+    public warbankItems: WarbankItem[] = $state([]);
+    public warbankItemsByItemId: Record<number, WarbankItem[]> = $state({});
 
     public honorCurrent = $state(0);
     public honorLevel = $state(0);
     public honorMax = $state(0);
     public warbankGold = $state(0);
 
+    public hasAppearanceById = new SvelteSet<number>();
+    public hasAppearanceBySource = new SvelteSet<number>();
     public hasIllusionByEnchantmentId = new SvelteSet<number>();
     public hasMountById = new SvelteSet<number>();
     public hasPetById = new SvelteSet<number>();
@@ -53,6 +60,8 @@ export class DataUserGeneral {
     public charactersByRealmId = $derived.by(() => this._charactersByRealmId());
     public homeLockouts = $derived.by(() => this._homeLockouts());
     public visibleCharacters = $derived.by(() => this._visibleCharacters());
+
+    private _warbankScannedAt: string;
 
     public process(userData: UserData): void {
         console.time('DataUserGeneral.process');
@@ -80,7 +89,7 @@ export class DataUserGeneral {
                     lastSeenAddonUnix > character.lastSeenAddonUnix
                 ) {
                     character.init(...characterArray);
-                    console.log('updated', character.id, character.name);
+                    console.log('general', character.id, character.name);
                 }
             } else {
                 character = new Character();
@@ -130,7 +139,47 @@ export class DataUserGeneral {
             }
         }
 
+        // Appearances
+        let lastAppearanceId = 0;
+        for (const diffedAppearanceId of userData.rawAppearanceIds) {
+            const appearanceId = diffedAppearanceId + lastAppearanceId;
+            this.hasAppearanceById.add(appearanceId);
+            lastAppearanceId = appearanceId;
+        }
+
+        for (const [modifier, diffedItemIds] of getNumberKeyedEntries(
+            userData.rawAppearanceSources
+        )) {
+            let lastItemId = 0;
+            for (const diffedItemId of diffedItemIds) {
+                const itemId = diffedItemId + lastItemId;
+                // 123456/4 => 123456004
+                this.hasAppearanceBySource.add(itemId * 1000 + modifier);
+                lastItemId = itemId;
+            }
+        }
+
+        // Warbank items
+        if (!this._warbankScannedAt || userData.warbankScannedAt > this._warbankScannedAt) {
+            this.warbankItems = userData.rawWarbankItems.map(
+                (warbankItemArray) => new WarbankItem(...warbankItemArray)
+            );
+            this.warbankItemsByItemId = groupBy(this.warbankItems, (item) => item.itemId);
+        }
+
         // Misc
+        this.honorCurrent = userData.honorCurrent;
+        this.honorLevel = userData.honorLevel;
+        this.honorMax = userData.honorMax;
+        this.warbankGold = userData.warbankGold;
+
+        this.currentPeriod = Object.fromEntries(
+            Object.entries(userData.currentPeriod).map(([region, cp]) => [
+                region,
+                Object.assign(new UserDataCurrentPeriod(), cp),
+            ])
+        );
+
         for (const [heirloomId, level] of getNumberKeyedEntries(userData.heirlooms)) {
             this.heirlooms.set(heirloomId, level);
         }

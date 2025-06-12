@@ -4,10 +4,10 @@ export class ManualDataCustomizationCategory {
     constructor(
         public name: string,
         public slug: string,
-        groupArrays: ManualDataCustomizationGroupArray[],
+        groupArrays: ManualDataCustomizationGroupArray[]
     ) {
         this.groups = groupArrays.map(
-            (groupArray) => new ManualDataCustomizationGroup(...groupArray),
+            (groupArray) => new ManualDataCustomizationGroup(...groupArray)
         );
     }
 }
@@ -20,10 +20,10 @@ export class ManualDataCustomizationGroup {
 
     constructor(
         public name: string,
-        thingArrays: ManualDataCustomizationThingArray[],
+        thingArrays: ManualDataCustomizationThingArray[]
     ) {
         this.things = thingArrays.map(
-            (thingArray) => new ManualDataCustomizationThing(...thingArray),
+            (thingArray) => new ManualDataCustomizationThing(...thingArray)
         );
     }
 }
@@ -38,8 +38,12 @@ export class ManualDataCustomizationThing {
         public questId: number,
         public spellId: number,
         public appearanceModifier: number,
-        public name: string,
+        public name: string
     ) {}
+
+    get sourceId() {
+        return this.itemId * 1000 + (this.appearanceModifier || 0);
+    }
 }
 export type ManualDataCustomizationThingArray = ConstructorParameters<
     typeof ManualDataCustomizationThing

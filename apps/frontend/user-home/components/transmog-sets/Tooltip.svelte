@@ -4,7 +4,7 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import getPercentClass from '@/utils/get-percent-class';
-    import type { TransmogSlotData } from '@/stores/lazy/transmog';
+    import type { TransmogSlotData } from '@/user-home/state/lazy/transmog.svelte';
     import type { ManualDataTransmogGroupData } from '@/types/data/manual';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';

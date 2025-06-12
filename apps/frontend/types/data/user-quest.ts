@@ -33,14 +33,14 @@ export class UserQuestDataCharacterProgress {
         public status: QuestStatus,
         public expires: number,
         public name: string,
-        objectiveArrays: UserQuestDataCharacterProgressObjectiveArray[],
+        objectiveArrays: UserQuestDataCharacterProgressObjectiveArray[]
     ) {
         this.objectives = (objectiveArrays || []).map(
-            (objectiveArray) => new UserQuestDataCharacterProgressObjective(...objectiveArray),
+            (objectiveArray) => new UserQuestDataCharacterProgressObjective(...objectiveArray)
         );
     }
 }
-type UserQuestDataCharacterProgressArray = ConstructorParameters<
+export type UserQuestDataCharacterProgressArray = ConstructorParameters<
     typeof UserQuestDataCharacterProgress
 >;
 
@@ -49,7 +49,7 @@ export class UserQuestDataCharacterProgressObjective {
         public type: string,
         public have: number,
         public need: number,
-        public text: string,
+        public text: string
     ) {}
 }
 type UserQuestDataCharacterProgressObjectiveArray = ConstructorParameters<

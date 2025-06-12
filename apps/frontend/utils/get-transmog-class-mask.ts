@@ -1,8 +1,9 @@
 import { PlayableClassMask } from '@/enums/playable-class';
-import type { Settings } from '@/shared/stores/settings/types';
+import { settingsState } from '@/shared/state/settings.svelte';
 
-export default function getTransmogClassMask(settingsData: Settings): number {
+export default function getTransmogClassMask(): number {
     let classMask = 0;
+    const settingsData = settingsState.value;
 
     if (settingsData.transmog.showMage) {
         classMask |= PlayableClassMask.Mage;

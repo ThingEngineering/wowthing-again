@@ -47,7 +47,13 @@ export class ManualDataSharedVendor {
         }
     }
 
+    private _createdFarmData = false;
     createFarmData() {
+        if (this._createdFarmData) {
+            return;
+        }
+        this._createdFarmData = true;
+
         const seen: Record<number, boolean> = {};
         const itemDrops: ManualDataZoneMapDrop[] = [];
         const setDrops: ManualDataZoneMapDrop[] = [];

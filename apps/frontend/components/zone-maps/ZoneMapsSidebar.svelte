@@ -1,33 +1,31 @@
 <script lang="ts">
-    import { lazyStore } from '@/stores';
+    import { lazyState } from '@/user-home/state/lazy';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
-    import type { UserCount } from '@/types';
 
     import ProgressBar from '@/components/common/ProgressBar.svelte';
     import Settings from '@/components/common/SidebarCollectingSettings.svelte';
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
     import { wowthingData } from '@/shared/stores/data';
 
-    let categories: SidebarItem[];
-    let overall: UserCount;
-    $: {
-        categories = wowthingData.manual.zoneMaps.sets.map((set) =>
-            set === null
-                ? null
-                : {
-                      children: set.slice(1),
-                      ...set[0],
-                  }
-        );
-        overall = $lazyStore.zoneMaps?.counts['OVERALL'];
-    }
+    let categories = $derived.by(
+        () =>
+            wowthingData.manual.zoneMaps.sets.map((set) =>
+                set === null
+                    ? null
+                    : {
+                          children: set.slice(1),
+                          ...set[0],
+                      }
+            ) as SidebarItem[]
+    );
+    let overall = $derived(lazyState.zoneMaps.counts.OVERALL);
 
     const percentFunc = function (entry: SidebarItem, parentEntries?: SidebarItem[]) {
         const slug = [...parentEntries, entry]
             .slice(-2)
             .map((entry) => entry.slug)
             .join('--');
-        return $lazyStore.zoneMaps?.counts[slug]?.percent || 0;
+        return lazyState.zoneMaps?.counts[slug]?.percent || 0;
     };
 </script>
 

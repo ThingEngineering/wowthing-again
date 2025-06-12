@@ -101,7 +101,7 @@ export class UserAuctionMissingTransmogDataStore {
         ) as UserAuctionEntry[];
         this.cache[cacheKey] = [things, updated];
 
-        const classMask = getTransmogClassMask(settings);
+        const classMask = getTransmogClassMask();
         const maxGold =
             (parseInt(auctionState.missingTransmogMaxGold.replace(/[,.]/g, '')) || 0) * 10000;
         const nameLower = auctionState.missingTransmogNameSearch.toLocaleLowerCase();

@@ -4,7 +4,7 @@
 
     import { browserState } from '@/shared/state/browser.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { lazyStore } from '@/stores';
+    import { lazyState } from '@/user-home/state/lazy';
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import getPercentClass from '@/utils/get-percent-class';
     import type { MultiSlugParams } from '@/types';
@@ -91,7 +91,7 @@
         <div class="idk" bind:this={resizeableElement}>
             {#each category.groups as group (group)}
                 {@const groupStats =
-                    $lazyStore.customizations[`${params.slug1}--${params.slug2}--${group.name}`]}
+                    lazyState.customizations[`${params.slug1}--${params.slug2}--${group.name}`]}
                 {@const color = getPercentClass(groupStats.percent)}
                 {#if (browserState.current['collectible-customizations'].showCollected && groupStats.have > 0) || (browserState.current['collectible-customizations'].showUncollected && groupStats.have < groupStats.total)}
                     <table class="table table-striped">
