@@ -16,7 +16,6 @@
     $: data = getAchievementStatus(
         $achievementStore,
         $userAchievementStore,
-        $userStore,
         $userQuestStore,
         achievement
     );

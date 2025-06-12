@@ -36,13 +36,7 @@
     let worldQuestAvailable: number;
     $: {
         if (farm.type === FarmType.Dungeon || farm.type === FarmType.Raid) {
-            [status, drops] = getInstanceFarm(
-                settingsState.value,
-                $timeStore,
-                wowthingData.journal,
-                $userStore,
-                farm
-            );
+            [status, drops] = getInstanceFarm($timeStore, farm);
             topOffset = '0px';
         } else {
             big = FarmType[farm.type].indexOf('Big') > 0;

@@ -8,12 +8,12 @@ import { userState } from '@/user-home/state/user';
 import { leftPad } from '@/utils/formatting';
 import parseApiTime from '@/utils/parse-api-time';
 import type { FarmStatus } from '@/types';
-import type { JournalData, JournalDataInstance } from '@/types/data';
+import type { JournalDataInstance } from '@/types/data';
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual';
+import { wowthingData } from '@/shared/stores/data';
 
 export function getInstanceFarm(
     currentTime: DateTime,
-    journalData: JournalData,
     farm: ManualDataZoneMapFarm
 ): [FarmStatus, ManualDataZoneMapDrop[]] {
     const drops: ManualDataZoneMapDrop[] = [];
@@ -25,8 +25,8 @@ export function getInstanceFarm(
 
     const characterData: Record<number, boolean> = {};
     let instance: JournalDataInstance;
-    for (const tier of journalData.tiers.filter((tier) => tier !== null)) {
-        const instances = tier.instances.filter((instance) => instance?.id === farm.id);
+    for (const tier of wowthingData.journal.tiers.filter((tier) => tier !== null)) {
+        const instances = tier.instances.filter((inst) => inst?.id === farm.id);
         if (instances.length > 0) {
             instance = instances[0];
 

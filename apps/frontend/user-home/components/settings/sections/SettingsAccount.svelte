@@ -195,7 +195,7 @@
         <tbody>
             {#each sortBy(Object.values(userState.general.accountById), (a) => a.accountId) as account (account.id)}
                 {@const accountState = settingsState.value.accounts?.[account.id]}
-                {@const accountCharacters = getAccountCharacters($userStore, account.id)}
+                {@const accountCharacters = getAccountCharacters(account.id)}
                 <tr>
                     <td class="account-id">
                         <code>{Region[account.region]}</code>
