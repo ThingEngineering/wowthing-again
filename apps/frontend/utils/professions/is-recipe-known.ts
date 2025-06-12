@@ -65,9 +65,7 @@ export function isRecipeKnown(options: IsRecipeKnownOptions) {
 
         // TODO: different specialization
     } else {
-        // FIXME: derived?
-        // return userState.general.hasRecipe.has(abilityInfo.abilityId);
-        return false;
+        return userState.general.hasRecipe.has(abilityInfo.abilityId);
     }
 
     return false;

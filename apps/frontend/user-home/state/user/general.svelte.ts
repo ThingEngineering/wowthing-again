@@ -191,6 +191,16 @@ export class DataUserGeneral {
         console.timeEnd('DataUserGeneral.process');
     }
 
+    public hasRecipe = $derived.by(() => {
+        const allAbilities = new Set<number>();
+        for (const character of this.activeCharacters) {
+            for (const abilityId of character.allProfessionAbilities) {
+                allAbilities.add(abilityId);
+            }
+        }
+        return allAbilities;
+    });
+
     private _activeCharacters = () =>
         this.characters.filter(
             (character) =>
