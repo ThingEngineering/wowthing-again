@@ -9,7 +9,7 @@ export * from './item';
 export * from './lockout';
 export * from './mythic-plus';
 export * from './patron-order';
-export * from './profession';
+export * from './profession.svelte';
 export * from './raider-io-season';
 export * from './reputation';
 export * from './shadowlands';

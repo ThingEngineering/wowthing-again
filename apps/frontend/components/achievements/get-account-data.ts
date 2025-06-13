@@ -141,10 +141,10 @@ export function getAccountData(
                 }
             } else if (criteria?.type === CriteriaType.RaiseSkillLine) {
                 for (const character of userState.general.characters) {
-                    for (const subProfessions of Object.values(character.professions || {})) {
-                        const subProfession = subProfessions[criteria.asset];
-                        if (subProfession?.currentSkill >= childTree.amount) {
-                            ret.have[childId] = subProfession.currentSkill;
+                    for (const profession of Object.values(character.professions || {})) {
+                        const subProfession = profession.subProfessions[criteria.asset];
+                        if (subProfession?.skillCurrent >= childTree.amount) {
+                            ret.have[childId] = subProfession.skillCurrent;
                             break;
                         }
                     }

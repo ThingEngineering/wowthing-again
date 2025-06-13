@@ -472,8 +472,9 @@ export function doZoneMaps(): LazyZoneMaps {
                                         (c) =>
                                             !!c.professions?.[professionId] &&
                                             (subProfessionId
-                                                ? c.professions[professionId][subProfessionId]
-                                                      ?.currentSkill >= parseInt(drop.limit[3])
+                                                ? c.professions[professionId]?.subProfessions?.[
+                                                      subProfessionId
+                                                  ]?.skillCurrent >= parseInt(drop.limit[3])
                                                 : true)
                                     );
                                     break;

@@ -1,17 +1,20 @@
 <script lang="ts">
-    import type { Character, CharacterProfession } from '@/types'
-    import getPercentClass from '@/utils/get-percent-class'
+    import getPercentClass from '@/utils/get-percent-class';
+    import type { CharacterProps } from '@/types/props';
 
-    export let character: Character
-    export let primaryId: number
-    export let subId: number
+    type Props = CharacterProps & {
+        primaryId: number;
+        subId: number;
+    };
+    let { character, primaryId, subId }: Props = $props();
 
-    let cls: string
-    let profession: CharacterProfession
-    $: {
-        profession = character.professions?.[primaryId]?.[subId]
-        cls = profession ? getPercentClass(profession.currentSkill / profession.maxSkill * 100) : 'status-fail'
-    }
+    let profession = $derived(character.professions?.[primaryId]?.subProfessions?.[subId]);
+    let cls = $derived(
+        profession
+            ? getPercentClass((profession.skillCurrent / profession.skillMax) * 100)
+            : 'status-fail'
+    );
+    // }
 </script>
 
 <style lang="scss">
@@ -26,7 +29,7 @@
     }
     .slash {
         color: #aaa;
-        width: 1.0rem;
+        width: 1rem;
     }
     .value {
         text-align: right;
@@ -34,12 +37,12 @@
     }
 </style>
 
-<td class="{cls}">
+<td class={cls}>
     {#if profession}
         <div class="flex-wrapper">
-            <span class="value">{profession.currentSkill}</span>
+            <span class="value">{profession.skillCurrent}</span>
             <span class="slash">/</span>
-            <span class="value">{profession.maxSkill}</span>
+            <span class="value">{profession.skillMax}</span>
         </div>
     {:else}
         ---

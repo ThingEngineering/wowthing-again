@@ -1,29 +1,31 @@
 <script lang="ts">
-    import { expansionSlugMap } from '@/data/expansion'
-    import { lazyStore } from '@/stores'
-    import type { Character, Expansion, MultiSlugParams } from '@/types'
-    import type { StaticDataProfession, StaticDataSubProfession } from '@/shared/stores/static/types'
+    import { expansionSlugMap } from '@/data/expansion';
+    import type { Character, Expansion, MultiSlugParams } from '@/types';
+    import type {
+        StaticDataProfession,
+        StaticDataSubProfession,
+    } from '@/shared/stores/static/types';
 
-    import Node from './CharacterProfessionsTraitsNode.svelte'
-    import ProgressBar from '@/components/common/ProgressBar.svelte'
+    import Node from './CharacterProfessionsTraitsNode.svelte';
+    import ProgressBar from '@/components/common/ProgressBar.svelte';
     import getPercentClass from '@/utils/get-percent-class';
 
-    export let character: Character
-    export let params: MultiSlugParams
-    export let staticProfession: StaticDataProfession
+    export let character: Character;
+    export let params: MultiSlugParams;
+    export let staticProfession: StaticDataProfession;
 
-    let charTraits: Record<number, number>
-    let expansion: Expansion
-    let subProfession: StaticDataSubProfession
+    let charTraits: Record<number, number>;
+    let expansion: Expansion;
+    let subProfession: StaticDataSubProfession;
     $: {
-        expansion = expansionSlugMap[params.slug5]
-        const charProfession = character.professions[staticProfession.id]
-        subProfession = staticProfession.expansionSubProfession[expansion.id]
+        expansion = expansionSlugMap[params.slug5];
+        const charProfession = character.professions[staticProfession.id];
+        subProfession = staticProfession.expansionSubProfession[expansion.id];
         if (!expansion || !charProfession || !subProfession.traitTrees) {
-            break $
+            break $;
         }
 
-        charTraits = character.professionTraits?.[subProfession.id] || {}
+        charTraits = character.professionTraits?.[subProfession.id] || {};
     }
 </script>
 
@@ -42,27 +44,21 @@
 </style>
 
 {#if subProfession}
-    {@const stats = $lazyStore.characters[character.id].professions
-        .professions[staticProfession.id]
-        .subProfessions[subProfession.id]
-        .traitStats}
+    {@const stats =
+        character.professions[staticProfession.id].subProfessionTraitStats[subProfession.id]}
     <div class="wrapper-column">
         <ProgressBar
-            cls={`${getPercentClass(stats.percent)}-border`}
+            cls={`${getPercentClass(stats?.percent || 0)}-border`}
             title="Total Knowledge"
-            have={stats.have}
-            total={stats.total}
+            have={stats?.have || 0}
+            total={stats?.total || 0}
         />
 
         <div class="tree-wrapper">
-            {#each subProfession.traitTrees as traitTree}
+            {#each subProfession.traitTrees as traitTree (traitTree.id)}
                 <table class="table-striped border">
                     <tbody>
-                        <Node
-                            indent={0}
-                            node={traitTree.firstNode}
-                            traits={charTraits}
-                        />
+                        <Node indent={0} node={traitTree.firstNode} traits={charTraits} />
                     </tbody>
                 </table>
             {/each}

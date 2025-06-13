@@ -32,7 +32,9 @@
 
         const charProfession = character.professions[staticProfession.id];
         const charSubProfession =
-            charProfession?.[staticProfession.expansionSubProfession[expansion.id].id];
+            charProfession?.subProfessions?.[
+                staticProfession.expansionSubProfession[expansion.id].id
+            ];
         if (!charSubProfession) {
             return;
         }
@@ -134,7 +136,7 @@
                     </div>
                 {/if}
 
-                {#each taskProfession.bookQuests || [] as bookQuest, questIndex}
+                {#each taskProfession.bookQuests || [] as bookQuest, questIndex (bookQuest)}
                     {@const userHas = userState.quests.characterById
                         .get(character.id)
                         .hasQuestById.has(bookQuest.questId)}
@@ -158,7 +160,7 @@
                     {/if}
                 {/each}
 
-                {#each things as [thing, text]}
+                {#each things as [thing, text] (thing)}
                     {@const userHas = userState.quests.characterById
                         .get(character.id)
                         .hasQuestById.has(thing.trackingQuestId)}
@@ -169,7 +171,7 @@
 
         {#if taskProfession.treasureQuests?.length > 0}
             <div class="collection-objects">
-                {#each sortBy( taskProfession.treasureQuests, (tq) => [tq.source, wowthingData.items.items[tq.itemId]] ) as treasureQuest}
+                {#each sortBy( taskProfession.treasureQuests, (tq) => [tq.source, wowthingData.items.items[tq.itemId]] ) as treasureQuest (treasureQuest)}
                     <Collectible
                         itemId={treasureQuest.itemId}
                         text={treasureQuest.source}

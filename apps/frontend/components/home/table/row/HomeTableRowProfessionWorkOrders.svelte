@@ -1,16 +1,16 @@
 <script lang="ts">
-    import { imageStrings } from '@/data/icons'
-    import { professionIdToSlug } from '@/data/professions'
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import { lazyStore } from '@/stores'
-    import type { Character } from '@/types'
+    import { imageStrings } from '@/data/icons';
+    import { professionIdToSlug } from '@/data/professions';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import { lazyStore } from '@/stores';
+    import type { CharacterProps } from '@/types/props';
 
-    import Tooltip from '@/components/tooltips/profession-cooldowns/TooltipProfessionCooldowns.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import Tooltip from '@/components/tooltips/profession-cooldowns/TooltipProfessionCooldowns.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character
+    let { character }: CharacterProps = $props();
 
-    $: data = $lazyStore.characters[character.id].professionWorkOrders
+    let data = $derived($lazyStore.characters[character.id]?.professionWorkOrders);
 </script>
 
 <style lang="scss">
@@ -31,11 +31,11 @@
         align-items: center;
         display: flex;
         justify-content: space-between;
-    
+
         span {
             display: block;
             text-align: right;
-            width: 1.0rem;
+            width: 1rem;
         }
     }
 </style>
@@ -51,7 +51,7 @@
         }}
     >
         <div class="flex-wrapper">
-            {#each data.cooldowns as cooldown}
+            {#each data?.cooldowns || [] as cooldown}
                 <div
                     class="cooldown"
                     class:faded={cooldown.have === 0}
@@ -59,7 +59,7 @@
                     class:status-fail={cooldown.have === cooldown.max}
                 >
                     <WowthingImage
-                        name="{imageStrings[professionIdToSlug[cooldown.data.profession]]}"
+                        name={imageStrings[professionIdToSlug[cooldown.data.profession]]}
                         size={20}
                         border={1}
                     />

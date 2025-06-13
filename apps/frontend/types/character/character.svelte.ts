@@ -35,7 +35,7 @@ import {
     type CharacterMythicPlusAddonMapArray,
     type CharacterMythicPlusAddonRunArray,
 } from './mythic-plus';
-import type { CharacterProfession } from './profession';
+import { CharacterProfession, type CharacterProfessionRaw } from './profession.svelte';
 import type { CharacterRaiderIoSeason } from './raider-io-season';
 import type {
     CharacterReputation,
@@ -60,7 +60,8 @@ import type { Account } from '../account';
 import type { CharacterAura } from './aura';
 import type { CharacterPatronOrder } from './patron-order';
 import { ItemLocation } from '@/enums/item-location';
-import { SvelteMap } from 'svelte/reactivity';
+import { SvelteMap, SvelteSet } from 'svelte/reactivity';
+import { syncSet } from '@/utils/collections/sync-set';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Static
@@ -114,6 +115,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public itemsByAppearanceSource: Record<string, CharacterItem[]> = $state({});
     public itemsById: Record<number, CharacterItem[]> = $state({});
     public itemsByLocation = new SvelteMap<ItemLocation, CharacterItem[]>();
+    public knownRecipes = new SvelteSet<number>();
     public mythicPlusSeasonScores: Record<number, number> = $state({});
     public mythicPlusSeasons: Record<number, Record<number, CharacterMythicPlusAddonMap>> = $state(
         {}
@@ -137,7 +139,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public mythicPlusAddon: Record<number, CharacterMythicPlusAddon> = $state({});
     public paragons: Record<number, CharacterReputationParagon> = $state({});
     public patronOrders: Record<number, CharacterPatronOrder[]> = $state({});
-    public professions: Record<number, Record<number, CharacterProfession>> = $state({});
+    public professions: Record<number, CharacterProfession> = $state({});
     public professionCooldowns: Record<string, [number, number, number]> = $state({});
     public professionTraits: Record<number, Record<number, number>> = $state({});
     public raiderIo: Record<number, CharacterRaiderIoSeason> = $state({});
@@ -184,7 +186,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         rawMythicPlusSeasons: Record<number, Record<number, CharacterMythicPlusAddonMapArray>>,
         paragons: Record<number, CharacterReputationParagon>,
         patronOrders: Record<number, CharacterPatronOrder[]>,
-        professions: Record<number, Record<number, CharacterProfession>>,
+        professions: Record<number, Record<number, CharacterProfessionRaw>>,
         professionCooldowns: Record<string, [number, number, number]>,
         professionSpecializations: Record<number, string>,
         professionTraits: Record<number, Record<number, number>>,
@@ -239,7 +241,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         this.mythicPlusAddon = mythicPlusAddon;
         this.paragons = paragons;
         this.patronOrders = patronOrders;
-        this.professions = professions;
+        // this.professions = professions;
         this.professionCooldowns = professionCooldowns;
         // professionSpecializations;
         this.professionTraits = professionTraits;
@@ -255,8 +257,9 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
         // account relies on UserStore data
         // guild relies on UserStore data
-        this.realm = wowthingData.static.realmById.get(this.realmId);
-        this.region = this.realm?.region;
+        this.realm =
+            wowthingData.static.realmById.get(this.realmId) || wowthingData.static.realmById.get(0);
+        this.region = this.realm.region;
 
         // names
         this.className = getGenderedName(
@@ -274,16 +277,29 @@ export class Character implements ContainsItems, HasNameAndRealm {
             );
         }
 
-        const pandaCooking = this.professions?.[Profession.Cooking]?.[2544];
+        // professions
+        // TODO diff update this
+        this.professions = {};
+        for (const [professionId, professionData] of getNumberKeyedEntries(professions || {})) {
+            const profession = (this.professions[professionId] = new CharacterProfession(
+                professionId
+            ));
+            profession.process(professionData);
+        }
+
+        const cooking = this.professions[Profession.Cooking];
+        const pandaCooking = cooking?.subProfessions?.[2544];
         if (pandaCooking) {
+            const pandaRecipes = new Set<number>();
             for (let skillLineId = 975; skillLineId <= 980; skillLineId++) {
-                const skillLine = this.professions[Profession.Cooking][skillLineId];
+                const skillLine = cooking.subProfessions[skillLineId];
                 if (skillLine) {
                     for (const abilityId of skillLine.knownRecipes || []) {
-                        pandaCooking.knownRecipes.push(abilityId);
+                        pandaRecipes.add(abilityId);
                     }
                 }
             }
+            syncSet(pandaCooking.knownRecipes, pandaRecipes);
         }
 
         this.professionSpecializations = {};

@@ -46,7 +46,7 @@ export class ComputedAchievement {
 
     constructor(
         public achievementId: number,
-        public achievement: AchievementDataAchievement,
+        public achievement: AchievementDataAchievement
     ) {}
 }
 
@@ -59,7 +59,7 @@ export class ComputedCriteria {
 
     constructor(
         public criteriaTree: AchievementDataCriteriaTree,
-        public criteria: AchievementDataCriteria,
+        public criteria: AchievementDataCriteria
     ) {}
 }
 
@@ -87,10 +87,10 @@ class AchievementProcessor {
         console.time('AchievementProcessor.process');
 
         this.allianceCharacters = this.stores.userData.characters.filter(
-            (char) => char.faction === Faction.Alliance,
+            (char) => char.faction === Faction.Alliance
         );
         this.hordeCharacters = this.stores.userData.characters.filter(
-            (char) => char.faction === Faction.Horde,
+            (char) => char.faction === Faction.Horde
         );
 
         this.overallPoints = this.data.points['OVERALL'] = new UserCount();
@@ -111,7 +111,7 @@ class AchievementProcessor {
 
     private processCategory(
         dataCategory: AchievementDataCategory,
-        parent?: AchievementDataCategory,
+        parent?: AchievementDataCategory
     ) {
         if (!dataCategory) {
             return;
@@ -120,7 +120,7 @@ class AchievementProcessor {
         const { achievementData, userAchievementData, userData } = this.stores;
 
         const category = (this.data.categories[dataCategory.id] = new ComputedCategory(
-            dataCategory,
+            dataCategory
         ));
 
         const catKey = parent ? `${parent.slug}--${dataCategory.slug}` : dataCategory.slug;
@@ -188,7 +188,7 @@ class AchievementProcessor {
 
     private recurseCriteriaTree(
         achievementData: ComputedAchievement,
-        criteriaTree: AchievementDataCriteriaTree,
+        criteriaTree: AchievementDataCriteriaTree
     ): ComputedCriteria {
         const criteria = this.stores.achievementData.criteria[criteriaTree.criteriaId];
         const criteriaData = new ComputedCriteria(criteriaTree, criteria);
@@ -212,7 +212,7 @@ class AchievementProcessor {
 
     private criteriaAccount(
         computedAchievement: ComputedAchievement,
-        computedCriteria: ComputedCriteria,
+        computedCriteria: ComputedCriteria
     ) {
         const { achievementData, userAchievementData, userData, userQuestData } = this.stores;
         const { achievement } = computedAchievement;
@@ -222,7 +222,7 @@ class AchievementProcessor {
             (char) =>
                 (achievement.faction === 0 && char.faction === 1) ||
                 (achievement.faction === 1 && char.faction === 0) ||
-                achievement.faction === -1,
+                achievement.faction === -1
         );
 
         const data = computedAchievement.characters[computedCriteria.criteriaTree.id];
@@ -249,7 +249,7 @@ class AchievementProcessor {
             }
         } else if (criteria?.type === CriteriaType.CompleteQuest) {
             computedCriteria.have = Object.values(userQuestData.characters).filter((char) =>
-                char.quests?.has(criteria.asset),
+                char.quests?.has(criteria.asset)
             ).length;
 
             // Fall back to criteria lookup
@@ -258,17 +258,17 @@ class AchievementProcessor {
             // }
         } else if (criteria?.type === CriteriaType.RaiseSkillLine) {
             for (const character of userData.characters) {
-                for (const subProfessions of Object.values(character.professions || {})) {
-                    const subProfession = subProfessions[criteria.asset];
-                    if (subProfession?.currentSkill >= criteriaTree.amount) {
-                        computedCriteria.have = subProfession.currentSkill;
+                for (const profession of Object.values(character.professions || {})) {
+                    const subProfession = profession.subProfessions[criteria.asset];
+                    if (subProfession?.skillCurrent >= criteriaTree.amount) {
+                        computedCriteria.have = subProfession.skillMax;
                         break;
                     }
                 }
             }
         } else if (criteria?.type === CriteriaType.ReputationGained) {
             computedCriteria.have = Math.max(
-                ...userData.characters.map((char) => char.reputations?.[criteria.asset] || 0),
+                ...userData.characters.map((char) => char.reputations?.[criteria.asset] || 0)
             );
         } else if (criteria?.type === CriteriaType.HonorMaybe) {
             console.log('honor?', computedCriteria);
@@ -309,7 +309,7 @@ class AchievementProcessor {
             // Count of children is > count?
             case CriteriaTreeOperator.Any:
                 computedCriteria.have = computedCriteria.children.filter(
-                    (child) => child.have >= child.criteriaTree.amount,
+                    (child) => child.have >= child.criteriaTree.amount
                 ).length;
                 break;
 
@@ -328,7 +328,7 @@ export function getAccountData(
     userAchievementData: UserAchievementData,
     userData: UserData,
     userQuestData: UserQuestData,
-    achievement: AchievementDataAchievement,
+    achievement: AchievementDataAchievement
 ): AchievementDataAccount {
     //const ctMap = get(achievementStore).criteriaTree
     //const userCrits = get(userAchievementStore).criteria
@@ -340,7 +340,7 @@ export function getAccountData(
         (char) =>
             (achievement.faction === 0 && char.faction === 1) ||
             (achievement.faction === 1 && char.faction === 0) ||
-            achievement.faction === -1,
+            achievement.faction === -1
     );
     // const characterIds = characters.map((char) => char.id);
 
@@ -416,7 +416,7 @@ export function getAccountData(
                 console.log(
                     childTree,
                     achievementData.criteria[childTree.criteriaId],
-                    userAchievementData.criteria[childId],
+                    userAchievementData.criteria[childId]
                 );
             }
 
@@ -442,7 +442,7 @@ export function getAccountData(
                 }
             } else if (criteria?.type === CriteriaType.CompleteQuest) {
                 ret.have[childId] = Object.values(userQuestData.characters).filter((char) =>
-                    char.quests?.has(criteria.asset),
+                    char.quests?.has(criteria.asset)
                 ).length;
 
                 // Fall back to criteria lookup
@@ -451,10 +451,10 @@ export function getAccountData(
                 }
             } else if (criteria?.type === CriteriaType.RaiseSkillLine) {
                 for (const character of userData.characters) {
-                    for (const subProfessions of Object.values(character.professions || {})) {
-                        const subProfession = subProfessions[criteria.asset];
-                        if (subProfession?.currentSkill >= childTree.amount) {
-                            ret.have[childId] = subProfession.currentSkill;
+                    for (const profession of Object.values(character.professions || {})) {
+                        const subProfession = profession.subProfessions[criteria.asset];
+                        if (subProfession?.skillCurrent >= childTree.amount) {
+                            ret.have[childId] = subProfession.skillCurrent;
                             break;
                         }
                     }
@@ -469,7 +469,7 @@ export function getAccountData(
                 }
 
                 ret.have[childId] = Math.max(
-                    ...userData.characters.map((char) => char.reputations?.[criteria.asset] || 0),
+                    ...userData.characters.map((char) => char.reputations?.[criteria.asset] || 0)
                 );
             } else if (criteria?.type === CriteriaType.HonorMaybe) {
                 console.log(criteria);
@@ -499,7 +499,7 @@ export function getAccountData(
 
     ret.characters = sortBy(
         Object.entries(characterCounts).filter(([, count]) => count > 0),
-        ([characterId, count]) => [10000000 - count, characterId],
+        ([characterId, count]) => [10000000 - count, characterId]
     ).map(([characterId, count]) => [parseInt(characterId), count]);
 
     if (achievement.id === debugId) {

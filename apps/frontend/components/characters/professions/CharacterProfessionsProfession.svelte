@@ -1,66 +1,70 @@
 <script lang="ts">
-    import { expansionSlugMap } from '@/data/expansion'
-    import { lazyStore } from '@/stores'
-    import { getNameForFaction } from '@/utils/get-name-for-faction'
+    import { expansionSlugMap } from '@/data/expansion';
+    import { getNameForFaction } from '@/utils/get-name-for-faction';
     import getPercentClass from '@/utils/get-percent-class';
-    import type { StaticDataProfession, StaticDataProfessionAbility, StaticDataProfessionCategory, StaticDataSubProfession } from '@/shared/stores/static/types'
-    import type { Character, CharacterProfession, Expansion, MultiSlugParams, UserCount } from '@/types'
+    import type {
+        StaticDataProfession,
+        StaticDataProfessionAbility,
+        StaticDataProfessionCategory,
+        StaticDataSubProfession,
+    } from '@/shared/stores/static/types';
+    import type {
+        Character,
+        CharacterSubProfession,
+        Expansion,
+        MultiSlugParams,
+        UserCount,
+    } from '@/types';
 
-    import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import Table from './CharacterProfessionsProfessionTable.svelte'
+    import ProgressBar from '@/components/common/ProgressBar.svelte';
+    import Table from './CharacterProfessionsProfessionTable.svelte';
 
-    export let character: Character
-    export let params: MultiSlugParams
-    export let staticProfession: StaticDataProfession
+    export let character: Character;
+    export let params: MultiSlugParams;
+    export let staticProfession: StaticDataProfession;
 
-    let charSubProfession: CharacterProfession
-    let expansion: Expansion
-    let filteredCategories: Record<number, StaticDataProfessionAbility[]>
-    let hasFirstCraft: boolean
-    let knownRecipes: Set<number>
-    let rootCategory: StaticDataProfessionCategory
-    let stats: UserCount
-    let subProfession: StaticDataSubProfession
+    let charSubProfession: CharacterSubProfession;
+    let expansion: Expansion;
+    let filteredCategories: Record<number, StaticDataProfessionAbility[]>;
+    let hasFirstCraft: boolean;
+    let knownRecipes: Set<number>;
+    let rootCategory: StaticDataProfessionCategory;
+    let stats: UserCount;
+    let subProfession: StaticDataSubProfession;
 
     $: {
-        expansion = expansionSlugMap[params.slug5]
-        const charProfession = character.professions[staticProfession.id]
+        expansion = expansionSlugMap[params.slug5];
+        const charProfession = character.professions[staticProfession.id];
         if (!expansion || !charProfession) {
-            break $
+            break $;
         }
 
-        subProfession = staticProfession.expansionSubProfession[expansion.id]
-        charSubProfession = charProfession[subProfession.id]
+        subProfession = staticProfession.expansionSubProfession[expansion.id];
+        charSubProfession = charProfession?.subProfessions?.[subProfession.id];
 
-        const lazyProfessions = $lazyStore.characters[character.id].professions
-        knownRecipes = lazyProfessions.knownRecipes
+        knownRecipes = charProfession?.knownRecipes;
+        filteredCategories = charProfession?.filteredCategories || {};
+        stats = charProfession?.subProfessionStats?.[subProfession.id];
 
-        const lazyProfession = lazyProfessions.professions[staticProfession.id]
-        filteredCategories = lazyProfession?.filteredCategories || {}
-        stats = lazyProfession?.subProfessions[subProfession.id]?.stats
-
-        rootCategory = staticProfession.expansionCategory?.[expansion.id]
+        rootCategory = staticProfession.expansionCategory?.[expansion.id];
         if (rootCategory) {
             while (rootCategory.children.length === 1) {
-                rootCategory = rootCategory.children[0]
+                rootCategory = rootCategory.children[0];
             }
         }
 
-        hasFirstCraft = rootCategory.children.some(
-            (child) => child.abilities.some(
-                (ability) => !!ability.firstCraftQuestId
-            )
-        )
+        hasFirstCraft = rootCategory.children.some((child) =>
+            child.abilities.some((ability) => !!ability.firstCraftQuestId)
+        );
     }
 
     const getProgressClass = (current: number, max: number) => {
         if (current === 0) {
-            return 'border-fail'
+            return 'border-fail';
+        } else {
+            return `${getPercentClass((current / max) * 100)}-border`;
         }
-        else {
-            return `${getPercentClass(current / max * 100)}-border`
-        }
-    }
+    };
 </script>
 
 <style lang="scss">
@@ -79,13 +83,14 @@
 
 {#if expansion}
     <div class="professions-wrapper">
-        <div
-            class="professions-container"
-        >
+        <div class="professions-container">
             <ProgressBar
-                cls={getProgressClass(charSubProfession?.currentSkill || 0, charSubProfession?.maxSkill || 1)}
-                have={charSubProfession?.currentSkill || 0}
-                total={charSubProfession?.maxSkill || -1}
+                cls={getProgressClass(
+                    charSubProfession?.skillCurrent || 0,
+                    charSubProfession?.skillMax || 1
+                )}
+                have={charSubProfession?.skillCurrent || 0}
+                total={charSubProfession?.skillMax || -1}
                 title={getNameForFaction(subProfession.name, character.faction)}
             />
 
@@ -112,7 +117,7 @@
                     />
                 {/if}
 
-                {#each rootCategory.children as child}
+                {#each rootCategory.children as child (child)}
                     <Table
                         category={child}
                         {character}

@@ -106,11 +106,11 @@ export function getAchievementStatus(
                 }
             } else if (criteria?.type === CriteriaType.RaiseSkillLine) {
                 for (const character of characters) {
-                    for (const subProfessions of Object.values(character.professions || {})) {
-                        const subProfession = subProfessions[criteria.asset];
+                    for (const profession of Object.values(character.professions || {})) {
+                        const subProfession = profession.subProfessions[criteria.asset];
                         if (subProfession) {
                             console.log(character.id, character.name, subProfession);
-                            characterData.push([character.id, subProfession.currentSkill]);
+                            characterData.push([character.id, subProfession.skillCurrent]);
 
                             if (leaves === 1) {
                                 ret.reputation = true;

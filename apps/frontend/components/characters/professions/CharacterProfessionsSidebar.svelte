@@ -1,7 +1,6 @@
 <script lang="ts">
     import { expansionSlugMap } from '@/data/expansion';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { lazyStore } from '@/stores';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
     import type { Character, MultiSlugParams } from '@/types';
@@ -28,8 +27,7 @@
     }
 
     const percentFunc = function (entry: SidebarItem, parentEntries?: SidebarItem[]): number {
-        const characterProfession =
-            $lazyStore.characters[character.id].professions.professions[staticProfession.id];
+        const characterProfession = character.professions[staticProfession.id];
         if (!characterProfession) {
             return 0;
         }
@@ -41,8 +39,8 @@
 
         const stats =
             parentEntries.length > 0
-                ? characterProfession.subProfessions[staticSubProfession?.id]?.traitStats
-                : characterProfession.subProfessions[staticSubProfession?.id]?.stats;
+                ? characterProfession.subProfessionTraitStats[staticSubProfession?.id]
+                : characterProfession.subProfessionStats[staticSubProfession?.id];
         return stats ? (stats.have / stats.total) * 100 : 0;
     };
 </script>

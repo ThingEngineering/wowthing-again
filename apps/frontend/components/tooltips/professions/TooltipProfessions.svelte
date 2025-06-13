@@ -26,11 +26,13 @@
             }
 
             const subNames = subProfession.name.split('|');
+            const characterSubProfession =
+                character.professions?.[profession.id]?.subProfessions?.[subProfession.id];
 
             subProfessions.push([
                 subNames[character.faction] || subNames[0],
-                character.professions?.[profession.id][subProfession.id]?.currentSkill ?? 0,
-                character.professions?.[profession.id][subProfession.id]?.maxSkill ?? 0,
+                characterSubProfession?.skillCurrent ?? 0,
+                characterSubProfession?.skillMax ?? 0,
             ]);
         }
     }

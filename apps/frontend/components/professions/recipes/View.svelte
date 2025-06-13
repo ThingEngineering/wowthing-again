@@ -58,7 +58,7 @@
                 $userQuestStore,
                 (c) =>
                     !collectorIds.includes(c.id) &&
-                    !!c.professions?.[profession.id]?.[subProfession.id],
+                    !!c.professions?.[profession.id]?.subProfessions?.[subProfession.id],
                 char,
                 $newNavState.characterFilter
             )
@@ -254,8 +254,10 @@
                                 <td class="status faded">---</td>
                             {:else}
                                 {@const charProf =
-                                    character.professions[profession.id][subProfession.id]}
-                                {@const charHas = charProf?.knownRecipes?.indexOf(ability.id) >= 0}
+                                    character.professions[profession.id]?.subProfessions?.[
+                                        subProfession.id
+                                    ]}
+                                {@const charHas = charProf?.knownRecipes?.has?.(ability.id)}
                                 <td
                                     class="status"
                                     class:status-success={charHas}
