@@ -141,7 +141,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public patronOrders: Record<number, CharacterPatronOrder[]> = $state({});
     public professions: Record<number, CharacterProfession> = $state({});
     public professionCooldowns: Record<string, [number, number, number]> = $state({});
-    public professionTraits: Record<number, Record<number, number>> = $state({});
+    // public professionTraits: Record<number, Record<number, number>> = $state({});
     public raiderIo: Record<number, CharacterRaiderIoSeason> = $state({});
     public reputations: Record<number, number> = $state({});
     public shadowlands: CharacterShadowlands;
@@ -244,7 +244,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         // this.professions = professions;
         this.professionCooldowns = professionCooldowns;
         // professionSpecializations;
-        this.professionTraits = professionTraits;
+        // this.professionTraits = professionTraits;
         this.raiderIo = raiderIo;
         this.reputations = reputations;
         this.shadowlands = shadowlands;
@@ -284,7 +284,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
             const profession = (this.professions[professionId] = new CharacterProfession(
                 professionId
             ));
-            profession.process(professionData);
+            profession.process(professionData, professionTraits);
         }
 
         const cooking = this.professions[Profession.Cooking];

@@ -5,10 +5,13 @@
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
 
-    export let ability: StaticDataProfessionAbility;
-    export let currentRank: number;
-    export let totalRanks: number;
-    export let userHas: boolean;
+    type Props = {
+        ability: StaticDataProfessionAbility;
+        currentRank: number;
+        totalRanks: number;
+        userHas: boolean;
+    };
+    let { ability, currentRank, totalRanks, userHas }: Props = $props();
 </script>
 
 <style lang="scss">

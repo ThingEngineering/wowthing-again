@@ -25,7 +25,7 @@
             break $;
         }
 
-        charTraits = character.professionTraits?.[subProfession.id] || {};
+        charTraits = charProfession?.subProfessions?.[subProfession.id]?.traits;
     }
 </script>
 
