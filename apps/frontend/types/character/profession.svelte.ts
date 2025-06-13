@@ -1,15 +1,17 @@
-import { syncSet } from '@/utils/collections/sync-set';
+import cloneDeep from 'lodash/cloneDeep';
 import { SvelteSet } from 'svelte/reactivity';
-import { UserCount } from '../user-count';
-import { wowthingData } from '@/shared/stores/data';
+
 import { expansionOrder } from '@/data/expansion';
+import { wowthingData } from '@/shared/stores/data';
+import { syncSet } from '@/utils/collections/sync-set';
 import type {
     StaticDataProfessionAbility,
     StaticDataProfessionCategory,
+    StaticDataSubProfessionTraitNode,
 } from '@/shared/stores/static/types';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
-// import { Faction } from '@/enums/faction';
-// import { professionSpecializationSpells } from '@/data/professions';
+
+import { UserCount } from '../user-count';
 
 export interface CharacterProfessionRaw {
     currentSkill: number;
@@ -28,11 +30,14 @@ export class CharacterProfession {
 
     constructor(public id: number) {}
 
-    process(rawProfession: Record<number, CharacterProfessionRaw>) {
+    process(
+        rawProfession: Record<number, CharacterProfessionRaw>,
+        professionTraits: Record<number, Record<number, number>>
+    ) {
         const allKnownRecipes = new Set<number>();
         for (const [subProfessionId, rawSubProfession] of getNumberKeyedEntries(rawProfession)) {
             const subProfession = (this.subProfessions[subProfessionId] ||=
-                new CharacterSubProfession(subProfessionId));
+                new CharacterSubProfession(subProfessionId, professionTraits[subProfessionId]));
             subProfession.skillCurrent = rawSubProfession.currentSkill;
             subProfession.skillMax = rawSubProfession.maxSkill;
 
@@ -87,6 +92,16 @@ export class CharacterProfession {
             }
 
             this.recurseCategory(data, currentSubProfession, rootCategory);
+
+            if (subProfession.traitTrees) {
+                const traitStats = (data.subProfessionTraitStats[subProfession.id] =
+                    new UserCount());
+
+                const charTraits = this.subProfessions[subProfession.id]?.traits || {};
+                for (const traitTree of subProfession.traitTrees) {
+                    this.recurseTraits(traitStats, charTraits, traitTree.firstNode);
+                }
+            }
         }
 
         return data;
@@ -149,6 +164,19 @@ export class CharacterProfession {
             this.recurseCategory(data, subProfessionStats, child);
         }
     }
+
+    private recurseTraits(
+        stats: UserCount,
+        charTraits: Record<number, number>,
+        node: StaticDataSubProfessionTraitNode
+    ) {
+        stats.have += (charTraits[node.nodeId] || 1) - 1;
+        stats.total += node.rankMax;
+
+        for (const childNode of node.children || []) {
+            this.recurseTraits(stats, charTraits, childNode);
+        }
+    }
 }
 
 class CharacterProfessionData {
@@ -162,6 +190,13 @@ export class CharacterSubProfession {
     public knownRecipes = new SvelteSet<number>();
     public skillCurrent = $state(0);
     public skillMax = $state(0);
+    public traits: Record<number, number> = $state({});
 
-    constructor(public id: number) {}
+    constructor(
+        public id: number,
+        traits: Record<number, number>
+    ) {
+        // TODO merge
+        this.traits = cloneDeep(traits);
+    }
 }

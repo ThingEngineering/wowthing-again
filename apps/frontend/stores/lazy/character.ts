@@ -3,36 +3,23 @@ import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
 
 import { Constants } from '@/data/constants';
-import { expansionOrder } from '@/data/expansion';
 import { holidayIds, holidayMinimumLevel } from '@/data/holidays';
-import {
-    dragonflightProfessionMap,
-    professionSpecializationSpells,
-    warWithinProfessionMap,
-} from '@/data/professions';
+import { dragonflightProfessionMap, warWithinProfessionMap } from '@/data/professions';
 import { professionCooldowns, professionWorkOrders } from '@/data/professions/cooldowns';
 import { forcedReset, progressQuestMap } from '@/data/quests';
 import { multiTaskMap, taskMap } from '@/data/tasks';
 import { CharacterFlag } from '@/enums/character-flag';
-import { Faction } from '@/enums/faction';
 import { Profession } from '@/enums/profession';
 import { QuestStatus } from '@/enums/quest-status';
 import { DbResetType } from '@/shared/stores/db/enums';
 import { getNextDailyResetFromTime, getNextWeeklyResetFromTime } from '@/utils/get-next-reset';
-import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import {
-    UserCount,
     type Character,
     type ProfessionCooldown,
     type ProfessionCooldownQuest,
     type ProfessionCooldownSpell,
 } from '@/types';
 import type { Settings } from '@/shared/stores/settings/types';
-import type {
-    StaticDataProfessionAbility,
-    StaticDataProfessionCategory,
-    StaticDataSubProfessionTraitNode,
-} from '@/shared/stores/static/types';
 import type {
     TaskProfession,
     UserQuestData,
@@ -50,7 +37,6 @@ export interface LazyCharacter {
     tasks: Record<string, LazyCharacterTask>;
     professionCooldowns: LazyCharacterCooldowns;
     professionWorkOrders: LazyCharacterCooldowns;
-    professions: LazyCharacterProfessions;
 }
 export class LazyCharacterChore {
     anyReady = false;
@@ -84,22 +70,6 @@ export class LazyCharacterCooldowns {
     total = 0;
     cooldowns: ProfessionCooldown[] = [];
 }
-export class LazyCharacterProfessions {
-    knownRecipes: Set<number> = new Set<number>();
-    professions: Record<number, LazyCharacterProfession> = {};
-}
-export class LazyCharacterProfession {
-    filteredCategories: Record<number, StaticDataProfessionAbility[]> = {};
-    stats: UserCount = new UserCount();
-    subProfessions: Record<number, LazyCharacterSubProfession> = {};
-
-    constructor(public professionId: number) {}
-}
-
-export class LazyCharacterSubProfession {
-    stats: UserCount = new UserCount();
-    traitStats?: UserCount;
-}
 
 interface LazyStores {
     activeHolidays: ActiveHolidays;
@@ -126,15 +96,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                 professionWorkOrders,
                 CharacterFlag.IgnoreWorkOrders
             ),
-            professions: new LazyCharacterProfessions(),
         });
-
-        const professions = new ProcessCharacterProfessions(
-            stores,
-            character,
-            characterData.professions
-        );
-        professions.process();
 
         doCharacterTasks(stores, character, characterData);
     }
@@ -142,132 +104,6 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
     console.timeEnd('doCharacters');
 
     return ret;
-}
-
-class ProcessCharacterProfessions {
-    private currentProfession: LazyCharacterProfession;
-    private currentSubProfession: LazyCharacterSubProfession;
-
-    constructor(
-        private stores: LazyStores,
-        private character: Character,
-        private characterData: LazyCharacterProfessions
-    ) {}
-
-    public process() {
-        for (const [professionId, characterSubProfessions] of getNumberKeyedEntries(
-            this.character.professions || {}
-        )) {
-            const staticProfession = wowthingData.static.professionById.get(professionId);
-            // if (staticProfession.type !== 0) {
-            //     continue;
-            // }
-
-            for (const subProfession of Object.values(characterSubProfessions)) {
-                for (const abilityId of subProfession.knownRecipes || []) {
-                    this.characterData.knownRecipes.add(abilityId);
-                }
-            }
-
-            this.currentProfession = this.characterData.professions[professionId] =
-                new LazyCharacterProfession(professionId);
-
-            for (const expansion of expansionOrder) {
-                const subProfession = staticProfession.expansionSubProfession[expansion.id];
-                if (!subProfession) {
-                    continue;
-                }
-
-                // const characterSubProfession = characterSubProfessions[subProfession.id]
-                // if (!characterSubProfession) { continue }
-
-                this.currentSubProfession = this.currentProfession.subProfessions[
-                    subProfession.id
-                ] = new LazyCharacterSubProfession();
-
-                let rootCategory = staticProfession.expansionCategory?.[expansion.id];
-                if (rootCategory) {
-                    while (rootCategory.children.length === 1) {
-                        rootCategory = rootCategory.children[0];
-                    }
-                }
-
-                this.recurseCategory(rootCategory);
-
-                if (subProfession.traitTrees) {
-                    this.currentSubProfession.traitStats = new UserCount();
-
-                    const charTraits = this.character.professionTraits?.[subProfession.id] || {};
-                    for (const traitTree of subProfession.traitTrees) {
-                        this.recurseTraits(charTraits, traitTree.firstNode);
-                    }
-                }
-            }
-        }
-    }
-
-    private recurseCategory(category: StaticDataProfessionCategory) {
-        const filteredCategory: StaticDataProfessionAbility[] =
-            (this.currentProfession.filteredCategories[category.id] = []);
-
-        for (const ability of category.abilities || []) {
-            if (ability.faction !== Faction.Neutral && ability.faction !== this.character.faction) {
-                continue;
-            }
-
-            const requiredAbility = wowthingData.static.itemToRequiredAbility[ability.itemIds[0]];
-            if (professionSpecializationSpells[requiredAbility]) {
-                const charSpecialization =
-                    this.character.professionSpecializations[this.currentProfession.professionId];
-                if (charSpecialization !== undefined && charSpecialization !== requiredAbility) {
-                    continue;
-                }
-            }
-
-            filteredCategory.push(ability);
-
-            if (ability.extraRanks) {
-                this.currentProfession.stats.total += ability.extraRanks.length + 1;
-                this.currentSubProfession.stats.total += ability.extraRanks.length + 1;
-
-                for (let rankIndex = ability.extraRanks.length - 1; rankIndex >= 0; rankIndex--) {
-                    if (this.characterData.knownRecipes.has(ability.extraRanks[rankIndex][0])) {
-                        this.currentProfession.stats.have += rankIndex + 2;
-                        this.currentSubProfession.stats.have += rankIndex + 2;
-                        break;
-                    }
-                }
-                if (this.characterData.knownRecipes.has(ability.id)) {
-                    this.currentProfession.stats.have++;
-                    this.currentSubProfession.stats.have++;
-                }
-            } else {
-                this.currentProfession.stats.total++;
-                this.currentSubProfession.stats.total++;
-
-                if (this.characterData.knownRecipes.has(ability.id)) {
-                    this.currentProfession.stats.have++;
-                    this.currentSubProfession.stats.have++;
-                }
-            }
-        }
-
-        for (const child of category.children || []) {
-            this.recurseCategory(child);
-        }
-    }
-
-    private recurseTraits(
-        charTraits: Record<number, number>,
-        node: StaticDataSubProfessionTraitNode
-    ) {
-        this.currentSubProfession.traitStats.have += (charTraits[node.nodeId] || 1) - 1;
-        this.currentSubProfession.traitStats.total += node.rankMax;
-
-        for (const childNode of node.children || []) {
-            this.recurseTraits(charTraits, childNode);
-        }
-    }
 }
 
 function doCharacterTasks(stores: LazyStores, character: Character, characterData: LazyCharacter) {
@@ -500,9 +336,9 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                                 ? dragonflightProfessionMap[professionId]
                                 : warWithinProfessionMap[professionId];
                             const traitStats =
-                                characterData.professions.professions[professionId]?.subProfessions[
+                                character.professions[professionId]?.subProfessionTraitStats?.[
                                     professionData.subProfessionId
-                                ]?.traitStats;
+                                ];
                             if (traitStats && traitStats.percent === 100) {
                                 skipTraits = true;
                             }
@@ -886,7 +722,9 @@ function doProfessionCooldowns(
                             seconds = tierSeconds;
                         } else {
                             const charTrait =
-                                character.professionTraits?.[tierSubProfessionId]?.[tierTraitId];
+                                character.professions?.[cooldownData.profession]?.subProfessions?.[
+                                    tierSubProfessionId
+                                ]?.traits?.[tierTraitId];
                             if (charTrait && charTrait >= tierMinimum) {
                                 seconds = tierSeconds;
                             }

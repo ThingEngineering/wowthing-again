@@ -7,7 +7,6 @@
     import { lazyStore } from '@/stores';
     import { toNiceDuration, toNiceNumber } from '@/utils/formatting';
     import type { StaticDataProfessionAbility } from '@/shared/stores/static/types';
-    import type { LazyCharacterProfessions } from '@/stores/lazy/character';
     import type { Character, CharacterPatronOrder } from '@/types/character';
 
     import type { CommodityData } from './auction-store';
@@ -21,7 +20,6 @@
     export let patronOrder: CharacterPatronOrder = undefined;
 
     let ability: StaticDataProfessionAbility;
-    let characterProfessions: LazyCharacterProfessions;
     let craftingPrice: number;
     let notLearned: boolean;
     let providedReagents: Record<number, number>;
@@ -30,11 +28,14 @@
         craftingPrice = 0;
 
         if (patronOrder) {
-            characterProfessions = $lazyStore.characters[character.id].professions;
-            notLearned = !characterProfessions.knownRecipes.has(patronOrder.skillLineAbilityId);
-            ability = wowthingData.static.professionAbilityByAbilityId.get(
+            const abilityInfo = wowthingData.static.professionAbilityByAbilityId.get(
                 patronOrder.skillLineAbilityId
-            ).ability;
+            );
+            ability = abilityInfo.ability;
+
+            notLearned = !character.professions?.[abilityInfo.professionId]?.knownRecipes?.has(
+                patronOrder.skillLineAbilityId
+            );
             providedReagents = Object.fromEntries(
                 patronOrder.reagents.map((reagent) => [reagent.itemId, reagent.count])
             );
@@ -188,7 +189,7 @@
             -{toNiceNumber(Math.floor(craftingPrice / 100))} g
         </div>
         <div class="reagents border-left">
-            {#each ability.itemReagents as [count, itemId]}
+            {#each ability.itemReagents as [count, itemId] (itemId)}
                 {@const provided = providedReagents[itemId] || 0}
                 <div
                     class="reagent"
