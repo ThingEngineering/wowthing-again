@@ -284,7 +284,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
             const profession = (this.professions[professionId] = new CharacterProfession(
                 professionId
             ));
-            profession.process(professionData, professionTraits);
+            profession.process(professionData, professionTraits || {});
         }
 
         const cooking = this.professions[Profession.Cooking];
