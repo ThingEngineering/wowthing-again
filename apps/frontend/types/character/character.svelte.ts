@@ -495,35 +495,17 @@ export class Character implements ContainsItems, HasNameAndRealm {
         return this._itemCounts[itemId] || 0;
     }
 
-    private _professionKnownAbilities: Set<number> = undefined;
-    get allProfessionAbilities(): Set<number> {
-        if (this._professionKnownAbilities === undefined) {
-            this._professionKnownAbilities = new Set<number>();
-
-            for (const profession of Object.values(this.professions || {})) {
-                for (const subProfession of Object.values(profession)) {
-                    for (const knownAbilityId of subProfession.knownRecipes || []) {
-                        this._professionKnownAbilities.add(knownAbilityId);
-
-                        // known abilities often only has the highest rank, backfill lower ranks
-                        const { ability } =
-                            wowthingData.static.professionAbilityByAbilityId.get(knownAbilityId) ||
-                            {};
-                        if (ability?.extraRanks && ability.id !== knownAbilityId) {
-                            this._professionKnownAbilities.add(ability.id);
-                            for (const [rankAbilityId] of ability.extraRanks) {
-                                if (rankAbilityId === knownAbilityId) {
-                                    break;
-                                }
-                                this._professionKnownAbilities.add(rankAbilityId);
-                            }
-                        }
-                    }
-                }
+    public allProfessionAbilities = $derived.by(() => {
+        console.time('Character.allProfessionAbilities');
+        const allKnown = new Set<number>();
+        for (const profession of Object.values(this.professions)) {
+            for (const abilityId of profession.knownRecipes) {
+                allKnown.add(abilityId);
             }
         }
-        return this._professionKnownAbilities;
-    }
+        console.timeEnd('Character.allProfessionAbilities');
+        return allKnown;
+    });
 
     knowsProfessionAbility(abilityId: number): boolean {
         return this.allProfessionAbilities.has(abilityId);

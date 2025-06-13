@@ -29,8 +29,6 @@ export class CharacterProfession {
     constructor(public id: number) {}
 
     process(rawProfession: Record<number, CharacterProfessionRaw>) {
-        console.log(this.id, rawProfession);
-
         const allKnownRecipes = new Set<number>();
         for (const [subProfessionId, rawSubProfession] of getNumberKeyedEntries(rawProfession)) {
             const subProfession = (this.subProfessions[subProfessionId] ||=
@@ -41,7 +39,26 @@ export class CharacterProfession {
             const subKnownRecipes = new Set<number>();
             for (const abilityId of rawSubProfession.knownRecipes || []) {
                 allKnownRecipes.add(abilityId);
+                subKnownRecipes.add(abilityId);
+
+                // known abilities often only has the highest rank, backfill lower ranks
+                const { ability } =
+                    wowthingData.static.professionAbilityByAbilityId.get(abilityId) || {};
+                if (ability?.extraRanks && ability.id !== abilityId) {
+                    allKnownRecipes.add(ability.id);
+                    subKnownRecipes.add(ability.id);
+
+                    for (const [rankAbilityId] of ability.extraRanks) {
+                        if (rankAbilityId === abilityId) {
+                            break;
+                        }
+
+                        allKnownRecipes.add(rankAbilityId);
+                        subKnownRecipes.add(rankAbilityId);
+                    }
+                }
             }
+
             syncSet(subProfession.knownRecipes, subKnownRecipes);
         }
         syncSet(this.knownRecipes, allKnownRecipes);
