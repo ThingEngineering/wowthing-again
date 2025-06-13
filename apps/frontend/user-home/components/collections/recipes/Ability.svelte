@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Faction } from '@/enums/faction';
     import { uiIcons } from '@/shared/icons';
-    import { lazyStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import type { StaticDataProfessionAbility } from '@/shared/stores/static/types';
 
     import { recipesState } from './state';
@@ -17,8 +17,8 @@
     export let rank: number;
 
     $: name = ability.name || `{item:${ability.itemIds[0]}}` || `Spell #${spellId}`;
-    $: spellId = $lazyStore.recipes.abilitySpells[ability.id][rank - 1];
-    $: userHas = $lazyStore.recipes.hasAbility[ability.id][rank - 1];
+    $: spellId = userState.recipes.abilitySpells[ability.id][rank - 1];
+    $: userHas = userState.recipes.hasAbility[ability.id][rank - 1];
 </script>
 
 <style lang="scss">

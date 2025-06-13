@@ -1,15 +1,23 @@
 import { settingsState } from '@/shared/state/settings.svelte';
 import { browserState, type CollectibleState } from '@/shared/state/browser.svelte';
-import { UserCount } from '@/types';
+import { Character, UserCount } from '@/types';
 import {
     ManualDataSetCategory,
     ManualDataSetGroup,
     type ManualDataSetGroupArray,
 } from '@/types/data/manual';
+import { wowthingData } from '@/shared/stores/data';
+import { expansionMap, expansionOrder } from '@/data/expansion';
+import { Constants } from '@/data/constants';
 
 interface UserCollectible {
     filteredCategories: ManualDataSetCategory[][];
     stats: Record<string, UserCount>;
+}
+class UserRecipes {
+    public abilitySpells: Record<number, number[]> = {};
+    public hasAbility: Record<number, boolean[]> = {};
+    public stats: Record<string, UserCount> = {};
 }
 
 export class DataUserDerived {
@@ -160,6 +168,110 @@ export class DataUserDerived {
         }
 
         // console.timeEnd(`doCollectible(${collectionKey})`)
+
+        return ret;
+    }
+
+    public doRecipes(allCharacters: Character[]) {
+        console.time('doRecipes');
+
+        const ret = new UserRecipes();
+
+        const overallData = (ret.stats['OVERALL'] = new UserCount());
+
+        for (const profession of wowthingData.static.professionById.values()) {
+            const professionKey = profession.slug;
+            const professionData = (ret.stats[professionKey] = new UserCount());
+
+            const allKnown = new Set<number>();
+            const collectorIds =
+                settingsState.value.professions.collectingCharactersV2?.[profession.id];
+            const characters =
+                collectorIds?.length > 0
+                    ? collectorIds.map((collectorId) =>
+                          allCharacters.find((c) => c.id === collectorId)
+                      )
+                    : allCharacters;
+            for (const character of characters || []) {
+                for (const recipeId of character?.professions?.[profession.id]?.knownRecipes ||
+                    []) {
+                    allKnown.add(recipeId);
+                }
+            }
+
+            const categories = profession.categories || [];
+            for (let categoryIndex = 0; categoryIndex < categories.length; categoryIndex++) {
+                const category = categories[categoryIndex];
+                if (!category.children[0]?.children) {
+                    continue;
+                }
+
+                if (categoryIndex >= expansionOrder.length) {
+                    console.warn(
+                        'Uhhhh this profession category has no expansion?',
+                        profession,
+                        categoryIndex
+                    );
+                    continue;
+                }
+
+                const expansionSlug = expansionMap[categoryIndex].slug;
+
+                const categoryKey = `${professionKey}--${expansionSlug}`;
+                const categoryData = (ret.stats[categoryKey] = new UserCount());
+
+                const expansionKey = `expansion--${expansionSlug}`;
+                const expansionData = (ret.stats[expansionKey] ||= new UserCount());
+
+                for (const child of category.children[0].children) {
+                    const childKey = `${categoryKey}--${child.id}`;
+                    const childData = (ret.stats[childKey] = new UserCount());
+
+                    for (const ability of child.abilities) {
+                        const abilityIds = [
+                            ability.id,
+                            ...(ability.extraRanks || []).map(([abilityId]) => abilityId),
+                        ];
+                        ret.abilitySpells[ability.id] = [
+                            ability.spellId,
+                            ...(ability.extraRanks || []).map(([, spellId]) => spellId),
+                        ];
+                        // a multi-rank ability is collected if you know that specific rank OR
+                        // any higher rank
+                        ret.hasAbility[ability.id] = abilityIds.map((_, index) =>
+                            abilityIds.slice(index).some((abilityId) => allKnown.has(abilityId))
+                        );
+
+                        const abilityCount = abilityIds.length;
+                        const abilityHave = ret.hasAbility[ability.id].filter(
+                            (have) => have
+                        ).length;
+
+                        if (
+                            !settingsState.value.collections.hideFuture ||
+                            categoryIndex <= Constants.expansion
+                        ) {
+                            overallData.total += abilityCount;
+                            overallData.have += abilityHave;
+
+                            professionData.total += abilityCount;
+                            professionData.have += abilityHave;
+                        }
+
+                        expansionData.total += abilityCount;
+                        expansionData.have += abilityHave;
+
+                        categoryData.total += abilityCount;
+                        categoryData.have += abilityHave;
+
+                        childData.total += abilityCount;
+                        childData.have += abilityHave;
+                    }
+                }
+            }
+        }
+
+        console.timeEnd('doRecipes');
 
         return ret;
     }
