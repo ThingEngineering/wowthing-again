@@ -1,11 +1,6 @@
 import type { StaticDataBag, StaticDataBagArray } from './bag';
 import type { StaticDataCampaign, StaticDataCampaignArray } from './campaign';
 import type {
-    StaticDataCharacterClass,
-    StaticDataCharacterRace,
-    StaticDataCharacterSpecialization,
-} from './character';
-import type {
     StaticDataCurrency,
     StaticDataCurrencyArray,
     StaticDataCurrencyCategory,

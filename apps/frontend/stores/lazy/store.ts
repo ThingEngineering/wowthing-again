@@ -16,7 +16,6 @@ import { doRecipes, LazyRecipes } from './recipes';
 import { AchievementsState, achievementState } from '../local-storage';
 
 import { userStore } from '../user';
-import { userAchievementStore } from '../user-achievements';
 import { userQuestStore } from '../user-quests';
 
 import { activeHolidays, type ActiveHolidays } from '../derived/active-holidays';
@@ -52,10 +51,8 @@ export const lazyStore = derived(
 export class LazyStore {
     private settings: Settings;
 
-    // private userAchievementData: UserAchievementData;
     // private userData: UserData;
     // private userQuestData: UserQuestData;
-    private userAchievementDataId: number;
     private userDataId: number;
     private userQuestDataId: number;
 
@@ -91,7 +88,6 @@ export class LazyStore {
 
         const changedData = {
             userData: this.userDataId !== userStore.id,
-            userAchievementData: this.userAchievementDataId !== userAchievementStore.id,
             userQuestData: this.userQuestDataId !== userQuestStore.id,
         };
 
@@ -110,7 +106,6 @@ export class LazyStore {
         this.settings = settings;
 
         this.userDataId = userStore.id;
-        this.userAchievementDataId = userAchievementStore.id;
         this.userQuestDataId = userQuestStore.id;
 
         if (

@@ -3,7 +3,7 @@
     import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator';
     import { CriteriaType } from '@/enums/criteria-type';
     import { wowthingData } from '@/shared/stores/data';
-    import { achievementStore, userAchievementStore } from '@/stores';
+    import { achievementStore } from '@/stores';
     import type {
         AchievementDataAchievement,
         AchievementDataCriteria,
@@ -14,6 +14,7 @@
     import ProgressBar from '@/components/common/ProgressBar.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
+    import { userState } from '@/user-home/state/user';
 
     export let accountWide = false;
     export let achievement: AchievementDataAchievement;
@@ -107,7 +108,7 @@
                 linkType = 'achievement';
                 linkId = criteria.asset;
 
-                const earned = $userAchievementStore.achievements[criteria.asset];
+                const earned = userState.achievements.achievementEarnedById.has(criteria.asset);
                 if (earned) {
                     linkParams['who'] = 'You';
                     linkParams['when'] = earned.toString() + '000';

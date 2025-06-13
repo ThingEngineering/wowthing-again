@@ -1,6 +1,6 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons';
-    import { achievementStore, userAchievementStore } from '@/stores';
+    import { achievementStore } from '@/stores';
     import { achievementState } from '@/stores/local-storage';
     import { settingsState } from '@/shared/state/settings.svelte';
     import type { AchievementDataAchievement } from '@/types';
@@ -37,7 +37,7 @@
                 }
             }
         } else {
-            earned = $userAchievementStore.achievements[achievementId];
+            earned = userState.achievements.achievementEarnedById.get(achievementId);
         }
 
         earnedDate = new Date(earned * 1000);
@@ -64,16 +64,16 @@
         // Hack for some weird achievements that don't reference future ones properly
         if (
             achievement.supersededBy &&
-            ($userAchievementStore.achievements[achievement.supersededBy] ||
-                $userAchievementStore.achievements[
+            (userState.achievements.achievementEarnedById.has(achievement.supersededBy) ||
+                userState.achievements.achievementEarnedById.has(
                     $achievementStore.achievement[achievement.supersededBy].supersededBy
-                ])
+                ))
         ) {
             show = false;
         } else if (
             !kindaAlwaysShow &&
             achievement.supersedes &&
-            $userAchievementStore.achievements[achievement.supersedes] === undefined
+            !userState.achievements.achievementEarnedById.has(achievement.supersedes)
         ) {
             show = false;
         } else {
@@ -258,7 +258,7 @@
         {#if chain.length > 0}
             <div class="chain">
                 {#each chain as chainId}
-                    {@const chainEarned = $userAchievementStore.achievements[chainId] !== undefined}
+                    {@const chainEarned = userState.achievements.achievementEarnedById.has(chainId)}
                     <div class="chain-icon" class:completed={chainEarned}>
                         <AchievementLink id={chainId}>
                             <WowthingImage name="achievement/{chainId}" size={40} border={2} />

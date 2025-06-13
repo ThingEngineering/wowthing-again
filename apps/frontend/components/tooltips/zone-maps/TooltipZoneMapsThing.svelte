@@ -13,7 +13,7 @@
     import { RewardType } from '@/enums/reward-type';
     import { rewardTypeIcons } from '@/shared/icons/mappings';
     import { wowthingData } from '@/shared/stores/data';
-    import { achievementStore, userAchievementStore } from '@/stores';
+    import { achievementStore } from '@/stores';
     import { lazyState } from '@/user-home/state/lazy';
     import { userState } from '@/user-home/state/user';
     import { leftPad } from '@/utils/formatting';
@@ -47,10 +47,7 @@
         sortedDrops = sortBy(sigh, (s) => [!s[1].need, !s[1].validCharacters]);
 
         if (farm.statisticId > 0) {
-            statistic = ($userAchievementStore.statistics?.[farm.statisticId] || []).reduce(
-                (a, b) => a + b[1],
-                0
-            );
+            statistic = userState.achievements.statisticById.get(farm.statisticId) || 0;
         }
     }
 

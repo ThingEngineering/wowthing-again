@@ -3,7 +3,7 @@
     import sortBy from 'lodash/sortBy';
     import { replace } from 'svelte-spa-router';
 
-    import { achievementStore, userAchievementStore } from '@/stores';
+    import { achievementStore } from '@/stores';
     import { achievementState } from '@/stores/local-storage';
     import { leftPad } from '@/utils/formatting';
     import type { AchievementDataCategory } from '@/types';
@@ -123,12 +123,12 @@
             >
         </button>
 
-        {#if category && $userAchievementStore.achievementCategories[category.id].totalPoints}
+        {#if category && userState.achievements.categories[category.id].totalPoints}
             <div class="progress-bar new-group">
                 <ProgressBar
                     title="Points"
-                    have={$userAchievementStore.achievementCategories[category.id].havePoints}
-                    total={$userAchievementStore.achievementCategories[category.id].totalPoints}
+                    have={userState.achievements.categories[category.id].havePoints}
+                    total={userState.achievements.categories[category.id].totalPoints}
                 />
             </div>
         {/if}
@@ -136,9 +136,9 @@
 
     {#if category && achievementIds}
         <div class="achievements">
-            {#each achievementIds as achievementId}
+            {#each achievementIds as achievementId (achievementId)}
                 {#if Array.isArray(achievementId)}
-                    {#each achievementId as subAchievementId}
+                    {#each achievementId as subAchievementId (subAchievementId)}
                         <Achievement
                             kindaAlwaysShow={category.id >= 200000}
                             achievementId={subAchievementId}
