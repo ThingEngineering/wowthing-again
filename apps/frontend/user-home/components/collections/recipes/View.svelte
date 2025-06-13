@@ -2,8 +2,8 @@
     import { expansionSlugMap } from '@/data/expansion';
     import { wowthingData } from '@/shared/stores/data';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { lazyStore } from '@/stores';
     import { UserCount } from '@/types';
+    import { userState } from '@/user-home/state/user';
     import getPercentClass from '@/utils/get-percent-class';
     import type { StaticDataProfessionCategory } from '@/shared/stores/static/types';
 
@@ -33,7 +33,7 @@
             }
 
             const subStats =
-                $lazyStore.recipes.stats[`${professionSlug}--${expansionSlug}--${subCategory.id}`];
+                userState.recipes.stats[`${professionSlug}--${expansionSlug}--${subCategory.id}`];
 
             let anyShown = false;
             for (const ability of subCategory.abilities) {
@@ -42,7 +42,7 @@
                     ...(ability.extraRanks || []).map(([abilityId]) => abilityId),
                 ];
 
-                const abilityUserHas = $lazyStore.recipes.hasAbility[ability.id];
+                const abilityUserHas = userState.recipes.hasAbility[ability.id];
                 abilityIds.forEach((_abilityId, index) => {
                     const userHas = abilityUserHas[index];
                     if (

@@ -7,27 +7,23 @@ import { settingsState } from '@/shared/state/settings.svelte';
 import { timeStore } from '@/shared/stores/time';
 import { hashObject } from '@/utils/hash-object.svelte';
 import type { Settings } from '@/shared/stores/settings/types';
-import type { FancyStoreType, UserData } from '@/types';
+import type { FancyStoreType } from '@/types';
 import type { UserQuestData } from '@/types/data';
 
 import { doCharacters, type LazyCharacter } from './character';
-import { doRecipes, LazyRecipes } from './recipes';
 
 import { AchievementsState, achievementState } from '../local-storage';
 
-import { userStore } from '../user';
-import { userAchievementStore } from '../user-achievements';
 import { userQuestStore } from '../user-quests';
 
 import { activeHolidays, type ActiveHolidays } from '../derived/active-holidays';
 
 export const lazyStore = derived(
-    [timeStore, achievementState, userStore, userQuestStore, activeHolidays],
+    [timeStore, achievementState, userQuestStore, activeHolidays],
     debounce(
-        ([$timeStore, $achievementState, $userStore, $userQuestStore, $activeHolidays]: [
+        ([$timeStore, $achievementState, $userQuestStore, $activeHolidays]: [
             DateTime,
             AchievementsState,
-            FancyStoreType<UserData>,
             FancyStoreType<UserQuestData>,
             ActiveHolidays,
         ]) => {
@@ -35,7 +31,6 @@ export const lazyStore = derived(
                 settingsState.value,
                 $timeStore,
                 $achievementState,
-                $userStore,
                 $userQuestStore,
                 $activeHolidays
             );
@@ -52,15 +47,9 @@ export const lazyStore = derived(
 export class LazyStore {
     private settings: Settings;
 
-    // private userAchievementData: UserAchievementData;
-    // private userData: UserData;
-    // private userQuestData: UserQuestData;
-    private userAchievementDataId: number;
-    private userDataId: number;
     private userQuestDataId: number;
 
     private charactersFunc: () => Record<string, LazyCharacter>;
-    private recipesFunc: () => LazyRecipes;
 
     private hashes: Record<string, string> = {};
 
@@ -68,7 +57,6 @@ export class LazyStore {
         settings: Settings,
         currentTime: DateTime,
         achievementState: AchievementsState,
-        userData: UserData,
         userQuestData: UserQuestData,
         activeHolidays: ActiveHolidays
     ) {
@@ -90,8 +78,6 @@ export class LazyStore {
         );
 
         const changedData = {
-            userData: this.userDataId !== userStore.id,
-            userAchievementData: this.userAchievementDataId !== userAchievementStore.id,
             userQuestData: this.userQuestDataId !== userQuestStore.id,
         };
 
@@ -109,12 +95,9 @@ export class LazyStore {
 
         this.settings = settings;
 
-        this.userDataId = userStore.id;
-        this.userAchievementDataId = userAchievementStore.id;
         this.userQuestDataId = userQuestStore.id;
 
         if (
-            changedData.userData ||
             changedData.userQuestData ||
             changedHashes.currentTime ||
             changedHashes.settingsCharacterFlags ||
@@ -130,23 +113,11 @@ export class LazyStore {
             );
         }
 
-        if (changedData.userData) {
-            this.recipesFunc = once(() =>
-                doRecipes({
-                    settings,
-                    userData,
-                })
-            );
-        }
-
         // console.timeEnd('LazyStore.update')
     }
 
     get characters(): Record<string, LazyCharacter> {
         return this.charactersFunc();
-    }
-    get recipes(): LazyRecipes {
-        return this.recipesFunc();
     }
 }
 

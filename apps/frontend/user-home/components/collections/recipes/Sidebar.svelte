@@ -4,15 +4,14 @@
     import { expansionSlugMap } from '@/data/expansion';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { lazyStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
 
     import ProgressBar from '@/components/common/ProgressBar.svelte';
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
 
-    let sidebarItems: SidebarItem[];
-    $: {
-        sidebarItems = [];
+    let sidebarItems = $derived.by(() => {
+        const ret = [];
         const byExpansion: Record<number, Record<number, boolean>> = {};
 
         const sortedExpansions = settingsState.expansions.slice();
@@ -31,16 +30,16 @@
             };
 
             for (const expansion of sortedExpansions) {
-                if ($lazyStore.recipes.stats[`${profession.slug}--${expansion.slug}`]?.total > 0) {
+                if (userState.recipes.stats[`${profession.slug}--${expansion.slug}`]?.total > 0) {
                     (byExpansion[expansion.id] ||= {})[profession.id] = true;
                     professionSidebarItem.children.push(expansion);
                 }
             }
 
-            sidebarItems.push(professionSidebarItem);
+            ret.push(professionSidebarItem);
         }
 
-        sidebarItems.push(null);
+        ret.push(null);
 
         for (const expansion of sortedExpansions.filter((expansion) => byExpansion[expansion.id])) {
             const expansionSidebarItem: SidebarItem = {
@@ -58,22 +57,24 @@
                 });
             }
 
-            sidebarItems.push(expansionSidebarItem);
+            ret.push(expansionSidebarItem);
         }
-    }
-    $: overall = $lazyStore.recipes.stats.OVERALL;
+        return ret;
+    });
+
+    let overall = $derived(userState.recipes.stats.OVERALL);
 
     const percentFunc = function (entry: SidebarItem, parentEntries?: SidebarItem[]): number {
         if (parentEntries?.length > 0) {
             const key = expansionSlugMap[parentEntries[0].slug]
                 ? [entry.slug, ...parentEntries.map((parent) => parent.slug)].join('--')
                 : [...parentEntries.map((parent) => parent.slug), entry.slug].join('--');
-            return $lazyStore.recipes.stats[key]?.percent ?? 0;
+            return userState.recipes.stats[key]?.percent ?? 0;
         } else {
             if (expansionSlugMap[entry.slug]) {
-                return $lazyStore.recipes.stats[`expansion--${entry.slug}`]?.percent ?? 0;
+                return userState.recipes.stats[`expansion--${entry.slug}`]?.percent ?? 0;
             } else {
-                return $lazyStore.recipes.stats[entry.slug]?.percent ?? 0;
+                return userState.recipes.stats[entry.slug]?.percent ?? 0;
             }
         }
     };

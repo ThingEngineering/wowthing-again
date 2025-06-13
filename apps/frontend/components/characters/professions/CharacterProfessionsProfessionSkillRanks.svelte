@@ -33,7 +33,7 @@
     >
         {#each { length: 3 }, index}
             <WowheadLink
-                id={index === 0 ? ability.spellId : ability.extraRanks[index][1]}
+                id={index === 0 ? ability.spellId : ability.extraRanks[index - 1][1]}
                 type="spell"
             >
                 <IconifyIcon

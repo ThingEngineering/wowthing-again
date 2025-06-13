@@ -1,8 +1,8 @@
 <script lang="ts">
     import { onMount } from 'svelte';
 
-    import { achievementStore, userAchievementStore } from '@/stores';
-    import { achievementState, exploreState } from '@/stores/local-storage';
+    import { achievementStore } from '@/stores';
+    import { exploreState } from '@/stores/local-storage';
     import { settingsState } from '@/shared/state/settings.svelte';
     import type { AchievementDataAchievement } from '@/types';
 
@@ -19,18 +19,13 @@
             await Promise.all([
                 achievementStore.fetch({ language: settingsState.value.general.language }),
                 //userAchievementStore.fetch(),
-            ]),
+            ])
     );
 
-    let error: boolean;
-    let loaded: boolean;
     let ready: boolean;
     $: {
-        error = $achievementStore.error || $userAchievementStore.error;
-        loaded = $achievementStore.loaded && $userAchievementStore.loaded;
         ready = false;
-        if (!error && loaded) {
-            userAchievementStore.setup($achievementState, $achievementStore);
+        if (!$achievementStore.error && $achievementStore.loaded) {
             ready = true;
         }
     }

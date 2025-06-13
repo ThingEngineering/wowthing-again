@@ -44,6 +44,8 @@ class UserState {
         )
     );
 
+    public recipes = $derived.by(() => this.derived.doRecipes(this.general.characters));
+
     public toys = $derived.by(() =>
         this.derived.doCollectible('toys', wowthingData.manual.toySets, (id) =>
             this.general.hasToyByItemId.has(id)
