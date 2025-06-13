@@ -9,7 +9,7 @@
         StaticDataProfessionAbility,
         StaticDataProfessionCategory,
     } from '@/shared/stores/static/types';
-    import type { Character, CharacterProfession } from '@/types';
+    import type { Character, CharacterSubProfession } from '@/types';
 
     import CraftLevels from './CharacterProfessionsProfessionCraftLevels.svelte';
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
@@ -21,7 +21,7 @@
 
     export let category: StaticDataProfessionCategory;
     export let character: Character;
-    export let charSubProfession: CharacterProfession;
+    export let charSubProfession: CharacterSubProfession;
     export let filteredCategories: Record<number, StaticDataProfessionAbility[]>;
     export let hasFirstCraft: boolean;
     export let knownRecipes: Set<number>;
@@ -160,7 +160,7 @@
             </tr>
         </thead>
         <tbody>
-            {#each abilities as [ability, userHas, spellId, currentRank, totalRanks, requiredAbility]}
+            {#each abilities as [ability, userHas, spellId, currentRank, totalRanks, requiredAbility] (spellId)}
                 {@const name =
                     ability.name ||
                     wowthingData.items.items[ability.itemIds[0]]?.name ||
@@ -208,7 +208,7 @@
                                     <SkillRanks {ability} {currentRank} {totalRanks} {userHas} />
                                 {:else}
                                     <CraftLevels
-                                        currentSkill={charSubProfession?.currentSkill || 0}
+                                        currentSkill={charSubProfession?.skillCurrent || 0}
                                         {ability}
                                     />
 

@@ -21,13 +21,14 @@
     let { character, expansionSlug, profession }: Props = $props();
 
     let professions = $derived.by(() => {
-        const professions: [StaticDataProfession, Record<number, CharacterProfession>][] =
-            getNumberKeyedEntries(character.professions)
-                .filter(([id]) => !isSecondaryProfession[id])
-                .map(([id, charProfession]) => [
-                    wowthingData.static.professionById.get(id),
-                    charProfession,
-                ]);
+        const professions: [StaticDataProfession, CharacterProfession][] = getNumberKeyedEntries(
+            character.professions
+        )
+            .filter(([id]) => !isSecondaryProfession[id])
+            .map(([id, charProfession]) => [
+                wowthingData.static.professionById.get(id),
+                charProfession,
+            ]);
         professions.sort((a, b) =>
             getProfessionSortKey(a[0]).localeCompare(getProfessionSortKey(b[0]))
         );
@@ -46,15 +47,13 @@
 
 <td>
     {#if professions[profession]}
-        {@const [staticProfession] = professions[profession]}
+        {@const [staticProfession, characterProfession] = professions[profession]}
         {@const staticSubProfession =
             staticProfession.expansionSubProfession[expansionSlugMap[expansionSlug].id]}
-        {@const lazyData =
-            $lazyStore.characters[character.id].professions.professions[staticProfession.id]}
-        {@const charStats = lazyData.subProfessions[staticSubProfession.id]?.traitStats}
+        {@const charStats = characterProfession?.subProfessionTraitStats?.[staticSubProfession.id]}
         <div
             class="flex-wrapper"
-            use:basicTooltip={`${charStats.have} / ${charStats.total} knowledge`}
+            use:basicTooltip={`${charStats?.have || 0} / ${charStats?.total || 0} knowledge`}
         >
             <WowthingImage
                 name={imageStrings[professionIdToSlug[staticProfession.id]]}
@@ -62,8 +61,8 @@
                 border={1}
             />
             {#if charStats}
-                <span class={getPercentClass(charStats.percent)}>
-                    {Math.floor(charStats.percent)} %
+                <span class={getPercentClass(charStats?.percent || 0)}>
+                    {Math.floor(charStats?.percent || 0)} %
                 </span>
             {:else}
                 <span class="status-fail">0 %</span>

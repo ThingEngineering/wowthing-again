@@ -7,7 +7,7 @@
     import { getProfessionSortKey } from '@/utils/professions';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import type { Character, CharacterProfession } from '@/types';
+    import type { Character, CharacterSubProfession } from '@/types';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
 
     import Tooltip from '@/components/tooltips/professions/TooltipProfessions.svelte';
@@ -16,7 +16,7 @@
     export let character: Character;
     export let professionType = 0;
 
-    let professions: [StaticDataProfession, CharacterProfession, boolean][];
+    let professions: [StaticDataProfession, CharacterSubProfession, boolean][];
     $: {
         professions = [];
         for (const [professionId, profession] of wowthingData.static.professionById.entries()) {
@@ -26,12 +26,14 @@
 
             if (profession?.type === professionType) {
                 if (profession.subProfessions.length > 0) {
-                    let best: [CharacterProfession, number];
+                    let best: [CharacterSubProfession, number];
                     for (const expansion of settingsState.expansions) {
                         const subProfession = profession.expansionSubProfession[expansion.id];
                         if (subProfession) {
                             const characterSubProfession =
-                                character.professions?.[profession.id]?.[subProfession.id];
+                                character.professions[profession.id]?.subProfessions?.[
+                                    subProfession.id
+                                ];
                             if (characterSubProfession && expansion.id >= (best?.[1] || 0)) {
                                 best = [characterSubProfession, expansion.id];
                             }
@@ -45,7 +47,7 @@
                     }
                 } else {
                     const characterProfession =
-                        character.professions?.[profession.id]?.[profession.id];
+                        character.professions?.[profession.id]?.subProfessions?.[profession.id];
                     professions.push([profession, characterProfession || null, true]);
                 }
             }
@@ -91,7 +93,7 @@
     {#if professions.length > 0}
         <div class="flex-wrapper">
             {#each professions as [profession, charProfession, current]}
-                {@const currentSkill = charProfession?.currentSkill || 0}
+                {@const currentSkill = charProfession?.skillCurrent || 0}
                 <div
                     class="profession"
                     data-id={profession.id}
@@ -116,7 +118,7 @@
                             class:status-fail={!current || currentSkill === 0}
                             class:status-success={current &&
                                 currentSkill > 0 &&
-                                currentSkill >= charProfession.maxSkill}
+                                currentSkill >= charProfession.skillMax}
                         >
                             {currentSkill || '---'}
                         </span>

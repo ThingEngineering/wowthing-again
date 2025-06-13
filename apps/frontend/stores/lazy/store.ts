@@ -7,7 +7,7 @@ import { settingsState } from '@/shared/state/settings.svelte';
 import { timeStore } from '@/shared/stores/time';
 import { hashObject } from '@/utils/hash-object.svelte';
 import type { Settings } from '@/shared/stores/settings/types';
-import type { FancyStoreType, UserAchievementData, UserData } from '@/types';
+import type { FancyStoreType, UserData } from '@/types';
 import type { UserQuestData } from '@/types/data';
 
 import { doCharacters, type LazyCharacter } from './character';
@@ -124,7 +124,6 @@ export class LazyStore {
                 doCharacters({
                     currentTime,
                     settings: this.settings,
-                    userData,
                     userQuestData,
                     activeHolidays,
                 })

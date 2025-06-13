@@ -26,7 +26,6 @@ import {
     type ProfessionCooldown,
     type ProfessionCooldownQuest,
     type ProfessionCooldownSpell,
-    type UserData,
 } from '@/types';
 import type { Settings } from '@/shared/stores/settings/types';
 import type {
@@ -44,6 +43,7 @@ import type { Chore } from '@/types/tasks';
 import type { ActiveHolidays } from '../derived/active-holidays';
 import { Region } from '@/enums/region';
 import { wowthingData } from '@/shared/stores/data';
+import { userState } from '@/user-home/state/user';
 
 export interface LazyCharacter {
     chores: Record<string, LazyCharacterChore>;
@@ -105,7 +105,6 @@ interface LazyStores {
     activeHolidays: ActiveHolidays;
     currentTime: DateTime;
     settings: Settings;
-    userData: UserData;
     userQuestData: UserQuestData;
 }
 
@@ -116,7 +115,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
     accountTasks = {};
     const ret: Record<string, LazyCharacter> = {};
 
-    for (const character of stores.userData.characters) {
+    for (const character of userState.general.characters) {
         const characterData = (ret[character.id] = {
             chores: {},
             tasks: {},
@@ -348,8 +347,8 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
         if (
             choreTask.taskKey === 'twwChettList' &&
             charTask.status === 0 &&
-            (stores.userData.characterMap[character.id]?.getItemCount(235053) > 0 ||
-                stores.userData.characterMap[character.id]?.getItemCount(236682) > 0)
+            (userState.general.characterById[character.id]?.getItemCount(235053) > 0 ||
+                userState.general.characterById[character.id]?.getItemCount(236682) > 0)
         ) {
             charTask.status = 1;
         }
@@ -450,7 +449,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                                 ([charId, charQuests]) => {
                                     const charTask = processTask(
                                         choreTask,
-                                        stores.userData.characterMap[parseInt(charId)]
+                                        userState.general.characterById[parseInt(charId)]
                                     );
                                     return [charTask.status, charQuests.scannedAt, charTask];
                                 }

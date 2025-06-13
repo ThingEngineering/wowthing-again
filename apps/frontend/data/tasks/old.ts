@@ -977,7 +977,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
                     .filter((prof) => prof.type === 0)
                     .some(
                         (profession) =>
-                            !!char.professions?.[profession.id]?.[
+                            !!char.professions?.[profession.id]?.subProfessions?.[
                                 profession.expansionSubProfession[9].id
                             ]
                     ),
@@ -1382,7 +1382,7 @@ export const questResetMap = Object.fromEntries(
 
 function couldGet(char: Character, professionId: number, subProfessionId: number): boolean {
     const profession = wowthingData.static.professionById.get(professionId);
-    return !!char.professions?.[profession.id]?.[subProfessionId];
+    return !!char.professions?.[profession.id]?.subProfessions?.[subProfessionId];
 }
 
 function getExpansionSkill(
@@ -1393,7 +1393,8 @@ function getExpansionSkill(
 ): string {
     const currentSubProfession =
         wowthingData.static.professionById.get(professionId).expansionSubProfession[expansion];
-    const skill = char.professions[professionId][currentSubProfession?.id]?.currentSkill ?? 0;
+    const skill =
+        char.professions[professionId].subProfessions[currentSubProfession?.id]?.skillCurrent ?? 0;
 
     return skill < minSkill ? `Need ${minSkill} skill` : '';
 }

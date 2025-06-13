@@ -2,9 +2,9 @@ import { Constants } from '@/data/constants';
 import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
 import type { StaticDataProfession } from '@/shared/stores/static/types';
-import type { Character, CharacterProfession } from '@/types';
+import type { Character, CharacterSubProfession } from '@/types';
 
-export type ProfessionData = [StaticDataProfession, CharacterProfession, boolean];
+export type ProfessionData = [StaticDataProfession, CharacterSubProfession, boolean];
 
 export function getCharacterProfessions(
     character: Character,
@@ -19,7 +19,7 @@ export function getCharacterProfessions(
                 for (const expansion of settingsState.expansions) {
                     const subProfession = profession.expansionSubProfession[expansion.id];
                     const characterSubProfession =
-                        character.professions?.[profession.id]?.[subProfession.id];
+                        character.professions?.[profession.id]?.subProfessions?.[subProfession.id];
                     if (characterSubProfession) {
                         professions.push([
                             profession,
@@ -35,7 +35,8 @@ export function getCharacterProfessions(
                     professions.push([profession, null, true]);
                 }
             } else {
-                const characterProfession = character.professions?.[profession.id]?.[profession.id];
+                const characterProfession =
+                    character.professions?.[profession.id]?.subProfessions?.[profession.id];
                 professions.push([profession, characterProfession || null, true]);
             }
         }

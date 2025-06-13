@@ -1,9 +1,6 @@
-import { get } from 'svelte/store';
-
-import { userStore } from '@/stores';
-import getRealmName from '@/utils/get-realm-name';
+import { userState } from '@/user-home/state/user';
 
 export function getCharacterNameRealm(characterId: number): string {
-    const character = get(userStore).characterMap[characterId];
-    return `${character.name} - ${getRealmName(character.realmId)}`;
+    const character = userState.general.characterById[characterId];
+    return `${character?.name || 'Unknown Character'} - ${character?.realm?.name || 'Unknown Realm'}`;
 }

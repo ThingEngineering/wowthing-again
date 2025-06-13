@@ -3,8 +3,8 @@
     import { replace } from 'svelte-spa-router';
 
     import { wowthingData } from '@/shared/stores/data';
-    import type { Character, MultiSlugParams } from '@/types';
-    import type { StaticDataProfession } from '@/shared/stores/static/types';
+    import type { MultiSlugParams } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import Collectibles from './CharacterProfessionsCollectibles.svelte';
     import Equipment from '@/components/professions/Equipment.svelte';
@@ -12,17 +12,12 @@
     import Sidebar from './CharacterProfessionsSidebar.svelte';
     import Traits from './CharacterProfessionsTraits.svelte';
 
-    export let character: Character;
-    export let params: MultiSlugParams;
+    let { character, params }: CharacterProps & { params: MultiSlugParams } = $props();
 
-    let knownRecipes: Set<number>;
-    let staticProfession: StaticDataProfession;
+    let staticProfession = $derived(wowthingData.static.professionBySlug.get(params.slug4));
+    let charProfession = $derived(character.professions[staticProfession?.id]);
 
-    $: {
-        knownRecipes = new Set<number>();
-
-        staticProfession = wowthingData.static.professionBySlug.get(params.slug4);
-        const charProfession = character.professions[staticProfession?.id];
+    $effect.pre(() => {
         if (!staticProfession || !charProfession) {
             // Profession doesn't exist or character doesn't have it, redirect to the first one
             setTimeout(async () => {
@@ -34,15 +29,8 @@
                     replace(link.getAttribute('href').replace('#', ''));
                 }
             }, 1);
-            break $;
         }
-
-        staticProfession.subProfessions.forEach((subProfession) => {
-            charProfession[subProfession.id]?.knownRecipes?.forEach((value) =>
-                knownRecipes.add(value)
-            );
-        });
-    }
+    });
 </script>
 
 <style lang="scss">

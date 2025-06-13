@@ -423,7 +423,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         // professions
         // - force Archaeology to 950 max skill
         if (character.professions?.[794] !== undefined) {
-            character.professions[794][794].maxSkill = 950;
+            character.professions[794].subProfessions[794].skillMax = 950;
         }
 
         // reputation sets
