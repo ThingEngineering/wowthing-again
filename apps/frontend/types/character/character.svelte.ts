@@ -533,14 +533,6 @@ export class Character implements ContainsItems, HasNameAndRealm {
                         repId = this.faction === 0 ? reputation.alliance?.id : reputation.horde?.id;
                     }
 
-                    // const repValue = this.reputations?.[repId];
-                    // if (
-                    //     repValue !== undefined &&
-                    //     repValue > (userData.maxReputation.get(repId) || -999999)
-                    // ) {
-                    //     userData.maxReputation.set(repId, repValue);
-                    // }
-
                     setsData.push({
                         reputationId: repId,
                         value: this.reputations[repId] ?? -1,
