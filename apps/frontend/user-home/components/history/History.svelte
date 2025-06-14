@@ -1,26 +1,25 @@
 <script lang="ts">
-    import { afterUpdate, onMount } from 'svelte'
+    import { tick } from 'svelte';
 
-    import { userHistoryStore } from '@/stores'
-    import getSavedRoute from '@/utils/get-saved-route'
+    import { userHistoryStore } from '@/stores';
+    import getSavedRoute from '@/utils/get-saved-route';
+    import type { MultiSlugParams } from '@/types';
 
-    import Gold from './Gold.svelte'
-    import Sidebar from './Sidebar.svelte'
+    import Gold from './Gold.svelte';
+    import Sidebar from './Sidebar.svelte';
 
-    export let params: { slug: string }
+    let { params }: { params: MultiSlugParams } = $props();
 
-    onMount(async () => {
-        await userHistoryStore.fetch()
-    })
-
-    afterUpdate(() => getSavedRoute('history', params.slug))
+    $effect.pre(() => {
+        tick().then(() => getSavedRoute('history', params.slug1));
+    });
 </script>
 
 <Sidebar />
-{#if !$userHistoryStore.loaded}
+{#await userHistoryStore.fetch()}
     L O A D I N G
-{:else}
-    {#if params.slug === 'gold'}
+{:then}
+    {#if params.slug1 === 'gold'}
         <Gold />
     {/if}
-{/if}
+{/await}

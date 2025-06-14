@@ -45,7 +45,7 @@
         //             default: typeof SvelteComponent;
         //         }>,
         // }),
-        '/history/:slug?': History,
+        '/history/:slug1?': History,
         // : wrap({
         //     asyncComponent: () =>
         //         import('./components/history/History.svelte') as Promise<{
