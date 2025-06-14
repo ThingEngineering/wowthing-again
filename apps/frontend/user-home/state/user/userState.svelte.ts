@@ -31,6 +31,8 @@ class UserState {
 
     public heirloomStats = $derived.by(() => this._heirlooms());
     public illusionStats = $derived.by(() => this._illusions());
+    public recipes = $derived.by(() => this.derived.doRecipes(this.general.characters));
+    public reputations = $derived.by(() => this.derived.doReputations(this.general.characters));
 
     public mounts = $derived.by(() =>
         this.derived.doCollectible('mounts', wowthingData.manual.mountSets, (id) =>
@@ -43,8 +45,6 @@ class UserState {
             this.general.hasPetById.has(id)
         )
     );
-
-    public recipes = $derived.by(() => this.derived.doRecipes(this.general.characters));
 
     public toys = $derived.by(() =>
         this.derived.doCollectible('toys', wowthingData.manual.toySets, (id) =>

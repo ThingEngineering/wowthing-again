@@ -77,7 +77,23 @@ public class AchievementsTool
             await db.SetCacheDataAndHash($"achievement-{language.ToString()}", cacheJson, cacheHash);
         }
 
-        _timer.AddPoint("Generate", true);
+        _timer.AddPoint("Generate");
+
+        var (accountTrees, characterTrees) = CriteriaSuck(achievements[Language.enUS], criteria[Language.enUS]);
+
+        var ugh = new CriteriaCounts
+        {
+            Account = accountTrees.ToArray(),
+            Character = characterTrees.ToArray(),
+        };
+        var ughJson = ToolContext.SerializeJson(ugh);
+        var ughHash = ughJson.Md5();
+        await db.SetCacheDataAndHash("criteria-trees", ughJson, ughHash);
+
+        ToolContext.Logger.Information("{a} {b}", ugh.Account.Length, ugh.Character.Length);
+
+        _timer.AddPoint("CriteriaCounts", true);
+
         ToolContext.Logger.Information("{0}", _timer.ToString());
     }
 
@@ -285,6 +301,54 @@ public class AchievementsTool
         }
 
         return ret;
+    }
+
+    private (HashSet<int>, HashSet<int>) CriteriaSuck(
+        Dictionary<int, OutAchievement> achievements,
+        AchievementCriteria criteria)
+    {
+        var account = new HashSet<int>();
+        var character = new HashSet<int>();
+        var stack = new Stack<int>();
+
+        foreach (var achievement in achievements.Values)
+        {
+            bool accountWide = (achievement.Flags & WowAchievementFlags.AccountWide) > 0;
+            stack.Push(achievement.CriteriaTreeId);
+
+            while (stack.Count > 0)
+            {
+                int criteriaTreeId = stack.Pop();
+                if (!criteria.CriteriaTree.TryGetValue(criteriaTreeId, out var criteriaTree))
+                {
+                    continue;
+                }
+
+                if (accountWide)
+                {
+                    account.Add(criteriaTreeId);
+                }
+                else
+                {
+                    character.Add(criteriaTreeId);
+                }
+
+                foreach (var childId in criteriaTree.Children)
+                {
+                    stack.Push(childId);
+                }
+            }
+        }
+
+        ToolContext.Logger.Information("a={a} c={c}", account.Count, character.Count);
+
+        return (account, character);
+    }
+
+    private class CriteriaCounts
+    {
+        public int[] Account { get; set; }
+        public int[] Character { get; set; }
     }
 
     private struct AchievementCriteria

@@ -3,12 +3,7 @@ import { wowthingData } from '@/shared/stores/data';
 import findReputationTier from '@/utils/find-reputation-tier';
 
 import type { StaticDataReputation } from '@/shared/stores/static/types';
-import type {
-    Character,
-    CharacterReputationParagon,
-    CharacterReputationReputation,
-    UserData,
-} from '@/types';
+import type { Character, CharacterReputationParagon, CharacterReputationReputation } from '@/types';
 import type { ManualDataReputationSet } from '@/types/data/manual';
 import { userState } from '@/user-home/state/user';
 
@@ -18,7 +13,6 @@ interface GetRenownDataParameters {
     reputationsIndex: number;
     reputationSetsIndex: number;
     slug: string;
-    userData: UserData;
 }
 
 class RenownData {
@@ -37,7 +31,6 @@ export function getRenownData({
     reputationsIndex,
     reputationSetsIndex,
     slug,
-    userData,
 }: GetRenownDataParameters): RenownData {
     const ret = new RenownData();
 
@@ -50,12 +43,9 @@ export function getRenownData({
     ret.characterRep = character.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
     ret.dataRep = wowthingData.static.reputationById.get(ret.characterRep.reputationId);
 
-    const actualCharacter = !ret.dataRep.accountWide
-        ? character
-        : userData.apiUpdatedCharacters.find(
-              (char) =>
-                  char.reputationData[slug].sets[reputationsIndex][reputationSetsIndex].value !== -1
-          ) || userData.apiUpdatedCharacters[0];
+    const actualCharacter = ret.dataRep.accountWide
+        ? userState.general.characterById[userState.reputations[ret.dataRep.id]?.[1]]
+        : character;
 
     ret.characterRep =
         actualCharacter.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];

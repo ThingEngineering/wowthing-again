@@ -101,6 +101,14 @@ public class CacheService
     }
 
     #region Achievements
+
+    public async Task<CriteriaCacheSets> GetCriteriaCacheAsync(IDatabase db)
+    {
+        string json = await db.StringGetAsync("cache:criteria-trees:data");
+        var data = JsonSerializer.Deserialize<CriteriaCache>(json, _jsonSerializerOptions);
+        return new CriteriaCacheSets(data);
+    }
+
     public async Task<(string, DateTimeOffset)> GetOrCreateAchievementCacheAsync(
         WowDbContext context,
         JankTimer timer,
@@ -126,6 +134,8 @@ public class CacheService
         long userId
     )
     {
+        var criteriaCache = await GetCriteriaCacheAsync(db);
+
         var achievementsCompleted = await context.CompletedAchievementsQuery
             .FromSqlRaw(CompletedAchievementsQuery.UserQuery, userId)
             .ToDictionaryAsync(
@@ -180,6 +190,28 @@ public class CacheService
         }
 
         timer.AddPoint("Criteria2b");
+
+        foreach (var (criteriaId, amounts) in groupedCriteria)
+        {
+            if (!criteriaCache.Character.Contains(criteriaId))
+            {
+                // keep only the highest value for criteria that are only referenced from account-wide
+                if (criteriaCache.Account.Contains(criteriaId))
+                {
+                    int maxValue = amounts.Keys.Max();
+                    groupedCriteria[criteriaId] = new Dictionary<int, List<int>>
+                    {
+                        { maxValue, new List<int>(amounts[maxValue].Take(1)) }
+                    };
+                }
+                else
+                {
+                    groupedCriteria.Remove(criteriaId);
+                }
+            }
+        }
+
+        timer.AddPoint("CriteriaFilter");
 
         var statistics = await context.StatisticsQuery
             .FromSqlRaw(StatisticsQuery.UserQuery, userId)

@@ -1,14 +1,14 @@
-import { settingsState } from '@/shared/state/settings.svelte';
+import { Constants } from '@/data/constants';
+import { expansionMap, expansionOrder } from '@/data/expansion';
 import { browserState, type CollectibleState } from '@/shared/state/browser.svelte';
+import { settingsState } from '@/shared/state/settings.svelte';
+import { wowthingData } from '@/shared/stores/data';
 import { Character, UserCount } from '@/types';
 import {
     ManualDataSetCategory,
     ManualDataSetGroup,
     type ManualDataSetGroupArray,
 } from '@/types/data/manual';
-import { wowthingData } from '@/shared/stores/data';
-import { expansionMap, expansionOrder } from '@/data/expansion';
-import { Constants } from '@/data/constants';
 
 interface UserCollectible {
     filteredCategories: ManualDataSetCategory[][];
@@ -274,5 +274,26 @@ export class DataUserDerived {
         console.timeEnd('doRecipes');
 
         return ret;
+    }
+
+    public doReputations(allCharacters: Character[]) {
+        console.time('doReputations');
+
+        const maxReps: Record<number, [number, number]> = {};
+        for (const character of allCharacters) {
+            for (const expansion of Object.values(character.reputationData)) {
+                for (const reputationSet of expansion.sets) {
+                    for (const { reputationId, value } of reputationSet) {
+                        if (value > (maxReps[reputationId]?.[0] || -99999)) {
+                            maxReps[reputationId] = [value, character.id];
+                        }
+                    }
+                }
+            }
+        }
+
+        console.timeEnd('doReputations');
+
+        return maxReps;
     }
 }
