@@ -188,7 +188,7 @@ export function doZoneMaps(): LazyZoneMaps {
                     );
                 }
 
-                for (const drop of farm.drops) {
+                for (const drop of farm.drops || []) {
                     let dropCharacters = farmCharacters;
                     const dropStatus: DropStatus = {
                         need: false,
