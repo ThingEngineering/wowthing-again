@@ -31,7 +31,6 @@
             reputationsIndex,
             reputationSetsIndex,
             slug,
-            userData: $userStore,
         }));
     }
 </script>

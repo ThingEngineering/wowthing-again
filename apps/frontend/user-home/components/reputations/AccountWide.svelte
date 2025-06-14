@@ -50,7 +50,6 @@
                     reputationsIndex,
                     reputationSetsIndex,
                     slug,
-                    userData: $userStore,
                 })}
                 <div
                     class="reputation {cls}"
