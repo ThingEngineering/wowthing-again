@@ -48,7 +48,7 @@
     }
 </style>
 
-{#if byDifficulty}
+{#if Object.values(byDifficulty).length > 0}
     <div class="lockouts wrapper-column">
         {#each journalDifficultyOrder as difficultyId}
             {@const lockouts = byDifficulty[difficultyId] || []}
