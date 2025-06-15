@@ -15,18 +15,15 @@
     let taskFilter = $state('');
 
     let taskChoices = $derived.by(() => {
-        const lowerFilter = (taskFilter || '').toLocaleLowerCase();
         const ret: SettingsChoice[] = [];
         for (const task of taskList) {
-            if (!lowerFilter || task.name.toLocaleLowerCase().includes(lowerFilter)) {
-                ret.push({ id: task.key, name: task.name });
-                if (task.showSeparate && multiTaskMap[task.key]) {
-                    for (const multiTask of multiTaskMap[task.key]) {
-                        ret.push({
-                            id: `${task.key}|${multiTask.taskKey}`,
-                            name: `${task.name} - ${multiTask.taskName}`,
-                        });
-                    }
+            ret.push({ id: task.key, name: task.name });
+            if (task.showSeparate && multiTaskMap[task.key]) {
+                for (const multiTask of multiTaskMap[task.key]) {
+                    ret.push({
+                        id: `${task.key}|${multiTask.taskKey}`,
+                        name: `${task.name} - ${multiTask.taskName}`,
+                    });
                 }
             }
         }
@@ -54,7 +51,12 @@
             />
         </div>
 
-        <MagicLists key="lockouts" choices={taskChoices} bind:activeStringIds={view.homeTasks} />
+        <MagicLists
+            key="lockouts"
+            choices={taskChoices}
+            filter={taskFilter}
+            bind:activeStringIds={view.homeTasks}
+        />
     </div>
 
     {#each multiTasks as taskKey (taskKey)}

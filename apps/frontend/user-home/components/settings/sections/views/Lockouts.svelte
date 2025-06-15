@@ -16,15 +16,11 @@
     let instanceFilter = $state('');
 
     let lockoutChoices = $derived.by(() => {
-        const lowerFilter = instanceFilter.toLocaleLowerCase();
         const ret: SettingsChoice[] = [];
 
         const sortedInstances = sortBy(
             Array.from(wowthingData.static.instanceById.values()).filter(
-                (instance) =>
-                    instance !== null &&
-                    !ignoredLockoutInstances[instance.id] &&
-                    instance.name.toLocaleLowerCase().includes(lowerFilter)
+                (instance) => instance !== null && !ignoredLockoutInstances[instance.id]
             ),
             (instance) => {
                 const journalInstance = wowthingData.journal.instanceById[instance.id];
@@ -93,6 +89,7 @@
         <MagicLists
             key="lockouts"
             choices={lockoutChoices}
+            filter={instanceFilter}
             bind:activeNumberIds={view.homeLockouts}
         />
     </div>

@@ -1,4 +1,6 @@
 <script lang="ts">
+    import sortBy from 'lodash/sortBy';
+
     import { wowthingData } from '@/shared/stores/data';
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types';
 
@@ -9,41 +11,16 @@
 
     let itemFilter = $state('');
 
-    let itemChoices = $derived.by(() => {
-        const ret: SettingsChoice[] = [];
-
-        for (const itemId of view.homeItems) {
-            const item = wowthingData.items.items[itemId];
-            ret.push({
-                id: item.id.toString(),
-                name: item.name,
-            });
-        }
-
-        const itemWords = (itemFilter?.toLocaleLowerCase()?.split(' ') || []).filter(
-            (word) => word.length >= 3
-        );
-        if (itemWords.length > 0) {
-            for (const item of Object.values(wowthingData.items.items)) {
-                const lowerName = item.name.toLocaleLowerCase();
-                if (
-                    itemWords.every((word) => lowerName.indexOf(word) >= 0) &&
-                    !view.homeItems.includes(item.id)
-                ) {
-                    ret.push({
-                        id: item.id.toString(),
-                        name: item.name,
-                    });
-                    if (ret.length === 100) {
-                        break;
-                    }
-                }
-            }
-        }
-
-        ret.sort((a, b) => a.name.localeCompare(b.name));
-        return ret;
-    });
+    const sortedItems = sortBy(
+        Object.values(wowthingData.items.items).map(
+            (item) =>
+                ({
+                    id: item.id.toString(),
+                    name: item.name,
+                }) as SettingsChoice
+        ),
+        (item) => item.name
+    );
 </script>
 
 <style lang="scss">
@@ -66,6 +43,11 @@
             />
         </div>
 
-        <MagicLists key="items" choices={itemChoices} bind:activeNumberIds={view.homeItems} />
+        <MagicLists
+            key="items"
+            choices={sortedItems}
+            filter={itemFilter}
+            bind:activeNumberIds={view.homeItems}
+        />
     </div>
 {/if}
