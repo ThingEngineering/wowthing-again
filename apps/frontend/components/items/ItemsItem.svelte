@@ -14,6 +14,7 @@
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import type { ConvertibleCategoryUpgrade } from './convertible/types';
 
     export let character: Character = undefined;
     export let forceCrafted = false;
@@ -23,7 +24,7 @@
     export let useItemCount = false;
 
     function getIconName(): [string, number] {
-        let tiers: [number, number, number?][][];
+        let tiers: ConvertibleCategoryUpgrade[][];
         for (const bonusId of gear.equipped.bonusIds) {
             if (!wowthingData.items.itemBonusCurrentSeason.has(bonusId)) {
                 continue;
@@ -62,10 +63,10 @@
         return [null, 0];
     }
 
-    function getCurrencyData(tier: [number, number, number?]): [string, number] {
+    function getCurrencyData(tier: ConvertibleCategoryUpgrade): [string, number] {
         return [
-            `currency/${tier[0]}`,
-            Math.floor((character.currencies?.[tier[0]]?.quantity || 0) / tier[1]),
+            `currency/${tier.upgradeId}`,
+            Math.floor((character.currencies?.[tier.upgradeId]?.quantity || 0) / tier.upgradeCost),
         ];
     }
 
