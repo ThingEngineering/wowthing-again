@@ -1,9 +1,21 @@
 <script lang="ts">
-    import { exploreState } from '@/stores/local-storage';
+    import { QuestStatus } from '@/enums/quest-status';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { userState } from '@/user-home/state/user';
+    import type { Character } from '@/types';
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte';
     import NumberInput from '@/shared/components/forms/NumberInput.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+
+    let filterFunc = $derived((char: Character) => {
+        const charQuests = userState.quests.characterById.get(char.id);
+        return (
+            charQuests.hasQuestById.has(browserState.current.explore.questId) ||
+            charQuests.progressQuestByKey.get(`q${browserState.current.explore.questId}`)
+                ?.status === QuestStatus.InProgress
+        );
+    });
 </script>
 
 <style lang="scss">
@@ -18,6 +30,10 @@
     }
     td {
         padding: 0.3rem 0.5rem;
+
+        :global(svg) {
+            --scale: 0.9 !important;
+        }
     }
 </style>
 
@@ -26,15 +42,24 @@
         name="explore_quest_id"
         minValue={0}
         maxValue={999999}
-        bind:value={$exploreState.questId}
+        bind:value={browserState.current.explore.questId}
     />
 
-    <CharacterTable
-        filterFunc={(char) =>
-            userState.quests.characterById.get(char.id).hasQuestById.has($exploreState.questId)}
-    >
-        <svelte:fragment slot="rowExtra">
-            <td>✔</td>
+    <CharacterTable {filterFunc}>
+        <svelte:fragment slot="rowExtra" let:character>
+            <td>
+                {#if userState.quests.characterById
+                    .get(character.id)
+                    ?.hasQuestById?.has(browserState.current.explore.questId)}
+                    <span class="status-success">
+                        <ParsedText text=":starFull:" />
+                    </span>
+                {:else}
+                    <span class="status-shrug">
+                        <ParsedText text=":starHalf:" />
+                    </span>
+                {/if}
+            </td>
         </svelte:fragment>
 
         <tr slot="emptyRow">

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { ItemBonusType } from '@/enums/item-bonus-type';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { exploreState } from '@/stores/local-storage';
 
     import TextInput from '@/shared/components/forms/TextInput.svelte';
 </script>
@@ -49,10 +49,10 @@
 </style>
 
 <div class="thing-container border">
-    <TextInput name="explore_bonus_ids" bind:value={$exploreState.bonusIds} />
+    <TextInput name="explore_bonus_ids" bind:value={browserState.current.explore.bonusIds} />
 
     <div class="bonuses">
-        {#each $exploreState.bonusIds.split(':') as bonusIdString}
+        {#each browserState.current.explore.bonusIds.split(':') as bonusIdString}
             {@const bonusId = parseInt(bonusIdString)}
             {@const bonus = wowthingData.items.itemBonuses[bonusId]}
             <div class="bonus">

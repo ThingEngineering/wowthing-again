@@ -1,11 +1,11 @@
 <script lang="ts">
-    import sortBy from 'lodash/sortBy'
+    import sortBy from 'lodash/sortBy';
 
     import { iconLibrary } from '@/shared/icons';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
-    const icons = sortBy(Object.entries(iconLibrary), ([name,]) => name)
+    const icons = sortBy(Object.entries(iconLibrary), ([name]) => name);
 </script>
 
 <style lang="scss">
@@ -23,7 +23,7 @@
 </style>
 
 <div class="thing-container border">
-    {#each icons as [name, icon]}
+    {#each icons as [name, icon] (name)}
         <div class="icon">
             <IconifyIcon {icon} />
             <span>{name}</span>
