@@ -3,7 +3,7 @@
 
     import { iconLibrary } from '@/shared/icons';
 
-    let { soon = false }: { soon: boolean } = $props();
+    let { soon = false }: { soon?: boolean } = $props();
 </script>
 
 <style lang="scss">
