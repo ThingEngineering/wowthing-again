@@ -1,10 +1,10 @@
 <script lang="ts">
-    import type { SettingsCustomGroup } from '@/shared/stores/settings/types'
+    import type { SettingsCustomGroup } from '@/shared/stores/settings/types';
 
-    import TextInput from '@/shared/components/forms/TextInput.svelte'
-    import Tooltip from '@/components/tooltips/character-filter/TooltipCharacterFilter.svelte'
+    import TextInput from '@/shared/components/forms/TextInput.svelte';
+    import Tooltip from '@/components/tooltips/character-filter/TooltipCharacterFilter.svelte';
 
-    export let group: SettingsCustomGroup
+    let { group }: { group: SettingsCustomGroup } = $props();
 </script>
 
 <style lang="scss">
@@ -25,16 +25,9 @@
 </style>
 
 {#if group}
-    <div
-        class="group-edit"
-        data-id={group.id}
-    >
+    <div class="group-edit" data-id={group.id}>
         <div>
-            <TextInput
-                name="group_name"
-                label="Name"
-                bind:value={group.name}
-            />
+            <TextInput name="group_name" label="Name" bind:value={group.name} />
         </div>
         <div>
             <TextInput
@@ -51,5 +44,5 @@
             <p>Combine terms with AND/OR and parentheses, eg:</p>
             <code>alliance AND level=70 AND (tank OR healer)</code>
         </div>
-</div>
+    </div>
 {/if}

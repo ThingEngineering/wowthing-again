@@ -1,15 +1,13 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte'
+    import getSavedRoute from '@/utils/get-saved-route';
+    import type { ParamsSlugsProps } from '@/types/props';
 
-    import getSavedRoute from '@/utils/get-saved-route'
-    import type { MultiSlugParams } from '@/types/params'
+    import Map from './Map.svelte';
+    import Sidebar from './Sidebar.svelte';
 
-    import Map from './Map.svelte'
-    import Sidebar from './Sidebar.svelte'
+    let { params }: ParamsSlugsProps = $props();
 
-    export let params: MultiSlugParams
-
-    afterUpdate(() => getSavedRoute('world-quests', params.slug1, params.slug2))
+    $effect(() => getSavedRoute('world-quests', params.slug1, params.slug2));
 </script>
 
 <div class="view">

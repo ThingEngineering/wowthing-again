@@ -1,7 +1,7 @@
 <script lang="ts">
     import Router from 'svelte-spa-router';
 
-    import type { MultiSlugParams } from '@/types';
+    import type { ParamsSlugsProps } from '@/types/props';
 
     import Achievements from './sections/SettingsAchievements.svelte';
     import Auctions from './sections/SettingsAuctions.svelte';
@@ -24,7 +24,7 @@
     import CharactersPin from './sections/characters/SettingsCharactersPin.svelte';
     import CharactersToggles from './sections/characters/SettingsCharactersToggles.svelte';
 
-    export let params: MultiSlugParams;
+    let { params }: ParamsSlugsProps = $props();
 
     const routes = {
         '/account': Account,

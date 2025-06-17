@@ -1,17 +1,14 @@
 <script lang="ts">
-    import type { MultiSlugParams } from '@/types/params'
+    import type { ParamsSlugsProps } from '@/types/props';
 
-    import Sidebar from './Sidebar.svelte'
-    import View from './View.svelte'
+    import Sidebar from './Sidebar.svelte';
+    import View from './View.svelte';
 
-    export let params: MultiSlugParams
+    let { params }: ParamsSlugsProps = $props();
 </script>
 
 <Sidebar />
 
 {#if params.slug1}
-    <View
-        page={parseInt(params.slug2) || 0}
-        slug={params.slug1}
-    />
+    <View page={parseInt(params.slug2) || 0} slug={params.slug1} />
 {/if}

@@ -1,14 +1,14 @@
 <script lang="ts">
     import { taskMap } from '@/data/tasks';
-    import { activeViewTasks } from '@/user-home/state/activeViewTasks.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { activeHolidays } from '@/stores/derived/active-holidays';
-    import type { Character } from '@/types';
+    import { activeViewTasks } from '@/user-home/state/activeViewTasks.svelte';
+    import type { CharacterProps } from '@/types/props';
 
     import RowProgressQuest from './HomeTableRowProgressQuest.svelte';
     import RowTaskChores from './HomeTableRowTaskChores.svelte';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 </script>
 
 {#key settingsState.activeView.id}

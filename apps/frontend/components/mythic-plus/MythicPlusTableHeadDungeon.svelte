@@ -1,14 +1,12 @@
 <script lang="ts">
-    import { dungeonMap } from '@/data/dungeon'
-    import type { Dungeon } from '@/types'
-    import { basicTooltip } from '@/shared/utils/tooltips'
+    import { dungeonMap } from '@/data/dungeon';
+    import { basicTooltip } from '@/shared/utils/tooltips';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let dungeonId = 0
+    let { dungeonId }: { dungeonId: number } = $props();
 
-    let dungeon: Dungeon
-    $: dungeon = dungeonMap[dungeonId]
+    let dungeon = $derived(dungeonMap[dungeonId]);
 </script>
 
 <style lang="scss">

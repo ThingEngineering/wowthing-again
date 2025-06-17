@@ -1,16 +1,11 @@
 <script lang="ts">
-    import { leftPad } from '@/utils/formatting'
+    import { leftPad } from '@/utils/formatting';
 
-    export let value: number
+    let { value }: { value: number } = $props();
 
-    let gold: number
-    let silver: number
-    let copper: number
-    $: {
-        gold = Math.floor(value / 10000)
-        silver = Math.floor(value % 10000 / 100)
-        copper = value % 100
-    }
+    let gold = $derived(Math.floor(value / 10000));
+    let silver = $derived(Math.floor((value % 10000) / 100));
+    let copper = $derived(value % 100);
 </script>
 
 <style lang="scss">

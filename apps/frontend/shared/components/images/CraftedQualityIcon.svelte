@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let quality: number
+    let { quality }: { quality: number } = $props();
 </script>
 
 <style lang="scss">
@@ -13,7 +13,6 @@
         height: 24px;
     }
     .crafted-quality-5 {
-
         //--shadow-color: rgb(255, 127, 0, 0.3);
 
         height: 22px;

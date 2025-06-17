@@ -6,10 +6,16 @@
 
     import ClassTable from './ClassTable.svelte';
 
-    export let classSlug: string;
-    export let season: ConvertibleCategory;
+    let { classSlug, season }: { classSlug: string; season: ConvertibleCategory } = $props();
 
-    $: playerClass = wowthingData.static.characterClassBySlug.get(classSlug);
+    let playerClass = $derived(wowthingData.static.characterClassBySlug.get(classSlug));
+
+    const modifierOrder = [
+        AppearanceModifier.Mythic,
+        AppearanceModifier.Heroic,
+        AppearanceModifier.Normal,
+        AppearanceModifier.LookingForRaid,
+    ];
 </script>
 
 <style lang="scss">
@@ -21,7 +27,7 @@
 </style>
 
 <div class="wrapper-column">
-    {#each [AppearanceModifier.Mythic, AppearanceModifier.Heroic, AppearanceModifier.Normal, AppearanceModifier.LookingForRaid] as modifier}
+    {#each modifierOrder as modifier (modifier)}
         <ClassTable {modifier} {playerClass} {season} />
     {/each}
 </div>

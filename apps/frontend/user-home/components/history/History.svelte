@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { tick } from 'svelte';
-
     import { userHistoryStore } from '@/stores';
     import getSavedRoute from '@/utils/get-saved-route';
     import type { MultiSlugParams } from '@/types';
@@ -10,9 +8,7 @@
 
     let { params }: { params: MultiSlugParams } = $props();
 
-    $effect.pre(() => {
-        tick().then(() => getSavedRoute('history', params.slug1));
-    });
+    $effect(() => getSavedRoute('history', params.slug1));
 </script>
 
 <Sidebar />

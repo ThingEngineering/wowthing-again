@@ -1,6 +1,5 @@
 <script lang="ts">
     import find from 'lodash/find';
-    import { afterUpdate } from 'svelte';
 
     import { professionOrder } from '@/data/professions';
     import { settingsState } from '@/shared/state/settings.svelte';
@@ -10,11 +9,11 @@
     import Sidebar from './Sidebar.svelte';
     import Table from './Table.svelte';
 
-    export let slug: string;
+    let { slug }: { slug: string } = $props();
 
     const allProfessions = professionOrder.map((id) => wowthingData.static.professionById.get(id));
 
-    afterUpdate(() => getSavedRoute('professions/overview', slug));
+    $effect(() => getSavedRoute('professions/overview', slug));
 </script>
 
 <style lang="scss">
@@ -30,13 +29,13 @@
 
     {#if slug === 'all'}
         <div class="wrapper-column">
-            {#each allProfessions as profession}
+            {#each allProfessions as profession (profession.id)}
                 <Table {profession} />
             {/each}
         </div>
     {:else if slug === 'collectors'}
         <div class="wrapper-column">
-            {#each allProfessions.filter((p) => p.slug !== 'archaeology') as profession}
+            {#each allProfessions.filter((p) => p.slug !== 'archaeology') as profession (profession.id)}
                 {@const characterIds =
                     settingsState.value.professions.collectingCharactersV2[profession.id]}
                 {#if characterIds?.length > 0}

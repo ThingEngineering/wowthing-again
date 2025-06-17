@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { tick } from 'svelte';
     import { replace } from 'svelte-spa-router';
 
     import { sharedState } from '@/shared/state/shared.svelte';
@@ -11,13 +10,11 @@
 
     let { params }: { params: MultiSlugParams } = $props();
 
-    $effect.pre(() => {
-        tick().then(() => getSavedRoute('settings', params.slug1, params.slug2));
-    });
-
     $effect(() => {
         if (sharedState.public) {
             replace('/');
+        } else {
+            getSavedRoute('settings', params.slug1, params.slug2);
         }
     });
 </script>

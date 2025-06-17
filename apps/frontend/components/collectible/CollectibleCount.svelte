@@ -1,12 +1,9 @@
 <script lang="ts">
-    import type { UserCount } from '@/types'
+    import type { UserCount } from '@/types';
 
-    export let counts: UserCount
+    let { counts }: { counts: UserCount } = $props();
 
-    let per: number
-    $: {
-        per = (counts?.have ?? 0) / (counts?.total ?? 1) * 100
-    }
+    let per = $derived(counts?.percent || 0);
 </script>
 
 <style lang="scss">

@@ -1,7 +1,7 @@
 <script lang="ts">
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
-    export let content: string
+    let { content }: { content: string } = $props();
 </script>
 
 <ParsedText text={content} />

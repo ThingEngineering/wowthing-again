@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { tick } from 'svelte';
-
     import { wowthingData } from '@/shared/stores/data';
     import getSavedRoute from '@/utils/get-saved-route';
     import type { Character } from '@/types';
@@ -24,9 +22,7 @@
         }
     };
 
-    $effect.pre(() => {
-        tick().then(() => getSavedRoute('professions/equipment', slug));
-    });
+    $effect(() => getSavedRoute('professions/equipment', slug));
 </script>
 
 <Sidebar />

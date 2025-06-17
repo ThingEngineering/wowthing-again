@@ -1,16 +1,15 @@
 <script lang="ts">
-    export let padLeft = '0.1rem'
-    export let padRight = '0px'
-
-    $: {
-        padLeft = padLeft ?? '0.1rem'
-        padRight = padRight ?? '0px'
-    }
+    let { padLeft = '0.1rem', padRight = '0px' }: { padLeft?: string; padRight?: string } =
+        $props();
 </script>
 
 <style lang="scss">
     th {
-        @include cell-width($width-icon, var(--pad-left, $width-padding), var(--pad-right, $width-padding));
+        @include cell-width(
+            $width-icon,
+            var(--pad-left, $width-padding),
+            var(--pad-right, $width-padding)
+        );
     }
 </style>
 

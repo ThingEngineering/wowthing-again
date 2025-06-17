@@ -5,9 +5,7 @@
 
     import WowthingImage from './sources/WowthingImage.svelte';
 
-    export let id: number;
-    export let size = 20;
-    export let border = 0;
+    let { id, border = 0, size = 20 }: { id: number; border?: number; size?: number } = $props();
 </script>
 
 <WowthingImage

@@ -1,17 +1,17 @@
 <script lang="ts">
-    import { Constants } from '@/data/constants'
-    import { experiencePerLevel } from '@/data/experience'
-    import { timeStore } from '@/shared/stores/time'
-    import { getCharacterLevel } from '@/utils/get-character-level'
-    import { getCharacterRested } from '@/utils/get-character-rested'
-    import type { Character } from '@/types'
+    import { Constants } from '@/data/constants';
+    import { experiencePerLevel } from '@/data/experience';
+    import { timeStore } from '@/shared/stores/time';
+    import { getCharacterLevel } from '@/utils/get-character-level';
+    import { getCharacterRested } from '@/utils/get-character-rested';
+    import type { CharacterProps } from '@/types/props';
 
-    import ProgressBar from '@/components/common/ProgressBar.svelte'
+    import ProgressBar from '@/components/common/ProgressBar.svelte';
 
-    export let character: Character
+    let { character }: CharacterProps = $props();
 
-    $: levelData = getCharacterLevel(character)
-    $: [rested, restedRemaining] = getCharacterRested($timeStore, character)
+    let levelData = $derived(getCharacterLevel(character));
+    let [rested, restedRemaining] = $derived(getCharacterRested($timeStore, character));
 </script>
 
 <style lang="scss">
@@ -27,7 +27,7 @@
 <div class="wowthing-tooltip">
     <h4>{character.name}</h4>
     <h5>Level {levelData.level}</h5>
-    
+
     {#if levelData.level < Constants.characterMaxLevel}
         <ProgressBar
             have={levelData.xp}
