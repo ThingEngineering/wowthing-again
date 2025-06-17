@@ -3,27 +3,25 @@
 
     import { lazyState } from '@/user-home/state/lazy';
     import getPercentClass from '@/utils/get-percent-class';
-    import type {
-        JournalDataEncounterItem,
-        JournalDataEncounterItemGroup,
-        JournalDataInstance,
-    } from '@/types/data';
+    import type { JournalDataEncounterItemGroup, JournalDataInstance } from '@/types/data';
 
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
     import Item from './JournalItem.svelte';
 
-    export let bonusIds: Record<number, number>;
-    export let group: JournalDataEncounterItemGroup;
-    export let groupKey: string;
-    export let instance: JournalDataInstance;
-    export let useV2: boolean;
+    type Props = {
+        bonusIds: Record<number, number>;
+        group: JournalDataEncounterItemGroup;
+        groupKey: string;
+        instance: JournalDataInstance;
+        useV2: boolean;
+    };
+    let { bonusIds, group, groupKey, instance, useV2 }: Props = $props();
 
-    let element: HTMLElement;
-    let intersected: boolean;
-    let items: JournalDataEncounterItem[];
-    $: {
-        items = (lazyState.journal.filteredItems[groupKey] || []).filter((item) => item.show);
-    }
+    let element = $state<HTMLElement>(null);
+    let intersected = $state(false);
+    let items = $derived(
+        (lazyState.journal.filteredItems[groupKey] || []).filter((item) => item.show)
+    );
 </script>
 
 <style lang="scss">

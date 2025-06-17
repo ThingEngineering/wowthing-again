@@ -5,20 +5,34 @@
 
     import SidebarEntry from './SubSidebarEntry.svelte';
 
-    export let alwaysExpand = false;
-    export let baseUrl: string;
-    export let items: TItem[];
-    export let id = 'sub-sidebar';
-    export let noVisitRoot = false;
-    export let scrollable = false;
-    export let width = '10rem';
-    export let dataFunc: (entry: TItem) => string = undefined;
-    export let decorationFunc: (entry: TItem, parentEntries?: TItem[]) => string = undefined;
-    export let percentFunc: (entry: TItem, parentEntries?: TItem[]) => number = undefined;
+    type Props = {
+        baseUrl: string;
+        items: TItem[];
+        alwaysExpand?: boolean;
+        id?: string;
+        noVisitRoot?: boolean;
+        scrollable?: boolean;
+        width?: string;
+        dataFunc?: (entry: TItem) => string;
+        decorationFunc?: (entry: TItem, parentEntries?: TItem[]) => string;
+        percentFunc?: (entry: TItem, parentEntries?: TItem[]) => number;
+    };
 
-    $: anyChildren = items.some((item) => (item?.children?.length ?? 0) > 0);
+    let {
+        baseUrl,
+        items,
+        alwaysExpand = false,
+        id = 'sub-sidebar',
+        noVisitRoot = false,
+        scrollable = false,
+        width = '10rem',
+        dataFunc = undefined,
+        decorationFunc = undefined,
+        percentFunc = undefined,
+    }: Props = $props();
 
-    let lessHeight = settingsState.value?.layout?.newNavigation ? '7rem' : '4.4rem';
+    let anyChildren = $derived(items.some((item) => (item?.children?.length ?? 0) > 0));
+    let lessHeight = $derived(settingsState.value.layout.newNavigation ? '7rem' : '4.4rem');
 
     const scrollbarWidth = measureScrollbar();
 </script>

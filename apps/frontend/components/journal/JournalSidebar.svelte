@@ -7,6 +7,7 @@
     import ProgressBar from '@/components/common/ProgressBar.svelte';
     import Settings from '@/components/common/SidebarCollectingSettings.svelte';
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
+    import { browserState } from '@/shared/state/browser.svelte';
 
     let categories = $derived.by(
         () =>

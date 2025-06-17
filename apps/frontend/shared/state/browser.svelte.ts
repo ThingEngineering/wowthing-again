@@ -22,6 +22,42 @@ interface BrowserStateIdk {
     home: {
         activeView: string;
     };
+    journal: {
+        filtersExpanded: boolean;
+
+        highlightMissing: boolean;
+        showCollected: boolean;
+        showUncollected: boolean;
+        showLockouts: boolean;
+
+        showCloth: boolean;
+        showLeather: boolean;
+        showMail: boolean;
+        showPlate: boolean;
+
+        showCloaks: boolean;
+        showWeapons: boolean;
+
+        showMounts: boolean;
+        showPets: boolean;
+        showRecipes: boolean;
+        showTokens: boolean;
+        showTrash: boolean;
+
+        showDungeonNormal: boolean;
+        showDungeonHeroic: boolean;
+        showDungeonMythic: boolean;
+        showDungeonTimewalking: boolean;
+
+        showRaidLfr: boolean;
+        showRaidNormal: boolean;
+        showRaidHeroic: boolean;
+        showRaidMythic: boolean;
+        showRaidMythicOld: boolean;
+        showRaidTimewalking: boolean;
+        showRaid10: boolean;
+        showRaid25: boolean;
+    };
     matrix: {
         minLevel: number;
         showCharacterAs: 'level' | 'name';
@@ -87,6 +123,42 @@ const initialState: BrowserStateIdk = {
     },
     home: {
         activeView: '',
+    },
+    journal: {
+        filtersExpanded: false,
+
+        highlightMissing: true,
+        showCollected: true,
+        showUncollected: true,
+        showLockouts: true,
+
+        showCloth: true,
+        showLeather: true,
+        showMail: true,
+        showPlate: true,
+
+        showCloaks: true,
+        showWeapons: true,
+
+        showMounts: true,
+        showPets: true,
+        showRecipes: true,
+        showTokens: true,
+        showTrash: true,
+
+        showDungeonNormal: true,
+        showDungeonHeroic: true,
+        showDungeonMythic: true,
+        showDungeonTimewalking: true,
+
+        showRaidLfr: true,
+        showRaidNormal: true,
+        showRaidHeroic: true,
+        showRaidMythic: true,
+        showRaidMythicOld: true,
+        showRaidTimewalking: true,
+        showRaid10: true,
+        showRaid25: true,
     },
     matrix: {
         minLevel: 0,

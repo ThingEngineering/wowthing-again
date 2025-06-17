@@ -12,25 +12,41 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import Tooltip from '@/shared/components/parsed-text/Tooltip.svelte';
 
-    export let alwaysExpand: boolean;
-    export let anyChildren: boolean;
-    export let baseUrl: string;
-    export let item: TItem;
-    export let noVisitRoot = false;
-    export let parentItems: TItem[] = [];
-    export let dataFunc: (entry: TItem) => string = undefined;
-    export let decorationFunc: (entry: TItem, parentEntries?: TItem[]) => string = undefined;
-    export let percentFunc: (entry: TItem, parentEntries?: TItem[]) => number = undefined;
+    type Props = {
+        alwaysExpand: boolean;
+        anyChildren: boolean;
+        baseUrl: string;
+        item: TItem;
+        noVisitRoot?: boolean;
+        parentItems?: TItem[];
+        dataFunc?: (entry: TItem) => string;
+        decorationFunc?: (entry: TItem, parentEntries?: TItem[]) => string;
+        percentFunc?: (entry: TItem, parentEntries?: TItem[]) => number;
+    };
 
-    let activeRegex: string;
-    let data: string;
-    let decoration: string;
-    let expanded: boolean;
-    let minusWidth: string;
-    let percent = -1;
-    let url: string;
+    let {
+        alwaysExpand,
+        anyChildren,
+        baseUrl,
+        item,
+        noVisitRoot = false,
+        parentItems = [],
+        dataFunc = undefined,
+        decorationFunc = undefined,
+        percentFunc = undefined,
+    }: Props = $props();
 
-    $: {
+    // export let alwaysExpand: boolean;
+    // export let anyChildren: boolean;
+    // export let baseUrl: string;
+    // export let item: TItem;
+    // export let noVisitRoot = false;
+    // export let parentItems: TItem[] = [];
+    // export let dataFunc: (entry: TItem) => string = undefined;
+    // export let decorationFunc: (entry: TItem, parentEntries?: TItem[]) => string = undefined;
+    // export let percentFunc: (entry: TItem, parentEntries?: TItem[]) => number = undefined;
+
+    let minusWidth = $derived.by(() => {
         let temp = 0.5;
         if (decorationFunc || percentFunc) {
             temp += 3.3;
@@ -41,51 +57,53 @@
         if (parentItems) {
             temp += parentItems.length * 1; // TODO this should be 1.5 but that doesn't work properly, why?
         }
-        minusWidth = temp > 0 ? `${temp}rem` : '0px';
-    }
+        return temp > 0 ? `${temp}rem` : '0px';
+    });
 
-    let actualNoVisitRoot: boolean;
-    let noCollapse: boolean;
-    $: {
-        actualNoVisitRoot = (noVisitRoot && item?.children?.length > 0) || item?.forceNoVisit;
-        if (item) {
-            url = item.fullUrl || `${baseUrl}/${item.slug}`;
+    let actualNoVisitRoot = $derived(
+        (noVisitRoot && item?.children?.length > 0) || item?.forceNoVisit
+    );
+    let url = $derived(item ? item.fullUrl || `${baseUrl}/${item.slug}` : undefined);
+    let expanded = $derived(
+        alwaysExpand ||
+            $subSidebarState.expanded[url] ||
+            ($location.startsWith(url) && !($location === url) && item.children?.length > 0)
+    );
 
-            expanded =
-                alwaysExpand ||
-                $subSidebarState.expanded[url] ||
-                ($location.startsWith(url) && !($location === url) && item.children?.length > 0);
+    let data = $derived(item ? dataFunc?.(item) : undefined);
+    let decoration = $derived(item ? decorationFunc?.(item, parentItems) : undefined);
+    let percent = $derived(item ? percentFunc?.(item, parentItems) || -1 : undefined);
 
-            //expanded = $location.startsWith(url) && item.children?.length > 0
+    let noCollapse = $derived.by(() => {
+        if (actualNoVisitRoot && expanded && $location.startsWith(url) && $location !== url) {
+            return true;
+        } else if (alwaysExpand) {
+            return true;
+        } else {
+            return false;
+        }
+    });
 
-            data = dataFunc?.(item);
-            decoration = decorationFunc?.(item, parentItems);
-            percent = percentFunc?.(item, parentItems);
-
-            if (actualNoVisitRoot && expanded && $location.startsWith(url) && $location !== url) {
-                noCollapse = true;
-            } else if (alwaysExpand) {
-                noCollapse = true;
+    let activeRegex = $derived.by(() => {
+        if (parentItems.length > 0 || item?.forceWildcard === true) {
+            if (item?.children) {
+                return '^' + url.replace(/\//g, '\\/') + '\\/?$';
             } else {
-                noCollapse = false;
+                return '^' + url.replace(/\//g, '\\/') + '(?:\\/|$)';
             }
+        } else {
+            return '^' + url.replace(/\//g, '\\/') + '(?:\\?.*?)?$';
+        }
+    });
 
+    $effect(() => {
+        if (item) {
             if (actualNoVisitRoot && $location === url) {
                 $subSidebarState.expanded[url] = true;
                 replace(`${url}/${item.children[0].slug}`);
             }
-
-            if (parentItems.length > 0 || item.forceWildcard === true) {
-                if (item.children) {
-                    activeRegex = '^' + url.replace(/\//g, '\\/') + '\\/?$';
-                } else {
-                    activeRegex = '^' + url.replace(/\//g, '\\/') + '(?:\\/|$)';
-                }
-            } else {
-                activeRegex = '^' + url.replace(/\//g, '\\/') + '(?:\\?.*?)?$';
-            }
         }
-    }
+    });
 
     const toggleExpanded = () => {
         expanded = !expanded;
