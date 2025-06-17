@@ -1,5 +1,5 @@
 import { InventoryType } from '@/enums/inventory-type';
-import type { ConvertibleCategory } from './types';
+import type { ConvertibleCategory, ConvertibleCategoryUpgrade } from './types';
 import { ArmorType } from '@/enums/armor-type';
 import { AppearanceModifier } from '@/enums/appearance-modifier';
 
@@ -12,10 +12,38 @@ export const modifierToTier: Record<number, number> = {
 
 type CrestData = [number, number, number?][];
 
-export const currentUpgrade1: CrestData = [[3107, 15, 10]]; // Weathered
-export const currentUpgrade2: CrestData = [[3108, 15, 10]]; // Carved
-export const currentUpgrade3: CrestData = [[3109, 15, 10]]; // Runed
-export const currentUpgrade4: CrestData = [[3110, 15, 10]]; // Gilded
+export const currentUpgrade1: ConvertibleCategoryUpgrade[] = [
+    {
+        upgradeId: 3107,
+        upgradeCost: 15,
+        achievementId: 40942, // Weathered of the Undermine
+        achievementUpgradeCost: 10,
+    },
+]; // Weathered
+export const currentUpgrade2: ConvertibleCategoryUpgrade[] = [
+    {
+        upgradeId: 3108,
+        upgradeCost: 15,
+        achievementId: 40943, // Carved of the Undermine
+        achievementUpgradeCost: 10,
+    },
+];
+export const currentUpgrade3: ConvertibleCategoryUpgrade[] = [
+    {
+        upgradeId: 3109,
+        upgradeCost: 15,
+        achievementId: 40944, // Runed of the Undermine
+        achievementUpgradeCost: 10,
+    },
+];
+export const currentUpgrade4: ConvertibleCategoryUpgrade[] = [
+    {
+        upgradeId: 3110,
+        upgradeCost: 15,
+        achievementId: 40945, // Gilded of the Undermine
+        achievementUpgradeCost: 10,
+    },
+];
 
 // ID = ItemConversion.db2
 export const convertibleCategories: ConvertibleCategory[] = [
@@ -30,24 +58,20 @@ export const convertibleCategories: ConvertibleCategory[] = [
                 itemLevel: 662,
                 highUpgrade: currentUpgrade4,
                 lowUpgrade: currentUpgrade3,
-                achievementId: 40945, // Gilded of the Undermine
             },
             {
                 itemLevel: 649,
                 highUpgrade: currentUpgrade3,
                 lowUpgrade: currentUpgrade2,
-                achievementId: 40944, // Runed of the Undermine
             },
             {
                 itemLevel: 636,
                 highUpgrade: currentUpgrade2,
                 lowUpgrade: currentUpgrade1,
-                achievementId: 40943, // Carved of the Undermine
             },
             {
                 itemLevel: 623,
                 highUpgrade: currentUpgrade1,
-                achievementId: 40942, // Weathered of the Undermine
             },
         ],
         purchases: [

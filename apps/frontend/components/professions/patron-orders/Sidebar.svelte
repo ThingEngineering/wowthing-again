@@ -1,33 +1,25 @@
 <script lang="ts">
-    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
 
-    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
 
-    export let sortedProfessions: StaticDataProfession[]
+    let { sortedProfessions }: { sortedProfessions: StaticDataProfession[] } = $props();
 
-    let categories: SidebarItem[]
-    $: {
-        categories = [
-            {
-                name: 'All',
-                slug: 'all',
-            },
-            null,
-            ...sortedProfessions.map((prof) => ({
-                name: `:profession-${prof.id}: ${prof.name.split('|')[0]}`,
-                slug: prof.slug,
-            })),
-        ]
-    }
+    let categories = $derived([
+        {
+            name: 'All',
+            slug: 'all',
+        },
+        null,
+        ...sortedProfessions.map((prof) => ({
+            name: `:profession-${prof.id}: ${prof.name.split('|')[0]}`,
+            slug: prof.slug,
+        })),
+    ] as SidebarItem[]);
 </script>
 
 <style lang="scss">
 </style>
 
-<Sidebar
-    baseUrl="/professions/patron-orders"
-    items={categories}
-    width="10rem"
->
-</Sidebar>
+<Sidebar baseUrl="/professions/patron-orders" items={categories} width="10rem"></Sidebar>

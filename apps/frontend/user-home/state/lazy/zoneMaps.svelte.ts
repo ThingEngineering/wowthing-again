@@ -1,5 +1,6 @@
 import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
+import { get } from 'svelte/store';
 
 import { classByArmorTypeString } from '@/data/character-class';
 import { Constants } from '@/data/constants';
@@ -12,7 +13,9 @@ import { FarmResetType } from '@/enums/farm-reset-type';
 import { FarmType } from '@/enums/farm-type';
 import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
 import { RewardType } from '@/enums/reward-type';
+import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
+import { zoneMapState } from '@/stores/local-storage';
 import { UserCount } from '@/types';
 import { getSetCurrencyCostsString } from '@/utils/get-currency-costs';
 import {
@@ -23,15 +26,9 @@ import {
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import { getVendorDropStats } from '@/utils/get-vendor-drop-stats';
 import { isRecipeKnown } from '@/utils/professions/is-recipe-known';
-
-import type { Settings } from '@/shared/stores/settings/types';
-import type { UserAchievementData, UserData } from '@/types';
-import type { UserQuestData } from '@/types/data';
 import type { DropStatus, FarmStatus } from '@/types/zone-maps';
+
 import { userState } from '../user';
-import { settingsState } from '@/shared/state/settings.svelte';
-import { zoneMapState } from '@/stores/local-storage';
-import { get } from 'svelte/store';
 
 type classMaskStrings = keyof typeof PlayableClassMask;
 
@@ -42,7 +39,7 @@ export interface LazyZoneMaps {
 }
 
 export function doZoneMaps(): LazyZoneMaps {
-    console.time('LazyStore.doZoneMaps');
+    console.time('LazyState.doZoneMaps');
 
     const classMask = getTransmogClassMask();
     const completionistMode = settingsState.value.transmog.completionistMode;
@@ -650,7 +647,7 @@ export function doZoneMaps(): LazyZoneMaps {
         } // category of categories.slice(1)
     } // categories of zoneMapData.sets
 
-    console.timeEnd('LazyStore.doZoneMaps');
+    console.timeEnd('LazyState.doZoneMaps');
 
     return {
         counts: setCounts,

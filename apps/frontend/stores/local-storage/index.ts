@@ -4,7 +4,6 @@ export * from './auctions';
 export * from './characters';
 export * from './collecting-settings';
 export * from './currency';
-export * from './explore';
 export * from './gear';
 export * from './heirlooms';
 export * from './history';

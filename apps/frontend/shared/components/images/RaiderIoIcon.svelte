@@ -1,8 +1,7 @@
 <script lang="ts">
-    export let size: number
-    export let border = 0
+    let { size, border = 0 }: { size: number; border?: number } = $props();
 
-    const actualSize = size + border * 2
+    let actualSize = $derived(size + border * 2);
 </script>
 
 <img

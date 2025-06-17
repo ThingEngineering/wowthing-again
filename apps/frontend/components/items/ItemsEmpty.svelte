@@ -1,6 +1,5 @@
 <script lang="ts">
-    export let opacity: string = null
-    export let text = ''
+    let { opacity = null, text = '' }: { opacity?: string; text?: string } = $props();
 </script>
 
 <style lang="scss">
@@ -22,7 +21,7 @@
 </style>
 
 <td>
-    <div style:opacity={opacity}>
+    <div style:opacity>
         {@html text}
     </div>
 </td>

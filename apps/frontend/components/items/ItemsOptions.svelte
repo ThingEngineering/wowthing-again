@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { gearState } from '@/stores/local-storage'
+    import { gearState } from '@/stores/local-storage';
 
-    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
-    import NumberInput from '@/shared/components/forms/NumberInput.svelte'
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
+    import NumberInput from '@/shared/components/forms/NumberInput.svelte';
 
-    export let slug: string
+    let { slug }: { slug: string } = $props();
 </script>
 
 <style lang="scss">
@@ -26,7 +26,7 @@
         padding-left: 0.2rem;
         padding-right: 0.2rem;
 
-        :global(input[type="number"]) {
+        :global(input[type='number']) {
             margin: 0;
             padding: 0 0.2rem;
             width: 3.5rem;
@@ -40,10 +40,9 @@
 
         {#if slug === 'bags'}
             <button>
-                <CheckboxInput
-                    name="highlight_item_level"
-                    bind:value={$gearState.highlightBagSize}
-                >Bag slots &lt;</CheckboxInput>
+                <CheckboxInput name="highlight_item_level" bind:value={$gearState.highlightBagSize}
+                    >Bag slots &lt;</CheckboxInput
+                >
                 <NumberInput
                     name="minimum_item_level"
                     bind:value={$gearState.minimumBagSize}
@@ -52,13 +51,12 @@
                     maxValue={50}
                 />
             </button>
-        
         {:else if slug === 'equipped'}
             <button>
                 <CheckboxInput
                     name="highlight_item_level"
-                    bind:value={$gearState.highlightItemLevel}
-                >Item level &lt;</CheckboxInput>
+                    bind:value={$gearState.highlightItemLevel}>Item level &lt;</CheckboxInput
+                >
                 <NumberInput
                     name="minimum_item_level"
                     bind:value={$gearState.minimumItemLevel}
@@ -69,31 +67,27 @@
             </button>
 
             <button>
-                <CheckboxInput
-                    name="highlight_enchants"
-                    bind:value={$gearState.highlightEnchants}
-                >Missing enchants</CheckboxInput>
+                <CheckboxInput name="highlight_enchants" bind:value={$gearState.highlightEnchants}
+                    >Missing enchants</CheckboxInput
+                >
             </button>
 
             <button>
-                <CheckboxInput
-                    name="highlight_gems"
-                    bind:value={$gearState.highlightGems}
-                >Missing gems</CheckboxInput>
+                <CheckboxInput name="highlight_gems" bind:value={$gearState.highlightGems}
+                    >Missing gems</CheckboxInput
+                >
             </button>
 
             <button>
-                <CheckboxInput
-                    name="highlight_heirlooms"
-                    bind:value={$gearState.highlightHeirlooms}
-                >Missing heirlooms</CheckboxInput>
+                <CheckboxInput name="highlight_heirlooms" bind:value={$gearState.highlightHeirlooms}
+                    >Missing heirlooms</CheckboxInput
+                >
             </button>
 
             <button>
-                <CheckboxInput
-                    name="highlight_upgrades"
-                    bind:value={$gearState.highlightUpgrades}
-                >Upgradeable</CheckboxInput>
+                <CheckboxInput name="highlight_upgrades" bind:value={$gearState.highlightUpgrades}
+                    >Upgradeable</CheckboxInput
+                >
             </button>
         {/if}
     </div>

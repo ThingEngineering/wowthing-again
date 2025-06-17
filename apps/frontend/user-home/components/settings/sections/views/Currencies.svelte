@@ -96,11 +96,7 @@
             ret.push(...sortBy(currencies, (currency) => currency.name));
         }
 
-        const lowerFilter = currencyFilter.toLocaleLowerCase();
-        return uniqBy(
-            ret.filter((c) => c.name.toLocaleLowerCase().includes(lowerFilter)),
-            (c) => c.id
-        );
+        return uniqBy(ret, (c) => c.id);
     });
 </script>
 
@@ -127,6 +123,7 @@
         <MagicLists
             key="currencies"
             choices={currencyChoices}
+            filter={currencyFilter}
             bind:activeNumberIds={view.homeCurrencies}
         />
     </div>

@@ -7,16 +7,16 @@
     } from './convertible/data';
     import { Constants } from '@/data/constants';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import Tooltip from '@/shared/components/parsed-text/Tooltip.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 
     const currencies: number[][] = [
-        [currentUpgrade1[0][0], currentUpgrade2[0][0]],
-        [currentUpgrade3[0][0], currentUpgrade4[0][0]],
+        [currentUpgrade1[0].upgradeId, currentUpgrade2[0].upgradeId],
+        [currentUpgrade3[0].upgradeId, currentUpgrade4[0].upgradeId],
     ];
 </script>
 

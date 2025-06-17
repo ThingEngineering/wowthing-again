@@ -4,7 +4,7 @@
     import CurrencyLink from '@/shared/components/links/CurrencyLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let costs: Record<number, number>;
+    let { costs }: { costs: Record<number, number> } = $props();
 </script>
 
 <style lang="scss">

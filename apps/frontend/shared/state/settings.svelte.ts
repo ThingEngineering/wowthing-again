@@ -1,4 +1,5 @@
 import debounce from 'lodash/debounce';
+import uniq from 'lodash/uniq';
 import { location } from 'svelte-spa-router';
 
 // WARNING: do NOT import any of the other stores!
@@ -76,6 +77,8 @@ function createSettingsState() {
 
     const derivedTransmogClassMask = $derived.by(() => getTransmogClassMask());
 
+    const allTasks = $derived.by(() => uniq(settings.views.flatMap((view) => view.homeTasks)));
+
     return {
         set(newSettings: Settings) {
             if (!newSettings) {
@@ -131,6 +134,9 @@ function createSettingsState() {
         },
         get activeView() {
             return activeView;
+        },
+        get allTasks() {
+            return allTasks;
         },
         get commonColspan() {
             return commonColspan;

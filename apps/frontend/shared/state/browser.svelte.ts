@@ -13,6 +13,12 @@ interface BrowserStateIdk {
     auctions: {
         commoditiesCurrentExpansion: boolean;
     };
+    explore: {
+        achievementId: number;
+        bonusIds: string;
+        questId: number;
+        transmogSetId: number;
+    };
     home: {
         activeView: string;
     };
@@ -72,6 +78,12 @@ interface BrowserStateIdk {
 const initialState: BrowserStateIdk = {
     auctions: {
         commoditiesCurrentExpansion: true,
+    },
+    explore: {
+        achievementId: 0,
+        bonusIds: '',
+        questId: 0,
+        transmogSetId: 0,
     },
     home: {
         activeView: '',
@@ -176,7 +188,7 @@ class BrowserState {
         if (this._firstSave) {
             this._firstSave = false;
         } else {
-            console.log('save', state);
+            // console.log('save', state);
             localStorage.setItem(this._storageKey, JSON.stringify(state));
         }
     }

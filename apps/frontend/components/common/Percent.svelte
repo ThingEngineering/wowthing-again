@@ -1,9 +1,9 @@
 <script lang="ts">
-    import getPercentClass from '@/utils/get-percent-class'
+    import getPercentClass from '@/utils/get-percent-class';
 
-    export let percent: number
+    let { percent }: { percent: number } = $props();
 
-    const fancyPercent = (percent: number): string => (Math.floor(percent * 10) / 10).toFixed(1)
+    let fancyPercent = $derived((Math.floor(percent * 10) / 10).toFixed(1));
 </script>
 
 <style lang="scss">
@@ -14,5 +14,5 @@
 </style>
 
 <span class="drop-shadow {getPercentClass(percent)}">
-    {fancyPercent(percent)} %
+    {fancyPercent} %
 </span>

@@ -32,10 +32,12 @@
         } else {
             const tier: [number, number, number?][] = [];
             if (seasonTier.lowUpgrade?.length > 0) {
-                tier.push(seasonTier.lowUpgrade[0]);
+                const upgrade = seasonTier.lowUpgrade[0];
+                tier.push([upgrade.upgradeId, upgrade.upgradeCost, upgrade.achievementUpgradeCost]);
             }
             if (seasonTier.highUpgrade?.length > 0) {
-                tier.push(seasonTier.highUpgrade[0]);
+                const upgrade = seasonTier.highUpgrade[0];
+                tier.push([upgrade.upgradeId, upgrade.upgradeCost, upgrade.achievementUpgradeCost]);
             }
             if (tier.length > 0) {
                 currencies.push(tier);

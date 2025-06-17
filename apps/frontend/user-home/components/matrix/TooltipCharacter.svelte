@@ -1,10 +1,10 @@
 <script lang="ts">
-    import type { Character } from '@/types'
+    import type { CharacterProps } from '@/types/props';
 
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
-    import RaceIcon from '@/shared/components/images/RaceIcon.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
+    import RaceIcon from '@/shared/components/images/RaceIcon.svelte';
 
-    export let character: Character
+    let { character }: CharacterProps = $props();
 </script>
 
 <style lang="scss">
@@ -21,16 +21,8 @@
     <h5>{character.realm.name}</h5>
     <div class="info">
         <div class="faction{character.faction}">
-            <RaceIcon
-                border={2}
-                size={32}
-                {character}
-            />
-            <ClassIcon
-                border={1}
-                size={32}
-                {character}
-            />
+            <RaceIcon border={2} size={32} {character} />
+            <ClassIcon border={1} size={32} {character} />
         </div>
         <div>Level {character.level}</div>
     </div>

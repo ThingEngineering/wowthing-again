@@ -4,11 +4,10 @@
     import { Faction } from '@/enums/faction';
     import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
     import { WeaponSubclass } from '@/enums/weapon-subclass';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { exploreState } from '@/stores/local-storage';
     import { fixedInventoryType } from '@/utils/fixed-inventory-type';
     import { getClassesFromMask } from '@/utils/get-classes-from-mask';
-    import type { StaticDataTransmogSet } from '@/shared/stores/static/types';
     import type { ItemDataItem } from '@/types/data/item';
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
@@ -20,11 +19,18 @@
 
     const slotOrder = bestTypeOrder.concat(weaponSubclassOrder.map((sub) => sub + 100));
 
-    let slots: Record<number, ItemDataItem[]>;
-    let transmogSet: StaticDataTransmogSet;
-    $: {
-        slots = {};
-        transmogSet = wowthingData.static.transmogSetById.get($exploreState.transmogSetId);
+    let transmogSet = $derived(
+        wowthingData.static.transmogSetById.get(browserState.current.explore.transmogSetId)
+    );
+
+    let learnedFromItems = $derived(
+        (
+            wowthingData.items.transmogSetToItems[browserState.current.explore.transmogSetId] || []
+        ).map((itemId) => wowthingData.items.items[itemId])
+    );
+
+    let slots = $derived.by(() => {
+        const ret: Record<number, ItemDataItem[]> = {};
         if (transmogSet) {
             for (const [itemId] of transmogSet.items) {
                 const isPrimary = itemId > 10_000_000;
@@ -41,7 +47,7 @@
                     actualSlot = fixedInventoryType(item.inventoryType);
                 }
 
-                const slotItems = (slots[actualSlot] ||= []);
+                const slotItems = (ret[actualSlot] ||= []);
                 if (isPrimary) {
                     slotItems.unshift(item);
                 } else {
@@ -49,11 +55,8 @@
                 }
             }
         }
-    }
-
-    $: learnedFromItems = (
-        wowthingData.items.transmogSetToItems[$exploreState.transmogSetId] || []
-    ).map((itemId) => wowthingData.items.items[itemId]);
+        return ret;
+    });
 </script>
 
 <style lang="scss">
@@ -99,10 +102,10 @@
             name="explore_transmog_set_id"
             minValue={0}
             maxValue={999999}
-            bind:value={$exploreState.transmogSetId}
+            bind:value={browserState.current.explore.transmogSetId}
         />
 
-        {#each learnedFromItems as learnedFromItem}
+        {#each learnedFromItems as learnedFromItem (learnedFromItem.id)}
             <WowheadLink type="item" id={learnedFromItem.id}>
                 <WowthingImage name="item/{learnedFromItem.id}" size={16} />
                 <ParsedText text={`{item:${learnedFromItem.id}}`} />
@@ -123,14 +126,14 @@
 
             {transmogSet.name}
 
-            {#each classes as characterClass}
+            {#each classes as characterClass (characterClass)}
                 <ClassIcon classId={characterClass} />
             {:else}
                 ???
             {/each}
         </h3>
         <div class="slots">
-            {#each slotOrder as slot}
+            {#each slotOrder as slot (slot)}
                 {#if slots[slot]}
                     <div class="slot">
                         <h4>
@@ -140,12 +143,12 @@
                                 {InventoryType[slot]}
                             {/if}
                         </h4>
-                        {#each slots[slot] as item}
+                        {#each slots[slot] as item (item.id)}
                             {@const itemClasses = getClassesFromMask(item.classMask)}
                             <div class="item">
                                 <WowheadLink type="item" id={item.id}>
                                     {#if itemClasses.length < 13}
-                                        {#each itemClasses as classId}
+                                        {#each itemClasses as classId (classId)}
                                             <ClassIcon {classId} />
                                         {/each}
                                     {/if}

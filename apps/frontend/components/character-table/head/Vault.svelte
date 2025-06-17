@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let vaultType: string;
+    let { vaultType }: { vaultType: string } = $props();
 </script>
 
 <style lang="scss">

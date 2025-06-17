@@ -1,8 +1,6 @@
 <script lang="ts">
-    import { afterUpdate, type Component } from 'svelte';
-
     import getSavedRoute from '@/utils/get-saved-route';
-    import type { MultiSlugParams } from '@/types';
+    import type { ParamsSlugsProps } from '@/types/props';
 
     import Achievements from './ExploreAchievements.svelte';
     import BonusIDs from './ExploreBonusIDs.svelte';
@@ -12,11 +10,11 @@
     import Sidebar from './ExploreSidebar.svelte';
     import Transmog from './ExploreTransmog.svelte';
 
-    export let params: MultiSlugParams;
+    let { params }: ParamsSlugsProps = $props();
 
-    afterUpdate(() => getSavedRoute('explore', params.slug1));
+    $effect(() => getSavedRoute('explore', params.slug1));
 
-    const componentMap: Record<string, Component<any, any, any>> = {
+    const componentMap = {
         achievements: Achievements,
         'bonus-ids': BonusIDs,
         chett: Chett,
@@ -27,4 +25,4 @@
 </script>
 
 <Sidebar />
-<svelte:component this={componentMap[params.slug1]} />
+<svelte:component this={componentMap[params.slug1 as keyof typeof componentMap]} />

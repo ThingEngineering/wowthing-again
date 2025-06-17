@@ -8,7 +8,9 @@
         activeNumberIds?: number[];
         activeStringIds?: string[];
         choices: SettingsChoice[];
+        filter?: string;
         key: string;
+        maxItems?: number;
         saveInactive?: boolean;
         title?: string;
     };
@@ -17,23 +19,33 @@
         activeNumberIds = $bindable(),
         activeStringIds = $bindable(),
         choices,
+        filter,
         key,
+        maxItems = 100,
         saveInactive = false,
         title = undefined,
     }: Props = $props();
+
+    let filterWords = $derived(
+        (filter?.toLocaleLowerCase()?.split(' ') || []).filter((word) => word.length >= 2)
+    );
 
     let activeItems = $derived(
         (activeNumberIds !== undefined
             ? activeNumberIds.map((id) => choices.find((item) => item.id === id.toString()))
             : activeStringIds.map((id) => choices.find((item) => item.id === id))
-        ).filter((item) => !!item),
+        ).filter((item) => !!item)
     );
     let inactiveItems = $derived(
-        choices.filter((item) =>
-            activeNumberIds !== undefined
-                ? !activeNumberIds.includes(parseInt(item.id))
-                : !activeStringIds.includes(item.id),
-        ),
+        choices
+            .filter(
+                (item) =>
+                    (activeNumberIds !== undefined
+                        ? !activeNumberIds.includes(parseInt(item.id))
+                        : !activeStringIds.includes(item.id)) &&
+                    filterWords.every((word) => item.name.toLocaleLowerCase().indexOf(word) >= 0)
+            )
+            .slice(0, maxItems)
     );
 
     function onActiveChange() {

@@ -1,23 +1,25 @@
 <script lang="ts">
-    import { afterUpdate, onMount } from 'svelte';
+    import { onMount } from 'svelte';
     import { replace } from 'svelte-spa-router';
 
     import { sharedState } from '@/shared/state/shared.svelte';
     import getSavedRoute from '@/utils/get-saved-route';
-    import type { MultiSlugParams } from '@/types';
+    import type { ParamsSlugsProps } from '@/types/props';
 
     import Sidebar from './AuctionsSidebar.svelte';
     import View from './AuctionsView.svelte';
 
-    export let params: MultiSlugParams;
+    let { params }: ParamsSlugsProps = $props();
 
-    afterUpdate(() => getSavedRoute('auctions', params.slug1));
-
-    onMount(() => {
+    $effect(() => {
         if (sharedState.public) {
             replace('/');
+        } else {
+            getSavedRoute('auctions', params.slug1);
         }
     });
+
+    onMount(() => {});
 </script>
 
 {#if !sharedState.public}

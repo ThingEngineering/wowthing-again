@@ -1,15 +1,12 @@
 <script lang="ts">
-    import type { Character, CharacterWeeklyProgress } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import Progress from './TooltipVaultRaidProgress.svelte';
     import Rewards from './Rewards.svelte';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 
-    let progress: CharacterWeeklyProgress[];
-    $: {
-        progress = character.weekly?.vault?.raidProgress || [];
-    }
+    let progress = $derived(character.weekly?.vault?.raidProgress || []);
 </script>
 
 <div class="wowthing-tooltip">

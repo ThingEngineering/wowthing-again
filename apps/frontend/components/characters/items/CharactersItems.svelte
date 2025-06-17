@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { ItemLocation } from '@/enums/item-location'
-    import type { Character } from '@/types'
+    import { ItemLocation } from '@/enums/item-location';
+    import type { CharacterProps } from '@/types/props';
 
-    import Location from './CharactersItemsLocation.svelte'
+    import Location from './CharactersItemsLocation.svelte';
 
-    export let character: Character
+    let { character }: CharacterProps = $props();
 </script>
 
 <style lang="scss">
@@ -16,12 +16,6 @@
 </style>
 
 <div class="collection">
-    <Location
-        location={ItemLocation.Bags}
-        {character}
-    />
-    <Location
-        location={ItemLocation.Bank}
-        {character}
-    />
+    <Location location={ItemLocation.Bags} {character} />
+    <Location location={ItemLocation.Bank} {character} />
 </div>

@@ -113,7 +113,7 @@ export function doConvertible(): LazyConvertible {
                 setItem
             ));
 
-            const validCharacters = userState.general.characters.filter(
+            const validCharacters = userState.general.activeCharacters.filter(
                 (char) => char.classId === classId && char.level >= convertibleCategory.minimumLevel
             );
 
@@ -378,17 +378,18 @@ export function doConvertible(): LazyConvertible {
                                 } else if (tier.lowUpgrade) {
                                     if (sigh.currentUpgrade < 4) {
                                         let charHas = 0;
-                                        for (const [
+                                        for (const {
                                             upgradeId,
                                             upgradeCost,
-                                            achieveUpgradeCost,
-                                        ] of tier.lowUpgrade) {
+                                            achievementId,
+                                            achievementUpgradeCost,
+                                        } of tier.lowUpgrade) {
                                             const actualCost =
-                                                tier.achievementId &&
+                                                achievementId &&
                                                 userState.achievements.achievementEarnedById.has(
-                                                    tier.achievementId
+                                                    achievementId
                                                 )
-                                                    ? achieveUpgradeCost || upgradeCost
+                                                    ? achievementUpgradeCost || upgradeCost
                                                     : upgradeCost;
 
                                             const charCount =
@@ -419,17 +420,18 @@ export function doConvertible(): LazyConvertible {
 
                                     if (sigh.canUpgrade && tier.highUpgrade) {
                                         let charHas = 0;
-                                        for (const [
+                                        for (const {
                                             upgradeId,
                                             upgradeCost,
-                                            achieveUpgradeCost,
-                                        ] of tier.highUpgrade) {
+                                            achievementId,
+                                            achievementUpgradeCost,
+                                        } of tier.highUpgrade) {
                                             const actualCost =
-                                                nextTier?.achievementId &&
+                                                achievementId &&
                                                 userState.achievements.achievementEarnedById.has(
-                                                    nextTier.achievementId
+                                                    achievementId
                                                 )
-                                                    ? achieveUpgradeCost || upgradeCost
+                                                    ? achievementUpgradeCost || upgradeCost
                                                     : upgradeCost;
 
                                             const charCount =

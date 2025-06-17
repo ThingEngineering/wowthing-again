@@ -1,9 +1,9 @@
 <script lang="ts">
     import { onMount } from 'svelte';
 
-    import { achievementStore } from '@/stores';
-    import { exploreState } from '@/stores/local-storage';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { achievementStore } from '@/stores';
     import type { AchievementDataAchievement } from '@/types';
 
     import CriteriaTree from './ExploreAchievementsCriteriaTree.svelte';
@@ -32,7 +32,7 @@
 
     $: {
         if (ready) {
-            achievement = $achievementStore.achievement[$exploreState.achievementId];
+            achievement = $achievementStore.achievement[browserState.current.explore.achievementId];
         }
     }
 </script>
@@ -66,14 +66,14 @@
         name="achievement_id"
         minValue={0}
         maxValue={999999}
-        bind:value={$exploreState.achievementId}
+        bind:value={browserState.current.explore.achievementId}
     />
 
     {#if achievement}
         <div class="info">
             <div>
                 <WowthingImage
-                    name="achievement/{$exploreState.achievementId}"
+                    name="achievement/{browserState.current.explore.achievementId}"
                     size={48}
                     border={2}
                 />
