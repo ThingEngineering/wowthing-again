@@ -551,7 +551,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                     charChore.tasks.push(charTask);
                 }
 
-                if (charChore.tasks.length === 1) {
+                if (charChore.tasks.length === 1 && charChore.tasks[0] !== null) {
                     const choreTask = multiTaskMap[taskName].find(
                         (chore) => chore.taskKey === charChore.tasks[0].key
                     );
