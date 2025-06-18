@@ -1,13 +1,16 @@
 <script lang="ts">
-    import type { StaticDataSubProfessionTraitNode } from '@/shared/stores/static/types'
+    import type { StaticDataSubProfessionTraitNode } from '@/shared/stores/static/types';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let indent: number
-    export let node: StaticDataSubProfessionTraitNode
-    export let traits: Record<number, number>
+    type Props = {
+        indent: number;
+        node: StaticDataSubProfessionTraitNode;
+        traits: Record<number, number>;
+    };
+    let { indent, node, traits }: Props = $props();
 
-    $: value = traits[node.nodeId] || 0
+    let value = $derived(traits?.[node.nodeId] || 0);
 </script>
 
 <style lang="scss">
@@ -34,26 +37,18 @@
 
 <tr
     class:status-fail={value === 0}
-    class:status-shrug={value > 0 && (value - 1) < node.rankMax}
+    class:status-shrug={value > 0 && value - 1 < node.rankMax}
     class:status-success={value > node.rankMax}
     data-id={node.nodeId}
 >
-    <td class="name" style:padding-left={`${(indent * 1) + 0.5}rem`}>
-        <WowthingImage
-            name="trait-node/{node.unlockEntryId}"
-            border={1}
-            size={16}
-        />
+    <td class="name" style:padding-left={`${indent * 1 + 0.5}rem`}>
+        <WowthingImage name="trait-node/{node.unlockEntryId}" border={1} size={16} />
         {node.name}
     </td>
     <td class="number">{Math.max(0, value - 1)}</td>
     <td class="slash">/</td>
     <td class="number">{node.rankMax}</td>
 </tr>
-{#each (node.children || []) as childNode}
-    <svelte:self
-        indent={indent + 1}
-        node={childNode}
-        {traits}
-    />
+{#each node.children || [] as childNode}
+    <svelte:self indent={indent + 1} node={childNode} {traits} />
 {/each}

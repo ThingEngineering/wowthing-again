@@ -1,23 +1,27 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte'
+    import { afterUpdate } from 'svelte';
 
-    import { getCharacterProfessions, type ProfessionData } from '@/utils/get-character-professions'
-    import getSavedRoute from '@/utils/get-saved-route'
-    import type { Character, MultiSlugParams } from '@/types'
+    import {
+        getCharacterProfessions,
+        type ProfessionData,
+    } from '@/utils/get-character-professions';
+    import getSavedRoute from '@/utils/get-saved-route';
+    import type { Character, MultiSlugParams } from '@/types';
 
-    export let character: Character
-    export let params: MultiSlugParams
+    export let character: Character;
+    export let params: MultiSlugParams;
 
-    import SubnavLinks from './CharacterProfessionsSubnavLinks.svelte'
-    import Options from './CharacterProfessionsOptions.svelte'
-    import View from './CharacterProfessionsView.svelte'
+    import SubnavLinks from './CharacterProfessionsSubnavLinks.svelte';
+    import Options from './CharacterProfessionsOptions.svelte';
+    import View from './CharacterProfessionsView.svelte';
 
-    let primaryProfessions: ProfessionData[]
-    let secondaryProfessions: ProfessionData[]
+    let primaryProfessions: ProfessionData[];
+    let secondaryProfessions: ProfessionData[];
     $: {
-        primaryProfessions = getCharacterProfessions(character, 0)
-        secondaryProfessions = getCharacterProfessions(character, 1)
-            .filter((prof) => prof[0].slug === 'cooking')
+        primaryProfessions = getCharacterProfessions(character, 0);
+        secondaryProfessions = getCharacterProfessions(character, 1).filter(
+            (prof) => prof[0].slug === 'cooking'
+        );
     }
 
     afterUpdate(() => {
@@ -27,7 +31,7 @@
             null,
             null,
             'character-professions-subnav'
-        )
+        );
 
         if (params.slug4) {
             getSavedRoute(
@@ -37,9 +41,9 @@
                 null,
                 'character-professions-sidebar',
                 true
-            )
+            );
         }
-    })
+    });
 </script>
 
 <style lang="scss">
@@ -53,7 +57,6 @@
         display: flex;
 
         + .profession-links {
-            border-left: 1px solid $border-color;
             margin-left: 1rem;
         }
     }
@@ -62,21 +65,13 @@
 <nav class="subnav" id="character-professions-subnav">
     {#if primaryProfessions.length > 0}
         <div class="profession-links">
-            <SubnavLinks
-                {character}
-                {params}
-                professions={primaryProfessions}
-            />
+            <SubnavLinks {character} {params} professions={primaryProfessions} />
         </div>
     {/if}
 
     {#if secondaryProfessions.length > 0}
         <div class="profession-links">
-            <SubnavLinks
-                {character}
-                {params}
-                professions={secondaryProfessions}
-            />
+            <SubnavLinks {character} {params} professions={secondaryProfessions} />
         </div>
     {/if}
 
@@ -84,8 +79,5 @@
 </nav>
 
 {#if params.slug4 && (primaryProfessions.length > 0 || secondaryProfessions.length > 0)}
-    <View
-        {character}
-        {params}
-    />
+    <View {character} {params} />
 {/if}
