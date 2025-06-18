@@ -28,7 +28,7 @@ const languageToSubdomain: Record<Language, string> = {
 };
 
 function createSettingsState() {
-    let hashTimer: ReturnType<typeof setInterval> | null = null;
+    // let hashTimer: ReturnType<typeof setInterval> | null = null;
     let settingsHash = '';
 
     let settings = $state<Settings>();
@@ -86,10 +86,10 @@ function createSettingsState() {
                 return;
             }
 
-            if (hashTimer !== null) {
-                clearInterval(hashTimer);
-                hashTimer = null;
-            }
+            // if (hashTimer !== null) {
+            //     clearInterval(hashTimer);
+            //     hashTimer = null;
+            // }
 
             saving = 0;
             settings = newSettings;
@@ -117,14 +117,17 @@ function createSettingsState() {
                 newSettings.professions.collectingCharacters = {};
             }
 
-            hashTimer = setInterval(async () => {
-                const settingsData = $state.snapshot(settings);
-                const newSettingsHash = hashObject(settingsData);
-                if (newSettingsHash !== settingsHash) {
-                    settingsHash = newSettingsHash;
-                    await debouncedSaveData();
-                }
-            }, 1000);
+            // hashTimer = setInterval(async () => {
+            //     const settingsData = $state.snapshot(settings);
+            //     const newSettingsHash = hashObject(settingsData);
+            //     if (newSettingsHash !== settingsHash) {
+            //         settingsHash = newSettingsHash;
+            //         await debouncedSaveData();
+            //     }
+            // }, 1000);
+        },
+        saveData() {
+            debouncedSaveData();
         },
         get value() {
             return settings;
