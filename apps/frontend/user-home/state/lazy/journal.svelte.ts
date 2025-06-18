@@ -1,6 +1,4 @@
 import sortBy from 'lodash/sortBy';
-import { get } from 'svelte/store';
-
 import { classMaskOrderMap } from '@/data/character-class';
 import { journalDifficultyMap } from '@/data/difficulty';
 import { slotOrderMap } from '@/data/inventory-slot';
@@ -8,14 +6,14 @@ import { professionOrderMap } from '@/data/professions';
 import { BindType } from '@/enums/bind-type';
 import { playableClasses, PlayableClassMask } from '@/enums/playable-class';
 import { RewardType } from '@/enums/reward-type';
+import { browserState } from '@/shared/state/browser.svelte';
+import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
 import { UserCount } from '@/types';
-import { leftPad } from '@/utils/formatting';
-import getFilteredItems from '@/utils/journal/get-filtered-items';
-import { isRecipeKnown } from '@/utils/professions/is-recipe-known';
 import { JournalDataEncounterItem } from '@/types/data';
-import { settingsState } from '@/shared/state/settings.svelte';
-import { journalState } from '@/stores/local-storage/journal';
+import { leftPad } from '@/utils/formatting';
+import getFilteredItems from '@/utils/journal/get-filtered-items.svelte';
+import { isRecipeKnown } from '@/utils/professions/is-recipe-known';
 import { userState } from '../user';
 
 export interface LazyJournal {
@@ -33,8 +31,7 @@ export function doJournal(): LazyJournal {
 
     const hasAppearanceById = $state.snapshot(userState.general.hasAppearanceById);
     const hasAppearanceBySource = $state.snapshot(userState.general.hasAppearanceBySource);
-
-    const journalStateValue = get(journalState);
+    const journalState = $state.snapshot(browserState.current.journal);
 
     const classMask = settingsState.transmogClassMask;
     const masochist = settingsState.value.transmog.completionistMode;
@@ -75,7 +72,7 @@ export function doJournal(): LazyJournal {
                 const encounterSeen = new Set<string>();
 
                 // FIXME: journal state -> browser state
-                if (!journalStateValue.showTrash && encounter.name === 'Trash Drops') {
+                if (!journalState.showTrash && encounter.name === 'Trash Drops') {
                     continue;
                 }
 
@@ -85,7 +82,7 @@ export function doJournal(): LazyJournal {
                     const groupSeen = new Set<string>();
 
                     let filteredItems = getFilteredItems(
-                        journalStateValue,
+                        journalState,
                         group,
                         classMask,
                         instanceExpansion
@@ -358,12 +355,9 @@ export function doJournal(): LazyJournal {
                             }
                         }
 
-                        if (
-                            (journalStateValue.showUncollected && !allCollected) ||
-                            (journalStateValue.showCollected && allCollected)
-                        ) {
-                            item.show = true;
-                        }
+                        item.show =
+                            (journalState.showUncollected && !allCollected) ||
+                            (journalState.showCollected && allCollected);
                     } // item of filteredItems
 
                     const recipeOrder: Record<number, number> = {};

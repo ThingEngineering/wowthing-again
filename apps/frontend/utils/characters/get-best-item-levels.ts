@@ -53,6 +53,10 @@ export function getBestItemLevels(character: Character): BestItemLevels {
             }
 
             const item = wowthingData.items.items[equippedItem.itemId];
+            if (!item) {
+                continue;
+            }
+
             if (item.primaryStat === PrimaryStat.None || primaryStats.includes(item.primaryStat)) {
                 const sighInventoryType =
                     item.inventoryType === InventoryType.Chest2

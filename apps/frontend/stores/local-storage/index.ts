@@ -9,7 +9,6 @@ export * from './heirlooms';
 export * from './history';
 export * from './home';
 export * from './illusions';
-export * from './journal';
 export * from './lockouts';
 export * from './new-nav';
 export * from './professions-recipes';

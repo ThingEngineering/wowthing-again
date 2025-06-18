@@ -1,6 +1,6 @@
 import { Constants } from '@/data/constants';
+import { browserState } from '@/shared/state/browser.svelte';
 import { wowthingData } from '@/shared/stores/data';
-import type { JournalState } from '@/stores/local-storage';
 import {
     JournalDataEncounterItemAppearance,
     type JournalDataEncounterItem,
@@ -30,7 +30,7 @@ const weaponGroups = Object.fromEntries(
 );
 
 export default function getFilteredItems(
-    journalState: JournalState,
+    journalState: typeof browserState.current.journal,
     group: JournalDataEncounterItemGroup,
     classMask: number,
     instanceExpansion: number

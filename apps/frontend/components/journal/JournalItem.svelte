@@ -6,8 +6,8 @@
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
     import { RewardType } from '@/enums/reward-type';
     import { iconLibrary } from '@/shared/icons';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { journalState } from '@/stores/local-storage';
     import { getItemUrl } from '@/utils/get-item-url';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { userState } from '@/user-home/state/user';
@@ -131,13 +131,14 @@
     }
 </style>
 
-{#each item.appearances as appearance}
-    {#if ($journalState.showCollected && appearance.userHas) || ($journalState.showUncollected && !appearance.userHas)}
+{#each item.appearances as appearance (appearance)}
+    {#if (browserState.current.journal.showCollected && appearance.userHas) || (browserState.current.journal.showUncollected && !appearance.userHas)}
         {@const [diffShort, diffLong] = getDifficulties(instance, appearance)}
         <div
             class="journal-item quality{getQuality(appearance)}"
-            class:missing={(!$journalState.highlightMissing && !appearance.userHas) ||
-                ($journalState.highlightMissing && appearance.userHas)}
+            class:missing={(!browserState.current.journal.highlightMissing &&
+                !appearance.userHas) ||
+                (browserState.current.journal.highlightMissing && appearance.userHas)}
         >
             <a
                 href={getItemUrl({

@@ -2,8 +2,8 @@
     import find from 'lodash/find';
     import { afterUpdate } from 'svelte';
 
+    import { browserState } from '@/shared/state/browser.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { journalState } from '@/stores/local-storage';
     import { lazyState } from '@/user-home/state/lazy';
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import type { JournalDataInstance, JournalDataTier } from '@/types/data';
@@ -80,12 +80,12 @@
                     <EncounterStats statsKey={slugKey} />
                 </SectionTitle>
 
-                {#if $journalState.showLockouts}
+                {#if browserState.current.journal.showLockouts}
                     <Lockouts {instance} />
                 {/if}
 
                 {#each instance.encounters as encounter}
-                    {#if $journalState.showTrash || encounter.name !== 'Trash Drops'}
+                    {#if browserState.current.journal.showTrash || encounter.name !== 'Trash Drops'}
                         <Encounter {encounter} {instance} {slugKey} bonusIds={instance.bonusIds} />
                     {/if}
                 {/each}

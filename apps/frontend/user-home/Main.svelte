@@ -18,6 +18,7 @@
     import Refresh from './Refresh.svelte';
     import Routes from './Routes.svelte';
     import Sidebar from './Sidebar.svelte';
+    import { hashObject } from '@/utils/hash-object.svelte';
 
     let ready = $state(false);
 
@@ -91,8 +92,26 @@
             : 'none';
     });
 
+    // yeah I don't like these living here either
     $effect(() => {
-        browserState.save($state.snapshot(browserState.current));
+        if (ready) {
+            browserState.save($state.snapshot(browserState.current));
+        }
+    });
+
+    let settingsHash = $state('');
+    $effect(() => {
+        if (ready && !sharedState.public) {
+            const settingsData = $state.snapshot(settingsState.value);
+            const newSettingsHash = hashObject(settingsData);
+            if (newSettingsHash !== settingsHash) {
+                // don't save on the first run
+                if (settingsHash) {
+                    settingsState.saveData();
+                }
+                settingsHash = newSettingsHash;
+            }
+        }
     });
 </script>
 

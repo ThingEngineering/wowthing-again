@@ -5,12 +5,15 @@ import { multiTaskMap, taskMap } from '@/data/tasks';
 import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
 import { lazyStore } from '@/stores';
+import { logErrors } from '@/utils/log-errors';
 import type { Chore } from '@/types/tasks';
 
 import { activeHolidays } from './activeHolidays.svelte';
 
 class ActiveViewTasks {
-    value = $derived.by(() => {
+    value = $derived.by(() => logErrors(this._value));
+
+    private _value() {
         const lazyStoreValue = get(lazyStore);
 
         const activeTasks: string[] = [];
@@ -73,7 +76,7 @@ class ActiveViewTasks {
         }
 
         return activeTasks;
-    });
+    }
 }
 
 export const activeViewTasks = new ActiveViewTasks();

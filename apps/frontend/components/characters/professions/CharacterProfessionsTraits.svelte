@@ -45,7 +45,7 @@
 
 {#if subProfession}
     {@const stats =
-        character.professions[staticProfession.id].subProfessionTraitStats[subProfession.id]}
+        character.professions[staticProfession.id]?.subProfessionTraitStats[subProfession.id]}
     <div class="wrapper-column">
         <ProgressBar
             cls={`${getPercentClass(stats?.percent || 0)}-border`}

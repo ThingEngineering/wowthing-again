@@ -14,13 +14,14 @@
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
 
-    export let encounter: JournalDataEncounter = undefined;
-    export let statsKey: string;
+    type Props = {
+        encounter?: JournalDataEncounter;
+        statsKey: string;
+    };
+    let { encounter = undefined, statsKey }: Props = $props();
 
-    let classCounts: [number, keyof typeof PlayableClass][];
-    let difficulties: [number, number, number, number][];
-    $: {
-        difficulties = [];
+    let difficulties = $derived.by(() => {
+        let ret: [number, number, number, number][] = [];
         for (const difficulty of journalDifficultyOrder) {
             const difficultyKey = `${statsKey}--${difficulty}`;
             const difficultyStats = lazyState.journal.stats[difficultyKey];
@@ -37,13 +38,13 @@
                     }
                 }
 
-                difficulties.push([difficulty, difficultyStats.have, difficultyStats.total, kills]);
+                ret.push([difficulty, difficultyStats.have, difficultyStats.total, kills]);
             }
         }
 
         // Fix weird old instances
-        const normalDifficulties = difficulties.filter((d) => d[0] === 3 || d[0] === 4);
-        const heroicDifficulties = difficulties.filter((d) => d[0] === 5 || d[0] === 6);
+        const normalDifficulties = ret.filter((d) => d[0] === 3 || d[0] === 4);
+        const heroicDifficulties = ret.filter((d) => d[0] === 5 || d[0] === 6);
         if (
             normalDifficulties.length === 2 &&
             normalDifficulties[0][1] === normalDifficulties[1][1] &&
@@ -52,43 +53,47 @@
             heroicDifficulties[0][1] === heroicDifficulties[1][1] &&
             heroicDifficulties[0][2] === heroicDifficulties[1][2]
         ) {
-            const newNormal = difficulties.filter((d) => d[0] === 14)[0];
+            const newNormal = ret.filter((d) => d[0] === 14)[0];
             if (newNormal) {
-                difficulties = difficulties.filter((d) => d[0] !== 3 && d[0] !== 4);
+                ret = ret.filter((d) => d[0] !== 3 && d[0] !== 4);
                 newNormal[1] += normalDifficulties[0][1];
                 newNormal[2] += normalDifficulties[0][2];
             } else {
-                difficulties = difficulties.filter((d) => d[0] !== 4);
+                ret = ret.filter((d) => d[0] !== 4);
                 normalDifficulties[0][0] = 14;
             }
 
-            const newHeroic = difficulties.filter((d) => d[0] === 15)[0];
+            const newHeroic = ret.filter((d) => d[0] === 15)[0];
             if (newHeroic) {
-                difficulties = difficulties.filter((d) => d[0] !== 5 && d[0] !== 6);
+                ret = ret.filter((d) => d[0] !== 5 && d[0] !== 6);
                 newHeroic[1] += heroicDifficulties[0][1];
                 newHeroic[2] += heroicDifficulties[0][2];
             } else {
-                difficulties = difficulties.filter((d) => d[0] !== 6);
+                ret = ret.filter((d) => d[0] !== 6);
                 heroicDifficulties[0][0] = 15;
             }
 
-            difficulties.sort((a, b) => journalDifficultyMap[a[0]] - journalDifficultyMap[b[0]]);
+            ret.sort((a, b) => journalDifficultyMap[a[0]] - journalDifficultyMap[b[0]]);
         }
 
-        classCounts = [];
+        return ret;
+    });
+
+    let classCounts = $derived.by(() => {
+        const ret: [number, keyof typeof PlayableClass][] = [];
         for (const [className] of playableClasses) {
             const classKey = `${statsKey}--class:${className}`;
             const classStats = lazyState.journal.stats[classKey];
             if (classStats) {
-                classCounts.push([classStats.total, className as keyof typeof PlayableClass]);
+                ret.push([classStats.total, className as keyof typeof PlayableClass]);
             }
         }
 
-        classCounts = sortBy(classCounts, ([count, className]) => [
+        return sortBy(ret, ([count, className]) => [
             leftPad(1000 - count, 3, '0'),
             leftPad(classOrderMap[PlayableClass[className]], 2, '0'),
         ]);
-    }
+    });
 
     const difficultyUgh: Record<number, number[]> = {
         14: [3, 4, 14], // Normal -> 10 Normal, 25 Normal, Normal
