@@ -5,7 +5,7 @@
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
-    let filterText = $derived(() => {
+    let filterText = $derived.by(() => {
         const state = browserState.current.journal;
 
         let byType = [
