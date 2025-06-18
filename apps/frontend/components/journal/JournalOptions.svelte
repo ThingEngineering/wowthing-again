@@ -5,7 +5,7 @@
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
-    function getFilters(): string {
+    let filterText = $derived(() => {
         const state = browserState.current.journal;
 
         let byType = [
@@ -56,7 +56,7 @@
         }
 
         return `${byType.join('')} | ${byMisc.join('')} | ${byDungeon.join('')} | ${byRaid.join('')}`;
-    }
+    });
 </script>
 
 <style lang="scss">
@@ -115,11 +115,11 @@
 
     <button
         class="filters-toggle"
-        on:click={() =>
+        onclick={() =>
             (browserState.current.journal.filtersExpanded =
                 !browserState.current.journal.filtersExpanded)}
     >
-        Filters: {getFilters(browserState.current.journal)}
+        Filters: {filterText}
 
         <IconifyIcon
             icon={iconStrings[

@@ -13,10 +13,9 @@
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
-    import _ from 'lodash';
 
     type Props = {
-        encounter: JournalDataEncounter;
+        encounter?: JournalDataEncounter;
         statsKey: string;
     };
     let { encounter = undefined, statsKey }: Props = $props();
