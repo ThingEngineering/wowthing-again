@@ -1,10 +1,13 @@
 <script lang="ts">
     import xor from 'lodash/xor';
 
+    import { Constants } from '@/data/constants';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { DbResetType } from '@/shared/stores/db/enums';
     import type { SettingsTask } from '@/shared/stores/settings/types/task';
 
+    import NumberInput from '@/shared/components/forms/NumberInput.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import Select from '@/shared/components/forms/Select.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
@@ -12,8 +15,6 @@
     let currentIds = $derived.by(() =>
         (settingsState.value.customTasks || []).map((task) => task.key)
     );
-
-    $inspect(settingsState.value.customTasks);
 
     let taskQuestIds = $state<Record<string, string>>(
         Object.fromEntries(
@@ -72,10 +73,10 @@
         --width: 4rem;
     }
     .quest-reset {
-        --width: 8rem;
+        --width: 6rem;
     }
     .quest-ids {
-        --width: 12rem;
+        --width: 10rem;
     }
 </style>
 
@@ -86,7 +87,14 @@
 
     <p>
         Create custom tasks to use in Views. Quest IDs is a space-separated list of numbers like
-        "1234 5678".
+        "1234 5678". Min/Max are character level, 0 actually means {Constants.characterMaxLevel} so tasks
+        will only work for max level characters if you don't set anything.
+    </p>
+
+    <p>
+        To use an arbitrary game icon as the "Short" text use
+        <code>{'{image:item/12345}'}</code> to get <ParsedText text={'{image:item/12345}'} /> (or
+        <code>achievement/12345</code>, <code>currency/1234</code>, <code>spell/12345</code>)
     </p>
 
     <table class="table table-striped">
@@ -96,17 +104,19 @@
                 <th>Short</th>
                 <th>Reset</th>
                 <th>Quest IDs</th>
+                <th>Min</th>
+                <th>Max</th>
             </tr>
         </thead>
         <tbody>
             {#each settingsState.value.customTasks as task (task.key)}
                 <tr class="sized">
                     <td class="name">
-                        <TextInput maxlength={16} name="task_name" bind:value={task.name} />
+                        <TextInput maxlength={25} name="task_name" bind:value={task.name} />
                     </td>
                     <td class="short-name">
                         <TextInput
-                            maxlength={5}
+                            maxlength={25}
                             name="task_short_name"
                             bind:value={task.shortName}
                         />
@@ -127,6 +137,22 @@
                             maxlength={100}
                             name="task_quest_ids"
                             bind:value={taskQuestIds[task.key]}
+                        />
+                    </td>
+                    <td class="level">
+                        <NumberInput
+                            name="minimum_level"
+                            minValue={0}
+                            maxValue={80}
+                            bind:value={task.minimumLevel}
+                        />
+                    </td>
+                    <td class="level">
+                        <NumberInput
+                            name="maximum_level"
+                            minValue={0}
+                            maxValue={80}
+                            bind:value={task.maximumLevel}
                         />
                     </td>
                 </tr>

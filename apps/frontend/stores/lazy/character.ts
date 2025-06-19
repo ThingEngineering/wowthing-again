@@ -619,19 +619,26 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                                     charScanned,
                                     character.realm?.region || Region.US
                                 );
+                            } else if (
+                                [DbResetType.None, DbResetType.Never].includes(task.questReset)
+                            ) {
+                                expiresAt = stores.currentTime.plus({ years: 10 });
                             }
 
                             if (expiresAt > stores.currentTime) {
-                                charTask.quest = {
-                                    expires: expiresAt.toUnixInteger(),
-                                    id: questId,
-                                    name:
-                                        wowthingData.static.questNameById.get(questId) || task.name,
-                                    objectives: [],
-                                    status: QuestStatus.Completed,
-                                };
+                                const expiresUnix = expiresAt.toUnixInteger();
+                                if (!charTask.quest || charTask.quest.expires < expiresUnix) {
+                                    charTask.quest = {
+                                        expires: expiresUnix,
+                                        id: questId,
+                                        name:
+                                            wowthingData.static.questNameById.get(questId) ||
+                                            task.name,
+                                        objectives: [],
+                                        status: QuestStatus.Completed,
+                                    };
+                                }
                             }
-                            break;
                         }
                     }
                 }

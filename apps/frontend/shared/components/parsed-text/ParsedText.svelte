@@ -121,6 +121,11 @@
             }
         );
 
+        // {image:path}
+        html = html.replaceAll(/\{image:(.*?)\}/g, (_, imagePath) => {
+            return `<span data-icon="${imagePath}"></span>`;
+        });
+
         // {itemWithIcon:id}
         html = html.replaceAll(/\{itemWithIcon:(\d+)\}/g, (_, itemId) => {
             const item = wowthingData.items.items[parseInt(itemId)];
