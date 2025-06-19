@@ -1,21 +1,20 @@
 <script lang="ts">
     import xor from 'lodash/xor';
 
+    import { Constants } from '@/data/constants';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { DbResetType } from '@/shared/stores/db/enums';
     import type { SettingsTask } from '@/shared/stores/settings/types/task';
 
+    import NumberInput from '@/shared/components/forms/NumberInput.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import Select from '@/shared/components/forms/Select.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
-    import NumberInput from '@/shared/components/forms/NumberInput.svelte';
-    import { Constants } from '@/data/constants';
 
     let currentIds = $derived.by(() =>
         (settingsState.value.customTasks || []).map((task) => task.key)
     );
-
-    $inspect(settingsState.value.customTasks);
 
     let taskQuestIds = $state<Record<string, string>>(
         Object.fromEntries(
@@ -90,6 +89,12 @@
         Create custom tasks to use in Views. Quest IDs is a space-separated list of numbers like
         "1234 5678". Min/Max are character level, 0 actually means {Constants.characterMaxLevel} so tasks
         will only work for max level characters if you don't set anything.
+    </p>
+
+    <p>
+        To use an arbitrary game icon as the "Short" text use
+        <code>{'{image:item/12345}'}</code> to get <ParsedText text={'{image:item/12345}'} /> (or
+        <code>achievement/12345</code>, <code>currency/1234</code>, <code>spell/12345</code>)
     </p>
 
     <table class="table table-striped">
