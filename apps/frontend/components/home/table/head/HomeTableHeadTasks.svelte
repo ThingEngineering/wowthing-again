@@ -1,8 +1,9 @@
 <script lang="ts">
     import { multiTaskMap, taskMap } from '@/data/tasks';
-    import { activeViewTasks } from '@/user-home/state/activeViewTasks.svelte';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { homeState } from '@/stores/local-storage';
+    import { activeViewTasks } from '@/user-home/state/activeViewTasks.svelte';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
@@ -32,6 +33,7 @@
 
 {#each activeTasks as fullTaskName (fullTaskName)}
     {@const [taskName, choreName] = fullTaskName.split('|', 2)}
+    {@const task = taskMap[taskName] || settingsState.customTaskMap[fullTaskName]}
     {@const sortField = `task:${fullTaskName}`}
     <td
         class="sortable"
@@ -52,7 +54,7 @@
                 scale="0.9"
             />
         {:else}
-            <ParsedText text={taskMap[taskName].shortName} />
+            <ParsedText text={task.shortName} />
         {/if}
     </td>
 {/each}

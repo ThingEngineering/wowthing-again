@@ -7,5 +7,7 @@ export interface SettingsTask {
     name: string;
     questIds: number[];
     questReset: DbResetType;
+    requiredQuestId?: number;
     shortName: string;
+    type?: string;
 }

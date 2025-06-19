@@ -11,7 +11,11 @@ import { multiTaskMap, taskMap } from '@/data/tasks';
 import { CharacterFlag } from '@/enums/character-flag';
 import { Profession } from '@/enums/profession';
 import { QuestStatus } from '@/enums/quest-status';
+import { Region } from '@/enums/region';
+import { settingsState } from '@/shared/state/settings.svelte';
+import { wowthingData } from '@/shared/stores/data';
 import { DbResetType } from '@/shared/stores/db/enums';
+import { userState } from '@/user-home/state/user';
 import { getNextDailyResetFromTime, getNextWeeklyResetFromTime } from '@/utils/get-next-reset';
 import {
     type Character,
@@ -28,9 +32,6 @@ import type {
 } from '@/types/data';
 import type { Chore } from '@/types/tasks';
 import type { ActiveHolidays } from '../derived/active-holidays';
-import { Region } from '@/enums/region';
-import { wowthingData } from '@/shared/stores/data';
-import { userState } from '@/user-home/state/user';
 
 export interface LazyCharacter {
     chores: Record<string, LazyCharacterChore>;
@@ -107,15 +108,16 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
 }
 
 function doCharacterTasks(stores: LazyStores, character: Character, characterData: LazyCharacter) {
+    const customTaskMap = settingsState.customTaskMap;
+    const charQuests = stores.userQuestData.characters[character?.id];
+    const charScanned = charQuests?.scannedTime;
+
     const processTask = (choreTask: Chore, character: Character): LazyCharacterChoreTask => {
         const charTask = new LazyCharacterChoreTask(choreTask.taskKey, undefined);
 
-        const charQuests = stores.userQuestData.characters[character?.id];
         if (!character || !charQuests) {
             return charTask;
         }
-
-        const charScanned = charQuests.scannedTime;
 
         if (choreTask.questReset !== undefined) {
             const questIds = choreTask.questIdFunc?.(character, choreTask) || choreTask.questIds;
@@ -214,7 +216,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
     for (const view of stores.settings.views) {
         for (const fullTaskName of view.homeTasks) {
             const [taskName, choreName] = fullTaskName.split('|', 2);
-            const task = taskMap[taskName];
+            const task = taskMap[taskName] || customTaskMap[fullTaskName];
             if (
                 !task ||
                 character.ignored ||
@@ -585,13 +587,54 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
             } else {
                 // not multi
                 const questKey = progressQuestMap[taskName] || taskName;
+
                 const charTask: LazyCharacterTask = {
-                    quest: stores.userQuestData.characters[character.id]?.progressQuests?.[
-                        questKey
-                    ],
+                    quest: undefined,
                     status: undefined,
                     text: undefined,
                 };
+                let progressQuest: UserQuestDataCharacterProgress;
+
+                if (task.questReset !== undefined) {
+                    for (const questId of task.questIds) {
+                        // is the quest in progress?
+                        const questProgress = charProgressQuests?.[`q${questId}`];
+                        if (
+                            questProgress &&
+                            (!progressQuest || progressQuest.status < questProgress.status)
+                        ) {
+                            progressQuest = questProgress;
+                        }
+
+                        // is the quest completed?
+                        if (stores.userQuestData.characters[character.id]?.quests?.has(questId)) {
+                            let expiresAt: DateTime;
+                            if (task.questReset === DbResetType.Weekly) {
+                                expiresAt = getNextWeeklyResetFromTime(
+                                    charScanned,
+                                    character.realm?.region || Region.US
+                                );
+                            } else if (task.questReset === DbResetType.Daily) {
+                                expiresAt = getNextDailyResetFromTime(
+                                    charScanned,
+                                    character.realm?.region || Region.US
+                                );
+                            }
+
+                            if (expiresAt > stores.currentTime) {
+                                charTask.quest = {
+                                    expires: expiresAt.toUnixInteger(),
+                                    id: questId,
+                                    name:
+                                        wowthingData.static.questNameById.get(questId) || task.name,
+                                    objectives: [],
+                                    status: QuestStatus.Completed,
+                                };
+                            }
+                            break;
+                        }
+                    }
+                }
 
                 if (charTask.quest) {
                     const expires = DateTime.fromSeconds(charTask.quest.expires);
