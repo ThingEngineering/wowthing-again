@@ -20,7 +20,7 @@ export const activeHolidays = derived([timeStore], ([$timeStore]) => {
     }
 
     const regionMask = allRegions.reduce((a, b) => a + (1 << (b - 1)), 0);
-    console.log('activeHolidays', regionMask);
+    // console.log('activeHolidays', regionMask);
     if (cachedTime[regionMask] === $timeStore) {
         return cachedActive[regionMask];
     }
