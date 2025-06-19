@@ -75,6 +75,10 @@ function createSettingsState() {
         );
     });
 
+    const customTaskMap = $derived(
+        Object.fromEntries((settings.customTasks || []).map((task) => [task.key, task]))
+    );
+
     const derivedTransmogClassMask = $derived.by(() => getTransmogClassMask());
 
     const allTasks = $derived.by(() => uniq(settings.views.flatMap((view) => view.homeTasks)));
@@ -143,6 +147,9 @@ function createSettingsState() {
         },
         get commonColspan() {
             return commonColspan;
+        },
+        get customTaskMap() {
+            return customTaskMap;
         },
         get useAccountTags() {
             return useAccountTags;

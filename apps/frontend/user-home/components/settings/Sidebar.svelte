@@ -27,6 +27,10 @@
             slug: 'tags',
         },
         {
+            name: 'Tasks',
+            slug: 'tasks',
+        },
+        {
             name: 'Views',
             slug: 'views',
             children: (settingsState.value.views || []).map((view) => ({

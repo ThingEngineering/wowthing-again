@@ -1,13 +1,13 @@
 <script lang="ts">
-    import { lazyStore } from '@/stores'
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import type { Character } from '@/types'
+    import { lazyStore } from '@/stores';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import type { CharacterProps } from '@/types/props';
 
-    import Tooltip from '@/components/tooltips/profession-cooldowns/TooltipProfessionCooldowns.svelte'
+    import Tooltip from '@/components/tooltips/profession-cooldowns/TooltipProfessionCooldowns.svelte';
 
-    export let character: Character
-    
-    $: data = $lazyStore.characters[character.id].professionCooldowns
+    let { character }: CharacterProps = $props();
+
+    let data = $derived($lazyStore.characters[character.id].professionCooldowns);
 </script>
 
 <style lang="scss">

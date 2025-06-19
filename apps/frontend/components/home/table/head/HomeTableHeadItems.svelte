@@ -6,7 +6,7 @@
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let sortKey: string;
+    let { sortKey }: { sortKey: string } = $props();
 
     function setSorting(column: string) {
         const current = $homeState.groupSort[sortKey];
@@ -22,13 +22,13 @@
     }
 </style>
 
-{#each settingsState.activeView.homeItems as itemId}
+{#each settingsState.activeView.homeItems as itemId (itemId)}
     {@const sortField = `item:${itemId}`}
     <td
         class="sortable"
         class:sorted-by={$homeState.groupSort[sortKey] === sortField}
-        on:click={() => setSorting(sortField)}
-        on:keypress={() => setSorting(sortField)}
+        onclick={() => setSorting(sortField)}
+        onkeypress={() => setSorting(sortField)}
         use:basicTooltip={wowthingData.items.items[itemId].name}
     >
         <WowthingImage name="item/{itemId}" size={16} border={1} />

@@ -1,13 +1,13 @@
 <script lang="ts">
-    import { homeState } from '@/stores/local-storage'
+    import { homeState } from '@/stores/local-storage';
 
-    export let gold: number
-    export let sortKey: string = undefined
-    export let showSortable = false
+    type Props = { gold: number; showSortable?: boolean; sortKey?: string };
+
+    let { gold, showSortable = false, sortKey = undefined }: Props = $props();
 
     function setSorting(column: string) {
-        const current = $homeState.groupSort[sortKey]
-        $homeState.groupSort[sortKey] = current === column ? undefined : column
+        const current = $homeState.groupSort[sortKey];
+        $homeState.groupSort[sortKey] = current === column ? undefined : column;
     }
 </script>
 
@@ -25,8 +25,8 @@
     <td
         class="sortable"
         class:sorted-by={$homeState.groupSort[sortKey] === field}
-        on:click={() => setSorting(field)}
-        on:keypress={() => setSorting(field)}
+        onclick={() => setSorting(field)}
+        onkeypress={() => setSorting(field)}
     >
         {gold.toLocaleString()} g
     </td>

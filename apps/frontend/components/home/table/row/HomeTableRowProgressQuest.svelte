@@ -4,27 +4,26 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { lazyStore } from '@/stores';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import Tooltip from '@/components/tooltips/progress-quest/TooltipProgressQuest.svelte';
 
-    export let character: Character;
-    export let quest: string;
-    export let title: string;
+    let { character, quest, title }: CharacterProps & { quest: string; title: string } = $props();
 
-    $: charTask =
-        $lazyStore.characters[character.id].tasks[`${settingsState.activeView.id}|${quest}`];
+    let charTask = $derived(
+        $lazyStore.characters[character.id].tasks[`${settingsState.activeView.id}|${quest}`]
+    );
 
-    let status: string;
-    $: {
-        status = charTask?.status;
+    let status = $derived.by(() => {
+        let ret = charTask?.status;
         if (charTask?.quest?.status === QuestStatus.InProgress && charTask.text !== '100 %') {
             const task = taskMap[quest];
             if (task.isCurrentFunc?.(character, charTask.quest.id) === false) {
-                status = 'warn';
+                ret = 'warn';
             }
         }
-    }
+        return ret;
+    });
 </script>
 
 <style lang="scss">

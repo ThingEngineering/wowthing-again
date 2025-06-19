@@ -1,8 +1,8 @@
 <script lang="ts">
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { type Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
-    let { character }: { character: Character } = $props();
+    let { character }: CharacterProps = $props();
 
     let guildName = $derived(
         character.guild

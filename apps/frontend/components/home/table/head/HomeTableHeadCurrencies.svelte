@@ -7,7 +7,7 @@
     import Tooltip from '@/components/tooltips/currency/TooltipCurrency.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let sortKey: string;
+    let { sortKey }: { sortKey: string } = $props();
 
     function setSorting(column: string) {
         const current = $homeState.groupSort[sortKey];
@@ -28,8 +28,8 @@
     <td
         class="sortable"
         class:sorted-by={$homeState.groupSort[sortKey] === sortField}
-        on:click={() => setSorting(sortField)}
-        on:keypress={() => setSorting(sortField)}
+        onclick={() => setSorting(sortField)}
+        onkeypress={() => setSorting(sortField)}
         use:componentTooltip={{
             component: Tooltip,
             props: {

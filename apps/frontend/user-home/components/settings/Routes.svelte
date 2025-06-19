@@ -16,6 +16,7 @@
     import Privacy from './sections/SettingsPrivacy.svelte';
     import Professions from './sections/SettingsProfessions.svelte';
     import Tags from './sections/SettingsTags.svelte';
+    import Tasks from './sections/SettingsTasks.svelte';
     import Transmog from './sections/SettingsTransmog.svelte';
     import View from './sections/views/View.svelte';
     import Views from './sections/views/Views.svelte';
@@ -37,6 +38,7 @@
         '/privacy': Privacy,
         '/professions': Professions,
         '/tags': Tags,
+        '/tasks': Tasks,
         '/transmog': Transmog,
 
         '/characters/pin': CharactersPin,

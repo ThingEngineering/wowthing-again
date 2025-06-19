@@ -6,10 +6,10 @@
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
 
-    export let groupByContext: GroupByContext;
-    export let group: Character[];
+    type Props = { group: Character[]; groupByContext: GroupByContext };
+    let { group, groupByContext }: Props = $props();
 
-    $: groupedByValues = groupByContext.groupByFn(group[0]).split('|');
+    let groupedByValues = $derived(groupByContext.groupByFn(group[0]).split('|'));
 </script>
 
 <style lang="scss">

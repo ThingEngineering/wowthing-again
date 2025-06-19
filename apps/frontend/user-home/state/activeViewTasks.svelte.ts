@@ -6,6 +6,7 @@ import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
 import { lazyStore } from '@/stores';
 import { logErrors } from '@/utils/log-errors';
+import type { SettingsTask } from '@/shared/stores/settings/types/task';
 import type { Chore } from '@/types/tasks';
 
 import { activeHolidays } from './activeHolidays.svelte';
@@ -15,6 +16,11 @@ class ActiveViewTasks {
 
     private _value() {
         const lazyStoreValue = get(lazyStore);
+
+        const customTaskMap = $state.snapshot(settingsState.customTaskMap) as Record<
+            string,
+            SettingsTask
+        >;
 
         const activeTasks: string[] = [];
         const choreKeys = new Set(
@@ -26,7 +32,7 @@ class ActiveViewTasks {
 
         for (const fullTaskName of settingsState.activeView.homeTasks) {
             const [taskName] = fullTaskName.split('|', 2);
-            const task = taskMap[taskName];
+            const task = taskMap[taskName] || customTaskMap[fullTaskName];
             if (!task) {
                 continue;
             }
@@ -34,6 +40,7 @@ class ActiveViewTasks {
             const taskViewKey = `${settingsState.activeView.id}|${fullTaskName}`;
 
             if (!choreKeys.has(taskViewKey) && !taskKeys.has(taskViewKey)) {
+                console.log({ taskViewKey, choreKeys, taskKeys });
                 continue;
             }
 

@@ -1,22 +1,22 @@
 <script lang="ts">
-	import { dndzone, type DndEvent } from 'svelte-dnd-action';
+    import { dndzone, type DndEvent } from 'svelte-dnd-action';
 
     import type { SettingsChoice } from '@/shared/stores/settings/types';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
-    export let icon
-    export let items: SettingsChoice[]
-    export let onFunc: () => void
-    export let type: string
+    export let icon;
+    export let items: SettingsChoice[];
+    export let onFunc: () => void;
+    export let type: string;
 
     function onConsider(event: CustomEvent<DndEvent<SettingsChoice>>) {
-        items = event.detail.items
+        items = event.detail.items;
     }
     function onFinalize(event: CustomEvent<DndEvent<SettingsChoice>>) {
-        items = event.detail.items
-        onFunc()
+        items = event.detail.items;
+        onFunc();
     }
 </script>
 
@@ -44,7 +44,7 @@
             background: $table-alt-bg;
         }
         &:nth-child(odd) {
-            background: $table-striped-alt-bg
+            background: $table-striped-alt-bg;
         }
         &:not(:first-child) {
             border-top: 1px solid $border-color;
@@ -68,7 +68,7 @@
     on:consider={onConsider}
     on:finalize={onFinalize}
 >
-    {#each items as item (item.id)}
+    {#each items as item (item)}
         <div class="magic-item">
             <span class="name text-overflow">
                 <ParsedText text={item.name} />

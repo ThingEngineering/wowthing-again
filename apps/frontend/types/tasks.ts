@@ -12,6 +12,7 @@ export type Task = {
     key: string;
     name: string;
     questIds?: number[];
+    questReset?: DbResetType;
     shortName: string;
     showSeparate?: boolean;
     type?: 'multi';

@@ -5,9 +5,9 @@
     import { timeStore } from '@/shared/stores/time';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 </script>
 
 <style lang="scss">

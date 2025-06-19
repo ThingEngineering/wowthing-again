@@ -9,7 +9,7 @@
     import { QuestStatus } from '@/enums/quest-status';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { timeStore } from '@/shared/stores/time';
-    import { lazyStore, userQuestStore } from '@/stores';
+    import { lazyStore } from '@/stores';
     import { userState } from '@/user-home/state/user';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
@@ -31,7 +31,7 @@
         const [taskName, choreName] = fullTaskName.split('|', 2);
 
         const questName = progressQuestMap[taskName] || taskName;
-        const task = taskMap[taskName];
+        const task = taskMap[taskName] || settingsState.customTaskMap[fullTaskName];
         disabledChores = settingsState.activeView.disabledChores?.[fullTaskName] || [];
 
         const multiMap: Record<string, number> = {};
@@ -50,7 +50,7 @@
         }
 
         // Check other characters for a quest title
-        for (const characterId in $userQuestStore.characters) {
+        for (const [characterId, characterQuests] of userState.quests.characterById.entries()) {
             const character = userState.general.characterById[characterId];
             if (!character) {
                 continue;
@@ -59,9 +59,10 @@
             if (
                 character.level >= (task?.minimumLevel || Constants.characterMaxLevel) &&
                 character.level <= (task?.maximumLevel || Constants.characterMaxLevel) &&
-                (!task?.requiredQuestId ||
-                    $userQuestStore.characters[character.id]?.quests?.has(task.requiredQuestId))
+                (!task?.requiredQuestId || characterQuests?.hasQuestById?.has(task.requiredQuestId))
             ) {
+                const lazyCharacter = $lazyStore.characters[characterId];
+
                 let oofName = questName;
                 if (questName === 'slAnima') {
                     const covenant = covenantMap[character.shadowlands?.covenantId];
@@ -71,9 +72,8 @@
                 }
 
                 if (task.type === 'multi') {
-                    const { chores: charChores } = $lazyStore.characters[characterId];
                     const taskChores =
-                        charChores?.[`${settingsState.activeView.id}|${fullTaskName}`];
+                        lazyCharacter?.chores?.[`${settingsState.activeView.id}|${fullTaskName}`];
 
                     if (taskName !== 'dfProfessionWeeklies') {
                         for (const choreTask of taskChores?.tasks || []) {
@@ -89,23 +89,18 @@
                 } else {
                     total++;
 
-                    const characterQuest =
-                        $userQuestStore.characters[characterId]?.progressQuests?.[oofName];
-                    if (characterQuest) {
-                        if (
-                            questName === 'weeklyHoliday' &&
-                            DateTime.fromSeconds(characterQuest.expires) < $timeStore
-                        ) {
-                            continue;
-                        }
+                    const taskData =
+                        lazyCharacter?.tasks?.[`${settingsState.activeView.id}|${task.key}`];
 
-                        title = characterQuest.name;
-
-                        if (characterQuest.status === QuestStatus.InProgress) {
+                    if (taskData?.quest) {
+                        title = taskData.quest.name;
+                        if (taskData.quest.status === QuestStatus.InProgress) {
                             inProgress++;
-                        } else if (characterQuest.status === QuestStatus.Completed) {
+                        } else if (taskData.quest.status === QuestStatus.Completed) {
                             completed++;
                         }
+                    } else {
+                        title ||= task.name;
                     }
                 }
             }

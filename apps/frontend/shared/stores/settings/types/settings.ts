@@ -1,15 +1,17 @@
+import type { CharacterFlag } from '@/enums/character-flag';
+import type { Language } from '@/enums/language';
 import type { SettingsAccount } from './account';
 import type { SettingsAuctionCategory } from './auction-category';
+import type { SettingsTask } from './task';
 import type { SettingsCustomGroup } from './custom-group';
 import type { SettingsTag } from './tag';
 import type { SettingsView } from './view';
-import type { CharacterFlag } from '@/enums/character-flag';
-import type { Language } from '@/enums/language';
 
 export interface Settings {
     accounts: Record<number, SettingsAccount>;
     activeView: string;
     customGroups: SettingsCustomGroup[];
+    customTasks: SettingsTask[];
     tags: SettingsTag[];
     views: SettingsView[];
 

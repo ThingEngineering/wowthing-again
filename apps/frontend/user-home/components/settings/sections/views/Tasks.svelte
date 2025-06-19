@@ -2,6 +2,7 @@
     import sortBy from 'lodash/sortBy';
 
     import { multiTaskMap, taskList, taskMap } from '@/data/tasks';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types';
 
     import MagicLists from '../../MagicLists.svelte';
@@ -16,6 +17,11 @@
 
     let taskChoices = $derived.by(() => {
         const ret: SettingsChoice[] = [];
+
+        for (const customTask of settingsState.value.customTasks || []) {
+            ret.push({ id: customTask.key, name: `[Custom] ${customTask.name}` });
+        }
+
         for (const task of taskList) {
             ret.push({ id: task.key, name: task.name });
             if (task.showSeparate && multiTaskMap[task.key]) {
