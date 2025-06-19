@@ -26,6 +26,7 @@ public class ApplicationUserSettings
 
     public Dictionary<int, ApplicationUserSettingsAccount> Accounts { get; set; } = new();
     public List<ApplicationUserSettingsCustomGroup>? CustomGroups { get; set; } = new();
+    public List<ApplicationUserSettingsCustomTask>? CustomTasks { get; set; } = new();
     public List<ApplicationUserSettingsTag>? Tags { get; set; } = new();
     public List<ApplicationUserSettingsView>? Views { get; set; } = new();
 
@@ -128,6 +129,7 @@ public class ApplicationUserSettings
         Transmog ??= new ApplicationUserSettingsTransmog();
 
         CustomGroups ??= new List<ApplicationUserSettingsCustomGroup>();
+        CustomTasks ??= new();
         Views ??= new List<ApplicationUserSettingsView>();
 
         if (Views.Count == 0)
@@ -294,6 +296,17 @@ public class ApplicationUserSettingsCustomGroup
     public string Filter { get; set; } = String.Empty;
     public string Id { get; set; } = String.Empty;
     public string Name { get; set; } = String.Empty;
+}
+
+public class ApplicationUserSettingsCustomTask
+{
+    public int MaximumLevel { get; set; } = 0;
+    public int MinimumLevel { get; set; } = 0;
+    public int QuestReset { get; set; } = 0;
+    public string Key { get; set; } = String.Empty;
+    public string Name { get; set; } = String.Empty;
+    public string ShortName { get; set; } = String.Empty;
+    public List<int> QuestIds { get; set; } = new();
 }
 
 public class ApplicationUserSettingsGeneral
