@@ -37,6 +37,7 @@
 <div
     id="app"
     data-base-uri="@UriService.BaseUri"
+    data-settings="@Model.SettingsJson"
     data-xsrf="@GetAntiXsrfRequestToken()"
     data-auction="@Url.Action("CachedJson", "CachedJson", new { type = "auction", languageCode = "zzZZ", hash = Model.AuctionHash })"
     data-item="@Url.Action("CachedJson", "CachedJson", new { type = "item", languageCode = "zzZZ", hash = Model.ItemHash })"

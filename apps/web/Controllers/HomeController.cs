@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using Wowthing.Lib.Models;
 using Wowthing.Web.Misc;
 using Wowthing.Web.Models;
 using Wowthing.Web.Services;
@@ -8,16 +9,19 @@ namespace Wowthing.Web.Controllers;
 
 public class HomeController : Controller
 {
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly MemoryCacheService _memoryCacheService;
     private readonly UserService _userService;
     private readonly WowthingWebOptions _webOptions;
 
     public HomeController(
+        JsonSerializerOptions jsonSerializerOptions,
         MemoryCacheService memoryCacheService,
         UserService userService,
         IOptions<WowthingWebOptions> webOptions
     )
     {
+        _jsonSerializerOptions = jsonSerializerOptions;
         _memoryCacheService = memoryCacheService;
         _userService = userService;
         _webOptions = webOptions.Value;
@@ -30,7 +34,10 @@ public class HomeController : Controller
         if (requestHost == $"auctions.{_webOptions.Hostname}")
         {
             var hashes = await _memoryCacheService.GetCachedHashes();
-            return View("~/Views/Auctions/Index.cshtml", new AuctionsViewModel(hashes));
+            var settings = new ApplicationUserSettings();
+            string settingsJson = JsonSerializer.Serialize(settings, _jsonSerializerOptions);
+
+            return View("~/Views/Auctions/Index.cshtml", new AuctionsViewModel(hashes, settingsJson));
         }
         else if (requestHost != _webOptions.Hostname && requestHost.EndsWith($".{_webOptions.Hostname}"))
         {

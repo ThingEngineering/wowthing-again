@@ -42,6 +42,13 @@ public class UserService
         return ret;
     }
 
+    public ApplicationUserSettings GetUserSettings(ApiUserResult apiResult)
+    {
+        var settings = apiResult.Public ? new ApplicationUserSettings() : apiResult.User.Settings;
+        settings.Migrate();
+        return settings;
+    }
+
     public async Task<UserViewModel> CreateViewModel(ClaimsPrincipal claimsPrincipal, ApiUserResult apiResult)
     {
         var hashes = await _memoryCacheService.GetCachedHashes();
