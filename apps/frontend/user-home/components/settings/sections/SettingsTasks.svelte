@@ -9,6 +9,7 @@
     import TextInput from '@/shared/components/forms/TextInput.svelte';
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
     import NumberInput from '@/shared/components/forms/NumberInput.svelte';
+    import { Constants } from '@/data/constants';
 
     let currentIds = $derived.by(() =>
         (settingsState.value.customTasks || []).map((task) => task.key)
@@ -87,7 +88,8 @@
 
     <p>
         Create custom tasks to use in Views. Quest IDs is a space-separated list of numbers like
-        "1234 5678".
+        "1234 5678". Min/Max are character level, 0 actually means {Constants.characterMaxLevel} so tasks
+        will only work for max level characters if you don't set anything.
     </p>
 
     <table class="table table-striped">
