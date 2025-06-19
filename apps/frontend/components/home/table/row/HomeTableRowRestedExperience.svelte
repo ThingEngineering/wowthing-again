@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { timeStore } from '@/shared/stores/time'
-    import { getCharacterRested } from '@/utils/get-character-rested'
-    import { basicTooltip } from '@/shared/utils/tooltips'
-    import type { Character } from '@/types'
+    import { timeStore } from '@/shared/stores/time';
+    import { getCharacterRested } from '@/utils/get-character-rested';
+    import { basicTooltip } from '@/shared/utils/tooltips';
+    import type { CharacterProps } from '@/types/props';
 
-    export let character: Character
+    let { character }: CharacterProps = $props();
 
-    $: [rested,] = getCharacterRested($timeStore, character)
+    let rested = $derived(getCharacterRested($timeStore, character)[0]);
 </script>
 
 <style lang="scss">
@@ -22,10 +22,6 @@
     }
 </style>
 
-<td
-    class:center={rested === '???'}
-    use:basicTooltip={"Rested XP"}
->
+<td class:center={rested === '???'} use:basicTooltip={'Rested XP'}>
     {rested || ''}
 </td>
- 

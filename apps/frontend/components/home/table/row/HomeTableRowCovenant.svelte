@@ -3,19 +3,15 @@
     import { covenantMap, covenantOrder } from '@/data/covenant';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import type { Character, CharacterShadowlandsCovenant, Covenant } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import Tooltip from '@/components/tooltips/covenant/TooltipCovenant.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character = undefined;
+    let { character }: CharacterProps = $props();
 
-    let characterCovenants: Record<number, CharacterShadowlandsCovenant>;
-    let covenant: Covenant;
-    $: {
-        characterCovenants = character?.shadowlands?.covenants || {};
-        covenant = covenantMap[character?.shadowlands?.covenantId];
-    }
+    let characterCovenants = $derived(character?.shadowlands?.covenants || {});
+    let covenant = $derived(covenantMap[character?.shadowlands?.covenantId]);
 </script>
 
 <style lang="scss">

@@ -1,12 +1,9 @@
 <script lang="ts">
-    import { toNiceDuration } from '@/utils/formatting'
+    import { toNiceDuration } from '@/utils/formatting';
 
-    export let playedTotal: number
+    let { playedTotal }: { playedTotal: number } = $props();
 
-    let played: string
-    $: {
-        played = toNiceDuration(playedTotal * 1000)
-    }
+    let played = $derived(toNiceDuration(playedTotal * 1000));
 </script>
 
 <style lang="scss">

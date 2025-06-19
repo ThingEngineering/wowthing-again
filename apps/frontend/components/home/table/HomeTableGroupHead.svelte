@@ -23,27 +23,24 @@
     import SpacerRow from '@/components/character-table/CharacterTableSpacerRow.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let group: Character[];
-    export let groupIndex: number;
+    type Props = {
+        group: Character[];
+        groupIndex: number;
+        groupByContext: GroupByContext;
+    };
+    let { group, groupByContext, groupIndex }: Props = $props();
 
-    export let groupByContext: GroupByContext;
+    let sortKey = $derived(`${settingsState.activeView.id}|${groupIndex}`);
 
-    $: sortKey = `${settingsState.activeView.id}|${groupIndex}`;
+    let isPublic = $derived(sharedState.public);
 
-    let commonSpan: number;
-    let gold: number;
-    let isPublic: boolean;
-    let playedTotal: number;
-    $: {
-        isPublic = sharedState.public;
-
-        commonSpan = settingsState.activeView.commonFields.filter(
+    let commonSpan = $derived(
+        settingsState.activeView.commonFields.filter(
             (field) => !(field === 'accountTag' && !settingsState.useAccountTags)
-        ).length;
-
-        gold = sumBy(group, (c: Character) => c.gold);
-        playedTotal = sumBy(group, (c: Character) => c.playedTotal);
-    }
+        ).length
+    );
+    let gold = $derived(sumBy(group, (c: Character) => c.gold));
+    let playedTotal = $derived(sumBy(group, (c: Character) => c.playedTotal));
 
     function setSorting(column: string) {
         const current = $homeState.groupSort[sortKey];

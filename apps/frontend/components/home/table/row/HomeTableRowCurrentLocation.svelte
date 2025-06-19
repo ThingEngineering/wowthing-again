@@ -1,18 +1,19 @@
 <script lang="ts">
-    import { basicTooltip } from '@/shared/utils/tooltips'
-    import type { Character } from '@/types'
+    import { basicTooltip } from '@/shared/utils/tooltips';
+    import type { CharacterProps } from '@/types/props';
 
-    export let character: Character
+    let { character }: CharacterProps = $props();
 
-    let location: string
-    $: {
-        location = (character.currentLocation || '---')
-        if (location.indexOf(',') === -1) {
-            location = location.split(' > ')
+    let location = $derived.by(() => {
+        let ret = character.currentLocation || '---';
+        if (!ret.includes(',')) {
+            ret = ret
+                .split(' > ')
                 .map((loc, index) => `<span class="location${index}">${loc}</span>`)
-                .join(' > ')
+                .join(' > ');
         }
-    }
+        return ret;
+    });
 </script>
 
 <style lang="scss">

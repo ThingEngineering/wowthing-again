@@ -29,7 +29,7 @@
         Cov.
     {:else}
         <div class="flex-wrapper">
-            {#each covenantOrder as covenantId}
+            {#each covenantOrder as covenantId (covenantId)}
                 <WowthingImage
                     name={covenantMap[covenantId].icon}
                     size={20}

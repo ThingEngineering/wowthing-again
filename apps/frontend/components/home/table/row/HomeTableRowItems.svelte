@@ -3,9 +3,9 @@
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { wowthingData } from '@/shared/stores/data';
     import { toNiceNumber } from '@/utils/formatting';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 </script>
 
 <style lang="scss">
@@ -21,7 +21,7 @@
     }
 </style>
 
-{#each settingsState.activeView.homeItems as itemId}
+{#each settingsState.activeView.homeItems as itemId (itemId)}
     {@const count = character.getItemCount(itemId)}
     <td
         class:faded={count === 0}
