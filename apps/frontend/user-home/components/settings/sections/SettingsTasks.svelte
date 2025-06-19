@@ -8,6 +8,7 @@
     import Select from '@/shared/components/forms/Select.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
+    import NumberInput from '@/shared/components/forms/NumberInput.svelte';
 
     let currentIds = $derived.by(() =>
         (settingsState.value.customTasks || []).map((task) => task.key)
@@ -72,10 +73,10 @@
         --width: 4rem;
     }
     .quest-reset {
-        --width: 8rem;
+        --width: 6rem;
     }
     .quest-ids {
-        --width: 12rem;
+        --width: 10rem;
     }
 </style>
 
@@ -96,17 +97,19 @@
                 <th>Short</th>
                 <th>Reset</th>
                 <th>Quest IDs</th>
+                <th>Min</th>
+                <th>Max</th>
             </tr>
         </thead>
         <tbody>
             {#each settingsState.value.customTasks as task (task.key)}
                 <tr class="sized">
                     <td class="name">
-                        <TextInput maxlength={16} name="task_name" bind:value={task.name} />
+                        <TextInput maxlength={25} name="task_name" bind:value={task.name} />
                     </td>
                     <td class="short-name">
                         <TextInput
-                            maxlength={5}
+                            maxlength={25}
                             name="task_short_name"
                             bind:value={task.shortName}
                         />
@@ -127,6 +130,22 @@
                             maxlength={100}
                             name="task_quest_ids"
                             bind:value={taskQuestIds[task.key]}
+                        />
+                    </td>
+                    <td class="level">
+                        <NumberInput
+                            name="minimum_level"
+                            minValue={0}
+                            maxValue={80}
+                            bind:value={task.minimumLevel}
+                        />
+                    </td>
+                    <td class="level">
+                        <NumberInput
+                            name="maximum_level"
+                            minValue={0}
+                            maxValue={80}
+                            bind:value={task.maximumLevel}
                         />
                     </td>
                 </tr>
