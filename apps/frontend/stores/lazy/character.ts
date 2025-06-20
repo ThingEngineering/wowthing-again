@@ -593,7 +593,6 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                     status: undefined,
                     text: undefined,
                 };
-                let progressQuest: UserQuestDataCharacterProgress;
 
                 if (task.questReset !== undefined) {
                     for (const questId of task.questIds) {
@@ -601,9 +600,9 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                         const questProgress = charProgressQuests?.[`q${questId}`];
                         if (
                             questProgress &&
-                            (!progressQuest || progressQuest.status < questProgress.status)
+                            (!charTask.quest || charTask.quest.status < questProgress.status)
                         ) {
-                            progressQuest = questProgress;
+                            charTask.quest = questProgress;
                         }
 
                         // is the quest completed?

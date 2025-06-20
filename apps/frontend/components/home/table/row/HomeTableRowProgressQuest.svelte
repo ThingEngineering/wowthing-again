@@ -18,7 +18,7 @@
         let ret = charTask?.status;
         if (charTask?.quest?.status === QuestStatus.InProgress && charTask.text !== '100 %') {
             const task = taskMap[quest];
-            if (task.isCurrentFunc?.(character, charTask.quest.id) === false) {
+            if (task?.isCurrentFunc?.(character, charTask.quest.id) === false) {
                 ret = 'warn';
             }
         }
