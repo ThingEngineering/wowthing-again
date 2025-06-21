@@ -17,6 +17,8 @@ public class StaticReputationConverter : JsonConverter<StaticReputation>
         writer.WriteNumberValue(rep.TierId);
         writer.WriteNumberValue(rep.ParentId);
         writer.WriteNumberValue(rep.ParagonId);
+        writer.WriteNumberValue(rep.ParagonQuestId);
+        writer.WriteNumberValue(rep.ParagonThreshold);
         writer.WriteNumberValue(rep.RenownCurrencyId);
         writer.WriteBooleanValue(rep.AccountWide);
         writer.WriteStringValue(rep.Name);
