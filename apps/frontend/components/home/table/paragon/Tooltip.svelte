@@ -10,7 +10,7 @@
     let { paragonQuests }: { paragonQuests: Record<number, number[]> } = $props();
 
     // [ expansion, [reputationId, characterIds][] ][]
-    let grouped = $derived(
+    let grouped: [number, [number, number[]][]][] = $derived(
         sortBy(
             getNumberKeyedEntries(
                 groupBy(
