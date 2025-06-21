@@ -6,12 +6,21 @@ import {
 } from '@/data/professions';
 import { Holiday } from '@/enums/holiday';
 import { Profession } from '@/enums/profession';
+import { wowthingData } from '@/shared/stores/data';
 import { DbResetType } from '@/shared/stores/db/enums';
+import { userState } from '@/user-home/state/user';
 import type { Character } from '@/types';
 import type { TaskProfession } from '@/types/data';
 import type { Chore, Task } from '@/types/tasks';
 
 import { eventsTurboBoost } from './events';
+import {
+    actualHolidayChores,
+    actualHolidayTasks,
+    holidayTimewalkingChores,
+    weeklyHolidayTasks,
+} from './holidays';
+import { shadowlandsTasks } from './shadowlands';
 import {
     twwChores11_0,
     twwChores11_1,
@@ -19,14 +28,6 @@ import {
     twwChoresChett,
     twwHorrificVisions,
 } from './the_war_within';
-import { wowthingData } from '@/shared/stores/data';
-import { userState } from '@/user-home/state/user';
-import {
-    actualHolidayChores,
-    actualHolidayTasks,
-    holidayTimewalkingChores,
-    weeklyHolidayTasks,
-} from './holidays';
 
 const nameFire = '<span class="status-warn">:fire:</span>';
 const nameQuest = '<span class="status-shrug">:exclamation:</span>';
@@ -189,37 +190,7 @@ export const taskList: Task[] = [
         requiredQuestId: 44636, // Building an Army
     },
 
-    // Shadowlands
-    {
-        key: 'slAnima',
-        name: '[SL] Anima',
-        shortName: 'Anima',
-        minimumLevel: 60,
-    },
-    {
-        key: 'slShapingFate',
-        name: '[SL] Shaping Fate (Korthia)',
-        shortName: 'Korth',
-        minimumLevel: 60,
-    },
-    {
-        key: 'slMawAssault',
-        name: '[SL] Maw Assault',
-        shortName: 'Maw ⚔',
-        minimumLevel: 60,
-    },
-    {
-        key: 'slTormentors',
-        name: '[SL] Tormentors of Torghast',
-        shortName: 'Torm',
-        minimumLevel: 60,
-    },
-    {
-        key: 'slPatterns',
-        name: '[SL] Patterns (Zereth Mortis)',
-        shortName: 'ZM',
-        minimumLevel: 60,
-    },
+    ...shadowlandsTasks,
 
     // Dragonflight
     {

@@ -7,6 +7,8 @@ public class WowReputation
     [Key]
     public short Id { get; set; }
 
+    public int ParagonQuestId { get; set; }
+    public int ParagonThreshold { get; set; }
     public short Expansion { get; set; }
     public short ParagonId { get; set; }
     public short ParentId { get; set; }

@@ -613,8 +613,39 @@ public class DumpsTool
 
     private async Task ImportFactions(WowDbContext context)
     {
-        var factions = await DataUtilities
-            .LoadDumpCsvAsync<DumpFaction>("faction");
+        var factions = await DataUtilities.LoadDumpCsvAsync<DumpFaction>("faction");
+        var paragonReputationMap = await DataUtilities.LoadDumpToDictionaryAsync<int, DumpParagonReputation>
+            ("paragonreputation", pr => pr.FactionID, validFunc: pr => pr.FactionID > 0);
+
+        // Fix missing expansions
+        var factionMap = factions.ToDictionary(faction => faction.ID);
+        foreach (var faction in factions)
+        {
+            if (faction.Expansion != 0)
+            {
+                continue;
+            }
+
+            if (faction.ParentFactionID > 0)
+            {
+                if (factionMap.TryGetValue(faction.ParentFactionID, out var parent))
+                {
+                    while (parent != null)
+                    {
+                        if (parent.Expansion > 0)
+                        {
+                            faction.Expansion = parent.Expansion;
+                            break;
+                        }
+
+                        if (parent.ParentFactionID == 0 || !factionMap.TryGetValue(parent.ParentFactionID, out parent))
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
 
         var dbReputationMap = await context.WowReputation
             .ToDictionaryAsync(rep => rep.Id);
@@ -642,6 +673,17 @@ public class DumpsTool
             if (dbReputation.MaxValues == null || !dbReputation.MaxValues.SequenceEqual(faction.ReputationMaxes))
             {
                 dbReputation.MaxValues = faction.ReputationMaxes;
+            }
+
+            if (paragonReputationMap.TryGetValue(faction.ID, out var paragonReputation))
+            {
+                dbReputation.ParagonQuestId = paragonReputation.QuestID;
+                dbReputation.ParagonThreshold = paragonReputation.LevelThreshold;
+            }
+            else
+            {
+                dbReputation.ParagonQuestId = 0;
+                dbReputation.ParagonThreshold = 0;
             }
         }
 
