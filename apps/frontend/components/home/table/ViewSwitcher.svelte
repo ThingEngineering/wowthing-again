@@ -9,6 +9,7 @@
     import { userState } from '@/user-home/state/user';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import ParagonQuests from './paragon/ParagonQuests.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
     const setActiveView = (viewId: string) => {
@@ -75,5 +76,7 @@
         <span class="account-gold">
             Warbank: {userState.general.warbankGold.toLocaleString()} g
         </span>
+
+        <ParagonQuests />
     {/if}
 </div>

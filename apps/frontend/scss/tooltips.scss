@@ -17,13 +17,18 @@
 
     > h4 {
         padding: 0.3rem 0.5rem;
-        border-top-left-radius: $border-radius;
-        border-top-right-radius: $border-radius;
         color: $tooltip-title-color;
         font-size: 1.05rem;
 
+        &:first-child {
+            border-top-left-radius: $border-radius;
+            border-top-right-radius: $border-radius;
+        }
+
         &:not(.no-border) {
-            border-bottom: 1px solid $tooltip-border;
+            --border-color: #{$tooltip-border};
+
+            border-bottom: 1px solid var(--border-color);
         }
     }
 
