@@ -26,6 +26,7 @@ public class JournalTool
     {
         1, // Dungeon Normal
         2, // Dungeon Heroic
+        8, // Dungeon Mythic Keystone
         23, // Dungeon Mythic
         24, // Dungeon Timewalking
         7, // Legacy LFR
