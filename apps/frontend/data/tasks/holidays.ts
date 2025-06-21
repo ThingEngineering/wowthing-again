@@ -1,4 +1,5 @@
 import { Constants } from '@/data/constants';
+import { Profession } from '@/enums/profession';
 import { DbResetType } from '@/shared/stores/db/enums';
 import { userState } from '@/user-home/state/user';
 import type { Character } from '@/types';
