@@ -58,5 +58,6 @@ sets.txt
 # syncthing
 .stfolder/
 .stignore
+*.sync-conflict-*
 
 .config/
