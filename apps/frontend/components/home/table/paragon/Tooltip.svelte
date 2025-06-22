@@ -10,8 +10,8 @@
     let { paragonQuests }: { paragonQuests: Record<number, number[]> } = $props();
 
     // [ expansion, [reputationId, characterIds][] ][]
-    let grouped: [number, [number, number[]][]][] = $derived(
-        sortBy(
+    let grouped: [number, [number, number[]][]][] = $derived.by(() => {
+        return sortBy(
             getNumberKeyedEntries(
                 groupBy(
                     getNumberKeyedEntries(paragonQuests),
@@ -25,8 +25,8 @@
                 ),
             ]),
             ([expansion]) => expansion
-        )
-    );
+        );
+    });
 </script>
 
 <style lang="scss">
@@ -49,11 +49,11 @@
 </style>
 
 <div class="wowthing-tooltip">
-    {#each grouped as [expansion, reputations] (expansion)}
+    {#each grouped as [expansion, reputations]}
         <h4>{expansion > 0 ? expansionMap[expansion].name : '???'}</h4>
         <table class="table table-striped">
             <tbody>
-                {#each reputations as [reputationId, characterIds] (reputationId)}
+                {#each reputations as [reputationId, characterIds]}
                     {@const reputation = wowthingData.static.reputationById.get(reputationId)}
                     {@const characters = sortBy(
                         characterIds
