@@ -15,11 +15,7 @@ export function componentTooltip<TComponent extends Component<any, any, any>>(
         return;
     }
 
-    const { component, props, testFunc, tippyProps } = componentProps;
-
-    if (testFunc?.(props) === false) {
-        return;
-    }
+    const { component, testFunc, tippyProps } = componentProps;
 
     let cmp: Record<string, unknown> = $state.raw();
     // const elementProps = $state(props);
@@ -30,6 +26,11 @@ export function componentTooltip<TComponent extends Component<any, any, any>>(
     };
 
     $effect(() => {
+        const props = componentProps.propsFunc?.() || componentProps.props;
+        if (testFunc?.(props) === false) {
+            return;
+        }
+
         const tp = tippy(node, {
             ...finalProps,
             allowHTML: true,

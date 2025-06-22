@@ -11,24 +11,19 @@
 
     let paragonQuests = $derived.by(() => {
         const ret: Record<number, number[]> = {};
-        const allCharQuests = Array.from(userState.quests.characterById.values());
 
         for (const reputation of paragonReputations) {
-            const questKey = `q${reputation.paragonQuestId}`;
-            const characterIds = allCharQuests
-                .filter((charQuests) => charQuests.progressQuestByKey.has(questKey))
-                .map((charQuests) => charQuests.characterId);
-
+            const characterIds =
+                userState.quests.progressQuestCharactersByKey[`q${reputation.paragonQuestId}`] ||
+                [];
             if (characterIds.length > 0) {
                 ret[reputation.id] = characterIds;
             }
         }
 
-        console.log(ret);
         return ret;
     });
     let total = $derived(Object.values(paragonQuests).reduce((a, b) => a + b.length, 0));
-    $inspect(paragonQuests);
 </script>
 
 <style lang="scss">
@@ -42,7 +37,15 @@
 </style>
 
 {#if total > 0}
-    <div class="paragons" use:componentTooltip={{ component: Tooltip, props: { paragonQuests } }}>
+    <div
+        class="paragons"
+        use:componentTooltip={{
+            component: Tooltip,
+            propsFunc: () => ({
+                paragonQuests,
+            }),
+        }}
+    >
         Available Paragons: {total}
     </div>
 {/if}

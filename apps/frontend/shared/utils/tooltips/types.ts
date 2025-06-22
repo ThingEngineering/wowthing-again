@@ -5,7 +5,8 @@ export type TippyProps = Partial<Props>;
 
 export interface ComponentTooltipProps<TComponent extends Component> {
     component: TComponent;
-    props: ComponentProps<TComponent>;
+    props?: ComponentProps<TComponent>;
+    propsFunc?: () => ComponentProps<TComponent>;
     testFunc?: (props: ComponentProps<TComponent>) => boolean;
     tippyProps?: TippyProps;
 }

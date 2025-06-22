@@ -1,4 +1,4 @@
-import { SvelteMap, SvelteSet } from 'svelte/reactivity';
+import { SvelteSet } from 'svelte/reactivity';
 
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type { UserQuestData } from '@/types/data/user-quest';
@@ -7,7 +7,8 @@ import { CharacterQuests } from './types';
 
 export class DataUserQuests {
     public accountHasById = new SvelteSet<number>();
-    public characterById = new SvelteMap<number, CharacterQuests>();
+    // public characterById = new SvelteMap<number, CharacterQuests>();
+    public characterById = new Map<number, CharacterQuests>();
 
     public process(userQuestData: UserQuestData): void {
         console.time('DataUserQuests.process');
@@ -33,4 +34,16 @@ export class DataUserQuests {
 
         console.timeEnd('DataUserQuests.process');
     }
+
+    public progressQuestCharactersByKey = $derived.by(() => {
+        const ret: Record<string, number[]> = {};
+
+        for (const character of this.characterById.values()) {
+            for (const key of character.progressQuestByKey?.keys() || []) {
+                (ret[key] ||= []).push(character.characterId);
+            }
+        }
+
+        return ret;
+    });
 }
