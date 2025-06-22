@@ -35,6 +35,13 @@
             '{craftedQuality:$2}'
         );
 
+        // {faction:factionId}
+        html = html.replaceAll(/\{faction:(\d+)\}/g, (_, factionIdString: string) => {
+            const factionId = parseInt(factionIdString);
+            const rep = wowthingData.static.reputationById.get(factionId);
+            return rep?.name || `Faction #${factionId}`;
+        });
+
         // {reputation:amount|factionId}
         html = html.replaceAll(
             /\{reputation:(\d+)\|(\d+)\}/g,
@@ -53,8 +60,18 @@
 
         html = html.replaceAll(
             /\{repPrice:(\d+)\|(\d+)\|(\d+)(?:\|([-\d]+))?\}/g,
-            (_, repId: number, repLevel: number, amount: number, currencyId: number) => {
+            (
+                _,
+                repIdString: string,
+                repLevel: number,
+                amount: number,
+                currencyIdString: string
+            ) => {
                 const parts: string[] = [];
+
+                const currencyId = parseInt(currencyIdString);
+                const repId = parseInt(repIdString);
+
                 const rep = wowthingData.static.reputationById.get(repId);
 
                 if (currencyId) {
@@ -67,6 +84,15 @@
                 if (rep?.renownCurrencyId) {
                     parts.push(`Renown ${repLevel}`);
                 } else {
+                    console.log(
+                        repId,
+                        typeof repId,
+                        repLevel,
+                        amount,
+                        currencyId,
+                        rep,
+                        RewardReputation[repLevel]
+                    );
                     parts.push(RewardReputation[repLevel].split(/(?=[A-Z])|(?=[0-9])/).join(' '));
                 }
 
@@ -88,9 +114,10 @@
         // {price:amount} or {price:amount|currencyId}
         html = html.replaceAll(
             /\{price(Short)?:(\d+)(?:\|(\d+))?\}/g,
-            (_, short: string, amountString: string, currencyId: number) => {
+            (_, short: string, amountString: string, currencyIdString: string) => {
                 const amount = parseInt(amountString).toLocaleString();
-                if (currencyId) {
+                if (currencyIdString) {
+                    const currencyId = parseInt(currencyIdString);
                     if (currencyId > 1000000) {
                         const itemId = currencyId - 1000000;
                         const item = wowthingData.items.items[itemId];
