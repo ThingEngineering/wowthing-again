@@ -42,7 +42,8 @@ export function userHasLookup(
     } else if (type === LookupType.TransmogSet) {
         const statsKey = `ensemble:${id}`;
         const stats = snapshot.transmogStats[statsKey];
-        return stats?.percent >= 100;
+        // snapshot state has no prototype and .percent is a getter
+        return (stats?.have || 0) >= (stats?.total || 1);
     } else if (type === LookupType.Transmog) {
         if (appearanceIds?.[0] > 0) {
             const bySlot: Record<number, boolean> = {};
