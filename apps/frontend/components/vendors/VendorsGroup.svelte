@@ -4,8 +4,8 @@
     import { AppearanceModifier } from '@/enums/appearance-modifier';
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
     import { RewardType } from '@/enums/reward-type';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { vendorState } from '@/stores/local-storage';
     import { ThingData } from '@/types/vendors';
     import { lazyState } from '@/user-home/state/lazy';
     import getPercentClass from '@/utils/get-percent-class';
@@ -15,22 +15,27 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import Thing from './Thing.svelte';
 
-    export let group: ManualDataVendorGroup;
-    export let useV2: boolean;
+    type Props = {
+        group: ManualDataVendorGroup;
+        useV2: boolean;
+    };
+    let { group, useV2 }: Props = $props();
 
-    let element: HTMLElement;
-    let intersected = false;
-    let percent: number;
-    let things: ThingData[];
+    let element = $state<HTMLElement>(null);
+    let intersected = $state(false);
 
-    $: {
-        things = [];
+    let percent = $derived.by(() =>
+        Math.floor(((group.stats?.have ?? 0) / (group.stats?.total ?? 1)) * 100)
+    );
+
+    let things = $derived.by(() => {
+        const ret: ThingData[] = [];
         for (const thing of group.sellsFiltered) {
             const thingKey = `${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`;
             const userHas = lazyState.vendors.userHas[thingKey] === true;
             if (
-                ($vendorState.showCollected && userHas) ||
-                ($vendorState.showUncollected && !userHas)
+                (browserState.current.vendors.showCollected && userHas) ||
+                (browserState.current.vendors.showUncollected && !userHas)
             ) {
                 const thingData = new ThingData(thing, userHas);
 
@@ -82,12 +87,12 @@
                     }
                 }
 
-                things.push(thingData);
+                ret.push(thingData);
             }
         }
 
-        percent = Math.floor(((group.stats?.have ?? 0) / (group.stats?.total ?? 1)) * 100);
-    }
+        return ret;
+    });
 </script>
 
 <style lang="scss">
@@ -119,7 +124,7 @@
             </div>
 
             <div class="collection-objects">
-                {#each things as thing}
+                {#each things as thing (thing)}
                     <Thing {intersected} {thing} />
                 {/each}
             </div>

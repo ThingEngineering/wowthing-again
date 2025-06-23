@@ -39,7 +39,7 @@ export class ManualDataVendorCategory {
 
 export class ManualDataVendorGroup {
     public sells: ManualDataVendorItem[];
-    public sellsFiltered: ManualDataVendorItem[];
+    public sellsFiltered: ManualDataVendorItem[] = $state([]);
     public stats: UserCount;
 
     constructor(

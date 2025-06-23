@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Faction } from '@/enums/faction';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { vendorState } from '@/stores/local-storage';
     import { lazyState } from '@/user-home/state/lazy';
     import { getClassesFromMask } from '@/utils/get-classes-from-mask';
     import getPercentClass from '@/utils/get-percent-class';
@@ -16,8 +16,7 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let intersected: boolean;
-    export let thing: ThingData;
+    let { intersected, thing }: { intersected: boolean; thing: ThingData } = $props();
 </script>
 
 <style lang="scss">
@@ -101,8 +100,8 @@
 
 <div
     class="collection-object quality{thing.quality}"
-    class:missing={(!$vendorState.highlightMissing && !thing.userHas) ||
-        ($vendorState.highlightMissing && thing.userHas)}
+    class:missing={(!browserState.current.vendors.highlightMissing && !thing.userHas) ||
+        (browserState.current.vendors.highlightMissing && thing.userHas)}
     style:height={!thing.userHas ? 52 + 20 * thing.item.sortedCosts.length + 'px' : null}
 >
     {#if intersected}
@@ -174,7 +173,7 @@
             <CollectedIcon />
         {/if}
 
-        {#if !thing.userHas || $vendorState.showCollectedPrices}
+        {#if !thing.userHas || browserState.current.vendors.showCollectedPrices}
             <div class="costs quality1">
                 {#each thing.item.sortedCosts as [costType, costId, costValue]}
                     <div>

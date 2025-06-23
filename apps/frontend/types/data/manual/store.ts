@@ -9,7 +9,7 @@ import type { ManualDataProgressCategory } from './progress';
 import type { ManualDataSetCategory, ManualDataSetCategoryArray } from './set';
 import type { ManualDataSharedVendor, ManualDataSharedVendorArray } from './shared-vendor';
 import type { ManualDataTransmogCategory, ManualDataTransmogCategoryArray } from './transmog';
-import type { ManualDataVendorCategory, ManualDataVendorCategoryArray } from './vendor';
+import type { ManualDataVendorCategory, ManualDataVendorCategoryArray } from './vendor.svelte';
 import type { ManualDataZoneMapCategory, ManualDataZoneMapCategoryArray } from './zone-map';
 
 export interface ManualData {

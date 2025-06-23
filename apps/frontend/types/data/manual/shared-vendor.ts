@@ -1,4 +1,4 @@
-import { ManualDataVendorItem, type ManualDataVendorItemArray } from './vendor';
+import { ManualDataVendorItem, type ManualDataVendorItemArray } from './vendor.svelte';
 import { Faction } from '@/enums/faction';
 import { FarmIdType } from '@/enums/farm-id-type';
 import { FarmResetType } from '@/enums/farm-reset-type';

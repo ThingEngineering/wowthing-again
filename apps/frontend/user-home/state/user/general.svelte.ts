@@ -28,6 +28,7 @@ import { leftPad } from '@/utils/formatting';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { sharedState } from '@/shared/state/shared.svelte';
 import { WarbankItem } from '@/types/items';
+import type { Faction } from '@/enums/faction';
 
 export class DataUserGeneral {
     public accountById: Record<number, Account> = $state({});
@@ -191,6 +192,16 @@ export class DataUserGeneral {
         console.timeEnd('DataUserGeneral.process');
     }
 
+    public anyCharacterKnowsSpellById = $derived.by(() => {
+        const allKnownSpells = new Set<number>();
+        for (const character of this.activeCharacters) {
+            for (const knownSpellId of character.knownSpells || []) {
+                allKnownSpells.add(knownSpellId);
+            }
+        }
+        return allKnownSpells;
+    });
+
     public hasRecipe = $derived.by(() => {
         const allAbilities = new Set<number>();
         for (const character of this.activeCharacters) {
@@ -199,6 +210,25 @@ export class DataUserGeneral {
             }
         }
         return allAbilities;
+    });
+
+    public characterIdsByAbilityId = $derived.by(() => {
+        const ret: Record<number, number[]> = {};
+        for (const character of this.activeCharacters) {
+            for (const abilityId of character.allProfessionAbilities) {
+                (ret[abilityId] ||= []).push(character.id);
+            }
+        }
+        return ret;
+    });
+
+    public isKnownRecipeData: Record<number, [Faction, Set<number>]> = $derived.by(() => {
+        return Object.fromEntries(
+            this.activeCharacters.map((char) => [
+                char.id,
+                [char.faction, char.allProfessionAbilities],
+            ]) as [number, [Faction, Set<number>]][]
+        );
     });
 
     private _activeCharacters = () =>

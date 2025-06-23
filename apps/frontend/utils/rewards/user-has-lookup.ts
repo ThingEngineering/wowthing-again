@@ -1,13 +1,12 @@
 import { LookupType } from '@/enums/lookup-type';
 import { wowthingData } from '@/shared/stores/data';
-import { lazyState } from '@/user-home/state/lazy';
-import { userState } from '@/user-home/state/user';
 import { fixedInventoryType } from '@/utils/fixed-inventory-type';
 import { isRecipeKnown } from '@/utils/professions/is-recipe-known';
 
+import { snapshotStateForUserHasLookup } from './snapshot-state-for-user-has-lookup.svelte';
+
 export function userHasLookup(
-    hasAppearanceById: Set<number>,
-    hasAppearanceBySource: Set<number>,
+    snapshot: ReturnType<typeof snapshotStateForUserHasLookup>,
     type: LookupType,
     id: number,
     {
@@ -21,23 +20,28 @@ export function userHasLookup(
     }
 ): boolean {
     if (type === LookupType.Illusion) {
-        return userState.general.hasIllusionByEnchantmentId.has(appearanceIds[0]);
+        return snapshot.hasIllusionByEnchantmentId.has(appearanceIds[0]);
     } else if (type === LookupType.Mount) {
-        return userState.general.hasMountById.has(id);
+        return snapshot.hasMountById.has(id);
     } else if (type === LookupType.Pet) {
-        return userState.general.hasPetById.has(id);
+        return snapshot.hasPetById.has(id);
     } else if (type === LookupType.Toy) {
-        return userState.general.hasToyByItemId.has(id);
+        return snapshot.hasToyByItemId.has(id);
     } else if (type === LookupType.Recipe) {
         const abilityInfo = wowthingData.static.professionAbilityByAbilityId.get(id);
-        return isRecipeKnown({ abilityInfo });
+        return isRecipeKnown(
+            { abilityInfo },
+            snapshot.characterIdsByAbilityId,
+            snapshot.collectingCharactersV2,
+            snapshot.isKnownRecipeData
+        );
     } else if (type === LookupType.Quest) {
-        return accountTrackingQuest([id]);
+        return snapshot.anyCharacterHasQuestById.has(id);
     } else if (type === LookupType.Spell) {
-        return userState.general.characters.some((char) => char.knownSpells?.includes(id));
+        return snapshot.anyCharacterKnowsSpellById.has(id);
     } else if (type === LookupType.TransmogSet) {
         const statsKey = `ensemble:${id}`;
-        const stats = lazyState.transmog.stats[statsKey];
+        const stats = snapshot.transmogStats[statsKey];
         return stats?.percent >= 100;
     } else if (type === LookupType.Transmog) {
         if (appearanceIds?.[0] > 0) {
@@ -48,7 +52,7 @@ export function userHasLookup(
                 for (const [itemId] of appearanceItemsAndModifiers) {
                     const appearanceItem = wowthingData.items.items[itemId];
                     const invType = fixedInventoryType(appearanceItem.inventoryType);
-                    bySlot[invType] ||= hasAppearanceById.has(appearanceId);
+                    bySlot[invType] ||= snapshot.hasAppearanceById.has(appearanceId);
                 }
             }
             return Object.values(bySlot).every((hasSlot) => !!hasSlot);
@@ -69,23 +73,13 @@ export function userHasLookup(
             }
 
             if (completionist) {
-                return hasAppearanceBySource.has(id * 1000 + itemModifier);
+                return snapshot.hasAppearanceBySource.has(id * 1000 + itemModifier);
             } else {
                 const appearanceId = item.appearances?.[itemModifier]?.appearanceId || 0;
-                return hasAppearanceById.has(appearanceId);
+                return snapshot.hasAppearanceById.has(appearanceId);
             }
         }
     }
 
     return false;
-}
-
-function accountTrackingQuest(questIds: number[]): boolean {
-    return questIds.some(
-        (questId) =>
-            userState.quests.accountHasById.has(questId) ||
-            Array.from(userState.quests.characterById.values()).some((charData) =>
-                charData.hasQuestById.has(questId)
-            )
-    );
 }

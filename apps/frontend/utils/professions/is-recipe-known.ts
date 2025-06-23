@@ -9,7 +9,12 @@ interface IsRecipeKnownOptions {
     itemId?: number;
 }
 
-export function isRecipeKnown(options: IsRecipeKnownOptions) {
+export function isRecipeKnown(
+    options: IsRecipeKnownOptions,
+    characterIdsByAbilityId: Record<number, number[]> = null,
+    collectingCharactersV2: Record<number, number[]> = null,
+    isKnownRecipeData: Record<number, [Faction, Set<number>]> = null
+) {
     let abilityInfo = options.abilityInfo;
     if (options.itemId) {
         abilityInfo = wowthingData.static.professionAbilityByItemId.get(options.itemId);
@@ -19,15 +24,18 @@ export function isRecipeKnown(options: IsRecipeKnownOptions) {
         return false;
     }
 
-    const collectorIds =
-        settingsState.value.professions.collectingCharactersV2?.[abilityInfo.professionId] || [];
+    characterIdsByAbilityId ||= userState.general.characterIdsByAbilityId;
+    collectingCharactersV2 ||= settingsState.value.professions.collectingCharactersV2;
+    isKnownRecipeData ||= userState.general.isKnownRecipeData;
+
+    const collectorIds = collectingCharactersV2?.[abilityInfo.professionId] || [];
     if (collectorIds.length > 0) {
-        const primary = userState.general.characterById[collectorIds[0]];
+        const primary = isKnownRecipeData[collectorIds[0]];
         if (!primary) {
             return false;
         }
 
-        if (primary.knowsProfessionAbility(abilityInfo.abilityId)) {
+        if (primary[1].has(abilityInfo.abilityId)) {
             return true;
         }
 
@@ -53,19 +61,19 @@ export function isRecipeKnown(options: IsRecipeKnownOptions) {
         }
 
         // different faction
-        if (recipeFaction !== Faction.Neutral && recipeFaction !== primary.faction) {
+        if (recipeFaction !== Faction.Neutral && recipeFaction !== primary[0]) {
             return collectorIds.slice(1).some((collectorId) => {
-                const character = userState.general.characterById[collectorId];
+                const collectorData = isKnownRecipeData[collectorId];
                 return (
-                    character?.faction === recipeFaction &&
-                    character.knowsProfessionAbility(abilityInfo.abilityId)
+                    collectorData?.[0] === recipeFaction &&
+                    collectorData?.[1].has(abilityInfo.abilityId)
                 );
             });
         }
 
         // TODO: different specialization
     } else {
-        return userState.general.hasRecipe.has(abilityInfo.abilityId);
+        return !!characterIdsByAbilityId[abilityInfo.abilityId];
     }
 
     return false;
