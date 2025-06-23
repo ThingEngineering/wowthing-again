@@ -12,6 +12,8 @@
     import ParagonQuests from './paragon/ParagonQuests.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
+    let warbankGold = $derived(userState.general.warbankGold.toLocaleString());
+
     const setActiveView = (viewId: string) => {
         browserState.current.home.activeView = viewId;
     };
@@ -74,7 +76,7 @@
         </a>
 
         <span class="account-gold">
-            Warbank: {userState.general.warbankGold.toLocaleString()} g
+            Warbank: {warbankGold} g
         </span>
 
         <ParagonQuests />
