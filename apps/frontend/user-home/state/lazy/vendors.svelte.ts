@@ -28,7 +28,7 @@ import type {
     ManualDataVendorCategory,
     ManualDataVendorItem,
 } from '@/types/data/manual';
-import { userState } from '../user';
+import { snapshotStateForUserHasLookup } from '@/utils/rewards/snapshot-state-for-user-has-lookup.svelte';
 
 const tierRegex = new RegExp(/ - T\d\d/);
 
@@ -41,9 +41,10 @@ class LazyVendorsProcessor {
     private _createdFarmData = false;
     private _visitedCategories = false;
 
+    private _snapshot = $derived.by(() => snapshotStateForUserHasLookup());
+
     public process() {
-        const hasAppearanceById = $state.snapshot(userState.general.hasAppearanceById);
-        const hasAppearanceBySource = $state.snapshot(userState.general.hasAppearanceBySource);
+        const snapshot = this._snapshot;
         const vendorState = $state.snapshot(browserState.current).vendors;
 
         if (!this._createdFarmData) {
@@ -96,278 +97,271 @@ class LazyVendorsProcessor {
             }
         }
 
-        for (const rootCategory of wowthingData.manual.vendors.sets) {
-            if (rootCategory === null) {
-                continue;
+        // [category, slug[]]
+        const queue: [ManualDataVendorCategory, string[]][] = wowthingData.manual.vendors.sets
+            .filter((root) => !!root)
+            .map((root) => [root, [root.slug]]);
+        while (queue.length > 0) {
+            const [category, slugs] = queue.pop();
+
+            const catKey = slugs.join('--');
+            const catStats = (stats[catKey] = new UserCount());
+
+            const parentStats: UserCount[] = [];
+            if (slugs.length > 1) {
+                let parentSlug: string = undefined;
+                for (const slug of slugs) {
+                    parentSlug = parentSlug ? `${parentSlug}--${slug}` : slug;
+                    parentStats.push(stats[parentSlug]);
+                }
             }
 
-            const buildCategoryStats = (
-                category: ManualDataVendorCategory,
-                baseSlug: string,
-                parentStats: UserCount[]
-            ) => {
-                if (category === null) {
-                    return;
+            for (let groupIndex = 0; groupIndex < category.groups.length; groupIndex++) {
+                const group = category.groups[groupIndex];
+                const sellsFiltered: ManualDataVendorItem[] = [];
+
+                if (
+                    !vendorState.showPvp &&
+                    group.sells.some((vendorItem) =>
+                        getNumberKeyedEntries(vendorItem.costs).some(([currencyId]) =>
+                            pvpCurrencies.has(currencyId)
+                        )
+                    )
+                ) {
+                    continue;
+                }
+                if (!vendorState.showTier && tierRegex.test(group.name)) {
+                    continue;
+                }
+                if (!vendorState.showAwakened && group.name.endsWith('Awakened')) {
+                    continue;
                 }
 
-                const catKey = baseSlug ? `${baseSlug}--${category.slug}` : category.slug;
-                const catStats = (stats[catKey] = new UserCount());
+                const groupKey = `${catKey}--${groupIndex}`;
+                const groupStats = (stats[groupKey] = new UserCount());
 
-                for (let groupIndex = 0; groupIndex < category.groups.length; groupIndex++) {
-                    const group = category.groups[groupIndex];
-                    group.sellsFiltered = [];
+                const appearanceMap: Record<number, ManualDataVendorItem> = {};
+
+                for (const item of group.sells) {
+                    // item.sortedCosts ||= getCurrencyCosts(item.costs);
+
+                    if (item.classMask > 0 && (item.classMask & classMask) === 0) {
+                        continue;
+                    }
+
+                    // Transmog sets are annoying
+                    const transmogSetId = wowthingData.items.teachesTransmog[item.id];
+                    if (transmogSetId) {
+                        const transmogSet = wowthingData.static.transmogSetById.get(transmogSetId);
+                        if (
+                            transmogSet.classMask > 0 &&
+                            (transmogSet.classMask & classMask) === 0
+                        ) {
+                            continue;
+                        }
+
+                        // Scan the actual items within the transmog set now
+                        let allArmor = true;
+                        let allClassMask = true;
+                        let allWeapon = true;
+                        transmogSet.items.forEach(([itemId]) => {
+                            const item = wowthingData.items.items[itemId];
+                            if (!item) {
+                                return;
+                            }
+
+                            if (item.classId !== ItemClass.Armor) {
+                                allArmor = false;
+                            }
+                            if (item.classId !== ItemClass.Weapon) {
+                                allWeapon = false;
+                            }
+                            if (item.classMask > 0 && (item.classMask & classMask) === 0) {
+                                allClassMask = false;
+                            }
+                        });
+
+                        if (
+                            !allClassMask ||
+                            (allArmor &&
+                                transmogSet.classMask > 0 &&
+                                (transmogSet.classMask & armorClassMask) === 0) ||
+                            (allWeapon && !vendorState.showWeapons)
+                        ) {
+                            continue;
+                        }
+                    }
+
+                    const sharedItem = wowthingData.items.items[item.id];
+
+                    if (sharedItem && transmogTypes.has(item.type)) {
+                        if (sharedItem.allianceOnly) {
+                            item.faction = Faction.Alliance;
+                        } else if (sharedItem.hordeOnly) {
+                            item.faction = Faction.Horde;
+                        }
+                    }
+
+                    if (masochist) {
+                        item.extraAppearances = 0;
+                    } else if (transmogTypes.has(item.type)) {
+                        const appearanceId =
+                            item.appearanceIds?.length === 1
+                                ? item.appearanceIds[0]
+                                : sharedItem?.appearances?.[0]?.appearanceId || 0;
+                        if (appearanceId) {
+                            const existingItem = appearanceMap[appearanceId];
+                            if (existingItem) {
+                                existingItem.extraAppearances++;
+
+                                if (
+                                    existingItem.faction !== Faction.Both &&
+                                    item.faction !== existingItem.faction
+                                ) {
+                                    existingItem.faction = Faction.Both;
+                                }
+
+                                continue;
+                            } else {
+                                appearanceMap[appearanceId] = item;
+                                item.extraAppearances = 0;
+                            }
+                        }
+                    }
+
+                    // Skip filtered things
+                    const [lookupType, lookupId] = rewardToLookup(
+                        item.type,
+                        item.id,
+                        item.trackingQuestId
+                    );
 
                     if (
-                        !vendorState.showPvp &&
-                        group.sells.some((vendorItem) =>
-                            getNumberKeyedEntries(vendorItem.costs).some(([currencyId]) =>
-                                pvpCurrencies.has(currencyId)
-                            )
-                        )
+                        (!vendorState.showIllusions && lookupType === LookupType.Illusion) ||
+                        (!vendorState.showMounts && lookupType === LookupType.Mount) ||
+                        (!vendorState.showPets && lookupType === LookupType.Pet) ||
+                        (!vendorState.showRecipes && lookupType === LookupType.Recipe) ||
+                        (!vendorState.showToys && lookupType === LookupType.Toy) ||
+                        (!vendorState.showCosmetics && item.type === RewardType.Cosmetic) ||
+                        (!vendorState.showDragonriding &&
+                            wowthingData.manual.dragonridingItemToQuest.has(item.id)) ||
+                        (item.type === RewardType.Armor &&
+                            ((item.subType === 1 && !vendorState.showCloth) ||
+                                (item.subType === 2 && !vendorState.showLeather) ||
+                                (item.subType === 3 && !vendorState.showMail) ||
+                                (item.subType === 4 && !vendorState.showPlate))) ||
+                        (item.type === RewardType.Weapon && !vendorState.showWeapons) ||
+                        (lookupType === LookupType.Transmog &&
+                            sharedItem?.classId === ItemClass.Armor &&
+                            ((sharedItem.subclassId === ArmorSubclass.Cloth &&
+                                !vendorState.showCloth) ||
+                                (sharedItem.subclassId === ArmorSubclass.Leather &&
+                                    !vendorState.showLeather) ||
+                                (sharedItem.subclassId === ArmorSubclass.Mail &&
+                                    !vendorState.showMail) ||
+                                (sharedItem.subclassId === ArmorSubclass.Plate &&
+                                    !vendorState.showPlate))) ||
+                        (lookupType === LookupType.Transmog &&
+                            sharedItem?.classId === ItemClass.Weapon &&
+                            !vendorState.showWeapons) ||
+                        (lookupType === LookupType.Transmog &&
+                            sharedItem?.cosmetic &&
+                            !vendorState.showCosmetics) ||
+                        (sharedItem?.inventoryType === InventoryType.Back &&
+                            !vendorState.showCloaks)
                     ) {
                         continue;
                     }
-                    if (!vendorState.showTier && tierRegex.test(group.name)) {
+
+                    const hasDrop = userHasLookup(snapshot, lookupType, lookupId, {
+                        appearanceIds: item.appearanceIds,
+                        completionist: masochist,
+                        modifier: item.appearanceModifier,
+                    });
+
+                    // Skip unavailable illusions
+                    if (
+                        lookupType === LookupType.Illusion &&
+                        item.appearanceIds?.length > 0 &&
+                        unavailableIllusions.indexOf(item.appearanceIds[0]) >= 0 &&
+                        !hasDrop
+                    ) {
                         continue;
                     }
-                    if (!vendorState.showAwakened && group.name.endsWith('Awakened')) {
-                        continue;
+
+                    const thingKey = `${item.type}|${item.id}|${(item.bonusIds || []).join(',')}`;
+
+                    if (!seen[thingKey]) {
+                        overallStats.total++;
                     }
 
-                    const groupKey = `${catKey}--${groupIndex}`;
-                    const groupStats = (stats[groupKey] = new UserCount());
+                    for (const parentStat of parentStats) {
+                        parentStat.total++;
+                    }
 
-                    const appearanceMap: Record<number, ManualDataVendorItem> = {};
+                    catStats.total++;
+                    groupStats.total++;
 
-                    for (const item of group.sells) {
-                        item.sortedCosts ||= getCurrencyCosts(item.costs);
-
-                        if (item.classMask > 0 && (item.classMask & classMask) === 0) {
-                            continue;
-                        }
-
-                        // Transmog sets are annoying
-                        const transmogSetId = wowthingData.items.teachesTransmog[item.id];
-                        if (transmogSetId) {
-                            const transmogSet =
-                                wowthingData.static.transmogSetById.get(transmogSetId);
-                            if (
-                                transmogSet.classMask > 0 &&
-                                (transmogSet.classMask & classMask) === 0
-                            ) {
-                                continue;
-                            }
-
-                            // Scan the actual items within the transmog set now
-                            let allArmor = true;
-                            let allClassMask = true;
-                            let allWeapon = true;
-                            transmogSet.items.forEach(([itemId]) => {
-                                const item = wowthingData.items.items[itemId];
-                                if (!item) {
-                                    return;
-                                }
-
-                                if (item.classId !== ItemClass.Armor) {
-                                    allArmor = false;
-                                }
-                                if (item.classId !== ItemClass.Weapon) {
-                                    allWeapon = false;
-                                }
-                                if (item.classMask > 0 && (item.classMask & classMask) === 0) {
-                                    allClassMask = false;
-                                }
-                            });
-
-                            if (
-                                !allClassMask ||
-                                (allArmor &&
-                                    transmogSet.classMask > 0 &&
-                                    (transmogSet.classMask & armorClassMask) === 0) ||
-                                (allWeapon && !vendorState.showWeapons)
-                            ) {
-                                continue;
-                            }
-                        }
-
-                        const sharedItem = wowthingData.items.items[item.id];
-
-                        if (sharedItem && transmogTypes.has(item.type)) {
-                            if (sharedItem.allianceOnly) {
-                                item.faction = Faction.Alliance;
-                            } else if (sharedItem.hordeOnly) {
-                                item.faction = Faction.Horde;
-                            }
-                        }
-
-                        if (masochist) {
-                            item.extraAppearances = 0;
-                        } else if (transmogTypes.has(item.type)) {
-                            const appearanceId =
-                                item.appearanceIds?.length === 1
-                                    ? item.appearanceIds[0]
-                                    : sharedItem?.appearances?.[0]?.appearanceId || 0;
-                            if (appearanceId) {
-                                const existingItem = appearanceMap[appearanceId];
-                                if (existingItem) {
-                                    existingItem.extraAppearances++;
-
-                                    if (
-                                        existingItem.faction !== Faction.Both &&
-                                        item.faction !== existingItem.faction
-                                    ) {
-                                        existingItem.faction = Faction.Both;
-                                    }
-
-                                    continue;
-                                } else {
-                                    appearanceMap[appearanceId] = item;
-                                    item.extraAppearances = 0;
-                                }
-                            }
-                        }
-
-                        // Skip filtered things
-                        const [lookupType, lookupId] = rewardToLookup(
-                            item.type,
-                            item.id,
-                            item.trackingQuestId
-                        );
-
-                        if (
-                            (!vendorState.showIllusions && lookupType === LookupType.Illusion) ||
-                            (!vendorState.showMounts && lookupType === LookupType.Mount) ||
-                            (!vendorState.showPets && lookupType === LookupType.Pet) ||
-                            (!vendorState.showRecipes && lookupType === LookupType.Recipe) ||
-                            (!vendorState.showToys && lookupType === LookupType.Toy) ||
-                            (!vendorState.showCosmetics && item.type === RewardType.Cosmetic) ||
-                            (!vendorState.showDragonriding &&
-                                wowthingData.manual.dragonridingItemToQuest.has(item.id)) ||
-                            (item.type === RewardType.Armor &&
-                                ((item.subType === 1 && !vendorState.showCloth) ||
-                                    (item.subType === 2 && !vendorState.showLeather) ||
-                                    (item.subType === 3 && !vendorState.showMail) ||
-                                    (item.subType === 4 && !vendorState.showPlate))) ||
-                            (item.type === RewardType.Weapon && !vendorState.showWeapons) ||
-                            (lookupType === LookupType.Transmog &&
-                                sharedItem?.classId === ItemClass.Armor &&
-                                ((sharedItem.subclassId === ArmorSubclass.Cloth &&
-                                    !vendorState.showCloth) ||
-                                    (sharedItem.subclassId === ArmorSubclass.Leather &&
-                                        !vendorState.showLeather) ||
-                                    (sharedItem.subclassId === ArmorSubclass.Mail &&
-                                        !vendorState.showMail) ||
-                                    (sharedItem.subclassId === ArmorSubclass.Plate &&
-                                        !vendorState.showPlate))) ||
-                            (lookupType === LookupType.Transmog &&
-                                sharedItem?.classId === ItemClass.Weapon &&
-                                !vendorState.showWeapons) ||
-                            (lookupType === LookupType.Transmog &&
-                                sharedItem?.cosmetic &&
-                                !vendorState.showCosmetics) ||
-                            (sharedItem?.inventoryType === InventoryType.Back &&
-                                !vendorState.showCloaks)
-                        ) {
-                            continue;
-                        }
-
-                        const hasDrop = userHasLookup(
-                            hasAppearanceById,
-                            hasAppearanceBySource,
-                            lookupType,
-                            lookupId,
-                            {
-                                appearanceIds: item.appearanceIds,
-                                completionist: masochist,
-                                modifier: item.appearanceModifier,
-                            }
-                        );
-
-                        // Skip unavailable illusions
-                        if (
-                            lookupType === LookupType.Illusion &&
-                            item.appearanceIds?.length > 0 &&
-                            unavailableIllusions.indexOf(item.appearanceIds[0]) >= 0 &&
-                            !hasDrop
-                        ) {
-                            continue;
-                        }
-
-                        const thingKey = `${item.type}|${item.id}|${(item.bonusIds || []).join(',')}`;
-
+                    if (hasDrop) {
                         if (!seen[thingKey]) {
-                            overallStats.total++;
+                            overallStats.have++;
                         }
 
                         for (const parentStat of parentStats) {
-                            parentStat.total++;
+                            parentStat.have++;
                         }
 
-                        catStats.total++;
-                        groupStats.total++;
+                        catStats.have++;
+                        groupStats.have++;
 
-                        if (hasDrop) {
-                            if (!seen[thingKey]) {
-                                overallStats.have++;
-                            }
+                        userHas[thingKey] = true;
+                    }
 
-                            for (const parentStat of parentStats) {
-                                parentStat.have++;
-                            }
+                    seen[thingKey] = true;
 
-                            catStats.have++;
-                            groupStats.have++;
+                    if (
+                        (hasDrop && !vendorState.showCollected) ||
+                        (!hasDrop && !vendorState.showUncollected)
+                    ) {
+                        continue;
+                    }
 
-                            userHas[thingKey] = true;
+                    sellsFiltered.push(item);
+                } // item of group.sells
+
+                sellsFiltered.sort((a, b) => {
+                    if (a.classMask in PlayableClassMask && b.classMask in PlayableClassMask) {
+                        const aSpecs = wowthingData.items.specOverrides[a.id];
+                        const bSpecs = wowthingData.items.specOverrides[b.id];
+                        if (aSpecs?.length > 0 && bSpecs?.length > 0) {
+                            const aSpecString = aSpecs
+                                .map(
+                                    (id) =>
+                                        wowthingData.static.characterSpecializationById.get(id)
+                                            .order
+                                )
+                                .join('-');
+                            const bSpecString = bSpecs
+                                .map(
+                                    (id) =>
+                                        wowthingData.static.characterSpecializationById.get(id)
+                                            .order
+                                )
+                                .join('-');
+                            return aSpecString.localeCompare(bSpecString);
                         }
+                    }
 
-                        seen[thingKey] = true;
+                    return 0;
+                });
 
-                        if (
-                            (hasDrop && !vendorState.showCollected) ||
-                            (!hasDrop && !vendorState.showUncollected)
-                        ) {
-                            continue;
-                        }
+                group.sellsFiltered = sellsFiltered;
+                group.stats = groupStats;
+            } // group of category.groups
 
-                        group.sellsFiltered.push(item);
-                    } // item of group.sells
-
-                    group.sellsFiltered.sort((a, b) => {
-                        if (a.classMask in PlayableClassMask && b.classMask in PlayableClassMask) {
-                            const aSpecs = wowthingData.items.specOverrides[a.id];
-                            const bSpecs = wowthingData.items.specOverrides[b.id];
-                            if (aSpecs?.length > 0 && bSpecs?.length > 0) {
-                                const aSpecString = aSpecs
-                                    .map(
-                                        (id) =>
-                                            wowthingData.static.characterSpecializationById.get(id)
-                                                .order
-                                    )
-                                    .join('-');
-                                const bSpecString = bSpecs
-                                    .map(
-                                        (id) =>
-                                            wowthingData.static.characterSpecializationById.get(id)
-                                                .order
-                                    )
-                                    .join('-');
-                                return aSpecString.localeCompare(bSpecString);
-                            }
-                        }
-
-                        return 0;
-                    });
-
-                    group.stats = groupStats;
-                } // group of category.groups
-
-                for (const childCategory of category.children) {
-                    buildCategoryStats(childCategory, catKey, [...parentStats, catStats]);
-                }
-            };
-
-            buildCategoryStats(rootCategory, '', []);
+            for (const childCategory of category.children.filter((child) => !!child)) {
+                queue.push([childCategory, [...slugs, childCategory.slug]]);
+            }
         }
 
         return {
@@ -376,6 +370,9 @@ class LazyVendorsProcessor {
         };
     }
 
+    // recursively visit categories and do some initial setup work:
+    // - generate auto groups
+    // - ??
     private visitCategory(category: ManualDataVendorCategory) {
         if (category === null) {
             return;
@@ -393,9 +390,6 @@ class LazyVendorsProcessor {
             }
 
             const autoSeen: Record<string, ManualDataVendorItem> = {};
-
-            // Remove any auto groups
-            childCategory.groups = childCategory.groups.filter((group) => group.auto !== true);
 
             // Find useful vendors
             const dbMap: Record<number, ManualDataSharedVendor> = {};

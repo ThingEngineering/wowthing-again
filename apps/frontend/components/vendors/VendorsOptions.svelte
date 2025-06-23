@@ -1,26 +1,26 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons';
-    import { VendorState, vendorState } from '@/stores/local-storage';
+    import { browserState } from '@/shared/state/browser.svelte';
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
-    function getFilters(state: VendorState): string {
+    let filters = $derived.by(() => {
         let byType1: string[] = [];
         let byType2: string[] = [];
         let byThing: string[] = [];
         let bySet: string[] = [];
 
-        if (state.showCloth) {
+        if (browserState.current.vendors.showCloth) {
             byType1.push('C');
         }
-        if (state.showLeather) {
+        if (browserState.current.vendors.showLeather) {
             byType1.push('L');
         }
-        if (state.showMail) {
+        if (browserState.current.vendors.showMail) {
             byType1.push('M');
         }
-        if (state.showPlate) {
+        if (browserState.current.vendors.showPlate) {
             byType1.push('P');
         }
 
@@ -30,13 +30,13 @@
             byType1 = ['ALL'];
         }
 
-        if (state.showCloaks) {
+        if (browserState.current.vendors.showCloaks) {
             byType2.push('C');
         }
-        if (state.showCosmetics) {
+        if (browserState.current.vendors.showCosmetics) {
             byType2.push('O');
         }
-        if (state.showWeapons) {
+        if (browserState.current.vendors.showWeapons) {
             byType2.push('W');
         }
 
@@ -46,22 +46,22 @@
             byType2 = ['ALL'];
         }
 
-        if (state.showDragonriding) {
+        if (browserState.current.vendors.showDragonriding) {
             byThing.push('D');
         }
-        if (state.showIllusions) {
+        if (browserState.current.vendors.showIllusions) {
             byThing.push('I');
         }
-        if (state.showMounts) {
+        if (browserState.current.vendors.showMounts) {
             byThing.push('M');
         }
-        if (state.showPets) {
+        if (browserState.current.vendors.showPets) {
             byThing.push('P');
         }
-        if (state.showRecipes) {
+        if (browserState.current.vendors.showRecipes) {
             byThing.push('R');
         }
-        if (state.showToys) {
+        if (browserState.current.vendors.showToys) {
             byThing.push('T');
         }
 
@@ -71,13 +71,13 @@
             byThing = ['ALL'];
         }
 
-        if (state.showPvp) {
+        if (browserState.current.vendors.showPvp) {
             bySet.push('P');
         }
-        if (state.showTier) {
+        if (browserState.current.vendors.showTier) {
             bySet.push('T');
         }
-        if (state.showAwakened) {
+        if (browserState.current.vendors.showAwakened) {
             bySet.push('A');
         }
 
@@ -88,7 +88,7 @@
         }
 
         return `${byType1.join('')} | ${byType2.join('')} | ${byThing.join('')} | ${bySet.join('')}`;
-    }
+    });
 </script>
 
 <style lang="scss">
@@ -121,7 +121,9 @@
 
 <div class="options-container">
     <button>
-        <CheckboxInput name="highlight_missing" bind:value={$vendorState.highlightMissing}
+        <CheckboxInput
+            name="highlight_missing"
+            bind:value={browserState.current.vendors.highlightMissing}
             >Highlight missing</CheckboxInput
         >
     </button>
@@ -129,7 +131,7 @@
     <span>Show:</span>
 
     <button>
-        <CheckboxInput name="show_collected" bind:value={$vendorState.showCollected}
+        <CheckboxInput name="show_collected" bind:value={browserState.current.vendors.showCollected}
             >Collected</CheckboxInput
         >
     </button>
@@ -137,67 +139,76 @@
     <button>
         <CheckboxInput
             name="show_collected_prices"
-            disabled={!$vendorState.showCollected}
-            bind:value={$vendorState.showCollectedPrices}>Collected Prices</CheckboxInput
+            disabled={!browserState.current.vendors.showCollected}
+            bind:value={browserState.current.vendors.showCollectedPrices}
+            >Collected Prices</CheckboxInput
         >
     </button>
 
     <button>
-        <CheckboxInput name="show_uncollected" bind:value={$vendorState.showUncollected}
-            >Missing</CheckboxInput
+        <CheckboxInput
+            name="show_uncollected"
+            bind:value={browserState.current.vendors.showUncollected}>Missing</CheckboxInput
         >
     </button>
 
     <button
         class="filters-toggle"
-        on:click={() => ($vendorState.filtersExpanded = !$vendorState.filtersExpanded)}
+        onclick={() =>
+            (browserState.current.vendors.filtersExpanded =
+                !browserState.current.vendors.filtersExpanded)}
     >
-        Filters: {getFilters($vendorState)}
+        Filters: {filters}
 
         <IconifyIcon
-            icon={iconStrings['chevron-' + ($vendorState.filtersExpanded ? 'down' : 'right')]}
+            icon={iconStrings[
+                'chevron-' + (browserState.current.vendors.filtersExpanded ? 'down' : 'right')
+            ]}
         />
     </button>
 </div>
 
-{#if $vendorState.filtersExpanded}
+{#if browserState.current.vendors.filtersExpanded}
     <div class="options-container filters-container">
         <span>Types:</span>
 
         <button>
-            <CheckboxInput name="show_cloth" bind:value={$vendorState.showCloth}
+            <CheckboxInput name="show_cloth" bind:value={browserState.current.vendors.showCloth}
                 >Cloth</CheckboxInput
             >
         </button>
 
         <button>
-            <CheckboxInput name="show_leather" bind:value={$vendorState.showLeather}
+            <CheckboxInput name="show_leather" bind:value={browserState.current.vendors.showLeather}
                 >Leather</CheckboxInput
             >
         </button>
 
         <button>
-            <CheckboxInput name="show_mail" bind:value={$vendorState.showMail}>Mail</CheckboxInput>
+            <CheckboxInput name="show_mail" bind:value={browserState.current.vendors.showMail}
+                >Mail</CheckboxInput
+            >
         </button>
 
         <button>
-            <CheckboxInput name="show_plate" bind:value={$vendorState.showPlate}
+            <CheckboxInput name="show_plate" bind:value={browserState.current.vendors.showPlate}
                 >Plate</CheckboxInput
             >
         </button>
 
         <button class="margin-left">
-            <CheckboxInput name="show_cloaks" bind:value={$vendorState.showCloaks}
+            <CheckboxInput name="show_cloaks" bind:value={browserState.current.vendors.showCloaks}
                 >Cloaks</CheckboxInput
             >
         </button>
         <button>
-            <CheckboxInput name="show_cosmetics" bind:value={$vendorState.showCosmetics}
-                >Cosmetics</CheckboxInput
+            <CheckboxInput
+                name="show_cosmetics"
+                bind:value={browserState.current.vendors.showCosmetics}>Cosmetics</CheckboxInput
             >
         </button>
         <button>
-            <CheckboxInput name="show_weapons" bind:value={$vendorState.showWeapons}
+            <CheckboxInput name="show_weapons" bind:value={browserState.current.vendors.showWeapons}
                 >Weapons</CheckboxInput
             >
         </button>
@@ -207,35 +218,42 @@
         <span>Things:</span>
 
         <button>
-            <CheckboxInput name="show_dragonriding" bind:value={$vendorState.showDragonriding}
+            <CheckboxInput
+                name="show_dragonriding"
+                bind:value={browserState.current.vendors.showDragonriding}
                 >Dragonriding</CheckboxInput
             >
         </button>
 
         <button>
-            <CheckboxInput name="show_illusions" bind:value={$vendorState.showIllusions}
-                >Illusions</CheckboxInput
+            <CheckboxInput
+                name="show_illusions"
+                bind:value={browserState.current.vendors.showIllusions}>Illusions</CheckboxInput
             >
         </button>
 
         <button>
-            <CheckboxInput name="show_mounts" bind:value={$vendorState.showMounts}
+            <CheckboxInput name="show_mounts" bind:value={browserState.current.vendors.showMounts}
                 >Mounts</CheckboxInput
             >
         </button>
 
         <button>
-            <CheckboxInput name="show_pets" bind:value={$vendorState.showPets}>Pets</CheckboxInput>
+            <CheckboxInput name="show_pets" bind:value={browserState.current.vendors.showPets}
+                >Pets</CheckboxInput
+            >
         </button>
 
         <button>
-            <CheckboxInput name="show_recipes" bind:value={$vendorState.showRecipes}
+            <CheckboxInput name="show_recipes" bind:value={browserState.current.vendors.showRecipes}
                 >Recipes</CheckboxInput
             >
         </button>
 
         <button>
-            <CheckboxInput name="show_toys" bind:value={$vendorState.showToys}>Toys</CheckboxInput>
+            <CheckboxInput name="show_toys" bind:value={browserState.current.vendors.showToys}
+                >Toys</CheckboxInput
+            >
         </button>
     </div>
 
@@ -243,16 +261,21 @@
         <span>Sets:</span>
 
         <button>
-            <CheckboxInput name="show_pvp" bind:value={$vendorState.showPvp}>PvP</CheckboxInput>
+            <CheckboxInput name="show_pvp" bind:value={browserState.current.vendors.showPvp}
+                >PvP</CheckboxInput
+            >
         </button>
 
         <button>
-            <CheckboxInput name="show_tier" bind:value={$vendorState.showTier}>Tier</CheckboxInput>
+            <CheckboxInput name="show_tier" bind:value={browserState.current.vendors.showTier}
+                >Tier</CheckboxInput
+            >
         </button>
 
         <button class="margin-left">
-            <CheckboxInput name="show_awakened" bind:value={$vendorState.showAwakened}
-                >Awakened</CheckboxInput
+            <CheckboxInput
+                name="show_awakened"
+                bind:value={browserState.current.vendors.showAwakened}>Awakened</CheckboxInput
             >
         </button>
     </div>

@@ -3,7 +3,7 @@ import type { FarmIdType } from '@/enums/farm-id-type';
 import type { FarmResetType } from '@/enums/farm-reset-type';
 import type { FarmType } from '@/enums/farm-type';
 import type { RewardType } from '@/enums/reward-type';
-import type { ManualDataVendorItem } from './vendor';
+import type { ManualDataVendorItem } from './vendor.svelte';
 
 export class ManualDataZoneMapCategory {
     public farms: ManualDataZoneMapFarm[];

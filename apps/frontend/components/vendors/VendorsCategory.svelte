@@ -6,14 +6,20 @@
     import Group from './VendorsGroup.svelte';
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
 
-    export let category: ManualDataVendorCategory;
-    export let costs: Record<number, number>;
-    export let statsSlug: string;
-    export let title: string;
+    type Props = {
+        category: ManualDataVendorCategory;
+        costs: Record<number, number>;
+        statsSlug: string;
+        title: string;
+    };
+    let { category, costs, statsSlug, title }: Props = $props();
 
-    $: useV2 =
+    console.log(category);
+
+    let useV2 = $derived(
         category.groups.length > 3 &&
-        category.groups.reduce((a, b) => a + b.sellsFiltered.length, 0) > 30;
+            category.groups.reduce((a, b) => a + b.sellsFiltered.length, 0) > 30
+    );
 </script>
 
 <style lang="scss">
@@ -29,8 +35,6 @@
 
 <div class="collection{useV2 ? '-v2' : ''}-section">
     {#each category.groups as group}
-        {#if group.sellsFiltered.length > 0}
-            <Group {group} {useV2} />
-        {/if}
+        <Group {group} {useV2} />
     {/each}
 </div>

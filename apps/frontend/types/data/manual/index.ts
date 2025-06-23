@@ -6,5 +6,5 @@ export * from './set';
 export * from './shared-vendor';
 export * from './store';
 export * from './transmog';
-export * from './vendor';
+export * from './vendor.svelte';
 export * from './zone-map';
