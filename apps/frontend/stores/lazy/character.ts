@@ -137,34 +137,15 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                         charTask.statusTexts = getObjectivesText(questProgress.objectives);
                     }
 
-                    if (choreTask.questReset === DbResetType.Custom) {
-                        charTask.quest.expires = choreTask
-                            .customExpiryFunc(character, charScanned)
-                            .toUnixInteger();
-                    }
+                    charTask.quest.expires ||= getExpiry(choreTask, character, charScanned);
 
                     break;
                 }
 
                 // is the quest completed?
                 if (stores.userQuestData.characters[character.id]?.quests?.has(questId)) {
-                    let expiresAt: DateTime;
-                    if (choreTask.questReset === DbResetType.Weekly) {
-                        expiresAt = getNextWeeklyResetFromTime(
-                            charScanned,
-                            character.realm?.region || Region.US
-                        );
-                    } else if (choreTask.questReset === DbResetType.Custom) {
-                        expiresAt = choreTask.customExpiryFunc(character, charScanned);
-                    } else {
-                        expiresAt = getNextDailyResetFromTime(
-                            charScanned,
-                            character.realm?.region || Region.US
-                        );
-                    }
-
                     charTask.quest = {
-                        expires: expiresAt.toUnixInteger(),
+                        expires: getExpiry(choreTask, character, charScanned),
                         id: questId,
                         name: wowthingData.static.questNameById.get(questId) || choreTask.taskName,
                         objectives: [],
@@ -286,18 +267,13 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
 
                     let charTask: LazyCharacterChoreTask;
                     if (choreTask.accountWide) {
-                        charTask = accountTasks[choreTask.taskKey] ||= sortBy(
-                            Object.entries(stores.userQuestData.characters).map(
-                                ([charId, charQuests]) => {
-                                    const charTask = processTask(
-                                        choreTask,
-                                        userState.general.characterById[parseInt(charId)]
-                                    );
-                                    return [charTask.status, charQuests.scannedAt, charTask];
-                                }
-                            ),
-                            ([status, scannedAt]) => `${status}|${scannedAt}`
-                        ).at(-1)?.[2] as LazyCharacterChoreTask;
+                        charTask = accountTasks[choreTask.taskKey];
+                        if (!charTask || charTask.status < QuestStatus.Completed) {
+                            const newCharTask = processTask(choreTask, character);
+                            if (!charTask || newCharTask.status > charTask.status) {
+                                charTask = accountTasks[choreTask.taskKey] = newCharTask;
+                            }
+                        }
                     } else {
                         charTask = processTask(choreTask, character);
                     }
@@ -881,4 +857,17 @@ function getStarHtml(fullState = false, halfState = false, emptyState = false): 
     }
 
     return 'ERROR';
+}
+function getExpiry(choreTask: Chore, character: Character, charScanned: DateTime): number {
+    let expiresAt: DateTime;
+
+    if (choreTask.questReset === DbResetType.Weekly) {
+        expiresAt = getNextWeeklyResetFromTime(charScanned, character.realm?.region || Region.US);
+    } else if (choreTask.questReset === DbResetType.Custom) {
+        expiresAt = choreTask.customExpiryFunc(character, charScanned);
+    } else {
+        expiresAt = getNextDailyResetFromTime(charScanned, character.realm?.region || Region.US);
+    }
+
+    return expiresAt?.toUnixInteger();
 }
