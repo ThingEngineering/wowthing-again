@@ -7,6 +7,7 @@ import {
     UserQuestDataCharacterProgress,
     type UserQuestDataCharacterProgressArray,
 } from '@/types/data';
+import { timeState } from '@/shared/state/time.svelte';
 
 export class CharacterQuests {
     public hasQuestById = new SvelteSet<number>();
@@ -25,6 +26,7 @@ export class CharacterQuests {
             return;
         }
 
+        const currentTime = timeState.time.toUnixInteger();
         this.scannedAt = scannedAt;
         this.scannedTime = parseApiTime(scannedAt);
 
@@ -45,6 +47,12 @@ export class CharacterQuests {
 
         const seenKeys = new Set<string>();
         for (const [key, progressQuestArray] of Object.entries(progressQuestArrayMap || {})) {
+            // skip any quests that we know are expired
+            const expires = progressQuestArray[2];
+            if (expires > 0 && expires < currentTime) {
+                continue;
+            }
+
             seenKeys.add(key);
 
             const existingQuest = this.progressQuestByKey.get(key);

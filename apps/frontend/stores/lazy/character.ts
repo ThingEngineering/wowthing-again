@@ -32,6 +32,7 @@ import type {
 } from '@/types/data';
 import type { Chore } from '@/types/tasks';
 import type { ActiveHolidays } from '../derived/active-holidays';
+import { timeState } from '@/shared/state/time.svelte';
 
 export interface LazyCharacter {
     chores: Record<string, LazyCharacterChore>;
@@ -108,6 +109,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
 }
 
 function doCharacterTasks(stores: LazyStores, character: Character, characterData: LazyCharacter) {
+    const currentTime = timeState.time.toUnixInteger();
     const customTaskMap = settingsState.customTaskMap;
     const charQuests = stores.userQuestData.characters[character?.id];
     const charScanned = charQuests?.scannedTime;
@@ -161,19 +163,21 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                         );
                     }
 
-                    if (expiresAt > stores.currentTime) {
-                        charTask.quest = {
-                            expires: expiresAt.toUnixInteger(),
-                            id: questId,
-                            name:
-                                wowthingData.static.questNameById.get(questId) ||
-                                choreTask.taskName,
-                            objectives: [],
-                            status: QuestStatus.Completed,
-                        };
-                    }
+                    charTask.quest = {
+                        expires: expiresAt.toUnixInteger(),
+                        id: questId,
+                        name: wowthingData.static.questNameById.get(questId) || choreTask.taskName,
+                        objectives: [],
+                        status: QuestStatus.Completed,
+                    };
+                    charTask.status = QuestStatus.Completed;
                     break;
                 }
+            }
+
+            if (charTask.quest && charTask.quest.expires < currentTime) {
+                charTask.quest = undefined;
+                charTask.status = QuestStatus.NotStarted;
             }
         } else {
             charTask.quest = charQuests?.progressQuests?.[choreTask.taskKey];
