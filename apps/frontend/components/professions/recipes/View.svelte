@@ -10,6 +10,7 @@
     import { lazyStore, userQuestStore } from '@/stores';
     import { newNavState, professionsRecipesState } from '@/stores/local-storage';
     import { basicTooltip } from '@/shared/utils/tooltips';
+    import { userState } from '@/user-home/state/user';
     import { useCharacterFilter } from '@/utils/characters';
     import type { Character, Expansion } from '@/types';
     import type {
@@ -26,7 +27,6 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
-    import { userState } from '@/user-home/state/user';
 
     export let expansion: Expansion;
     export let profession: StaticDataProfession;

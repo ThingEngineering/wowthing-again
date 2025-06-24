@@ -51,6 +51,7 @@
 {#if chore?.countTotal === 0}
     <td
         class="sized b-l status-fail"
+        data-chore={choreName}
         use:componentTooltip={{
             component: Tooltip,
             props: {
@@ -71,6 +72,8 @@
             (notStarted === 0 && chore.countCompleted < chore.countTotal)}
         class:status-success={chore.status === QuestStatus.Completed}
         class:ready={chore.anyReady}
+        data-chore={choreName}
+        data-task={taskName}
         use:componentTooltip={{
             component: Tooltip,
             props: {
@@ -89,6 +92,12 @@
                 <IconifyIcon icon={uiIcons.starEmpty} />
             {:else}
                 {chore.countCompleted} / {chore.countTotal}
+            {/if}
+        {:else if chore.countTotal === 1}
+            {#if chore.countCompleted === 0}
+                Get!
+            {:else}
+                Done
             {/if}
         {:else}
             {chore.countCompleted} / {chore.countTotal}
