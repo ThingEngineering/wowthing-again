@@ -141,6 +141,9 @@ export const openables = new Set<number>([
     239489, // Radiant Officer's Cache
     239546, // Confiscated Cultist's Bag
     242386, // Lorewalker's Crate of Memorabilia
+    244466, // Dagran's Pouch of Shards
+    244696, // Overcharged Chest
+    244848, // Severed Threads Commendation
 
     221269, // Crimson Valorstone
     225896, // Void-Touched Valorstone

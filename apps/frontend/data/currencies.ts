@@ -302,6 +302,7 @@ export const currencyItems: Record<number, number[]> = {
         238920, // Radiant Emblem of Service
         null,
         237502, // Puzzling Cartel Chip
+        244465, // Titan Disc Shards
     ],
     // The War Within - Season 1
     126011: [
