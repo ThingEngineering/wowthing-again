@@ -106,6 +106,7 @@ public class ApplicationUserSettings
         "professionWorkOrders",
         "professions",
         "professionsSecondary",
+        "progress",
         "restedExperience",
         "statusIcons",
         "tasks",
@@ -433,6 +434,7 @@ public class ApplicationUserSettingsView
     public List<int> HomeCurrencies { get; set; } = new();
     public List<int> HomeItems { get; set; } = new();
     public List<int> HomeLockouts { get; set; } = new();
+    public List<string> HomeProgress { get; set; } = new();
     public List<string> HomeTasks { get; set; } = new();
 
     public Dictionary<string, List<string>> DisabledChores { get; set; } = new();
