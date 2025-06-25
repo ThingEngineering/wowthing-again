@@ -42,6 +42,13 @@ export const actualHolidayTasks: Task[] = [
         type: 'multi',
     },
     {
+        key: 'holidayMidsummer',
+        minimumLevel: 10,
+        name: '[Event] Midsummer Fire Festival',
+        shortName: '🔥',
+        type: 'multi',
+    },
+    {
         key: 'holidayNoblegarden',
         minimumLevel: 1,
         name: '[Event] Noblegarden',
@@ -280,6 +287,16 @@ export const actualHolidayChores: Record<string, Chore[]> = {
                 78727, // The Gift of Self-Care [Nap, A]
                 78979, // The Gift of Self-Care [Nap, H]
             ],
+            questReset: DbResetType.Daily,
+        },
+    ],
+    holidayMidsummer: [
+        {
+            minimumLevel: 10,
+            taskKey: 'midsummerAhune',
+            taskName: 'Ahune [Account]',
+            accountWide: true,
+            questIds: [83134],
             questReset: DbResetType.Daily,
         },
     ],
