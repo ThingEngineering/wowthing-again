@@ -27,6 +27,7 @@ public class ApplicationUserSettings
     public Dictionary<int, ApplicationUserSettingsAccount> Accounts { get; set; } = new();
     public List<ApplicationUserSettingsCustomGroup>? CustomGroups { get; set; } = new();
     public List<ApplicationUserSettingsCustomTask>? CustomTasks { get; set; } = new();
+    public Dictionary<int, string> GuildNames { get; set; } = new();
     public List<ApplicationUserSettingsTag>? Tags { get; set; } = new();
     public List<ApplicationUserSettingsView>? Views { get; set; } = new();
 
