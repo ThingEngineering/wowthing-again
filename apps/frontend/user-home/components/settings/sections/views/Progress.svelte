@@ -4,6 +4,7 @@
 
     import MagicLists from '../../MagicLists.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
+    import { expansionOrder } from '@/data/expansion';
 
     let { active, view = $bindable() }: { active: boolean; view: SettingsView } = $props();
 
@@ -12,23 +13,34 @@
     let progressChoices = $derived.by(() => {
         const ret: SettingsChoice[] = [];
 
-        for (let i = 0; i < wowthingData.manual.progressSets.length; i++) {
-            const progressSets = wowthingData.manual.progressSets[i];
-            if (progressSets === null) {
+        for (const categories of wowthingData.manual.progressSets.filter((p) => !!p)) {
+            let { name: setName, slug: setSlug } = categories[0];
+            if (['Dungeons', 'Raid Skips', 'Travel', 'Upgrades'].includes(setName)) {
                 continue;
             }
 
-            const categoryName = progressSets[0].name;
-            for (let j = 1; j < progressSets.length; j++) {
-                const progressSet = progressSets[j];
-                if (progressSet === null) {
+            const expansion = expansionOrder.find((expansion) => expansion.name === setName);
+            if (expansion) {
+                setName = expansion.shortName;
+            }
+
+            for (let categoryIndex = 1; categoryIndex < categories.length; categoryIndex++) {
+                const category = categories[categoryIndex];
+                if (category === null || category.name === 'separator') {
                     continue;
                 }
 
-                ret.push({
-                    id: `${i}_${j}`,
-                    name: `[${categoryName}] ${progressSet.name}`,
-                });
+                for (let groupIndex = 0; groupIndex < category.groups.length; groupIndex++) {
+                    const group = category.groups[groupIndex];
+                    if (group === null || group.name === 'separator') {
+                        continue;
+                    }
+
+                    ret.push({
+                        id: `${setSlug}|${category.slug}|${groupIndex}`,
+                        name: `[${setName}] ${category.name} > ${group.name}`,
+                    });
+                }
             }
         }
 
