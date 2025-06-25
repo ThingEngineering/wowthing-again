@@ -160,7 +160,7 @@
         }
         const sqrt = Math.ceil(Math.sqrt(len));
         // border + padding + icons
-        return `calc(2px + 0.2rem + (24px * ${sqrt})`;
+        return `calc(2px + 0.2rem + (24px * ${sqrt}))`;
     };
 
     const getAnchorX = function (farm: ManualDataZoneMapFarm): string {
