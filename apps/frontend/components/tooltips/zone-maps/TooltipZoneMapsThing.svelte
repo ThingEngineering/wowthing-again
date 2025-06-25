@@ -40,7 +40,7 @@
     let statistic: number;
     $: {
         const sigh: [ManualDataZoneMapDrop, DropStatus][] = [];
-        for (let dropIndex = 0; dropIndex < drops.length; dropIndex++) {
+        for (let dropIndex = 0; dropIndex < (drops || []).length; dropIndex++) {
             sigh.push([drops[dropIndex], status.drops[dropIndex]]);
         }
 
