@@ -8,6 +8,7 @@
     import Grouping from './Grouping.svelte';
     import Items from './Items.svelte';
     import Lockouts from './Lockouts.svelte';
+    import Progress from './Progress.svelte';
     import Sorting from './Sorting.svelte';
     import TableSettings from './TableSettings.svelte';
     import Tasks from './Tasks.svelte';
@@ -81,9 +82,10 @@
 
         <TableSettings bind:view />
 
-        <Currencies active={view.homeFields.indexOf('currencies') >= 0} bind:view />
-        <Items active={view.homeFields.indexOf('items') >= 0} bind:view />
-        <Lockouts active={view.homeFields.indexOf('lockouts') >= 0} bind:view />
-        <Tasks active={view.homeFields.indexOf('tasks') >= 0} bind:view />
+        <Currencies active={view.homeFields.includes('currencies')} bind:view />
+        <Items active={view.homeFields.includes('items')} bind:view />
+        <Lockouts active={view.homeFields.includes('lockouts')} bind:view />
+        <Progress active={view.homeFields.includes('progress')} bind:view />
+        <Tasks active={view.homeFields.includes('tasks')} bind:view />
     {/key}
 {/if}

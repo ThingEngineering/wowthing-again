@@ -15,6 +15,7 @@ export interface SettingsView {
     homeCurrencies: number[];
     homeItems: number[];
     homeLockouts: number[];
+    homeProgress: string[];
     homeTasks: string[];
 
     disabledChores: Record<string, string[]>;

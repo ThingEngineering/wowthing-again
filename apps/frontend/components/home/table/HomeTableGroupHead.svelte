@@ -16,6 +16,7 @@
     import HeadHearthLocation from './head/HomeTableHeadHearthLocation.svelte';
     import HeadItems from './head/HomeTableHeadItems.svelte';
     import HeadLockouts from './head/HomeTableHeadLockouts.svelte';
+    import HeadProgress from './head/HomeTableHeadProgress.svelte';
     import HeadTasks from './head/HomeTableHeadTasks.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import RowGold from './row/HomeTableRowGold.svelte';
@@ -194,6 +195,8 @@
             <td>Professions</td>
         {:else if field === 'professionsSecondary'}
             <td>Secondary Profs</td>
+        {:else if field === 'progress'}
+            <HeadProgress {sortKey} />
         {:else if field === 'restedExperience'}
             {#if !isPublic}
                 {@const sortField = 'restedExperience'}

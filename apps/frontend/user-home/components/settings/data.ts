@@ -35,6 +35,7 @@ export const homeChoices: SettingsChoice[] = [
     { id: 'professionConcentration', name: 'Profession Concentration' },
     { id: 'professionCooldowns', name: 'Profession Cooldowns' },
     { id: 'professionWorkOrders', name: 'Profession Work Orders' },
+    { id: 'progress', name: 'Progress' },
     { id: 'restedExperience', name: 'Rested XP' },
     { id: 'statusIcons', name: 'Status icons' },
     { id: 'tasks', name: 'Tasks' },

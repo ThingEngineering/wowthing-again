@@ -27,6 +27,7 @@ public class ApplicationUserSettings
     public Dictionary<int, ApplicationUserSettingsAccount> Accounts { get; set; } = new();
     public List<ApplicationUserSettingsCustomGroup>? CustomGroups { get; set; } = new();
     public List<ApplicationUserSettingsCustomTask>? CustomTasks { get; set; } = new();
+    public Dictionary<int, string> GuildNames { get; set; } = new();
     public List<ApplicationUserSettingsTag>? Tags { get; set; } = new();
     public List<ApplicationUserSettingsView>? Views { get; set; } = new();
 
@@ -105,6 +106,7 @@ public class ApplicationUserSettings
         "professionWorkOrders",
         "professions",
         "professionsSecondary",
+        "progress",
         "restedExperience",
         "statusIcons",
         "tasks",
@@ -432,6 +434,7 @@ public class ApplicationUserSettingsView
     public List<int> HomeCurrencies { get; set; } = new();
     public List<int> HomeItems { get; set; } = new();
     public List<int> HomeLockouts { get; set; } = new();
+    public List<string> HomeProgress { get; set; } = new();
     public List<string> HomeTasks { get; set; } = new();
 
     public Dictionary<string, List<string>> DisabledChores { get; set; } = new();

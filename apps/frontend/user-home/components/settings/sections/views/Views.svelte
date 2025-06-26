@@ -22,6 +22,7 @@
             homeCurrencies: [],
             homeItems: [],
             homeLockouts: [],
+            homeProgress: [],
             homeTasks: [],
             disabledChores: {},
         };
