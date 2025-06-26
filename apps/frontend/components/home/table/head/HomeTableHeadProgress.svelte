@@ -4,6 +4,7 @@
     import { activeViewProgress } from '@/user-home/state/activeViewProgress.svelte';
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { basicTooltip } from '@/shared/utils/tooltips';
 
     let { sortKey }: { sortKey: string } = $props();
 
@@ -29,6 +30,7 @@
         data-progress={progressKey}
         onclick={() => setSorting(sortField)}
         onkeypress={() => setSorting(sortField)}
+        use:basicTooltip={group.name}
     >
         <WowthingImage name={group.icon} size={16} border={1} />
     </td>
