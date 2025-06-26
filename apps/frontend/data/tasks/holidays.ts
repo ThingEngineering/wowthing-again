@@ -338,15 +338,15 @@ export const actualHolidayChores: Record<string, Chore[]> = {
     ],
     holidayWinterVeil: [
         {
+            taskKey: 'merryMeanOneHigh',
+            taskName: `...You're a Mean One &gte; ${Constants.characterMaxLevel - 10}`,
             minimumLevel: Constants.characterMaxLevel - 10,
-            taskKey: 'merryMeanOne',
-            taskName: "...You're a Mean One",
         },
         {
+            taskKey: 'merryMeanOneLow',
+            taskName: `...You're a Mean One &lt; ${Constants.characterMaxLevel - 10}`,
             minimumLevel: 30,
             maximumLevel: Constants.characterMaxLevel - 11,
-            taskKey: 'merryMeanOneSplit',
-            taskName: `...You're a Mean One (<${Constants.characterMaxLevel - 10})`,
         },
         {
             minimumLevel: 40,
