@@ -43,7 +43,7 @@
 </style>
 
 <div class="view">
-    <CollectibleSidebar includeSearch={true} {sets} />
+    <CollectibleSidebar includeSearch={route === 'pets'} {sets} />
 
     {#if params.slug1 === 'search'}
         <PetSearch />
