@@ -4,8 +4,7 @@
 
     import Collectible from './Collectible.svelte';
 
-    export let basePath = '';
-    export let params: MultiSlugParams;
+    let { basePath = '', params }: { basePath: string; params: MultiSlugParams } = $props();
 </script>
 
 <Collectible
