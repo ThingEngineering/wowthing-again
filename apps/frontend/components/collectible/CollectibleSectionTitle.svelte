@@ -1,17 +1,13 @@
 <script lang="ts">
-    import getPercentClass from '@/utils/get-percent-class'
-    import type { UserCount } from '@/types'
+    import getPercentClass from '@/utils/get-percent-class';
+    import type { UserCount } from '@/types';
 
-    import Count from '@/components/collectible/CollectibleCount.svelte'
-    import ParsedText from '../../shared/components/parsed-text/ParsedText.svelte'
+    import Count from '@/components/collectible/CollectibleCount.svelte';
+    import ParsedText from '../../shared/components/parsed-text/ParsedText.svelte';
 
-    export let count: UserCount = undefined
-    export let title: string
+    let { count, title }: { count?: UserCount; title: string } = $props();
 
-    let percent: number
-    $: {
-        percent = Math.floor((count?.have ?? 0) / (count?.total ?? 1) * 100)
-    }
+    let percent = $derived(Math.floor(((count?.have ?? 0) / (count?.total ?? 1)) * 100));
 </script>
 
 <style lang="scss">
@@ -40,7 +36,7 @@
 </style>
 
 <div>
-    <h3 class="{getPercentClass(percent)}">
+    <h3 class={getPercentClass(percent)}>
         <ParsedText text={title} />
     </h3>
     {#if count}

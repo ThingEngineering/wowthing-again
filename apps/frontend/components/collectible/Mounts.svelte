@@ -5,8 +5,7 @@
 
     import Collectible from './Collectible.svelte';
 
-    export let basePath = '';
-    export let params: MultiSlugParams;
+    let { basePath = '', params }: { basePath: string; params: MultiSlugParams } = $props();
 
     const thingMapFunc = (thing: number) => wowthingData.static.mountById.get(thing)?.spellId;
 </script>

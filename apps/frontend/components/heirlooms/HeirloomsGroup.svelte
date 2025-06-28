@@ -7,14 +7,12 @@
     import Count from '@/components/collectible/CollectibleCount.svelte';
     import Item from './HeirloomsItem.svelte';
 
-    export let group: ManualDataHeirloomGroup;
+    let { group }: { group: ManualDataHeirloomGroup } = $props();
 
-    $: groupCount = userState.heirloomStats[group.name];
-    $: isUnavailable = group.name.startsWith('Unavailable - ');
-    $: show = !(
-        settingsState.value.collections.hideUnavailable &&
-        isUnavailable &&
-        groupCount.have === 0
+    let groupCount = $derived(userState.heirloomStats[group.name]);
+    let isUnavailable = $derived(group.name.startsWith('Unavailable - '));
+    let show = $derived(
+        !(settingsState.value.collections.hideUnavailable && isUnavailable && groupCount.have === 0)
     );
 </script>
 
