@@ -27,7 +27,7 @@
     th {
         @include cell-width($width-lockout);
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         padding: 0.3rem 0;
         text-align: center;
         white-space: nowrap;

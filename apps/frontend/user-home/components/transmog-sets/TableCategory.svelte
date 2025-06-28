@@ -106,7 +106,7 @@
             z-index: 1;
         }
         .icon {
-            border-left: 1px solid $border-color;
+            border-left: 1px solid var(--border-color);
         }
     }
     .category-name {
@@ -165,7 +165,7 @@
     .percent-cell {
         @include cell-width(2.8rem);
 
-        border-right: 1px solid $border-color;
+        border-right: 1px solid var(--border-color);
         text-align: right;
         word-spacing: -0.2ch;
     }

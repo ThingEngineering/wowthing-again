@@ -4,7 +4,7 @@
     a {
         background: darken(#0074e0, 15%);
         border: 1px solid #0074e0;
-        border-radius: $border-radius;
+        border-radius: var(--border-radius);
         color: #fff;
         display: block;
         margin: -0.5rem 0;

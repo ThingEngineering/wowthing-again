@@ -16,7 +16,7 @@
 
 <style lang="scss">
     td {
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
 
         &.current {
             @include cell-width($width-covenant);
@@ -43,7 +43,7 @@
 
                     &.active {
                         border: 1px solid $color-shrug;
-                        border-radius: $border-radius;
+                        border-radius: var(--border-radius);
                         line-height: 1.3;
                     }
                 }

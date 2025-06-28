@@ -1,5 +1,5 @@
 .settings-container {
-    border: 1px solid $border-color;
+    border: 1px solid var(--border-color);
     display: flex;
     flex-wrap: wrap;
     gap: 1rem 2rem;
@@ -15,7 +15,7 @@
     }
 
     h2 {
-        border-bottom: 1px solid $border-color;
+        border-bottom: 1px solid var(--border-color);
         text-align: center;
         width: 100%;
     }
@@ -23,8 +23,8 @@
         border-top: 0;
     }
     h3 {
-        border-bottom: 1px dashed $border-color;
-        border-top: 1px dashed $border-color;
+        border-bottom: 1px dashed var(--border-color);
+        border-top: 1px dashed var(--border-color);
         margin-top: 0.5rem;
         padding-top: 0.5rem;
 
@@ -124,7 +124,7 @@
 .settings-block {
     break-inside: avoid;
     overflow: hidden; /* Firefox fix */
-    width: $settings-column-width;
+    width: 45rem;
 
     > h3 {
         align-items: center;

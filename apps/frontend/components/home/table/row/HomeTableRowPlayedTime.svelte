@@ -10,7 +10,7 @@
     td {
         @include cell-width($width-played, $maxWidth: $width-played-max);
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         text-align: right;
     }
     code {

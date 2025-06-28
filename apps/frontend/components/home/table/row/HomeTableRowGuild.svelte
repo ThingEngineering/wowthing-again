@@ -15,7 +15,7 @@
     td {
         @include cell-width($width-guild, $maxWidth: $width-guild-max);
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
     }
 </style>
 

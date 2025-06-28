@@ -321,7 +321,7 @@
         --image-border-width: 1px;
 
         :global(td) {
-            border-left: 1px solid $border-color;
+            border-left: 1px solid var(--border-color);
             padding: 0.3rem 0.6rem 0.4rem 0.6rem;
             text-align: center;
 

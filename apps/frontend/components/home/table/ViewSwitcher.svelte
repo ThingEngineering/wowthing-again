@@ -28,9 +28,9 @@
     .tab {
         --image-border-width: 1px;
 
-        border: 1px solid $border-color;
-        border-top-left-radius: $border-radius-large;
-        border-top-right-radius: $border-radius-large;
+        border: 1px solid var(--border-color);
+        border-top-left-radius: var(--border-radius-large);
+        border-top-right-radius: var(--border-radius-large);
         cursor: pointer;
         margin-bottom: -1px;
         max-width: 10rem;
@@ -45,7 +45,7 @@
     }
     .account-gold {
         border: 1px solid #7f7;
-        border-radius: $border-radius-large;
+        border-radius: var(--border-radius-large);
         margin-left: 3rem;
         padding: 0.1rem 0.5rem;
         z-index: 10;

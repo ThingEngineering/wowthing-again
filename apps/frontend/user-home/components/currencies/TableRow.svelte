@@ -23,7 +23,7 @@
     td {
         @include cell-width($width-currency, $maxWidth: $width-currency-max);
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         text-align: center;
     }
     .faded {

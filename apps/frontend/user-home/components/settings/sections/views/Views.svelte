@@ -68,7 +68,7 @@
         --padding: 2;
     }
     tr:first-child td {
-        border-top: 1px solid $border-color;
+        border-top: 1px solid var(--border-color);
     }
     .name {
         @include cell-width(12rem);
@@ -95,7 +95,7 @@
     button {
         background: darken($color-success, 40%);
         border: 1px solid darken($color-success, 20%);
-        border-radius: $border-radius;
+        border-radius: var(--border-radius);
         cursor: pointer;
         margin-top: 0.75rem;
     }

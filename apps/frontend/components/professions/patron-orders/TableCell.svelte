@@ -24,7 +24,7 @@
 
 <style lang="scss">
     td {
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         padding: 0 0.3rem;
         width: calc(5rem + 2.3rem + 20rem + 0.5rem);
     }

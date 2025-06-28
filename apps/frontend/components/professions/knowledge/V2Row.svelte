@@ -141,7 +141,7 @@
     .profession-knowledge {
         @include cell-width($width-progress, $maxWidth: $width-progress-max);
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         text-align: center;
     }
     .faded {

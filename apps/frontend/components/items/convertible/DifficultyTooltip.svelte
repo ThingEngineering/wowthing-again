@@ -35,7 +35,7 @@
         --image-border-width: 1px;
     }
     .tag {
-        border-right: 1px solid $border-color;
+        border-right: 1px solid var(--border-color);
     }
     .name,
     .realm {

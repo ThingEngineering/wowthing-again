@@ -51,7 +51,7 @@
         }
     }
     .spacer {
-        border-bottom: 1px solid $border-color;
+        border-bottom: 1px solid var(--border-color);
         margin: 0.2rem -0.5rem;
     }
     .flex-wrapper {
@@ -64,7 +64,7 @@
 
         button {
             background: $thing-background;
-            border-radius: $border-radius;
+            border-radius: var(--border-radius);
             cursor: pointer;
             width: 4rem;
 

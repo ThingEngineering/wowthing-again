@@ -124,7 +124,7 @@
         padding: 0.2rem 0.3rem;
 
         .options-group:not(:last-child) {
-            border-right: 1px solid $border-color;
+            border-right: 1px solid var(--border-color);
             margin-right: 0.5rem;
         }
     }

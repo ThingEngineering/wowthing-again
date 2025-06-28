@@ -1,26 +1,26 @@
 <script lang="ts">
-    import { StatType } from '@/enums/stat-type'
-    import type { Character } from '@/types/character'
+    import { StatType } from '@/enums/stat-type';
+    import type { Character } from '@/types/character';
 
-    import Basic from './stats/CharactersPaperdollStatsBasic.svelte'
-    import Misc from './stats/CharactersPaperdollStatsMisc.svelte'
-    import Rating from './stats/CharactersPaperdollStatsRating.svelte'
+    import Basic from './stats/CharactersPaperdollStatsBasic.svelte';
+    import Misc from './stats/CharactersPaperdollStatsMisc.svelte';
+    import Rating from './stats/CharactersPaperdollStatsRating.svelte';
 
-    export let character: Character
+    export let character: Character;
 
-    let mainStat: StatType
+    let mainStat: StatType;
     $: {
-        mainStat = 0
+        mainStat = 0;
         if (!character.statistics) {
-            break $
+            break $;
         }
 
-        let maxValue = 0
+        let maxValue = 0;
         for (const testType of [StatType.Agility, StatType.Intellect, StatType.Strength]) {
-            const testValue = character.statistics.basic[testType]?.effective ?? 0
+            const testValue = character.statistics.basic[testType]?.effective ?? 0;
             if (testValue > maxValue) {
-                maxValue = testValue
-                mainStat = testType
+                maxValue = testValue;
+                mainStat = testType;
             }
         }
     }
@@ -39,7 +39,7 @@
     }
     .stats-block {
         &:first-child {
-            border-top: 1px solid $border-color;
+            border-top: 1px solid var(--border-color);
         }
 
         + .stats-block {
@@ -47,9 +47,9 @@
         }
     }
     h3 {
-        border-bottom: 1px solid $border-color;
-        border-left: 1px solid $border-color;
-        border-right: 1px solid $border-color;
+        border-bottom: 1px solid var(--border-color);
+        border-left: 1px solid var(--border-color);
+        border-right: 1px solid var(--border-color);
         padding: 0.2rem 0;
         text-align: center;
     }
@@ -68,9 +68,9 @@
     }
     .item-level {
         background: #212324;
-        border-bottom: 1px solid $border-color;
-        border-left: 1px solid $border-color;
-        border-right: 1px solid $border-color;
+        border-bottom: 1px solid var(--border-color);
+        border-left: 1px solid var(--border-color);
+        border-right: 1px solid var(--border-color);
         font-size: 125%;
         padding: 0.3rem 0.5rem;
         text-align: center;
@@ -88,7 +88,7 @@
 
         <div class="stats-block">
             <h3>Base</h3>
-            
+
             <table class="table table-striped">
                 <tbody>
                     <Misc type={StatType.Health} {character} />
@@ -98,7 +98,7 @@
                 </tbody>
             </table>
         </div>
-        
+
         <div class="stats-block">
             <h3>Ratings</h3>
 
@@ -121,7 +121,11 @@
                     <Rating label="Parry" type={StatType.ParryRating} {character} />
                     <Rating label="Avoidance" type={StatType.AvoidanceRating} {character} />
                     <Rating label="Leech" type={StatType.LifestealRating} {character} />
-                    <Rating label="Versatility" type={StatType.VersatilityDamageTaken} {character} />
+                    <Rating
+                        label="Versatility"
+                        type={StatType.VersatilityDamageTaken}
+                        {character}
+                    />
                 </tbody>
             </table>
         </div>

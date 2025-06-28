@@ -35,7 +35,7 @@
         @include cell-width(0.5rem);
 
         background: $highlight-background;
-        border-right: 1px solid $border-color;
+        border-right: 1px solid var(--border-color);
         text-align: center;
     }
     .name,

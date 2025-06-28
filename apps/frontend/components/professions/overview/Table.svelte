@@ -41,7 +41,7 @@
     th {
         @include cell-width(4.5rem);
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         text-align: center;
     }
     .specialization {

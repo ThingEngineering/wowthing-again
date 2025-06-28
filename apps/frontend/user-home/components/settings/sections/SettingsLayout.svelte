@@ -10,7 +10,7 @@
 
 <style lang="scss">
     h3 {
-        border-top: 1px dashed $border-color;
+        border-top: 1px dashed var(--border-color);
         margin-top: 0.5rem;
         padding-top: 0.5rem;
     }

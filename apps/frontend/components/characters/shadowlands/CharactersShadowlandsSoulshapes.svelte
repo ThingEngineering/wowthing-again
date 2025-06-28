@@ -34,7 +34,7 @@
 
 <style lang="scss">
     h3 {
-        border-bottom: 1px dashed $border-color;
+        border-bottom: 1px dashed var(--border-color);
         padding-bottom: 0.2rem;
 
         a {
@@ -63,7 +63,7 @@
         --image-border-width: 1px;
 
         &.missing {
-            --image-border-color: #{$border-color};
+            --image-border-color: var(--border-color);
         }
     }
 </style>

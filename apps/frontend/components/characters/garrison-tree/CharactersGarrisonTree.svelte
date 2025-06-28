@@ -1,21 +1,21 @@
 <script lang="ts">
-    import type { Character, GarrisonTree } from '@/types'
+    import type { Character, GarrisonTree } from '@/types';
 
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character
-    export let tree: GarrisonTree
+    export let character: Character;
+    export let tree: GarrisonTree;
 
-    let status: Record<number, number[]>
+    let status: Record<number, number[]>;
     $: {
-        status = character.garrisonTrees?.[tree.id]
+        status = character.garrisonTrees?.[tree.id];
     }
 </script>
 
 <style lang="scss">
     .row {
-        --image-border-radius: #{$border-radius-large};
+        --image-border-radius: var(--border-radius-large);
         --image-border-width: 2px;
 
         display: flex;
@@ -29,7 +29,7 @@
         width: 7rem;
 
         &.bordered:not(:first-child) {
-            border-left: 1px solid $border-color;
+            border-left: 1px solid var(--border-color);
         }
 
         &.empty {
@@ -60,13 +60,11 @@
 </style>
 
 {#each tree.tiers as tier}
-    <div
-        class="row"
-        class:bordered={tree.direction === 'horizontal'}
-    >
+    <div class="row" class:bordered={tree.direction === 'horizontal'}>
         {#each tier as talent}
             {@const hasRank = status?.[talent?.id]?.[0] || 0}
-            {@const noRequired = talent?.requires > 0 && (status?.[talent?.requires]?.[0] || 0) === 0}
+            {@const noRequired =
+                talent?.requires > 0 && (status?.[talent?.requires]?.[0] || 0) === 0}
             {#if talent !== null}
                 <div
                     class="talent"
@@ -75,15 +73,8 @@
                     class:partial={hasRank > 0 && hasRank < talent.ranks}
                     class:prereq={noRequired}
                 >
-                    <WowheadLink
-                        type="order-advancement"
-                        id={talent.id}
-                    >
-                        <WowthingImage
-                            name="garrison-talent/{talent.id}"
-                            size={56}
-                            border={2}
-                        />
+                    <WowheadLink type="order-advancement" id={talent.id}>
+                        <WowthingImage name="garrison-talent/{talent.id}" size={56} border={2} />
                     </WowheadLink>
 
                     {#if !noRequired && talent.ranks > 1}
@@ -93,11 +84,7 @@
                     {/if}
                 </div>
             {:else}
-                <div
-                    class="talent empty"
-                    class:bordered={tree.direction === 'vertical'}
-                >
-                </div>
+                <div class="talent empty" class:bordered={tree.direction === 'vertical'}></div>
             {/if}
         {/each}
     </div>

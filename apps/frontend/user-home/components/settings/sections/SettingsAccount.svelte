@@ -74,16 +74,16 @@
         }
 
         button {
-            background: $button-success;
-            border: 1px solid $border-color;
-            border-radius: $border-radius;
+            background: #0f2f0f;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
             display: block;
             font-size: 1.2rem;
             margin: 0.3rem auto 0;
         }
         span {
-            border: 1px solid $border-color;
-            border-radius: $border-radius;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
             color: #00ccff;
             display: inline-block;
             font-size: 0.92rem;

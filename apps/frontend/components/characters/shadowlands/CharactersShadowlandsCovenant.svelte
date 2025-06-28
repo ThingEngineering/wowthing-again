@@ -101,7 +101,7 @@
         width: 22rem;
 
         /*h2 {
-            border-bottom: 1px solid $border-color;
+            border-bottom: 1px solid var(--border-color);
             margin-bottom: 0.5rem;
             padding-bottom: 0.5rem;
             text-align: center;
@@ -135,7 +135,7 @@
         text-align: right;
     }
     .spacer {
-        border-bottom: 1px solid $border-color;
+        border-bottom: 1px solid var(--border-color);
         margin: 0.5rem 0;
     }
     .soulbinds {

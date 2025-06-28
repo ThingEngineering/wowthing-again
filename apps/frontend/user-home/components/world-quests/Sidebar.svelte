@@ -17,7 +17,7 @@
         width: 100%;
 
         button {
-            border-radius: $border-radius;
+            border-radius: var(--border-radius);
             cursor: pointer;
             flex-basis: 22%;
 

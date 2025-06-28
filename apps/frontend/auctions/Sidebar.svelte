@@ -1,36 +1,43 @@
 <script lang="ts">
-    import { location, replace } from 'svelte-spa-router'
+    import { location, replace } from 'svelte-spa-router';
 
-    import { auctionsAppState } from '@/auctions/stores/state'
-    import { Region } from '@/enums/region'
-    import { auctionStore } from '@/stores/auction'
-    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
-    import type { AuctionCategory } from '@/types/data/auction'
+    import { auctionsAppState } from '@/auctions/stores/state';
+    import { Region } from '@/enums/region';
+    import { auctionStore } from '@/stores/auction';
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
+    import type { AuctionCategory } from '@/types/data/auction';
 
-    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
-    import TextInput from '@/shared/components/forms/TextInput.svelte'
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
+    import TextInput from '@/shared/components/forms/TextInput.svelte';
 
-    let searchValue: string
+    let searchValue: string;
 
-    const onSubmit = async function() {
+    const onSubmit = async function () {
         if (searchValue?.trim()?.length > 0) {
-            replace(`/search/${Region[$auctionsAppState.region].toLowerCase()}/${encodeURIComponent(searchValue)}`)
+            replace(
+                `/search/${Region[$auctionsAppState.region].toLowerCase()}/${encodeURIComponent(searchValue)}`
+            );
         }
-    }
+    };
 
-    const setRegion = function(region: string) {
-        const oldRegion = $auctionsAppState.region
-        const newRegion = Region[region.toUpperCase() as keyof typeof Region]
-        
+    const setRegion = function (region: string) {
+        const oldRegion = $auctionsAppState.region;
+        const newRegion = Region[region.toUpperCase() as keyof typeof Region];
+
         if (oldRegion !== newRegion) {
-            $auctionsAppState.region = newRegion
-            replace($location.replace(`/${Region[oldRegion].toLowerCase()}/`, `/${Region[newRegion].toLowerCase()}/`))
+            $auctionsAppState.region = newRegion;
+            replace(
+                $location.replace(
+                    `/${Region[oldRegion].toLowerCase()}/`,
+                    `/${Region[newRegion].toLowerCase()}/`
+                )
+            );
         }
-    }
+    };
 
     function dataFunc(item: SidebarItem): string {
-        const category = item as AuctionCategory
-        return `${category.id}-${category.itemClass}-${category.itemSubClass}-${category.inventoryType}`
+        const category = item as AuctionCategory;
+        return `${category.id}-${category.itemClass}-${category.itemSubClass}-${category.inventoryType}`;
     }
 </script>
 
@@ -44,9 +51,9 @@
         justify-content: space-around;
         margin-bottom: 1rem;
         width: 100%;
-        
+
         button {
-            border-radius: $border-radius;
+            border-radius: var(--border-radius);
             cursor: pointer;
             flex-basis: 20%;
             font-size: 110%;
@@ -65,7 +72,7 @@
         items={$auctionStore.categories}
         scrollable={true}
         width="16rem"
-        dataFunc={dataFunc}
+        {dataFunc}
     >
         <div slot="before" class="before">
             <div class="regions">
@@ -80,9 +87,7 @@
                 {/each}
             </div>
 
-            <form
-                on:submit|preventDefault={onSubmit}
-            >
+            <form on:submit|preventDefault={onSubmit}>
                 <TextInput
                     name="auctions_search"
                     placeholder="Search..."

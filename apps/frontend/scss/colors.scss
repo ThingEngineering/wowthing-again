@@ -20,20 +20,20 @@
 }
 
 .border-success {
-    --image-border-color: #{mix($color-success, $border-color, 90%)} !important;
-    border-color: mix($color-success, $border-color, 90%) !important;
+    --image-border-color: color-mix(in hsl, var(--color-success) 90%, var(--border-color) 10%) !important;
+    border-color: color-mix(in hsl, var(--color-success) 90%, var(--border-color) 10%) !important;
 }
 .border-shrug {
-    --image-border-color: #{mix($color-shrug, $border-color, 90%)} !important;
-    border-color: mix($color-shrug, $border-color, 90%) !important;
+    --image-border-color: color-mix(in hsl, var(--color-shrug) 90%, var(--border-color) 10%) !important;
+    border-color: color-mix(in hsl, var(--color-shrug) 90%, var(--border-color) 10%) !important;
 }
 .border-warn {
-    --image-border-color: #{mix($color-warn, $border-color, 90%)} !important;
-    border-color: mix($color-warn, $border-color, 90%) !important;
+    --image-border-color: color-mix(in hsl, var(--color-warn) 90%, var(--border-color) 10%) !important;
+    border-color: color-mix(in hsl, var(--color-warn) 90%, var(--border-color) 10%) !important;
 }
 .border-fail {
-    --image-border-color: #{mix($color-fail, $border-color, 90%)} !important;
-    border-color: mix($color-fail, $border-color, 90%) !important;
+    --image-border-color: color-mix(in hsl, var(--color-fail) 90%, var(--border-color) 10%) !important;
+    border-color: color-mix(in hsl, var(--color-fail) 90%, var(--border-color) 10%) !important;
 }
 
 .location0 {

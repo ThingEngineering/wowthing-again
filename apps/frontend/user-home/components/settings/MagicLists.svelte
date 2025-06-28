@@ -94,7 +94,7 @@
     }
 
     .column {
-        border: 1px solid $border-color;
+        border: 1px solid var(--border-color);
         display: flex;
         flex: 1 1 0;
         flex-direction: column;

@@ -30,7 +30,7 @@
     td {
         @include cell-width($width-weekly-quest);
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         word-spacing: -0.2ch;
 
         &.center {

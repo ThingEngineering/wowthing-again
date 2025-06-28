@@ -37,7 +37,7 @@
 
 <style lang="scss">
     td {
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         text-align: center;
     }
 </style>

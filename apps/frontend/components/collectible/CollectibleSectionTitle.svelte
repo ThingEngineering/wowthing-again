@@ -14,19 +14,19 @@
     div {
         align-items: center;
         background: $collection-background;
-        border-bottom: 1px solid $border-color;
+        border-bottom: 1px solid var(--border-color);
         color: #ddd;
         display: flex;
         padding: 0.25rem 0.5rem;
         width: 100%;
 
         &:first-child {
-            border-top-left-radius: $border-radius;
-            border-top-right-radius: $border-radius;
+            border-top-left-radius: var(--border-radius);
+            border-top-right-radius: var(--border-radius);
         }
 
         &:not(:first-child) {
-            border-top: 1px solid $border-color;
+            border-top: 1px solid var(--border-color);
         }
     }
     h3 {

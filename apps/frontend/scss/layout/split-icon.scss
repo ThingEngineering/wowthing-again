@@ -6,8 +6,8 @@
     width: 44px;
 }
 .split-icon-no {
-    border: 2px solid lighten($border-color, 20%);
-    border-radius: $border-radius;
+    border: 2px solid color-mix(in hsl, var(--border-color) 80%, #fff 20%);
+    border-radius: var(--border-radius);
 }
 .split-icon-yes {
     img:first-child {

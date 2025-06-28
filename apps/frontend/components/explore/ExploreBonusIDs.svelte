@@ -25,22 +25,22 @@
         gap: 1rem;
     }
     .bonus {
-        border: 1px solid $border-color;
+        border: 1px solid var(--border-color);
         width: 18rem;
     }
     h4 {
         background: $highlight-background;
-        border-bottom: 1px solid $border-color;
+        border-bottom: 1px solid var(--border-color);
         padding: 0.2rem 0;
         text-align: center;
     }
     table {
-        border-top: 1px solid $border-color;
+        border-top: 1px solid var(--border-color);
         padding: 1rem 0.5rem;
         width: 100%;
 
         tr:first-child td {
-            border-top: 1px solid $border-color;
+            border-top: 1px solid var(--border-color);
         }
     }
     td {

@@ -57,7 +57,7 @@
         --scale: 0.91;
 
         :global(td:not(:first-child)) {
-            border-left: 1px solid $border-color;
+            border-left: 1px solid var(--border-color);
         }
         :global(.sortable) {
             cursor: pointer;

@@ -1,5 +1,5 @@
 .collection {
-    border: 1px solid $border-color;
+    border: 1px solid var(--border-color);
 
     & + .collection {
         border-top-width: 0;

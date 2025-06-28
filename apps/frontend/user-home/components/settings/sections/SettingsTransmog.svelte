@@ -18,7 +18,7 @@
         }
     }
     .separator {
-        border-top: 1px dashed $border-color;
+        border-top: 1px dashed var(--border-color);
         margin-bottom: 0.25rem;
     }
 </style>

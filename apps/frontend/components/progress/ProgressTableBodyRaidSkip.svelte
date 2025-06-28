@@ -1,34 +1,32 @@
 <script lang="ts">
-    import { uiIcons } from '@/shared/icons'
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import { userQuestStore } from '@/stores'
-    import type { Character } from '@/types'
-    import type { UserQuestDataCharacterProgress } from '@/types/data'
-    import type { ManualDataProgressGroup } from '@/types/data/manual'
+    import { uiIcons } from '@/shared/icons';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import { userQuestStore } from '@/stores';
+    import type { Character } from '@/types';
+    import type { UserQuestDataCharacterProgress } from '@/types/data';
+    import type { ManualDataProgressGroup } from '@/types/data/manual';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import Tooltip from '@/components/tooltips/progress-raid-skip/TooltipProgressRaidSkip.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import Tooltip from '@/components/tooltips/progress-raid-skip/TooltipProgressRaidSkip.svelte';
 
-    export let character: Character
-    export let group: ManualDataProgressGroup
+    export let character: Character;
+    export let group: ManualDataProgressGroup;
 
-    const perCharacter: string[] = [
-        'CN',
-        'SoD',
-        'SFO',
-        'ADH',
-        'ASC',
-        'VoI',
-    ];
+    const perCharacter: string[] = ['CN', 'SoD', 'SFO', 'ADH', 'ASC', 'VoI'];
 
-    let progresses: {cls: string, completed: boolean, difficulty: string, progressQuest: UserQuestDataCharacterProgress}[]
+    let progresses: {
+        cls: string;
+        completed: boolean;
+        difficulty: string;
+        progressQuest: UserQuestDataCharacterProgress;
+    }[];
     $: {
-        progresses = []
+        progresses = [];
         for (const difficulty of ['mythic', 'heroic', 'normal']) {
-            const questKey = group.data[difficulty][0].name
-            let progressQuest: UserQuestDataCharacterProgress
+            const questKey = group.data[difficulty][0].name;
+            let progressQuest: UserQuestDataCharacterProgress;
 
-            progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[questKey]
+            progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[questKey];
 
             if (progressQuest?.status !== 2 && !perCharacter.includes(group.iconText)) {
                 for (const character of Object.values($userQuestStore.characters)) {
@@ -40,18 +38,15 @@
                 }
             }
 
-            let cls: string
+            let cls: string;
             if (progresses.length > 0 && progresses[progresses.length - 1].completed) {
-                cls = 'status-success'
-            }
-            else if (progressQuest === undefined) {
-                cls = 'status-fail'
-            }
-            else if (progressQuest.status === 2) {
-                cls = 'status-success'
-            }
-            else {
-                cls = 'status-shrug'
+                cls = 'status-success';
+            } else if (progressQuest === undefined) {
+                cls = 'status-fail';
+            } else if (progressQuest.status === 2) {
+                cls = 'status-success';
+            } else {
+                cls = 'status-shrug';
             }
 
             progresses.push({
@@ -59,16 +54,16 @@
                 completed: cls === 'status-success',
                 difficulty,
                 progressQuest,
-            })
+            });
         }
 
-        progresses.reverse()
+        progresses.reverse();
     }
 </script>
 
 <style lang="scss">
     td {
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         padding-bottom: 0;
         padding-top: 0;
     }
@@ -94,19 +89,15 @@
                 character,
                 group,
                 progresses,
-            }
+            },
         }}
     >
         {#each progresses as progress}
-            <div class="{progress.cls}">
+            <div class={progress.cls}>
                 {#if progress.completed}
-                    <IconifyIcon
-                        icon={uiIcons.yes}
-                    />
+                    <IconifyIcon icon={uiIcons.yes} />
                 {:else if progress.progressQuest === undefined}
-                    <IconifyIcon
-                        icon={uiIcons.no}
-                    />
+                    <IconifyIcon icon={uiIcons.no} />
                 {:else}
                     {progress.progressQuest.objectives?.[0]?.have ?? 0}
                     /

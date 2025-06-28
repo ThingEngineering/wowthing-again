@@ -14,7 +14,7 @@
         @include cell-width($width-mplus-dungeon);
 
         background: $thing-background;
-        border: 1px solid $border-color;
+        border: 1px solid var(--border-color);
         border-right-width: 0;
         border-top-width: 0;
         padding-bottom: 0.3rem;
@@ -23,8 +23,8 @@
         text-align: center;
 
         & :global(img) {
-            border: 1px solid $border-color;
-            border-radius: $border-radius;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
         }
     }
     .text-overlay {

@@ -66,7 +66,7 @@
 
 <style lang="scss">
     .criteria {
-        border-top: 1px dashed $border-color;
+        border-top: 1px dashed var(--border-color);
         display: grid;
         grid-area: criteria;
         grid-template-columns: 1fr 1fr;

@@ -151,7 +151,7 @@
         }
     }
     .separator {
-        border-top: 1px solid $border-color;
+        border-top: 1px solid var(--border-color);
         margin: 0.2rem 0;
     }
     .expand {

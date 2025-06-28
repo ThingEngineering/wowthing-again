@@ -15,12 +15,12 @@
 
         ins {
             background-repeat: no-repeat;
-            border: 1px solid $border-color !important;
+            border: 1px solid var(--border-color) !important;
             display: block;
             position: absolute;
             left: 4px;
             top: 4px;
-            border-radius: $border-radius;
+            border-radius: var(--border-radius);
             width: 36px;
             height: 36px;
         }

@@ -1,14 +1,14 @@
 <script lang="ts">
-    import { iconStrings } from '@/data/icons'
-    import { basicTooltip } from '@/shared/utils/tooltips'
+    import { iconStrings } from '@/data/icons';
+    import { basicTooltip } from '@/shared/utils/tooltips';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
-    export let page: number
-    export let pages: number
-    export let perPage: number
-    export let total: number
-    export let url: string
+    export let page: number;
+    export let pages: number;
+    export let perPage: number;
+    export let total: number;
+    export let url: string;
 </script>
 
 <style lang="scss">
@@ -28,13 +28,14 @@
             margin-top: -4px;
         }
 
-        a, span {
+        a,
+        span {
             display: inline-block;
             text-align: center;
             width: 2.5rem;
 
-            border-left: 1px solid $border-color;
-            border-right: 1px solid $border-color;
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
         }
     }
     .current {
@@ -56,13 +57,13 @@
         </span>
     {/if}
 
-    {#if (page - 2) > 0}
+    {#if page - 2 > 0}
         <a href="{url}/{page - 2}" use:basicTooltip={`Page ${page - 2}`}>{page - 2}</a>
     {:else}
         <span>&nbsp;</span>
     {/if}
 
-    {#if (page - 1) > 0}
+    {#if page - 1 > 0}
         <a href="{url}/{page - 1}" use:basicTooltip={`Page ${page - 1}`}>{page - 1}</a>
     {:else}
         <span>&nbsp;</span>
@@ -70,13 +71,13 @@
 
     <span class="current">{page}</span>
 
-    {#if (page + 1) <= pages}
+    {#if page + 1 <= pages}
         <a href="{url}/{page + 1}" use:basicTooltip={`Page ${page + 1}`}>{page + 1}</a>
     {:else}
         <span>&nbsp;</span>
     {/if}
 
-    {#if (page + 2) <= pages}
+    {#if page + 2 <= pages}
         <a href="{url}/{page + 2}" use:basicTooltip={`Page ${page + 2}`}>{page + 2}</a>
     {:else}
         <span>&nbsp;</span>

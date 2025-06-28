@@ -10,7 +10,7 @@
         align-items: start;
 
         :global(.collecting-settings) {
-            border-radius: $border-radius;
+            border-radius: var(--border-radius);
             width: 17rem;
         }
         :global(.collecting-settings button.expand) {

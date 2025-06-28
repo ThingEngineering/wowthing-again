@@ -31,7 +31,7 @@
     td {
         @include cell-width($width-keystone, $paddingRight: 0.1rem);
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
     }
     span {
         display: inline-block;

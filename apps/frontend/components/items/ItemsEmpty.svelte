@@ -6,7 +6,7 @@
     div {
         background: $highlight-background;
         border: 2px solid var(--item-empty-border, lighten($color-fail, 15%));
-        border-radius: $border-radius;
+        border-radius: var(--border-radius);
         display: flex;
         flex-direction: column;
         font-size: 0.9rem;

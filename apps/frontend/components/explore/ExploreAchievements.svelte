@@ -56,7 +56,7 @@
         margin-top: 0.5rem;
     }
     .criteria {
-        border-top: 1px dashed $border-color;
+        border-top: 1px dashed var(--border-color);
         margin-top: 0.5rem;
     }
 </style>

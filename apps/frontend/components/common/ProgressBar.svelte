@@ -1,23 +1,23 @@
 <script lang="ts">
-    import { iconStrings } from '@/data/icons'
+    import { iconStrings } from '@/data/icons';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import { toNiceNumber } from '@/utils/formatting'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import { toNiceNumber } from '@/utils/formatting';
 
-    export let cls: string = null
-    export let title: string = null
-    export let have = Math.floor(Math.random() * 100)
-    export let midText: string = undefined
-    export let selected = false
-    export let shortText = false
-    export let textCls: string = null
-    export let total = 100
+    export let cls: string = null;
+    export let title: string = null;
+    export let have = Math.floor(Math.random() * 100);
+    export let midText: string = undefined;
+    export let selected = false;
+    export let shortText = false;
+    export let textCls: string = null;
+    export let total = 100;
 </script>
 
 <style lang="scss">
     .progress-container {
         background: darken($thing-background, 3%);
-        border: var(--bar-border-width, 1px) solid var(--bar-border-color, $border-color);
+        border: var(--bar-border-width, 1px) solid var(--bar-border-color, var(--border-color));
         display: block;
         margin-top: var(--progress-margin-top, 0);
         overflow: hidden;
@@ -29,11 +29,15 @@
         height: var(--bar-height, 2rem);
         background:
             linear-gradient(
-                -45deg,
-                rgba(255, 255, 255, 0.05) 25%, transparent 25%,
-                transparent 50%, rgba(255, 255, 255, 0.05) 50%,
-                rgba(255, 255, 255, 0.05) 75%, transparent 75%
-            ) left/30px 30px repeat,
+                    -45deg,
+                    rgba(255, 255, 255, 0.05) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.05) 50%,
+                    rgba(255, 255, 255, 0.05) 75%,
+                    transparent 75%
+                )
+                left/30px 30px repeat,
             linear-gradient(
                 to right,
                 rgba(160, 0, 0, 0.7) 0%,
@@ -78,13 +82,9 @@
     }
 </style>
 
-<button
-    class="progress-container {cls}"
-    on:click
-    on:keypress
->
+<button class="progress-container {cls}" on:click on:keypress>
     <div class="progress-bar"></div>
-    <div class="progress-bar-hider" style="--width: {have / total * 100}%"></div>
+    <div class="progress-bar-hider" style="--width: {(have / total) * 100}%"></div>
     <div class="text-container">
         <span class="drop-shadow {textCls || ''}">
             {#if title}
@@ -101,11 +101,7 @@
             {/if}
         </span>
 
-        <span
-            class="drop-shadow"
-            class:short={shortText}
-            class:right={!shortText}
-        >
+        <span class="drop-shadow" class:short={shortText} class:right={!shortText}>
             {#if total > 0}
                 {#if shortText}
                     {toNiceNumber(have)} / {toNiceNumber(total)}

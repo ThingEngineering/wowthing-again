@@ -31,7 +31,7 @@
         }
     }
     .summary-points {
-        border: 1px solid $border-color;
+        border: 1px solid var(--border-color);
         margin-bottom: 1rem;
         padding: 1rem;
         width: 100%;

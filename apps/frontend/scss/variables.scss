@@ -1,5 +1,8 @@
 :root {
     --border-color: #676b6f;
+    --border-radius-large: 8px;
+    --border-radius: 5px;
+    --border-radius-small: 3px;
 
     --padding-size: 0.25rem;
 
@@ -19,19 +22,19 @@
     --color-quality1-border: #ddd;
 
     // uncommon
-    --color-quality2-color: #1eff00;
+    --color-quality2: #1eff00;
     --color-quality2-border: #18cc00; // #1eff00 - 10%
 
     // rare
-    --color-quality3-color: #44a3ff; // #0070dd + 20%
+    --color-quality3: #44a3ff; // #0070dd + 20%
     --color-quality3-border: #0070dd;
 
     // epic
-    --color-quality4-color: #b864f2; // #a335ee + 10%
+    --color-quality4: #b864f2; // #a335ee + 10%
     --color-quality4-border: #a335ee;
 
     // legendary
-    --color-quality5-color: #f07800; // #ff8000 - 3%
+    --color-quality5: #f07800; // #ff8000 - 3%
     --color-quality5-border: #ff8000;
 
     // artifact
@@ -53,11 +56,6 @@ $body-background: #101112;
 $body-text: #ffffff;
 $link-color: #44ddff;
 $link-hover-color: #88ffff;
-
-$border-color: #676b6f;
-$border-radius-large: 8px;
-$border-radius: 5px;
-$border-radius-small: 3px;
 
 $header-footer-background: #2c2d2e;
 $thing-background: #1a1b1c;
@@ -82,10 +80,6 @@ $horde-border-dark: darken($horde-border, 20%);
 $horde-background: mix($thing-background, $horde-border, 90%);
 $horde-link: lighten($horde-border, 25%);
 $neutral-border: #dfdf00;
-
-$sidebar-pill-background: $highlight-background;
-$sidebar-pill-scale: 0.9;
-$sidebar-sub-link-color: #c1c2e3;
 
 $table-bg: $thing-background;
 $table-striped-bg: lighten($table-bg, 3%);
@@ -138,16 +132,12 @@ $width-weekly-quest: 2.7rem;
 
 $width-padding: 0.25rem;
 
-$settings-column-width: 45rem;
-
 $inactive-opacity: 0.4;
 
 $color-success: #1eff00;
 $color-shrug: #efef00;
 $color-warn: #ff8c7e;
 $color-fail: #ff1e00;
-
-$button-success: #0f2f0f;
 
 // poor
 $quality0-color: #9d9d9d;

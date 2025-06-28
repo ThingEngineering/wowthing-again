@@ -70,7 +70,7 @@
 
         --link-color: #{$quality5-color};
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         text-align: center;
         word-spacing: -0.1ch;
     }

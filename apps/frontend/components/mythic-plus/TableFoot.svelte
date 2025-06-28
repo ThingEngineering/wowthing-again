@@ -89,7 +89,7 @@
         border-left: none !important;
     }
     .run-count {
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         text-align: center;
     }
 </style>

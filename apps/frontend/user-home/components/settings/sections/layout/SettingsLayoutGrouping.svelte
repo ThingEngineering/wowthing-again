@@ -35,9 +35,9 @@
         width: 8rem;
     }
     .group-entry {
-        border-left: 1px solid $border-color;
-        border-right: 1px solid $border-color;
-        border-top: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
+        border-right: 1px solid var(--border-color);
+        border-top: 1px solid var(--border-color);
         cursor: pointer;
         padding: 0.3rem 0.5rem;
 
@@ -46,7 +46,7 @@
         }
 
         &:nth-last-child(-n + 2) {
-            border-bottom: 1px solid $border-color;
+            border-bottom: 1px solid var(--border-color);
         }
         &:nth-last-child(2) {
             margin-bottom: 1rem;

@@ -26,7 +26,7 @@
         padding-bottom: 0.2rem;
 
         + .many-boxes {
-            border-top: 1px dotted $border-color;
+            border-top: 1px dotted var(--border-color);
         }
     }
     .many-boxes {

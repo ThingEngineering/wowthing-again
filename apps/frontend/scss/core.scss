@@ -7,7 +7,7 @@ body {
 }
 
 header {
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
 }
@@ -56,7 +56,7 @@ main {
 }
 
 footer {
-    border-top: 1px solid $border-color;
+    border-top: 1px solid var(--border-color);
     display: flex;
     flex: none;
     justify-content: space-between;
@@ -167,8 +167,8 @@ div.content {
 
 .text-overlay {
     background-color: $highlight-background;
-    border: 1px solid $border-color;
-    border-radius: $border-radius-small;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-small);
     font-size: 0.9rem;
     line-height: 1;
     padding: 0 2px 1px 2px;
@@ -178,14 +178,14 @@ div.content {
 
 .background-box {
     background-color: $highlight-background;
-    border: 1px solid $border-color;
-    border-radius: $border-radius-small;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-small);
 }
 
 .pill {
     background-color: $highlight-background;
-    border: 1px solid $border-color;
-    border-radius: $border-radius-small;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-small);
     line-height: 1;
     padding: 0 2px 1px 2px;
     text-align: center;
@@ -214,23 +214,23 @@ div.content {
 }
 
 .border {
-    border: 1px solid $border-color;
+    border: 1px solid var(--border-color);
 }
 .b-b,
 .border-bottom {
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid var(--border-color);
 }
 .b-l,
 .border-left {
-    border-left: 1px solid $border-color;
+    border-left: 1px solid var(--border-color);
 }
 .b-r,
 .border-right {
-    border-right: 1px solid $border-color;
+    border-right: 1px solid var(--border-color);
 }
 .b-t,
 .border-top {
-    border-top: 1px solid $border-color;
+    border-top: 1px solid var(--border-color);
 }
 .m-l,
 .margin-left {

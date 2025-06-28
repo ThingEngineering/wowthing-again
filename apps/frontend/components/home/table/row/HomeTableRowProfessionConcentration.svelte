@@ -41,7 +41,7 @@
     td {
         @include cell-width($width-professions);
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         text-align: right;
         word-spacing: -0.2ch;
     }

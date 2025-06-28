@@ -53,7 +53,7 @@
                             : 0,
                         tempMap.tyrannicalScore?.overTime === false
                             ? tempMap.tyrannicalScore.level
-                            : 0,
+                            : 0
                     ) >= season.portalLevel;
                 //allRuns = character.mythicPlusAddon[seasonId].runs
                 //    .filter((run) => run.mapId === dungeonId)
@@ -73,7 +73,7 @@
     td {
         @include cell-width($width-mplus-dungeon, 0px, 0px);
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         text-align: center;
 
         --active-background: rgba(0, 0, 0, 0.5);
