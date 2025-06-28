@@ -179,6 +179,10 @@ export const currencyExtra: Record<number, number[]> = {
         2809, // Wyrm's Awakened Crest
         2812, // Aspect's Awakened Crest
     ],
+    // Miscellaneous > World Events
+    100102: [
+        3309, // Hellstone Shard
+    ],
 };
 
 export const currencyItems: Record<number, number[]> = {
