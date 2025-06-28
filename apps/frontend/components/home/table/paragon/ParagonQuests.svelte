@@ -46,6 +46,6 @@
             }),
         }}
     >
-        Available Paragons: {total}
+        Paragons: {total}
     </div>
 {/if}
