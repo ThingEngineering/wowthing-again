@@ -8,6 +8,7 @@ import { DataUserAchievements } from './achievements.svelte';
 import { DataUserDerived } from './derived.svelte';
 import { DataUserGeneral } from './general.svelte';
 import { DataUserQuests } from './quests.svelte';
+import { logErrors } from '@/utils/log-errors';
 
 type GenericCategory<T> = {
     name: string;
@@ -29,6 +30,7 @@ class UserState {
     public general = new DataUserGeneral();
     public quests = new DataUserQuests();
 
+    public appearanceMasks = $derived.by(() => logErrors(() => this._appearanceMasks()));
     public heirloomStats = $derived.by(() => this._heirlooms());
     public illusionStats = $derived.by(() => this._illusions());
     public recipes = $derived.by(() => this.derived.doRecipes(this.general.characters));
@@ -56,6 +58,30 @@ class UserState {
         // TODO: fetch user/achievements/quests
         // TODO: process
         // this.general.process(userData);
+    }
+
+    private _appearanceMasks() {
+        const hasAppearanceBySource = $state.snapshot(this.general.hasAppearanceBySource);
+        const ret = new Map<number, number>();
+
+        for (const [appearanceIdString, items] of Object.entries(
+            wowthingData.items.appearanceToItems
+        )) {
+            const appearanceId = parseInt(appearanceIdString);
+            let mask = 0;
+
+            for (const [itemId, modifier] of items) {
+                // if (userData.hasSource.has(`${itemId}_${modifier}`)) {
+                if (hasAppearanceBySource.has(itemId * 1000 + modifier)) {
+                    const item = wowthingData.items.items[itemId];
+                    mask |= item.classMask;
+                }
+            }
+
+            ret.set(appearanceId, mask);
+        }
+
+        return ret;
     }
 
     private _heirlooms(): UserCounts {

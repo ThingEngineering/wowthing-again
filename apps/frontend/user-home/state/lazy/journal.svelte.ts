@@ -15,6 +15,7 @@ import { leftPad } from '@/utils/formatting';
 import getFilteredItems from '@/utils/journal/get-filtered-items.svelte';
 import { isRecipeKnown } from '@/utils/professions/is-recipe-known';
 import { userState } from '../user';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
 export interface LazyJournal {
     filteredItems: Record<string, JournalDataEncounterItem[]>;
@@ -104,11 +105,9 @@ export function doJournal(): LazyJournal {
                         }
 
                         const usedItems = new Set<number>();
-                        for (const [appearanceIdStr, appearanceItems] of Object.entries(
+                        for (const [appearanceId, appearanceItems] of getNumberKeyedEntries(
                             appearanceMap
                         )) {
-                            const appearanceId = parseInt(appearanceIdStr);
-
                             const difficulties = new Set<number>();
                             let itemId = 0;
                             for (const item of appearanceItems) {
@@ -198,13 +197,12 @@ export function doJournal(): LazyJournal {
                                     hasAppearanceById.has(appearance.appearanceId)
                                 ) {
                                     // Make sure that the class mask of this item is actually collected
-                                    // FIXME: appearanceMask
-                                    appearance.userHas = item.classMask === 0; /*||
-                                        (userState.general.appearanceMask.get(
-                                            appearance.appearanceId
-                                        ) &
+                                    appearance.userHas =
+                                        item.classMask === 0 ||
+                                        ((userState.appearanceMasks.get(appearance.appearanceId) ||
+                                            0) &
                                             item.classMask) ===
-                                            item.classMask;*/
+                                            item.classMask;
 
                                     appearanceKey = appearance.appearanceId.toString();
                                 }
