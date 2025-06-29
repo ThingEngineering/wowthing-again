@@ -10,8 +10,6 @@ export const modifierToTier: Record<number, number> = {
     [AppearanceModifier.LookingForRaid]: 1,
 };
 
-type CrestData = [number, number, number?][];
-
 export const currentUpgrade1: ConvertibleCategoryUpgrade[] = [
     {
         upgradeId: 3107,

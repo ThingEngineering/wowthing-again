@@ -1,6 +1,5 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
-    import { DateTime } from 'luxon';
 
     import { Constants } from '@/data/constants';
     import { covenantMap } from '@/data/covenant';
@@ -8,7 +7,6 @@
     import { multiTaskMap, taskMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { timeStore } from '@/shared/stores/time';
     import { lazyStore } from '@/stores';
     import { userState } from '@/user-home/state/user';
 

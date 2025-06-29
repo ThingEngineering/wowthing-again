@@ -4,7 +4,6 @@
     import { isSecondaryProfession, professionIdToSlug } from '@/data/professions';
     import { wowthingData } from '@/shared/stores/data';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { lazyStore } from '@/stores';
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
     import getPercentClass from '@/utils/get-percent-class';
     import { getProfessionSortKey } from '@/utils/professions';

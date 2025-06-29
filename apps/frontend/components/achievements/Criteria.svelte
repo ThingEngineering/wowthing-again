@@ -1,15 +1,15 @@
 <script lang="ts">
     import { honorAchievements } from '@/data/achievements';
-    import { achievementStore, userAchievementStore, userQuestStore, userStore } from '@/stores';
+    import { CriteriaTreeOperator } from '@/enums/wow';
+    import { achievementStore, userAchievementStore, userQuestStore } from '@/stores';
     import { achievementState } from '@/stores/local-storage';
+    import { userState } from '@/user-home/state/user';
     import { getAchievementStatus } from '@/utils/achievements';
     import { getCharacterNameRealm } from '@/utils/get-character-name-realm';
     import type { AchievementDataAchievement } from '@/types';
 
     import CriteriaTree from './CriteriaTree.svelte';
     import ProgressBar from '@/components/common/ProgressBar.svelte';
-    import { CriteriaTreeOperator } from '@/enums/wow';
-    import { userState } from '@/user-home/state/user';
 
     export let achievement: AchievementDataAchievement;
 

@@ -16,7 +16,7 @@
     import EmberCourt from './CharactersShadowlandsEmberCourt.svelte';
     import PathOfAscension from './CharactersShadowlandsPathOfAscension.svelte';
     import ReputationBar from '@/components/common/ReputationBar.svelte';
-    import Soulbind from './CharactersShadowlandsSoulbind.svelte';
+    // import Soulbind from './CharactersShadowlandsSoulbind.svelte';
     import Soulshapes from './CharactersShadowlandsSoulshapes.svelte';
     import Stitchyard from './necrolord/Stitchyard.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';

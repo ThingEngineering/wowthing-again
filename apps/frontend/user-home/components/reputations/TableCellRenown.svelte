@@ -1,7 +1,6 @@
 <script lang="ts">
     import { getRenownData } from './get-renown-data';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { userStore } from '@/stores';
     import type { StaticDataReputation } from '@/shared/stores/static/types';
     import type {
         Character,

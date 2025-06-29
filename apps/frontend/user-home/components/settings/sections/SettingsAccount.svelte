@@ -4,7 +4,6 @@
     import { Language } from '@/enums/language';
     import { Region } from '@/enums/region';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { userStore } from '@/stores';
     import getAccountCharacters from '@/utils/get-account-characters';
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
