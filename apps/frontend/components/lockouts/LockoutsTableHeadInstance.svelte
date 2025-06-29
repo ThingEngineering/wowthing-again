@@ -1,25 +1,24 @@
 <script lang="ts">
     import { singleLockoutRaids } from '@/data/raid';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { lockoutState } from '@/stores/local-storage';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import type { StaticDataInstance } from '@/shared/stores/static/types';
-    import type { Difficulty, InstanceDifficulty } from '@/types';
+    import type { InstanceDifficulty } from '@/types';
 
     import TableSortedBy from '@/components/common/TableSortedBy.svelte';
     import Tooltip from '@/components/tooltips/lockout-header/TooltipLockoutHeader.svelte';
 
     let { instanceDifficulty }: { instanceDifficulty: InstanceDifficulty } = $props();
 
-    let difficulty: Difficulty = instanceDifficulty.difficulty;
-    let instance: StaticDataInstance = wowthingData.static.instanceById.get(
-        instanceDifficulty.instanceId
+    let difficulty = $derived(instanceDifficulty.difficulty);
+    let instance = $derived(wowthingData.static.instanceById.get(instanceDifficulty.instanceId));
+
+    let sortingBy = $derived(
+        browserState.current.lockouts.sortBy === instanceDifficulty.instanceId
     );
 
-    let sortingBy = $derived($lockoutState.sortBy === instanceDifficulty.instanceId);
-
     const onClick = function () {
-        $lockoutState.sortBy = sortingBy ? 0 : instanceDifficulty.instanceId;
+        browserState.current.lockouts.sortBy = sortingBy ? 0 : instanceDifficulty.instanceId;
     };
 </script>
 

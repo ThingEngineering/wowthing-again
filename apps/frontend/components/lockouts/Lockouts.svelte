@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { lockoutState } from '@/stores/local-storage';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { userState } from '@/user-home/state/user';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import type { Character } from '@/types';
@@ -18,14 +18,16 @@
     };
     const hasSortedLockout = function (char: Character): string {
         return Object.keys(char.lockouts || {}).some((key) =>
-            key.startsWith(`${$lockoutState.sortBy}-`)
+            key.startsWith(`${browserState.current.lockouts.sortBy}-`)
         )
             ? 'a'
             : anyLockouts(char);
     };
 
     let sortFunc = $derived.by(() =>
-        $getCharacterSortFunc($lockoutState.sortBy > 0 ? hasSortedLockout : anyLockouts)
+        $getCharacterSortFunc(
+            browserState.current.lockouts.sortBy > 0 ? hasSortedLockout : anyLockouts
+        )
     );
 </script>
 
