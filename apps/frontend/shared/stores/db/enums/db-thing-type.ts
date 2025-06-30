@@ -6,4 +6,5 @@ export enum DbThingType {
     Quest = 5,
     Vendor = 6,
     Event = 7,
+    Item = 8,
 }
