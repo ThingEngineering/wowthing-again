@@ -1,8 +1,8 @@
 <script lang="ts">
     import { crittershapes, shapeTooltip, soulshapes } from '@/data/covenant';
-    import { userQuestStore } from '@/stores';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { UserCount, type Character } from '@/types';
+    import { userState } from '@/user-home/state/user';
 
     import Count from '@/components/collectible/CollectibleCount.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
@@ -19,7 +19,9 @@
         for (const shapesArray of [soulshapes, crittershapes]) {
             const temp: [questId: number, icon: string, has: boolean][] = [];
             for (const [questId, icon] of shapesArray) {
-                const has = $userQuestStore.characters[character.id]?.quests?.has(questId);
+                const has = userState.quests.characterById
+                    .get(character.id)
+                    ?.hasQuestById?.has(questId);
                 if (has) {
                     stats.have++;
                 }

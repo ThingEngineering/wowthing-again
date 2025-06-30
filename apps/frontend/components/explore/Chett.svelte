@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { userQuestStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import type { Character } from '@/types';
 
@@ -29,12 +29,13 @@
     ];
 
     const sortFunc = $getCharacterSortFunc((char: Character) => {
+        const charQuests = userState.quests.characterById.get(char.id);
         const tiers = [0, 0, 0];
         let done = 0;
         questTiers.forEach((questTier, index) => {
             for (const [questId] of questTier) {
-                const completed = userQuestStore.characterHas(char.id, questId);
-                const prog = $userQuestStore.characters[char.id]?.progressQuests?.[`q${questId}`];
+                const completed = charQuests?.hasQuestById?.has(questId);
+                const prog = charQuests?.progressQuestByKey?.get(`q${questId}`);
                 if (completed) {
                     done++;
                 }
@@ -67,16 +68,17 @@
     <CharacterTableHead slot="head">
         <th class="spacer"></th>
         <th class="sized b-l">List</th>
-        {#each questTiers as questTier}
+        {#each questTiers as questTier (questTier)}
             <th class="spacer"></th>
-            {#each questTier as [, title]}
+            {#each questTier as [, title] (title)}
                 <th class="sized b-l">{title}</th>
             {/each}
         {/each}
     </CharacterTableHead>
 
     <svelte:fragment slot="rowExtra" let:character>
-        {@const gotList = userQuestStore.characterHas(character.id, 87296)}
+        {@const charQuests = userState.quests.characterById.get(character.id)}
+        {@const gotList = charQuests?.hasQuestById?.has(87296)}
         <td class="spacer"></td>
         <td
             class="sized c"
@@ -84,14 +86,13 @@
             class:status-fail={gotList}
             style:--width="1.6rem"
         >
-            <YesNoIcon state={userQuestStore.characterHas(character.id, 87296)} />
+            <YesNoIcon state={charQuests?.hasQuestById?.has(87296)} />
         </td>
-        {#each questTiers as questTier, index}
+        {#each questTiers as questTier, index (questTier)}
             <td class="spacer"></td>
-            {#each questTier as [questId]}
-                {@const completed = userQuestStore.characterHas(character.id, questId)}
-                {@const progressQuest =
-                    $userQuestStore.characters[character.id]?.progressQuests?.[`q${questId}`]}
+            {#each questTier as [questId] (questId)}
+                {@const completed = charQuests?.hasQuestById?.has(questId)}
+                {@const progressQuest = charQuests?.progressQuestByKey?.get(`q${questId}`)}
                 <td
                     class="sized c b-l"
                     class:status-success={index === 0}
