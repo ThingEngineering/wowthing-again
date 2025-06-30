@@ -1,4 +1,6 @@
 export enum Holiday {
+    MidsummerFireFestival,
+
     BrawlArathiBlizzard = 1000,
     BrawlClassicAshran,
     BrawlCompStomp,
