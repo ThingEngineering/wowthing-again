@@ -48,8 +48,8 @@
                     !!task &&
                     (task.status === QuestStatus.NotStarted || task.status === QuestStatus.Error) &&
                     task.name !== '' &&
-                    task.statusTexts.some((st) => !!st),
-            ),
+                    task.statusTexts.some((st) => !!st)
+            )
         );
     }
 
@@ -75,11 +75,11 @@
 <style lang="scss">
     table {
         &:not(:last-child) {
-            border-bottom: 1px solid $border-color;
+            border-bottom: 1px solid var(--border-color);
         }
 
         + table {
-            border-top: 1px solid $border-color;
+            border-top: 1px solid var(--border-color);
             margin-top: 0.5rem;
         }
     }

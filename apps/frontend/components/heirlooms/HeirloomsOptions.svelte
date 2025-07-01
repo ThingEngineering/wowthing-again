@@ -1,15 +1,16 @@
 <script lang="ts">
-    import { heirloomState } from '@/stores/local-storage'
+    import { browserState } from '@/shared/state/browser.svelte';
 
-    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
 </script>
 
 <div class="options-container">
     <button>
         <CheckboxInput
             name="highlight_missing"
-            bind:value={$heirloomState.highlightMissing}
-        >Highlight missing</CheckboxInput>
+            bind:value={browserState.current.heirlooms.highlightMissing}
+            >Highlight missing</CheckboxInput
+        >
     </button>
 
     <span>Show:</span>
@@ -17,14 +18,14 @@
     <button>
         <CheckboxInput
             name="show_collected"
-            bind:value={$heirloomState.showCollected}
-        >Collected</CheckboxInput>
+            bind:value={browserState.current.heirlooms.showCollected}>Collected</CheckboxInput
+        >
     </button>
 
     <button>
         <CheckboxInput
             name="show_uncollected"
-            bind:value={$heirloomState.showUncollected}
-        >Missing</CheckboxInput>
+            bind:value={browserState.current.heirlooms.showUncollected}>Missing</CheckboxInput
+        >
     </button>
 </div>

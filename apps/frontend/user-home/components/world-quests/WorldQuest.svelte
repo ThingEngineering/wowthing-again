@@ -66,7 +66,7 @@
     .world-quest-icon,
     .world-quest-amount {
         background: $highlight-background;
-        border: 2px solid var(--image-border-color, $border-color);
+        border: 2px solid var(--image-border-color, var(--border-color));
     }
     .world-quest-icon {
         --image-border-width: 0;
@@ -94,7 +94,7 @@
         right: -8px;
     }
     .world-quest-amount {
-        border-radius: $border-radius-small;
+        border-radius: var(--border-radius-small);
         font-size: 95%;
         line-height: 1;
         margin-top: -3px;

@@ -22,11 +22,11 @@
     .zone {
         @include cell-width($width-mplus-dungeon);
 
-        --image-border-radius: #{$border-radius};
+        --image-border-radius: var(--border-radius);
         --image-border-width: 2px;
 
         background: $thing-background;
-        border: 1px solid $border-color;
+        border: 1px solid var(--border-color);
         padding-bottom: 0.3rem;
         padding-top: 0.3rem;
         position: relative;

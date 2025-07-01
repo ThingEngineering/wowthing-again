@@ -23,7 +23,7 @@
 <style lang="scss">
     .magic-list {
         background: $highlight-background;
-        border-radius: $border-radius;
+        border-radius: var(--border-radius);
         flex: 1;
         height: var(--magic-max-height, 21rem);
         overflow-y: scroll;
@@ -47,10 +47,10 @@
             background: $table-striped-alt-bg;
         }
         &:not(:first-child) {
-            border-top: 1px solid $border-color;
+            border-top: 1px solid var(--border-color);
         }
         &:last-child {
-            border-bottom: 1px solid $border-color;
+            border-bottom: 1px solid var(--border-color);
         }
         &:hover {
             background: $active-background;

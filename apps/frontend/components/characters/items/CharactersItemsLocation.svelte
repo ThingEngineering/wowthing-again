@@ -61,7 +61,7 @@
 
 <style lang="scss">
     .collection-objects {
-        --item-empty-border: #{$border-color};
+        --item-empty-border: var(--border-color);
 
         gap: 0.04rem;
     }
@@ -72,7 +72,7 @@
         word-spacing: -0.2ch;
     }
     .bag-name {
-        --image-border-color: #{$border-color};
+        --image-border-color: var(--border-color);
         --image-margin-top: -4px;
 
         font-size: 90%;

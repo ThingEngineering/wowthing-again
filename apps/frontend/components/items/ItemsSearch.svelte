@@ -67,7 +67,7 @@
 
 <style lang="scss">
     .thing-container {
-        border: 1px solid $border-color;
+        border: 1px solid var(--border-color);
         padding: 1rem 0.75rem;
     }
     form {

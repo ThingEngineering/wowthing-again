@@ -1,3 +1,4 @@
+
 <script lang="ts">
     import find from 'lodash/find';
     import type { Component } from 'svelte';
@@ -77,13 +78,13 @@
     }
     nav {
         background: $highlight-background;
-        border-bottom: 1px solid $border-color;
-        border-top: 1px solid $border-color;
+        border-bottom: 1px solid var(--border-color);
+        border-top: 1px solid var(--border-color);
         display: flex;
         padding: 0;
 
         a {
-            border-right: 1px solid $border-color;
+            border-right: 1px solid var(--border-color);
             display: block;
             padding: 0.5rem 1rem;
 

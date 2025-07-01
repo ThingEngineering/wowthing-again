@@ -14,7 +14,7 @@
     $: {
         const itemBySlot = keyBy(
             guild.items.filter((item) => item.tabId === tab),
-            (item) => item.slot,
+            (item) => item.slot
         );
 
         items = [];
@@ -29,7 +29,7 @@
         width: calc((46px * 14) + (0.04rem * 13) + (0.75rem * 2));
     }
     .collection-objects {
-        --item-empty-border: #{$border-color};
+        --item-empty-border: var(--border-color);
 
         flex-flow: column wrap;
         gap: 0.04rem;

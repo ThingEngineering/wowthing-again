@@ -57,7 +57,7 @@
         width: 0.7rem;
     }
     .options-menu {
-        border-radius: $border-radius;
+        border-radius: var(--border-radius);
         padding: 0.2rem 0.4rem;
         position: absolute;
         top: 0;

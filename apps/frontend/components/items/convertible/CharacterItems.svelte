@@ -37,8 +37,8 @@
     }
     .icon-info {
         background-color: $highlight-background;
-        border: 1px solid $border-color;
-        border-radius: $border-radius-small;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-small);
         font-size: 0.9rem;
         line-height: 1;
         padding: 0 2px 1px 2px;

@@ -4,7 +4,6 @@
     import { wowthingData } from '@/shared/stores/data';
     import { timeStore } from '@/shared/stores/time';
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { lazyStore } from '@/stores';
     import { toNiceDuration, toNiceNumber } from '@/utils/formatting';
     import type { StaticDataProfessionAbility } from '@/shared/stores/static/types';
     import type { Character, CharacterPatronOrder } from '@/types/character';
@@ -82,7 +81,7 @@
             opacity: $inactive-opacity;
         }
         &:not(:last-child) {
-            border-bottom: 1px solid $border-color;
+            border-bottom: 1px solid var(--border-color);
         }
     }
     .remaining {

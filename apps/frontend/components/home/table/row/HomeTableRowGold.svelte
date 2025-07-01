@@ -15,7 +15,7 @@
     td {
         @include cell-width($width-gold, $maxWidth: $width-gold-max);
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         text-align: right;
     }
 </style>

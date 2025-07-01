@@ -9,7 +9,7 @@
     position: relative;
     background-color: $tooltip-background;
     color: $tooltip-color;
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
     font-size: 1rem;
     line-height: 1.4;
     outline: 0;
@@ -70,7 +70,7 @@
     border-style: solid;
 }
 .tippy-content {
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
     overflow: hidden;
     position: relative;
     padding: $tooltip-padding-y $tooltip-padding-x;

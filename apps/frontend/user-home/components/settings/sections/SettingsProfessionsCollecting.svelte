@@ -53,7 +53,7 @@
         padding-bottom: calc((var(--column-count) - 1) * 10rem);
     }
     tbody tr:first-child td {
-        border-top: 1px solid $border-color;
+        border-top: 1px solid var(--border-color);
     }
     td {
         padding-top: 0.2rem;

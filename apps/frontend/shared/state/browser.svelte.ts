@@ -19,8 +19,18 @@ interface BrowserStateIdk {
         questId: number;
         transmogSetId: number;
     };
+    heirlooms: {
+        highlightMissing: boolean;
+        showCollected: boolean;
+        showUncollected: boolean;
+    };
     home: {
         activeView: string;
+    };
+    illusions: {
+        highlightMissing: boolean;
+        showCollected: boolean;
+        showUncollected: boolean;
     };
     journal: {
         filtersExpanded: boolean;
@@ -57,6 +67,9 @@ interface BrowserStateIdk {
         showRaidTimewalking: boolean;
         showRaid10: boolean;
         showRaid25: boolean;
+    };
+    lockouts: {
+        sortBy: number;
     };
     matrix: {
         minLevel: number;
@@ -121,8 +134,18 @@ const initialState: BrowserStateIdk = {
         questId: 0,
         transmogSetId: 0,
     },
+    heirlooms: {
+        highlightMissing: true,
+        showCollected: true,
+        showUncollected: true,
+    },
     home: {
         activeView: '',
+    },
+    illusions: {
+        highlightMissing: true,
+        showCollected: true,
+        showUncollected: true,
     },
     journal: {
         filtersExpanded: false,
@@ -159,6 +182,9 @@ const initialState: BrowserStateIdk = {
         showRaidTimewalking: true,
         showRaid10: true,
         showRaid25: true,
+    },
+    lockouts: {
+        sortBy: 0,
     },
     matrix: {
         minLevel: 0,

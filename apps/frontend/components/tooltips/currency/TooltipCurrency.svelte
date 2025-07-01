@@ -73,7 +73,7 @@
         text-align: left;
 
         & + table {
-            border-top: 1px solid #{$border-color};
+            border-top: 1px solid var(--border-color);
         }
     }
     table {

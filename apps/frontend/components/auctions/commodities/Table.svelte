@@ -53,8 +53,8 @@
     }
     .tag {
         background: $highlight-background;
-        border-left: 1px solid $border-color;
-        border-right: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
+        border-right: 1px solid var(--border-color);
         margin-right: $width-padding;
         padding-left: $width-padding;
         padding-right: $width-padding;

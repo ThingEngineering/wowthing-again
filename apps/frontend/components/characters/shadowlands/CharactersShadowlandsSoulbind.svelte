@@ -1,41 +1,30 @@
 <script lang="ts">
-    import find from 'lodash/find'
+    import find from 'lodash/find';
 
-    import { soulbindSockets } from '@/data/icons'
-    import { basicTooltip } from '@/shared/utils/tooltips'
-    import type { Character, CharacterShadowlandsSoulbind } from '@/types'
-    import type { StaticDataSoulbind } from '@/shared/stores/static/types'
+    import { soulbindSockets } from '@/data/icons';
+    import { basicTooltip } from '@/shared/utils/tooltips';
+    import type { Character, CharacterShadowlandsSoulbind } from '@/types';
+    import type { StaticDataSoulbind } from '@/shared/stores/static/types';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import SpellLink from '@/shared/components/links/SpellLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import SpellLink from '@/shared/components/links/SpellLink.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character
-    export let covenantId: number
-    export let soulbind: StaticDataSoulbind
+    export let character: Character;
+    export let covenantId: number;
+    export let soulbind: StaticDataSoulbind;
 
-    let characterSoulbind: CharacterShadowlandsSoulbind
-    let selectedTalent: number[][]
+    let characterSoulbind: CharacterShadowlandsSoulbind;
+    let selectedTalent: number[][];
     $: {
         characterSoulbind = find(
             character.shadowlands?.covenants?.[covenantId]?.soulbinds || [],
             (sb) => sb.id === soulbind.id
-        )
-        selectedTalent = characterSoulbind?.tree ?? []
+        );
+        selectedTalent = characterSoulbind?.tree ?? [];
     }
 
-    const itemLevel: number[] = [
-        0,
-        145,
-        158,
-        171,
-        184,
-        200,
-        213,
-        226,
-        239,
-        252,
-    ]
+    const itemLevel: number[] = [0, 145, 158, 171, 184, 200, 213, 226, 239, 252];
 </script>
 
 <style lang="scss">
@@ -78,7 +67,7 @@
         }
     }
     .soulbind-talent {
-        --image-border-radius: #{$border-radius-large};
+        --image-border-radius: var(--border-radius-large);
         --image-border-width: 2px;
 
         height: 52px;
@@ -104,8 +93,8 @@
     }
     .empty-socket {
         background: $thing-background;
-        border: 2px solid $border-color;
-        border-radius: $border-radius-large;
+        border: 2px solid var(--border-color);
+        border-radius: var(--border-radius-large);
         height: 100%;
         width: 100%;
     }
@@ -119,13 +108,16 @@
     <h3
         class="text-overflow"
         use:basicTooltip={`${soulbind.name}${characterSoulbind?.unlocked !== true ? ' [not unlocked]' : ''}`}
-    >{soulbind.name}</h3>
+    >
+        {soulbind.name}
+    </h3>
 
     {#each soulbind.rows as row, rowIndex}
         <div
             class="soulbind-row"
             class:none-chosen={selectedTalent[rowIndex] === undefined}
-            class:unlocked={character.shadowlands?.covenants?.[covenantId]?.renown >= soulbind.renown[rowIndex]}
+            class:unlocked={character.shadowlands?.covenants?.[covenantId]?.renown >=
+                soulbind.renown[rowIndex]}
         >
             {#if row.length === 1}
                 <div class="soulbind-talent"></div>
@@ -138,39 +130,24 @@
                 >
                     {#if column[1] > 3}
                         <SpellLink id={column[1]}>
+                            <WowthingImage name="spell/{column[1]}" size={48} border={2} />
+                        </SpellLink>
+                    {:else if selectedTalent[rowIndex]?.[0] === column[0] + 1 && selectedTalent[rowIndex][1] > 0}
+                        <SpellLink
+                            id={selectedTalent[rowIndex][1]}
+                            itemLevel={itemLevel[selectedTalent[rowIndex][2]]}
+                        >
                             <WowthingImage
-                                name="spell/{column[1]}"
+                                name="spell/{selectedTalent[rowIndex][1]}"
                                 size={48}
                                 border={2}
                             />
+                            <IconifyIcon dropShadow={true} icon={soulbindSockets[column[1]]} />
                         </SpellLink>
                     {:else}
-                        {#if selectedTalent[rowIndex]?.[0] === column[0] + 1 && selectedTalent[rowIndex][1] > 0}
-                            <SpellLink
-                                id={selectedTalent[rowIndex][1]}
-                                itemLevel={itemLevel[selectedTalent[rowIndex][2]]}
-                            >
-                                <WowthingImage
-                                    name="spell/{selectedTalent[rowIndex][1]}"
-                                    size={48}
-                                    border={2}
-                                />
-                                <IconifyIcon
-                                    dropShadow={true}
-                                    icon={soulbindSockets[column[1]]}
-                                />
-                            </SpellLink>
-                        {:else}
-                            <div
-                                class="empty-socket"
-                                use:basicTooltip={"Empty socket"}
-                            >
-                                <IconifyIcon
-                                    dropShadow={true}
-                                    icon={soulbindSockets[column[1]]}
-                                />
-                            </div>
-                        {/if}
+                        <div class="empty-socket" use:basicTooltip={'Empty socket'}>
+                            <IconifyIcon dropShadow={true} icon={soulbindSockets[column[1]]} />
+                        </div>
                     {/if}
                 </div>
             {/each}

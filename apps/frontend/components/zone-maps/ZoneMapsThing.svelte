@@ -140,8 +140,8 @@
     }
     span {
         background-color: $highlight-background;
-        border: 1px solid $border-color;
-        border-radius: $border-radius-small;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-small);
         color: #fff;
         display: block;
         font-size: 0.9rem;

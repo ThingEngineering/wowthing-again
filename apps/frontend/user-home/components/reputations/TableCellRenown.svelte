@@ -1,7 +1,6 @@
 <script lang="ts">
     import { getRenownData } from './get-renown-data';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { userStore } from '@/stores';
     import type { StaticDataReputation } from '@/shared/stores/static/types';
     import type {
         Character,
@@ -37,7 +36,7 @@
 
 <style lang="scss">
     td {
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         text-align: center;
     }
 </style>

@@ -17,9 +17,7 @@
 
     let { collectibleState, things }: Props = $props();
 
-    const { countsKey, thingMapFunc, thingType, userHas } = getContext(
-        'collection'
-    ) as CollectibleContext;
+    const { thingMapFunc, thingType, userHas } = getContext('collection') as CollectibleContext;
 
     let element = $state<HTMLElement>(null);
     let intersected = $state(false);

@@ -11,11 +11,11 @@
                 z-index: 1;
 
                 &:first-child {
-                    border-left: 1px solid $border-color;
+                    border-left: 1px solid var(--border-color);
                 }
 
                 &:last-child {
-                    border-right: 1px solid $border-color;
+                    border-right: 1px solid var(--border-color);
                 }
             }
         }
@@ -29,11 +29,11 @@
                 white-space: nowrap;
 
                 &:first-child {
-                    border-left: 1px solid $border-color;
+                    border-left: 1px solid var(--border-color);
                 }
 
                 &:last-child {
-                    border-right: 1px solid $border-color;
+                    border-right: 1px solid var(--border-color);
                 }
 
                 .flex-wrapper {
@@ -46,7 +46,7 @@
         &:first-child {
             tr:first-child {
                 td {
-                    border-top: 1px solid $border-color;
+                    border-top: 1px solid var(--border-color);
                 }
             }
         }

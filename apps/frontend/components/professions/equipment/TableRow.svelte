@@ -87,7 +87,7 @@
     .profession-icon {
         --image-border-width: 2px;
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         padding: 0 0.1rem;
     }
     .icon-wrapper {

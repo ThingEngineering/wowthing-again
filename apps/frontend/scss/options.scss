@@ -6,8 +6,8 @@
 
     button {
         background: $highlight-background;
-        border: 1px solid $border-color;
-        border-radius: $border-radius;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
         margin-right: 0.25rem;
         padding: 0.25rem 0 0.25rem 0.25rem;
 

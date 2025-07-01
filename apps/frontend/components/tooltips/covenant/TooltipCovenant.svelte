@@ -1,42 +1,45 @@
 <script lang="ts">
-    import { DateTime } from 'luxon'
+    import { DateTime } from 'luxon';
 
-    import { covenantMap, covenantOrder } from '@/data/covenant'
-    import { timeStore } from '@/shared/stores/time'
-    import { toNiceDuration, toNiceNumber } from '@/utils/formatting'
-    import type { Character, CharacterShadowlandsCovenant, CharacterShadowlandsCovenantFeature } from '@/types'
+    import { covenantMap, covenantOrder } from '@/data/covenant';
+    import { timeStore } from '@/shared/stores/time';
+    import { toNiceDuration, toNiceNumber } from '@/utils/formatting';
+    import type {
+        Character,
+        CharacterShadowlandsCovenant,
+        CharacterShadowlandsCovenantFeature,
+    } from '@/types';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character
+    export let character: Character;
 
-    let characterCovenantId: number
-    let characterCovenants: Record<number, CharacterShadowlandsCovenant>
+    let characterCovenantId: number;
+    let characterCovenants: Record<number, CharacterShadowlandsCovenant>;
     $: {
-        characterCovenantId = character.shadowlands?.covenantId || 0
-        characterCovenants = character.shadowlands?.covenants || {}
+        characterCovenantId = character.shadowlands?.covenantId || 0;
+        characterCovenants = character.shadowlands?.covenants || {};
     }
 
-    const featureFunc = function(feature: CharacterShadowlandsCovenantFeature): number|string {
+    const featureFunc = function (feature: CharacterShadowlandsCovenantFeature): number | string {
         if (!feature) {
-            return '---'
+            return '---';
         }
 
         if (feature.researchEnds > 0) {
-            const ends: DateTime = DateTime.fromSeconds(feature.researchEnds)
+            const ends: DateTime = DateTime.fromSeconds(feature.researchEnds);
             if (ends <= $timeStore) {
-                return feature.rank + 1
-            }
-            else {
-                const duration = toNiceDuration(ends.diff($timeStore).toMillis())
-                return `${feature.rank + 1} in<br><span class="status-shrug">${duration}</span>`
+                return feature.rank + 1;
+            } else {
+                const duration = toNiceDuration(ends.diff($timeStore).toMillis());
+                return `${feature.rank + 1} in<br><span class="status-shrug">${duration}</span>`;
             }
         }
 
-        return feature.rank
-    }
+        return feature.rank;
+    };
 
-    const rows: [string, (c: CharacterShadowlandsCovenant) => number|string][] = [
+    const rows: [string, (c: CharacterShadowlandsCovenant) => number | string][] = [
         ['Renown', (c: CharacterShadowlandsCovenant) => c.renown],
         ['Anima', (c) => toNiceNumber(c.anima)],
         ['Souls', (c) => toNiceNumber(c.souls)],
@@ -44,14 +47,14 @@
         ['Missions', (c) => featureFunc(c.missions)],
         ['Transport', (c) => featureFunc(c.transport)],
         ['Unique', (c) => featureFunc(c.unique)],
-    ]
+    ];
 </script>
 
 <style lang="scss">
     thead {
         tr {
             th {
-                border-bottom: 1px solid $border-color;
+                border-bottom: 1px solid var(--border-color);
             }
         }
     }
@@ -60,7 +63,7 @@
         text-align: left;
     }
     .value {
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         width: 4rem;
     }
     .active {
@@ -76,11 +79,7 @@
                 <th></th>
                 {#each covenantOrder as covenantId}
                     <th>
-                        <WowthingImage
-                            name={covenantMap[covenantId].icon}
-                            size={32}
-                            border={1}
-                        />
+                        <WowthingImage name={covenantMap[covenantId].icon} size={32} border={1} />
                     </th>
                 {/each}
             </tr>
@@ -90,10 +89,7 @@
                 <tr>
                     <td class="name">{name}</td>
                     {#each covenantOrder as covenantId}
-                        <td
-                            class="value"
-                            class:active={covenantId === characterCovenantId}
-                        >
+                        <td class="value" class:active={covenantId === characterCovenantId}>
                             {#if characterCovenants[covenantId]}
                                 {@html valueFunc(characterCovenants[covenantId])}
                             {:else}

@@ -51,10 +51,11 @@ export const holidayIds: Record<number, number[]> = {
     [Holiday.BrawlSouthshoreVsTarrenMill]: [660, 662, 669, 676, 683],
     [Holiday.BrawlTempleOfHotmogu]: [1166, 1167, 1168, 1169, 1170],
     [Holiday.BrawlWarsongScramble]: [664, 671, 678, 685, 1221],
+    [Holiday.MidsummerFireFestival]: [11],
 };
 
 export const holidayMap: Record<number, Holiday> = Object.fromEntries(
     getNumberKeyedEntries(holidayIds)
         .map(([key, values]) => values.map((id) => [id, key]))
-        .flat(),
+        .flat()
 );

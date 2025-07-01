@@ -24,7 +24,7 @@
     .flightstones {
         --image-margin-top: 0;
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         padding: 0 0.4rem 0 0.2rem;
     }
     .flightstones-wrapper {
@@ -34,7 +34,7 @@
         justify-content: space-between;
     }
     .crests {
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         padding: 0 0.4rem 0 0.2rem;
     }
     .crests-wrapper {

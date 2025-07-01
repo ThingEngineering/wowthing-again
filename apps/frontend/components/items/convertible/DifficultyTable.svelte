@@ -31,7 +31,7 @@
     .counts {
         @include cell-width(3rem);
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         text-align: center;
     }
     .item-slot {
@@ -39,7 +39,7 @@
 
         @include cell-width(6rem, $paddingLeft: 0px, $paddingRight: 0px);
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         padding-bottom: 0.2rem;
         padding-top: 0.2rem;
         text-align: center;

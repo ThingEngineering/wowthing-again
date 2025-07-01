@@ -425,7 +425,7 @@
         padding: 0.25em 0.375em;
     }
     .thing-container {
-        border: 1px solid $border-color;
+        border: 1px solid var(--border-color);
         padding: 1rem;
         width: 100%;
     }

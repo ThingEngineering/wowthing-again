@@ -130,7 +130,7 @@
         }
     }
     .character-icon {
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         padding: 0.2rem 0.3rem;
 
         div {
@@ -155,7 +155,7 @@
     // .name {
     // }
     .status {
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         text-align: center;
     }
 </style>

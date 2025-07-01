@@ -408,4 +408,4 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
     }
 }
 
-const staticStore = new StaticDataStore();
+//const staticStore = new StaticDataStore();

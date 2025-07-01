@@ -8,14 +8,14 @@
             &:first-child {
                 td,
                 th {
-                    border-top: 1px solid $border-color;
+                    border-top: 1px solid var(--border-color);
                 }
             }
 
             &:last-child {
                 td,
                 th {
-                    border-bottom: 1px solid $border-color;
+                    border-bottom: 1px solid var(--border-color);
                 }
             }
         }
@@ -41,11 +41,11 @@
     td,
     th {
         &:first-child {
-            border-left: 1px solid $border-color;
+            border-left: 1px solid var(--border-color);
         }
 
         &:last-child {
-            border-right: 1px solid $border-color;
+            border-right: 1px solid var(--border-color);
         }
 
         code {
@@ -65,20 +65,20 @@
     .spacer {
         background: $body-background;
         border-bottom-width: 0 !important;
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         border-top-width: 0 !important;
         min-width: 1rem;
         width: 1rem;
     }
 
     .spacer + td {
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
     }
 
     .settings {
         background: $body-background;
         border-bottom-width: 0 !important;
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         border-right-width: 0 !important;
         border-top-width: 0 !important;
         min-width: 3rem;
@@ -113,7 +113,7 @@
         }
         tr:nth-child(2n):not(:last-child) {
             td {
-                border-bottom: 1px solid $border-color;
+                border-bottom: 1px solid var(--border-color);
             }
         }
     }
@@ -123,7 +123,7 @@
 .table-striped2 {
     tr {
         td {
-            border-bottom: 1px solid $border-color;
+            border-bottom: 1px solid var(--border-color);
         }
     }
 }
@@ -131,7 +131,7 @@
 .table-group-head {
     td {
         background: adjust-color($active-background, $alpha: -0.5);
-        border-top: 1px solid $border-color;
+        border-top: 1px solid var(--border-color);
         font-size: 1.05rem;
         text-align: center;
     }

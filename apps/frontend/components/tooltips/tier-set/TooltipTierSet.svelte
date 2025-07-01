@@ -47,7 +47,7 @@
         gap: 1rem;
     }
     table {
-        border-bottom: 1px solid $border-color;
+        border-bottom: 1px solid var(--border-color);
         margin-bottom: -1px;
     }
     .slot {

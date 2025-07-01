@@ -144,11 +144,11 @@
     td {
         @include cell-width(var(--width, 0));
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         white-space: nowrap;
 
         & :global(img) {
-            border-radius: $border-radius;
+            border-radius: var(--border-radius);
 
             &:not(:first-child) {
                 margin-left: 3px;

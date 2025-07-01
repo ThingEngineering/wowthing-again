@@ -1,18 +1,17 @@
 import sortBy from 'lodash/sortBy';
+import { get } from 'svelte/store';
 
 import { expansionMap, expansionSlugMap } from '@/data/expansion';
 import { typeOrderMap } from '@/data/inventory-type';
 import { weaponSubclassOrderMap, weaponSubclassToString } from '@/data/weapons';
 import { ArmorType } from '@/enums/armor-type';
 import { ItemClass } from '@/enums/item-class';
+import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
-import { UserCount, type UserData } from '@/types';
+import { appearanceState } from '@/stores/local-storage';
+import { UserCount } from '@/types';
 import { AppearanceDataAppearance, AppearanceDataSet } from '@/types/data/appearance';
 import { leftPad } from '@/utils/formatting';
-import type { Settings } from '@/shared/stores/settings/types';
-import { settingsState } from '@/shared/state/settings.svelte';
-import { appearanceState } from '@/stores/local-storage';
-import { get } from 'svelte/store';
 import { userState } from '../user';
 
 export interface LazyAppearances {

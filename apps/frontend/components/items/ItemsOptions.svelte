@@ -20,8 +20,8 @@
     button {
         align-items: center;
         background: $highlight-background;
-        border: 1px solid $border-color;
-        border-radius: $border-radius;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
         display: flex;
         padding-left: 0.2rem;
         padding-right: 0.2rem;

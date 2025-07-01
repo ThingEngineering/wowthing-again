@@ -29,7 +29,7 @@
 <style lang="scss">
     .paragons {
         border: 1px solid rgb(255, 119, 255);
-        border-radius: $border-radius-large;
+        border-radius: var(--border-radius-large);
         margin-left: 0.5rem;
         padding: 0.1rem 0.5rem;
         z-index: 10;
@@ -46,6 +46,6 @@
             }),
         }}
     >
-        Available Paragons: {total}
+        Paragons: {total}
     </div>
 {/if}

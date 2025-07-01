@@ -121,7 +121,7 @@
         }
 
         :global(span.note) {
-            border-bottom: 1px solid $border-color;
+            border-bottom: 1px solid var(--border-color);
             display: block;
             margin: 0;
             padding: 0.1rem 0.5rem 0.2rem 0.5rem;

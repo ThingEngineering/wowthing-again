@@ -121,7 +121,7 @@
     .thing-container {
         --image-border-width: 2px;
 
-        border: 1px solid $border-color;
+        border: 1px solid var(--border-color);
         break-inside: avoid;
         display: grid;
         grid-template-areas:
@@ -137,7 +137,7 @@
 
         &.completed {
             background: mix($thing-background, $color-success, 91%);
-            border-color: mix($border-color, $color-success, 80%);
+            border-color: color-mix(in hsl, var(--border-color) 80%, var(--color-success) 20%);
 
             :global(.status-fail) {
                 --shadow-color: rgba(30, 30, 30, 0.5);

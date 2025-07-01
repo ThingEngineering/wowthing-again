@@ -1,24 +1,24 @@
 <script lang="ts">
-    import { achievementStore } from '@/stores'
-    import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator'
-    import { CriteriaType } from '@/enums/criteria-type'
-    import { leftPad } from '@/utils/formatting'
-    import { basicTooltip } from '@/shared/utils/tooltips'
+    import { achievementStore } from '@/stores';
+    import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator';
+    import { CriteriaType } from '@/enums/criteria-type';
+    import { leftPad } from '@/utils/formatting';
+    import { basicTooltip } from '@/shared/utils/tooltips';
     import type {
         AchievementDataAchievement,
         AchievementDataCriteria,
         AchievementDataCriteriaTree,
-    } from '@/types'
+    } from '@/types';
 
-    export let achievement: AchievementDataAchievement
-    export let criteriaTreeId: number
-    export let depth = 0
+    export let achievement: AchievementDataAchievement;
+    export let criteriaTreeId: number;
+    export let depth = 0;
 
-    let criteria: AchievementDataCriteria
-    let criteriaTree: AchievementDataCriteriaTree
+    let criteria: AchievementDataCriteria;
+    let criteriaTree: AchievementDataCriteriaTree;
     $: {
-        criteriaTree = $achievementStore.criteriaTree[criteriaTreeId]
-        criteria = $achievementStore.criteria[criteriaTree?.criteriaId]
+        criteriaTree = $achievementStore.criteriaTree[criteriaTreeId];
+        criteria = $achievementStore.criteria[criteriaTree?.criteriaId];
     }
 </script>
 
@@ -31,7 +31,7 @@
         padding-top: 0.3rem;
 
         &:not(:last-child) {
-            border-bottom: 1px dashed $border-color;
+            border-bottom: 1px dashed var(--border-color);
         }
     }
     .info {
@@ -47,23 +47,19 @@
     }
     .data {
         span + span {
-            border-left: 1px solid $border-color;
+            border-left: 1px solid var(--border-color);
             padding-left: 0.5rem;
         }
     }
 </style>
 
 {#if criteriaTree}
-    <div
-        class="criteria-tree"
-        style:--depth={depth}
-    >
+    <div class="criteria-tree" style:--depth={depth}>
         <div class="info">
             <code>[{criteriaTreeId}]</code>
-            <span
-                class="text-overflow"
-                use:basicTooltip={criteriaTree.description}
-            >{criteriaTree.description || 'BLANK'}</span>
+            <span class="text-overflow" use:basicTooltip={criteriaTree.description}
+                >{criteriaTree.description || 'BLANK'}</span
+            >
         </div>
 
         <div class="data">
@@ -108,18 +104,11 @@
         </div>
     </div>
 
-    {#each (criteriaTree?.children || []) as childId}
-        <svelte:self
-            {achievement}
-            criteriaTreeId={childId}
-            depth={depth + 1}
-        />
+    {#each criteriaTree?.children || [] as childId}
+        <svelte:self {achievement} criteriaTreeId={childId} depth={depth + 1} />
     {/each}
 {:else}
-    <div
-        class="criteria-tree"
-        style:--depth={depth}
-    >
+    <div class="criteria-tree" style:--depth={depth}>
         Unknown criteria tree ID: <code>{criteriaTreeId}</code>
     </div>
 {/if}

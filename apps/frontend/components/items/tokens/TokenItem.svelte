@@ -143,7 +143,7 @@
 
         > span {
             border: 2px solid rgba(0, 0, 0, 0.8);
-            border-radius: $border-radius;
+            border-radius: var(--border-radius);
         }
     }
     .pill {

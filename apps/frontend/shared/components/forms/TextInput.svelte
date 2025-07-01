@@ -24,7 +24,7 @@
         align-items: center;
     }
     input {
-        border-radius: $border-radius;
+        border-radius: var(--border-radius);
         width: 100%;
     }
     label {

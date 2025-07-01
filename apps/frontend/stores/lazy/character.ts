@@ -1,4 +1,3 @@
-import sortBy from 'lodash/sortBy';
 import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
 

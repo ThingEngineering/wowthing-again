@@ -1,6 +1,6 @@
 <script lang="ts">
-    export let id = ''
-    export let width = '10rem'
+    export let id = '';
+    export let width = '10rem';
 </script>
 
 <style lang="scss">
@@ -14,7 +14,7 @@
         width: var(--width);
     }
     ul {
-        border: 1px solid $border-color;
+        border: 1px solid var(--border-color);
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
         border-left-width: 0;
@@ -30,13 +30,13 @@
         background: $active-background;
     }
     ul :global(.separator) {
-        border-top: 1px solid $border-color;
+        border-top: 1px solid var(--border-color);
         margin: 0.2rem 0;
     }
 </style>
 
 <div>
-    <nav id="{id}" style="--width: {width}">
+    <nav {id} style="--width: {width}">
         <ul class="thing-container">
             <slot />
         </ul>

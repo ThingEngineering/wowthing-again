@@ -220,7 +220,7 @@
 <style lang="scss">
     .overlay-box {
         background: $highlight-background;
-        border: 1px solid $border-color;
+        border: 1px solid var(--border-color);
         position: absolute;
         z-index: 10;
     }
@@ -274,7 +274,7 @@
         height: 1.5rem;
 
         &:not(:first-child) {
-            border-left: 1px solid $border-color;
+            border-left: 1px solid var(--border-color);
             margin-left: 0.5rem;
             padding-left: 0.5rem;
         }
@@ -315,7 +315,7 @@
             padding: 0.1rem 0.4rem 0.2rem;
 
             & + div {
-                border-right: 1px solid $border-color;
+                border-right: 1px solid var(--border-color);
             }
         }
     }

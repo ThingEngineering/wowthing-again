@@ -1,12 +1,12 @@
 <script lang="ts">
-    import type { AuctionEntry } from '@/auctions/types/auction-entry'
+    import type { AuctionEntry } from '@/auctions/types/auction-entry';
 
-    import Row from './ResultsRow.svelte'
-    import Selected from './Selected.svelte'
+    import Row from './ResultsRow.svelte';
+    import Selected from './Selected.svelte';
 
-    export let loadFunc: () => Promise<AuctionEntry[]>
-    export let selected: string
-    export let url: string
+    export let loadFunc: () => Promise<AuctionEntry[]>;
+    export let selected: string;
+    export let url: string;
 </script>
 
 <style lang="scss">
@@ -15,7 +15,7 @@
             border-bottom-width: 0;
         }
         :global(tbody tr:first-child td) {
-            border-top: 1px solid $border-color;
+            border-top: 1px solid var(--border-color);
         }
     }
     .flex-wrapper {
@@ -39,9 +39,7 @@
     <div class="results">
         <table class="table table-striped auctions-table">
             <thead>
-                <tr
-                    class:next-selected={false}
-                >
+                <tr class:next-selected={false}>
                     <th class="icon"></th>
                     <th class="name">Thing</th>
                     <th class="item-level">ILvl</th>
@@ -56,7 +54,8 @@
                     {#each auctions as auction, auctionIndex}
                         <Row
                             baseUrl={url}
-                            nextSelected={(selected || 'ZZZ') === auctions[auctionIndex + 1]?.groupKey}
+                            nextSelected={(selected || 'ZZZ') ===
+                                auctions[auctionIndex + 1]?.groupKey}
                             selected={(selected || 'ZZZ') === auction.groupKey}
                             {auction}
                         />

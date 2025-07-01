@@ -62,7 +62,7 @@
     td {
         @include cell-width(3.5rem);
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
     }
     .flex-wrapper {
         // --image-margin-top: -3px !important;

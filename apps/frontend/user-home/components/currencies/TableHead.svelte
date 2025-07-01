@@ -35,7 +35,7 @@
         --padding: 0;
 
         background: $thing-background;
-        border: 1px solid $border-color;
+        border: 1px solid var(--border-color);
         border-right-width: 0;
         border-top-width: 0;
         padding-bottom: $width-padding;

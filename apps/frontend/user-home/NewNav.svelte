@@ -62,7 +62,7 @@
         margin-right: 1rem;
 
         + a:not(.active) {
-            border-left: 1px solid $border-color;
+            border-left: 1px solid var(--border-color);
         }
     }
     :global(.spacer + .active) {

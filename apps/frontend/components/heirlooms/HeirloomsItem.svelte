@@ -1,7 +1,7 @@
 <script lang="ts">
+    import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { heirloomState } from '@/stores/local-storage';
     import { userState } from '@/user-home/state/user';
     import getPercentClass from '@/utils/get-percent-class';
     import type { ManualDataHeirloomItem } from '@/types/data/manual';
@@ -17,8 +17,8 @@
     let level = $derived(userState.general.heirlooms.get(heirloom.id));
     let userHas = $derived(level !== undefined);
     let show = $derived(
-        ((userHas && $heirloomState.showCollected) ||
-            (!userHas && $heirloomState.showUncollected)) &&
+        ((userHas && browserState.current.heirlooms.showCollected) ||
+            (!userHas && browserState.current.heirlooms.showUncollected)) &&
             !(settingsState.value.collections.hideUnavailable && isUnavailable && !userHas)
     );
 </script>

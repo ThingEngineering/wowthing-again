@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 
 class TimeState {
-    time: DateTime = $state(DateTime.utc());
+    public time: DateTime = $state(DateTime.utc());
 
     private interval: ReturnType<typeof setInterval>;
 

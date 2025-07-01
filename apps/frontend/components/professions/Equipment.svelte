@@ -38,7 +38,7 @@
     .empty-slot {
         background: rgba(0, 0, 0, 0.2);
         border: var(--image-border-width) solid lighten($color-fail, 15%);
-        border-radius: $border-radius;
+        border-radius: var(--border-radius);
         display: flex;
         align-items: center;
         justify-content: center;

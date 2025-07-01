@@ -1,23 +1,23 @@
 <script lang="ts">
-    import getPercentClass from '@/utils/get-percent-class'
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import type { Character } from '@/types'
-    import type { ManualDataProgressGroup } from '@/types/data/manual'
-    import type { ProgressInfo } from '@/utils/get-progress'
+    import getPercentClass from '@/utils/get-percent-class';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import type { Character } from '@/types';
+    import type { ManualDataProgressGroup } from '@/types/data/manual';
+    import type { ProgressInfo } from '@/utils/get-progress';
 
-    import TooltipProgress from '@/components/tooltips/progress/TooltipProgress.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import TooltipProgress from '@/components/tooltips/progress/TooltipProgress.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character
-    export let group: ManualDataProgressGroup
-    export let progressData: ProgressInfo
+    export let character: Character;
+    export let group: ManualDataProgressGroup;
+    export let progressData: ProgressInfo;
 </script>
 
 <style lang="scss">
     td {
         @include cell-width($width-progress, $maxWidth: $width-progress-max);
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         text-align: right;
 
         &.status-fail {
@@ -54,15 +54,15 @@
         }}
     >
         {#if progressData.icon}
-            <WowthingImage
-                name={progressData.icon}
-                size={20}
-            />
+            <WowthingImage name={progressData.icon} size={20} />
         {/if}
 
         <span
-            class="{progressData.missingRequired ? 'status-fail' : getPercentClass(progressData.have / progressData.total * 100)}"
-        >{progressData.have} / {progressData.total}</span>
+            class={progressData.missingRequired
+                ? 'status-fail'
+                : getPercentClass((progressData.have / progressData.total) * 100)}
+            >{progressData.have} / {progressData.total}</span
+        >
     </td>
 {:else if progressData?.have === -1 && progressData?.total >= 0}
     <td class="status-fail">---</td>

@@ -1,5 +1,5 @@
 input[type="checkbox"] {
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
     margin: 0.3rem;
     padding: 0.3rem;
 }
@@ -10,8 +10,8 @@ input[type="file"] {
 
 input[type="submit"] {
     background: mix($color-success, $thing-background, 10%);
-    border: 1px solid mix($color-success, $border-color, 50%) !important;
-    border-radius: $border-radius;
+    border: 1px solid color-mix(in hsl, var(--color-success) 50%, var(--border-color) 50%) !important;
+    border-radius: var(--border-radius);
     margin-top: 1rem;
     padding: 0.3rem 0.5rem;
 }

@@ -1,7 +1,6 @@
-import type { Settings } from '@/shared/stores/settings/types';
-import type { LazyStore } from '@/stores';
 import { lazyState } from '@/user-home/state/lazy';
 import { userState } from '@/user-home/state/user';
+import type { Settings } from '@/shared/stores/settings/types';
 
 type NavItem = {
     path: string;

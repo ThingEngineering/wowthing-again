@@ -1,15 +1,17 @@
 <script lang="ts">
     import { getRenownData } from './get-renown-data';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { userStore } from '@/stores';
     import type { ManualDataReputationSet } from '@/types/data/manual';
 
     import TooltipReputation from '@/components/tooltips/reputation/TooltipReputation.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let accountSets: [ManualDataReputationSet[], number][];
-    export let slug: string;
+    type Props = {
+        accountSets: [ManualDataReputationSet[], number][];
+        slug: string;
+    };
+    let { accountSets, slug }: Props = $props();
 </script>
 
 <style lang="scss">

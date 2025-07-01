@@ -102,8 +102,8 @@
     }
     .item-level {
         background-color: $highlight-background;
-        border: 1px solid $border-color;
-        border-radius: $border-radius-small;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-small);
         bottom: 1px;
         //color: #ffffff;
         font-size: 0.9rem;
@@ -150,7 +150,7 @@
 
         background: $thing-background;
         border: 2px solid var(--image-border-color);
-        border-radius: $border-radius;
+        border-radius: var(--border-radius);
         color: $color-success;
         display: flex;
         height: 24px;

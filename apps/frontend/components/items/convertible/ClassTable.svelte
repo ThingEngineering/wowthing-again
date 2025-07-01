@@ -39,7 +39,7 @@
     .item-slot {
         @include cell-width(6rem, $paddingLeft: 0px, $paddingRight: 0px);
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         text-align: center;
     }
     .flex-wrapper {
@@ -53,8 +53,8 @@
     }
     .currency-head {
         background: $body-background;
-        border-bottom: 1px solid $border-color;
-        border-left: 1px solid $border-color;
+        border-bottom: 1px solid var(--border-color);
+        border-left: 1px solid var(--border-color);
         border-right-width: 0 !important;
         border-top-width: 0 !important;
     }

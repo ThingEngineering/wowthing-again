@@ -18,7 +18,6 @@ import {
     UserDataCurrentPeriod,
     WritableFancyStore,
 } from '@/types';
-import { WarbankItem } from '@/types/items';
 import { userState } from '@/user-home/state/user';
 import getItemLevelQuality from '@/utils/get-item-level-quality';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';

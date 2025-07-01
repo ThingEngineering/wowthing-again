@@ -71,12 +71,12 @@
         width: 25%;
 
         &:not(:last-child) {
-            border-right: 1px solid $border-color;
+            border-right: 1px solid var(--border-color);
         }
     }
     .name {
         background: #3f1018;
-        border-bottom: 1px solid $border-color;
+        border-bottom: 1px solid var(--border-color);
         font-size: 0.9rem;
         padding: 0.2rem 0.2rem;
         text-align: center;
@@ -105,10 +105,10 @@
         width: 50%;
 
         &:nth-child(odd) {
-            border-right: 1px solid $border-color;
+            border-right: 1px solid var(--border-color);
         }
         &:nth-child(n + 3) {
-            border-top: 1px solid $border-color;
+            border-top: 1px solid var(--border-color);
         }
         &:only-child {
             border-right-width: 0;

@@ -36,7 +36,7 @@
         --image-margin-top: -4px;
 
         border: 2px solid $color-shrug;
-        border-radius: $border-radius;
+        border-radius: var(--border-radius);
         height: 52px;
         padding: 0 0.2rem;
         text-align: right;

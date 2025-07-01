@@ -109,7 +109,7 @@
         --scale: 0.9;
         background-color: $highlight-background;
         border: 2px solid;
-        border-radius: $border-radius-small;
+        border-radius: var(--border-radius-small);
         color: $color-shrug;
         line-height: 1;
         position: absolute;
@@ -120,7 +120,7 @@
     .difficulties {
         background-color: $highlight-background;
         border: 1px solid;
-        border-radius: $border-radius-small;
+        border-radius: var(--border-radius-small);
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         line-height: 1;

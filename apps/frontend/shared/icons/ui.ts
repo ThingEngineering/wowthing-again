@@ -19,6 +19,7 @@ export const aliasedIcons = {
     brick: iconLibrary.notoBrick,
     carrot: iconLibrary.notoCarrot,
     cloud: iconLibrary.notoCloud,
+    devil: iconLibrary.mdiEmoticonDevilOutline,
     ice: iconLibrary.notoIce,
     pinkHeart: iconLibrary.notoPinkHeart,
     planet: iconLibrary.mdiPlanet,

@@ -27,7 +27,7 @@
     td:first-child {
         @include cell-width(6rem, $paddingRight: 0.5rem);
 
-        border-right: 1px solid $border-color;
+        border-right: 1px solid var(--border-color);
         text-align: right;
     }
     table {

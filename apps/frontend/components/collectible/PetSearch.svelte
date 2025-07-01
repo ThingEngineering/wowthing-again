@@ -62,7 +62,7 @@
 
         height: 28px;
         margin-bottom: 0.2rem;
-        outline: 1px solid $border-color;
+        outline: 1px solid var(--border-color);
         padding: 0 0.3rem;
     }
     .level {

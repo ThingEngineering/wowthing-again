@@ -16,8 +16,8 @@
 <style lang="scss">
     div {
         background: $highlight-background;
-        border: 1px solid $border-color;
-        border-radius: 0 0 $border-radius $border-radius;
+        border: 1px solid var(--border-color);
+        border-radius: 0 0 var(--border-radius) var(--border-radius);
         border-top-width: 0;
         //font-size: 90%;
         line-height: 1;

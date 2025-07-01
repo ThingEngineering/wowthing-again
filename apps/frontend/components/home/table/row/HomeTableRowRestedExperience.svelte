@@ -13,7 +13,7 @@
     td {
         @include cell-width($width-rested);
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         text-align: right;
 
         &.center {

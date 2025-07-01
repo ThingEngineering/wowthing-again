@@ -56,12 +56,6 @@
     .cost.status-success {
         filter: saturate(200%) contrast(200%);
     }
-    .status-shrug {
-        --image-border-color: #{mix($color-shrug, $border-color, 90%)} !important;
-    }
-    .status-success {
-        --image-border-color: #{darken($color-success, 10%)};
-    }
     .quest-item {
         --image-border-color: #{$quality4-color};
 

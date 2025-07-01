@@ -1,7 +1,6 @@
 <script lang="ts">
     import active from 'svelte-spa-router/active';
 
-    import { lazyStore } from '@/stores';
     import { lazyState } from '@/user-home/state/lazy';
     import { userState } from '@/user-home/state/user';
 

@@ -101,10 +101,10 @@
 
 <style lang="scss">
     table:not(:last-child) {
-        border-bottom: 1px solid $border-color;
+        border-bottom: 1px solid var(--border-color);
     }
     table + table {
-        border-top: 1px solid $border-color;
+        border-top: 1px solid var(--border-color);
         margin-top: 1rem;
     }
     .progress {

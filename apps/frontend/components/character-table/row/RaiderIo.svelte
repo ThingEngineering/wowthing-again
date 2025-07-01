@@ -32,7 +32,7 @@
     .score {
         @include cell-width($width-raider-io);
 
-        border-left: 1px solid $border-color;
+        border-left: 1px solid var(--border-color);
         text-align: right;
     }
 </style>

@@ -72,8 +72,8 @@
         --scale: 0.9;
 
         background-color: $highlight-background;
-        border-bottom-left-radius: $border-radius;
-        border-bottom-right-radius: $border-radius;
+        border-bottom-left-radius: var(--border-radius);
+        border-bottom-right-radius: var(--border-radius);
         height: 750px;
         position: relative;
         width: 100%;
@@ -82,8 +82,8 @@
             background-image: var(--background-image);
             background-position: 50% 50%;
             background-size: cover;
-            border-bottom-left-radius: $border-radius;
-            border-bottom-right-radius: $border-radius;
+            border-bottom-left-radius: var(--border-radius);
+            border-bottom-right-radius: var(--border-radius);
             content: '';
             filter: var(--background-filter, unset);
             height: 100%;
@@ -122,7 +122,7 @@
         }
     }
     .paperdoll-configurable {
-        border-bottom: 1px solid $border-color;
+        border-bottom: 1px solid var(--border-color);
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
         margin-bottom: 0;

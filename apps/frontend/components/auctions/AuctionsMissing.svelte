@@ -132,10 +132,10 @@
 
         th {
             &:first-child {
-                border-bottom-left-radius: $border-radius;
+                border-bottom-left-radius: var(--border-radius);
             }
             &:last-child {
-                border-bottom-right-radius: $border-radius;
+                border-bottom-right-radius: var(--border-radius);
             }
         }
     }
