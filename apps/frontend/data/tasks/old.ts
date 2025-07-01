@@ -13,7 +13,7 @@ import type { Character } from '@/types';
 import type { TaskProfession } from '@/types/data';
 import type { Chore, Task } from '@/types/tasks';
 
-import { eventsTurboBoost } from './events';
+import { eventGreedyEmissaryChores, eventGreedyEmissaryTask, eventsTurboBoost } from './events';
 import {
     actualHolidayChores,
     actualHolidayTasks,
@@ -111,6 +111,7 @@ export const warWithinProfessionTasks = buildProfessionTasks(warWithinProfession
 
 export const taskList: Task[] = [
     // Events/Holidays/idk
+    eventGreedyEmissaryTask,
     {
         key: 'turboBoost',
         minimumLevel: 80,
@@ -332,6 +333,7 @@ function garrisonCouldGet(char: Character): boolean {
 }
 
 export const multiTaskMap: Record<string, Chore[]> = {
+    greedyEmissary: eventGreedyEmissaryChores,
     turboBoost: eventsTurboBoost,
     ...actualHolidayChores,
     ...holidayTimewalkingChores,

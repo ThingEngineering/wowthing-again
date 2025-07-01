@@ -113,6 +113,7 @@ export { default as mdiCogOutline } from '@iconify/icons-mdi/cog-outline';
 export { default as mdiCurrencyUsd } from '@iconify/icons-mdi/currency-usd';
 export { default as mdiDiceMultiple } from '@iconify/icons-mdi/dice-multiple';
 export { default as mdiDuck } from '@iconify/icons-mdi/duck';
+export { default as mdiEmoticonDevilOutline } from '@iconify/icons-mdi/emoticon-devil-outline';
 export { default as mdiExclamationThick } from '@iconify/icons-mdi/exclamation-thick';
 export { default as mdiFire } from '@iconify/icons-mdi/fire';
 export { default as mdiFormatListCheckbox } from '@iconify/icons-mdi/format-list-checkbox';

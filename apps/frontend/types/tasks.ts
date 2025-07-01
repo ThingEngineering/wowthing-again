@@ -6,14 +6,15 @@ import type { DbResetType } from '@/shared/stores/db/enums';
 import type { Character } from './character';
 
 export type Task = {
-    minimumLevel?: number;
-    maximumLevel?: number;
-    requiredQuestId?: number;
     key: string;
     name: string;
+    shortName: string;
+    icon?: IconifyIcon;
+    minimumLevel?: number;
+    maximumLevel?: number;
     questIds?: number[];
     questReset?: DbResetType;
-    shortName: string;
+    requiredQuestId?: number;
     showSeparate?: boolean;
     type?: 'multi';
     /**
