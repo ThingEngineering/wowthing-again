@@ -32,7 +32,8 @@
                     const statisticIds = encounter?.statistics?.[difficultyId] ?? [];
                     if (statisticIds.length > 0) {
                         const newKills = statisticIds.reduce(
-                            (a, b) => a + userState.achievements.statisticById.get(b) || 0
+                            (a, b) => a + (userState.achievements.statisticById.get(b) || 0),
+                            0
                         );
                         kills = kills === -1 ? newKills : kills + newKills;
                     }

@@ -1,4 +1,7 @@
 <script lang="ts">
+    import groupBy from 'lodash/groupBy';
+    import orderBy from 'lodash/orderBy';
+
     import { timeStore } from '@/shared/stores/time';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { userQuestStore } from '@/stores';
@@ -9,6 +12,7 @@
 
     import Tooltip from '@/components/tooltips/GoldWorldQuests.svelte';
     import { userState } from '@/user-home/state/user';
+    import { zoneMap } from '@/user-home/components/world-quests/data';
 
     export let character: Character;
 
@@ -30,27 +34,46 @@
     ): [number, [number, number, number, number][]] {
         let count = 0;
         let active: [number, number, number, number][] = [];
+
+        const blah: [number, ApiWorldQuest][] = [];
         for (const [zoneId, zoneQuests] of getNumberKeyedEntries(worldQuests)) {
-            for (const worldQuest of zoneQuests) {
-                if (
-                    questMap[worldQuest.questId] &&
-                    !userState.quests.characterById
-                        .get(character.id)
-                        .hasQuestById.has(worldQuest.questId)
-                ) {
-                    const expires = worldQuest.expires.diff($timeStore).toMillis();
-                    if (expires > 0) {
-                        active.push([
-                            zoneId,
-                            worldQuest.questId,
-                            expires,
-                            questMap[worldQuest.questId],
-                        ]);
-                        count++;
-                    }
+            for (const zoneQuest of zoneQuests) {
+                blah.push([zoneId, zoneQuest]);
+            }
+        }
+
+        const grouped = getNumberKeyedEntries(
+            groupBy(blah, ([, worldQuest]) => worldQuest.questId)
+        ).map(([questId, zoneQuests]) => [
+            questId,
+            orderBy(zoneQuests, ([zoneId]) => (zoneMap[zoneId]?.name ? 0 : 1)),
+        ]) as [number, [number, ApiWorldQuest][]][];
+
+        console.log(grouped.filter((g) => g[1].length > 1));
+
+        for (const [, groupedQuests] of grouped) {
+            const [zoneId, worldQuest] = groupedQuests[0];
+            if (
+                questMap[worldQuest.questId] &&
+                !userState.quests.characterById
+                    .get(character.id)
+                    .hasQuestById.has(worldQuest.questId)
+            ) {
+                const expires = worldQuest.expires.diff($timeStore).toMillis();
+                if (expires > 0) {
+                    active.push([
+                        zoneId,
+                        worldQuest.questId,
+                        expires,
+                        questMap[worldQuest.questId],
+                    ]);
+                    count++;
                 }
             }
         }
+
+        active = orderBy(active, ([zoneId]) => zoneMap[zoneId]?.name || `Zone #${zoneId}`);
+
         return [count, active];
     }
 </script>
