@@ -23,7 +23,8 @@ import type {
 export default function getProgress(
     character: Character,
     category: ManualDataProgressCategory,
-    group: ManualDataProgressGroup
+    group: ManualDataProgressGroup,
+    countAccountWide = true
 ): ProgressInfo {
     let have = 0;
     let missingRequired = false;
@@ -160,7 +161,11 @@ export default function getProgress(
             } else if (datas[0].type === ProgressDataType.GarrisonTree) {
                 total = datas.reduce((a, b) => a + b.value, 0);
             } else {
-                total = datas.filter((data) => data.name !== 'separator').length;
+                total = datas.filter(
+                    (data) =>
+                        data.name !== 'separator' &&
+                        (countAccountWide || data.type !== ProgressDataType.AccountQuest)
+                ).length;
             }
 
             for (let dataIndex = 0; dataIndex < datas.length; dataIndex++) {
@@ -273,11 +278,19 @@ export default function getProgress(
 
                         case ProgressDataType.Quest: {
                             haveThis = checkCharacterQuestIds(character.id, data.ids);
+                            nameOverride[dataIndex] =
+                                wowthingData.static.questNameById.get(data.ids[0]) ||
+                                data.name ||
+                                `Quest #${data.ids[0]}`;
                             break;
                         }
 
                         case ProgressDataType.AccountQuest: {
                             haveThis = checkAccountQuestIds(data.ids);
+                            nameOverride[dataIndex] =
+                                wowthingData.static.questNameById.get(data.ids[0]) ||
+                                data.name ||
+                                `Quest #${data.ids[0]}`;
                             break;
                         }
 
@@ -409,7 +422,9 @@ export default function getProgress(
 
                 if (haveThis) {
                     haveIndexes.push(dataIndex);
-                    have++;
+                    if (countAccountWide || data.type !== ProgressDataType.AccountQuest) {
+                        have++;
+                    }
                 } else if (!haveThis && data.required === true) {
                     missingRequired = true;
                 }
@@ -432,9 +447,7 @@ export default function getProgress(
 }
 
 function checkAccountQuestIds(questIds: number[]) {
-    return Array.from(userState.quests.characterById.values()).some((char) =>
-        questIds.some((id) => char.hasQuestById.has(id))
-    );
+    return questIds.some((questId) => userState.quests.anyCharacterHasQuestId.has(questId));
 }
 
 function checkCharacterQuestIds(characterId: number, questIds: number[]) {
