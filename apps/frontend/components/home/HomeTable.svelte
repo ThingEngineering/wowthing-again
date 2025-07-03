@@ -1,6 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { sharedState } from '@/shared/state/shared.svelte';
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte';
     import GroupHead from './table/HomeTableGroupHead.svelte';
@@ -33,8 +34,7 @@
     import RowVaultDungeon from '@/components/character-table/row/VaultDungeon.svelte';
     import RowVaultRaid from '@/components/character-table/row/VaultRaid.svelte';
     import RowVaultWorld from '@/components/character-table/row/VaultWorld.svelte';
-    import ViewSwitcher from './table/ViewSwitcher.svelte';
-    import { sharedState } from '@/shared/state/shared.svelte';
+    import ViewSwitcher from './view-switcher/ViewSwitcher.svelte';
 
     let { characterLimit = 0 } = $props();
 
