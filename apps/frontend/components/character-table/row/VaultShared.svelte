@@ -1,11 +1,20 @@
 <script lang="ts">
     import type { CharacterWeeklyProgress } from '@/types';
 
-    export let availableRewards: boolean;
-    export let generatedRewards: boolean;
-    export let progresses: CharacterWeeklyProgress[];
-    export let qualityFunc: (progress: CharacterWeeklyProgress) => number = null;
-    export let textFunc: (progress: CharacterWeeklyProgress) => string;
+    type Props = {
+        availableRewards: boolean;
+        generatedRewards: boolean;
+        progresses: CharacterWeeklyProgress[];
+        qualityFunc: (progress: CharacterWeeklyProgress) => number;
+        textFunc: (progress: CharacterWeeklyProgress) => string;
+    };
+    let {
+        availableRewards,
+        generatedRewards,
+        progresses,
+        qualityFunc = null,
+        textFunc,
+    }: Props = $props();
 </script>
 
 <style lang="scss">
