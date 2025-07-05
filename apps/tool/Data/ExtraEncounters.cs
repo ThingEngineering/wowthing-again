@@ -126,6 +126,13 @@ public static partial class Hardcoded
 //                {
 //                    AfterEncounter = 409, // Immol'thar
 //                },
+            }
+        },
+        // Classic > Dire Maul - Gordok Commons
+        {
+            1277,
+            new[]
+            {
                 new ExtraEncounter("Gordok Tribute")
                 {
                     AfterEncounter = 417, // King Gordok
