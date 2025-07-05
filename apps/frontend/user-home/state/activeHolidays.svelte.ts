@@ -7,7 +7,8 @@ import { wowthingData } from '@/shared/stores/data';
 import { userState } from '@/user-home/state/user';
 import type { StaticDataHoliday } from '@/shared/stores/static/types';
 
-export type ActiveHolidayMap = Record<string, StaticDataHoliday>;
+export type ActiveHoliday = { holiday: StaticDataHoliday; startDate: DateTime; endDate: DateTime };
+export type ActiveHolidayMap = Record<string, ActiveHoliday>;
 
 class ActiveHolidays {
     private cachedActive: Record<number, ActiveHolidayMap> = {};
@@ -45,9 +46,14 @@ class ActiveHolidays {
                         const endDate = actualStartDate.plus({ hours: holiday.durations[0] });
                         if (endDate > currentTime) {
                             if (holidayMap[holiday.id]) {
-                                activeHolidays[`h${holiday.id}`] = holiday;
+                                const holidayData = {
+                                    holiday,
+                                    startDate: actualStartDate,
+                                    endDate,
+                                };
+                                activeHolidays[`h${holiday.id}`] = holidayData;
                                 if (Holiday[holidayMap[holiday.id]].startsWith('Brawl')) {
-                                    activeHolidays['pvpBrawl'] = holiday;
+                                    activeHolidays['pvpBrawl'] = holidayData;
                                 }
                             }
                             break;
@@ -66,7 +72,11 @@ class ActiveHolidays {
 
                     if (actualStartDate < currentTime && endDate > currentTime) {
                         for (const taskKey of taskKeys) {
-                            activeHolidays[taskKey] = holiday;
+                            activeHolidays[taskKey] = {
+                                holiday,
+                                startDate: actualStartDate,
+                                endDate,
+                            };
                         }
                         break;
                     }

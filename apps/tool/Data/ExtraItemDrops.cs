@@ -661,7 +661,7 @@ public static partial class Hardcoded
 //        },
         // Dire Maul > Gordok Tribute
         {
-            1_0230_1,
+            1_1277_0,
             [
                 new(18532, DungeonDifficultiesNormal), // Mindsurge Robe
                 new(18475, DungeonDifficultiesNormal), // Oddly Magical Belt

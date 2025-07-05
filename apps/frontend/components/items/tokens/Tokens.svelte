@@ -3,7 +3,7 @@
 
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import { wowthingData } from '@/shared/stores/data';
-    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import type { JournalDataInstance, JournalDataTier } from '@/types/data/journal';
 
     import Instance from './Instance.svelte';
@@ -43,7 +43,7 @@
                         for (const item of group.items) {
                             const sourceIds = wowthingData.journal.expandedItem[item.id] || [];
                             for (const sourceId of sourceIds) {
-                                if ($userStore.itemsById[sourceId]) {
+                                if (userState.general.itemsById[sourceId]) {
                                     items.add(sourceId);
                                 }
                             }

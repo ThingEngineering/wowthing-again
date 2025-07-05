@@ -21,6 +21,7 @@ import { getCurrencyCosts } from '@/utils/get-currency-costs';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { getBonusIdModifier } from '@/utils/items/get-bonus-id-modifier';
 import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
+import { snapshotStateForUserHasLookup } from '@/utils/rewards/snapshot-state-for-user-has-lookup.svelte';
 import { userHasLookup } from '@/utils/rewards/user-has-lookup';
 import type { DbDataQuery } from '@/shared/stores/db/types';
 import type {
@@ -28,11 +29,12 @@ import type {
     ManualDataVendorCategory,
     ManualDataVendorItem,
 } from '@/types/data/manual';
-import { snapshotStateForUserHasLookup } from '@/utils/rewards/snapshot-state-for-user-has-lookup.svelte';
 
 const tierRegex = new RegExp(/ - T\d\d/);
 
 export interface LazyVendors {
+    allCurrencies: Set<number>;
+    byNpcId: Record<number, ManualDataSharedVendor>;
     stats: Record<string, UserCount>;
     userHas: Record<string, boolean>;
 }
@@ -40,6 +42,8 @@ export interface LazyVendors {
 class LazyVendorsProcessor {
     private _createdFarmData = false;
     private _visitedCategories = false;
+    private _allCurrencies = new Set<number>();
+    private _byNpcId: Record<number, ManualDataSharedVendor> = {};
 
     private _snapshot = $derived.by(() => snapshotStateForUserHasLookup());
 
@@ -365,9 +369,11 @@ class LazyVendorsProcessor {
         }
 
         return {
+            allCurrencies: this._allCurrencies,
+            byNpcId: this._byNpcId,
             stats,
             userHas,
-        };
+        } as LazyVendors;
     }
 
     // recursively visit categories and do some initial setup work:
@@ -431,6 +437,7 @@ class LazyVendorsProcessor {
 
             for (const vendorId of childCategory.vendorIds) {
                 const vendor = wowthingData.manual.shared.vendors[vendorId] || dbMap[vendorId];
+                this._byNpcId[vendor.id] ||= vendor;
 
                 let setPosition = 0;
                 const coveredBySets = new Set<number>();
@@ -484,6 +491,10 @@ class LazyVendorsProcessor {
 
                         // BonusIDs, whee
                         item.appearanceModifier = getBonusIdModifier(item.bonusIds || []);
+
+                        for (const [currencyId] of getNumberKeyedEntries(item.costs || {})) {
+                            this._allCurrencies.add(currencyId);
+                        }
                     }
                 }
 
@@ -560,6 +571,10 @@ class LazyVendorsProcessor {
                         ) {
                             autoItem.faction = Faction.Both;
                         }
+                    }
+
+                    for (const [currencyId] of getNumberKeyedEntries(item.costs || {})) {
+                        this._allCurrencies.add(currencyId);
                     }
                 }
             }

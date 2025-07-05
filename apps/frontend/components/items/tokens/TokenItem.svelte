@@ -10,7 +10,6 @@
     import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { userStore } from '@/stores';
     import { UserCount } from '@/types';
     import { userState } from '@/user-home/state/user';
     import { fixedInventoryType } from '@/utils/fixed-inventory-type';
@@ -33,7 +32,7 @@
 
     $: item = wowthingData.items.items[itemId];
     $: expandsTo = wowthingData.journal.itemExpansion[itemId];
-    $: haveItems = $userStore.itemsById[itemId];
+    $: haveItems = userState.general.itemsById[itemId];
     $: haveCount = haveItems.reduce((a, b) => a + b[1].length, 0);
 
     let expandsData: [number, ItemDataItem, boolean][];

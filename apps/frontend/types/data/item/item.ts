@@ -34,9 +34,13 @@ export class ItemDataItem {
         public bindType: BindType,
         public unique: number,
         public socketTypes: number[],
-        appearanceArrays?: ItemDataItemAppearanceArray[],
+        appearanceArrays?: ItemDataItemAppearanceArray[]
     ) {
         this.appearanceArrays = appearanceArrays || [];
+    }
+
+    get imageName(): string {
+        return `item/${this.id}`;
     }
 
     private _appearances: Record<number, ItemDataItemAppearance>;
@@ -103,7 +107,7 @@ export class ItemDataItemAppearance {
     constructor(
         public appearanceId: number,
         public sourceType: number,
-        modifier?: number,
+        modifier?: number
     ) {
         this.modifier = modifier || 0;
     }

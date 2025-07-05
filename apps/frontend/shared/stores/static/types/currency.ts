@@ -8,8 +8,12 @@ export class StaticDataCurrency {
         public rechargeInterval: number,
         public transferPercent: number,
         public name: string,
-        public description: string,
+        public description: string
     ) {}
+
+    get imageName(): string {
+        return `currency/${this.id}`;
+    }
 }
 export type StaticDataCurrencyArray = ConstructorParameters<typeof StaticDataCurrency>;
 
@@ -17,7 +21,7 @@ export class StaticDataCurrencyCategory {
     constructor(
         public id: number,
         public name: string,
-        public slug: string,
+        public slug: string
     ) {}
 }
 

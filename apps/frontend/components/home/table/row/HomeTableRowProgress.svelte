@@ -19,7 +19,7 @@
 
 {#key settingsState.activeView.id}
     {#each activeViewProgress.value as [progressKey, category, group] (progressKey)}
-        {@const data = getProgress(character, category, group)}
+        {@const data = getProgress(character, category, group, false)}
         <td
             class="sized b-l c"
             class:status-success={data.have === data.total}

@@ -8,8 +8,9 @@
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { userState } from '@/user-home/state/user';
 
+    import Holidays from './Holidays.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
-    import ParagonQuests from './paragon/ParagonQuests.svelte';
+    import ParagonQuests from '../table/paragon/ParagonQuests.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
     let warbankGold = $derived(userState.general.warbankGold.toLocaleString());
@@ -43,12 +44,19 @@
             color: #fff;
         }
     }
-    .account-gold {
-        border: 1px solid #7f7;
-        border-radius: var(--border-radius-large);
+    .flex-wrapper {
+        gap: 0.5rem;
         margin-left: 3rem;
-        padding: 0.1rem 0.5rem;
-        z-index: 10;
+
+        :global(> *) {
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-large);
+            padding: 0.1rem 0.5rem;
+            z-index: 10;
+        }
+    }
+    .account-gold {
+        border-color: #7f7;
     }
 </style>
 
@@ -75,10 +83,14 @@
             <IconifyIcon icon={iconLibrary.mdiCogOutline} />
         </a>
 
-        <span class="account-gold">
-            Warbank: {warbankGold} g
-        </span>
+        <div class="flex-wrapper">
+            <span class="account-gold">
+                Warbank: {warbankGold} g
+            </span>
 
-        <ParagonQuests />
+            <ParagonQuests />
+
+            <Holidays />
+        </div>
     {/if}
 </div>

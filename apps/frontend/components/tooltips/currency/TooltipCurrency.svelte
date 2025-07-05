@@ -1,6 +1,7 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
+    import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
     import { getCharacterNameRealm } from '@/utils/get-character-name-realm';
     import { leftPad } from '@/utils/formatting';
@@ -9,56 +10,65 @@
     import type { StaticDataCurrency } from '@/shared/stores/static/types';
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { settingsState } from '@/shared/state/settings.svelte';
 
-    export let currency: StaticDataCurrency = undefined;
-    export let item: ItemDataItem = undefined;
-    export let itemId: number = undefined;
+    type Props = {
+        currency?: StaticDataCurrency;
+        item?: ItemDataItem;
+        itemId?: number;
+    };
+    let { currency, item, itemId }: Props = $props();
 
-    let currencies: [Character, number][];
-    let currencyName: string;
-    let description: string;
-    let iconName: string;
-    $: {
-        currencies = [];
+    let [currencyName, iconName] = $derived.by(() => {
+        if (currency) {
+            return [currency.name, currency.imageName];
+        } else if (item) {
+            return [item.name, item.imageName];
+        } else if (itemId) {
+            const itemFromId = wowthingData.items.items[itemId];
+            return [itemFromId?.name || `Item #${itemId}`, item?.imageName];
+        } else {
+            return ['Gold', 'currency/0'];
+        }
+    });
+
+    let description = $derived.by(() => {
+        if (currency?.description) {
+            return currency.description.replaceAll('\r\n', '<br>');
+        }
+    });
+
+    let currencies = $derived.by(() => {
+        let ret: [Character, number][] = [];
         for (const character of userState.general.activeCharacters) {
             let quantity = 0;
             if (currency) {
-                currencyName = currency.name;
-                iconName = `currency/${currency.id}`;
                 quantity = character.currencies?.[currency.id]?.quantity || 0;
             } else if (item) {
-                currencyName = item.name;
-                iconName = `item/${item.id}`;
                 quantity = character.getItemCount(item.id);
             } else if (itemId) {
-                currencyName = `Item #${itemId}`;
-                iconName = `item/${itemId}`;
                 quantity = character.getItemCount(itemId);
             } else {
-                currencyName = 'Gold';
-                iconName = 'currency/0';
                 quantity = character.gold || 0;
             }
 
             if (quantity > 0) {
-                currencies.push([character, quantity]);
+                ret.push([character, quantity]);
             }
         }
 
-        currencies = sortBy(currencies, ([, amount]) => leftPad(10_000_000 - amount, 8, '0'));
+        ret = sortBy(ret, ([, amount]) => leftPad(10_000_000 - amount, 8, '0'));
 
         if (item || itemId) {
             const warbankItems = userState.general.warbankItemsByItemId[item?.id || itemId] || [];
             const quantity = warbankItems.reduce((a, b) => a + b.count, 0);
             if (quantity > 0) {
-                currencies.unshift([null, quantity]);
+                ret.unshift([null, quantity]);
             }
         }
 
-        if (currency?.description) {
-            description = currency.description.replaceAll('\r\n', '<br>');
-        }
-    }
+        return ret;
+    });
 </script>
 
 <style lang="scss">
@@ -79,14 +89,22 @@
     table {
         --padding: 2;
     }
+    .tag {
+        --width: 1rem;
+
+        background: $highlight-background;
+        border-right: 1px solid var(--border-color);
+        padding-left: $width-padding;
+        padding-right: $width-padding;
+    }
     .name {
-        @include cell-width(3rem, $maxWidth: 10rem);
+        --width: 10rem;
 
         text-align: left;
         white-space: nowrap;
     }
     .amount {
-        @include cell-width(4rem);
+        --width: 4rem;
 
         text-align: right;
         white-space: nowrap;
@@ -103,12 +121,19 @@
         <p class="description">{@html description}</p>
     {/if}
 
-    <table class="table-striped">
+    <table class="table table-striped">
         <tbody>
             {#if currencies.length > 0}
-                {#each currencies.slice(0, 10) as [character, amount]}
-                    <tr>
-                        <td class="name">
+                {#each currencies.slice(0, 10) as [character, amount] (character)}
+                    <tr class="sized">
+                        {#if settingsState.useAccountTags}
+                            <td class="tag">
+                                {#if character}
+                                    {settingsState.value.accounts?.[character.accountId]?.tag}
+                                {/if}
+                            </td>
+                        {/if}
+                        <td class="name text-overflow">
                             {#if character}
                                 {getCharacterNameRealm(character.id)}
                             {:else}
@@ -121,7 +146,7 @@
 
                 {#if currencies.length > 10}
                     <tr>
-                        <td colspan="2">... and {currencies.length - 10} more</td>
+                        <td colspan="3">... and {currencies.length - 10} more</td>
                     </tr>
                 {/if}
             {:else}

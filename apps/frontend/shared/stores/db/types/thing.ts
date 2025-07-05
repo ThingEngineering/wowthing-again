@@ -239,6 +239,6 @@ const dbResetTypeToFarmResetType: Record<number, FarmResetType> = {
     [DbResetType.Weekly]: FarmResetType.Weekly,
 };
 
-const thingContentTypeToRewardType: Record<number, RewardType> = {
+export const thingContentTypeToRewardType: Record<number, RewardType> = {
     [DbThingContentType.Item]: RewardType.Item,
 };
