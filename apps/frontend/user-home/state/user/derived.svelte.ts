@@ -366,8 +366,8 @@ export class DataUserDerived {
             const activeHoliday = activeHolidays.value[taskName];
             if (
                 activeHoliday &&
-                holidayMinimumLevel[activeHoliday.id] &&
-                character.level < holidayMinimumLevel[activeHoliday.id]
+                holidayMinimumLevel[activeHoliday.holiday.id] &&
+                character.level < holidayMinimumLevel[activeHoliday.holiday.id]
             ) {
                 continue;
             }

@@ -39,6 +39,7 @@ export const holidayMinimumLevel: Record<number, number> = {
 };
 
 export const holidayIds: Record<number, number[]> = {
+    [Holiday.MidsummerFireFestival]: [11],
     [Holiday.BrawlArathiBlizzard]: [666, 673, 680, 697, 737],
     [Holiday.BrawlClassicAshran]: [1120, 1121, 1122, 1123, 1124],
     [Holiday.BrawlCompStomp]: [1234, 1235, 1236, 1237, 1238],
@@ -51,7 +52,6 @@ export const holidayIds: Record<number, number[]> = {
     [Holiday.BrawlSouthshoreVsTarrenMill]: [660, 662, 669, 676, 683],
     [Holiday.BrawlTempleOfHotmogu]: [1166, 1167, 1168, 1169, 1170],
     [Holiday.BrawlWarsongScramble]: [664, 671, 678, 685, 1221],
-    [Holiday.MidsummerFireFestival]: [11],
 };
 
 export const holidayMap: Record<number, Holiday> = Object.fromEntries(
@@ -59,3 +59,13 @@ export const holidayMap: Record<number, Holiday> = Object.fromEntries(
         .map(([key, values]) => values.map((id) => [id, key]))
         .flat()
 );
+
+export type FancyHoliday = { holiday: string; shortName: string; tag: string; vendorsKey: string };
+export const fancyHolidays: FancyHoliday[] = [
+    {
+        holiday: 'holidayMidsummerFireFestival',
+        shortName: 'Midsummer',
+        tag: 'event:midsummer-fire-festival',
+        vendorsKey: 'world-events--midsummer-fire-festival',
+    },
+];
