@@ -29,6 +29,9 @@ import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { sharedState } from '@/shared/state/shared.svelte';
 import { WarbankItem } from '@/types/items';
 import type { Faction } from '@/enums/faction';
+import { logErrors } from '@/utils/log-errors';
+import type { HasNameAndRealm } from '@/types/shared/has-name-and-realm';
+import type { UserItem } from '@/types/shared/user-item';
 
 export class DataUserGeneral {
     public accountById: Record<number, Account> = $state({});
@@ -60,6 +63,7 @@ export class DataUserGeneral {
     public charactersByConnectedRealmId = $derived.by(() => this._charactersByConnectedRealmId());
     public charactersByRealmId = $derived.by(() => this._charactersByRealmId());
     public homeLockouts = $derived.by(() => this._homeLockouts());
+    public itemsById = $derived.by(() => logErrors(() => this._itemsById()));
     public visibleCharacters = $derived.by(() => this._visibleCharacters());
 
     private _warbankScannedAt: string;
@@ -365,5 +369,21 @@ export class DataUserGeneral {
             }
         }
         return homeLockouts;
+    }
+
+    private _itemsById() {
+        const ret: Record<number, [HasNameAndRealm, UserItem[]][]> = {};
+
+        for (const character of this.activeCharacters) {
+            for (const [itemId, items] of getNumberKeyedEntries(character.itemsById)) {
+                (ret[itemId] ||= []).push([character, items]);
+            }
+        }
+
+        for (const [itemId, warbankItems] of getNumberKeyedEntries(this.warbankItemsByItemId)) {
+            (ret[itemId] ||= []).push([null, warbankItems]);
+        }
+
+        return ret;
     }
 }
