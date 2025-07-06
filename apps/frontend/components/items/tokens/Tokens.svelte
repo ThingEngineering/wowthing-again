@@ -1,9 +1,8 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte';
-
-    import { getColumnResizer } from '@/utils/get-column-resizer';
     import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
+    import { getColumnResizer } from '@/utils/get-column-resizer';
+    import { getNumberKeys } from '@/utils/get-number-keyed-entries';
     import type { JournalDataInstance, JournalDataTier } from '@/types/data/journal';
 
     import Instance from './Instance.svelte';
@@ -12,11 +11,12 @@
 
     type InstanceData = [JournalDataInstance, number[]][];
     type TierData = [JournalDataTier, InstanceData][];
-    let tiers: TierData;
-    $: {
-        const lookup = new Set(wowthingData.journal.tokenEncounters);
 
-        tiers = [];
+    let tiers = $derived.by(() => {
+        const lookup = new Set(wowthingData.journal.tokenEncounters);
+        const hasItemsById = new Set(getNumberKeys(userState.general.itemsById));
+
+        const ret: TierData = [];
         for (const tier of wowthingData.journal.tiers) {
             if (tier === null) {
                 break;
@@ -43,7 +43,7 @@
                         for (const item of group.items) {
                             const sourceIds = wowthingData.journal.expandedItem[item.id] || [];
                             for (const sourceId of sourceIds) {
-                                if (userState.general.itemsById[sourceId]) {
+                                if (hasItemsById.has(sourceId)) {
                                     items.add(sourceId);
                                 }
                             }
@@ -64,33 +64,28 @@
             }
 
             if (instances.length > 0) {
-                tiers.push([tier, instances]);
+                ret.push([tier, instances]);
             }
         }
-    }
 
-    let containerElement: HTMLElement;
-    let resizeableElement: HTMLElement;
-    let debouncedResize: () => void;
-    $: {
+        return ret;
+    });
+
+    let containerElement = $state<HTMLElement>(null);
+    let resizeableElement = $state<HTMLElement>(null);
+    let debouncedResize: () => void = $derived.by(() => {
         if (resizeableElement) {
-            debouncedResize = getColumnResizer(
-                containerElement,
-                resizeableElement,
-                'collection-v2-group',
-                {
-                    columnCount: '--column-count',
-                    gap: 30,
-                    padding: '0.75rem',
-                }
-            );
-            debouncedResize();
+            return getColumnResizer(containerElement, resizeableElement, 'collection-v2-group', {
+                columnCount: '--column-count',
+                gap: 30,
+                padding: '0.75rem',
+            });
         } else {
-            debouncedResize = null;
+            return null;
         }
-    }
+    });
 
-    afterUpdate(() => debouncedResize?.());
+    $effect(() => debouncedResize?.());
 </script>
 
 <svelte:window on:resize={debouncedResize} />
