@@ -3,33 +3,35 @@
     import { uiIcons } from '@/shared/icons';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import type { Character, CharacterLockout, InstanceDifficulty } from '@/types';
+    import type { CharacterLockout, InstanceDifficulty } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import TooltipLockout from '@/components/tooltips/lockout/TooltipLockout.svelte';
 
-    export let character: Character;
-    export let instanceDifficulty: InstanceDifficulty;
-    export let showNumbers = true;
+    type Props = CharacterProps & {
+        instanceDifficulty: InstanceDifficulty;
+        showNumbers?: boolean;
+    };
+    let { character, instanceDifficulty, showNumbers = true }: Props = $props();
 
-    let lockout: CharacterLockout;
-    let maxBosses: number;
-    $: {
+    let lockout: CharacterLockout = $derived.by(() => {
         if (instanceDifficulty) {
             // find any lockout difficulty if the key has no difficulty
             if (instanceDifficulty.key.endsWith('-')) {
-                lockout = Object.entries(character.lockouts || {}).filter(([key]) =>
+                return character.lockoutKeys.filter(([key]) =>
                     key.startsWith(instanceDifficulty.key)
                 )[0]?.[1];
             } else {
-                lockout = character.lockouts?.[instanceDifficulty.key];
+                return character.lockouts?.[instanceDifficulty.key];
             }
-
-            if (lockout) {
-                maxBosses = lockoutOverride[instanceDifficulty.instanceId] || lockout.maxBosses;
-            }
+        } else {
+            return null;
         }
-    }
+    });
+    let maxBosses = $derived(
+        lockout ? lockoutOverride[instanceDifficulty.instanceId] || lockout.maxBosses : 0
+    );
 </script>
 
 <style lang="scss">

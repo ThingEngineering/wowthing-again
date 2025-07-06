@@ -484,6 +484,8 @@ export class Character implements ContainsItems, HasNameAndRealm {
         return this.level === Constants.characterMaxLevel;
     }
 
+    public lockoutKeys = $derived(Object.keys(this.lockouts || {}));
+
     public bestItemLevels: Record<number, [string, InventoryType[]]>;
     getBestItemLevels(): Record<number, [string, InventoryType[]]> {
         this.bestItemLevels ||= getBestItemLevels(this);

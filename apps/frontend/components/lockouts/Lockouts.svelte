@@ -14,10 +14,10 @@
     };
 
     const anyLockouts = function (char: Character): string {
-        return Object.keys(char.lockouts || {}).length > 0 ? 'b' : 'z';
+        return char.lockoutKeys.length > 0 ? 'b' : 'z';
     };
     const hasSortedLockout = function (char: Character): string {
-        return Object.keys(char.lockouts || {}).some((key) =>
+        return char.lockoutKeys.some((key) =>
             key.startsWith(`${browserState.current.lockouts.sortBy}-`)
         )
             ? 'a'
@@ -29,17 +29,18 @@
             browserState.current.lockouts.sortBy > 0 ? hasSortedLockout : anyLockouts
         )
     );
+    let allLockouts = $state.snapshot(userState.general.allLockouts);
 </script>
 
 <CharacterTable skipGrouping={true} skipIgnored={true} {filterFunc} {sortFunc}>
     <CharacterTableHead slot="head">
-        {#each userState.general.allLockouts as instanceDifficulty (instanceDifficulty)}
+        {#each allLockouts as instanceDifficulty (instanceDifficulty)}
             <HeadInstance {instanceDifficulty} />
         {/each}
     </CharacterTableHead>
 
     <svelte:fragment slot="rowExtra" let:character>
-        {#each userState.general.allLockouts as instanceDifficulty (instanceDifficulty)}
+        {#each allLockouts as instanceDifficulty (instanceDifficulty)}
             <RowLockout {character} {instanceDifficulty} />
         {/each}
     </svelte:fragment>
