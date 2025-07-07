@@ -24,15 +24,20 @@
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let bonusIds: Record<number, number> = undefined;
-    export let instance: JournalDataInstance;
-    export let item: JournalDataEncounterItem;
+    type Props = {
+        bonusIds?: Record<number, number>;
+        instance: JournalDataInstance;
+        item: JournalDataEncounterItem;
+    };
 
-    $: classId =
+    let { bonusIds, instance, item }: Props = $props();
+
+    let classId = $derived(
         item.classMask in PlayableClassMask
             ? PlayableClass[PlayableClassMask[item.classMask] as keyof typeof PlayableClass]
-            : 0;
-    $: dataItem = wowthingData.items.items[item.id];
+            : 0
+    );
+    let dataItem = $derived(wowthingData.items.items[item.id]);
 
     const getQuality = function (appearance: JournalDataEncounterItemAppearance): number {
         // Mythic Keystone/Mythic difficulties should probably set the quality to epic?

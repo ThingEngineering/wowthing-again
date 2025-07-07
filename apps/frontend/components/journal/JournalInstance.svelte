@@ -1,12 +1,11 @@
 <script lang="ts">
     import find from 'lodash/find';
-    import { afterUpdate } from 'svelte';
 
     import { browserState } from '@/shared/state/browser.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { lazyState } from '@/user-home/state/lazy';
     import { getColumnResizer } from '@/utils/get-column-resizer';
-    import type { JournalDataInstance, JournalDataTier } from '@/types/data';
+    import type { JournalDataInstance } from '@/types/data';
 
     import Encounter from './JournalEncounter.svelte';
     import EncounterStats from './JournalEncounterStats.svelte';
@@ -14,16 +13,13 @@
     import Options from './JournalOptions.svelte';
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
 
-    export let slug1: string;
-    export let slug2: string;
-    export let slug3: string;
+    let { slug1, slug2, slug3 }: { slug1: string; slug2: string; slug3: string } = $props();
 
-    let instance: JournalDataInstance;
-    let tier: JournalDataTier;
-    let slugKey: string;
-    $: {
-        tier = find(wowthingData.journal.tiers, (tier) => tier?.slug === slug1);
-        instance = undefined;
+    let tier = $derived.by(() => find(wowthingData.journal.tiers, (tier) => tier?.slug === slug1));
+    let [instance, slugKey] = $derived.by(() => {
+        let instance: JournalDataInstance;
+        let slugKey: string;
+
         if (tier) {
             if (tier.subTiers) {
                 const subTier = find(tier.subTiers, (subTier) => subTier.slug === slug2);
@@ -36,30 +32,25 @@
                 slugKey = `${slug1}--${slug2}`;
             }
         }
-    }
 
-    let containerElement: HTMLElement;
-    let resizeableElement: HTMLElement;
-    let debouncedResize: () => void;
-    $: {
+        return [instance, slugKey];
+    });
+
+    let containerElement = $state<HTMLElement>(null);
+    let resizeableElement = $state<HTMLElement>(null);
+    let debouncedResize: () => void = $derived.by(() => {
         if (resizeableElement) {
-            debouncedResize = getColumnResizer(
-                containerElement,
-                resizeableElement,
-                'collection-v2-group',
-                {
-                    columnCount: '--column-count',
-                    gap: 30,
-                    padding: '1.5rem',
-                }
-            );
-            debouncedResize();
+            return getColumnResizer(containerElement, resizeableElement, 'collection-v2-group', {
+                columnCount: '--column-count',
+                gap: 30,
+                padding: '1.5rem',
+            });
         } else {
-            debouncedResize = null;
+            return null;
         }
-    }
+    });
 
-    afterUpdate(() => debouncedResize?.());
+    $effect(() => debouncedResize?.());
 </script>
 
 <style lang="scss">

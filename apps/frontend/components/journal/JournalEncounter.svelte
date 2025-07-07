@@ -10,13 +10,15 @@
     import Group from './JournalGroup.svelte';
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
 
-    export let bonusIds: Record<number, number> = undefined;
-    export let encounter: JournalDataEncounter;
-    export let instance: JournalDataInstance;
-    export let slugKey: string;
+    type Props = {
+        bonusIds?: Record<number, number>;
+        encounter: JournalDataEncounter;
+        instance: JournalDataInstance;
+        slugKey: string;
+    };
+    let { bonusIds, encounter, instance, slugKey }: Props = $props();
 
-    $: statsKey = `${slugKey}--${encounter.name}`;
-    $: useV2 = encounter.groups.length > 3 && encounter.groups.reduce(reduceFunc, 0) > 30;
+    let statsKey = $derived(`${slugKey}--${encounter.name}`);
 
     const reduceFunc = function (a: number, b: JournalDataEncounterItemGroup) {
         const groupKey = `${statsKey}--${b.name}`;
@@ -33,6 +35,9 @@
             );
         }
     };
+    let useV2 = $derived(
+        encounter.groups.length > 3 && encounter.groups.reduce(reduceFunc, 0) > 30
+    );
 </script>
 
 <style lang="scss">
@@ -48,12 +53,6 @@
 
 <div class="collection{useV2 ? '-v2' : ''}-section" data-encounter-id={encounter.id}>
     {#each encounter.groups as group}
-        <Group
-            groupKey={`${slugKey}--${encounter.name}--${group.name}`}
-            {bonusIds}
-            {group}
-            {instance}
-            {useV2}
-        />
+        <Group groupKey={`${statsKey}--${group.name}`} {bonusIds} {group} {instance} {useV2} />
     {/each}
 </div>

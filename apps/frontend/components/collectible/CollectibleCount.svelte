@@ -3,7 +3,9 @@
 
     let { counts }: { counts: UserCount } = $props();
 
-    let per = $derived(counts?.percent || 0);
+    let have = $derived(counts?.have ?? '??');
+    let total = $derived(counts?.total ?? '??');
+    let percent = $derived(counts?.percent || 0);
 </script>
 
 <style lang="scss">
@@ -17,6 +19,6 @@
 </style>
 
 <span class="collectible-count">
-    <em class="quality{Math.floor(per / 25) + 1}">{counts?.have ?? '??'}</em> /
-    <em class="quality{Math.floor(per / 25) + 1}">{counts?.total ?? '??'}</em>
+    <em class="quality{Math.floor(percent / 25) + 1}">{counts?.have ?? '??'}</em> /
+    <em class="quality{Math.floor(percent / 25) + 1}">{counts?.total ?? '??'}</em>
 </span>
