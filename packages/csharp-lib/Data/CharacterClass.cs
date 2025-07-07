@@ -65,7 +65,7 @@ public static partial class Hardcoded
                 (WowWeaponSubclass.Dagger, StatIntellect),
                 (WowWeaponSubclass.Fist, StatIntellect),
                 (WowWeaponSubclass.Polearm, StatAgilityIntellect),
-                (WowWeaponSubclass.Stave, StatAgilityIntellect),
+                (WowWeaponSubclass.Staff, StatAgilityIntellect),
 
                 (WowWeaponSubclass.OffHand, StatIntellect),
             },
@@ -88,7 +88,7 @@ public static partial class Hardcoded
                 (WowWeaponSubclass.TwoHandedSword, StatIntellect),
                 (WowWeaponSubclass.Dagger, StatIntellect),
                 (WowWeaponSubclass.Fist, StatIntellect),
-                (WowWeaponSubclass.Stave, StatIntellect),
+                (WowWeaponSubclass.Staff, StatIntellect),
 
                 (WowWeaponSubclass.OffHand, StatIntellect),
             },
@@ -105,7 +105,7 @@ public static partial class Hardcoded
                 (WowWeaponSubclass.TwoHandedAxe, StatAgility),
                 (WowWeaponSubclass.TwoHandedSword, StatAgility),
                 (WowWeaponSubclass.Polearm, StatAgility),
-                (WowWeaponSubclass.Stave, StatAgility),
+                (WowWeaponSubclass.Staff, StatAgility),
                 (WowWeaponSubclass.Bow, StatAgility),
                 (WowWeaponSubclass.Crossbow, StatAgility),
                 (WowWeaponSubclass.Gun, StatAgility),
@@ -130,7 +130,7 @@ public static partial class Hardcoded
             {
                 (WowWeaponSubclass.OneHandedSword, StatIntellect),
                 (WowWeaponSubclass.Dagger, StatIntellect),
-                (WowWeaponSubclass.Stave, StatIntellect),
+                (WowWeaponSubclass.Staff, StatIntellect),
                 (WowWeaponSubclass.Wand, StatIntellect),
 
                 (WowWeaponSubclass.OffHand, StatIntellect),
@@ -151,7 +151,7 @@ public static partial class Hardcoded
                 (WowWeaponSubclass.OneHandedSword, StatAgilityIntellect),
                 (WowWeaponSubclass.Fist, StatAgilityIntellect),
                 (WowWeaponSubclass.Polearm, StatAgilityIntellect),
-                (WowWeaponSubclass.Stave, StatAgilityIntellect),
+                (WowWeaponSubclass.Staff, StatAgilityIntellect),
 
                 (WowWeaponSubclass.OffHand, StatIntellect),
             },
@@ -191,7 +191,7 @@ public static partial class Hardcoded
             {
                 (WowWeaponSubclass.OneHandedMace, StatIntellect),
                 (WowWeaponSubclass.Dagger, StatIntellect),
-                (WowWeaponSubclass.Stave, StatIntellect),
+                (WowWeaponSubclass.Staff, StatIntellect),
                 (WowWeaponSubclass.Wand, StatIntellect),
 
                 (WowWeaponSubclass.OffHand, StatIntellect),
@@ -235,7 +235,7 @@ public static partial class Hardcoded
                 (WowWeaponSubclass.OneHandedMace, StatAgilityIntellect),
                 (WowWeaponSubclass.Dagger, StatIntellect),
                 (WowWeaponSubclass.Fist, StatAgilityIntellect),
-                (WowWeaponSubclass.Stave, StatIntellect),
+                (WowWeaponSubclass.Staff, StatIntellect),
 
                 (WowWeaponSubclass.TwoHandedAxe, StatTransmogOnly),
                 (WowWeaponSubclass.TwoHandedMace, StatTransmogOnly),
@@ -256,7 +256,7 @@ public static partial class Hardcoded
             {
                 (WowWeaponSubclass.OneHandedSword, StatIntellect),
                 (WowWeaponSubclass.Dagger, StatIntellect),
-                (WowWeaponSubclass.Stave, StatIntellect),
+                (WowWeaponSubclass.Staff, StatIntellect),
                 (WowWeaponSubclass.Wand, StatIntellect),
 
                 (WowWeaponSubclass.OffHand, StatIntellect),
@@ -281,7 +281,7 @@ public static partial class Hardcoded
                 (WowWeaponSubclass.Dagger, StatStrength),
                 (WowWeaponSubclass.Fist, StatStrength),
                 (WowWeaponSubclass.Polearm, StatStrength),
-                (WowWeaponSubclass.Stave, StatStrength),
+                (WowWeaponSubclass.Staff, StatStrength),
 
                 (WowWeaponSubclass.Bow, StatTransmogOnly),
                 (WowWeaponSubclass.Crossbow, StatTransmogOnly),

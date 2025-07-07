@@ -15,3 +15,14 @@ export const itemModifierMap: Record<number, [string, string, number?]> = {
     159: ['PvP', 'P', 9426],
     160: ['Elite PvP', 'E', 9821],
 };
+
+export const itemModifierOrder: Record<number, number> = {
+    156: 41, // Mythic Fancy
+    3: 40, // Mythic
+    155: 31, // Heroic Fancy
+    1: 30, // Heroic
+    154: 21, // Normal Fancy
+    0: 20, // Normal
+    153: 11, // LFR Fancy
+    4: 10, // LFR
+};

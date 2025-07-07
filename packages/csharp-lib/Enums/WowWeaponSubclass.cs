@@ -20,7 +20,7 @@ public enum WowWeaponSubclass
     [Display(Name = "2h Sword")]
     TwoHandedSword = 8,
     Warglaive = 9,
-    Stave = 10,
+    Staff = 10,
     //11: bear claws?
     //12: cat claws?
     Fist = 13,

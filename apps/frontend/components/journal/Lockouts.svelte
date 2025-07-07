@@ -63,7 +63,7 @@
                             class="character class-{character.classId}"
                             use:componentTooltip={{
                                 component: TooltipLockout,
-                                props: { character, lockout },
+                                propsFunc: () => ({ character, lockout }),
                             }}
                         >
                             <IconifyIcon

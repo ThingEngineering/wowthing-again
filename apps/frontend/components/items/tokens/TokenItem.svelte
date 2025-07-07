@@ -25,43 +25,52 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
 
-    export let itemId: number;
+    let { itemIdAndModifier }: { itemIdAndModifier: string } = $props();
 
-    let element: HTMLElement;
-    let intersected = false;
+    let element = $state<HTMLElement>(null);
+    let intersected = $state(false);
 
-    $: item = wowthingData.items.items[itemId];
-    $: expandsTo = wowthingData.journal.itemExpansion[itemId];
-    $: haveItems = userState.general.itemsById[itemId];
-    $: haveCount = haveItems.reduce((a, b) => a + b[1].length, 0);
-
-    let expandsData: [number, ItemDataItem, boolean][];
-    $: expandsData = expandsTo.map((expandedItemId) => {
-        const expandedItem = wowthingData.items.items[expandedItemId];
-
-        let modifier = AppearanceModifier.Normal;
-        if (item.difficultyLookingForRaid) {
-            modifier = AppearanceModifier.LookingForRaid;
-        } else if (item.difficultyHeroic) {
-            modifier = AppearanceModifier.Heroic;
-        } else if (item.difficultyMythic) {
-            modifier = AppearanceModifier.Mythic;
-        }
-
-        const appearance = expandedItem.appearances[modifier];
-        let hasItem = false;
-        if (appearance) {
-            hasItem = settingsState.value.transmog.completionistMode
-                ? userState.general.hasAppearanceBySource.has(
-                      expandedItemId * 1000 + appearance.modifier
-                  )
-                : userState.general.hasAppearanceById.has(appearance.appearanceId);
-        }
-        return [expandedItemId, expandedItem, hasItem];
+    let [itemId, baseModifier, bonusIds] = $derived.by(() => {
+        const parts = itemIdAndModifier.split('|');
+        return [parseInt(parts[0]), parseInt(parts[1]), parts[2].replaceAll(',', ':')];
     });
+    let item = $derived(wowthingData.items.items[itemId]);
+    let expandsTo = $derived(wowthingData.journal.itemExpansion[itemId]);
+    let haveItems = $derived(userState.general.itemsById[itemId]);
+    let haveCount = $derived(haveItems.reduce((a, b) => a + b[1].length, 0));
 
-    $: showItemIcon = expandsData.every(([, item]) => item.classId === ItemClass.Weapon);
-    $: {
+    let expandsData: [number, ItemDataItem, boolean, AppearanceModifier][] = $derived.by(() =>
+        expandsTo.map((expandedItemId) => {
+            const expandedItem = wowthingData.items.items[expandedItemId];
+
+            let modifier = baseModifier || AppearanceModifier.Normal;
+            if (item.difficultyLookingForRaid) {
+                modifier = AppearanceModifier.LookingForRaid;
+            } else if (item.difficultyHeroic) {
+                modifier = AppearanceModifier.Heroic;
+            } else if (item.difficultyMythic) {
+                modifier = AppearanceModifier.Mythic;
+            }
+
+            const appearance = expandedItem.appearances[modifier];
+            let hasItem = false;
+            if (appearance) {
+                hasItem = settingsState.value.transmog.completionistMode
+                    ? userState.general.hasAppearanceBySource.has(
+                          expandedItemId * 1000 + appearance.modifier
+                      )
+                    : userState.general.hasAppearanceById.has(appearance.appearanceId);
+            }
+
+            return [expandedItemId, expandedItem, hasItem, modifier];
+        })
+    );
+    let modifier = $derived((expandsData || [])[0]?.[3] || AppearanceModifier.Normal);
+    let showItemIcon = $derived.by(() =>
+        expandsData.every(([, item]) => item.classId === ItemClass.Weapon)
+    );
+
+    $effect(() => {
         if (showItemIcon) {
             expandsData.sort(
                 (a, b) =>
@@ -69,7 +78,7 @@
                     (weaponSubclassOrderMap[b[1]?.subclassId] ?? 999)
             );
         }
-    }
+    });
 
     function playableClassFromMask(classMask: number) {
         return classMask in PlayableClassMask
@@ -160,11 +169,11 @@
             <span class="item-name">
                 {haveCount}x
 
-                {#if item.difficultyLookingForRaid}
+                {#if modifier === AppearanceModifier.LookingForRaid}
                     <code>[L]</code>
-                {:else if item.difficultyHeroic}
+                {:else if modifier === AppearanceModifier.Heroic}
                     <code>[H]</code>
-                {:else if item.difficultyMythic || item.itemLevel === 207}
+                {:else if modifier === AppearanceModifier.Mythic}
                     <code>[M]</code>
                 {:else}
                     <code>[N]</code>
@@ -178,7 +187,12 @@
                     </span>
                 {/if}
 
-                <WowheadLink id={itemId} type="item" extraClass="quality{item.quality}">
+                <WowheadLink
+                    id={itemId}
+                    type="item"
+                    extraClass="quality{item.quality}"
+                    extraParams={{ bonus: bonusIds }}
+                >
                     <WowthingImage name="item/{itemId}" size={20} />
                     {item.name}
                 </WowheadLink>
