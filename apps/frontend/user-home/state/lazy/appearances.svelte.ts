@@ -3,6 +3,7 @@ import { get } from 'svelte/store';
 
 import { expansionMap, expansionSlugMap } from '@/data/expansion';
 import { typeOrderMap } from '@/data/inventory-type';
+import { itemModifierOrder } from '@/data/item-modifier';
 import { weaponSubclassOrderMap, weaponSubclassToString } from '@/data/weapons';
 import { ArmorType } from '@/enums/armor-type';
 import { ItemClass } from '@/enums/item-class';
@@ -155,7 +156,7 @@ function buildAppearanceData(): Record<string, AppearanceDataSet[]> {
             [
                 leftPad(999999 - Math.min(...arrays.map((array) => array[0])), 6, '0'),
                 leftPad(
-                    99 - Math.min(...arrays.map((array) => modifierSortOrder[array[2]] || 0)),
+                    99 - Math.min(...arrays.map((array) => itemModifierOrder[array[2]] || 0)),
                     2,
                     '0'
                 ),
@@ -227,14 +228,3 @@ function getArmorSubType(subClass: number, inventoryType: number): string {
         return slotString;
     }
 }
-
-const modifierSortOrder: Record<number, number> = {
-    156: 41, // Mythic Fancy
-    3: 40, // Mythic
-    155: 31, // Heroic Fancy
-    1: 30, // Heroic
-    154: 21, // Normal Fancy
-    0: 20, // Normal
-    153: 11, // LFR Fancy
-    4: 10, // LFR
-};

@@ -1,20 +1,21 @@
 <script lang="ts">
+    import { itemModifierOrder } from '@/data/item-modifier';
     import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
     import { getColumnResizer } from '@/utils/get-column-resizer';
-    import { getNumberKeys } from '@/utils/get-number-keyed-entries';
+    import { getBonusIdModifier } from '@/utils/items/get-bonus-id-modifier';
     import type { JournalDataInstance, JournalDataTier } from '@/types/data/journal';
 
     import Instance from './Instance.svelte';
     import Options from './Options.svelte';
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
 
-    type InstanceData = [JournalDataInstance, number[]][];
+    type InstanceData = [JournalDataInstance, string[]][];
     type TierData = [JournalDataTier, InstanceData][];
 
     let tiers = $derived.by(() => {
         const lookup = new Set(wowthingData.journal.tokenEncounters);
-        const hasItemsById = new Set(getNumberKeys(userState.general.itemsById));
+        // const itemsById = $state.snapshot(userState.general.itemsById);
 
         const ret: TierData = [];
         for (const tier of wowthingData.journal.tiers) {
@@ -32,7 +33,7 @@
                     continue;
                 }
 
-                const items: Set<number> = new Set();
+                const items = new Set<string>();
 
                 for (const encounter of instance.encounters) {
                     if (!lookup.has(`${tier.id}|${instance.id}|${encounter.id}`)) {
@@ -41,10 +42,17 @@
 
                     for (const group of encounter.groups) {
                         for (const item of group.items) {
-                            const sourceIds = wowthingData.journal.expandedItem[item.id] || [];
-                            for (const sourceId of sourceIds) {
-                                if (hasItemsById.has(sourceId)) {
-                                    items.add(sourceId);
+                            const expandedItemIds =
+                                wowthingData.journal.expandedItem[item.id] || [];
+                            for (const expandedItemId of expandedItemIds) {
+                                const haveItems = userState.general.itemsById[expandedItemId];
+                                for (const [, userItems] of haveItems || []) {
+                                    for (const userItem of userItems) {
+                                        const modifier = getBonusIdModifier(userItem.bonusIds);
+                                        items.add(
+                                            `${expandedItemId}|${modifier}|${userItem.bonusIds.join(',')}`
+                                        );
+                                    }
                                 }
                             }
                         }
@@ -53,11 +61,21 @@
 
                 if (items.size > 0) {
                     const itemsArray = Array.from(items);
-                    itemsArray.sort((a, b) =>
-                        wowthingData.items.items[a].name.localeCompare(
-                            wowthingData.items.items[b].name
-                        )
-                    );
+                    itemsArray.sort((a, b) => {
+                        const aParts = a.split('|').map((s) => parseInt(s));
+                        const bParts = b.split('|').map((s) => parseInt(s));
+
+                        const aName = wowthingData.items.items[aParts[0]].name;
+                        const bName = wowthingData.items.items[bParts[0]].name;
+                        if (aName !== bName) {
+                            return aName.localeCompare(bName);
+                        }
+
+                        return (
+                            (itemModifierOrder[aParts[1]] || 0) -
+                            (itemModifierOrder[bParts[1]] || 0)
+                        );
+                    });
 
                     instances.push([instance, itemsArray]);
                 }
@@ -96,8 +114,8 @@
     <Options />
 
     <div class="collection thing-container" bind:this={resizeableElement}>
-        {#each tiers as [tier, instances]}
-            {#each instances as [instance, items]}
+        {#each tiers as [tier, instances] (tier.id)}
+            {#each instances as [instance, items] (instance.id)}
                 <Instance name="{tier.name} > {instance.name}" {instance} {items} />
             {/each}
         {/each}
