@@ -3,12 +3,14 @@
 
     import { Region } from '@/enums/region';
     import { browserState } from '@/shared/state/browser.svelte';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { settingsState } from '@/shared/state/settings.svelte';
     import { timeStore } from '@/shared/stores/time';
     import { userAchievementStore, userQuestStore, userStore } from '@/stores';
     import { worldQuestStore } from '@/user-home/components/world-quests/store';
+    import { userState } from '@/user-home/state/user';
+    import { hashObject } from '@/utils/hash-object.svelte';
     import parseApiTime from '@/utils/parse-api-time';
     import type { Settings } from '@/shared/stores/settings/types/settings';
 
@@ -18,7 +20,6 @@
     import Refresh from './Refresh.svelte';
     import Routes from './Routes.svelte';
     import Sidebar from './Sidebar.svelte';
-    import { hashObject } from '@/utils/hash-object.svelte';
 
     let ready = $state(false);
 
@@ -93,6 +94,20 @@
     });
 
     // yeah I don't like these living here either
+    $effect(() => {
+        // HACK: Warglaives of Azzinoth
+        if (userState.achievements.achievementEarnedById.has(426)) {
+            userState.general.hasAppearanceById.add(5274);
+            userState.general.hasAppearanceById.add(5275);
+            userState.general.hasAppearanceBySource.add(32837000);
+            userState.general.hasAppearanceBySource.add(32838000);
+        }
+        // if (userAchievementData.achievements[426]) {
+        //     userData.hasSource.add('32837_0');
+        //     userData.hasSource.add('32838_0');
+        // }
+    });
+
     $effect(() => {
         if (ready) {
             browserState.save($state.snapshot(browserState.current));
