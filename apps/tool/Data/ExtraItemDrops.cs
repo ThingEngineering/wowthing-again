@@ -2671,7 +2671,7 @@ public static partial class Hardcoded
                 new(152085, RaidDifficultiesAll), // Cuffs of the Viridian Flameweavers
                 new(152084, RaidDifficultiesAll), // Gloves of Abhorrent Strategies
                 // Leather
-                new(152412, RaidDifficultiesAll), // Felflame Inferno Shoulderpads
+                new(152413, RaidDifficultiesAll), // Felflame Inferno Shoulderpads
                 new(151993, RaidDifficultiesAll), // Leggings of the Sable Stalkers
                 new(152087, RaidDifficultiesAll), // Sinuous Kerapteron Bindings
                 // Mail
