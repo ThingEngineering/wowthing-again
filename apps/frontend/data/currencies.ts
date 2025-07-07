@@ -357,6 +357,7 @@ export const currencyItems: Record<number, number[]> = {
         92681, // Flawless Undead Battle-Stone
         null,
         122457, // Ultimate Battle-Training Stone
+        127755, // Fel-Touched Battle-Training Stone
         116424, // Aquatic Battle-Training Stone
         116374, // Beast Battle-Training Stone
         116418, // Critter Battle-Training Stone
