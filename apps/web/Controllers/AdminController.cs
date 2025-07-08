@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
+using Wowthing.Web.ViewModels;
 
 namespace Wowthing.Web.Controllers;
 
@@ -11,14 +12,17 @@ namespace Wowthing.Web.Controllers;
 [Route("admin")]
 public class AdminController : Controller
 {
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly WowDbContext _context;
 
     public AdminController(
+        JsonSerializerOptions jsonSerializerOptions,
         UserManager<ApplicationUser> userManager,
         WowDbContext context
     )
     {
+        _jsonSerializerOptions = jsonSerializerOptions;
         _userManager = userManager;
         _context = context;
     }
@@ -26,7 +30,10 @@ public class AdminController : Controller
     [HttpGet("")]
     public async Task<IActionResult> Index()
     {
-        return View();
+        var settings = new ApplicationUserSettings();
+        string settingsJson = JsonSerializer.Serialize(settings, _jsonSerializerOptions);
+
+        return View(new AdminViewModel(settingsJson));
     }
 
     [HttpGet("rename-requests")]
