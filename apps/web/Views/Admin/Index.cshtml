@@ -1,4 +1,5 @@
-﻿@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+﻿@model AdminViewModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment HostEnv
 @inject UriService UriService
 
@@ -36,6 +37,7 @@
 <div
     id="app"
     data-base-uri="@UriService.BaseUri"
+    data-settings="@Model.SettingsJson"
     data-xsrf="@GetAntiXsrfRequestToken()"
 >
 </div>

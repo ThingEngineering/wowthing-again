@@ -1,19 +1,14 @@
 <script lang="ts">
     import { difficultyMap } from '@/data/difficulty';
     import { wowthingData } from '@/shared/stores/data';
-    import type { StaticDataInstance } from '@/shared/stores/static/types';
-    import type { Character, CharacterLockout, Difficulty } from '@/types';
+    import type { CharacterLockout } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
-    export let character: Character;
-    export let instanceId = 0;
-    export let lockout: CharacterLockout;
+    type Props = CharacterProps & { instanceId?: number; lockout: CharacterLockout };
+    let { character, instanceId = 0, lockout }: Props = $props();
 
-    let instance: StaticDataInstance;
-    let difficulty: Difficulty;
-    $: {
-        instance = wowthingData.static.instanceById.get(lockout?.id || instanceId);
-        difficulty = difficultyMap[lockout?.difficulty];
-    }
+    let instance = $derived(wowthingData.static.instanceById.get(instanceId || lockout?.id));
+    let difficulty = $derived(difficultyMap[lockout?.difficulty]);
 </script>
 
 <style lang="scss">
@@ -25,7 +20,7 @@
 <div class="wowthing-tooltip">
     <h4>{character.name}</h4>
     <h5>
-        {instance.name}
+        {instance?.name || (instanceId ? `Instance #${instanceId}` : 'Unknown Instance')}
         {#if difficulty}
             <code>[{difficulty.shortName}]</code>
         {/if}
@@ -35,7 +30,7 @@
     </h5>
     <table class="table-tooltip-lockout table-striped">
         <tbody>
-            {#each lockout?.bosses || [] as boss}
+            {#each lockout?.bosses || [] as boss (boss.name)}
                 <tr class:status-success={boss.dead} class:status-fail={!boss.dead}>
                     <td class="boss-name">{boss.name}</td>
                     <td>{boss.dead ? 'Dead' : 'Alive'}</td>

@@ -201,6 +201,8 @@ export const specializationData: Record<number, SpecializationData> = {
             WeaponSubclass.Fist,
             WeaponSubclass.OneHandedAxe,
             WeaponSubclass.OneHandedMace,
+            WeaponSubclass.TwoHandedAxe,
+            WeaponSubclass.TwoHandedMace,
             WeaponSubclass.Staff,
             WeaponSubclass.HeldInOffHand,
             WeaponSubclass.Shield,

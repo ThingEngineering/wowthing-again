@@ -237,8 +237,8 @@ public static partial class Hardcoded
                 (WowWeaponSubclass.Fist, StatAgilityIntellect),
                 (WowWeaponSubclass.Staff, StatIntellect),
 
-                (WowWeaponSubclass.TwoHandedAxe, StatTransmogOnly),
-                (WowWeaponSubclass.TwoHandedMace, StatTransmogOnly),
+                (WowWeaponSubclass.TwoHandedAxe, StatIntellect),
+                (WowWeaponSubclass.TwoHandedMace, StatIntellect),
 
                 (WowWeaponSubclass.OffHand, StatIntellect),
                 (WowWeaponSubclass.Shield, StatIntellect),
