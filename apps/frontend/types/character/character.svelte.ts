@@ -236,7 +236,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         this.garrisonTrees = garrisonTrees;
         this.highestItemLevel = highestItemLevel;
         this.knownSpells = knownSpells;
-        this.lockouts = lockouts;
+        this.lockouts = lockouts || {};
         this.mythicPlus = mythicPlus;
         this.mythicPlusAddon = mythicPlusAddon;
         this.paragons = paragons;
