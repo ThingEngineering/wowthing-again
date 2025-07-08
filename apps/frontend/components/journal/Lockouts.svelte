@@ -16,11 +16,10 @@
     let { instance }: { instance: JournalDataInstance } = $props();
 
     let byDifficulty = $derived.by(() => {
-        const instanceId = instance.id === 1278 ? 110001 : instance.id;
         let ret: Record<number, [Character, CharacterLockout][]> = {};
 
         const allLockouts = userState.general.allLockouts.filter(
-            (lockout) => lockout.instanceId === instanceId
+            (lockout) => lockout.instanceId === instance.id
         );
         for (const lockout of allLockouts) {
             for (const characterLockout of lockout.characters) {
@@ -50,7 +49,7 @@
 
 {#if Object.values(byDifficulty).length > 0}
     <div class="lockouts wrapper-column">
-        {#each journalDifficultyOrder as difficultyId}
+        {#each journalDifficultyOrder as difficultyId (difficultyId)}
             {@const lockouts = byDifficulty[difficultyId] || []}
             {#if lockouts.length > 0}
                 {@const difficulty = difficultyMap[difficultyId]}
@@ -63,7 +62,7 @@
                             class="character class-{character.classId}"
                             use:componentTooltip={{
                                 component: TooltipLockout,
-                                propsFunc: () => ({ character, lockout }),
+                                propsFunc: () => ({ character, instanceId: instance.id, lockout }),
                             }}
                         >
                             <IconifyIcon
