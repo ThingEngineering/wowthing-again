@@ -52,7 +52,7 @@
                 modifier = AppearanceModifier.Mythic;
             }
 
-            const appearance = expandedItem.appearances[modifier];
+            const appearance = expandedItem.appearances[modifier] || expandedItem.appearances[0];
             let hasItem = false;
             if (appearance) {
                 hasItem = settingsState.value.transmog.completionistMode
