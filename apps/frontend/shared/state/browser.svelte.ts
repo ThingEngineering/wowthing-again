@@ -48,6 +48,7 @@ interface BrowserStateIdk {
         showCloaks: boolean;
         showWeapons: boolean;
 
+        showConvertible: boolean;
         showMounts: boolean;
         showPets: boolean;
         showRecipes: boolean;
@@ -116,6 +117,8 @@ interface BrowserStateIdk {
         showTier: boolean;
 
         showAwakened: boolean;
+
+        hiddenCurrencies: number[];
     };
 
     'collectible-customizations': CollectibleState;
@@ -163,6 +166,7 @@ const initialState: BrowserStateIdk = {
         showCloaks: true,
         showWeapons: true,
 
+        showConvertible: true,
         showMounts: true,
         showPets: true,
         showRecipes: true,
@@ -230,6 +234,8 @@ const initialState: BrowserStateIdk = {
         showTier: true,
 
         showAwakened: true,
+
+        hiddenCurrencies: [],
     },
 
     'collectible-customizations': {

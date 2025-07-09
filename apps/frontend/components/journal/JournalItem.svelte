@@ -12,6 +12,7 @@
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { userState } from '@/user-home/state/user';
     import type {
+        JournalDataEncounter,
         JournalDataEncounterItem,
         JournalDataEncounterItemAppearance,
         JournalDataInstance,
@@ -26,11 +27,12 @@
 
     type Props = {
         bonusIds?: Record<number, number>;
+        encounter: JournalDataEncounter;
         instance: JournalDataInstance;
         item: JournalDataEncounterItem;
     };
 
-    let { bonusIds, instance, item }: Props = $props();
+    let { bonusIds, encounter, instance, item }: Props = $props();
 
     let classId = $derived(
         item.classMask in PlayableClassMask
@@ -160,7 +162,7 @@
                 />
             </a>
 
-            {#if classId > 0}
+            {#if classId > 0 && encounter.name !== 'Convertible'}
                 {@const hasSoon =
                     !appearance.userHas &&
                     userState.general.hasAppearanceBySource.has(

@@ -121,6 +121,7 @@ export class DataStatic {
     public reputationById: Map<number, StaticDataReputation>;
     public toyById: Map<number, StaticDataToy>;
     public transmogSetById: Map<number, StaticDataTransmogSet>;
+    public transmogSetsByGroupId: Map<number, StaticDataTransmogSet[]>;
     public worldQuestById: Map<number, StaticDataWorldQuest>;
 
     // Calculate

@@ -16,7 +16,7 @@ public class StaticTransmogSetConverter : JsonConverter<StaticTransmogSet>
         writer.WriteStringValue(value.Name);
         writer.WriteNumberValue(value.ClassMask);
         writer.WriteNumberValue(value.Flags);
-        // writer.WriteNumberValue(value.GroupId);
+        writer.WriteNumberValue(value.GroupId);
         // writer.WriteNumberValue(value.ItemNameDescriptionId);
 
         writer.WriteStartArray();

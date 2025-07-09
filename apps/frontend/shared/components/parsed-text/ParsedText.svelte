@@ -15,6 +15,8 @@
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     import RaceIcon from '@/shared/components/images/RaceIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
+    import { getGenderedName } from '@/utils/get-gendered-name';
 
     export let cls: string = undefined;
     export let dropShadow = false;
@@ -197,6 +199,15 @@
             /\{craftedQuality:(\d+)\}/g,
             '<span data-crafted-quality="$1"></span>'
         );
+
+        html = html.replaceAll(/:classMask-(\d+):/g, (_, classMaskString) => {
+            const classMask = parseInt(classMaskString);
+            const classId =
+                classMask in PlayableClassMask
+                    ? PlayableClass[PlayableClassMask[classMask] as keyof typeof PlayableClass]
+                    : 0;
+            return `${getGenderedName(wowthingData.static.characterClassById.get(classId)?.name)}`;
+        });
 
         html = html.replaceAll(/:class-(\d+):/g, '<span data-class="$1"></span>');
         html = html.replaceAll(/:(alliance|horde):/g, '<span data-faction="$1"></span>');
