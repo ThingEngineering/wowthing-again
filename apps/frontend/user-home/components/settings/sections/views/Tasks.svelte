@@ -25,7 +25,7 @@
         for (const task of taskList) {
             ret.push({ id: task.key, name: task.name });
             if (task.showSeparate && multiTaskMap[task.key]) {
-                for (const multiTask of multiTaskMap[task.key]) {
+                for (const multiTask of multiTaskMap[task.key].filter((t) => !!t)) {
                     ret.push({
                         id: `${task.key}|${multiTask.taskKey}`,
                         name: `${task.name} - ${multiTask.taskName}`,

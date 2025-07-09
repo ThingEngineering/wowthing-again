@@ -49,8 +49,6 @@
             orderBy(zoneQuests, ([zoneId]) => (zoneMap[zoneId]?.name ? 0 : 1)),
         ]) as [number, [number, ApiWorldQuest][]][];
 
-        console.log(grouped.filter((g) => g[1].length > 1));
-
         for (const [, groupedQuests] of grouped) {
             const [zoneId, worldQuest] = groupedQuests[0];
             if (

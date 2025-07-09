@@ -40,7 +40,6 @@ class ActiveViewTasks {
             const taskViewKey = `${settingsState.activeView.id}|${fullTaskName}`;
 
             if (!choreKeys.has(taskViewKey) && !taskKeys.has(taskViewKey)) {
-                // console.log({ taskViewKey, choreKeys, taskKeys });
                 continue;
             }
 

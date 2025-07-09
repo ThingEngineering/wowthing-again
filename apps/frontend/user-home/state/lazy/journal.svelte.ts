@@ -72,8 +72,10 @@ export function doJournal(): LazyJournal {
                 const encounterStats = (ret.stats[encounterKey] = new UserCount());
                 const encounterSeen = new Set<string>();
 
-                // FIXME: journal state -> browser state
-                if (!journalState.showTrash && encounter.name === 'Trash Drops') {
+                if (
+                    (!journalState.showConvertible && encounter.name === 'Convertible') ||
+                    (!journalState.showTrash && encounter.name === 'Trash Drops')
+                ) {
                     continue;
                 }
 

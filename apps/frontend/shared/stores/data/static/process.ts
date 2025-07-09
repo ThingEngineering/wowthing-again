@@ -1,4 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep';
+import groupBy from 'lodash/groupBy';
 
 import { extraInstances } from '@/data/dungeon';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
@@ -163,6 +164,15 @@ export function processStaticData(rawData: RawStatic): DataStatic {
             data.toyByItemId.set(toy.itemId, toy);
         }
     }
+
+    data.transmogSetsByGroupId = new Map(
+        getNumberKeyedEntries(
+            groupBy(
+                Array.from(data.transmogSetById.values()).filter((set) => set.groupId > 0),
+                (set) => set.groupId
+            )
+        )
+    );
 
     // Realms are fun
     data.realmById.set(0, new StaticDataRealm(0, 1, 0, 'Honkstrasza', 'honkstrasza', 'zzZZ'));

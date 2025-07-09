@@ -199,6 +199,13 @@
     </button>
 
     <button class="margin-left">
+        <CheckboxInput
+            name="show_convertible"
+            bind:value={browserState.current.journal.showConvertible}>Convertible</CheckboxInput
+        >
+    </button>
+
+    <button>
         <CheckboxInput name="show_trash" bind:value={browserState.current.journal.showTrash}
             >Trash Drops</CheckboxInput
         >

@@ -76,7 +76,7 @@
                 {/if}
 
                 {#each instance.encounters as encounter}
-                    {#if browserState.current.journal.showTrash || encounter.name !== 'Trash Drops'}
+                    {#if (browserState.current.journal.showConvertible || encounter.name !== 'Convertible') && (browserState.current.journal.showTrash || encounter.name !== 'Trash Drops')}
                         <Encounter {encounter} {instance} {slugKey} bonusIds={instance.bonusIds} />
                     {/if}
                 {/each}

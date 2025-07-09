@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Numerics;
 using System.Reflection;
 using Serilog.Context;
 using Wowthing.Lib.Models.Wow;
@@ -17,6 +18,7 @@ public class JournalTool
     private Dictionary<int, WowMount> _mountMap;
     private Dictionary<int, WowPet> _petMap;
     private Dictionary<int, WowToy> _toyMap;
+    private Dictionary<int, WowTransmogSet[]> _transmogSetsByGroup;
     private Dictionary<(StringType Type, Language language, int Id), string> _stringMap;
     private HashSet<int> _recipeItemIds = [];
     private readonly HashSet<int> _completeQuestItemIds = [];
@@ -40,6 +42,26 @@ public class JournalTool
         15, // Raid Heroic
         16, // Raid Mythic
         33, // Raid Timewalking
+    };
+
+    private readonly int[] _classMaskOrder =
+    {
+        0b0000_0000_1000_0000, // Mage
+        0b0000_0000_0001_0000, // Priest
+        0b0000_0001_0000_0000, // Warlock
+
+        0b0000_1000_0000_0000, // Demon Hunter
+        0b0000_0100_0000_0000, // Druid
+        0b0000_0010_0000_0000, // Monk
+        0b0000_0000_0000_1000, // Rogue
+
+        0b0001_0000_0000_0000, // Evoker
+        0b0000_0000_0000_0100, // Hunter
+        0b0000_0000_0100_0000, // Shaman
+
+        0b0000_0000_0010_0000, // Death Knight
+        0b0000_0000_0000_0010, // Paladin
+        0b0000_0000_0000_0001, // Warrior
     };
 
     private readonly StringType[] _stringTypes = {
@@ -148,8 +170,12 @@ public class JournalTool
                 md => md.DifficultyID
             );
 
+        var itemModifiedAppearances = await context.WowItemModifiedAppearance.ToArrayAsync();
+
+        var appearancesById = itemModifiedAppearances.ToDictionary(ima => ima.Id);
+
         // { itemId => { modifierId => appearanceId } }
-        var appearancesByItemId = (await context.WowItemModifiedAppearance.ToArrayAsync())
+        var appearancesByItemId = itemModifiedAppearances
             .GroupBy(ima => ima.ItemId)
             .ToDictionary(
                 itemIdGroup => itemIdGroup.Key,
@@ -210,6 +236,11 @@ public class JournalTool
             .AsNoTracking()
             .Where(ls => _stringTypes.Contains(ls.Type))
             .ToDictionaryAsync(ls => (ls.Type, ls.Language, ls.Id), ls => ls.String);
+
+        _transmogSetsByGroup = (await context.WowTransmogSet
+            .Where(set => set.GroupId > 0)
+            .ToArrayAsync())
+            .ToGroupedDictionary(set => (int)set.GroupId);
 
         var recipeItemIds = await context.WowProfessionRecipeItem
             .AsNoTracking()
@@ -305,7 +336,7 @@ public class JournalTool
         {
             int instanceId = encounterId % 1_000_000;
 
-            if (encounterId > 2_000_000)
+            if (encounterId is > 2_000_000 and < 3_000_000)
             {
                 // Shared drops
                 encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
@@ -314,7 +345,7 @@ public class JournalTool
                     OrderIndex = -9,
                 });
             }
-            else if (encounterId > 1_000_000)
+            else if (encounterId is > 1_000_000 and < 2_000_000)
             {
                 // Trash drops
                 encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
@@ -323,6 +354,15 @@ public class JournalTool
                     OrderIndex = -10,
                 });
             }
+        }
+
+        foreach (int instanceId  in Hardcoded.JournalInstanceTransmogSets.Keys)
+        {
+            encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
+            {
+                ID = 3_000_000 + instanceId,
+                OrderIndex = -11,
+            });
         }
 
         // Once per language, oh boy
@@ -447,8 +487,9 @@ public class JournalTool
 
                         encounterData.Name = encounter.ID switch
                         {
-                            > 2000000 => "Shared Drops",
-                            > 1000000 => "Trash Drops",
+                            > 3_000_000 => "Convertible",
+                            > 2_000_000 and < 3_000_000 => "Shared Drops",
+                            > 1_000_000 and < 2_000_000 => "Trash Drops",
                             _ => GetString(StringType.WowJournalEncounterName, language, encounter.ID)
                         };
 
@@ -504,6 +545,51 @@ public class JournalTool
                             else
                             {
                                 items.Add(encounterItem);
+                            }
+                        }
+
+                        // Transmog set groups
+                        if (encounter.ID > 3_000_000)
+                        {
+                            if (Hardcoded.JournalInstanceTransmogSets.TryGetValue(instance.ID,
+                                    out int transmogSetGroupId) &&
+                                _transmogSetsByGroup.TryGetValue(transmogSetGroupId, out var transmogSets))
+                            {
+                                // Assume class-based for now
+                                // var itemIds = new HashSet<int>();
+                                foreach (var transmogSet in transmogSets)
+                                {
+                                    foreach (int imaId in transmogSet.ItemModifiedAppearanceIds.Where(id =>
+                                                 id > 10_000_000))
+                                    {
+                                        if (appearancesById.TryGetValue(imaId % 10_000_000, out var modifiedAppearance))
+                                        {
+                                            fakeItems[modifiedAppearance.ItemId] = new DumpJournalEncounterItem
+                                            {
+                                                ID = 3000000 + modifiedAppearance.ItemId,
+                                                DifficultyMask = 0,
+                                                FactionMask = 0,
+                                                Flags = 0,
+                                                ItemID = modifiedAppearance.ItemId,
+                                                JournalEncounterID = encounter.ID,
+                                            };
+                                        }
+                                    }
+                                }
+
+                                // foreach (int itemId in itemIds)
+                                // {
+                                //     // difficultiesByEncounterItemId[3_000_000 + itemId] = extraItem.Difficulties.ToArray();
+                                //     encounterItems.Add(new DumpJournalEncounterItem
+                                //     {
+                                //         ID = 3000000 + itemId,
+                                //         DifficultyMask = 0,
+                                //         FactionMask = 0,
+                                //         Flags = 0,
+                                //         ItemID = itemId,
+                                //         JournalEncounterID = encounter.ID,
+                                //     });
+                                // }
                             }
                         }
 
@@ -715,7 +801,7 @@ public class JournalTool
                                 itemAppearances[appearanceKey].Difficulties.Add(difficultyId);
                             }
 
-                            var group = GetGroup(itemGroups, item);
+                            var group = GetGroup(itemGroups, item, encounterItem.ID > 3_000_000);
                             group.Items.Add(new OutJournalEncounterItem
                             {
                                 Id = encounterItem.ItemID,
@@ -841,7 +927,7 @@ public class JournalTool
         return languageName;
     }
 
-    private OutJournalEncounterItemGroup GetGroup(Dictionary<string, OutJournalEncounterItemGroup> groups, WowItem item)
+    private OutJournalEncounterItemGroup GetGroup(Dictionary<string, OutJournalEncounterItemGroup> groups, WowItem item, bool useMask)
     {
         string groupName = "Unknown";
         int groupOrder = 100;
@@ -858,7 +944,12 @@ public class JournalTool
         else if (cls == GameItemClass.Armor)
         {
             var subClass = (WowArmorSubclass)item.SubclassId;
-            if (subClass == WowArmorSubclass.Cloth)
+            if (useMask && item.ClassMask > 0 && BitOperations.PopCount((uint)item.ClassMask) == 1)
+            {
+                groupName = $":classMask-{item.ClassMask}:";
+                groupOrder = Array.IndexOf(_classMaskOrder, item.ClassMask);
+            }
+            else if (subClass == WowArmorSubclass.Cloth)
             {
                 groupName = "Cloth";
                 groupOrder = 10;

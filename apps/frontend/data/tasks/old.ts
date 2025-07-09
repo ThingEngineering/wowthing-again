@@ -296,6 +296,7 @@ export const taskList: Task[] = [
         name: '[TWW] Delves',
         shortName: 'Delve',
         minimumLevel: 80,
+        showSeparate: true,
         type: 'multi',
     },
     {

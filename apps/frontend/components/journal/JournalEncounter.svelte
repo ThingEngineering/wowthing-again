@@ -52,7 +52,14 @@
 </SectionTitle>
 
 <div class="collection{useV2 ? '-v2' : ''}-section" data-encounter-id={encounter.id}>
-    {#each encounter.groups as group}
-        <Group groupKey={`${statsKey}--${group.name}`} {bonusIds} {group} {instance} {useV2} />
+    {#each encounter.groups as group (group)}
+        <Group
+            groupKey={`${statsKey}--${group.name}`}
+            {bonusIds}
+            {encounter}
+            {group}
+            {instance}
+            {useV2}
+        />
     {/each}
 </div>

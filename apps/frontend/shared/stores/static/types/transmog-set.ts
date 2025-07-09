@@ -6,7 +6,8 @@ export class StaticDataTransmogSet {
         public name: string,
         public classMask: number,
         public flags: number,
-        modifierItemArrays: number[][],
+        public groupId: number,
+        modifierItemArrays: number[][]
     ) {
         // [modifier, itemId1, addMe1, addMe2, ...]
         for (const modifierItemArray of modifierItemArrays) {
