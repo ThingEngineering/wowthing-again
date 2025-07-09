@@ -224,7 +224,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                 const disabledChores = view.disabledChores?.[fullTaskName] || [];
 
                 // ugh
-                for (const choreTask of multiTaskMap[taskName]) {
+                for (const choreTask of multiTaskMap[taskName].filter((t) => !!t)) {
                     if (choreName && choreTask.taskKey !== choreName) {
                         continue;
                     }
@@ -534,8 +534,11 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
 
                 if (charChore.tasks.length === 1 && charChore.tasks[0] !== null) {
                     const choreTask = multiTaskMap[taskName].find(
-                        (chore) => chore.taskKey === charChore.tasks[0].key
+                        (chore) => chore?.taskKey === charChore.tasks[0].key
                     );
+                    if (!choreTask) {
+                        continue;
+                    }
 
                     // noAlone chores can't be the only one
                     if (choreTask.noAlone) {
