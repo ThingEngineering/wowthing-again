@@ -180,7 +180,7 @@
     </tr>
 {/if}
 
-{#each category.groups as group, groupIndex}
+{#each category.groups as group, groupIndex (group)}
     {@const currentType = transmogSets[group.type].type}
     {@const showPercent = !isNaN(categoryPercent)}
     {@const groupKey = `${setKey}--${category.slug}--${groupIndex}`}
