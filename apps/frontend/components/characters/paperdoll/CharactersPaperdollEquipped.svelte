@@ -23,6 +23,10 @@
         .map((bonusId) => wowthingData.items.bonusIdToModifiedCrafting[bonusId])
         .filter((emb) => emb !== undefined);
 
+    $: hasSpeed = (equippedItem?.bonusIds || []).some((bonusId) =>
+        wowthingData.items.itemBonusSpeed.has(bonusId)
+    );
+
     const getCraftedData = () => {
         for (const [craftedBonusId, levelIds] of getNumberKeyedEntries(craftedTiers)) {
             if (equippedItem.bonusIds.includes(craftedBonusId)) {
@@ -161,6 +165,10 @@
                     </WowheadLink>
                 </span>
             {/each}
+
+            {#if hasSpeed}
+                <span class="embellishment status-shrug">Movement Speed</span>
+            {/if}
 
             {#if enchantmentIds.length > 0 || gemIds.length > 0}
                 {@const enchantId = equippedItem.enchantmentIds[0]}
