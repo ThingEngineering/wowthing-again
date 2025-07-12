@@ -326,7 +326,7 @@ export class DataUserGeneral {
             const orderIndex = 100 - (lockoutDifficultyOrderMap[diff.difficulty.id] || 99);
             return [
                 leftPad(journalInstance?.order || 9999, 4, '0'),
-                leftPad(orderIndex, 2, '0'),
+                leftPad(orderIndex, 3, '0'),
                 instance.shortName,
                 diff.difficulty.shortName,
             ].join('|');

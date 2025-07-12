@@ -61,10 +61,12 @@ public class ApiCharacterStats
 
 public class ApiCharacterStatsRating
 {
+    [JsonPropertyName("rating_normalized")]
     public decimal Rating { get; set; }
 
     [JsonPropertyName("rating_bonus")]
     public decimal RatingBonus { get; set; }
+
     public decimal? Value { get; set; }
 
     public PlayerCharacterStatsRating ToPlayerCharacterStatsRating()
