@@ -1,15 +1,15 @@
 <script lang="ts">
-    import { searchStore } from './store'
-    import { auctionsAppState } from '@/auctions/stores/state'
-    import { Region } from '@/enums/region'
-    import type { MultiSlugParams } from '@/types'
+    import { searchStore } from './store';
+    import { auctionsAppState } from '@/auctions/stores/state';
+    import { Region } from '@/enums/region';
+    import type { ParamsSlugsProps } from '@/types/props';
 
-    import Results from '@/auctions/components/results/Results.svelte'
-    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
+    import Results from '@/auctions/components/results/Results.svelte';
+    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
 
-    export let params: MultiSlugParams
+    let { params }: ParamsSlugsProps = $props();
 
-    $: searchString = params.slug2
+    let searchString = $derived(params.slug2);
 </script>
 
 <style lang="scss">
