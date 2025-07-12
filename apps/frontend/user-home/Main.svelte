@@ -49,17 +49,15 @@
 
         if (!sharedState.public) {
             // Fix account settings
-            const accounts = $state.snapshot(settingsState.value.accounts);
-            if (Object.keys(accounts || {}).length === 0) {
-                const newAccounts: Settings['accounts'] = {};
-                for (const account of Object.values($userStore.accounts)) {
-                    newAccounts[account.id] = {
-                        enabled: account.enabled !== undefined ? account.enabled : true,
-                        tag: account.tag || '',
-                    };
-                }
-                settingsState.value.accounts = newAccounts;
+            const accounts = $state.snapshot(settingsState.value.accounts) || {};
+            const newAccounts: Settings['accounts'] = {};
+            for (const account of Object.values($userStore.accounts)) {
+                newAccounts[account.id] = {
+                    enabled: account.enabled !== undefined ? account.enabled : true,
+                    tag: account.tag || '',
+                };
             }
+            settingsState.value.accounts = { ...newAccounts, ...accounts };
 
             // Signal/R for notifications
             userUpdateHubStore.connect();
