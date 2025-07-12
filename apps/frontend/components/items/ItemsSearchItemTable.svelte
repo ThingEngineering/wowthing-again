@@ -1,13 +1,13 @@
 <script lang="ts">
     import { itemSearchState } from '@/stores';
     import { toNiceNumber } from '@/utils/formatting';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import type { ItemSearchResponseCharacter, ItemSearchResponseItem } from '@/types/items';
 
     import Row from './ItemsSearchItemRow.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { settingsState } from '@/shared/state/settings.svelte';
 
     export let response: ItemSearchResponseItem[];
 
@@ -35,7 +35,7 @@
     };
 </script>
 
-{#each response as item}
+{#each response as item (item)}
     {@const { characterItems, itemCount } = getCombinedItems(item)}
     {#if itemCount > 0}
         <table class="table table-striped search-table">

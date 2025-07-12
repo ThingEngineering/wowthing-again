@@ -65,10 +65,7 @@
             </td>
         {/if}
         <td class="name text-overflow">
-            <a
-                class="quality{item.quality || wowthingData.items.items[itemId].quality || 0}"
-                href={getItemUrlSearch(itemId, item)}
-            >
+            <a class="class-{character.classId}" href={getItemUrlSearch(itemId, item)}>
                 {character.name}
             </a>
         </td>
@@ -90,7 +87,7 @@
             {Region[region]}
         {/if}
     </td>
-    <td class="location">
+    <td class="location quality{item.quality || wowthingData.items.items[itemId].quality || 0}">
         {#if characterItem}
             {ItemLocation[characterItem.location]}
         {:else}
