@@ -395,6 +395,26 @@ export const convertibleCategories: ConvertibleCategory[] = [
             },
         },
     },
+    {
+        id: 2,
+        minimumLevel: 60,
+        name: '[SL] Season 4',
+        slug: 'sl-season-4',
+        tiers: [
+            {
+                itemLevel: 415,
+            },
+            {
+                itemLevel: 402,
+            },
+            {
+                itemLevel: 389,
+            },
+            {
+                itemLevel: 376,
+            },
+        ],
+    },
 ];
 
 export const convertibleTypes: InventoryType[] = [

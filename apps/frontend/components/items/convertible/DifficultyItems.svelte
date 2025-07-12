@@ -27,4 +27,4 @@
     }
 </script>
 
-<DifficultyTable {classData} {modifier} />
+<DifficultyTable {classData} {modifier} {season} />

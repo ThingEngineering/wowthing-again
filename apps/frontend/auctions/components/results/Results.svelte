@@ -4,9 +4,12 @@
     import Row from './ResultsRow.svelte';
     import Selected from './Selected.svelte';
 
-    export let loadFunc: () => Promise<AuctionEntry[]>;
-    export let selected: string;
-    export let url: string;
+    type Props = {
+        loadFunc: () => Promise<AuctionEntry[]>;
+        selected: string;
+        url: string;
+    };
+    let { loadFunc, selected, url }: Props = $props();
 </script>
 
 <style lang="scss">

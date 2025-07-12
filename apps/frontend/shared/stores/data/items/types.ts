@@ -48,6 +48,7 @@ export class DataItems {
     public itemBonuses: Record<number, DataItemBonus> = {};
     public itemBonusCurrentSeason: Set<number> = new Set();
     public itemBonusSocket: Set<number> = new Set();
+    public itemBonusSpeed: Set<number> = new Set();
     public itemBonusToUpgrade: Record<number, [number, number, number]> = {};
     public itemConversionBonus: Record<number, number> = {};
     public itemSets: Record<number, DataItemSet> = {};

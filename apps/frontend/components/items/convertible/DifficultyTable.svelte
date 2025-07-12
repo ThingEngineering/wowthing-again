@@ -10,12 +10,15 @@
     import type { LazyConvertibleModifier } from '@/user-home/state/lazy/convertible.svelte';
 
     import { convertibleTypes } from './data';
+    import type { ConvertibleCategory } from './types';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import Tooltip from './DifficultyTooltip.svelte';
+    import { PlayableClass } from '@/enums/playable-class';
 
     export let classData: Record<number, Record<number, LazyConvertibleModifier>>;
     export let modifier: number;
+    export let season: ConvertibleCategory;
 </script>
 
 <style lang="scss">
@@ -68,7 +71,7 @@
                 </tr>
             </thead>
             <tbody>
-                {#each classOrder as classId}
+                {#each classOrder.filter( (classId) => (season.slug.startsWith('sl-') ? classId !== PlayableClass.Evoker : true) ) as classId (classId)}
                     {@const characterClass = wowthingData.static.characterClassById.get(classId)}
                     {@const slotsHave = Object.values(classData[classId] || {}).filter(
                         (mod) => mod.userHas

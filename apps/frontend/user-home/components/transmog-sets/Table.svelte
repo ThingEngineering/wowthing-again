@@ -8,44 +8,42 @@
 
     import Category from './TableCategory.svelte';
 
-    export let slug1: string;
-    export let slug2: string;
+    let { slug1, slug2 }: { slug1: string; slug2: string } = $props();
 
-    let anyClasses: boolean;
-    let categories: ManualDataTransmogCategory[];
-    let slugs: string[];
-    let skipClasses: Record<string, boolean | number>;
-    $: {
-        categories = (
+    let slugs = $derived(slug2 ? [slug1, slug2] : [slug1]);
+    let categories: ManualDataTransmogCategory[] = $derived.by(() =>
+        (
             find(wowthingData.manual.transmog.sets, (s) => s !== null && s[0].slug === slug1) || []
-        ).filter((s) => s.groups.length > 0 && !!s.groups[0].type && (!slug2 || s.slug === slug2));
+        ).filter((s) => s.groups.length > 0 && !!s.groups[0].type && (!slug2 || s.slug === slug2))
+    );
 
-        slugs = slug2 ? [slug1, slug2] : [slug1];
-
-        anyClasses = false;
-        skipClasses = getSkipClasses(settingsState.value, categories?.[0]);
+    let [anyClasses, skipClasses] = $derived.by(() => {
+        let retAnyClasses = false;
+        let retSkipClasses = getSkipClasses(settingsState.value, categories?.[0]);
         for (let i = 0; i < categories.length; i++) {
             const category = categories[i];
             if (!category.groups.some((group) => group.type === 'class')) {
                 continue;
             }
 
-            anyClasses = true;
+            retAnyClasses = true;
 
             const catSkipClasses = getSkipClasses(settingsState.value, category);
             for (const [key, value] of Object.entries(catSkipClasses)) {
                 if (value === false) {
-                    skipClasses[key] = false;
+                    retSkipClasses[key] = false;
                 }
             }
         }
-    }
+
+        return [retAnyClasses, retSkipClasses];
+    });
 </script>
 
 <div class="thing-container">
     <table class="table table-striped character-table">
         <tbody>
-            {#each categories as category, categoryIndex}
+            {#each categories as category, categoryIndex (category)}
                 <Category
                     {anyClasses}
                     {category}

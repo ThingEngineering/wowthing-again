@@ -58,6 +58,10 @@ public class ItemsTool
         676, // Algari Missive of Deftness
         734, // 11.1 Professions - Modifying Reagent - Shared - Pacing - Season 2 Spark
         735, // 11.1 Optional Reagent - Season 2 - Enchanted Crests
+        736, // 11.2 Professions - Modifying Reagent - Shared - Pacing - Season 3 Spark
+        737, // 11.2 Optional Reagent - Season 3 - Enchanted Crests
+        761, // 11.1.5 Optional Reagent - Season 2 - Augmentation Matrix - Mythic
+        764, // 11.1.5 Optional Reagent - Season 2 - Augmentation Matrix - Heroic
     ];
 
     private static readonly HashSet<int> SkipReagentItems = [
