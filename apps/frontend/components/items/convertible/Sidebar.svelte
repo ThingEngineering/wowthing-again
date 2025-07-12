@@ -40,7 +40,12 @@
             slug: 'looking-for-raid',
         },
     ];
-    const categories = convertibleCategories.map((cc) => ({ ...cc, children }));
+    const categories = convertibleCategories.map((cc) => ({
+        ...cc,
+        children: children.filter((child) =>
+            cc.slug.startsWith('sl-') ? child?.slug !== 'evoker' : true
+        ),
+    }));
 
     // Svelte 4 workaround - it can't see the store access inside the function so pass it in
     const percentFunc = function (
