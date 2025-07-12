@@ -34,7 +34,7 @@
 </style>
 
 <th
-    data-difficulty={instanceDifficulty?.difficulty}
+    data-difficulty={instanceDifficulty?.difficulty?.id}
     data-instance={instanceDifficulty?.instanceId}
     onclick={onClick}
     use:componentTooltip={{

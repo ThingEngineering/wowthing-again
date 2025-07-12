@@ -58,20 +58,19 @@ export const journalDifficultyOrder: number[] = [
 ];
 
 export const journalDifficultyMap: Record<number, number> = Object.fromEntries(
-    journalDifficultyOrder.map((value, index) => [value, index]),
+    journalDifficultyOrder.map((value, index) => [value, index])
 );
 
 export const lockoutDifficultyOrder: number[] = [
     16, // Raid Mythic
     15, // Raid Heroic
-    14, // Raid Normal
-    17, // Raid LFR
-
     6, // Legacy 25 Heroic
     5, // Legacy 10 Heroic
+    14, // Raid Normal
     9, // Legacy 40 Player
     4, // Legacy 25 Normal
     3, // Legacy 10 Normal
+    17, // Raid LFR
     7, // Legacy LFR
 
     23, // Dungeon Mythic
@@ -82,5 +81,5 @@ export const lockoutDifficultyOrder: number[] = [
 ];
 
 export const lockoutDifficultyOrderMap: Record<number, number> = Object.fromEntries(
-    lockoutDifficultyOrder.map((value, index) => [value, index]),
+    lockoutDifficultyOrder.map((value, index) => [value, index + 1])
 );
