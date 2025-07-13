@@ -9,6 +9,7 @@
     import type { Character } from '@/types';
     import type { GroupByContext } from '@/utils/get-character-group-func';
 
+    import HeadBagSpace from '@/components/character-table/head/BagSpace.svelte';
     import HeadCovenant from './head/HomeTableHeadCovenant.svelte';
     import HeadCurrencies from './head/HomeTableHeadCurrencies.svelte';
     import HeadCurrentLocation from './head/HomeTableHeadCurrentLocation.svelte';
@@ -16,6 +17,7 @@
     import HeadHearthLocation from './head/HomeTableHeadHearthLocation.svelte';
     import HeadItems from './head/HomeTableHeadItems.svelte';
     import HeadLockouts from './head/HomeTableHeadLockouts.svelte';
+    import HeadMovementSpeed from '@/components/character-table/head/MovementSpeed.svelte';
     import HeadProgress from './head/HomeTableHeadProgress.svelte';
     import HeadTasks from './head/HomeTableHeadTasks.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
@@ -84,7 +86,9 @@
     </td>
 
     {#each settingsState.activeView.homeFields as field (field)}
-        {#if field === 'bestItemLevel'}
+        {#if field === 'bagSpace'}
+            <HeadBagSpace {sortKey} />
+        {:else if field === 'bestItemLevel'}
             <td
                 class="sortable"
                 class:sorted-by={$homeState.groupSort[sortKey] === field}
@@ -209,6 +213,8 @@
                     Rest
                 </td>
             {/if}
+        {:else if field === 'statsSpeed'}
+            <HeadMovementSpeed {sortKey} />
         {:else if field === 'tasks'}
             <HeadTasks {sortKey} />
         {:else if field === 'vaultMythicPlus'}

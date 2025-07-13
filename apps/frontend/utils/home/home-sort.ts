@@ -13,28 +13,31 @@ import { getCharacterRested } from '../get-character-rested';
 import { getDungeonLevel } from '../mythic-plus/get-dungeon-level';
 import getRaidVaultItemLevel from '../get-raid-vault-item-level';
 import { getWorldTier } from '../vault/get-world-tier';
+import { StatType } from '@/enums/stat-type';
 
 export function homeSort(
     activeView: SettingsView,
     lazyStore: LazyStore,
     currentTime: DateTime,
     sortBy: string,
-    char: Character,
+    char: Character
 ): string {
     if (sortBy === 'gold') {
         return leftPad(10_000_000 - char.gold, 8, '0');
+    } else if (sortBy === 'bagSpace') {
+        return leftPad(100 - char.bagSlotsFree, 3, '0');
     } else if (sortBy === 'bestItemLevel') {
         return leftPad(
             10000 -
                 Math.floor(parseFloat(char.bestItemLevels?.[char.activeSpecId]?.[0] || '0.0') * 10),
             5,
-            '0',
+            '0'
         );
     } else if (sortBy === 'itemLevel') {
         return leftPad(
             10000 - Math.floor(parseFloat(char.calculatedItemLevel || '0.0') * 10),
             5,
-            '0',
+            '0'
         );
     } else if (sortBy === 'lastSeenAddon') {
         return leftPad(2_000_000_000_000 - (char.lastSeenAddon?.toMillis() || 0), 13, '0');
@@ -67,7 +70,7 @@ export function homeSort(
         return leftPad(
             100 - (cooldownData.total > 0 ? (cooldownData.have / cooldownData.total) * 100 : -1),
             3,
-            '0',
+            '0'
         );
     } else if (sortBy === 'professionWorkOrders') {
         const orderData = lazyStore.characters[char.id].professionWorkOrders;
@@ -79,6 +82,12 @@ export function homeSort(
             const [rested] = getCharacterRested(currentTime, char);
             return leftPad(999 - parseInt(rested), 3, '0');
         }
+    } else if (sortBy === 'statsSpeed') {
+        return leftPad(
+            9999999 - (char.statistics?.rating?.[StatType.SpeedRating]?.ratingBonus || 0),
+            7,
+            '0'
+        );
     } else if (sortBy === 'vaultMythicPlus') {
         if (char.weekly?.vault?.generatedRewards) {
             return '000|000|000';
@@ -164,7 +173,7 @@ export function homeSort(
                         const countMatch = charTask.text.match(/^(\d+) \/ (\d+)$/);
                         if (countMatch) {
                             value = Math.floor(
-                                (parseInt(countMatch[1]) / parseInt(countMatch[2])) * 100,
+                                (parseInt(countMatch[1]) / parseInt(countMatch[2])) * 100
                             );
                         }
                     }

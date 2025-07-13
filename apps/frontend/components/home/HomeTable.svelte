@@ -5,6 +5,7 @@
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte';
     import GroupHead from './table/HomeTableGroupHead.svelte';
+    import RowBagSpace from '../character-table/row/BagSpace.svelte';
     import RowBestItemLevel from '@/components/character-table/row/BestItemLevel.svelte';
     import RowCovenant from './table/row/HomeTableRowCovenant.svelte';
     import RowCurrencies from './table/row/HomeTableRowCurrencies.svelte';
@@ -20,6 +21,7 @@
     import RowKeystone from '@/components/character-table/row/Keystone.svelte';
     import RowLastSeenAddon from '@/components/character-table/row/LastSeenAddon.svelte';
     import RowLockouts from './table/row/HomeTableRowLockouts.svelte';
+    import RowMovementSpeed from '../character-table/row/MovementSpeed.svelte';
     import RowMythicPlusScore from '@/components/character-table/row/RaiderIo.svelte';
     import RowPlayedTime from './table/row/HomeTableRowPlayedTime.svelte';
     import RowProfessions from './table/row/HomeTableRowProfessions.svelte';
@@ -63,7 +65,9 @@
 
         <svelte:fragment slot="rowExtra" let:character>
             {#each settingsState.activeView.homeFields as field (field)}
-                {#if field === 'bestItemLevel'}
+                {#if field === 'bagSpace'}
+                    <RowBagSpace {character} />
+                {:else if field === 'bestItemLevel'}
                     <RowBestItemLevel {character} />
                 {:else if field === 'callings'}
                     <RowDailies expansion={8} {character} />
@@ -125,6 +129,8 @@
                     {#if !isPublic}
                         <RowRestedExperience {character} />
                     {/if}
+                {:else if field === 'statsSpeed'}
+                    <RowMovementSpeed {character} />
                 {:else if field === 'statusIcons'}
                     <RowStatuses {character} />
                 {:else if field === 'tasks'}

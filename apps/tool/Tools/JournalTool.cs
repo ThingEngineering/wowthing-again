@@ -482,6 +482,7 @@ public class JournalTool
                         var encounterData = new OutJournalEncounter
                         {
                             Id = encounter.ID,
+                            Flags = encounter.Flags,
                             Statistics = statistics,
                         };
 

@@ -14,6 +14,7 @@ public class OutJournalEncounterConverter : JsonConverter<OutJournalEncounter>
         writer.WriteStartArray();
 
         writer.WriteNumberValue(encounter.Id);
+        writer.WriteNumberValue(encounter.Flags);
         writer.WriteStringValue(encounter.Name);
 
         // Groups

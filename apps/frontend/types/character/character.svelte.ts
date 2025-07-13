@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 
 import { Constants } from '@/data/constants';
-import { slotOrder } from '@/data/inventory-slot';
+import { characterBagSlots, slotOrder } from '@/data/inventory-slot';
 import { professionSpecializationToSpell } from '@/data/professions';
 import { Faction } from '@/enums/faction';
 import { InventorySlot } from '@/enums/inventory-slot';
@@ -485,6 +485,35 @@ export class Character implements ContainsItems, HasNameAndRealm {
     }
 
     public lockoutKeys = $derived(Object.keys(this.lockouts || {}));
+
+    private _bagSlots = $derived.by(() => {
+        // Vulpera get 8 extra bag slots
+        let free = this.raceId === 35 ? 28 : 20;
+        let total = free;
+
+        for (const bagSlot of characterBagSlots.filter((n) => n !== 5)) {
+            const itemId = this.bags[bagSlot];
+            const bag = wowthingData.static.bagById.get(itemId);
+            if (bag) {
+                free += bag.slots;
+                total += bag.slots;
+            }
+        }
+
+        for (const item of this.itemsByLocation.get(ItemLocation.Bags) || []) {
+            if (item.bagId !== 5 && item.slot > 0) {
+                free--;
+            }
+        }
+
+        return { free, total };
+    });
+    get bagSlotsFree(): number {
+        return this._bagSlots.free;
+    }
+    get bagSlotsTotal(): number {
+        return this._bagSlots.total;
+    }
 
     public bestItemLevels: Record<number, [string, InventoryType[]]>;
     getBestItemLevels(): Record<number, [string, InventoryType[]]> {

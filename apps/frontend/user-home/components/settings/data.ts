@@ -11,6 +11,7 @@ export const commonChoices: SettingsChoice[] = [
 ];
 
 export const homeChoices: SettingsChoice[] = [
+    { id: 'bagSpace', name: 'Bag Space' },
     { id: 'callings', name: 'Callings' },
     { id: 'covenant', name: 'Covenant' },
     { id: 'currencies', name: 'Currencies' },
@@ -37,6 +38,7 @@ export const homeChoices: SettingsChoice[] = [
     { id: 'professionWorkOrders', name: 'Profession Work Orders' },
     { id: 'progress', name: 'Progress' },
     { id: 'restedExperience', name: 'Rested XP' },
+    { id: 'statsSpeed', name: 'Stats - Movement Speed' },
     { id: 'statusIcons', name: 'Status icons' },
     { id: 'tasks', name: 'Tasks' },
     { id: 'vaultMythicPlus', name: 'Vault - Dungeon' },

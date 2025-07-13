@@ -38,6 +38,16 @@
     let useV2 = $derived(
         encounter.groups.length > 3 && encounter.groups.reduce(reduceFunc, 0) > 30
     );
+
+    let encounterName = $derived.by(() => {
+        if (encounter.allianceOnly) {
+            return `:alliance: ${encounter.name}`;
+        } else if (encounter.hordeOnly) {
+            return `:horde: ${encounter.name}`;
+        } else {
+            return encounter.name;
+        }
+    });
 </script>
 
 <style lang="scss">
@@ -47,7 +57,7 @@
     }
 </style>
 
-<SectionTitle title={encounter.name} count={lazyState.journal.stats[statsKey]}>
+<SectionTitle title={encounterName} count={lazyState.journal.stats[statsKey]}>
     <EncounterStats {encounter} {statsKey} />
 </SectionTitle>
 

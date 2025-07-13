@@ -37,11 +37,12 @@
                     {@const difficultyCount = byDifficulty[difficulty]}
                     {#if difficultyCount}
                         <tr>
-                            <td>
-                                <code>{difficultyMap[difficulty].shortName}</code>
+                            <td class="r">
+                                {difficultyMap[difficulty].name}
                             </td>
                             <td class="r">
-                                {difficultyCount} character(s)
+                                {difficultyCount}
+                                {difficultyCount === 1 ? 'character' : 'characters'}
                             </td>
                         </tr>
                     {/if}
@@ -56,7 +57,8 @@
 
     {#if count > 0}
         <div class="bottom">
-            {count} character(s)
+            {count}
+            {count === 1 ? 'lockout' : 'lockouts'}
         </div>
     {/if}
 </div>
