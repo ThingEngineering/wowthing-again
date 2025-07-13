@@ -1661,7 +1661,23 @@ public static partial class Hardcoded
         #endregion
 
         #region Cataclysm
-
+        // Zul'Gurub > Jin'do the Godbreaker
+        {
+            185,
+            [
+            new(122215, DungeonDifficultiesHeroic), // Music Roll: Zul'Gurub Voodoo
+            ]
+        },
+        // Zul'Gurub > Fishing Cache
+        {
+            1_0076_0,
+            [
+                new(19944, DungeonDifficultiesHeroic), // Nat Pagle's Fish Terminator [staff
+                new(19945, DungeonDifficultiesHeroic), // Lizardscale Eyepatch [leather head]
+                new(19946, DungeonDifficultiesHeroic), // Tigule's Harpoon [polearm]
+                new(22739, DungeonDifficultiesHeroic), // Tome of Polymorph: Turtle
+            ]
+        },
         // Zul'Aman > Timed Run
         {
             1_0077_0,

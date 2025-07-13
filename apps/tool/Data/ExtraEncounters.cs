@@ -278,6 +278,17 @@ public static partial class Hardcoded
         #endregion
 
         #region Cataclysm
+        // Cata > Zul'Gurub
+        {
+            76,
+            new[]
+            {
+                new ExtraEncounter("Fishing Cache")
+                {
+                    AfterEncounter = 180, // Cache of Madness - Wushoolay
+                }
+            }
+        },
         // Cata > Zul'Aman
         {
             77,
