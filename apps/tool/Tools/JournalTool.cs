@@ -390,6 +390,11 @@ public class JournalTool
                 int lastInstanceType = -1;
                 foreach (short instanceId in tierToInstances[tier.ID])
                 {
+                    if (Hardcoded.SkipInstances.Contains(instanceId))
+                    {
+                        continue;
+                    }
+
                     var instance = instancesById[instanceId];
                     var map = mapsById[instance.MapID];
                     bool hasTimewalking = InstanceTimewalkingOverride.Contains(instance.ID) || (instance.Flags & 0x1) == 0x1;
