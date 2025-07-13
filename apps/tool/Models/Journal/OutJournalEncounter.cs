@@ -6,6 +6,7 @@ namespace Wowthing.Tool.Models.Journal;
 public class OutJournalEncounter
 {
     public int Id { get; set; }
+    public int Flags { get; set; }
     public string Name { get; set; } = string.Empty;
 
     public List<OutJournalEncounterItemGroup> Groups = new();

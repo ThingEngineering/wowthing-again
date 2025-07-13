@@ -1,4 +1,5 @@
 // import type { UserCount } from '@/types'
+import { JournalEncounterFlags } from '@/enums/journal-encounter-flags';
 import type { RewardType } from '@/enums/reward-type';
 
 export interface JournalData {
@@ -37,18 +38,26 @@ export class JournalDataEncounter {
 
     constructor(
         public id: number,
+        public flags: number,
         public name: string,
         groupsRaw: JournalDataEncounterItemGroupArray[],
-        statisticsRaw?: [number, number[]][],
+        statisticsRaw?: [number, number[]][]
     ) {
         this.groups = groupsRaw.map(
-            (groupArray) => new JournalDataEncounterItemGroup(...groupArray),
+            (groupArray) => new JournalDataEncounterItemGroup(...groupArray)
         );
 
         this.statistics = {};
         for (const [difficulty, statisticIds] of statisticsRaw || []) {
             this.statistics[difficulty] = statisticIds;
         }
+    }
+
+    get allianceOnly(): boolean {
+        return (this.flags & JournalEncounterFlags.AllianceOnly) > 0;
+    }
+    get hordeOnly(): boolean {
+        return (this.flags & JournalEncounterFlags.HordeOnly) > 0;
     }
 }
 
@@ -60,7 +69,7 @@ export class JournalDataEncounterItemGroup {
 
     constructor(
         public name: string,
-        itemsRaw: JournalDataEncounterItemArray[],
+        itemsRaw: JournalDataEncounterItemArray[]
     ) {
         this.items = itemsRaw.map((itemArray) => new JournalDataEncounterItem(...itemArray));
     }
@@ -82,10 +91,10 @@ export class JournalDataEncounterItem {
         public classId: number,
         public subclassId: number,
         public classMask: number,
-        appearancesRaw: JournalDataEncounterItemAppearanceArray[],
+        appearancesRaw: JournalDataEncounterItemAppearanceArray[]
     ) {
         this.appearances = (appearancesRaw || []).map(
-            (appearanceArray) => new JournalDataEncounterItemAppearance(...appearanceArray),
+            (appearanceArray) => new JournalDataEncounterItemAppearance(...appearanceArray)
         );
     }
 
@@ -101,7 +110,7 @@ export class JournalDataEncounterItem {
                 appearance.appearanceId,
                 appearance.modifierId,
                 appearance.difficulties,
-            ]),
+            ])
         );
     }
 }
@@ -114,7 +123,7 @@ export class JournalDataEncounterItemAppearance {
     constructor(
         public appearanceId: number,
         public modifierId: number,
-        public difficulties: number[],
+        public difficulties: number[]
     ) {}
 }
 
