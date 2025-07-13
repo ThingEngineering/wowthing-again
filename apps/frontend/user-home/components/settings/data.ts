@@ -11,6 +11,7 @@ export const commonChoices: SettingsChoice[] = [
 ];
 
 export const homeChoices: SettingsChoice[] = [
+    { id: 'bagSpace', name: 'Bag Space' },
     { id: 'callings', name: 'Callings' },
     { id: 'covenant', name: 'Covenant' },
     { id: 'currencies', name: 'Currencies' },

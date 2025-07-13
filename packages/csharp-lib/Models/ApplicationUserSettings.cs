@@ -82,6 +82,7 @@ public class ApplicationUserSettings
     };
     private readonly HashSet<string> _validHomeFields = new()
     {
+        "bagSpace",
         "bestItemLevel",
         "callings",
         "covenant",

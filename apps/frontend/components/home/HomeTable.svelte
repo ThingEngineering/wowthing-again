@@ -5,6 +5,7 @@
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte';
     import GroupHead from './table/HomeTableGroupHead.svelte';
+    import RowBagSpace from '../character-table/row/BagSpace.svelte';
     import RowBestItemLevel from '@/components/character-table/row/BestItemLevel.svelte';
     import RowCovenant from './table/row/HomeTableRowCovenant.svelte';
     import RowCurrencies from './table/row/HomeTableRowCurrencies.svelte';
@@ -63,7 +64,9 @@
 
         <svelte:fragment slot="rowExtra" let:character>
             {#each settingsState.activeView.homeFields as field (field)}
-                {#if field === 'bestItemLevel'}
+                {#if field === 'bagSpace'}
+                    <RowBagSpace {character} />
+                {:else if field === 'bestItemLevel'}
                     <RowBestItemLevel {character} />
                 {:else if field === 'callings'}
                     <RowDailies expansion={8} {character} />

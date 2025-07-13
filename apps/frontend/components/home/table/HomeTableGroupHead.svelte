@@ -9,6 +9,7 @@
     import type { Character } from '@/types';
     import type { GroupByContext } from '@/utils/get-character-group-func';
 
+    import HeadBagSpace from '@/components/character-table/head/BagSpace.svelte';
     import HeadCovenant from './head/HomeTableHeadCovenant.svelte';
     import HeadCurrencies from './head/HomeTableHeadCurrencies.svelte';
     import HeadCurrentLocation from './head/HomeTableHeadCurrentLocation.svelte';
@@ -84,7 +85,9 @@
     </td>
 
     {#each settingsState.activeView.homeFields as field (field)}
-        {#if field === 'bestItemLevel'}
+        {#if field === 'bagSpace'}
+            <HeadBagSpace {sortKey} />
+        {:else if field === 'bestItemLevel'}
             <td
                 class="sortable"
                 class:sorted-by={$homeState.groupSort[sortKey] === field}
