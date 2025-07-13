@@ -21,6 +21,7 @@
     import RowKeystone from '@/components/character-table/row/Keystone.svelte';
     import RowLastSeenAddon from '@/components/character-table/row/LastSeenAddon.svelte';
     import RowLockouts from './table/row/HomeTableRowLockouts.svelte';
+    import RowMovementSpeed from '../character-table/row/MovementSpeed.svelte';
     import RowMythicPlusScore from '@/components/character-table/row/RaiderIo.svelte';
     import RowPlayedTime from './table/row/HomeTableRowPlayedTime.svelte';
     import RowProfessions from './table/row/HomeTableRowProfessions.svelte';
@@ -128,6 +129,8 @@
                     {#if !isPublic}
                         <RowRestedExperience {character} />
                     {/if}
+                {:else if field === 'statsSpeed'}
+                    <RowMovementSpeed {character} />
                 {:else if field === 'statusIcons'}
                     <RowStatuses {character} />
                 {:else if field === 'tasks'}

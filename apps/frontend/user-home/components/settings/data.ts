@@ -38,6 +38,7 @@ export const homeChoices: SettingsChoice[] = [
     { id: 'professionWorkOrders', name: 'Profession Work Orders' },
     { id: 'progress', name: 'Progress' },
     { id: 'restedExperience', name: 'Rested XP' },
+    { id: 'statsSpeed', name: 'Stats - Movement Speed' },
     { id: 'statusIcons', name: 'Status icons' },
     { id: 'tasks', name: 'Tasks' },
     { id: 'vaultMythicPlus', name: 'Vault - Dungeon' },

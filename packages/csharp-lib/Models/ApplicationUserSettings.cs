@@ -109,6 +109,7 @@ public class ApplicationUserSettings
         "professionsSecondary",
         "progress",
         "restedExperience",
+        "statsSpeed",
         "statusIcons",
         "tasks",
         "vaultMythicPlus",

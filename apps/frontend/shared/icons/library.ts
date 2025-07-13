@@ -146,6 +146,7 @@ export { default as mdiQuestionMark } from '@iconify/icons-mdi/question-mark';
 export { default as mdiRadioboxBlank } from '@iconify/icons-mdi/radiobox-blank';
 export { default as mdiRadioboxMarked } from '@iconify/icons-mdi/radiobox-marked';
 export { default as mdiRocketLaunchOutline } from '@iconify/icons-mdi/rocket-launch-outline';
+export { default as mdiRunFast } from '@iconify/icons-mdi/run-fast';
 export { default as mdiShieldHalfFull } from '@iconify/icons-mdi/shield-half-full';
 export { default as mdiSkull } from '@iconify/icons-mdi/skull';
 export { default as mdiSlotMachineOutline } from '@iconify/icons-mdi/slot-machine-outline';

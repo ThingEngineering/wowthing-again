@@ -13,6 +13,7 @@ import { getCharacterRested } from '../get-character-rested';
 import { getDungeonLevel } from '../mythic-plus/get-dungeon-level';
 import getRaidVaultItemLevel from '../get-raid-vault-item-level';
 import { getWorldTier } from '../vault/get-world-tier';
+import { StatType } from '@/enums/stat-type';
 
 export function homeSort(
     activeView: SettingsView,
@@ -81,6 +82,12 @@ export function homeSort(
             const [rested] = getCharacterRested(currentTime, char);
             return leftPad(999 - parseInt(rested), 3, '0');
         }
+    } else if (sortBy === 'statsSpeed') {
+        return leftPad(
+            9999999 - (char.statistics?.rating?.[StatType.SpeedRating]?.ratingBonus || 0),
+            7,
+            '0'
+        );
     } else if (sortBy === 'vaultMythicPlus') {
         if (char.weekly?.vault?.generatedRewards) {
             return '000|000|000';

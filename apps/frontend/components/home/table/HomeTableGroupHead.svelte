@@ -17,6 +17,7 @@
     import HeadHearthLocation from './head/HomeTableHeadHearthLocation.svelte';
     import HeadItems from './head/HomeTableHeadItems.svelte';
     import HeadLockouts from './head/HomeTableHeadLockouts.svelte';
+    import HeadMovementSpeed from '@/components/character-table/head/MovementSpeed.svelte';
     import HeadProgress from './head/HomeTableHeadProgress.svelte';
     import HeadTasks from './head/HomeTableHeadTasks.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
@@ -212,6 +213,8 @@
                     Rest
                 </td>
             {/if}
+        {:else if field === 'statsSpeed'}
+            <HeadMovementSpeed {sortKey} />
         {:else if field === 'tasks'}
             <HeadTasks {sortKey} />
         {:else if field === 'vaultMythicPlus'}
