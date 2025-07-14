@@ -45,7 +45,7 @@
         },
     }}
 >
-    {#if singleLockoutRaids.has(instanceDifficulty.instanceId)}
+    {#if singleLockoutRaids.has(instanceDifficulty.instanceId) && ![7, 17].includes(difficulty.id)}
         {instance?.shortName ?? instanceDifficulty.instanceId.toString()}
     {:else}
         {instanceDifficulty.difficulty.shortName}-{instance?.shortName ??
