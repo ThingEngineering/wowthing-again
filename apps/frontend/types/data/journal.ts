@@ -1,4 +1,5 @@
-// import type { UserCount } from '@/types'
+// import xor from 'lodash/xor';
+
 import { JournalEncounterFlags } from '@/enums/journal-encounter-flags';
 import type { RewardType } from '@/enums/reward-type';
 
@@ -118,13 +119,24 @@ export class JournalDataEncounterItem {
 type JournalDataEncounterItemArray = ConstructorParameters<typeof JournalDataEncounterItem>;
 
 export class JournalDataEncounterItemAppearance {
+    public difficulties: number[];
     public userHas: boolean;
 
     constructor(
         public appearanceId: number,
         public modifierId: number,
-        public difficulties: number[]
-    ) {}
+        difficulties: number[]
+    ) {
+        // if (xor([3, 4, 14], difficulties).length === 0) {
+        //     // 10 normal + 25 normal + normal -> normal
+        //     this.difficulties = [14];
+        // } else if (xor([5, 6, 15], difficulties).length === 0) {
+        //     // 10 heroic + 25 heroic + heroic -> heroic
+        //     this.difficulties = [15];
+        // } else {
+        this.difficulties = difficulties;
+        // }
+    }
 }
 
 type JournalDataEncounterItemAppearanceArray = ConstructorParameters<

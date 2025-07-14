@@ -24,6 +24,9 @@ public class JournalTool
     private readonly HashSet<int> _completeQuestItemIds = [];
     private readonly HashSet<int> _transmogSetItemIds = [];
 
+    private readonly int[] _raidNormals = [3, 4, 14];
+    private readonly int[] _raidHeroics = [5, 6, 15];
+
     private readonly int[] _difficultyOrder =
     {
         1, // Dungeon Normal
@@ -851,6 +854,15 @@ public class JournalTool
                                     {
                                         appearance.Difficulties.Remove(1);
                                         appearance.Difficulties.Remove(2);
+                                    }
+
+                                    // Normalize 10N/25N/N to N and 10H/25H/H to H
+                                    if (appearance.Difficulties.SequenceEqual(_raidNormals))
+                                    {
+                                        appearance.Difficulties = [14];
+                                    } else if (appearance.Difficulties.SequenceEqual(_raidHeroics))
+                                    {
+                                        appearance.Difficulties = [15];
                                     }
                                 }
                             }
