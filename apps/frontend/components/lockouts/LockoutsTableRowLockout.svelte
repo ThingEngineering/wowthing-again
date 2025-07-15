@@ -12,8 +12,9 @@
     type Props = CharacterProps & {
         instanceDifficulty: InstanceDifficulty;
         showNumbers?: boolean;
+        striped?: boolean;
     };
-    let { character, instanceDifficulty, showNumbers = true }: Props = $props();
+    let { character, instanceDifficulty, showNumbers = true, striped = false }: Props = $props();
 
     let lockout: CharacterLockout = $derived.by(() => {
         if (instanceDifficulty) {
@@ -49,6 +50,7 @@
 
 {#if lockout}
     <td
+        class:alt={!showNumbers && striped}
         class:status-success={lockout.defeatedBosses >= maxBosses}
         class:status-shrug={lockout.defeatedBosses > 0 && lockout.defeatedBosses < maxBosses}
         class:status-fail={lockout.defeatedBosses === 0}
@@ -70,6 +72,7 @@
 {:else}
     <td
         class="status-fail"
+        class:alt={!showNumbers && striped}
         use:componentTooltip={{
             component: TooltipLockout,
             props: {

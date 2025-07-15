@@ -70,6 +70,7 @@ interface BrowserStateIdk {
         showRaid25: boolean;
     };
     lockouts: {
+        grouped: boolean;
         sortBy: number;
     };
     matrix: {
@@ -188,6 +189,7 @@ const initialState: BrowserStateIdk = {
         showRaid25: true,
     },
     lockouts: {
+        grouped: false,
         sortBy: 0,
     },
     matrix: {

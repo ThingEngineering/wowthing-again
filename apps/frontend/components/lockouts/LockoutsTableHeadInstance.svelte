@@ -8,7 +8,11 @@
     import TableSortedBy from '@/components/common/TableSortedBy.svelte';
     import Tooltip from '@/components/tooltips/lockout-header/TooltipLockoutHeader.svelte';
 
-    let { instanceDifficulty }: { instanceDifficulty: InstanceDifficulty } = $props();
+    type Props = {
+        instanceDifficulty: InstanceDifficulty;
+        striped?: boolean;
+    }
+    let { instanceDifficulty, striped = false }: Props = $props();
 
     let difficulty = $derived(instanceDifficulty.difficulty);
     let instance = $derived(wowthingData.static.instanceById.get(instanceDifficulty.instanceId));
@@ -24,16 +28,15 @@
 
 <style lang="scss">
     th {
-        @include cell-width($width-lockout);
-
         border-left: 1px solid var(--border-color);
-        padding: 0.3rem 0;
+        padding: 0.2rem 0.3rem;
         text-align: center;
         white-space: nowrap;
     }
 </style>
 
 <th
+    class:alt={striped}
     data-difficulty={instanceDifficulty?.difficulty?.id}
     data-instance={instanceDifficulty?.instanceId}
     onclick={onClick}
@@ -46,7 +49,13 @@
     }}
 >
     {#if singleLockoutRaids.has(instanceDifficulty.instanceId) && ![7, 17].includes(difficulty.id)}
-        {instance?.shortName ?? instanceDifficulty.instanceId.toString()}
+        {#if browserState.current.lockouts.grouped}
+            All
+        {:else}
+            {instance?.shortName ?? instanceDifficulty.instanceId.toString()}
+        {/if}
+    {:else if browserState.current.lockouts.grouped}
+        {instanceDifficulty.difficulty.shortName}
     {:else}
         {instanceDifficulty.difficulty.shortName}-{instance?.shortName ??
             instanceDifficulty.instanceId.toString()}

@@ -18,6 +18,7 @@
 </style>
 
 <thead>
+    <slot name="headTop" {colspan}></slot>
     <tr>
         <th class="head-text" {colspan}>
             <slot name="headText" />

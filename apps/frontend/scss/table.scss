@@ -87,12 +87,36 @@
 }
 
 .table-striped {
+    --background-1: rgb(26, 27, 28);
+    --background-2: rgb(34, 35, 36);
+    --background-alt-1: rgb(21, 22, 38);
+    --background-alt-2: rgb(29, 30, 46);
+
+    thead {
+        tr {
+            th.alt {
+                background: var(--background-alt-2);
+            }
+        }
+    }
+
     tbody {
         tr:nth-child(odd) {
-            background: $table-striped-bg;
+            td {
+                background: var(--background-1);
 
-            td.alt {
-                background: $table-striped-alt-bg;
+                &.alt {
+                    background: var(--background-alt-1);
+                }
+            }
+        }
+        tr:nth-child(even) {
+            td {
+                background: var(--background-2);
+
+                &.alt {
+                    background: var(--background-alt-2);
+                }
             }
         }
         tr.highlight {
