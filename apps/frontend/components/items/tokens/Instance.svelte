@@ -10,6 +10,8 @@
         name: string;
     };
     let { instance, items, name }: Props = $props();
+
+    let useV2 = $derived(instance.slug !== 'trial-of-the-crusader');
 </script>
 
 <style lang="scss">
@@ -21,8 +23,8 @@
 
 <SectionTitle title={name} />
 
-<div class="collection-v2-section" data-instance-id={instance.id}>
+<div class="collection{useV2 ? '-v2' : ''}-section" data-instance-id={instance.id}>
     {#each items as itemIdAndModifier (itemIdAndModifier)}
-        <TokenItem {itemIdAndModifier} />
+        <TokenItem {itemIdAndModifier} {useV2} />
     {/each}
 </div>

@@ -7,6 +7,8 @@
     import CharacterTableHead from '../character-table/CharacterTableHead.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 
+    const chettListItemId = 235053;
+    const completedBonusId = 12174;
     const questTiers: [number, string][][] = [
         [
             [87302, 'Rares'], // 3x Rare Mob
@@ -29,6 +31,10 @@
     ];
 
     const sortFunc = $getCharacterSortFunc((char: Character) => {
+        if (char.itemsById[chettListItemId]?.[0]?.bonusIds?.includes(completedBonusId)) {
+            return '0';
+        }
+
         const charQuests = userState.quests.characterById.get(char.id);
         const tiers = [0, 0, 0];
         let done = 0;
@@ -47,11 +53,11 @@
         if (done === 3) {
             return '9';
         } else if (tiers[0] === 2 && tiers[1] >= 1) {
-            return '0';
-        } else if (tiers[0] === 1 && tiers[1] >= 2) {
             return '1';
-        } else if (tiers[0] === 1) {
+        } else if (tiers[0] === 1 && tiers[1] >= 2) {
             return '2';
+        } else if (tiers[0] === 1) {
+            return '3';
         } else {
             return '8';
         }
@@ -78,6 +84,7 @@
 
     <svelte:fragment slot="rowExtra" let:character>
         {@const charQuests = userState.quests.characterById.get(character.id)}
+        {@const chettItem = character.itemsById[chettListItemId]?.[0]}
         {@const gotList = charQuests?.hasQuestById?.has(87296)}
         <td class="spacer"></td>
         <td
@@ -88,24 +95,33 @@
         >
             <YesNoIcon state={charQuests?.hasQuestById?.has(87296)} />
         </td>
-        {#each questTiers as questTier, index (questTier)}
+        {#if chettItem?.bonusIds?.includes(completedBonusId)}
             <td class="spacer"></td>
-            {#each questTier as [questId] (questId)}
-                {@const completed = charQuests?.hasQuestById?.has(questId)}
-                {@const progressQuest = charQuests?.progressQuestByKey?.get(`q${questId}`)}
-                <td
-                    class="sized c b-l"
-                    class:status-success={index === 0}
-                    class:status-shrug={index === 1}
-                    class:status-fail={index === 2}
-                >
-                    {#if completed}
-                        <YesNoIcon state={true} />
-                    {:else if !!progressQuest}
-                        <YesNoIcon state={false} />
-                    {/if}
-                </td>
+            <td
+                class="sized b-l status-warn"
+                colspan={questTiers.reduce((a, b) => a + b.length, questTiers.length)}
+                >TURN IN COMPLETED LIST!</td
+            >
+        {:else}
+            {#each questTiers as questTier, index (questTier)}
+                <td class="spacer"></td>
+                {#each questTier as [questId] (questId)}
+                    {@const completed = charQuests?.hasQuestById?.has(questId)}
+                    {@const progressQuest = charQuests?.progressQuestByKey?.get(`q${questId}`)}
+                    <td
+                        class="sized c b-l"
+                        class:status-success={index === 0}
+                        class:status-shrug={index === 1}
+                        class:status-fail={index === 2}
+                    >
+                        {#if completed}
+                            <YesNoIcon state={true} />
+                        {:else if !!progressQuest}
+                            <YesNoIcon state={false} />
+                        {/if}
+                    </td>
+                {/each}
             {/each}
-        {/each}
+        {/if}
     </svelte:fragment>
 </CharacterTable>

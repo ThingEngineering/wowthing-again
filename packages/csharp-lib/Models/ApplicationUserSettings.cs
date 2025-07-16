@@ -293,6 +293,7 @@ public class ApplicationUserSettingsCollections
 {
     public bool HideFuture { get; set; } = false;
     public bool HideUnavailable { get; set; } = false;
+    public bool ShowRemaining { get; set; } = false;
 }
 
 public class ApplicationUserSettingsCustomGroup

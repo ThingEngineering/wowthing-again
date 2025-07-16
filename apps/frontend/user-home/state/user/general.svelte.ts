@@ -296,9 +296,11 @@ export class DataUserGeneral {
             const difficulty = difficultyMap[difficultyId];
 
             if (difficulty && instanceId) {
-                const lockoutKey = singleLockoutRaids.has(instanceId)
-                    ? `${instanceId}-`
-                    : instanceDifficulty;
+                // LFR is a special case because of course it is
+                const lockoutKey =
+                    singleLockoutRaids.has(instanceId) && ![7, 17].includes(difficulty.id)
+                        ? `${instanceId}-`
+                        : instanceDifficulty;
 
                 if (!allLockoutsMap[lockoutKey]) {
                     allLockouts.push({

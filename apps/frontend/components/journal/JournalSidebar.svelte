@@ -7,6 +7,8 @@
     import ProgressBar from '@/components/common/ProgressBar.svelte';
     import Settings from '@/components/common/SidebarCollectingSettings.svelte';
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import getPercentClass from '@/utils/get-percent-class';
 
     let categories = $derived.by(
         () =>
@@ -32,13 +34,21 @@
     );
     let overall = $derived(lazyState.journal.stats.OVERALL);
 
-    const percentFunc = function (entry: SidebarItem, parentEntries?: SidebarItem[]) {
+    const decorationFunc = function (entry: SidebarItem, parentEntries?: SidebarItem[]) {
         const slug = [...parentEntries, entry]
             .slice(-2)
             .map((entry) => entry.slug)
             .join('--');
         const hasData = lazyState.journal.stats[slug];
-        return ((hasData?.have ?? 0) / (hasData?.total ?? 1)) * 100;
+        if (settingsState.value.collections.showRemaining) {
+            if (hasData?.total) {
+                return `<span class="${getPercentClass(hasData.percent)}">${hasData.total - hasData.have}</span>`;
+            } else {
+                return '??';
+            }
+        } else {
+            return (((hasData?.have ?? 0) / (hasData?.total ?? 1)) * 100).toFixed(0) + '%';
+        }
     };
 </script>
 
@@ -48,13 +58,13 @@
     noVisitRoot={true}
     scrollable={true}
     width="16rem"
-    {percentFunc}
+    {decorationFunc}
 >
     <svelte:fragment slot="before">
         <div>
             <ProgressBar title="Overall" have={overall.have} total={overall.total} />
         </div>
 
-        <Settings />
+        <Settings showRemaining={true} />
     </svelte:fragment>
 </Sidebar>

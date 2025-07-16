@@ -278,6 +278,17 @@ public static partial class Hardcoded
         #endregion
 
         #region Cataclysm
+        // Cata > Zul'Gurub
+        {
+            76,
+            new[]
+            {
+                new ExtraEncounter("Fishing Cache")
+                {
+                    AfterEncounter = 180, // Cache of Madness - Wushoolay
+                }
+            }
+        },
         // Cata > Zul'Aman
         {
             77,
@@ -287,6 +298,17 @@ public static partial class Hardcoded
                 {
                     AfterEncounter = 189, // Halazzi
                 }
+            }
+        },
+        // Cata > Firelands
+        {
+            78,
+            new[]
+            {
+                new ExtraEncounter("Vendors")
+                // {
+                //     AfterEncounter = 2_000_078, // Shared Drops
+                // }
             }
         },
         #endregion

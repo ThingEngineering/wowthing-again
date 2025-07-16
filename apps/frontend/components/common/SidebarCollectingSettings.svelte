@@ -10,6 +10,8 @@
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ParsedText from '../../shared/components/parsed-text/ParsedText.svelte';
 
+    let { showRemaining = false }: { showRemaining?: boolean } = $props();
+
     const toggleExpanded = () => {
         $collectingSettingsState.expanded = !$collectingSettingsState.expanded;
     };
@@ -101,6 +103,14 @@
             name="collections_hideUnavailable"
             bind:value={settingsState.value.collections.hideUnavailable}>Hide Unavailable</Checkbox
         >
+
+        {#if showRemaining}
+            <Checkbox
+                name="collections_showRemaining"
+                bind:value={settingsState.value.collections.showRemaining}
+                >Show Remaining Count</Checkbox
+            >
+        {/if}
 
         <div class="spacer"></div>
 

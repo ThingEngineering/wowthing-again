@@ -25,7 +25,7 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
 
-    let { itemIdAndModifier }: { itemIdAndModifier: string } = $props();
+    let { itemIdAndModifier, useV2 }: { itemIdAndModifier: string; useV2: boolean } = $props();
 
     let element = $state<HTMLElement>(null);
     let intersected = $state(false);
@@ -164,7 +164,7 @@
 </style>
 
 <IntersectionObserver once {element} bind:intersecting={intersected}>
-    <div class="collection-v2-group" bind:this={element}>
+    <div class="collection{useV2 ? '-v2' : ''}-group" bind:this={element}>
         <h4 class="text-overflow">
             <span class="item-name">
                 {haveCount}x

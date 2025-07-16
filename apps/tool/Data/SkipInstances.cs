@@ -10,5 +10,8 @@ public static partial class Hardcoded
         822, // Broken Isles
         959, // Invasion Points
         1028, // Azeroth
+
+        // I dunno what to do with this junk
+        1301, // Blackrock Depths Raid
     };
 }
