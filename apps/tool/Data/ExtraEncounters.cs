@@ -300,6 +300,17 @@ public static partial class Hardcoded
                 }
             }
         },
+        // Cata > Firelands
+        {
+            78,
+            new[]
+            {
+                new ExtraEncounter("Vendors")
+                // {
+                //     AfterEncounter = 2_000_078, // Shared Drops
+                // }
+            }
+        },
         #endregion
 
         #region Wrath of the Lich King

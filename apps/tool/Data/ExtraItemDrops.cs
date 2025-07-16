@@ -1699,6 +1699,21 @@ public static partial class Hardcoded
             ]
         },
 
+        // Firelands > Vendor
+        {
+            1_0078_0,
+            [
+                new(71557, RaidDifficultiesHeroic), // Ranseur of Hatred (Upgraded)
+                new(71558, RaidDifficultiesHeroic), // Lava Bolt Crossbow (Upgraded)
+                new(71559, RaidDifficultiesHeroic), // Spire of Scarlet Pain (Upgraded)
+                new(71560, RaidDifficultiesHeroic), // Chelley's Sterilized Scalpel (Upgraded)
+                new(71561, RaidDifficultiesHeroic), // Hide-Bound Chains (Upgraded)
+                new(71562, RaidDifficultiesHeroic), // Obsidium Cleaver (Upgraded)
+                new(71575, RaidDifficultiesHeroic), // Trail of Embers (Upgraded)
+                new(71579, RaidDifficultiesHeroic), // Scorchvine Wand (Upgraded)
+                new(71641, RaidDifficultiesHeroic), // Riplimb's Lost Collar (Upgraded)
+            ]
+        },
         // Firelands > Shared Drops
         {
             2000078,
@@ -1713,6 +1728,12 @@ public static partial class Hardcoded
             197,
             [
                 new(122304, [14, 15, 33]), // Fandral's Seed Pouch
+            ]
+        },
+        {
+            198,
+            [
+                new(175158, RaidDifficultiesNormalHeroic), // Flames of Fury (Vulpera)
             ]
         },
 
@@ -1782,21 +1803,14 @@ public static partial class Hardcoded
                 new(69959, RaidDifficultiesNormalHeroic), // Plans: Holy Flame Gauntlets
 
                 new(71640, RaidDifficultiesNormal), // Riplimb's Lost Collar
-                new(71641, RaidDifficultiesHeroic), // Riplimb's Lost Collar (Upgraded)
                 // Mail
                 new(71365, RaidDifficultiesNormal), // Hide-Bound Chains
-                new(71561, RaidDifficultiesHeroic), // Hide-Bound Chains (Upgraded)
                 // Weapon
                 new(71359, RaidDifficultiesNormal), // Chelley's Sterilized Scalpel
-                new(71560, RaidDifficultiesHeroic), // Chelley's Sterilized Scalpel (Upgraded)
                 new(71366, RaidDifficultiesNormal), // Lava Bolt Crossbow
-                new(71558, RaidDifficultiesHeroic), // Lava Bolt Crossbow (Upgraded)
                 new(71362, RaidDifficultiesNormal), // Obsidium Cleaver
-                new(71562, RaidDifficultiesHeroic), // Obsidium Cleaver (Upgraded)
                 new(71361, RaidDifficultiesNormal), // Ranseur of Hatred
-                new(71557, RaidDifficultiesHeroic), // Ranseur of Hatred (Upgraded)
                 new(71360, RaidDifficultiesNormal), // Spire of Scarlet Pain
-                new(71559, RaidDifficultiesHeroic), // Spire of Scarlet Pain (Upgraded)
             ]
         },
         {
