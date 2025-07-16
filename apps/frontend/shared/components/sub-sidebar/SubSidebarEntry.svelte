@@ -205,7 +205,7 @@
                     class="drop-shadow decoration"
                     class:decoration-children={anyChildren}
                     class:quality2={(item.children?.length ?? 0) === 0}
-                    class:quality3={item.children?.length > 0}>{decoration}</span
+                    class:quality3={item.children?.length > 0}>{@html decoration}</span
                 >
             {:else if percent >= 0}
                 <span

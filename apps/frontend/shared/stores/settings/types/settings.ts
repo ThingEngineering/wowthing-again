@@ -41,6 +41,7 @@ export interface Settings {
     collections: {
         hideFuture: boolean;
         hideUnavailable: boolean;
+        showRemaining: boolean;
     };
 
     general: {
@@ -48,8 +49,6 @@ export interface Settings {
         language: Language;
         useEnglishRealmNames: boolean;
         useWowdb: boolean;
-        // groupBy: string[]
-        // sortBy: string[]
     };
 
     history: {
