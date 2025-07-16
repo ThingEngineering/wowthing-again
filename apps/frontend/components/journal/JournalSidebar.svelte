@@ -40,14 +40,19 @@
             .map((entry) => entry.slug)
             .join('--');
         const hasData = lazyState.journal.stats[slug];
+        const percent = hasData?.percent || 0;
         if (settingsState.value.collections.showRemaining) {
-            if (hasData?.total) {
-                return `<span class="${getPercentClass(hasData.percent)}">${hasData.total - hasData.have}</span>`;
+            if (percent) {
+                return `<span class="${getPercentClass(percent)}">${hasData.total - hasData.have}</span>`;
             } else {
                 return '??';
             }
         } else {
-            return (((hasData?.have ?? 0) / (hasData?.total ?? 1)) * 100).toFixed(0) + '%';
+            if (percent) {
+                return `<span class="${getPercentClass(percent)}">${percent.toFixed(0)}%</span>`;
+            } else {
+                return '';
+            }
         }
     };
 </script>
