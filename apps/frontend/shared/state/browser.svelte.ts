@@ -71,6 +71,7 @@ interface BrowserStateIdk {
     };
     lockouts: {
         grouped: boolean;
+        onlyWithLockout: boolean;
         sortBy: number;
     };
     matrix: {
@@ -190,6 +191,7 @@ const initialState: BrowserStateIdk = {
     },
     lockouts: {
         grouped: false,
+        onlyWithLockout: false,
         sortBy: 0,
     },
     matrix: {

@@ -13,7 +13,11 @@
     import GroupedHead from './GroupedHead.svelte';
 
     const filterFunc = function (char: Character): boolean {
-        return char.level > 10;
+        if (browserState.current.lockouts.onlyWithLockout) {
+            return char.lockoutKeys?.length > 0;
+        } else {
+            return char.level > 10;
+        }
     };
 
     const anyLockouts = function (char: Character): string {
@@ -78,6 +82,11 @@
             <CheckboxInput
                 name="lockouts_grouped"
                 bind:value={browserState.current.lockouts.grouped}>Grouped</CheckboxInput
+            >
+            <CheckboxInput
+                name="lockouts_any_character"
+                bind:value={browserState.current.lockouts.onlyWithLockout}
+                >ONLY characters with lockout</CheckboxInput
             >
         </svelte:fragment>
 
