@@ -42,7 +42,7 @@
         const hasData = lazyState.journal.stats[slug];
         const percent = hasData?.percent || 0;
         if (settingsState.value.collections.showRemaining) {
-            if (percent) {
+            if (hasData) {
                 return `<span class="${getPercentClass(percent)}">${hasData.total - hasData.have}</span>`;
             } else {
                 return '??';
