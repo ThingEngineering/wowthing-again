@@ -52,7 +52,7 @@
         let characters = userState.general.characters.filter(
             (c) =>
                 settingsState.value.characters.hiddenCharacters.indexOf(c.id) === -1 &&
-                (!skipIgnored ||
+                (skipIgnored ||
                     settingsState.value.characters.ignoredCharacters.indexOf(c.id) === -1) &&
                 (settingsState.value.characters.hideDisabledAccounts === false ||
                     settingsState.value.accounts?.[c.accountId]?.enabled !== false)
