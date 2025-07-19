@@ -4,6 +4,7 @@ using System.Reflection;
 using Serilog.Context;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Models;
+using Wowthing.Tool.Models.Instances;
 using Wowthing.Tool.Models.Items;
 using Wowthing.Tool.Models.Journal;
 
@@ -80,6 +81,28 @@ public class JournalTool
         751, // Black Temple
         759, // Ulduar
     ];
+
+    private static readonly Dictionary<string, Dictionary<string, int>> _dataInstanceDifficulties = new()
+    {
+        { "DUNGEON", new() {
+            { "NORMAL", 1 },
+            { "HEROIC", 2 },
+            { "MYTHIC", 8 },
+            { "TIMEWALKING", 24 },
+        } },
+        { "RAID", new()
+        {
+            { "10NORMAL", 3 },
+            { "25NORMAL", 4 },
+            { "10HEROIC", 5 },
+            { "25HEROIC", 6 },
+            { "OLDLFR", 7 },
+            { "LFR", 17 },
+            { "NORMAL", 14 },
+            { "HEROIC", 15 },
+            { "MYTHIC", 16 },
+        } },
+    };
 
     public async Task Run()
     {
@@ -268,8 +291,9 @@ public class JournalTool
         _timer.AddPoint("Database");
 
         var itemExpansions = DataUtilities.LoadItemExpansions();
+        var dataInstanceMap = LoadInstances();
 
-        _timer.AddPoint("Shared");
+        _timer.AddPoint("Files");
 
         var languages = Enum.GetValues<Language>().ToArray();
 
@@ -368,7 +392,30 @@ public class JournalTool
             });
         }
 
+        foreach (var (instanceId, dataInstance) in dataInstanceMap)
+        {
+            if (dataInstance.Encounters.ContainsKey("shared-drops"))
+            {
+                encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
+                {
+                    ID = 2_000_000 + instanceId,
+                    OrderIndex = -9,
+                });
+            }
+
+            if (dataInstance.Encounters.ContainsKey("trash-drops"))
+            {
+                encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
+                {
+                    ID = 1_000_000 + instanceId,
+                    OrderIndex = -10,
+                });
+            }
+
+        }
+
         // Once per language, oh boy
+        var encounterIdToSlug = new Dictionary<int, string>();
         string cacheHash = null;
         foreach (var language in languages)
         {
@@ -400,6 +447,9 @@ public class JournalTool
 
                     var instance = instancesById[instanceId];
                     var map = mapsById[instance.MapID];
+
+                    dataInstanceMap.TryGetValue(instanceId, out var dataInstance);
+
                     bool hasTimewalking = InstanceTimewalkingOverride.Contains(instance.ID) || (instance.Flags & 0x1) == 0x1;
 
                     if (Hardcoded.JournalDungeonsOnly.Contains(tier.ID) && map.InstanceType != 1)
@@ -502,6 +552,13 @@ public class JournalTool
                             _ => GetString(StringType.WowJournalEncounterName, language, encounter.ID)
                         };
 
+                        if (!encounterIdToSlug.ContainsKey(encounter.ID))
+                        {
+                            encounterIdToSlug[encounter.ID] = encounterData.Name.Slugify();
+                            // ToolContext.Logger.Information("Encounter {id} {name} => {slug}", encounter.ID, encounter.Name, encounterIdToSlug[encounter.ID]);
+                        }
+                        string encounterSlug = encounterIdToSlug[encounter.ID];
+
                         var encounterItems = new List<DumpJournalEncounterItem>(itemsByEncounterId.GetValueOrDefault(encounter.ID, []));
 
                         // Extra drops get added first
@@ -518,6 +575,34 @@ public class JournalTool
                                 ItemID = extraItem.ItemId,
                                 JournalEncounterID = encounter.ID,
                             });
+                        }
+
+                        // DataInstances
+                        if (!string.IsNullOrEmpty(encounterSlug) &&
+                            dataInstance != null &&
+                            dataInstance.Encounters.TryGetValue(encounterSlug, out var dataInstanceEncounter))
+                        {
+                            foreach (var drop in dataInstanceEncounter.Drops)
+                            {
+                                var dropDifficultiesString = string.IsNullOrEmpty(drop.Difficulties)
+                                    ? dataInstance.Difficulties
+                                    : drop.Difficulties;
+                                var parts = dropDifficultiesString.Split('_');
+                                int[] dropDifficulties = parts.Skip(1)
+                                    .Select(part => _dataInstanceDifficulties[parts[0]][part])
+                                    .ToArray();
+                                difficultiesByEncounterItemId[1_000_000 + drop.ItemId] = dropDifficulties;
+
+                                encounterItems.Add(new DumpJournalEncounterItem
+                                {
+                                    ID = 1000000 + drop.ItemId,
+                                    DifficultyMask = 0,
+                                    FactionMask = 0,
+                                    Flags = 0,
+                                    ItemID = drop.ItemId,
+                                    JournalEncounterID = encounter.ID,
+                                });
+                            }
                         }
 
                         // Now do item expansion
@@ -924,6 +1009,27 @@ public class JournalTool
         _timer.AddPoint("Generate", true);
 
         ToolContext.Logger.Information("{Timers}", _timer.ToString());
+    }
+
+    private static Dictionary<int, DataInstance> LoadInstances()
+    {
+        var di = new DirectoryInfo(Path.Join(DataUtilities.DataPath, "instances"));
+        var files = di.GetFiles("*.yml", SearchOption.AllDirectories)
+            .OrderBy(file => file.FullName)
+            .ToArray();
+
+        var prefixLength = di.FullName.Length + 1;
+
+        var ret = new Dictionary<int, DataInstance>();
+
+        foreach (var file in files)
+        {
+            ToolContext.Logger.Information("📄{filename}", file.FullName.Substring(prefixLength));
+            var instance = DataUtilities.YamlDeserializer.Deserialize<DataInstance>(File.OpenText(file.FullName));
+            ret.Add(instance.InstanceId, instance);
+        }
+
+        return ret;
     }
 
     private string GetString(StringType type, Language language, int id)
