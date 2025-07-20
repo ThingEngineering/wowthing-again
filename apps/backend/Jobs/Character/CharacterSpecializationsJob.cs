@@ -52,15 +52,15 @@ public class CharacterSpecializationsJob : JobBase
 
         // Parse API data
         specs.Specializations = new();
-        foreach (var specData in resultData.Specializations ?? new List<ApiCharacterSpecializationsSpecialization>())
+        foreach (var apiSpec in resultData.Specializations ?? new List<ApiCharacterSpecializationsSpecialization>())
         {
-            var spec = new PlayerCharacterSpecializationsSpecialization();
+            var dbSpec = new PlayerCharacterSpecializationsSpecialization();
 
-            foreach (var pvpTalent in specData.PvpTalents ?? new List<ApiCharacterSpecializationsPvpTalent>())
+            foreach (var pvpTalent in apiSpec.PvpTalents ?? new List<ApiCharacterSpecializationsPvpTalent>())
             {
                 if (pvpTalent.Selected?.SpellTooltip?.Spell?.Id != null)
                 {
-                    spec.PvpTalents.Add(new List<int>
+                    dbSpec.PvpTalents.Add(new List<int>
                     {
                         pvpTalent.SlotNumber,
                         pvpTalent.Selected.SpellTooltip.Spell.Id,
@@ -68,22 +68,40 @@ public class CharacterSpecializationsJob : JobBase
                 }
             }
 
-            foreach (var talent in specData.Talents ?? new List<ApiCharacterSpecializationsTalent>())
+            if (apiSpec.Loadouts != null)
             {
-                if (talent.SpellTooltip?.Spell?.Id != null)
+                foreach (var apiLoadout in apiSpec.Loadouts)
                 {
-                    spec.Talents.Add(new List<int>
+                    var dbLoadout = new PlayerCharacterSpecializationsSpecializationLoadout
                     {
-                        talent.TierIndex,
-                        talent.ColumnIndex,
-                        talent.SpellTooltip.Spell.Id,
-                    });
+                        Active = apiLoadout.IsActive,
+                        HeroTreeId = apiLoadout?.HeroTree?.Id ?? 0,
+                        LoadoutCode = apiLoadout.TalentLoadoutCode,
+                    };
+                    dbSpec.Loadouts.Add(dbLoadout);
+
+                    foreach (var someTalents in new[] { apiLoadout.ClassTalents, apiLoadout.SpecTalents, apiLoadout.HeroTalents })
+                    {
+                        if (someTalents == null)
+                        {
+                            continue;
+                        }
+
+                        foreach (var someTalent in someTalents)
+                        {
+                            dbLoadout.Talents.Add([
+                                someTalent.Id,
+                                someTalent.Rank,
+                                someTalent.Tooltip?.SpellTooltip?.Spell?.Id ?? 0,
+                            ]);
+                        }
+                    }
                 }
             }
 
-            if (specData.Specialization?.Id != null)
+            if (apiSpec.Specialization?.Id != null)
             {
-                specs.Specializations[specData.Specialization.Id] = spec;
+                specs.Specializations[apiSpec.Specialization.Id] = dbSpec;
             }
         }
 

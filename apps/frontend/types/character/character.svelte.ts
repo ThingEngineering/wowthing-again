@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash/cloneDeep';
 import { DateTime } from 'luxon';
 import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 
@@ -47,7 +48,11 @@ import type {
     CharacterReputationReputation,
 } from './reputation';
 import type { CharacterShadowlands } from './shadowlands';
-import type { CharacterSpecializationRaw } from './specialization';
+import {
+    CharacterSpecializationLoadout,
+    type CharacterSpecializationRaw,
+    type CharacterSpecializationLoadoutRaw,
+} from './specialization';
 import {
     CharacterStatistics,
     CharacterStatisticBasic,
@@ -124,7 +129,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     );
     public mythicPlusWeeks: Record<number, CharacterMythicPlusAddonRun[]> = $state({});
     public professionSpecializations: Record<number, number> = $state({});
-    public specializations: Record<number, Record<number, number>> = $state({});
+    public specializations: Record<number, CharacterSpecializationLoadout[]> = $state({});
 
     public statistics: CharacterStatistics = new CharacterStatistics();
     public weekly: CharacterWeekly;
@@ -200,7 +205,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         rawCurrencies: CharacterCurrencyArray[],
         rawItems: CharacterItemArray[],
         rawMythicPlusWeeks: Record<number, CharacterMythicPlusAddonRunArray[]>,
-        rawSpecializations: Record<number, CharacterSpecializationRaw>,
+        specializations: Record<number, CharacterSpecializationRaw>,
         rawStatistics: [
             CharacterStatisticBasicArray[],
             CharacterStatisticMiscArray[],
@@ -394,12 +399,10 @@ export class Character implements ContainsItems, HasNameAndRealm {
             );
         }
 
-        for (const specializationId in rawSpecializations) {
-            const specData: Record<number, number> = {};
-            for (const [tierId, , spellId] of rawSpecializations[specializationId].talents) {
-                specData[tierId] = spellId;
-            }
-            this.specializations[specializationId] = specData;
+        for (const [specId, spec] of getNumberKeyedEntries(specializations || {})) {
+            this.specializations[specId] = spec.loadouts.map(
+                (loadout) => new CharacterSpecializationLoadout(loadout)
+            );
         }
 
         if (rawStatistics?.length === 3) {
@@ -527,6 +530,10 @@ export class Character implements ContainsItems, HasNameAndRealm {
     getItemCount(itemId: number): number {
         return this._itemCounts[itemId] || 0;
     }
+
+    public activeSpecializationLoadout = $derived.by(() => {
+        return this.specializations[this.activeSpecId]?.find((loadout) => loadout.active);
+    });
 
     public allProfessionAbilities = $derived.by(() => {
         const allKnown = new Set<number>();
