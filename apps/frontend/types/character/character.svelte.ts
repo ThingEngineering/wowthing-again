@@ -1,14 +1,18 @@
 import { DateTime } from 'luxon';
+import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 
 import { Constants } from '@/data/constants';
 import { characterBagSlots, slotOrder } from '@/data/inventory-slot';
 import { professionSpecializationToSpell } from '@/data/professions';
 import { Faction } from '@/enums/faction';
 import { InventorySlot } from '@/enums/inventory-slot';
+import { ItemLocation } from '@/enums/item-location';
 import { Profession } from '@/enums/profession';
+import { StatType } from '@/enums/stat-type';
 import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
 import { getBestItemLevels } from '@/utils/characters/get-best-item-levels';
+import { syncSet } from '@/utils/collections/sync-set';
 import { leftPad } from '@/utils/formatting';
 import { getCharacterLevel } from '@/utils/get-character-level';
 import { getGenderedName } from '@/utils/get-gendered-name';
@@ -59,9 +63,7 @@ import type { ContainsItems, HasNameAndRealm } from '../shared';
 import type { Account } from '../account';
 import type { CharacterAura } from './aura';
 import type { CharacterPatronOrder } from './patron-order';
-import { ItemLocation } from '@/enums/item-location';
-import { SvelteMap, SvelteSet } from 'svelte/reactivity';
-import { syncSet } from '@/utils/collections/sync-set';
+import { gemData } from '@/data/gems';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Static
@@ -539,6 +541,56 @@ export class Character implements ContainsItems, HasNameAndRealm {
     knowsProfessionAbility(abilityId: number): boolean {
         return this.allProfessionAbilities.has(abilityId);
     }
+
+    gemIds = $derived.by(() => {
+        return Object.values(this.equippedItems)
+            .map((item) => item.gemIds)
+            .flat();
+    });
+
+    movementSpeed = $derived.by(() => {
+        const ret = {
+            enchant: 0,
+            gems: 0,
+            rating: 0,
+            total: 0,
+        };
+
+        // Minor Move Speed gives 10%
+        ret.enchant =
+            this.equippedItems?.[InventorySlot.Feet]?.enchantmentIds?.[0] === 911 ? 10 : 0;
+
+        ret.rating = (this.statistics?.rating?.[StatType.SpeedRating]?.ratingBonus || 0) / 100;
+
+        const gemIds = new Set(this.gemIds);
+        // Elusive Blasphemite, 2% move speed per unique gem color?
+        if (gemData.theWarWithin.elusiveBlasphemite.some((gemId) => gemIds.has(gemId))) {
+            let gemCount = 0;
+
+            for (const [, colorGemIds] of Object.entries(gemData.theWarWithin).filter(
+                ([key]) => key !== 'elusiveBlasphemite'
+            )) {
+                if (colorGemIds.some((gemId) => gemIds.has(gemId))) {
+                    gemCount++;
+                }
+            }
+
+            ret.gems = gemCount * 2;
+
+            // Prismatic Null Stone gives a 25% bonus
+            if (
+                Object.values(this.equippedItems || {}).some((item) =>
+                    item.bonusIds?.includes(10518)
+                )
+            ) {
+                ret.gems = ret.gems * 1.25;
+            }
+        }
+
+        ret.total = Math.round(ret.enchant + ret.gems + ret.rating);
+
+        return ret;
+    });
 
     reputationData = $derived.by(() => {
         const ret: Record<string, CharacterReputation> = {};

@@ -83,11 +83,7 @@ export function homeSort(
             return leftPad(999 - parseInt(rested), 3, '0');
         }
     } else if (sortBy === 'statsSpeed') {
-        return leftPad(
-            9999999 - (char.statistics?.rating?.[StatType.SpeedRating]?.ratingBonus || 0),
-            7,
-            '0'
-        );
+        return leftPad(99999 - char.movementSpeed.total * 100, 5, '0');
     } else if (sortBy === 'vaultMythicPlus') {
         if (char.weekly?.vault?.generatedRewards) {
             return '000|000|000';
