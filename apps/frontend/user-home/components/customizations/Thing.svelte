@@ -26,6 +26,7 @@
         (have && browserState.current['collectible-customizations'].showCollected) ||
             (!have && browserState.current['collectible-customizations'].showUncollected)
     );
+    let nameParts = $derived((thing.name || '').split(' > '));
 </script>
 
 <style lang="scss">
@@ -57,7 +58,7 @@
             <YesNoIcon state={have} useStatusColors={true} />
         </td>
         <td class="name text-overflow">
-            <ParsedText text={thing.name} />
+            <ParsedText text={nameParts.length === 2 ? nameParts[1] : thing.name} />
         </td>
         <td class="item text-overflow">
             {#if thing.itemId > 0}
@@ -66,7 +67,7 @@
                 </WowheadLink>
             {:else}
                 <WowheadLink id={thing.spellId} type="spell">
-                    {thing.name}
+                    {nameParts.length === 2 ? nameParts[0] : thing.name}
                 </WowheadLink>
             {/if}
         </td>
