@@ -35,13 +35,15 @@
     let page: number;
     let regions: [string, string][];
     $: {
-        page = parseInt(params.slug2) || 1;
+        page = parseInt(params.slug3) || 1;
 
         regions = [['0', 'All']];
         for (const regionId of userState.general.allRegions) {
             regions.push([regionId.toString(), Region[regionId]]);
         }
     }
+
+    $: actualSlug = params.slug2 ? `${params.slug1}-${params.slug2}` : params.slug1;
 
     const expansionOptions: [number, string][] = settingsState.expansions.map((expansion) => [
         expansion.id,
@@ -65,7 +67,6 @@
     weaponOptions.splice(0, 0, [-1, 'Any']);
 
     const componentMap: Record<string, Component<any, any, any>> = {
-        commodities: Commodities,
         'custom-1': Custom,
         'custom-2': Custom,
         'custom-3': Custom,
@@ -76,13 +77,14 @@
         'custom-8': Custom,
         'custom-9': Custom,
         'custom-10': Custom,
-        'extra-pets': ExtraPets,
         'missing-mounts': Missing,
         'missing-pets': Missing,
         'missing-toys': Missing,
         'missing-appearance-ids': MissingBigResults,
         'missing-appearance-sources': MissingBigResults,
         'missing-recipes': MissingBigResults,
+        'sell-commodities': Commodities,
+        'sell-extra-pets': ExtraPets,
         'specific-item': SpecificItem,
     };
 
@@ -151,7 +153,7 @@
         <div class="options-group">
             Sort:
             <RadioGroup
-                bind:value={$auctionState.sortBy[params.slug1]}
+                bind:value={$auctionState.sortBy[`${params.slug1}-${params.slug2}`]}
                 name="sort_by"
                 options={[
                     ['name_up', 'Name :arrow-up:'],
@@ -173,14 +175,14 @@
             {/if}
         </div>
 
-        {#if params.slug1.startsWith('missing-')}
+        {#if params.slug1 === 'missing'}
             <div class="options-group">
                 <Checkbox name="all_realms" bind:value={$auctionState.allRealms}
                     >All realms</Checkbox
                 >
             </div>
 
-            {#if !params.slug1.startsWith('missing-appearance-') && params.slug1 !== 'missing-recipes'}
+            {#if params.slug2 && !params.slug2.startsWith('appearance-') && params.slug2 !== 'recipes'}
                 <div class="options-group">
                     <Checkbox name="hide_ignored" bind:value={$auctionState.hideIgnored}
                         >Hide ignored</Checkbox
@@ -189,7 +191,7 @@
             {/if}
         {/if}
 
-        {#if params.slug1.startsWith('missing-appearance-') || params.slug1 === 'missing-recipes'}
+        {#if actualSlug.startsWith('missing-appearance-') || actualSlug === 'missing-recipes'}
             <div class="options-group">
                 <Checkbox
                     name="limit_to_cheapest_realm"
@@ -203,7 +205,7 @@
 
                 <Checkbox name="show_have" bind:value={$auctionState.showHave}>Have</Checkbox>
             </div>
-        {:else if params.slug1 === 'commodities'}
+        {:else if actualSlug === 'sell-commodities'}
             <div class="options-group">
                 <Checkbox
                     name="current_expansion"
@@ -223,7 +225,7 @@
             </div>
         {/if}
 
-        {#if params.slug1 === 'extra-pets'}
+        {#if actualSlug === 'sell-extra-pets'}
             <div class="options-group">
                 Extra pets:
                 <Checkbox
@@ -231,7 +233,7 @@
                     bind:value={$auctionState.extraPetsIgnoreJournal}>Ignore journal</Checkbox
                 >
             </div>
-        {:else if params.slug1 === 'missing-pets'}
+        {:else if actualSlug === 'missing-pets'}
             <div class="options-group">
                 <Checkbox name="pets_max_level" bind:value={$auctionState.missingPetsMaxLevel}
                     >Only level 25</Checkbox
@@ -246,7 +248,7 @@
         {/if}
     </div>
 
-    {#if params.slug1.startsWith('missing-appearance-')}
+    {#if actualSlug.startsWith('missing-appearance-')}
         <div class="options-wrapper">
             <div class="options-group">
                 <TextInput
@@ -359,7 +361,7 @@
                 />
             </div>
         </div>
-    {:else if params.slug1 === 'missing-recipes'}
+    {:else if actualSlug === 'missing-recipes'}
         <div class="options-wrapper">
             <div class="options-group">
                 <TextInput
@@ -448,9 +450,9 @@
     {/if}
 
     <svelte:component
-        this={componentMap[params.slug1]}
-        slug1={params.slug1}
-        slug2={params.slug2}
+        this={componentMap[actualSlug]}
+        slug1={actualSlug}
+        slug2={params.slug3}
         {auctionsContainer}
         {page}
     />

@@ -61,7 +61,7 @@
         // }),
 
         '/achievements/:slug1?/:slug2?': Achievements,
-        '/auctions/:slug1?/:slug2?': Auctions,
+        '/auctions/:slug1?/:slug2?/:slug3?': Auctions,
         '/currencies/:slug1?/:slug2?': Currencies,
         '/heirlooms': Heirlooms,
         '/illusions': Illusions,

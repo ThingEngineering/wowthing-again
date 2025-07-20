@@ -8,45 +8,59 @@
     $: {
         categories = [
             {
-                name: 'Missing Mounts',
-                slug: 'missing-mounts',
-                forceWildcard: true,
-            },
-            {
-                name: 'Missing Pets',
-                slug: 'missing-pets',
-                forceWildcard: true,
-            },
-            {
-                name: 'Missing Toys',
-                slug: 'missing-toys',
-                forceWildcard: true,
+                name: 'Buy Missing',
+                slug: 'missing',
+                forceNoVisit: true,
+                children: [
+                    {
+                        name: 'Mounts',
+                        slug: 'mounts',
+                        forceWildcard: true,
+                    },
+                    {
+                        name: 'Pets',
+                        slug: 'pets',
+                        forceWildcard: true,
+                    },
+                    {
+                        name: 'Toys',
+                        slug: 'toys',
+                        forceWildcard: true,
+                    },
+                    null,
+                    {
+                        name: 'Appearance IDs',
+                        slug: 'appearance-ids',
+                        forceWildcard: true,
+                    },
+                    {
+                        name: 'Appearance Sources',
+                        slug: 'appearance-sources',
+                        forceWildcard: true,
+                    },
+                    {
+                        name: 'Recipes',
+                        slug: 'recipes',
+                        forceWildcard: true,
+                    },
+                ],
             },
             null,
             {
-                name: 'Missing Appearance IDs',
-                slug: 'missing-appearance-ids',
-                forceWildcard: true,
-            },
-            {
-                name: 'Missing Appearance Sources',
-                slug: 'missing-appearance-sources',
-                forceWildcard: true,
-            },
-            {
-                name: 'Missing Recipes',
-                slug: 'missing-recipes',
-                forceWildcard: true,
-            },
-            null,
-            {
-                name: 'Commodities',
-                slug: 'commodities',
-            },
-            {
-                name: 'Extra Pets',
-                slug: 'extra-pets',
-                forceWildcard: true,
+                name: 'Sell',
+                slug: 'sell',
+                forceNoVisit: true,
+                children: [
+                    {
+                        name: 'Commodities',
+                        slug: 'commodities',
+                    },
+                    {
+                        name: 'Extra Pets',
+                        slug: 'extra-pets',
+                        forceWildcard: true,
+                    },
+                ],
             },
         ];
 
@@ -67,4 +81,4 @@
     }
 </script>
 
-<Sidebar baseUrl="/auctions" items={categories} width="14rem"></Sidebar>
+<Sidebar baseUrl="/auctions" items={categories} width="14rem" />
