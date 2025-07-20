@@ -1103,67 +1103,11 @@ public static partial class Hardcoded
                 new(134019, DungeonDifficultiesHeroic), // Don Carlos' Famous Hat
             ]
         },
-        // Karazhan > Attumen the Huntsman
-        {
-            1553,
-            [
-                new(23809, RaidDifficultiesLegacy10Normal), // Schematic: Stabilized Eternium Scope
-            ]
-        },
-        // Karazhan > Opera Hall
-        {
-            1556,
-            [
-                new(138017, RaidDifficultiesLegacy10Normal), // Clothes Chest Pattern: Karazhan Opera House
-                new(122231, RaidDifficultiesLegacy10Normal), // Music Roll: Karazhan Opera House
-            ]
-        },
-        // Karazhan / Nightbane
-        {
-            1_0745_0,
-            [
-                new(28602, RaidDifficultiesLegacy10Normal), // Robe of the Elder Scribes
-                // Leather
-                new(28601, RaidDifficultiesLegacy10Normal), // Chestguard of the Conniver
-                new(28600, RaidDifficultiesLegacy10Normal), // Stonebough Jerkin
-                // Mail
-                new(28610, RaidDifficultiesLegacy10Normal), // Ferocious Swift-Kickers
-                new(28599, RaidDifficultiesLegacy10Normal), // Scaled Breastplate of Carnage
-                // Plate
-                new(28608, RaidDifficultiesLegacy10Normal), // Ironstriders of Urgency
-                new(28597, RaidDifficultiesLegacy10Normal), // Panzar'Thar Breastplate
-                // Weapon
-                new(28604, RaidDifficultiesLegacy10Normal), // Nightstaff of the Everliving
-                new(28603, RaidDifficultiesLegacy10Normal), // Talisman of Nightbane
-                new(28611, RaidDifficultiesLegacy10Normal), // Dragonheart Flameshield
-                new(28606, RaidDifficultiesLegacy10Normal), // Shield of Impenetrable Darkness
-            ]
-        },
 
         #endregion
 
         #region The Burning Crusade Trash
 
-        {
-            1000745, // Karazhan > Trash
-            [
-                new(22545, RaidDifficultiesLegacy10Normal), // Formula: Enchant Boots - Surefooted
-                new(21903, RaidDifficultiesLegacy10Normal), // Pattern: Soulcloth Shoulders
-                new(21904, RaidDifficultiesLegacy10Normal), // Pattern: Soulcloth Vest
-
-                new(30668, RaidDifficultiesLegacy10Normal), // Grasp of the Dead
-                new(30673, RaidDifficultiesLegacy10Normal), // Inferno Waist Cord
-                // Leather
-                new(30644, RaidDifficultiesLegacy10Normal), // Grips of Deftness
-                new(30674, RaidDifficultiesLegacy10Normal), // Zierhut's Lost Treads
-                // Mail
-                new(30643, RaidDifficultiesLegacy10Normal), // Belt of the Tracker
-                // Plate
-                new(30641, RaidDifficultiesLegacy10Normal), // Boots of Elusion
-                // Cloak
-                new(30642, RaidDifficultiesLegacy10Normal), // Drape of the Righteous
-            ]
-        },
         {
             1000748, // Serpentshrine Cavern > Trash
             Tier5Recipes.Concat([

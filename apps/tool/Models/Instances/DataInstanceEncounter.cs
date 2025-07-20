@@ -2,5 +2,8 @@
 
 public class DataInstanceEncounter
 {
-    public List<DataInstanceDrop> Drops { get; set; }
+    public string? AddBefore { get; set; }
+    public string? AddAfter { get; set; }
+    public string? Name { get; set; }
+    public List<DataInstanceContent> Contents { get; set; }
 }

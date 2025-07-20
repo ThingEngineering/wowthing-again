@@ -264,17 +264,6 @@ public static partial class Hardcoded
                 new ExtraEncounter("Don Carlos"),
             }
         },
-        // TBC > Karazhan
-        {
-            745,
-            new[]
-            {
-                new ExtraEncounter("Nightbane")
-                {
-                    AfterEncounter = 1561, // Netherspite
-                },
-            }
-        },
         #endregion
 
         #region Cataclysm

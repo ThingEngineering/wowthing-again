@@ -297,6 +297,13 @@ public class JournalTool
 
         var languages = Enum.GetValues<Language>().ToArray();
 
+        var encounterIdToSlug = new Dictionary<int, string>();
+        foreach (var encounter in encountersByInstanceId.Values.SelectMany(e => e))
+        {
+            encounterIdToSlug[encounter.ID] =
+                GetString(StringType.WowJournalEncounterName, Language.enUS, encounter.ID).Slugify();
+        }
+
         // Add extra tiers
         foreach (var (tier, dungeons) in Hardcoded.ExtraTiers)
         {
@@ -383,20 +390,22 @@ public class JournalTool
             }
         }
 
-        foreach (int instanceId  in Hardcoded.JournalInstanceTransmogSets.Keys)
+        foreach (int instanceId in Hardcoded.JournalInstanceTransmogSets.Keys)
         {
             encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
             {
                 ID = 3_000_000 + instanceId,
-                OrderIndex = -11,
+                OrderIndex = -12,
             });
         }
 
         foreach (var (instanceId, dataInstance) in dataInstanceMap)
         {
+            var instanceEncounters = encountersByInstanceId[instanceId];
+
             if (dataInstance.Encounters.ContainsKey("shared-drops"))
             {
-                encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
+                instanceEncounters.Insert(0, new DumpJournalEncounter
                 {
                     ID = 2_000_000 + instanceId,
                     OrderIndex = -9,
@@ -405,17 +414,73 @@ public class JournalTool
 
             if (dataInstance.Encounters.ContainsKey("trash-drops"))
             {
-                encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
+                instanceEncounters.Insert(0, new DumpJournalEncounter
                 {
                     ID = 1_000_000 + instanceId,
                     OrderIndex = -10,
                 });
             }
 
+            if (dataInstance.Encounters.ContainsKey("vendors"))
+            {
+                instanceEncounters.Insert(0, new DumpJournalEncounter
+                {
+                    ID = 4_000_000 + instanceId,
+                    OrderIndex = -11,
+                });
+            }
+
+            foreach (var dataEncounter in dataInstance.Encounters.Values)
+            {
+                if (string.IsNullOrWhiteSpace(dataEncounter.AddBefore) && string.IsNullOrWhiteSpace(dataEncounter.AddAfter))
+                {
+                    continue;
+                }
+
+                for (int i = instanceEncounters.Count - 1; i > 0; i--)
+                {
+                    var instanceEncounter = instanceEncounters[i];
+                    if (!encounterIdToSlug.TryGetValue(instanceEncounter.ID, out string encounterSlug))
+                    {
+                        continue;
+                    }
+
+                    bool addBefore = dataEncounter.AddBefore == encounterSlug;
+                    bool addAfter = dataEncounter.AddAfter == encounterSlug;
+                    if (!addBefore && !addAfter)
+                    {
+                        continue;
+                    }
+
+                    int encounterId = 100000 + (instanceId * 10) + i;
+                    var newEncounter = new DumpJournalEncounter
+                    {
+                        ID = encounterId,
+                        OrderIndex = -i,
+                    };
+
+                    if (addBefore)
+                    {
+                        instanceEncounters.Insert(i, newEncounter);
+                    }
+                    else if (i == (instanceEncounters.Count - 1))
+                    {
+                        instanceEncounters.Add(newEncounter);
+                    }
+                    else
+                    {
+                        instanceEncounters.Insert(i + 1, newEncounter);
+                    }
+
+                    foreach (var language in languages)
+                    {
+                        _stringMap[(StringType.WowJournalEncounterName, language, encounterId)] = dataEncounter.Name!;
+                    }
+                }
+            }
         }
 
         // Once per language, oh boy
-        var encounterIdToSlug = new Dictionary<int, string>();
         string cacheHash = null;
         foreach (var language in languages)
         {
@@ -544,21 +609,9 @@ public class JournalTool
                             Statistics = statistics,
                         };
 
-                        encounterData.Name = encounter.ID switch
-                        {
-                            > 3_000_000 => "Convertible",
-                            > 2_000_000 and < 3_000_000 => "Shared Drops",
-                            > 1_000_000 and < 2_000_000 => "Trash Drops",
-                            _ => GetString(StringType.WowJournalEncounterName, language, encounter.ID)
-                        };
+                        encounterData.Name = GetEncounterName(encounter.ID, language);
 
-                        if (!encounterIdToSlug.ContainsKey(encounter.ID))
-                        {
-                            encounterIdToSlug[encounter.ID] = encounterData.Name.Slugify();
-                            // ToolContext.Logger.Information("Encounter {id} {name} => {slug}", encounter.ID, encounter.Name, encounterIdToSlug[encounter.ID]);
-                        }
-                        string encounterSlug = encounterIdToSlug[encounter.ID];
-
+                        string encounterSlug = encounterIdToSlug.GetValueOrDefault(encounter.ID, encounterData.Name.Slugify());
                         var encounterItems = new List<DumpJournalEncounterItem>(itemsByEncounterId.GetValueOrDefault(encounter.ID, []));
 
                         // Extra drops get added first
@@ -582,24 +635,24 @@ public class JournalTool
                             dataInstance != null &&
                             dataInstance.Encounters.TryGetValue(encounterSlug, out var dataInstanceEncounter))
                         {
-                            foreach (var drop in dataInstanceEncounter.Drops)
+                            foreach (var dataContent in dataInstanceEncounter.Contents)
                             {
-                                var dropDifficultiesString = string.IsNullOrEmpty(drop.Difficulties)
+                                var dropDifficultiesString = string.IsNullOrEmpty(dataContent.Difficulties)
                                     ? dataInstance.Difficulties
-                                    : drop.Difficulties;
+                                    : dataContent.Difficulties;
                                 var parts = dropDifficultiesString.Split('_');
                                 int[] dropDifficulties = parts.Skip(1)
                                     .Select(part => _dataInstanceDifficulties[parts[0]][part])
                                     .ToArray();
-                                difficultiesByEncounterItemId[1_000_000 + drop.ItemId] = dropDifficulties;
+                                difficultiesByEncounterItemId[1_000_000 + dataContent.ItemId] = dropDifficulties;
 
                                 encounterItems.Add(new DumpJournalEncounterItem
                                 {
-                                    ID = 1000000 + drop.ItemId,
+                                    ID = 1000000 + dataContent.ItemId,
                                     DifficultyMask = 0,
                                     FactionMask = 0,
                                     Flags = 0,
-                                    ItemID = drop.ItemId,
+                                    ItemID = dataContent.ItemId,
                                     JournalEncounterID = encounter.ID,
                                 });
                             }
@@ -1009,6 +1062,18 @@ public class JournalTool
         _timer.AddPoint("Generate", true);
 
         ToolContext.Logger.Information("{Timers}", _timer.ToString());
+    }
+
+    private string GetEncounterName(int encounterId, Language language)
+    {
+        return encounterId switch
+        {
+            > 4_000_000 and < 5_000_000 => "Vendors",
+            > 3_000_000 and < 4_000_000 => "Convertible",
+            > 2_000_000 and < 3_000_000 => "Shared Drops",
+            > 1_000_000 and < 2_000_000 => "Trash Drops",
+            _ => GetString(StringType.WowJournalEncounterName, language, encounterId)
+        };
     }
 
     private static Dictionary<int, DataInstance> LoadInstances()
