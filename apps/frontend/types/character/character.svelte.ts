@@ -1,10 +1,11 @@
-import cloneDeep from 'lodash/cloneDeep';
 import { DateTime } from 'luxon';
 import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 
 import { Constants } from '@/data/constants';
 import { characterBagSlots, slotOrder } from '@/data/inventory-slot';
+import { gemData } from '@/data/gems';
 import { professionSpecializationToSpell } from '@/data/professions';
+import { moveSpeedTalents } from '@/data/talents';
 import { Faction } from '@/enums/faction';
 import { InventorySlot } from '@/enums/inventory-slot';
 import { ItemLocation } from '@/enums/item-location';
@@ -48,11 +49,7 @@ import type {
     CharacterReputationReputation,
 } from './reputation';
 import type { CharacterShadowlands } from './shadowlands';
-import {
-    CharacterSpecializationLoadout,
-    type CharacterSpecializationRaw,
-    type CharacterSpecializationLoadoutRaw,
-} from './specialization';
+import { CharacterSpecializationLoadout, type CharacterSpecializationRaw } from './specialization';
 import {
     CharacterStatistics,
     CharacterStatisticBasic,
@@ -68,7 +65,6 @@ import type { ContainsItems, HasNameAndRealm } from '../shared';
 import type { Account } from '../account';
 import type { CharacterAura } from './aura';
 import type { CharacterPatronOrder } from './patron-order';
-import { gemData } from '@/data/gems';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Static
@@ -549,28 +545,29 @@ export class Character implements ContainsItems, HasNameAndRealm {
         return this.allProfessionAbilities.has(abilityId);
     }
 
-    gemIds = $derived.by(() => {
+    public gemIds = $derived.by(() => {
         return Object.values(this.equippedItems)
             .map((item) => item.gemIds)
             .flat();
     });
 
-    movementSpeed = $derived.by(() => {
+    public movementSpeed = $derived.by(() => {
         const ret = {
-            enchant: 0,
+            enchants: 0,
             gems: 0,
             rating: 0,
+            talents: 0,
             total: 0,
         };
 
-        // Minor Move Speed gives 10%
-        ret.enchant =
-            this.equippedItems?.[InventorySlot.Feet]?.enchantmentIds?.[0] === 911 ? 10 : 0;
-
         ret.rating = (this.statistics?.rating?.[StatType.SpeedRating]?.ratingBonus || 0) / 100;
 
-        const gemIds = new Set(this.gemIds);
+        // Minor Move Speed gives 10%
+        ret.enchants =
+            this.equippedItems?.[InventorySlot.Feet]?.enchantmentIds?.[0] === 911 ? 10 : 0;
+
         // Elusive Blasphemite, 2% move speed per unique gem color?
+        const gemIds = new Set(this.gemIds);
         if (gemData.theWarWithin.elusiveBlasphemite.some((gemId) => gemIds.has(gemId))) {
             let gemCount = 0;
 
@@ -585,16 +582,29 @@ export class Character implements ContainsItems, HasNameAndRealm {
             ret.gems = gemCount * 2;
 
             // Prismatic Null Stone gives a 25% bonus
-            if (
-                Object.values(this.equippedItems || {}).some((item) =>
-                    item.bonusIds?.includes(10518)
-                )
-            ) {
-                ret.gems = ret.gems * 1.25;
+            if (ret.gems > 0) {
+                const enchantCount = Math.max(
+                    2,
+                    Object.values(this.equippedItems || {}).filter((item) =>
+                        item.bonusIds?.includes(10518)
+                    ).length
+                );
+                ret.gems = ret.gems * (1 + 0.25 * enchantCount);
             }
         }
 
-        ret.total = Math.round(ret.enchant + ret.gems + ret.rating);
+        // Talents
+        const activeLoadout = this.activeSpecializationLoadout;
+        if (activeLoadout?.talents) {
+            for (const [nodeId, rankData] of moveSpeedTalents) {
+                const charTalent = activeLoadout.talents[nodeId];
+                if (charTalent && (rankData[0] === 0 || charTalent[1] === rankData[0])) {
+                    ret.talents += rankData[charTalent[0]];
+                }
+            }
+        }
+
+        ret.total = Math.round(ret.enchants + ret.gems + ret.rating + ret.talents);
 
         return ret;
     });
