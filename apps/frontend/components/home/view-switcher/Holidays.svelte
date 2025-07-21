@@ -4,7 +4,6 @@
     import Holiday from './Holiday.svelte';
 
     let active = $derived(activeHolidays.value);
-    $inspect(active);
 </script>
 
 {#each fancyHolidays as fancyHoliday (fancyHoliday)}

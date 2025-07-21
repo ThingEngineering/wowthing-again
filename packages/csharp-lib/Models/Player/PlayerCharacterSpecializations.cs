@@ -15,6 +15,16 @@ public class PlayerCharacterSpecializations
 
 public class PlayerCharacterSpecializationsSpecialization
 {
+    public List<PlayerCharacterSpecializationsSpecializationLoadout> Loadouts { get; set; } = new();
     public List<List<int>> PvpTalents { get; set; } = new();
+    // public List<List<int>> Talents { get; set; } = new();
+}
+
+public class PlayerCharacterSpecializationsSpecializationLoadout
+{
+    public bool Active { get; set; }
+    public int HeroTreeId { get; set; }
+    public string LoadoutCode { get; set; }
+
     public List<List<int>> Talents { get; set; } = new();
 }

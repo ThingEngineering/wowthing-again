@@ -1,7 +1,7 @@
 <script lang="ts">
     import Router from 'svelte-spa-router';
-    import { wrap } from 'svelte-spa-router/wrap';
-    import type { SvelteComponent } from 'svelte';
+    // import { wrap } from 'svelte-spa-router/wrap';
+    // import type { SvelteComponent } from 'svelte';
 
     import Currencies from './components/currencies/Currencies.svelte';
     import Customizations from './components/customizations/Customizations.svelte';
@@ -61,7 +61,7 @@
         // }),
 
         '/achievements/:slug1?/:slug2?': Achievements,
-        '/auctions/:slug1?/:slug2?': Auctions,
+        '/auctions/:slug1?/:slug2?/:slug3?': Auctions,
         '/currencies/:slug1?/:slug2?': Currencies,
         '/heirlooms': Heirlooms,
         '/illusions': Illusions,

@@ -4,6 +4,7 @@ using System.Reflection;
 using Serilog.Context;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Models;
+using Wowthing.Tool.Models.Instances;
 using Wowthing.Tool.Models.Items;
 using Wowthing.Tool.Models.Journal;
 
@@ -80,6 +81,28 @@ public class JournalTool
         751, // Black Temple
         759, // Ulduar
     ];
+
+    private static readonly Dictionary<string, Dictionary<string, int>> _dataInstanceDifficulties = new()
+    {
+        { "DUNGEON", new() {
+            { "NORMAL", 1 },
+            { "HEROIC", 2 },
+            { "MYTHIC", 8 },
+            { "TIMEWALKING", 24 },
+        } },
+        { "RAID", new()
+        {
+            { "10NORMAL", 3 },
+            { "25NORMAL", 4 },
+            { "10HEROIC", 5 },
+            { "25HEROIC", 6 },
+            { "OLDLFR", 7 },
+            { "LFR", 17 },
+            { "NORMAL", 14 },
+            { "HEROIC", 15 },
+            { "MYTHIC", 16 },
+        } },
+    };
 
     public async Task Run()
     {
@@ -268,10 +291,18 @@ public class JournalTool
         _timer.AddPoint("Database");
 
         var itemExpansions = DataUtilities.LoadItemExpansions();
+        var dataInstanceMap = LoadInstances();
 
-        _timer.AddPoint("Shared");
+        _timer.AddPoint("Files");
 
         var languages = Enum.GetValues<Language>().ToArray();
+
+        var encounterIdToSlug = new Dictionary<int, string>();
+        foreach (var encounter in encountersByInstanceId.Values.SelectMany(e => e))
+        {
+            encounterIdToSlug[encounter.ID] =
+                GetString(StringType.WowJournalEncounterName, Language.enUS, encounter.ID).Slugify();
+        }
 
         // Add extra tiers
         foreach (var (tier, dungeons) in Hardcoded.ExtraTiers)
@@ -359,13 +390,94 @@ public class JournalTool
             }
         }
 
-        foreach (int instanceId  in Hardcoded.JournalInstanceTransmogSets.Keys)
+        foreach (int instanceId in Hardcoded.JournalInstanceTransmogSets.Keys)
         {
             encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
             {
                 ID = 3_000_000 + instanceId,
-                OrderIndex = -11,
+                OrderIndex = -12,
             });
+        }
+
+        foreach (var (instanceId, dataInstance) in dataInstanceMap)
+        {
+            var instanceEncounters = encountersByInstanceId[instanceId];
+
+            if (dataInstance.Encounters.ContainsKey("shared-drops"))
+            {
+                instanceEncounters.Insert(0, new DumpJournalEncounter
+                {
+                    ID = 2_000_000 + instanceId,
+                    OrderIndex = -9,
+                });
+            }
+
+            if (dataInstance.Encounters.ContainsKey("trash-drops"))
+            {
+                instanceEncounters.Insert(0, new DumpJournalEncounter
+                {
+                    ID = 1_000_000 + instanceId,
+                    OrderIndex = -10,
+                });
+            }
+
+            if (dataInstance.Encounters.ContainsKey("vendors"))
+            {
+                instanceEncounters.Insert(0, new DumpJournalEncounter
+                {
+                    ID = 4_000_000 + instanceId,
+                    OrderIndex = -11,
+                });
+            }
+
+            foreach (var dataEncounter in dataInstance.Encounters.Values)
+            {
+                if (string.IsNullOrWhiteSpace(dataEncounter.AddBefore) && string.IsNullOrWhiteSpace(dataEncounter.AddAfter))
+                {
+                    continue;
+                }
+
+                for (int i = instanceEncounters.Count - 1; i > 0; i--)
+                {
+                    var instanceEncounter = instanceEncounters[i];
+                    if (!encounterIdToSlug.TryGetValue(instanceEncounter.ID, out string encounterSlug))
+                    {
+                        continue;
+                    }
+
+                    bool addBefore = dataEncounter.AddBefore == encounterSlug;
+                    bool addAfter = dataEncounter.AddAfter == encounterSlug;
+                    if (!addBefore && !addAfter)
+                    {
+                        continue;
+                    }
+
+                    int encounterId = 100000 + (instanceId * 10) + i;
+                    var newEncounter = new DumpJournalEncounter
+                    {
+                        ID = encounterId,
+                        OrderIndex = -i,
+                    };
+
+                    if (addBefore)
+                    {
+                        instanceEncounters.Insert(i, newEncounter);
+                    }
+                    else if (i == (instanceEncounters.Count - 1))
+                    {
+                        instanceEncounters.Add(newEncounter);
+                    }
+                    else
+                    {
+                        instanceEncounters.Insert(i + 1, newEncounter);
+                    }
+
+                    foreach (var language in languages)
+                    {
+                        _stringMap[(StringType.WowJournalEncounterName, language, encounterId)] = dataEncounter.Name!;
+                    }
+                }
+            }
         }
 
         // Once per language, oh boy
@@ -400,6 +512,9 @@ public class JournalTool
 
                     var instance = instancesById[instanceId];
                     var map = mapsById[instance.MapID];
+
+                    dataInstanceMap.TryGetValue(instanceId, out var dataInstance);
+
                     bool hasTimewalking = InstanceTimewalkingOverride.Contains(instance.ID) || (instance.Flags & 0x1) == 0x1;
 
                     if (Hardcoded.JournalDungeonsOnly.Contains(tier.ID) && map.InstanceType != 1)
@@ -494,14 +609,9 @@ public class JournalTool
                             Statistics = statistics,
                         };
 
-                        encounterData.Name = encounter.ID switch
-                        {
-                            > 3_000_000 => "Convertible",
-                            > 2_000_000 and < 3_000_000 => "Shared Drops",
-                            > 1_000_000 and < 2_000_000 => "Trash Drops",
-                            _ => GetString(StringType.WowJournalEncounterName, language, encounter.ID)
-                        };
+                        encounterData.Name = GetEncounterName(encounter.ID, language);
 
+                        string encounterSlug = encounterIdToSlug.GetValueOrDefault(encounter.ID, encounterData.Name.Slugify());
                         var encounterItems = new List<DumpJournalEncounterItem>(itemsByEncounterId.GetValueOrDefault(encounter.ID, []));
 
                         // Extra drops get added first
@@ -518,6 +628,34 @@ public class JournalTool
                                 ItemID = extraItem.ItemId,
                                 JournalEncounterID = encounter.ID,
                             });
+                        }
+
+                        // DataInstances
+                        if (!string.IsNullOrEmpty(encounterSlug) &&
+                            dataInstance != null &&
+                            dataInstance.Encounters.TryGetValue(encounterSlug, out var dataInstanceEncounter))
+                        {
+                            foreach (var dataContent in dataInstanceEncounter.Contents)
+                            {
+                                var dropDifficultiesString = string.IsNullOrEmpty(dataContent.Difficulties)
+                                    ? dataInstance.Difficulties
+                                    : dataContent.Difficulties;
+                                var parts = dropDifficultiesString.Split('_');
+                                int[] dropDifficulties = parts.Skip(1)
+                                    .Select(part => _dataInstanceDifficulties[parts[0]][part])
+                                    .ToArray();
+                                difficultiesByEncounterItemId[1_000_000 + dataContent.ItemId] = dropDifficulties;
+
+                                encounterItems.Add(new DumpJournalEncounterItem
+                                {
+                                    ID = 1000000 + dataContent.ItemId,
+                                    DifficultyMask = 0,
+                                    FactionMask = 0,
+                                    Flags = 0,
+                                    ItemID = dataContent.ItemId,
+                                    JournalEncounterID = encounter.ID,
+                                });
+                            }
                         }
 
                         // Now do item expansion
@@ -924,6 +1062,39 @@ public class JournalTool
         _timer.AddPoint("Generate", true);
 
         ToolContext.Logger.Information("{Timers}", _timer.ToString());
+    }
+
+    private string GetEncounterName(int encounterId, Language language)
+    {
+        return encounterId switch
+        {
+            > 4_000_000 and < 5_000_000 => "Vendors",
+            > 3_000_000 and < 4_000_000 => "Convertible",
+            > 2_000_000 and < 3_000_000 => "Shared Drops",
+            > 1_000_000 and < 2_000_000 => "Trash Drops",
+            _ => GetString(StringType.WowJournalEncounterName, language, encounterId)
+        };
+    }
+
+    private static Dictionary<int, DataInstance> LoadInstances()
+    {
+        var di = new DirectoryInfo(Path.Join(DataUtilities.DataPath, "instances"));
+        var files = di.GetFiles("*.yml", SearchOption.AllDirectories)
+            .OrderBy(file => file.FullName)
+            .ToArray();
+
+        var prefixLength = di.FullName.Length + 1;
+
+        var ret = new Dictionary<int, DataInstance>();
+
+        foreach (var file in files)
+        {
+            ToolContext.Logger.Information("📄{filename}", file.FullName.Substring(prefixLength));
+            var instance = DataUtilities.YamlDeserializer.Deserialize<DataInstance>(File.OpenText(file.FullName));
+            ret.Add(instance.InstanceId, instance);
+        }
+
+        return ret;
     }
 
     private string GetString(StringType type, Language language, int id)

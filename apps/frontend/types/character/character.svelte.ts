@@ -1,14 +1,20 @@
 import { DateTime } from 'luxon';
+import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 
 import { Constants } from '@/data/constants';
 import { characterBagSlots, slotOrder } from '@/data/inventory-slot';
+import { gemData } from '@/data/gems';
 import { professionSpecializationToSpell } from '@/data/professions';
+import { moveSpeedTalents } from '@/data/talents';
 import { Faction } from '@/enums/faction';
 import { InventorySlot } from '@/enums/inventory-slot';
+import { ItemLocation } from '@/enums/item-location';
 import { Profession } from '@/enums/profession';
+import { StatType } from '@/enums/stat-type';
 import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
 import { getBestItemLevels } from '@/utils/characters/get-best-item-levels';
+import { syncSet } from '@/utils/collections/sync-set';
 import { leftPad } from '@/utils/formatting';
 import { getCharacterLevel } from '@/utils/get-character-level';
 import { getGenderedName } from '@/utils/get-gendered-name';
@@ -43,7 +49,7 @@ import type {
     CharacterReputationReputation,
 } from './reputation';
 import type { CharacterShadowlands } from './shadowlands';
-import type { CharacterSpecializationRaw } from './specialization';
+import { CharacterSpecializationLoadout, type CharacterSpecializationRaw } from './specialization';
 import {
     CharacterStatistics,
     CharacterStatisticBasic,
@@ -59,9 +65,7 @@ import type { ContainsItems, HasNameAndRealm } from '../shared';
 import type { Account } from '../account';
 import type { CharacterAura } from './aura';
 import type { CharacterPatronOrder } from './patron-order';
-import { ItemLocation } from '@/enums/item-location';
-import { SvelteMap, SvelteSet } from 'svelte/reactivity';
-import { syncSet } from '@/utils/collections/sync-set';
+import type { CharacterMovementSpeed } from './movement-speed';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Static
@@ -122,7 +126,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     );
     public mythicPlusWeeks: Record<number, CharacterMythicPlusAddonRun[]> = $state({});
     public professionSpecializations: Record<number, number> = $state({});
-    public specializations: Record<number, Record<number, number>> = $state({});
+    public specializations: Record<number, CharacterSpecializationLoadout[]> = $state({});
 
     public statistics: CharacterStatistics = new CharacterStatistics();
     public weekly: CharacterWeekly;
@@ -198,7 +202,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         rawCurrencies: CharacterCurrencyArray[],
         rawItems: CharacterItemArray[],
         rawMythicPlusWeeks: Record<number, CharacterMythicPlusAddonRunArray[]>,
-        rawSpecializations: Record<number, CharacterSpecializationRaw>,
+        specializations: Record<number, CharacterSpecializationRaw>,
         rawStatistics: [
             CharacterStatisticBasicArray[],
             CharacterStatisticMiscArray[],
@@ -392,12 +396,10 @@ export class Character implements ContainsItems, HasNameAndRealm {
             );
         }
 
-        for (const specializationId in rawSpecializations) {
-            const specData: Record<number, number> = {};
-            for (const [tierId, , spellId] of rawSpecializations[specializationId].talents) {
-                specData[tierId] = spellId;
-            }
-            this.specializations[specializationId] = specData;
+        for (const [specId, spec] of getNumberKeyedEntries(specializations || {})) {
+            this.specializations[specId] = spec.loadouts.map(
+                (loadout) => new CharacterSpecializationLoadout(loadout)
+            );
         }
 
         if (rawStatistics?.length === 3) {
@@ -526,6 +528,10 @@ export class Character implements ContainsItems, HasNameAndRealm {
         return this._itemCounts[itemId] || 0;
     }
 
+    public activeSpecializationLoadout = $derived.by(() => {
+        return this.specializations[this.activeSpecId]?.find((loadout) => loadout.active);
+    });
+
     public allProfessionAbilities = $derived.by(() => {
         const allKnown = new Set<number>();
         for (const profession of Object.values(this.professions)) {
@@ -539,6 +545,70 @@ export class Character implements ContainsItems, HasNameAndRealm {
     knowsProfessionAbility(abilityId: number): boolean {
         return this.allProfessionAbilities.has(abilityId);
     }
+
+    public gemIds = $derived.by(() => {
+        return Object.values(this.equippedItems)
+            .map((item) => item.gemIds)
+            .flat();
+    });
+
+    public movementSpeed = $derived.by(() => {
+        const ret: CharacterMovementSpeed = {
+            enchants: 0,
+            gems: 0,
+            rating: 0,
+            talents: 0,
+            total: 0,
+        };
+
+        ret.rating = (this.statistics?.rating?.[StatType.SpeedRating]?.ratingBonus || 0) / 100;
+
+        // Minor Move Speed gives 10%
+        ret.enchants =
+            this.equippedItems?.[InventorySlot.Feet]?.enchantmentIds?.[0] === 911 ? 10 : 0;
+
+        // Elusive Blasphemite, 2% move speed per unique gem color?
+        const gemIds = new Set(this.gemIds);
+        if (gemData.theWarWithin.elusiveBlasphemite.some((gemId) => gemIds.has(gemId))) {
+            let gemCount = 0;
+
+            for (const [, colorGemIds] of Object.entries(gemData.theWarWithin).filter(
+                ([key]) => key !== 'elusiveBlasphemite'
+            )) {
+                if (colorGemIds.some((gemId) => gemIds.has(gemId))) {
+                    gemCount++;
+                }
+            }
+
+            ret.gems = gemCount * 2;
+
+            // Prismatic Null Stone gives a 25% bonus
+            if (ret.gems > 0) {
+                const enchantCount = Math.min(
+                    2,
+                    Object.values(this.equippedItems || {}).filter((item) =>
+                        item.bonusIds?.includes(10518)
+                    ).length
+                );
+                ret.gems = ret.gems * (1 + 0.25 * enchantCount);
+            }
+        }
+
+        // Talents
+        const activeLoadout = this.activeSpecializationLoadout;
+        if (activeLoadout?.talents) {
+            for (const [nodeId, rankData] of moveSpeedTalents) {
+                const charTalent = activeLoadout.talents[nodeId];
+                if (charTalent && (rankData[0] === 0 || charTalent[1] === rankData[0])) {
+                    ret.talents += rankData[charTalent[0]];
+                }
+            }
+        }
+
+        ret.total = Math.round(ret.enchants + ret.gems + ret.rating + ret.talents);
+
+        return ret;
+    });
 
     reputationData = $derived.by(() => {
         const ret: Record<string, CharacterReputation> = {};

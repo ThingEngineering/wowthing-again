@@ -19,6 +19,6 @@
 </style>
 
 <span class="collectible-count">
-    <em class="quality{Math.floor(percent / 25) + 1}">{counts?.have ?? '??'}</em> /
-    <em class="quality{Math.floor(percent / 25) + 1}">{counts?.total ?? '??'}</em>
+    <em class="quality{Math.floor(percent / 25) + 1}">{have}</em> /
+    <em class="quality{Math.floor(percent / 25) + 1}">{total}</em>
 </span>

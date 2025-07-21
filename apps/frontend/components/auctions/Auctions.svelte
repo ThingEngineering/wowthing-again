@@ -15,7 +15,7 @@
         if (sharedState.public) {
             replace('/');
         } else {
-            getSavedRoute('auctions', params.slug1);
+            getSavedRoute('auctions', params.slug1, params.slug2);
         }
     });
 
