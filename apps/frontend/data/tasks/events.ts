@@ -1,4 +1,3 @@
-import { aliasedIcons, iconLibrary } from '@/shared/icons';
 import { DbResetType } from '@/shared/stores/db/enums';
 import type { Chore, Task } from '@/types/tasks';
 

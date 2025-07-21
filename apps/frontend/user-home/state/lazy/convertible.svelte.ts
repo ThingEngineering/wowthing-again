@@ -82,7 +82,6 @@ export function doConvertible(): LazyConvertible {
         wowthingData.items.itemConversionBonus
     );
 
-    const charBagItems: Record<number, CharacterItem[]> = {};
     const itemCounts: Record<number, number> = {};
     const ret: LazyConvertible = {
         seasons: {},
@@ -365,7 +364,7 @@ export function doConvertible(): LazyConvertible {
                             if (sigh.isUpgradeable) {
                                 const tierIndex = convertibleCategory.tiers.length - desiredTier;
                                 const tier = convertibleCategory.tiers[tierIndex];
-                                const nextTier = convertibleCategory.tiers[tierIndex + 1];
+                                // const nextTier = convertibleCategory.tiers[tierIndex + 1];
 
                                 // DF Season 1 + Forbidden Reach = ARGH
                                 if (

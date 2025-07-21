@@ -2,11 +2,9 @@
     import { FarmIdType } from '@/enums/farm-id-type';
     import { FarmType } from '@/enums/farm-type';
     import { Region } from '@/enums/region';
-    import { settingsState } from '@/shared/state/settings.svelte';
-    import { wowthingData } from '@/shared/stores/data';
     import { timeStore } from '@/shared/stores/time';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { lazyStore, userQuestStore, userStore } from '@/stores';
+    import { userQuestStore } from '@/stores';
     import { zoneMapState } from '@/stores/local-storage/zone-map';
     import { worldQuestStore } from '@/user-home/components/world-quests/store';
     import { getInstanceFarm } from '@/utils/get-instance-farm';
@@ -27,7 +25,7 @@
     export let status: FarmStatus;
 
     let big: boolean;
-    let highlight: boolean;
+    // let highlight: boolean;
     let show: boolean;
     let classes: string[];
     let drops: ManualDataZoneMapDrop[];

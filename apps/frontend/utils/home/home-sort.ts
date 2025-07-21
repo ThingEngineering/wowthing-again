@@ -13,7 +13,6 @@ import { getCharacterRested } from '../get-character-rested';
 import { getDungeonLevel } from '../mythic-plus/get-dungeon-level';
 import getRaidVaultItemLevel from '../get-raid-vault-item-level';
 import { getWorldTier } from '../vault/get-world-tier';
-import { StatType } from '@/enums/stat-type';
 
 export function homeSort(
     activeView: SettingsView,

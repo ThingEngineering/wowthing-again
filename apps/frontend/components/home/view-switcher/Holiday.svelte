@@ -75,8 +75,6 @@
 
         gap: 0.4rem;
     }
-    .farms {
-    }
     .stats {
         word-spacing: -0.7ch;
     }
