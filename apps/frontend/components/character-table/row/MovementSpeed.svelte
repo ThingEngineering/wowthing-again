@@ -1,5 +1,8 @@
 <script lang="ts">
+    import { componentTooltip } from '@/shared/utils/tooltips';
     import type { CharacterProps } from '@/types/props';
+
+    import Tooltip from '@/components/tooltips/CharacterMovementSpeedTooltip.svelte';
 
     let { character }: CharacterProps = $props();
 
@@ -14,7 +17,13 @@
     }
 </style>
 
-<td class="r b-l sized">
+<td
+    class="r b-l sized"
+    use:componentTooltip={{
+        component: Tooltip,
+        propsFunc: () => ({ character, movementSpeed: speed }),
+    }}
+>
     {#if speed.total > 0}
         +{speed.total.toFixed(0)}%
     {/if}

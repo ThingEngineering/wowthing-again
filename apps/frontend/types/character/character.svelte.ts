@@ -65,6 +65,7 @@ import type { ContainsItems, HasNameAndRealm } from '../shared';
 import type { Account } from '../account';
 import type { CharacterAura } from './aura';
 import type { CharacterPatronOrder } from './patron-order';
+import type { CharacterMovementSpeed } from './movement-speed';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Static
@@ -552,7 +553,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     });
 
     public movementSpeed = $derived.by(() => {
-        const ret = {
+        const ret: CharacterMovementSpeed = {
             enchants: 0,
             gems: 0,
             rating: 0,
@@ -583,7 +584,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
             // Prismatic Null Stone gives a 25% bonus
             if (ret.gems > 0) {
-                const enchantCount = Math.max(
+                const enchantCount = Math.min(
                     2,
                     Object.values(this.equippedItems || {}).filter((item) =>
                         item.bonusIds?.includes(10518)

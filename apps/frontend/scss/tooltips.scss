@@ -17,7 +17,7 @@
 
     > h4 {
         padding: 0.3rem 0.5rem;
-        color: $tooltip-title-color;
+        color: var(--link-color, #{$tooltip-title-color});
         font-size: 1.05rem;
 
         &:first-child {

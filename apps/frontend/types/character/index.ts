@@ -7,6 +7,7 @@ export * from './garrison';
 export * from './gear';
 export * from './item';
 export * from './lockout';
+export * from './movement-speed';
 export * from './mythic-plus';
 export * from './patron-order';
 export * from './profession.svelte';
