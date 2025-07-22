@@ -35,7 +35,7 @@ export class DataUserQuests {
         console.timeEnd('DataUserQuests.process');
     }
 
-    public anyCharacterHasQuestId = $derived.by(() => {
+    public anyCharacterHasById = $derived.by(() => {
         const ret = new Set<number>();
         for (const character of this.characterById.values()) {
             for (const questId of character.hasQuestById.values()) {

@@ -447,7 +447,7 @@ export default function getProgress(
 }
 
 function checkAccountQuestIds(questIds: number[]) {
-    return questIds.some((questId) => userState.quests.anyCharacterHasQuestId.has(questId));
+    return questIds.some((questId) => userState.quests.anyCharacterHasById.has(questId));
 }
 
 function checkCharacterQuestIds(characterId: number, questIds: number[]) {
