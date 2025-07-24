@@ -1,39 +1,39 @@
 <script lang="ts">
     import { multiTaskMap } from '@/data/tasks';
+    import { QuestStatus } from '@/enums/quest-status';
+    import { uiIcons } from '@/shared/icons/ui';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { lazyStore } from '@/stores';
-    import type { LazyCharacterChore } from '@/stores/lazy/character';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import Tooltip from '@/components/tooltips/task/TooltipTaskChore.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
-    import { uiIcons } from '@/shared/icons/ui';
-    import { QuestStatus } from '@/enums/quest-status';
 
-    export let character: Character;
-    export let choreName: string;
-    export let taskName: string;
+    type Props = CharacterProps & {
+        choreName: string;
+        taskName: string;
+    };
+    let { character, choreName, taskName }: Props = $props();
 
-    let chore: LazyCharacterChore;
-    let inProgress: boolean;
-    $: {
-        const lazyCharacter = $lazyStore.characters[character.id];
-        chore =
-            lazyCharacter.chores[
-                `${settingsState.activeView.id}|${choreName ? `${taskName}|${choreName}` : taskName}`
-            ];
-        inProgress = false;
+    let lazyCharacter = $derived($lazyStore.characters[character.id]);
+    let chore = $derived(
+        lazyCharacter.chores[
+            `${settingsState.activeView.id}|${choreName ? `${taskName}|${choreName}` : taskName}`
+        ]
+    );
 
-        if (chore && multiTaskMap[taskName]) {
-            inProgress = chore?.tasks?.every((taskData) => {
+    let inProgress = $derived.by(
+        () =>
+            chore &&
+            multiTaskMap[taskName] &&
+            chore.tasks?.every((taskData) => {
                 const oof = (multiTaskMap[taskName] || []).filter(
                     (multi) => multi?.taskName === taskData?.name
                 )[0];
                 return oof?.noProgress === true || taskData?.status > 0;
-            });
-        }
-    }
+            })
+    );
 </script>
 
 <style lang="scss">
@@ -93,7 +93,7 @@
             {:else}
                 {chore.countCompleted} / {chore.countTotal}
             {/if}
-        {:else if chore.countTotal === 1}
+        {:else if chore.countTotal === 1 && chore.status !== QuestStatus.InProgress}
             {#if chore.countCompleted === 0}
                 Get!
             {:else}
