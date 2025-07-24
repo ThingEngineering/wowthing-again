@@ -84,6 +84,17 @@
                     );
             }
 
+            if (categories[0]?.groups[0]?.lookup === 'race') {
+                const charRace = wowthingData.static.characterRaceById.get(char.raceId);
+                return categories
+                    .filter((cat) => !!cat)
+                    .some((cat) =>
+                        cat.groups
+                            .filter((group) => !!group)
+                            .some((group) => Object.keys(group.data).includes(charRace.slug))
+                    );
+            }
+
             return true;
         };
 

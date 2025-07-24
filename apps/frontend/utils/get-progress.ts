@@ -38,6 +38,8 @@ export default function getProgress(
     const haveIndexes: number[] = [];
     const nameOverride: Record<number, string> = {};
 
+    const characterRace = wowthingData.static.characterRaceById.get(character.raceId);
+
     let skipRequiredQuests = false;
     if (category.name === 'Garrisons' && group.name === 'Pet Quest') {
         const garrison = character.garrisons?.[2];
@@ -147,6 +149,10 @@ export default function getProgress(
 
                 case 'faction':
                     datas = group.data[factionIdMap[character.faction]];
+                    break;
+
+                case 'race':
+                    datas = group.data[characterRace.slug];
                     break;
 
                 default:
