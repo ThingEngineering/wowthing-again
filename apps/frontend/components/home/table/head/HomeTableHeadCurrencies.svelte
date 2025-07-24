@@ -32,10 +32,10 @@
         onkeypress={() => setSorting(sortField)}
         use:componentTooltip={{
             component: Tooltip,
-            props: {
+            propsFunc: () => ({
                 currency: wowthingData.static.currencyById.get(currencyId),
                 item: wowthingData.items.items[currencyId - 1000000],
-            },
+            }),
         }}
     >
         {#if currencyId > 1000000}
