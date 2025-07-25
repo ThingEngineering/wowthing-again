@@ -18,6 +18,7 @@ public sealed class AuthorizationService : TimerService
     private readonly IOptions<BattleNetOptions> _bnetOptions;
 
     private const string RedisKeyToken = "access_token:backend";
+    private const string OauthTokenUrl = "https://oauth.battle.net/token";
 
     public AuthorizationService(StateService stateService, IConnectionMultiplexer redis, IOptions<BattleNetOptions> bnetOptions)
         : base("Authorize", TimeSpan.FromSeconds(0), TimeSpan.FromHours(1))
@@ -43,7 +44,7 @@ public sealed class AuthorizationService : TimerService
             }
 
             // Try fetching from API
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://us.battle.net/oauth/token");
+            var request = new HttpRequestMessage(HttpMethod.Post, OauthTokenUrl);
 
             var bytes = new UTF8Encoding().GetBytes(
                 $"{_bnetOptions.Value.ClientId}:{_bnetOptions.Value.ClientSecret}");
