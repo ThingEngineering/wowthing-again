@@ -234,8 +234,15 @@ export function doJournal(): LazyJournal {
                                         item.id
                                     );
                                 } else if (item.type === RewardType.Quest) {
-                                    appearance.userHas = userState.quests.accountHasById.has(
-                                        item.id
+                                    const completesQuests =
+                                        wowthingData.items.completesQuest[item.id];
+                                    appearance.userHas = (completesQuests || []).some((questId) =>
+                                        userState.quests.anyCharacterHasById.has(questId)
+                                    );
+                                } else if (item.type === RewardType.Spell) {
+                                    const teachesSpells = wowthingData.items.teachesSpell[item.id];
+                                    appearance.userHas = (teachesSpells || []).some((spellId) =>
+                                        userState.general.anyCharacterKnowsSpellById.has(spellId)
                                     );
                                 }
                             }

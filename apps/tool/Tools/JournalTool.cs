@@ -23,6 +23,7 @@ public class JournalTool
     private Dictionary<(StringType Type, Language language, int Id), string> _stringMap;
     private HashSet<int> _recipeItemIds = [];
     private readonly HashSet<int> _completeQuestItemIds = [];
+    private readonly HashSet<int> _teachesSpellItemids = [];
     private readonly HashSet<int> _transmogSetItemIds = [];
 
     private readonly int[] _raidNormals = [3, 4, 14];
@@ -280,6 +281,11 @@ public class JournalTool
             if (item.CompletesQuestIds.Length > 0)
             {
                 _completeQuestItemIds.Add(item.Id);
+            }
+
+            if (item.TeachesSpellIds.Length > 0)
+            {
+                _teachesSpellItemids.Add(item.Id);
             }
 
             if (item.TeachesTransmogSetIds.Length > 0)
@@ -873,6 +879,10 @@ public class JournalTool
                                 {
                                     AddGroupSpecial(itemGroups, RewardType.Quest, item, difficulties);
                                 }
+                                else if (_teachesSpellItemids.Contains(item.Id))
+                                {
+                                    AddGroupSpecial(itemGroups, RewardType.Spell, item, difficulties);
+                                }
                                 else
                                 {
                                     string itemName = GetString(StringType.WowItemName, Language.enUS, item.Id);
@@ -1214,6 +1224,7 @@ public class JournalTool
                 break;
 
             case RewardType.Quest:
+            case RewardType.Spell:
             case RewardType.Transmog:
                 name = "Misc";
                 order = 4;

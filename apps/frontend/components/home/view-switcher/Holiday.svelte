@@ -57,7 +57,7 @@
                         farms.push({
                             farm: result,
 
-                            status: userState.quests.anyCharacterHasQuestId.has(
+                            status: userState.quests.anyCharacterHasById.has(
                                 result.trackingQuestId
                             ),
                         });

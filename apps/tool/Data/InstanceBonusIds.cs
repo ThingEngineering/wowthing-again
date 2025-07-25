@@ -11,6 +11,7 @@ public static partial class Hardcoded
 
     private static readonly Dictionary<int, int> WodDungeon = new()
     {
+        { 1, 4746 }, // Normal -> Warforged?
         { 2, 4202 }, // Heroic
         { 8, 4204 }, // Mythic Keystone
         { 23, 4204 }, // Mythic

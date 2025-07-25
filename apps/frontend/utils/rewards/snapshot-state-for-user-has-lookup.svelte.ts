@@ -6,7 +6,7 @@ import { userState } from '@/user-home/state/user';
 // repeatedly accessing state is slow
 export function snapshotStateForUserHasLookup() {
     return {
-        anyCharacterHasQuestById: $state.snapshot(userState.quests.anyCharacterHasQuestId),
+        anyCharacterHasQuestById: $state.snapshot(userState.quests.anyCharacterHasById),
         anyCharacterHasRecipeByAbilityId: $state.snapshot(userState.general.hasRecipe),
         anyCharacterKnowsSpellById: $state.snapshot(userState.general.anyCharacterKnowsSpellById),
         characterIdsByAbilityId: $state.snapshot(userState.general.characterIdsByAbilityId),

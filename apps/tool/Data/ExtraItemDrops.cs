@@ -1396,25 +1396,6 @@ public static partial class Hardcoded
             1000280,
             FrozenHallsTrashDrops
         },
-        // Naxxramas > Trash
-        {
-            1000754,
-            [
-                new(40409, RaidDifficultiesLegacy25Normal), // Boots of the Escaped Captive
-                // Plate
-                new(39467, RaidDifficultiesLegacy10Normal), // Minion Bracers
-                new(40414, RaidDifficultiesLegacy25Normal), // Shoulderguards of the Undaunted
-                // Cloak
-                new(40410, RaidDifficultiesLegacy25Normal), // Shadow of the Ghoul
-                // Weapon
-                new(39473, RaidDifficultiesLegacy10Normal), // Contortion
-                new(40408, RaidDifficultiesLegacy25Normal), // Haunting Call
-                new(40406, RaidDifficultiesLegacy25Normal), // Inevitable Defeat
-                new(39427, RaidDifficultiesLegacy10Normal), // Omen of Ruin
-                new(40407, RaidDifficultiesLegacy25Normal), // Silent Crusader
-                new(39468, RaidDifficultiesLegacy10Normal), // The Stray
-            ]
-        },
         // Ulduar > Trash
         {
             1000759,
@@ -1626,23 +1607,6 @@ public static partial class Hardcoded
                 new(59521, RaidDifficultiesNormal), // Soul Blade
                 new(59525, RaidDifficultiesNormal), // Chelley's Staff of Dark Mending
                 new(60210, RaidDifficultiesNormal), // Crossfire Carbine
-            ]
-        },
-        {
-            1000073, // Blackwing Depths > Trash
-            [
-                new(59466, RaidDifficultiesNormal), // Ironstar's Impenetrable Cover
-                new(59468, RaidDifficultiesNormal), // Shadowforge's Lightbound Smock
-                new(59467, RaidDifficultiesNormal), // Hide of Chromaggus
-                new(59465, RaidDifficultiesNormal), // Corehammer's Riveted Girdle
-                new(59464, RaidDifficultiesNormal), // Treads of Savage Beatings
-                new(59461, RaidDifficultiesNormal), // Fury of Angerforge
-                new(59462, RaidDifficultiesNormal), // Maimgor's Bite
-                new(59463, RaidDifficultiesNormal), // Maldo's Sword Cane
-                new(63537, RaidDifficultiesNormal), // Claws of Torment
-                new(63538, RaidDifficultiesNormal), // Claws of Agony
-                new(68601, RaidDifficultiesNormal), // Scaleslicer
-                new(59460, RaidDifficultiesNormal), // Theresa's Booklight
             ]
         },
         {

@@ -25,6 +25,7 @@
     import RowPlayedTime from './row/HomeTableRowPlayedTime.svelte';
     import SpacerRow from '@/components/character-table/CharacterTableSpacerRow.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import Vault from '@/components/character-table/head/Vault.svelte';
 
     type Props = {
         group: Character[];
@@ -92,8 +93,7 @@
             <td
                 class="sortable"
                 class:sorted-by={$homeState.groupSort[sortKey] === field}
-                on:click={() => setSorting(field)}
-                on:keypress={() => setSorting(field)}
+                onclick={() => setSorting(field)}
                 use:basicTooltip={'Best Item Level'}>Best</td
             >
         {:else if field === 'callings'}
@@ -133,8 +133,7 @@
             <td
                 class="sortable"
                 class:sorted-by={$homeState.groupSort[sortKey] === field}
-                on:click={() => setSorting(field)}
-                on:keypress={() => setSorting(field)}
+                onclick={() => setSorting(field)}
                 use:basicTooltip={'Equipped Item Level'}>Equip</td
             >
         {:else if field === 'items'}
@@ -147,8 +146,7 @@
                 <td
                     class="sortable"
                     class:sorted-by={$homeState.groupSort[sortKey] === sortField}
-                    on:click={() => setSorting(sortField)}
-                    on:keypress={() => setSorting(sortField)}
+                    onclick={() => setSorting(sortField)}
                 >
                     M+ Key
                 </td>
@@ -157,9 +155,10 @@
             <td
                 class="sortable"
                 class:sorted-by={$homeState.groupSort[sortKey] === field}
-                on:click={() => setSorting(field)}
-                on:keypress={() => setSorting(field)}>Seen</td
+                onclick={() => setSorting(field)}
             >
+                Seen
+            </td>
         {:else if field === 'lockouts'}
             {#if !isPublic || settingsState.value.privacy.publicLockouts}
                 <HeadLockouts {sortKey} />
@@ -168,8 +167,7 @@
             <td
                 class="mythic-plus-score sortable"
                 class:sorted-by={$homeState.groupSort[sortKey] === field}
-                on:click={() => setSorting(field)}
-                on:keypress={() => setSorting(field)}
+                onclick={() => setSorting(field)}
             >
                 M+
             </td>
@@ -183,16 +181,14 @@
             <td
                 class="sortable"
                 class:sorted-by={$homeState.groupSort[sortKey] === field}
-                on:click={() => setSorting(field)}
-                on:keypress={() => setSorting(field)}
+                onclick={() => setSorting(field)}
                 use:basicTooltip={'Profession Cooldowns'}>CDs</td
             >
         {:else if field === 'professionWorkOrders'}
             <td
                 class="sortable"
                 class:sorted-by={$homeState.groupSort[sortKey] === field}
-                on:click={() => setSorting(field)}
-                on:keypress={() => setSorting(field)}
+                onclick={() => setSorting(field)}
                 use:basicTooltip={'Profession Work Orders'}>WOs</td
             >
         {:else if field === 'professions'}
@@ -207,8 +203,7 @@
                 <td
                     class="sortable"
                     class:sorted-by={$homeState.groupSort[sortKey] === sortField}
-                    on:click={() => setSorting(sortField)}
-                    on:keypress={() => setSorting(sortField)}
+                    onclick={() => setSorting(sortField)}
                 >
                     Rest
                 </td>
@@ -221,23 +216,26 @@
             <td
                 class="sortable"
                 class:sorted-by={$homeState.groupSort[sortKey] === field}
-                on:click={() => setSorting(field)}
-                on:keypress={() => setSorting(field)}>Dungeon Vault</td
+                onclick={() => setSorting(field)}
             >
+                Dungeon Vault
+            </td>
         {:else if field === 'vaultRaid'}
             <td
                 class="sortable"
                 class:sorted-by={$homeState.groupSort[sortKey] === field}
-                on:click={() => setSorting(field)}
-                on:keypress={() => setSorting(field)}>Raid Vault</td
+                onclick={() => setSorting(field)}
             >
+                Raid Vault
+            </td>
         {:else if field === 'vaultWorld'}
             <td
                 class="sortable"
                 class:sorted-by={$homeState.groupSort[sortKey] === field}
-                on:click={() => setSorting(field)}
-                on:keypress={() => setSorting(field)}>World Vault</td
+                onclick={() => setSorting(field)}
             >
+                World Vault
+            </td>
         {:else}
             <td>&nbsp;</td>
         {/if}

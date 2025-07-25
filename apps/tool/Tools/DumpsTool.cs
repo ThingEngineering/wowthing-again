@@ -1274,20 +1274,7 @@ public class DumpsTool
                             Values = [ spellEffect.EffectMiscValue0, spellEffect.EffectMiscValue1 ],
                         };
 
-                        if (newSpellEffect.Effect == WowSpellEffectEffect.LearnSpell && spellEffect.EffectTriggerSpell > 0)
-                        {
-                            _teachSpellByItemId.GetOrNew(itemXItemEffect.ItemID).Add(spellEffect.EffectTriggerSpell);
-                            _teachSpellBySpellId.GetOrNew(spellEffect.EffectTriggerSpell).Add(itemXItemEffect.ItemID);
-                        }
-                        else if (newSpellEffect.Effect == WowSpellEffectEffect.CompleteQuest && newSpellEffect.Values[0] > 0)
-                        {
-                            _completeQuestByItemId.GetOrNew(itemXItemEffect.ItemID).Add(newSpellEffect.Values[0]);
-                        }
-                        else if (newSpellEffect.Effect == WowSpellEffectEffect.LearnTransmogSet &&
-                                 newSpellEffect.Values[0] > 0)
-                        {
-                            _teachTransmogSetByItemId.GetOrNew(itemXItemEffect.ItemID).Add(newSpellEffect.Values[0]);
-                        }
+                        HandleSpellEffect(spellEffectMap, itemXItemEffect, spellEffect);
                     }
                 }
             }
@@ -1360,6 +1347,41 @@ public class DumpsTool
         }
 
         _timer.AddPoint("ItemEffects");
+    }
+
+    private void HandleSpellEffect(
+        Dictionary<int, DumpSpellEffect[]> spellEffectMap,
+        DumpItemXItemEffect itemXItemEffect,
+        DumpSpellEffect spellEffect)
+    {
+        var effectType = (WowSpellEffectEffect)spellEffect.Effect;
+        int[] effectValues = [spellEffect.EffectMiscValue0, spellEffect.EffectMiscValue1];
+        if (effectType == WowSpellEffectEffect.LearnSpell && spellEffect.EffectTriggerSpell > 0)
+        {
+            _teachSpellByItemId.GetOrNew(itemXItemEffect.ItemID).Add(spellEffect.EffectTriggerSpell);
+            _teachSpellBySpellId.GetOrNew(spellEffect.EffectTriggerSpell).Add(itemXItemEffect.ItemID);
+        }
+        else if (effectType == WowSpellEffectEffect.CompleteQuest && effectValues[0] > 0)
+        {
+            _completeQuestByItemId.GetOrNew(itemXItemEffect.ItemID).Add(effectValues[0]);
+        }
+        else if (effectType == WowSpellEffectEffect.LearnTransmogSet &&
+                 effectValues[0] > 0)
+        {
+            _teachTransmogSetByItemId.GetOrNew(itemXItemEffect.ItemID).Add(effectValues[0]);
+        }
+        else if (effectType == WowSpellEffectEffect.TriggerSpell && spellEffect.EffectTriggerSpell > 0)
+        {
+            // Item on use spell -> triggers more spells -> THOSE do something useful
+            if (spellEffectMap.TryGetValue(spellEffect.EffectTriggerSpell, out var triggerEffects))
+            {
+                foreach (var triggerEffect in triggerEffects)
+                {
+                    ToolContext.Logger.Information("SpellEffect {id1} triggers {id2}", spellEffect.ID, triggerEffect.ID);
+                    HandleSpellEffect(spellEffectMap, itemXItemEffect, triggerEffect);
+                }
+            }
+        }
     }
 
     private async Task ImportMounts(WowDbContext context)
