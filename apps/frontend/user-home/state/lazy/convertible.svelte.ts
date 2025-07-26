@@ -229,7 +229,7 @@ export function doConvertible(): LazyConvertible {
                                     ) {
                                         isUpgradeable = true;
                                     }
-                                } else {
+                                } else if (hasUpgrades) {
                                     if (upgrade[2] >= 5 && upgrade[1] <= 4) {
                                         isUpgradeable = true;
                                     }
@@ -255,7 +255,7 @@ export function doConvertible(): LazyConvertible {
                                     }
                                 } else if (upgrade[2] >= 5 && upgrade[1] <= 4) {
                                     isConvertible = true;
-                                    isUpgradeable = true;
+                                    isUpgradeable = hasUpgrades;
                                 }
                             }
 
@@ -300,7 +300,7 @@ export function doConvertible(): LazyConvertible {
                                     convertibleCategory.sourceTier,
                                     0,
                                     true,
-                                    convertibleCategory.sourceTier < desiredTier
+                                    hasUpgrades && convertibleCategory.sourceTier < desiredTier
                                 )
                             );
                         }
@@ -311,7 +311,7 @@ export function doConvertible(): LazyConvertible {
                         const usefulPurchases = convertibleCategory.purchases.filter(
                             (purchase) =>
                                 purchase.costAmount[setItemInventoryType] &&
-                                (purchase.upgradeable === false
+                                (!hasUpgrades || purchase.upgradeable === false
                                     ? purchase.upgradeTier === desiredTier
                                     : purchase.upgradeTier >= desiredTier - 1 &&
                                       purchase.upgradeTier <= desiredTier)
@@ -339,7 +339,9 @@ export function doConvertible(): LazyConvertible {
                                 purchase.upgradeTier,
                                 0,
                                 true,
-                                purchase.upgradeable !== false && purchase.upgradeTier < desiredTier
+                                hasUpgrades &&
+                                    purchase.upgradeable !== false &&
+                                    purchase.upgradeTier < desiredTier
                             );
 
                             purchaseable.isPurchased = true;
@@ -348,6 +350,7 @@ export function doConvertible(): LazyConvertible {
                                     ? character.getItemCount(purchase.costId)
                                     : character.currencies?.[purchase.costId]?.quantity || 0) >=
                                 costAmount;
+                            purchaseable.canUpgrade = hasUpgrades;
 
                             characterData.push(purchaseable);
                         }
