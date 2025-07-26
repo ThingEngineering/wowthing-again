@@ -71,7 +71,7 @@
 </style>
 
 <div class="wrapper-column">
-    {#each data as slotData}
+    {#each data as slotData (slotData)}
         <div class="upgradeable-item">
             <span class="icons-left status-shrug drop-shadow">
                 {#if slotData.isPurchased}
