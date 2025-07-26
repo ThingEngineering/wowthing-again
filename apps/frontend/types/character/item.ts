@@ -1,6 +1,7 @@
 import type { ItemLocation } from '@/enums/item-location';
 import type { ItemQuality } from '@/enums/item-quality';
 import type { UserItem } from '../shared';
+import { bankBagSlots } from '@/data/inventory-slot';
 
 export class CharacterItem implements UserItem {
     public bonusIds: number[];
@@ -24,7 +25,7 @@ export class CharacterItem implements UserItem {
         public quality: ItemQuality,
         public suffix: number,
         bonusIds?: number[],
-        gemIds?: number[],
+        gemIds?: number[]
     ) {
         this.enchantmentIds = enchantId ? [enchantId] : [];
         this.bonusIds = bonusIds || [];
@@ -38,6 +39,10 @@ export class CharacterItem implements UserItem {
     get containerName(): string {
         if (this.bagId === 0) {
             return 'Backpack';
+        } else if (this.bagId === -1) {
+            return 'Bank';
+        } else if (bankBagSlots.includes(this.bagId)) {
+            return `Bank Bag ${this.bagId - 5}`;
         } else {
             return `Bag ${this.bagId}`;
         }

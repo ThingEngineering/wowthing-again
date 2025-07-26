@@ -382,8 +382,14 @@ export class DataUserGeneral {
             }
         }
 
-        for (const [itemId, warbankItems] of getNumberKeyedEntries(this.warbankItemsByItemId)) {
-            (ret[itemId] ||= []).push([null, warbankItems]);
+        for (const [itemId, items] of getNumberKeyedEntries(this.warbankItemsByItemId)) {
+            (ret[itemId] ||= []).push([null, items]);
+        }
+
+        for (const guild of Object.values(this.guildById)) {
+            for (const [itemId, items] of getNumberKeyedEntries(guild.itemsById)) {
+                (ret[itemId] ||= []).push([guild, items]);
+            }
         }
 
         return ret;
