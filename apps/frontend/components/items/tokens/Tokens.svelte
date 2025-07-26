@@ -65,10 +65,11 @@
                         const aParts = a.split('|').map((s) => parseInt(s));
                         const bParts = b.split('|').map((s) => parseInt(s));
 
-                        const aName = wowthingData.items.items[aParts[0]].name;
-                        const bName = wowthingData.items.items[bParts[0]].name;
-                        if (aName !== bName) {
-                            return aName.localeCompare(bName);
+                        const aItem = wowthingData.items.items[aParts[0]];
+                        const bItem = wowthingData.items.items[bParts[0]];
+
+                        if (aItem.name !== bItem.name) {
+                            return aItem.name.localeCompare(bItem.name);
                         }
 
                         return (
