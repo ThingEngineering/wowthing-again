@@ -8,10 +8,11 @@ import {
     UserAuctionDataMissingRecipeAuction,
 } from '@/types/data';
 import { userState } from '@/user-home/state/user';
-import type { UserData } from '@/types';
 import type { AuctionState } from '../local-storage';
 import type { UserAuctionEntry } from '../user-auctions';
 import type { Settings } from '@/shared/stores/settings/types';
+import type { DataUserGeneral } from '@/user-home/state/user/general.svelte';
+import type { HasNameAndRealm, UserItem } from '@/types/shared';
 
 export class UserAuctionMissingRecipeDataStore {
     private static url = '/api/auctions/missing-recipes';
@@ -19,8 +20,7 @@ export class UserAuctionMissingRecipeDataStore {
 
     async search(
         settings: Settings,
-        auctionState: AuctionState,
-        userData: UserData
+        auctionState: AuctionState
     ): Promise<[UserAuctionEntry[], Record<number, number>]> {
         let things: UserAuctionEntry[] = [];
         let updated: Record<number, number>;
@@ -64,6 +64,13 @@ export class UserAuctionMissingRecipeDataStore {
             });
 
             if (response.ok) {
+                // TODO: convert to runes mode
+                // const userItemsById = $state.snapshot(userState.general.itemsById) as Record<
+                //     number,
+                //     [HasNameAndRealm, UserItem[]][]
+                // >;
+                const userItemsById = userState.general.itemsById;
+
                 const responseData = (await response.json()) as {
                     auctions: Record<string, UserAuctionDataMissingRecipeAuctionArray[]>;
                     updated: Record<number, number>;
@@ -94,7 +101,7 @@ export class UserAuctionMissingRecipeDataStore {
                         id: thingId,
                         name: item.name,
                         auctions,
-                        hasItems: userData.itemsById[item.id] || [],
+                        hasItems: userItemsById[item.id] || [],
                     });
                 }
             }

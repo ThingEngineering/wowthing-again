@@ -1,4 +1,5 @@
 import { wowthingData } from '@/shared/stores/data';
+import { initializeContainsItems } from '@/utils/items/initialize-contains-items';
 import type { StaticDataRealm } from '@/shared/stores/static/types';
 
 import { GuildItem, type GuildItemArray } from './item';
@@ -41,6 +42,9 @@ export class Guild implements ContainsItems, HasNameAndRealm {
         this.itemsById = {};
 
         this.realm = wowthingData.static.realmById.get(this.realmId);
+
+        // itemsByAppearanceId, itemsByAppearanceSource, itemsById
+        initializeContainsItems(this, newItems);
     }
 }
 export type GuildArray = Parameters<Guild['init']>;
