@@ -121,6 +121,7 @@ export function doConvertible(): LazyConvertible {
                     char,
                     [
                         ...char.itemsByLocation.get(ItemLocation.Bags),
+                        ...char.itemsByLocation.get(ItemLocation.Bank),
                         ...Object.values(char.equippedItems),
                         ...(warbankByType[setItemInventoryType] || []).map(([wbi]) => wbi),
                     ].filter(
