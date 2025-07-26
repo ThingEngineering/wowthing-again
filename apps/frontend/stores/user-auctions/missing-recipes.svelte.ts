@@ -9,9 +9,8 @@ import {
 } from '@/types/data';
 import { userState } from '@/user-home/state/user';
 import type { AuctionState } from '../local-storage';
-import type { UserAuctionEntry } from '../user-auctions';
+import type { UserAuctionEntry } from '.';
 import type { Settings } from '@/shared/stores/settings/types';
-import type { DataUserGeneral } from '@/user-home/state/user/general.svelte';
 import type { HasNameAndRealm, UserItem } from '@/types/shared';
 
 export class UserAuctionMissingRecipeDataStore {
@@ -64,12 +63,10 @@ export class UserAuctionMissingRecipeDataStore {
             });
 
             if (response.ok) {
-                // TODO: convert to runes mode
-                // const userItemsById = $state.snapshot(userState.general.itemsById) as Record<
-                //     number,
-                //     [HasNameAndRealm, UserItem[]][]
-                // >;
-                const userItemsById = userState.general.itemsById;
+                const userItemsById = $state.snapshot(userState.general.itemsById) as Record<
+                    number,
+                    [HasNameAndRealm, UserItem[]][]
+                >;
 
                 const responseData = (await response.json()) as {
                     auctions: Record<string, UserAuctionDataMissingRecipeAuctionArray[]>;

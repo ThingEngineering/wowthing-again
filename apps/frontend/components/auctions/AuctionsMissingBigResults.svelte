@@ -255,7 +255,7 @@
 
 <UnderConstruction />
 
-{#await slug1 === 'missing-recipes' ? userAuctionMissingRecipeStore.search(settingsState.value, $auctionState, $userStore) : userAuctionMissingTransmogStore.search(settingsState.value, $auctionState, $userStore, slug1.replace('missing-appearance-', ''))}
+{#await slug1 === 'missing-recipes' ? userAuctionMissingRecipeStore.search(settingsState.value, $auctionState) : userAuctionMissingTransmogStore.search(settingsState.value, $auctionState, $userStore, slug1.replace('missing-appearance-', ''))}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then [things, updated]}
     {#if things.length > 0}
