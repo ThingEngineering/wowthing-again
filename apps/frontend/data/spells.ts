@@ -26,6 +26,9 @@ export const durationAuras: [number, string, boolean?][] = [
     [431973, 'Flask of Tempered Versatility'],
     [431974, 'Flask of Tempered Mastery'],
     [432021, 'Flask of Alchemical Chaos'],
+    [432403, 'Vicious Flask of Classical Spirits'],
+    [432430, 'Vicious Flask of Honor'],
+    [432452, 'Vicious Flask of the Wrecking Ball'],
     [432473, 'Flask of Saving Graces'],
 ];
 
