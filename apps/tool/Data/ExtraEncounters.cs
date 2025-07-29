@@ -303,17 +303,6 @@ public static partial class Hardcoded
         #endregion
 
         #region Wrath of the Lich King
-        // WotLK > The Culling of Stratholme
-        {
-            279,
-            new[]
-            {
-                new ExtraEncounter("Infinite Corruptor")
-                {
-                    AfterEncounter = 613, // Chrono-Lord Epoch
-                }
-            }
-        },
         // WotLK > Icecrown Citadel
         {
             758,

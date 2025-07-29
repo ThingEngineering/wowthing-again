@@ -102,28 +102,6 @@ public static partial class Hardcoded
         new(87413, RaidDifficultiesNormalHeroic), // Plans: Gauntlets of Unbound Devotion
     ];
 
-    private static readonly List<ExtraItemDrop> FrozenHallsTrashDrops =
-    [
-        new(49854, DungeonDifficultiesNormal), // Mantle of Tattered Feathers [N]
-        // Leather
-        new(50318, DungeonDifficultiesHeroic), // Ghostly Wristwraps [H]
-        // Plate
-        new(49855, DungeonDifficultiesNormal), // Plated Grips of Korth'azz [N]
-        new(49853, DungeonDifficultiesNormal), // Titanium Links of Lore [N]
-        // Weapon
-        new(49852, DungeonDifficultiesNormal), // Coffin Nail [N]
-        new(50315, DungeonDifficultiesHeroic), // Seven-Fingered Claws [H]
-        new(50319, DungeonDifficultiesHeroic), // Unsharpened Ice Razor [H]
-        // Battered Hilt
-        new(50046, DungeonDifficultiesHeroic), // Quel'Delar, Cunning of the Shadows
-        new(50047, DungeonDifficultiesHeroic), // Quel'Delar, Lens of the Mind
-        new(50048, DungeonDifficultiesHeroic), // Quel'Delar, Might of the Faithful
-        new(50049, DungeonDifficultiesHeroic), // Quel'Delar, Ferocity of the Scorned
-        new(50050, DungeonDifficultiesHeroic), // Cudgel of Furious Justice
-        new(50051, DungeonDifficultiesHeroic), // Hammer of Purified Flame
-        new(50052, DungeonDifficultiesHeroic), // Lightborn Spire
-    ];
-
     /*
      * The first number in each block is the JournalEncounter ID. If the encounter has been added
      * via ExtraEncounters, the number should be 1_(4 digit instance ID)_(0-based encounter index).
@@ -1163,13 +1141,6 @@ public static partial class Hardcoded
 
         #region Wrath of the Lich King
 
-        // The Culling of Stratholme > Infinite Corruptor
-        {
-            1_0279_0,
-            [
-                new(43951, DungeonDifficultiesHeroic), // Reins of the Bronze Drake
-            ]
-        },
         // Icecrown Citadel > Sanctified T10
         {
             1_0758_0,
@@ -1381,21 +1352,6 @@ public static partial class Hardcoded
 
         #region Wrath of the Lich King Trash
 
-        // Halls of Reflection > Trash
-        {
-            1000276,
-            FrozenHallsTrashDrops
-        },
-        // Pit of Saron > Trash
-        {
-            1000278,
-            FrozenHallsTrashDrops
-        },
-        // Forge of Souls > Trash
-        {
-            1000280,
-            FrozenHallsTrashDrops
-        },
         // Ulduar > Trash
         {
             1000759,

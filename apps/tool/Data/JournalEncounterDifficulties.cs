@@ -13,5 +13,6 @@ public static partial class Hardcoded
         { 384, new[] { 1 } }, // Blackrock Depths > Ambassador Flamelash
         { 385, new[] { 1 } }, // Blackrock Depths > The Seven
         { 387, new[] { 1 } }, // Blackrock Depths > Emperor Dagran Thaurissan
+        { 583, new[] { 2 } }, // Ahn'kahet > Amanitar
     };
 }
