@@ -327,13 +327,20 @@ export function doJournal(): LazyJournal {
                                 ] ||= new UserCount());
 
                                 const itemKey = `${appearanceKey}--${difficulty}`;
+                                const oppositeItemKey = oppositeKey
+                                    ? `${oppositeKey}--${difficulty}`
+                                    : null;
 
                                 if (!instanceSeen.has(itemKey)) {
                                     instanceDifficultyStats.total++;
                                     if (appearance.userHas) {
                                         instanceDifficultyStats.have++;
                                     }
+
                                     instanceSeen.add(itemKey);
+                                    if (oppositeItemKey) {
+                                        instanceSeen.add(oppositeItemKey);
+                                    }
                                 }
 
                                 if (!encounterSeen.has(itemKey)) {
@@ -341,7 +348,11 @@ export function doJournal(): LazyJournal {
                                     if (appearance.userHas) {
                                         encounterDifficultyStats.have++;
                                     }
+
                                     encounterSeen.add(itemKey);
+                                    if (oppositeItemKey) {
+                                        encounterSeen.add(oppositeItemKey);
+                                    }
                                 }
                             }
                         }
