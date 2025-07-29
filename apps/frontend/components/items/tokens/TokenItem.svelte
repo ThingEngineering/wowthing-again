@@ -10,6 +10,7 @@
     import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
+    import { componentTooltip } from '@/shared/utils/tooltips';
     import { UserCount } from '@/types';
     import { userState } from '@/user-home/state/user';
     import { fixedInventoryType } from '@/utils/fixed-inventory-type';
@@ -19,11 +20,12 @@
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
+    import TooltipAlreadyHave from '@/components/tooltips/auction-already-have/TooltipAuctionAlreadyHave.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
 
     let { itemIdAndModifier, useV2 }: { itemIdAndModifier: string; useV2: boolean } = $props();
 
@@ -167,25 +169,33 @@
     <div class="collection{useV2 ? '-v2' : ''}-group" bind:this={element}>
         <h4 class="text-overflow">
             <span class="item-name">
-                {haveCount}x
+                <span
+                    class="have-tooltip"
+                    use:componentTooltip={{
+                        component: TooltipAlreadyHave,
+                        propsFunc: () => ({ groupItems: true, hasItems: haveItems }),
+                    }}
+                >
+                    {haveCount}x
 
-                {#if modifier === AppearanceModifier.LookingForRaid}
-                    <code>[L]</code>
-                {:else if modifier === AppearanceModifier.Heroic}
-                    <code>[H]</code>
-                {:else if modifier === AppearanceModifier.Mythic}
-                    <code>[M]</code>
-                {:else}
-                    <code>[N]</code>
-                {/if}
+                    {#if modifier === AppearanceModifier.LookingForRaid}
+                        <code>[L]</code>
+                    {:else if modifier === AppearanceModifier.Heroic}
+                        <code>[H]</code>
+                    {:else if modifier === AppearanceModifier.Mythic}
+                        <code>[M]</code>
+                    {:else}
+                        <code>[N]</code>
+                    {/if}
 
-                {#if item.allianceOnly || item.hordeOnly}
-                    <span class="faction">
-                        <FactionIcon
-                            faction={item.allianceOnly ? Faction.Alliance : Faction.Horde}
-                        />
-                    </span>
-                {/if}
+                    {#if item.allianceOnly || item.hordeOnly}
+                        <span class="faction">
+                            <FactionIcon
+                                faction={item.allianceOnly ? Faction.Alliance : Faction.Horde}
+                            />
+                        </span>
+                    {/if}
+                </span>
 
                 <WowheadLink
                     id={itemId}

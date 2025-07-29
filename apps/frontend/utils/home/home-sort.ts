@@ -24,7 +24,7 @@ export function homeSort(
     if (sortBy === 'gold') {
         return leftPad(10_000_000 - char.gold, 8, '0');
     } else if (sortBy === 'bagSpace') {
-        return leftPad(100 - char.bagSlotsFree, 3, '0');
+        return leftPad(1000 - char.bagSlotsFree, 4, '0');
     } else if (sortBy === 'bestItemLevel') {
         return leftPad(
             10000 -

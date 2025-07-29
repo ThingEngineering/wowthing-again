@@ -24,6 +24,14 @@ export const extraTiers: JournalDataTier[] = [
 ];
 
 export const hardModeItemIds = new Set<number>([
+    // Auchenai Crypts - Exarch Maladaar
+    27878, // Auchenai Death Shroud
+    27877, // Draenic Wildstaff
+    28268, // Natural Mender's Wraps
+    27937, // Sky Breakeer
+    27797, // Wastewalker Shoulderpads
+    27876, // Will of the Fallen Exarch
+
     // Sartharion 10
     43988, // Gale-Proof Cloak [1]
     43989, // Remembrance Girdle [1]
