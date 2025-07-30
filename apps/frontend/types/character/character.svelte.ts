@@ -9,6 +9,7 @@ import { moveSpeedTalents } from '@/data/talents';
 import { Faction } from '@/enums/faction';
 import { InventorySlot } from '@/enums/inventory-slot';
 import { ItemLocation } from '@/enums/item-location';
+import { PlayableClass } from '@/enums/playable-class';
 import { Profession } from '@/enums/profession';
 import { StatType } from '@/enums/stat-type';
 import { settingsState } from '@/shared/state/settings.svelte';
@@ -557,6 +558,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
             enchants: 0,
             gems: 0,
             rating: 0,
+            shapeshift: 0,
             talents: 0,
             total: 0,
         };
@@ -594,6 +596,13 @@ export class Character implements ContainsItems, HasNameAndRealm {
             }
         }
 
+        // Shapeshift
+        if (this.classId === PlayableClass.Druid) {
+            ret.shapeshift = 30;
+        } else if (this.classId === PlayableClass.Shaman) {
+            ret.shapeshift = 40;
+        }
+
         // Talents
         const activeLoadout = this.activeSpecializationLoadout;
         if (activeLoadout?.talents) {
@@ -605,7 +614,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
             }
         }
 
-        ret.total = Math.round(ret.enchants + ret.gems + ret.rating + ret.talents);
+        ret.total = Math.round(ret.enchants + ret.gems + ret.rating + ret.shapeshift + ret.talents);
 
         return ret;
     });
