@@ -43,6 +43,10 @@ export function processItemsData(rawData: RawItems): DataItems {
                 appItems.push([itemId, appearanceData[2] || 0]);
             }
         }
+
+        if (obj.openable) {
+            data.openableItemIds.add(obj.id);
+        }
     }
     console.timeEnd('rawItems');
 

@@ -1,9 +1,10 @@
 export enum ItemFlags {
-    Cosmetic = 0x1,
-    CannotTransmogToThisItem = 0x2,
-    AllianceOnly = 0x4,
-    HordeOnly = 0x8,
-    LookingForRaidDifficulty = 0x10,
-    HeroicDifficulty = 0x20,
-    MythicDifficulty = 0x40,
+    Cosmetic = 0b00_00_00_01,
+    CannotTransmogToThisItem = 0b00_00_00_10,
+    AllianceOnly = 0b00_00_01_00,
+    HordeOnly = 0b00_00_10_00,
+    LookingForRaidDifficulty = 0b00_01_00_00,
+    HeroicDifficulty = 0b00_10_00_00,
+    MythicDifficulty = 0b01_00_00_00,
+    Openable = 0b10_00_00_00,
 }

@@ -52,6 +52,7 @@ export class DataItems {
     public itemBonusToUpgrade: Record<number, [number, number, number]> = {};
     public itemConversionBonus: Record<number, number> = {};
     public itemSets: Record<number, DataItemSet> = {};
+    public openableItemIds: Set<number> = new Set();
     public oppositeFactionAppearance: Record<number, number[]>;
     public transmogSetToItems: Record<number, number[]> = {};
 

@@ -2,7 +2,6 @@
     import { DateTime } from 'luxon';
 
     import { Constants } from '@/data/constants';
-    import { openables } from '@/data/openables';
     import { contractAuras } from '@/data/reputation';
     import { durationAuras, staticAuras } from '@/data/spells';
     import { timeStore } from '@/shared/stores/time';
@@ -105,7 +104,7 @@
         }
 
         const openableItems: [number, number][] = [];
-        openables.forEach((itemId) => {
+        wowthingData.items.openableItemIds.forEach((itemId) => {
             const itemCount = character.getItemCount(itemId);
             if (itemCount > 0) {
                 openableItems.push([itemId, itemCount]);
