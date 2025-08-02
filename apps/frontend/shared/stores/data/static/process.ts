@@ -24,6 +24,7 @@ import {
 } from '../../static/types';
 import { DataStatic, type RawStatic } from './types';
 import { StaticDataEnchantment } from '../../static/types/enchantment';
+import { PlayableClassMask } from '@/enums/playable-class';
 
 export function processStaticData(rawData: RawStatic): DataStatic {
     console.time('processStaticData');
@@ -173,6 +174,10 @@ export function processStaticData(rawData: RawStatic): DataStatic {
             )
         )
     );
+
+    // HACK: fix broken 11.2 set
+    data.transmogSetById.get(5185).classMask =
+        PlayableClassMask.DeathKnight | PlayableClassMask.Paladin | PlayableClassMask.Warrior;
 
     // Realms are fun
     data.realmById.set(0, new StaticDataRealm(0, 1, 0, 'Honkstrasza', 'honkstrasza', 'zzZZ'));

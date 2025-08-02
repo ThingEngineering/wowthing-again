@@ -12,15 +12,15 @@ export const modifierToTier: Record<number, number> = {
 
 export const currentUpgrade1: ConvertibleCategoryUpgrade[] = [
     {
-        upgradeId: 3107,
+        upgradeId: 3284,
         upgradeCost: 15,
         achievementId: 40942, // Weathered of the Undermine
         achievementUpgradeCost: 10,
     },
-]; // Weathered
+];
 export const currentUpgrade2: ConvertibleCategoryUpgrade[] = [
     {
-        upgradeId: 3108,
+        upgradeId: 3286,
         upgradeCost: 15,
         achievementId: 40943, // Carved of the Undermine
         achievementUpgradeCost: 10,
@@ -28,13 +28,46 @@ export const currentUpgrade2: ConvertibleCategoryUpgrade[] = [
 ];
 export const currentUpgrade3: ConvertibleCategoryUpgrade[] = [
     {
-        upgradeId: 3109,
+        upgradeId: 3288,
         upgradeCost: 15,
         achievementId: 40944, // Runed of the Undermine
         achievementUpgradeCost: 10,
     },
 ];
 export const currentUpgrade4: ConvertibleCategoryUpgrade[] = [
+    {
+        upgradeId: 3290,
+        upgradeCost: 15,
+        achievementId: 40945, // Gilded of the Undermine
+        achievementUpgradeCost: 10,
+    },
+];
+
+export const lastUpgrade1: ConvertibleCategoryUpgrade[] = [
+    {
+        upgradeId: 3107,
+        upgradeCost: 15,
+        achievementId: 40942, // Weathered of the Undermine
+        achievementUpgradeCost: 10,
+    },
+];
+export const lastUpgrade2: ConvertibleCategoryUpgrade[] = [
+    {
+        upgradeId: 3108,
+        upgradeCost: 15,
+        achievementId: 40943, // Carved of the Undermine
+        achievementUpgradeCost: 10,
+    },
+];
+export const lastUpgrade3: ConvertibleCategoryUpgrade[] = [
+    {
+        upgradeId: 3109,
+        upgradeCost: 15,
+        achievementId: 40944, // Runed of the Undermine
+        achievementUpgradeCost: 10,
+    },
+];
+export const lastUpgrade4: ConvertibleCategoryUpgrade[] = [
     {
         upgradeId: 3110,
         upgradeCost: 15,
@@ -46,6 +79,34 @@ export const currentUpgrade4: ConvertibleCategoryUpgrade[] = [
 // ID = ItemConversion.db2
 export const convertibleCategories: ConvertibleCategory[] = [
     {
+        id: 11,
+        minimumLevel: 80,
+        name: '[TWW] Season 3',
+        slug: 'tww-season-3',
+        conversionCurrencyId: 0,
+        tiers: [
+            {
+                itemLevel: 688,
+                highUpgrade: currentUpgrade4,
+                lowUpgrade: currentUpgrade3,
+            },
+            {
+                itemLevel: 675,
+                highUpgrade: currentUpgrade3,
+                lowUpgrade: currentUpgrade2,
+            },
+            {
+                itemLevel: 662,
+                highUpgrade: currentUpgrade2,
+                lowUpgrade: currentUpgrade1,
+            },
+            {
+                itemLevel: 649,
+                highUpgrade: currentUpgrade1,
+            },
+        ],
+    },
+    {
         id: 10,
         minimumLevel: 80,
         name: '[TWW] Season 2',
@@ -54,22 +115,22 @@ export const convertibleCategories: ConvertibleCategory[] = [
         tiers: [
             {
                 itemLevel: 662,
-                highUpgrade: currentUpgrade4,
-                lowUpgrade: currentUpgrade3,
+                highUpgrade: lastUpgrade4,
+                lowUpgrade: lastUpgrade3,
             },
             {
                 itemLevel: 649,
-                highUpgrade: currentUpgrade3,
-                lowUpgrade: currentUpgrade2,
+                highUpgrade: lastUpgrade3,
+                lowUpgrade: lastUpgrade2,
             },
             {
                 itemLevel: 636,
-                highUpgrade: currentUpgrade2,
-                lowUpgrade: currentUpgrade1,
+                highUpgrade: lastUpgrade2,
+                lowUpgrade: lastUpgrade1,
             },
             {
                 itemLevel: 623,
-                highUpgrade: currentUpgrade1,
+                highUpgrade: lastUpgrade1,
             },
         ],
         purchases: [
