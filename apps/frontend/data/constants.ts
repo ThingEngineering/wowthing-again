@@ -5,12 +5,12 @@ export abstract class Constants {
     static readonly maxRenown: number = 80;
     static readonly restedDuration: number = 10 * 24 * 60 * 60; // 10 days
 
-    static readonly mythicPlusSeason: number = 14;
+    static readonly mythicPlusSeason: number = 15;
 
     static readonly defaultUnixTime = 946684800;
 
     static readonly currencies = {
-        catalyst: 3116, // Essence of Kaja'mite
+        catalyst: 3269, // Ethereal Voidsplinter
         conquest: 1602,
         honor: 1792,
         itemUpgrade: 3008, // Valorstones

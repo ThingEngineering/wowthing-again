@@ -57,6 +57,11 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
             name: 'Season 2',
             slug: 'season-2',
         },
+        {
+            id: 126013,
+            name: 'Season 3',
+            slug: 'season-3',
+        },
     ],
 
     // Dragonflight
@@ -127,12 +132,16 @@ export const currencyExtra: Record<number, number[]> = {
     // The War Within - Season 2
     126012: [
         3116, // Essence of Kaja'mite
+    ],
+    // The War Within - Season 3
+    126013: [
+        3269, // Ethereal Voidsplinter
         2803, // Undercoins
         3008, // Valorstones
-        3107, // Weathered Undermine Crest
-        3108, // Carved Undermine Crest
-        3109, // Runed Undermine Crest
-        3110, // Gilded Undermine Crest
+        3284, // Weathered Ethereal Crest
+        3286, // Carved Ethereal Crest
+        3288, // Runed Ethereal Crest
+        3290, // Gilded Ethereal Crest
         3028, // Restored Coffer Key
     ],
 
@@ -318,15 +327,23 @@ export const currencyItems: Record<number, number[]> = {
     ],
     // The War Within - Season 2
     126012: [
-        229899, // Coffer Key Shard
-        235897, // Radiant Echo
-        230793, // Algari Token of Merit
         237578, // Counterfeit Dealer's Chip
         230905, // Fractured Spark of Fortunes
         230906, // Spark of Fortunes
         230937, // Enchanted Weathered Undermine Crest
         230936, // Enchanted Runed Undermine Crest
         230935, // Enchanted Gilded Undermine Crest
+    ],
+    // The War Within - Season 3
+    126013: [
+        245653, // Coffer Key Shard
+        246771, // Radiant Echo
+        248242, // Algari Token of Merit
+        231757, // Fractured Spark of Starlight
+        231756, // Spark of Starlight
+        231767, // Enchanted Weathered Ethereal Crest
+        231769, // Enchanted Runed Ethereal Crest
+        231768, // Enchanted Gilded Ethereal Crest
     ],
 
     // Player vs Player

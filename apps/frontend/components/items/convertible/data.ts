@@ -43,39 +43,6 @@ export const currentUpgrade4: ConvertibleCategoryUpgrade[] = [
     },
 ];
 
-export const lastUpgrade1: ConvertibleCategoryUpgrade[] = [
-    {
-        upgradeId: 3107,
-        upgradeCost: 15,
-        achievementId: 40942, // Weathered of the Undermine
-        achievementUpgradeCost: 10,
-    },
-];
-export const lastUpgrade2: ConvertibleCategoryUpgrade[] = [
-    {
-        upgradeId: 3108,
-        upgradeCost: 15,
-        achievementId: 40943, // Carved of the Undermine
-        achievementUpgradeCost: 10,
-    },
-];
-export const lastUpgrade3: ConvertibleCategoryUpgrade[] = [
-    {
-        upgradeId: 3109,
-        upgradeCost: 15,
-        achievementId: 40944, // Runed of the Undermine
-        achievementUpgradeCost: 10,
-    },
-];
-export const lastUpgrade4: ConvertibleCategoryUpgrade[] = [
-    {
-        upgradeId: 3110,
-        upgradeCost: 15,
-        achievementId: 40945, // Gilded of the Undermine
-        achievementUpgradeCost: 10,
-    },
-];
-
 // ID = ItemConversion.db2
 export const convertibleCategories: ConvertibleCategory[] = [
     {
@@ -83,7 +50,7 @@ export const convertibleCategories: ConvertibleCategory[] = [
         minimumLevel: 80,
         name: '[TWW] Season 3',
         slug: 'tww-season-3',
-        conversionCurrencyId: 0,
+        conversionCurrencyId: 3269, // Ethereal Voidsplinter
         tiers: [
             {
                 itemLevel: 688,
@@ -105,64 +72,7 @@ export const convertibleCategories: ConvertibleCategory[] = [
                 highUpgrade: currentUpgrade1,
             },
         ],
-    },
-    {
-        id: 10,
-        minimumLevel: 80,
-        name: '[TWW] Season 2',
-        slug: 'tww-season-2',
-        conversionCurrencyId: 3116, // Essence of Kaja'mite
-        tiers: [
-            {
-                itemLevel: 662,
-                highUpgrade: lastUpgrade4,
-                lowUpgrade: lastUpgrade3,
-            },
-            {
-                itemLevel: 649,
-                highUpgrade: lastUpgrade3,
-                lowUpgrade: lastUpgrade2,
-            },
-            {
-                itemLevel: 636,
-                highUpgrade: lastUpgrade2,
-                lowUpgrade: lastUpgrade1,
-            },
-            {
-                itemLevel: 623,
-                highUpgrade: lastUpgrade1,
-            },
-        ],
         purchases: [
-            {
-                costId: 238_920, // Radiant Emblem of Service
-                costAmount: {
-                    [InventoryType.Head]: 1,
-                    [InventoryType.Shoulders]: 1,
-                    [InventoryType.Back]: 1,
-                    [InventoryType.Chest]: 1,
-                    [InventoryType.Wrist]: 1,
-                    [InventoryType.Hands]: 1,
-                    [InventoryType.Waist]: 1,
-                    [InventoryType.Legs]: 1,
-                    [InventoryType.Feet]: 1,
-                },
-                upgradeTier: 2,
-            },
-            {
-                costId: 2815, // Resonance Crystals
-                costAmount: {
-                    [InventoryType.Hands]: 3900,
-                },
-                upgradeTier: 2,
-            },
-            {
-                costId: 2815, // Resonance Crystals
-                costAmount: {
-                    [InventoryType.Feet]: 2600,
-                },
-                upgradeTier: 1,
-            },
             {
                 costId: 2803, // Undercoin
                 costAmount: {
@@ -206,6 +116,58 @@ export const convertibleCategories: ConvertibleCategory[] = [
                     [InventoryType.Waist]: 700,
                     [InventoryType.Legs]: 875,
                     [InventoryType.Feet]: 700,
+                },
+                upgradeTier: 1,
+            },
+        ],
+    },
+    {
+        id: 10,
+        minimumLevel: 80,
+        name: '[TWW] Season 2',
+        slug: 'tww-season-2',
+        conversionCurrencyId: 3116, // Essence of Kaja'mite
+        tiers: [
+            {
+                itemLevel: 662,
+            },
+            {
+                itemLevel: 649,
+            },
+            {
+                itemLevel: 636,
+            },
+            {
+                itemLevel: 623,
+            },
+        ],
+        purchases: [
+            {
+                costId: 238_920, // Radiant Emblem of Service
+                costAmount: {
+                    [InventoryType.Head]: 1,
+                    [InventoryType.Shoulders]: 1,
+                    [InventoryType.Back]: 1,
+                    [InventoryType.Chest]: 1,
+                    [InventoryType.Wrist]: 1,
+                    [InventoryType.Hands]: 1,
+                    [InventoryType.Waist]: 1,
+                    [InventoryType.Legs]: 1,
+                    [InventoryType.Feet]: 1,
+                },
+                upgradeTier: 2,
+            },
+            {
+                costId: 2815, // Resonance Crystals
+                costAmount: {
+                    [InventoryType.Hands]: 3900,
+                },
+                upgradeTier: 2,
+            },
+            {
+                costId: 2815, // Resonance Crystals
+                costAmount: {
+                    [InventoryType.Feet]: 2600,
                 },
                 upgradeTier: 1,
             },
