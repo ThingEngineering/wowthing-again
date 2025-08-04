@@ -192,6 +192,7 @@ export const convertibleCategories: ConvertibleCategory[] = [
                     [InventoryType.Feet]: 700,
                 },
                 upgradeTier: 2,
+                upgradeable: false,
             },
             {
                 costId: 2123, // Bloody Tokens
