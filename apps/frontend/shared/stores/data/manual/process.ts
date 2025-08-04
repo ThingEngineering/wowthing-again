@@ -43,22 +43,22 @@ export function processManualData(rawData: RawManual): DataManual {
         categories === null
             ? null
             : categories.map((catArray) =>
-                  catArray === null ? null : new ManualDataCustomizationCategory(...catArray),
-              ),
+                  catArray === null ? null : new ManualDataCustomizationCategory(...catArray)
+              )
     );
 
     data.heirlooms = rawData.rawHeirloomGroups.map(
-        (groupArray) => new ManualDataHeirloomGroup(...groupArray),
+        (groupArray) => new ManualDataHeirloomGroup(...groupArray)
     );
 
     data.illusions = rawData.rawIllusionGroups.map(
-        (groupArray) => new ManualDataIllusionGroup(...groupArray),
+        (groupArray) => new ManualDataIllusionGroup(...groupArray)
     );
 
     data.progressSets = rawData.progressSets.slice();
 
     data.reputationSets = rawData.rawReputationSets.map((repArray) =>
-        repArray === null ? null : new ManualDataReputationCategory(...repArray),
+        repArray === null ? null : new ManualDataReputationCategory(...repArray)
     );
 
     data.transmog.sets = fixTransmogSets(
@@ -66,21 +66,21 @@ export function processManualData(rawData: RawManual): DataManual {
             categories === null
                 ? null
                 : categories.map((catArray) =>
-                      catArray === null ? null : new ManualDataTransmogCategory(...catArray),
-                  ),
-        ),
+                      catArray === null ? null : new ManualDataTransmogCategory(...catArray)
+                  )
+        )
     );
 
     data.vendors.sets = rawData.rawVendorSets.map((catArray) =>
-        catArray === null ? null : new ManualDataVendorCategory(...catArray),
+        catArray === null ? null : new ManualDataVendorCategory(...catArray)
     );
 
     data.zoneMaps.sets = rawData.rawZoneMapSets.map((categories) =>
         categories === null
             ? null
             : categories.map((catArray) =>
-                  catArray === null ? null : new ManualDataZoneMapCategory(...catArray),
-              ),
+                  catArray === null ? null : new ManualDataZoneMapCategory(...catArray)
+              )
     );
 
     data.mountSets = fixCollectionSets(rawData.rawMountSets);
@@ -107,6 +107,8 @@ export function processManualData(rawData: RawManual): DataManual {
                         if (category.slug === 'druid') {
                             data.druidFormItemToQuest.set(thing.itemId, thing.questId);
                         }
+                    } else if (categories[0].slug === 'delvers-mounts') {
+                        data.delversItemToQuest.set(thing.itemId, thing.questId);
                     } else if (categories[0].slug === 'dragonriding') {
                         data.dragonridingItemToQuest.set(thing.itemId, thing.questId);
                     }
@@ -135,7 +137,7 @@ function fixCollectionSets(allSets: ManualDataSetCategoryArray[][]): ManualDataS
             sortBy(actualSets, (set) => [
                 set.name.startsWith('<') ? 0 : 1,
                 set.name.startsWith('>') ? 1 : 0,
-            ]),
+            ])
         );
 
         for (const set of newSets[newSets.length - 1]) {
@@ -159,7 +161,7 @@ function fixTransmogSets(allSets: ManualDataTransmogCategory[][]): ManualDataTra
                 sortBy(sets, (set) => [
                     set.name.startsWith('<') ? 0 : 1,
                     set.name.startsWith('>') ? 1 : 0,
-                ]),
+                ])
             );
 
             for (const set of newSets[newSets.length - 1]) {

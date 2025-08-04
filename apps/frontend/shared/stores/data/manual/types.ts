@@ -44,6 +44,7 @@ export interface RawManual {
 
 export class DataManual {
     // move to items
+    delversItemToQuest: Map<number, number> = new Map();
     dragonridingItemToQuest: Map<number, number> = new Map();
     druidFormItemToQuest: Map<number, number> = new Map();
 
