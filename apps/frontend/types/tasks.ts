@@ -48,4 +48,5 @@ export type Chore = {
 
     customExpiryFunc?: (char: Character, scannedAt: DateTime) => DateTime;
     questIdFunc?: (char: Character, chore?: Chore) => number[];
+    decorationFunc?: (hoursRemaining: number) => number;
 };
