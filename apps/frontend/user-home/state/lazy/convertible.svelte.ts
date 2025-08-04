@@ -453,7 +453,14 @@ export function doConvertible(): LazyConvertible {
                         }
 
                         characterData.sort((a, b) => {
-                            if (a.equippedItem.itemLevel !== b.equippedItem.itemLevel) {
+                            if (a.isPurchased !== b.isPurchased) {
+                                return (a.isPurchased ? 1 : 0) - (b.isPurchased ? 1 : 0);
+                            }
+                            if (
+                                !a.isPurchased &&
+                                !b.isPurchased &&
+                                a.equippedItem.itemLevel !== b.equippedItem.itemLevel
+                            ) {
                                 return b.equippedItem.itemLevel - a.equippedItem.itemLevel;
                             }
                             if (a.isUpgradeable !== b.isUpgradeable) {
