@@ -1607,45 +1607,6 @@ public static partial class Hardcoded
                 new(71360, RaidDifficultiesNormal), // Spire of Scarlet Pain
             ]
         },
-        {
-            1000187, // Dragon Soul > Trash
-            [
-                new(72006, RaidDifficultiesNormalHeroic), // Pattern: Bladeshadow Leggings
-                new(72010, RaidDifficultiesNormalHeroic), // Pattern: Bladeshadow Wristguards
-                new(72008, RaidDifficultiesNormalHeroic), // Pattern: Bracers of Flowing Serenity
-                new(72011, RaidDifficultiesNormalHeroic), // Pattern: Bracers of the Hunter-Killer
-                new(72004, RaidDifficultiesNormalHeroic), // Pattern: Bracers of Unconquered Power
-                new(72005, RaidDifficultiesNormalHeroic), // Pattern: Deathscale Leggings
-                new(72003, RaidDifficultiesNormalHeroic), // Pattern: Dreamwraps of the Light
-                new(72002, RaidDifficultiesNormalHeroic), // Pattern: Lavaquake Legwraps
-                new(71999, RaidDifficultiesNormalHeroic), // Pattern: Leggings of Nature's Champion
-                new(72007, RaidDifficultiesNormalHeroic), // Pattern: Rended Earth Leggings
-                new(72009, RaidDifficultiesNormalHeroic), // Pattern: Thundering Deathscale Wristguards
-                new(72000, RaidDifficultiesNormalHeroic), // Pattern: World Mender's Pants
-                new(72015, RaidDifficultiesNormalHeroic), // Plans: Bracers of Destructive Strength
-                new(72013, RaidDifficultiesNormalHeroic), // Plans: Foundations of Courage
-                new(72001, RaidDifficultiesNormalHeroic), // Plans: Pyrium Legplates of Purified Evil
-                new(72014, RaidDifficultiesNormalHeroic), // Plans: Soul Redeemer Bracers
-                new(72016, RaidDifficultiesNormalHeroic), // Plans: Titanguard Wristplates
-                new(72012, RaidDifficultiesNormalHeroic), // Plans: Unstoppable Destroyer's Legplates
-                // Cloth
-                new(78879, RaidDifficultiesNormalHeroic), // Sash of Relentless Truth
-                // Leather
-                new(78884, RaidDifficultiesNormalHeroic), // Girdle of Fungal Dreams
-                new(78882, RaidDifficultiesNormalHeroic), // Nightblind Cinch
-                // Mail
-                new(78886, RaidDifficultiesNormalHeroic), // Belt of Ghostly Graces
-                new(78885, RaidDifficultiesNormalHeroic), // Dragoncarver Belt
-                // Plate
-                new(78887, RaidDifficultiesNormalHeroic), // Girdle of Soulful Mending
-                new(78888, RaidDifficultiesNormalHeroic), // Waistguard of Bleeding Bone
-                new(78889, RaidDifficultiesNormalHeroic), // Waistplate of the Desecrated Future
-                // Weapon
-                new(77938, RaidDifficultiesNormalHeroic), // Dragonfire Orb
-                new(77192, RaidDifficultiesNormalHeroic), // Ruinblaster Shotgun
-                new(78878, RaidDifficultiesNormalHeroic), // Spine of the Thousand Cuts
-            ]
-        },
 
         #endregion
 
