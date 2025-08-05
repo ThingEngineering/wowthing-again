@@ -1,4 +1,20 @@
 export const currentTier: number[] = [
+    1919, // Hollow Sentinel's Wake [Death Knight]
+    1920, // Charhound's Vicious Hunt [Demon Hunter]
+    1921, // Ornaments of the Mother Eagle [Druid]
+    1922, // Spellweaver's Immaculate Design [Evoker]
+    1923, // Midnight Herald's Pledge [Hunter]
+    1924, // Augur's Ephemeral Plumage [Mage]
+    1925, // Crash of Fallen Storms [Monk]
+    1926, // Vows of the Lucent Battalion [Paladin]
+    1927, // Eulogy to a Dying Star [Priest]
+    1928, // Shroud of the Sudden Eclipse [Rogue]
+    1929, // Howls of Channeled Fury [Shaman]
+    1930, // Inquisitor's Feast of Madness [Warlock]
+    1931, // Chains of the Living Weapon [Warrior]
+];
+
+export const previousTier: number[] = [
     1867, // Cauldron Champion's Encore [Death Knight]
     1868, // Fel-Dealer's Contraband [Demon Hunter]
     1869, // Roots of Reclaiming Blight [Druid]
@@ -12,20 +28,4 @@ export const currentTier: number[] = [
     1877, // Currents of the Gale Sovereign	 [Shaman]
     1878, // Spliced Fiendtrader's Influence [Warlock]
     1879, // Underpin Strongarm's Muscle [Warrior]
-];
-
-export const previousTier: number[] = [
-    1684, // Warrior - Warsculptor's Masterwork
-    1685, // Warlock - Rites of the Hexflame Coven
-    1686, // Shaman - Waves of the Forgotten Reservoir
-    1687, // Rogue Phantom's Bindings
-    1688, // Priest - Shards of Living Luster
-    1689, // Paladin - Entombed Seraph's Radiance
-    1690, // Monk - Gatecrasher's Fortitude
-    1691, // Mage - Sparks of Violet Rebirth
-    1692, // Hunter - Lightless Scavenger's Necessities
-    1693, // Evoker - Destroyer's Scarred Wards
-    1694, // Druid - Mane of the Greatlynx
-    1695, // Demon Hunter - Husk of the Hypogeal Nemesis
-    1696, // Death Knight - Exhumed Centurion's Relics
 ];
