@@ -1,5 +1,6 @@
 import { Dungeon } from '@/types';
 import type { StaticDataInstance } from '@/shared/stores/static/types';
+import { convertibleCategories } from '@/components/items/convertible/data';
 
 // MapChallengeMode.db2
 export const dungeons: Dungeon[] = [
@@ -28,7 +29,7 @@ export const dungeons: Dungeon[] = [
         'Return to Karazhan: Lower',
         'LOWR',
         'achievement/11338', // Dine and Dash
-        42,
+        42
     ),
     new Dungeon(234, 'Return to Karazhan: Upper', 'UPPR', 'achievement/11429', 35),
 
@@ -60,7 +61,7 @@ export const dungeons: Dungeon[] = [
         'Tazavesh: Streets of Wonder',
         'STRT',
         'achievement/15106', // Quality Control
-        39,
+        39
     ),
     new Dungeon(392, "Tazavesh: So'leah's Gambit", 'GMBT', 'achievement/15177', 30),
 
@@ -78,14 +79,14 @@ export const dungeons: Dungeon[] = [
         "Dawn of the Infinite: Galakrond's Fall",
         'FALL',
         'achievement/18703',
-        2100 / 60,
+        2100 / 60
     ),
     new Dungeon(
         464,
         "Dawn of the Infinite: Murozond's Rise",
         'RISE',
         'achievement/6150',
-        2280 / 60,
+        2280 / 60
     ),
 
     // The War Within
@@ -101,36 +102,35 @@ export const dungeons: Dungeon[] = [
 ];
 
 export const dungeonMap: Record<number, Dungeon> = Object.fromEntries(
-    dungeons.map((dungeon) => [dungeon.id, dungeon]),
+    dungeons.map((dungeon) => [dungeon.id, dungeon])
 );
 
 // [key level, item level] first match >= key is used
 export const keyVaultItemLevel: Array<Array<number>> = [
-    [10, 662, 5], // Myth 1
-    [7, 658, 4], // Hero 4
-    [6, 655, 4], // Hero 3
-    [4, 652, 4], // Hero 2
-    [2, 649, 4], // Hero 1
-    [1, 645, 3], // [0] Champion 4
-    [0, 632, 2], // [H] Veteran 4
+    [10, 707, 5], // Myth 1
+    [7, 704, 4], // Hero 4
+    [6, 701, 4], // Hero 3
+    [4, 697, 4], // Hero 2
+    [2, 694, 4], // Hero 1
+    [1, 691, 3], // [0] Champion 4
+    [0, 678, 2], // [H] Veteran 4
 ];
 
 export const raidVaultItemLevel: Record<number, Array<number>> = {
-    16: [662, 5], // Mythic
-    15: [649, 4], // Heroic
-    14: [636, 3], // Normal
-    17: [623, 2], // LFR
+    16: [convertibleCategories[0].tiers[0].itemLevel, 5], // Mythic
+    15: [convertibleCategories[0].tiers[1].itemLevel, 4], // Heroic
+    14: [convertibleCategories[0].tiers[2].itemLevel, 3], // Normal
+    17: [convertibleCategories[0].tiers[3].itemLevel, 2], // LFR
 };
 
 export const worldVaultItemLevel: Array<Array<number>> = [
-    [8, 649, 4], // Hero 1
-    [7, 645, 3], // Champion 4
-    [6, 642, 3], // Champion 3
-    [5, 636, 3], // Champion 1
-    [4, 632, 2], // Veteran 4
-    [3, 629, 2], // Veteran 3
-    [2, 626, 2], // Veteran 2
-    [1, 623, 2], // Veteran 1
+    [8, 694, 4], // Hero 1
+    [6, 691, 3], // Champion 4
+    [5, 687, 3], // Champion 3
+    [4, 681, 2], // Champion 1
+    [3, 671, 2], // Veteran 2? (was Veteran 3)
+    [2, 668, 2], // Veteran 1? (was Veteran 2)
+    [1, 655, 2], // Adventurer 1? (was Veteran 1)
 ];
 
 export const keyTiers = ['2-5', '6-10', '11-15', '16-20', '21-25', '26-30', '31+'];
@@ -385,7 +385,7 @@ export const extraInstances: StaticDataInstance[] = [
 ];
 
 export const extraInstanceMap: Record<number, StaticDataInstance> = Object.fromEntries(
-    extraInstances.map((instance) => [instance.id, instance]),
+    extraInstances.map((instance) => [instance.id, instance])
 );
 
 export const lockoutOverride: Record<number, number> = {
@@ -407,5 +407,5 @@ export const ignoredLockoutInstances: Record<number, boolean> = Object.fromEntri
         1192, // Shadowlands
         1205, // Dragon Isles
         1278, // Khaz Algar
-    ].map((id) => [id, true]),
+    ].map((id) => [id, true])
 );
