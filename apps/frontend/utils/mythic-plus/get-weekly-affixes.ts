@@ -6,6 +6,10 @@ import type { StaticDataKeystoneAffix } from '@/shared/stores/static/types';
 import type { Character } from '@/types';
 
 export function getWeeklyAffixes(character?: Character): StaticDataKeystoneAffix[] {
+    if (!seasonMap[Constants.mythicPlusSeason]) {
+        return [];
+    }
+
     const regionId = character?.realm.region || userState.general.allRegions[0];
     const startPeriod = seasonMap[Constants.mythicPlusSeason].startPeriod;
     const currentPeriod = userState.general.currentPeriod[regionId];
