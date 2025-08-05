@@ -1,13 +1,26 @@
 import { get } from 'svelte/store';
+import type { DateTime } from 'luxon';
 
 import { customResetPeriod } from './custom-reset-period';
 import { QuestStatus } from '@/enums/quest-status';
 import { aliasedIcons, iconLibrary } from '@/shared/icons';
+import { timeState } from '@/shared/state/time.svelte';
 import { DbResetType } from '@/shared/stores/db/enums';
 import { userQuestStore, userStore } from '@/stores';
+import { userState } from '@/user-home/state/user';
 import type { Character } from '@/types';
 import type { Chore } from '@/types/tasks';
-import { userState } from '@/user-home/state/user';
+
+const threeWeekDecorator = (expires: DateTime) => {
+    const daysRemaining = expires.diff(timeState.time).toMillis() / 1000 / 86400;
+    if (daysRemaining < 7) {
+        return 'decorator-warn';
+    } else if (daysRemaining < 14) {
+        return 'decorator-shrug';
+    } else {
+        return 'decorator-success';
+    }
+};
 
 export const twwChores11_0: Chore[] = [
     {
@@ -21,6 +34,7 @@ export const twwChores11_0: Chore[] = [
                 : [82678], // Archives: The First Disc
         questReset: DbResetType.Custom,
         customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1002, 3),
+        decorationFunc: threeWeekDecorator,
     },
     {
         taskKey: 'twwEmissaryDelves',
@@ -39,6 +53,7 @@ export const twwChores11_0: Chore[] = [
         ],
         questReset: DbResetType.Custom,
         customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1003, 3),
+        decorationFunc: threeWeekDecorator,
     },
     {
         taskKey: 'twwEmissaryWorldsoul',
@@ -94,15 +109,7 @@ export const twwChores11_0: Chore[] = [
         ],
         questReset: DbResetType.Custom,
         customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1001, 3),
-        decorationFunc: (hours) => {
-            if (hours < 168) {
-                return 2;
-            } else if (hours < 336) {
-                return 1;
-            } else {
-                return 0;
-            }
-        },
+        decorationFunc: threeWeekDecorator,
     },
     {
         taskKey: 'twwDungeon',
