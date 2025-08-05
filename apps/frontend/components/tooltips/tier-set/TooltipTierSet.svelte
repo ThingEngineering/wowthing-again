@@ -1,15 +1,12 @@
 <script lang="ts">
     import { Constants } from '@/data/constants';
     import { iconLibrary } from '@/shared/icons';
-    import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
     import getItemLevelQuality from '@/utils/get-item-level-quality';
     import type { LazyConvertibleCharacterItem } from '@/user-home/state/lazy/convertible.svelte';
     import type { CharacterCurrency, Character } from '@/types';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
     export let character: Character;
     export let tierSets: [string, number, number, LazyConvertibleCharacterItem?][][];
@@ -36,10 +33,6 @@
             maxCharges = charCatalyst.max;
         }
     }
-
-    $: cyrce = Object.values(character.equippedItems || {}).filter(
-        (item) => item.itemId === 228411
-    )[0];
 </script>
 
 <style lang="scss">
@@ -60,9 +53,6 @@
 
         text-align: center;
         white-space: nowrap;
-    }
-    .cyrce {
-        padding: 0.5rem 0.5rem;
     }
     .gem {
         --image-border-width: 1px;
@@ -113,23 +103,6 @@
             </table>
         {/each}
     </div>
-
-    {#if cyrce}
-        <div class="cyrce">
-            {#each [0, 1, 2] as gemIndex (gemIndex)}
-                {@const gem = wowthingData.items.items[cyrce.gemIds[gemIndex]]}
-                <div class="gem">
-                    {#if gem}
-                        <WowthingImage name={`item/${gem.id}`} size={16} border={1} />
-                        <ParsedText text={`{item:${gem.id}}`} />
-                    {:else}
-                        <WowthingImage name="item/20817" size={16} border={1} />
-                        Empty Cyrce slot!
-                    {/if}
-                </div>
-            {/each}
-        </div>
-    {/if}
 
     {#if maxCharges}
         <div class="bottom">
