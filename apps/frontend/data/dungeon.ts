@@ -8,6 +8,7 @@ export const dungeons: Dungeon[] = [
     new Dungeon(438, 'The Vortex Pinnacle', 'VP', 'achievement/4847', 1800 / 60),
     new Dungeon(456, 'Throne of the Tides', 'ToT', 'achievement/4839', 2040 / 60),
     new Dungeon(507, 'Grim Batol', 'GB', 'achievement/4840', 30),
+    new Dungeon(541, 'The Stonecore', 'SC', 'achievement/5063', 1800 / 60),
 
     // Mists of Pandaria
     new Dungeon(2, 'Temple of the Jade Serpent', 'TJS', 'achievement/6757', 30),
@@ -99,6 +100,7 @@ export const dungeons: Dungeon[] = [
     new Dungeon(505, 'The Dawnbreaker', 'DAWN', 'achievement/40604', 30),
     new Dungeon(506, 'Cinderbrew Meadery', 'CM', 'achievement/40366', 30),
     new Dungeon(525, 'Operation: Floodgate', 'OF', 'achievement/41339', 1920 / 60),
+    new Dungeon(542, "Eco-Dome Al'dani", 'EDA', 'achievement/42782', 1860 / 60),
 ];
 
 export const dungeonMap: Record<number, Dungeon> = Object.fromEntries(

@@ -72,8 +72,13 @@ export const warWithinZones: ProfessionZone[] = [
         // map: '10-the-war-within/undermine',
         shortName: 'UM',
     },
+    {
+        name: 'Tazavesh Books',
+        icon: 'achievement/42022',
+        shortName: 'TV',
+    },
 ];
 
 export const zoneShortName: Record<string, string> = Object.fromEntries(
-    warWithinZones.filter((zone) => zone !== null).map((zone) => [zone.map, zone.shortName]),
+    warWithinZones.filter((zone) => zone !== null).map((zone) => [zone.map, zone.shortName])
 );

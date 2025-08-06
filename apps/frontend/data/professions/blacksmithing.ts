@@ -42,6 +42,12 @@ export const warWithinBlacksmithing: TaskProfession = {
             source: 'UM 16',
             costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
         },
+        {
+            itemId: 235864, // Ethereal Tome of Blacksmithing Knowledge
+            questId: 87266,
+            source: 'TV 12',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
+        },
     ],
     dropQuests: [
         {

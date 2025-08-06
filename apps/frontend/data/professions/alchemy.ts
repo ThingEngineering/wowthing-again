@@ -42,6 +42,12 @@ export const warWithinAlchemy: TaskProfession = {
             source: 'UM 16',
             costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
         },
+        {
+            itemId: 235865, // Ethereal Tome of Alchemy Knowledge
+            questId: 87255,
+            source: 'TV 12',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
+        },
     ],
     dropQuests: [
         {

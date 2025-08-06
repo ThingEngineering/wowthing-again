@@ -135,10 +135,10 @@ public static partial class Hardcoded
 
     private static readonly Dictionary<int, int> WarWithinRaid = new()
     {
-        { 14, 9324 }, // Normal
-        { 15, 10355 }, // Heroic
-        { 16, 10356 }, // Mythic
-        { 17, 10353 }, // LFR
+        { 14, 9123 }, // Normal
+        { 15, 9124 }, // Heroic
+        { 16, 9125 }, // Mythic
+        { 17, 9122 }, // LFR
     };
 
     public static readonly Dictionary<int, Dictionary<int, int>> InstanceBonusIds = new()
@@ -222,5 +222,6 @@ public static partial class Hardcoded
         // The War Within
         { 1273, WarWithinRaid }, // Nerub-ar Palace
         { 1296, WarWithinRaid }, // Liberation of Undermine
+        { 1302, WarWithinRaid }, // Manaforge Omega
     };
 }

@@ -42,6 +42,12 @@ export const warWithinJewelcrafting: TaskProfession = {
             source: 'UM 16',
             costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
         },
+        {
+            itemId: 235859, // Ethereal Tome of Alchemy Knowledge
+            questId: 87261,
+            source: 'TV 12',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
+        },
     ],
     dropQuests: [
         {

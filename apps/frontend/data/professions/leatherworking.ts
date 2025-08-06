@@ -42,6 +42,12 @@ export const warWithinLeatherworking: TaskProfession = {
             source: 'UM 16',
             costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
         },
+        {
+            itemId: 235858, // Ethereal Tome of Leatherworking Knowledge
+            questId: 87260,
+            source: 'TV 12',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
+        },
     ],
     dropQuests: [
         {

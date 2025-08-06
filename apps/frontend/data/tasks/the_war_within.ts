@@ -441,3 +441,13 @@ export const twwHorrificVisions: Chore[] = (<[number, string][]>[
     questIds: [questId],
     questReset: DbResetType.Weekly,
 }));
+
+export const twwChores11_2_0: Chore[] = [
+    {
+        taskKey: 'twwEcologicalSuccession',
+        taskName: '[W] Ecological Succession',
+        minimumLevel: 80,
+        questIds: [85460],
+        questReset: DbResetType.Weekly,
+    },
+];

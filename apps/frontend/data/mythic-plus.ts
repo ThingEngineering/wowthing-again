@@ -114,8 +114,29 @@ const orderWarWithinS2: number[] = [
     370, // Operation Mechagon: Workshop [BfA]
 ];
 
+const orderWarWithinS3: number[] = [
+    503, // Ara-Kara, City of Echoes
+    505, // The Dawnbreaker
+    542, // Eco-Dome Al'dani
+    525, // Operation: Floodgate
+    499, // Priory of Sacred Flame
+    378, // Halls of Atonement [SL]
+    392, // Tazavesh: So'leah's Gambit [SL]
+    391, // Tazavesh: Streets of Wonder [SL]
+];
+
 export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
     [
+        new MythicPlusSeason({
+            id: 15,
+            name: '[TWW] Season 3',
+            slug: 'war-within-3',
+            minLevel: 80,
+            orders: [orderWarWithinS3],
+            portalLevel: 10,
+            scoreType: MythicPlusScoreType.WarWithin,
+            startPeriod: 1024, // 2025-08-12
+        }),
         new MythicPlusSeason({
             id: 14,
             name: '[TWW] Season 2',
@@ -123,8 +144,8 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
             minLevel: 80,
             orders: [orderWarWithinS2],
             portalLevel: 10,
-            scoreType: MythicPlusScoreType.WarWithinSeason1_2,
-            startPeriod: 1001, // 2024-03-04
+            scoreType: MythicPlusScoreType.WarWithin,
+            startPeriod: 1001, // 2025-03-04
         }),
         new MythicPlusSeason({
             id: 13,
@@ -133,7 +154,7 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
             minLevel: 80,
             orders: [orderWarWithinS1],
             portalLevel: 10,
-            scoreType: MythicPlusScoreType.WarWithinSeason1_2,
+            scoreType: MythicPlusScoreType.WarWithin,
             startPeriod: 977, // 2024-09-17
         }),
         new MythicPlusSeason({
