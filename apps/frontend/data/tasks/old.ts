@@ -25,6 +25,7 @@ import {
     twwChores11_0,
     twwChores11_1,
     twwChores11_1_5,
+    twwChores11_2_0,
     twwChoresChett,
     twwHorrificVisions,
 } from './the_war_within';
@@ -282,6 +283,14 @@ export const taskList: Task[] = [
         name: "[TWW] 11.1.5 Flame's Radiance",
         shortName: 'Rad',
         minimumLevel: 10,
+        type: 'multi',
+    },
+    {
+        key: 'twwChores11_2_0',
+        name: '[TWW] 11.2.x',
+        shortName: '11.2',
+        minimumLevel: 70,
+        showSeparate: true,
         type: 'multi',
     },
     {
