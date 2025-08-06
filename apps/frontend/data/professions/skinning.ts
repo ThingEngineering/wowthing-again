@@ -42,6 +42,12 @@ export const warWithinSkinning: TaskProfession = {
             source: 'UM 16',
             costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
         },
+        {
+            itemId: 235856, // Ethereal Tome of Skinning Knowledge
+            questId: 87258,
+            source: 'TV 12',
+            costs: [{ amount: 75, itemId: 210814 }], // Artisan's Acuity
+        },
     ],
     dropQuests: [
         {

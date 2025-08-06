@@ -42,6 +42,12 @@ export const warWithinInscription: TaskProfession = {
             source: 'UM 16',
             costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
         },
+        {
+            itemId: 235860, // Ethereal Tome of Inscription Knowledge
+            questId: 87262,
+            source: 'TV 12',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
+        },
     ],
     dropQuests: [
         {

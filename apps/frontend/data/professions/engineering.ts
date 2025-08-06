@@ -42,6 +42,12 @@ export const warWithinEngineering: TaskProfession = {
             source: 'UM 16',
             costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
         },
+        {
+            itemId: 235862, // Ethereal Tome of Engineering Knowledge
+            questId: 87264,
+            source: 'TV 12',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
+        },
     ],
     dropQuests: [
         {

@@ -42,6 +42,12 @@ export const warWithinEnchanting: TaskProfession = {
             source: 'UM 16',
             costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
         },
+        {
+            itemId: 235863, // Ethereal Tome of Enchanting Knowledge
+            questId: 87265,
+            source: 'TV 12',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
+        },
     ],
     dropQuests: [
         {
