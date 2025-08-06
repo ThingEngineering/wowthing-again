@@ -38,7 +38,8 @@ export const moveSpeedTalents = getNumberKeyedEntries({
     90687: [0, 20], // Shadowrunner - while stealthed
     90762: [0, 15], // Fleet Footed
 
-    // Shaman (none? all buff Ghost Wolf)
+    // Shaman
+    103581: [260878, 20], // Spirit Wolf
 
     // Warlock (none?)
 

@@ -670,8 +670,8 @@ public class JournalTool
 
                         foreach (var encounterItem in encounterItems)
                         {
-                            // Don't expand ToC or ICC bosses
-                            if (!((instance.ID is 757 or 758) && encounter.ID < 1000000) &&
+                            // Don't expand ToC
+                            if (!((instance.ID is 757) && encounter.ID < 1000000) &&
                                 itemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
                             {
                                 // ToolContext.Logger.Information("Expanding items for {tier} {instance} {encounter} {item}", tier.ID, instance.ID, encounter.ID, encounterItem.ItemID);

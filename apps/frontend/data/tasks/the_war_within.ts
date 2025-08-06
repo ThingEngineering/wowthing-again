@@ -1,13 +1,26 @@
 import { get } from 'svelte/store';
+import type { DateTime } from 'luxon';
 
 import { customResetPeriod } from './custom-reset-period';
 import { QuestStatus } from '@/enums/quest-status';
 import { aliasedIcons, iconLibrary } from '@/shared/icons';
+import { timeState } from '@/shared/state/time.svelte';
 import { DbResetType } from '@/shared/stores/db/enums';
 import { userQuestStore, userStore } from '@/stores';
+import { userState } from '@/user-home/state/user';
 import type { Character } from '@/types';
 import type { Chore } from '@/types/tasks';
-import { userState } from '@/user-home/state/user';
+
+const threeWeekDecorator = (expires: DateTime) => {
+    const daysRemaining = expires.diff(timeState.time).toMillis() / 1000 / 86400;
+    if (daysRemaining < 7) {
+        return 'decorator-warn';
+    } else if (daysRemaining < 14) {
+        return 'decorator-shrug';
+    } else {
+        return 'decorator-success';
+    }
+};
 
 export const twwChores11_0: Chore[] = [
     {
@@ -21,6 +34,7 @@ export const twwChores11_0: Chore[] = [
                 : [82678], // Archives: The First Disc
         questReset: DbResetType.Custom,
         customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1002, 3),
+        decorationFunc: threeWeekDecorator,
     },
     {
         taskKey: 'twwEmissaryDelves',
@@ -39,6 +53,7 @@ export const twwChores11_0: Chore[] = [
         ],
         questReset: DbResetType.Custom,
         customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1003, 3),
+        decorationFunc: threeWeekDecorator,
     },
     {
         taskKey: 'twwEmissaryWorldsoul',
@@ -46,49 +61,55 @@ export const twwChores11_0: Chore[] = [
         minimumLevel: 70,
         icon: aliasedIcons.planet,
         questIds: [
-            82511, // Worldsoul: Awakening Machine
-            87419, // Worldsoul: Delves
-            87417, // Worldsoul: Dungeons
-            82453, // Worldsoul: Encore!
-            82516, // Worldsoul: Forging a Pact
-            82458, // Worldsoul: Renown
-            82482, // Worldsoul: Snuffling
-            82483, // Worldsoul: Spreading the Light
-            87423, // Worldsoul: Undermine Explorer
-            87422, // Worldsoul: Undermine World Quests
-            82512, // Worldsoul: World Boss
-            87424, // Worldsoul: World Bosses
-            82452, // Worldsoul: World Quests
-            82491, // Worldsoul: Ara-Kara, City of Echoes [N]
-            82494, // Worldsoul: Ara-Kara, City of Echoes [H]
-            82502, // Worldsoul: Ara-Kara, City of Echoes [M]
-            82485, // Worldsoul: Cinderbrew Meadery [N]
-            82495, // Worldsoul: Cinderbrew Meadery [H]
-            82503, // Worldsoul: Cinderbrew Meadery [M]
-            82492, // Worldsoul: City of Threads [N]
-            82496, // Worldsoul: City of Threads [H]
-            82504, // Worldsoul: City of Threads [M]
-            82488, // Worldsoul: Darkflame Cleft [N]
-            82498, // Worldsoul: Darkflame Cleft [H]
-            82506, // Worldsoul: Darkflame Cleft [M]
-            82490, // Worldsoul: Priory of the Sacred Flame [N]
-            82499, // Worldsoul: Priory of the Sacred Flame [H]
-            82507, // Worldsoul: Priory of the Sacred Flame [M]
-            82489, // Worldsoul: The Dawnbreaker [N]
-            82493, // Worldsoul: The Dawnbreaker [H]
-            82501, // Worldsoul: The Dawnbreaker [M]
-            82486, // Worldsoul: The Rookery [N]
-            82500, // Worldsoul: The Rookery [H]
-            82508, // Worldsoul: The Rookery [M]
-            82487, // Worldsoul: The Stonevault [N]
-            82497, // Worldsoul: The Stonevault [H]
-            82505, // Worldsoul: The Stonevault [M]
-            82509, // Worldsoul: Nerub-ar Palace [LFR]
-            82659, // Worldsoul: Nerub-ar Palace [N]
-            82510, // Worldsoul: Nerub-ar Palace [H]
+            82511, // Awakening Machine
+            89492, // Dastardly Duos in the Dome!
+            87419, // Delves
+            87417, // Dungeons
+            82453, // Encore!
+            82516, // Forging a Pact
+            89514, // Horrific Visions Revisited
+            91855, // K'aresh World Quests
+            89502, // Nightfall
+            91052, // Overcharged Delves
+            82458, // Renown
+            82482, // Snuffling
+            82483, // Spreading the Light
+            87423, // Undermine Explorer
+            87422, // Undermine World Quests
+            82512, // World Boss
+            87424, // World Bosses
+            82452, // World Quests
+            82491, // Ara-Kara, City of Echoes [N]
+            82494, // Ara-Kara, City of Echoes [H]
+            82502, // Ara-Kara, City of Echoes [M]
+            82485, // Cinderbrew Meadery [N]
+            82495, // Cinderbrew Meadery [H]
+            82503, // Cinderbrew Meadery [M]
+            82492, // City of Threads [N]
+            82496, // City of Threads [H]
+            82504, // City of Threads [M]
+            82488, // Darkflame Cleft [N]
+            82498, // Darkflame Cleft [H]
+            82506, // Darkflame Cleft [M]
+            82490, // Priory of the Sacred Flame [N]
+            82499, // Priory of the Sacred Flame [H]
+            82507, // Priory of the Sacred Flame [M]
+            82489, // The Dawnbreaker [N]
+            82493, // The Dawnbreaker [H]
+            82501, // The Dawnbreaker [M]
+            82486, // The Rookery [N]
+            82500, // The Rookery [H]
+            82508, // The Rookery [M]
+            82487, // The Stonevault [N]
+            82497, // The Stonevault [H]
+            82505, // The Stonevault [M]
+            82509, // Nerub-ar Palace [LFR]
+            82659, // Nerub-ar Palace [N]
+            82510, // Nerub-ar Palace [H]
         ],
         questReset: DbResetType.Custom,
         customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1001, 3),
+        decorationFunc: threeWeekDecorator,
     },
     {
         taskKey: 'twwDungeon',

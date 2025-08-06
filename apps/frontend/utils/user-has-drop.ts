@@ -26,11 +26,12 @@ export default function userHasDrop(
     ) {
         return true;
     } else if (type === RewardType.Item) {
-        if (manualData.dragonridingItemToQuest.has(id)) {
+        if (manualData.delversItemToQuest.has(id)) {
+            return userState.quests.accountHasById.has(manualData.delversItemToQuest.get(id));
+        } else if (manualData.dragonridingItemToQuest.has(id)) {
             return userState.quests.accountHasById.has(manualData.dragonridingItemToQuest.get(id));
         } else if (manualData.druidFormItemToQuest.has(id)) {
             return userState.quests.accountHasById.has(manualData.druidFormItemToQuest.get(id));
-            return false;
         } else if (wowthingData.static.mountByItemId.has(id)) {
             return userState.general.hasMountById.has(wowthingData.static.mountByItemId.get(id).id);
         } else if (wowthingData.static.petByItemId.has(id)) {

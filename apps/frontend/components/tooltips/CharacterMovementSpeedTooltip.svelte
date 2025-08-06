@@ -43,6 +43,14 @@
                     {/if}
                 </td>
             </tr>
+            {#if movementSpeed.shapeshift > 0}
+                <tr>
+                    <td class="r">Shapeshift</td>
+                    <td class="r">
+                        {movementSpeed.shapeshift.toFixed(1)}%
+                    </td>
+                </tr>
+            {/if}
         </tbody>
     </table>
     <div class="bottom">

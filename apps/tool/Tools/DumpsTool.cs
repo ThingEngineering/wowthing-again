@@ -935,6 +935,10 @@ public class DumpsTool
             dbItem.CompletesQuestIds = completesQuestIds.Order().ToArray();
 
             // Flags
+            if (itemSparse.Flags1.HasFlag(WowItemFlags1.HasLootTable))
+            {
+                dbItem.Flags |= WowItemFlags.Openable;
+            }
             if (itemSparse.ItemNameDescriptionID is 1641 or 13932 or 14101)
             {
                 dbItem.Flags |= WowItemFlags.LookingForRaidDifficulty;

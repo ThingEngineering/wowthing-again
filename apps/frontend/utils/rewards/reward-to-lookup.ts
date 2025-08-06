@@ -33,6 +33,8 @@ export function rewardToLookup(
         } else if (wowthingData.static.professionAbilityByItemId.has(rewardId)) {
             const ability = wowthingData.static.professionAbilityByItemId.get(rewardId);
             ret = [LookupType.Recipe, ability.abilityId];
+        } else if (manualData.delversItemToQuest.has(rewardId)) {
+            ret = [LookupType.Quest, manualData.delversItemToQuest.get(rewardId)];
         } else if (manualData.dragonridingItemToQuest.has(rewardId)) {
             ret = [LookupType.Quest, manualData.dragonridingItemToQuest.get(rewardId)];
         } else if (manualData.druidFormItemToQuest.has(rewardId)) {

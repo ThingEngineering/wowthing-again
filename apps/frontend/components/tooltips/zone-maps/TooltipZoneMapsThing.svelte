@@ -266,8 +266,8 @@
                             {@html drop.limit[0]}
                         {:else if drop.type === RewardType.SetSpecial}
                             <code
-                                >{@html leftPad(dropStatus.setHave, 2)} / {@html leftPad(
-                                    dropStatus.setNeed,
+                                >{@html leftPad(dropStatus.setHave || 0, 2)} / {@html leftPad(
+                                    dropStatus.setNeed || 0,
                                     2
                                 )}</code
                             >

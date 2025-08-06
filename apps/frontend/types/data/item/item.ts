@@ -65,6 +65,9 @@ export class ItemDataItem {
     get hordeOnly(): boolean {
         return (this.flags & ItemFlags.HordeOnly) > 0;
     }
+    get openable(): boolean {
+        return (this.flags & ItemFlags.Openable) > 0;
+    }
     get difficultyLookingForRaid(): boolean {
         return (this.flags & ItemFlags.LookingForRaidDifficulty) > 0;
     }

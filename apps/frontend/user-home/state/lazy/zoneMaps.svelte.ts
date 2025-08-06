@@ -18,7 +18,7 @@ import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
 import { zoneMapState } from '@/stores/local-storage';
 import { UserCount } from '@/types';
-// import { getSetCurrencyCostsString } from '@/utils/get-currency-costs';
+import { getSetCurrencyCostsString } from '@/utils/get-currency-costs';
 import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
 import { snapshotStateForUserHasLookup } from '@/utils/rewards/snapshot-state-for-user-has-lookup.svelte';
 import { userHasLookup } from '@/utils/rewards/user-has-lookup';
@@ -28,7 +28,7 @@ import {
     getNextWeeklyReset,
 } from '@/utils/get-next-reset';
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
-// import { getVendorDropStats } from '@/utils/get-vendor-drop-stats';
+import { getVendorDropStats } from '@/utils/get-vendor-drop-stats';
 // import { isRecipeKnown } from '@/utils/professions/is-recipe-known';
 import type { DropStatus, FarmStatus } from '@/types/zone-maps';
 
@@ -210,10 +210,25 @@ class LazyZoneMapsProcessor {
 
                         const [lookupType, lookupId] = rewardToLookup(drop.type, drop.id);
 
-                        dropStatus.need = !userHasLookup(snapshot, lookupType, lookupId, {
-                            appearanceIds: drop.appearanceIds?.[0],
-                            completionist: completionistMode,
-                        });
+                        if (drop.type === RewardType.SetSpecial) {
+                            [dropStatus.setHave, dropStatus.setNeed] = getVendorDropStats(
+                                settingsState.value,
+                                completionistMode,
+                                drop
+                            );
+                            dropStatus.need = dropStatus.setHave < dropStatus.setNeed;
+                            dropStatus.setNote = getSetCurrencyCostsString(
+                                drop.appearanceIds,
+                                drop.costs,
+                                (appearanceId) =>
+                                    userState.general.hasAppearanceById.has(appearanceId)
+                            );
+                        } else {
+                            dropStatus.need = !userHasLookup(snapshot, lookupType, lookupId, {
+                                appearanceIds: drop.appearanceIds?.[0],
+                                completionist: completionistMode,
+                            });
+                        }
 
                         // let fixedType = drop.type;
                         // switch (drop.type) {
@@ -343,23 +358,6 @@ class LazyZoneMapsProcessor {
                         //         dropStatus.need = userState.general.hasIllusionByEnchantmentId.has(
                         //             drop.appearanceIds[0][0]
                         //         );
-                        //         break;
-
-                        //     case RewardType.SetSpecial:
-                        //         [dropStatus.setHave, dropStatus.setNeed] = getVendorDropStats(
-                        //             settingsState.value,
-                        //             completionistMode,
-                        //             drop
-                        //         );
-                        //         dropStatus.need = dropStatus.setHave < dropStatus.setNeed;
-
-                        //         dropStatus.setNote = getSetCurrencyCostsString(
-                        //             drop.appearanceIds,
-                        //             drop.costs,
-                        //             (appearanceId) =>
-                        //                 userState.general.hasAppearanceById.has(appearanceId)
-                        //         );
-
                         //         break;
                         // }
 

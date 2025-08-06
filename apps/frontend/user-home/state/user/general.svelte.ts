@@ -117,7 +117,9 @@ export class DataUserGeneral {
         for (const toyId of toyIds) {
             this.hasToyById.add(toyId);
             const toy = wowthingData.static.toyById.get(toyId);
-            this.hasToyByItemId.add(toy.itemId);
+            if (toy) {
+                this.hasToyByItemId.add(toy.itemId);
+            }
         }
 
         for (const [speciesId, petArrays] of getNumberKeyedEntries(userData.petsRaw)) {
