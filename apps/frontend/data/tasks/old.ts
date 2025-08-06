@@ -587,6 +587,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
     twwChores11_0,
     twwChores11_1,
     twwChores11_1_5,
+    twwChores11_2_0,
     twwChoresChett,
     twwHorrificVisions,
     twwDelveKeys: [
