@@ -222,5 +222,6 @@ public static partial class Hardcoded
         // The War Within
         { 1273, WarWithinRaid }, // Nerub-ar Palace
         { 1296, WarWithinRaid }, // Liberation of Undermine
+        { 1302, WarWithinRaid }, // Manaforge Omega
     };
 }
