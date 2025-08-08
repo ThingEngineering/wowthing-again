@@ -449,5 +449,35 @@ export const twwChores11_2_0: Chore[] = [
         minimumLevel: 80,
         questIds: [85460],
         questReset: DbResetType.Weekly,
+        couldGetFunc: (char) =>
+            userState.quests.characterById.get(char.id)?.hasQuestById?.has?.(85037), // Shadows En Garde (chapter 4)
+    },
+    {
+        taskKey: 'twwMakingDeposit',
+        taskName: '[W] Making a Deposit',
+        // maybe these need to be subChores?
+        questIds: [
+            85722, // Devourer Attack: The Oasis
+            89061, // Devourer Attack: Eco-dome: Primus
+            89062, // Devourer Attack: The Atrium
+            89063, // Devourer Attack: Tazavesh
+        ],
+        questReset: DbResetType.Weekly,
+    },
+    {
+        taskKey: 'twwMoreThanPhase',
+        taskName: '[W] More Than Just a Phase',
+        minimumLevel: 80,
+        questIds: [91093],
+        questReset: DbResetType.Weekly,
+        couldGetFunc: (char) =>
+            userState.quests.characterById.get(char.id)?.hasQuestById?.has?.(89345), // cloak unlock
+    },
+    {
+        taskKey: 'twwReshanor',
+        taskName: '[W] World Boss 1st Kill',
+        accountWide: true,
+        questIds: [87352],
+        questReset: DbResetType.Weekly,
     },
 ];

@@ -9,6 +9,23 @@ export const zoneData: WorldQuestZone[] = [
         mapName: '10-the-war-within/khaz_algar',
         children: [
             {
+                id: 2371,
+                name: "K'aresh",
+                slug: 'karesh',
+                mapName: '10-the-war-within/karesh',
+                continentPoint: [0, 0],
+                anchor: 'top-left',
+            },
+            {
+                id: 2472,
+                name: 'Tazavesh',
+                slug: 'tazavesh',
+                mapName: '10-the-war-within/tazavesh',
+                continentPoint: [0, 0],
+                anchor: 'top-left',
+            },
+            null,
+            {
                 id: 2346,
                 name: 'Undermine',
                 slug: 'undermine',
@@ -430,8 +447,8 @@ export const zoneData: WorldQuestZone[] = [
 
 export const zoneMap = Object.fromEntries(
     zoneData.flatMap((zone) =>
-        (zone.children || []).filter((zone) => !!zone).map((zone) => [zone.id, zone]),
-    ),
+        (zone.children || []).filter((zone) => !!zone).map((zone) => [zone.id, zone])
+    )
 );
 
 export const worldQuestPrereqs: Record<number, number> = {

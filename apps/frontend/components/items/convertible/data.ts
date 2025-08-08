@@ -74,6 +74,20 @@ export const convertibleCategories: ConvertibleCategory[] = [
         ],
         purchases: [
             {
+                costId: 2815, // Resonance Crystals
+                costAmount: {
+                    [InventoryType.Wrist]: 3900,
+                },
+                upgradeTier: 2,
+            },
+            {
+                costId: 2815, // Resonance Crystals
+                costAmount: {
+                    [InventoryType.Chest]: 2600,
+                },
+                upgradeTier: 1,
+            },
+            {
                 costId: 2803, // Undercoin
                 costAmount: {
                     [InventoryType.Head]: 875,
