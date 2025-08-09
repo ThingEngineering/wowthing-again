@@ -27,7 +27,7 @@
             class:status-fail={data.have === 0}
             use:componentTooltip={{
                 component: TooltipProgress,
-                props: {
+                propsFunc: () => ({
                     datas: data.datas,
                     descriptionText: data.descriptionText,
                     haveIndexes: data.haveIndexes,
@@ -36,7 +36,7 @@
                     showCurrencies: [],
                     character,
                     group,
-                },
+                }),
             }}
         >
             {#if data.have === data.total}
