@@ -11,6 +11,8 @@ import { userState } from '@/user-home/state/user';
 import type { Character } from '@/types';
 import type { Chore } from '@/types/tasks';
 
+const reshiiWrapsItemId = 235499;
+
 const threeWeekDecorator = (expires: DateTime) => {
     const daysRemaining = expires.diff(timeState.time).toMillis() / 1000 / 86400;
     if (daysRemaining < 7) {
@@ -463,6 +465,7 @@ export const twwChores11_2_0: Chore[] = [
             89063, // Devourer Attack: Tazavesh
         ],
         questReset: DbResetType.Weekly,
+        couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
     },
     {
         taskKey: 'twwMoreThanPhase',
@@ -470,8 +473,20 @@ export const twwChores11_2_0: Chore[] = [
         minimumLevel: 80,
         questIds: [91093],
         questReset: DbResetType.Weekly,
-        couldGetFunc: (char) =>
-            userState.quests.characterById.get(char.id)?.hasQuestById?.has?.(89345), // cloak unlock
+        couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
+    },
+    {
+        taskKey: 'twwKareshSpecial',
+        taskName: '[W] Special Assignment',
+        minimumLevel: 80,
+        noProgress: true,
+        showQuestName: true,
+        questIds: [
+            89293, // Overshadowed
+            89294, // Aligned Views
+        ],
+        questReset: DbResetType.Weekly,
+        couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
     },
     {
         taskKey: 'twwReshanor',

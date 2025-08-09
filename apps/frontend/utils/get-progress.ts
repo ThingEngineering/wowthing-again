@@ -282,6 +282,14 @@ export default function getProgress(
                             break;
                         }
 
+                        case ProgressDataType.Item: {
+                            haveThis = data.ids.some((id) => character.getItemCount(id) > 0);
+                            nameOverride[dataIndex] =
+                                wowthingData.items.items[data.ids[0]]?.name ||
+                                `Item #${data.ids[0]}`;
+                            break;
+                        }
+
                         case ProgressDataType.Quest: {
                             haveThis = checkCharacterQuestIds(character.id, data.ids);
                             nameOverride[dataIndex] =
@@ -422,7 +430,12 @@ export default function getProgress(
                             } else {
                                 total = 0;
                             }
+                            break;
                         }
+
+                        default:
+                            console.log('UNKNOWN PROGRESS TYPE', data);
+                            break;
                     }
                 }
 

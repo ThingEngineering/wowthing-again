@@ -1,4 +1,4 @@
-import type { Component, ComponentProps, ComponentType, SvelteComponent } from 'svelte';
+import type { Component, ComponentProps } from 'svelte';
 import type { Props } from 'tippy.js';
 
 export type TippyProps = Partial<Props>;
