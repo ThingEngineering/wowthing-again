@@ -33,7 +33,7 @@
                     haveIndexes: data.haveIndexes,
                     iconOverride: data.icon,
                     nameOverride: data.nameOverride,
-                    showCurrencies: [],
+                    showCurrencies: [] as number[],
                     character,
                     group,
                 }),
