@@ -225,3 +225,4 @@ public static partial class Hardcoded
         { 1302, WarWithinRaid }, // Manaforge Omega
     };
 }
+

@@ -14,4 +14,5 @@ public enum ProgressDataType
     HonorLevel,
     GarrisonTree,
     AccountQuest,
+    Item,
 }
