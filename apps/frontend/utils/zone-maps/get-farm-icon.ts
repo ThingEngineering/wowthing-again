@@ -14,10 +14,14 @@ export function getFarmIcon(farm: ManualDataZoneMapFarm): [IconifyIcon, string] 
     }
 
     const keys = Object.keys(professionLimits);
-    const icon =
-        farm.drops?.length === 1 && keys.length === 1 && farm.type !== FarmType.Kill
-            ? professionSlugIcons[keys[0]]
-            : farmTypeIcons[farm.type];
+    let icon: IconifyIcon;
+    if (farm.drops?.length === 1 && keys.length === 1 && farm.type !== FarmType.Kill) {
+        icon = professionSlugIcons[keys[0]];
+    } else if (farm.isPhased) {
+        icon = farm.type === FarmType.Kill ? iconLibrary.mdiGhost : iconLibrary.mdiGhost;
+    } else {
+        icon = farmTypeIcons[farm.type];
+    }
 
     return [icon, getIconScaling(icon) || '0.8'];
 }

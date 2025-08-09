@@ -15,7 +15,7 @@ export class ManualDataZoneMapCategory {
         public minimumLevel: number,
         public requiredQuestIds: number[],
         farmArrays: ManualDataZoneMapFarmArray[],
-        public wowheadGuide?: string,
+        public wowheadGuide?: string
     ) {
         this.farms = farmArrays.map((farmArray) => new ManualDataZoneMapFarm(...farmArray));
     }
@@ -26,8 +26,9 @@ export type ManualDataZoneMapCategoryArray = ConstructorParameters<
 
 export class ManualDataZoneMapFarm {
     public drops: ManualDataZoneMapDrop[];
-    public highlightQuestId?: number;
     public location: string[];
+    public highlightQuestId?: number;
+    public isPhased?: boolean;
     public worldQuestId?: number;
 
     constructor(
@@ -46,7 +47,7 @@ export class ManualDataZoneMapFarm {
         public note?: string,
         public faction?: string,
         public groupId?: number,
-        public anchorPoint?: FarmAnchorPoint,
+        public anchorPoint?: FarmAnchorPoint
     ) {
         this.location = location.split(',');
         this.drops = dropArrays.map((dropArray) => new ManualDataZoneMapDrop(...dropArray));
@@ -68,7 +69,7 @@ export class ManualDataZoneMapDrop {
         public questIds?: number[],
         public requiredQuestId?: number,
         public amount?: number,
-        public note?: string,
+        public note?: string
     ) {}
 }
 export type ManualDataZoneMapDropArray = ConstructorParameters<typeof ManualDataZoneMapDrop>;
