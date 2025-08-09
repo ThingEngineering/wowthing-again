@@ -496,3 +496,20 @@ export const twwChores11_2_0: Chore[] = [
         questReset: DbResetType.Weekly,
     },
 ];
+
+export const twwPinnacle: Chore[] = [
+    {
+        taskKey: 'twwPinnacle1',
+        taskName: '[W] Pinnacle Cache 1',
+        noProgress: true,
+        questIds: [91179],
+        questReset: DbResetType.Weekly,
+    },
+    {
+        taskKey: 'twwPinnacle1',
+        taskName: '[W] Pinnacle Cache 2',
+        noProgress: true,
+        questIds: [91180],
+        questReset: DbResetType.Weekly,
+    },
+];

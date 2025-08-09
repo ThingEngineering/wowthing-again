@@ -28,6 +28,7 @@ import {
     twwChores11_2_0,
     twwChoresChett,
     twwHorrificVisions,
+    twwPinnacle,
 } from './the_war_within';
 
 const nameFire = '<span class="status-warn">:fire:</span>';
@@ -309,6 +310,13 @@ export const taskList: Task[] = [
         type: 'multi',
     },
     {
+        key: 'twwPinnacle',
+        name: '[TWW] Pinnacle Caches',
+        shortName: 'Cache',
+        minimumLevel: 80,
+        type: 'multi',
+    },
+    {
         key: 'twwSpreading',
         name: '[TWW] Spreading the Light',
         shortName: 'StL',
@@ -326,7 +334,7 @@ export const taskList: Task[] = [
         key: 'twwSparks',
         name: '[TWW] Sparks of Life (PvP)',
         shortName: 'WW🌟',
-        minimumLevel: 60,
+        minimumLevel: 70,
     },
 
     // Misc
@@ -590,6 +598,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
     twwChores11_2_0,
     twwChoresChett,
     twwHorrificVisions,
+    twwPinnacle,
     twwDelveKeys: [
         {
             taskKey: 'twwDelveArchaic',
