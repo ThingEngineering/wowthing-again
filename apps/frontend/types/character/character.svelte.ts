@@ -356,6 +356,11 @@ export class Character implements ContainsItems, HasNameAndRealm {
             this._itemCounts[itemId] = itemIdItems.reduce((a, b) => a + b.count, 0);
         }
 
+        for (const equippedItem of Object.values(this.equippedItems)) {
+            this._itemCounts[equippedItem.itemId] =
+                (this._itemCounts[equippedItem.itemId] || 0) + 1;
+        }
+
         if (this.mythicPlus?.rawSeasons) {
             this.mythicPlus.seasons = {};
             for (const [seasonId, seasonData] of getNumberKeyedEntries(
