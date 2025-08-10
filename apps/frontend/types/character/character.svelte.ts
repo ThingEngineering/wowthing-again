@@ -60,7 +60,7 @@ import {
     type CharacterStatisticMiscArray,
     type CharacterStatisticRatingArray,
 } from './statistics';
-import { CharacterWeekly, type CharacterWeeklyArray } from './weekly';
+import { CharacterWeekly, type CharacterWeeklyArray } from './weekly.svelte';
 
 import type { ContainsItems, HasNameAndRealm } from '../shared';
 import type { Account } from '../account';
@@ -130,7 +130,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public specializations: Record<number, CharacterSpecializationLoadout[]> = $state({});
 
     public statistics: CharacterStatistics = new CharacterStatistics();
-    public weekly: CharacterWeekly;
+    public weekly: CharacterWeekly = new CharacterWeekly();
 
     public configuration: CharacterConfiguration;
 
@@ -324,7 +324,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         }
 
         if (rawWeekly) {
-            this.weekly = new CharacterWeekly(...rawWeekly);
+            this.weekly.process(...rawWeekly);
         }
 
         for (const rawCurrency of rawCurrencies || []) {
