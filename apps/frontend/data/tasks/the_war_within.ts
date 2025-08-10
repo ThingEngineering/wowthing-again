@@ -455,15 +455,31 @@ export const twwChores11_2_0: Chore[] = [
             userState.quests.characterById.get(char.id)?.hasQuestById?.has?.(85037), // Shadows En Garde (chapter 4)
     },
     {
-        taskKey: 'twwMakingDeposit',
-        taskName: '[W] Making a Deposit',
+        taskKey: 'twwMakingDeposit1',
+        taskName: '[W] Anima: Atrium',
         // maybe these need to be subChores?
-        questIds: [
-            85722, // Devourer Attack: The Oasis
-            89061, // Devourer Attack: Eco-dome: Primus
-            89062, // Devourer Attack: The Atrium
-            89063, // Devourer Attack: Tazavesh
-        ],
+        questIds: [89062], // Devourer Attack: The Atrium
+        questReset: DbResetType.Weekly,
+        couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
+    },
+    {
+        taskKey: 'twwMakingDeposit2',
+        taskName: '[W] Anima: Eco-dome',
+        questIds: [89061], // Devourer Attack: Eco-dome: Primus
+        questReset: DbResetType.Weekly,
+        couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
+    },
+    {
+        taskKey: 'twwMakingDeposit3',
+        taskName: '[W] Anima: Oasis',
+        questIds: [85722], // Devourer Attack: The Oasis
+        questReset: DbResetType.Weekly,
+        couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
+    },
+    {
+        taskKey: 'twwMakingDeposit4',
+        taskName: '[W] Anima: Tazavesh',
+        questIds: [89063], // Devourer Attack: Tazavesh
         questReset: DbResetType.Weekly,
         couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
     },
