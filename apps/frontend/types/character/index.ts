@@ -16,4 +16,4 @@ export * from './reputation';
 export * from './shadowlands';
 export * from './specialization';
 export * from './statistics';
-export * from './weekly';
+export * from './weekly.svelte';
