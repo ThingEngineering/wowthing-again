@@ -98,6 +98,9 @@
 
 <style lang="scss">
     h4 {
+        :global(code) {
+            background: inherit;
+        }
         :global(img) {
             margin-top: -4px;
         }
@@ -190,7 +193,7 @@
             <IconifyIcon icon={iconStrings.exclamation} />
         {/if}
 
-        <ParsedText text={farm.name} />
+        <ParsedText text={farm.isPhased ? `${farm.name} [Phased]` : farm.name} />
     </h4>
 
     {#if farm.type !== FarmType.Vendor}

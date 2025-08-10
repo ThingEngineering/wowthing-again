@@ -106,6 +106,7 @@ export class DbDataThing {
                 return;
             }
 
+            let isPhased = false;
             let minimumLevel = 0;
             const requiredQuestIds: number[] = [];
             const requirementIds = this.requirementIds || [];
@@ -115,6 +116,8 @@ export class DbDataThing {
                     .split(' ');
                 if (requirementParts[0] === 'level') {
                     minimumLevel = parseInt(requirementParts[1]);
+                } else if (requirementParts[0] === 'phase') {
+                    isPhased = true;
                 } else if (requirementParts[0] === 'quest') {
                     requiredQuestIds.push(...requirementParts.slice(1).map((s) => parseInt(s)));
                 }
@@ -167,9 +170,10 @@ export class DbDataThing {
                     const dropRequirementIds = requirementIds.concat(content.requirementIds || []);
                     if (dropRequirementIds.length > 0) {
                         for (const requirementId of dropRequirementIds) {
-                            drop.limit = wowthingData.db.requirementsById
-                                .get(requirementId)
-                                .split(' ');
+                            const requirement = wowthingData.db.requirementsById.get(requirementId);
+                            if (!requirement.startsWith('phase')) {
+                                drop.limit = requirement.split(' ');
+                            }
                         }
                     }
                 }
@@ -196,6 +200,7 @@ export class DbDataThing {
                 highlightQuestId: this.highlightQuestId,
                 id: this.id,
                 idType: thingTypeToFarmIdType[this.type],
+                isPhased,
                 location: this.locations[mapId].flatMap((loc) => [
                     (parseFloat(loc.xCoordinate) % 100).toFixed(2),
                     (parseFloat(loc.yCoordinate) % 100).toFixed(2),

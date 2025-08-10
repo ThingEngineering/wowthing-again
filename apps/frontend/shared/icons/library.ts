@@ -118,6 +118,7 @@ export { default as mdiExclamationThick } from '@iconify/icons-mdi/exclamation-t
 export { default as mdiFire } from '@iconify/icons-mdi/fire';
 export { default as mdiFormatListCheckbox } from '@iconify/icons-mdi/format-list-checkbox';
 export { default as mdiGiftOutline } from '@iconify/icons-mdi/gift-outline';
+export { default as mdiGhost } from '@iconify/icons-mdi/ghost';
 export { default as mdiHammerWrench } from '@iconify/icons-mdi/hammer-wrench';
 export { default as mdiHomeOutline } from '@iconify/icons-mdi/home-outline';
 export { default as mdiImageBrokenVariant } from '@iconify/icons-mdi/image-broken-variant';
