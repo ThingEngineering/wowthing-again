@@ -284,6 +284,7 @@ export const taskList: Task[] = [
         name: "[TWW] 11.1.5 Flame's Radiance",
         shortName: 'Rad',
         minimumLevel: 10,
+        showSeparate: true,
         type: 'multi',
     },
     {
