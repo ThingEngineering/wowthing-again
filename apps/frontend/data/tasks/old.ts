@@ -291,7 +291,7 @@ export const taskList: Task[] = [
         key: 'twwChores11_2_0',
         name: '[TWW] 11.2.x',
         shortName: '11.2',
-        minimumLevel: 70,
+        minimumLevel: 80,
         showSeparate: true,
         type: 'multi',
     },

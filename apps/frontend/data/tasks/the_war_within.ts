@@ -446,9 +446,49 @@ export const twwHorrificVisions: Chore[] = (<[number, string][]>[
 
 export const twwChores11_2_0: Chore[] = [
     {
+        taskKey: 'twwMoreThanPhase',
+        taskName: '[W][A] More Than Just a Phase',
+        accountWide: true,
+        questIds: [91093],
+        questReset: DbResetType.Weekly,
+        couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
+    },
+    {
+        taskKey: 'twwWarrant',
+        taskName: '[W][A] Warrant',
+        accountWide: true,
+        questIds: [
+            90122, // Eliminate Xy'vox the Twisted
+            90123, // Eliminate Hollowbane
+            90124, // Eliminate Shatterpulse
+            90125, // Eliminate Purple Peat
+            90126, // Eliminate Grubber
+            90127, // Eliminate Arcana-Monger So'zer
+        ],
+        questReset: DbResetType.Weekly,
+    },
+    {
+        taskKey: 'twwReshanor',
+        taskName: '[W][A] World Boss',
+        accountWide: true,
+        questIds: [87352],
+        questReset: DbResetType.Weekly,
+    },
+    {
+        taskKey: 'twwKareshSpecial',
+        taskName: '[W] Special Assignment',
+        noProgress: true,
+        showQuestName: true,
+        questIds: [
+            89293, // Overshadowed
+            89294, // Aligned Views
+        ],
+        questReset: DbResetType.Weekly,
+        couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
+    },
+    {
         taskKey: 'twwEcologicalSuccession',
         taskName: '[W] Ecological Succession',
-        minimumLevel: 80,
         questIds: [85460],
         questReset: DbResetType.Weekly,
         couldGetFunc: (char) =>
@@ -482,34 +522,6 @@ export const twwChores11_2_0: Chore[] = [
         questIds: [89063], // Devourer Attack: Tazavesh
         questReset: DbResetType.Weekly,
         couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
-    },
-    {
-        taskKey: 'twwMoreThanPhase',
-        taskName: '[W] More Than Just a Phase',
-        minimumLevel: 80,
-        questIds: [91093],
-        questReset: DbResetType.Weekly,
-        couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
-    },
-    {
-        taskKey: 'twwKareshSpecial',
-        taskName: '[W] Special Assignment',
-        minimumLevel: 80,
-        noProgress: true,
-        showQuestName: true,
-        questIds: [
-            89293, // Overshadowed
-            89294, // Aligned Views
-        ],
-        questReset: DbResetType.Weekly,
-        couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
-    },
-    {
-        taskKey: 'twwReshanor',
-        taskName: '[W] World Boss 1st Kill',
-        accountWide: true,
-        questIds: [87352],
-        questReset: DbResetType.Weekly,
     },
 ];
 
