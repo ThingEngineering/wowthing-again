@@ -50,6 +50,7 @@ export { default as gameHeartNecklace } from '@iconify/icons-game-icons/heart-ne
 export { default as gameKnapsack } from '@iconify/icons-game-icons/knapsack';
 export { default as gameLockedFortress } from '@iconify/icons-game-icons/locked-fortress';
 export { default as gameMetalBoot } from '@iconify/icons-game-icons/metal-boot';
+export { default as gameNightSky } from '@iconify/icons-game-icons/night-sky';
 export { default as gamePiranha } from '@iconify/icons-game-icons/piranha';
 export { default as gamePocketBow } from '@iconify/icons-game-icons/pocket-bow';
 export { default as gamePokecog } from '@iconify/icons-game-icons/pokecog';

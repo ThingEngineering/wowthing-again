@@ -15,3 +15,7 @@
 - Update `seasonMap` to add the new season
 - Update `keyVaultItemLevel` with the new M+ vault item levels
 - Update `raidVaultItemLevel` with the new raid vault item levels
+
+## `apps/frontend/utils/mythic-plus/get-dungeon-level.ts`
+
+- Add anything new from `WeeklyRewardChestActivityTier` to the branches

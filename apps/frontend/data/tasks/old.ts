@@ -284,6 +284,7 @@ export const taskList: Task[] = [
         name: "[TWW] 11.1.5 Flame's Radiance",
         shortName: 'Rad',
         minimumLevel: 10,
+        showSeparate: true,
         type: 'multi',
     },
     {
@@ -660,24 +661,24 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskName: 'Key #1',
             minimumLevel: 80,
             noProgress: true,
+            questIds: [91175],
+            questReset: DbResetType.Weekly,
         },
         {
             taskKey: 'twwDelveKey2',
             taskName: 'Key #2',
             minimumLevel: 80,
             noProgress: true,
+            questIds: [91176],
+            questReset: DbResetType.Weekly,
         },
         {
             taskKey: 'twwDelveKey3',
             taskName: 'Key #3',
             minimumLevel: 80,
             noProgress: true,
-        },
-        {
-            taskKey: 'twwDelveKey4',
-            taskName: 'Key #4',
-            minimumLevel: 80,
-            noProgress: true,
+            questIds: [91177],
+            questReset: DbResetType.Weekly,
         },
         {
             taskKey: 'twwDelveGilded',

@@ -384,6 +384,7 @@ export const twwChores11_1_5: Chore[] = [
     {
         taskKey: 'twwNightfall',
         taskName: '[W] Nightfall Scenario',
+        icon: iconLibrary.gameNightSky,
         minimumLevel: 80,
         questIds: [91173], // seems like the only consistent one
         questReset: DbResetType.Weekly,
