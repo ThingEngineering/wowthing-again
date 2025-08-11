@@ -16,6 +16,10 @@ export abstract class Constants {
         itemUpgrade: 3008, // Valorstones
     };
 
+    static readonly items = {
+        reshiiWraps: 235499,
+    };
+
     static readonly reputations = {
         artisansConsortium: 2544,
         loammNiffen: 2564,

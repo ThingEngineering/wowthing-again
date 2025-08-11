@@ -1,38 +1,61 @@
 <script lang="ts">
     import { Constants } from '@/data/constants';
     import { iconLibrary } from '@/shared/icons';
+    import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
     import getItemLevelQuality from '@/utils/get-item-level-quality';
+    import type { CharacterProps } from '@/types/props';
     import type { LazyConvertibleCharacterItem } from '@/user-home/state/lazy/convertible.svelte';
-    import type { CharacterCurrency, Character } from '@/types';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character;
-    export let tierSets: [string, number, number, LazyConvertibleCharacterItem?][][];
+    type Props = {
+        tierSets: [string, number, number, LazyConvertibleCharacterItem?][][];
+    } & CharacterProps;
 
-    let charCatalyst: CharacterCurrency;
-    let haveCharges: number;
-    let maxCharges: number;
-    $: {
-        charCatalyst = character.currencies?.[Constants.currencies.catalyst];
+    let { character, tierSets }: Props = $props();
 
-        const accountMaxCharges = Math.max(
+    let accountMaxCharges = $derived(
+        Math.max(
             ...userState.general.activeCharacters.map(
                 (char) => char.currencies?.[Constants.currencies.catalyst]?.max || 0
             )
-        );
+        )
+    );
 
+    let charCatalyst = $derived(character.currencies?.[Constants.currencies.catalyst]);
+
+    let [haveCharges, maxCharges] = $derived.by(() => {
         if (!charCatalyst) {
-            haveCharges = maxCharges = accountMaxCharges;
+            return [accountMaxCharges, accountMaxCharges];
         } else if (accountMaxCharges > charCatalyst.max) {
-            haveCharges = charCatalyst.quantity + (accountMaxCharges - charCatalyst.max);
-            maxCharges = accountMaxCharges;
+            return [
+                charCatalyst.quantity + (accountMaxCharges - charCatalyst.max),
+                accountMaxCharges,
+            ];
         } else {
-            haveCharges = charCatalyst.quantity;
-            maxCharges = charCatalyst.max;
+            return [charCatalyst.quantity, charCatalyst.max];
         }
-    }
+    });
+
+    let reshiiWraps = $derived(
+        Object.values(character.equippedItems || {}).find(
+            (item) => item.itemId === Constants.items.reshiiWraps
+        )
+    );
+
+    const gemToStat: Record<number, string> = {
+        238040: 'Crit', // Precise
+        238044: 'Crit', // Pure Precise
+        238039: 'Haste', // Chronomatic
+        238045: 'Haste', // Pure Chronomatic
+        238037: 'Mastery', // Energizing
+        238046: 'Mastery', // Pure Energizing
+        238041: 'Versatility', // Dexterous
+        238042: 'Versatility', // Pure Dexterous
+    };
 </script>
 
 <style lang="scss">
@@ -60,6 +83,9 @@
 
         text-align: left;
     }
+    .extra {
+        padding: 0.5rem 0.5rem;
+    }
 </style>
 
 <div class="wowthing-tooltip">
@@ -75,16 +101,24 @@
             >
                 <tbody>
                     {#if tierSets.length > 1}
-                        <tr> <td colspan="2">{setIndex === 0 ? 'Current' : 'Previous'} </td></tr>
+                        <tr>
+                            <td colspan="2">{setIndex === 0 ? 'Current' : 'Previous'}</td>
+                        </tr>
                     {/if}
 
                     {#each tierPieces as [slot, , itemLevel, convertible] (slot)}
                         <tr>
                             <td class="slot">{slot}</td>
-                            <td class="itemLevel quality{getItemLevelQuality(itemLevel)}">
-                                {#if itemLevel > 0}
+                            {#if itemLevel > 0}
+                                <td class="itemLevel quality{getItemLevelQuality(itemLevel)}">
                                     {itemLevel}
-                                {:else if convertible && !convertible.isPurchased}
+                                </td>
+                            {:else if convertible && !convertible.isPurchased}
+                                <td
+                                    class="itemLevel quality{getItemLevelQuality(
+                                        convertible.equippedItem.itemLevel
+                                    )}"
+                                >
                                     {convertible.equippedItem.itemLevel}
                                     <IconifyIcon
                                         extraClass={convertible.canConvert
@@ -93,16 +127,39 @@
                                         icon={iconLibrary.gameShurikenAperture}
                                         scale="0.85"
                                     />
-                                {:else}
-                                    &mdash;
-                                {/if}
-                            </td>
+                                </td>
+                            {:else}
+                                <td class="itemLevel quality0"> &mdash; </td>
+                            {/if}
                         </tr>
                     {/each}
                 </tbody>
             </table>
         {/each}
     </div>
+
+    {#if character.level === Constants.characterMaxLevel}
+        <div class="extra flex-wrapper">
+            {#if reshiiWraps}
+                {@const gem = wowthingData.items.items[reshiiWraps.gemIds[0]]}
+                {#if gem}
+                    <span>
+                        <WowthingImage name={`item/${gem.id}`} size={16} border={1} />
+                        <ParsedText text={`{item:${gem.id}}`} />
+                    </span>
+                    <span>{gemToStat[gem.id] || '???'}</span>
+                {:else}
+                    <span>
+                        <ParsedText text={`No gem in {item:${Constants.items.reshiiWraps}}!`} />
+                    </span>
+                {/if}
+            {:else}
+                <span>
+                    <ParsedText text={`No {item:${Constants.items.reshiiWraps}}!`} />
+                </span>
+            {/if}
+        </div>
+    {/if}
 
     {#if maxCharges}
         <div class="bottom">

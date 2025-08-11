@@ -1,6 +1,7 @@
 import { get } from 'svelte/store';
 import type { DateTime } from 'luxon';
 
+import { Constants } from '../constants';
 import { customResetPeriod } from './custom-reset-period';
 import { QuestStatus } from '@/enums/quest-status';
 import { aliasedIcons, iconLibrary } from '@/shared/icons';
@@ -10,8 +11,6 @@ import { userQuestStore, userStore } from '@/stores';
 import { userState } from '@/user-home/state/user';
 import type { Character } from '@/types';
 import type { Chore } from '@/types/tasks';
-
-const reshiiWrapsItemId = 235499;
 
 const threeWeekDecorator = (expires: DateTime) => {
     const daysRemaining = expires.diff(timeState.time).toMillis() / 1000 / 86400;
@@ -447,9 +446,49 @@ export const twwHorrificVisions: Chore[] = (<[number, string][]>[
 
 export const twwChores11_2_0: Chore[] = [
     {
+        taskKey: 'twwMoreThanPhase',
+        taskName: '[W][A] More Than Just a Phase',
+        accountWide: true,
+        questIds: [91093],
+        questReset: DbResetType.Weekly,
+        couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
+    },
+    {
+        taskKey: 'twwWarrant',
+        taskName: '[W][A] Warrant',
+        accountWide: true,
+        questIds: [
+            90122, // Eliminate Xy'vox the Twisted
+            90123, // Eliminate Hollowbane
+            90124, // Eliminate Shatterpulse
+            90125, // Eliminate Purple Peat
+            90126, // Eliminate Grubber
+            90127, // Eliminate Arcana-Monger So'zer
+        ],
+        questReset: DbResetType.Weekly,
+    },
+    {
+        taskKey: 'twwReshanor',
+        taskName: '[W][A] World Boss',
+        accountWide: true,
+        questIds: [87352],
+        questReset: DbResetType.Weekly,
+    },
+    {
+        taskKey: 'twwKareshSpecial',
+        taskName: '[W] Special Assignment',
+        noProgress: true,
+        showQuestName: true,
+        questIds: [
+            89293, // Overshadowed
+            89294, // Aligned Views
+        ],
+        questReset: DbResetType.Weekly,
+        couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
+    },
+    {
         taskKey: 'twwEcologicalSuccession',
         taskName: '[W] Ecological Succession',
-        minimumLevel: 80,
         questIds: [85460],
         questReset: DbResetType.Weekly,
         couldGetFunc: (char) =>
@@ -461,70 +500,42 @@ export const twwChores11_2_0: Chore[] = [
         // maybe these need to be subChores?
         questIds: [89062], // Devourer Attack: The Atrium
         questReset: DbResetType.Weekly,
-        couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
+        couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
     },
     {
         taskKey: 'twwMakingDeposit2',
         taskName: '[W] Anima: Eco-dome',
         questIds: [89061], // Devourer Attack: Eco-dome: Primus
         questReset: DbResetType.Weekly,
-        couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
+        couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
     },
     {
         taskKey: 'twwMakingDeposit3',
         taskName: '[W] Anima: Oasis',
         questIds: [85722], // Devourer Attack: The Oasis
         questReset: DbResetType.Weekly,
-        couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
+        couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
     },
     {
         taskKey: 'twwMakingDeposit4',
         taskName: '[W] Anima: Tazavesh',
         questIds: [89063], // Devourer Attack: Tazavesh
         questReset: DbResetType.Weekly,
-        couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
-    },
-    {
-        taskKey: 'twwMoreThanPhase',
-        taskName: '[W] More Than Just a Phase',
-        minimumLevel: 80,
-        questIds: [91093],
-        questReset: DbResetType.Weekly,
-        couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
-    },
-    {
-        taskKey: 'twwKareshSpecial',
-        taskName: '[W] Special Assignment',
-        minimumLevel: 80,
-        noProgress: true,
-        showQuestName: true,
-        questIds: [
-            89293, // Overshadowed
-            89294, // Aligned Views
-        ],
-        questReset: DbResetType.Weekly,
-        couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
-    },
-    {
-        taskKey: 'twwReshanor',
-        taskName: '[W] World Boss 1st Kill',
-        accountWide: true,
-        questIds: [87352],
-        questReset: DbResetType.Weekly,
+        couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
     },
 ];
 
 export const twwPinnacle: Chore[] = [
     {
         taskKey: 'twwPinnacle1',
-        taskName: '[W] Pinnacle Cache 1',
+        taskName: '[W] Veteran Cache 1',
         noProgress: true,
         questIds: [91179],
         questReset: DbResetType.Weekly,
     },
     {
         taskKey: 'twwPinnacle2',
-        taskName: '[W] Pinnacle Cache 2',
+        taskName: '[W] Veteran Cache 2',
         noProgress: true,
         questIds: [91180],
         questReset: DbResetType.Weekly,

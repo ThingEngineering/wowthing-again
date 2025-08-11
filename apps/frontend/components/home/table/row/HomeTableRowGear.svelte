@@ -84,10 +84,10 @@
         <td
             use:componentTooltip={{
                 component: TooltipSet,
-                props: {
+                propsFunc: () => ({
                     character,
                     tierSets: [currentPieces, previousPieces],
-                },
+                }),
             }}
         >
             <span
