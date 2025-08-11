@@ -312,8 +312,8 @@ export const taskList: Task[] = [
     },
     {
         key: 'twwPinnacle',
-        name: '[TWW] Pinnacle Caches',
-        shortName: 'Cache',
+        name: '[TWW] Veteran Caches',
+        shortName: 'Vet',
         minimumLevel: 80,
         type: 'multi',
     },

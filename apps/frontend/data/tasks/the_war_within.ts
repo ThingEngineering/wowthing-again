@@ -517,14 +517,14 @@ export const twwChores11_2_0: Chore[] = [
 export const twwPinnacle: Chore[] = [
     {
         taskKey: 'twwPinnacle1',
-        taskName: '[W] Pinnacle Cache 1',
+        taskName: '[W] Veteran Cache 1',
         noProgress: true,
         questIds: [91179],
         questReset: DbResetType.Weekly,
     },
     {
         taskKey: 'twwPinnacle2',
-        taskName: '[W] Pinnacle Cache 2',
+        taskName: '[W] Veteran Cache 2',
         noProgress: true,
         questIds: [91180],
         questReset: DbResetType.Weekly,
