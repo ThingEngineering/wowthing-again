@@ -1,6 +1,7 @@
 import { get } from 'svelte/store';
 import type { DateTime } from 'luxon';
 
+import { Constants } from '../constants';
 import { customResetPeriod } from './custom-reset-period';
 import { QuestStatus } from '@/enums/quest-status';
 import { aliasedIcons, iconLibrary } from '@/shared/icons';
@@ -10,8 +11,6 @@ import { userQuestStore, userStore } from '@/stores';
 import { userState } from '@/user-home/state/user';
 import type { Character } from '@/types';
 import type { Chore } from '@/types/tasks';
-
-const reshiiWrapsItemId = 235499;
 
 const threeWeekDecorator = (expires: DateTime) => {
     const daysRemaining = expires.diff(timeState.time).toMillis() / 1000 / 86400;
@@ -461,28 +460,28 @@ export const twwChores11_2_0: Chore[] = [
         // maybe these need to be subChores?
         questIds: [89062], // Devourer Attack: The Atrium
         questReset: DbResetType.Weekly,
-        couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
+        couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
     },
     {
         taskKey: 'twwMakingDeposit2',
         taskName: '[W] Anima: Eco-dome',
         questIds: [89061], // Devourer Attack: Eco-dome: Primus
         questReset: DbResetType.Weekly,
-        couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
+        couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
     },
     {
         taskKey: 'twwMakingDeposit3',
         taskName: '[W] Anima: Oasis',
         questIds: [85722], // Devourer Attack: The Oasis
         questReset: DbResetType.Weekly,
-        couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
+        couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
     },
     {
         taskKey: 'twwMakingDeposit4',
         taskName: '[W] Anima: Tazavesh',
         questIds: [89063], // Devourer Attack: Tazavesh
         questReset: DbResetType.Weekly,
-        couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
+        couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
     },
     {
         taskKey: 'twwMoreThanPhase',
@@ -490,7 +489,7 @@ export const twwChores11_2_0: Chore[] = [
         minimumLevel: 80,
         questIds: [91093],
         questReset: DbResetType.Weekly,
-        couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
+        couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
     },
     {
         taskKey: 'twwKareshSpecial',
@@ -503,7 +502,7 @@ export const twwChores11_2_0: Chore[] = [
             89294, // Aligned Views
         ],
         questReset: DbResetType.Weekly,
-        couldGetFunc: (char) => char.getItemCount(reshiiWrapsItemId) > 0,
+        couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
     },
     {
         taskKey: 'twwReshanor',

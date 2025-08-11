@@ -1,12 +1,15 @@
 <script lang="ts">
     import { Constants } from '@/data/constants';
     import { iconLibrary } from '@/shared/icons';
+    import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
     import getItemLevelQuality from '@/utils/get-item-level-quality';
     import type { CharacterProps } from '@/types/props';
     import type { LazyConvertibleCharacterItem } from '@/user-home/state/lazy/convertible.svelte';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
     type Props = {
         tierSets: [string, number, number, LazyConvertibleCharacterItem?][][];
@@ -36,6 +39,23 @@
             return [charCatalyst.quantity, charCatalyst.max];
         }
     });
+
+    let reshiiWraps = $derived(
+        Object.values(character.equippedItems || {}).find(
+            (item) => item.itemId === Constants.items.reshiiWraps
+        )
+    );
+
+    const gemToStat: Record<number, string> = {
+        238040: 'Crit', // Precise
+        238044: 'Crit', // Pure Precise
+        238039: 'Haste', // Chronomatic
+        238045: 'Haste', // Pure Chronomatic
+        238037: 'Mastery', // Energizing
+        238046: 'Mastery', // Pure Energizing
+        238041: 'Versatility', // Dexterous
+        238042: 'Versatility', // Pure Dexterous
+    };
 </script>
 
 <style lang="scss">
@@ -62,6 +82,9 @@
         --image-margin-top: -4px;
 
         text-align: left;
+    }
+    .extra {
+        padding: 0.5rem 0.5rem;
     }
 </style>
 
@@ -114,6 +137,29 @@
             </table>
         {/each}
     </div>
+
+    {#if character.level === Constants.characterMaxLevel}
+        <div class="extra flex-wrapper">
+            {#if reshiiWraps}
+                {@const gem = wowthingData.items.items[reshiiWraps.gemIds[0]]}
+                {#if gem}
+                    <span>
+                        <WowthingImage name={`item/${gem.id}`} size={16} border={1} />
+                        <ParsedText text={`{item:${gem.id}}`} />
+                    </span>
+                    <span>{gemToStat[gem.id] || '???'}</span>
+                {:else}
+                    <span>
+                        <ParsedText text={`No gem in {item:${Constants.items.reshiiWraps}}!`} />
+                    </span>
+                {/if}
+            {:else}
+                <span>
+                    <ParsedText text={`No {item:${Constants.items.reshiiWraps}}!`} />
+                </span>
+            {/if}
+        </div>
+    {/if}
 
     {#if maxCharges}
         <div class="bottom">
