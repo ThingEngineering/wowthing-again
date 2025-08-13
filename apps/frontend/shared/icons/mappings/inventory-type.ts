@@ -16,7 +16,7 @@ export const inventoryTypeIcons: Record<InventoryType, IconifyIcon> = {
     [InventoryType.Wrist]: iconLibrary.gameBracer,
     [InventoryType.Hands]: iconLibrary.gameGauntlet,
     [InventoryType.Finger]: iconLibrary.gameBigDiamondRing,
-    [InventoryType.Trinket]: null,
+    [InventoryType.Trinket]: iconLibrary.gameJigsawBox,
     [InventoryType.OneHand]: null,
     [InventoryType.OffHand]: null,
     [InventoryType.Ranged]: null,

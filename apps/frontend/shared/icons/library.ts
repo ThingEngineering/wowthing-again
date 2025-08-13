@@ -47,6 +47,7 @@ export { default as gameHandBag } from '@iconify/icons-game-icons/hand-bag';
 export { default as gameHanger } from '@iconify/icons-game-icons/hanger';
 export { default as gameHatchet } from '@iconify/icons-game-icons/hatchet';
 export { default as gameHeartNecklace } from '@iconify/icons-game-icons/heart-necklace';
+export { default as gameJigsawBox } from '@iconify/icons-game-icons/jigsaw-box';
 export { default as gameKnapsack } from '@iconify/icons-game-icons/knapsack';
 export { default as gameLockedFortress } from '@iconify/icons-game-icons/locked-fortress';
 export { default as gameMetalBoot } from '@iconify/icons-game-icons/metal-boot';

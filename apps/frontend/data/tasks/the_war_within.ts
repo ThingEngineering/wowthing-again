@@ -475,8 +475,21 @@ export const twwChores11_2_0: Chore[] = [
         questReset: DbResetType.Weekly,
     },
     {
+        taskKey: 'twwKareshSpecialUnlock',
+        taskName: '[W] Special Unlock',
+        icon: iconLibrary.mdiLockOutline,
+        questIds: [
+            91193, // Overshadowed
+            91203, // Aligned Views
+        ],
+        questReset: DbResetType.Weekly,
+        couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
+    },
+
+    {
         taskKey: 'twwKareshSpecial',
         taskName: '[W] Special Assignment',
+        icon: iconLibrary.gameScrollQuill,
         noProgress: true,
         showQuestName: true,
         questIds: [

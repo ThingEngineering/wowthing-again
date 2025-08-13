@@ -681,6 +681,14 @@ export const multiTaskMap: Record<string, Chore[]> = {
             questReset: DbResetType.Weekly,
         },
         {
+            taskKey: 'twwDelveKey4',
+            taskName: 'Key #4',
+            minimumLevel: 80,
+            noProgress: true,
+            questIds: [91178],
+            questReset: DbResetType.Weekly,
+        },
+        {
             taskKey: 'twwDelveGilded',
             taskName: 'Gilded Stash',
             minimumLevel: 80,

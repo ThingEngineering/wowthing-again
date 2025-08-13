@@ -44,7 +44,7 @@ export function processItemsData(rawData: RawItems): DataItems {
             }
         }
 
-        if (obj.openable) {
+        if (obj.openable && obj.expansion === Constants.expansion) {
             data.openableItemIds.add(obj.id);
         }
     }
