@@ -1490,6 +1490,8 @@ public class UserUploadCharacterProcessor
                 Progress = tier.Progress,
                 Threshold = tier.Threshold,
                 Tier = tier.Tier,
+                ItemLevel = tier.ItemLevel,
+                UpgradeItemLevel = tier.UpgradeItemLevel,
             };
 
             foreach (string itemString in tier.Rewards.EmptyIfNull())
