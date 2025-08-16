@@ -1726,9 +1726,10 @@ public class DumpsTool
             "modifiertree", mt => mt.ID);
         var playerConditionMap = await DataUtilities.LoadDumpToDictionaryAsync<int, DumpPlayerCondition>(
             "playercondition", pc => pc.ID);
+        // 281 = Dragonrider Racing, 289 = World Boss
         var questInfoMap = await DataUtilities.LoadDumpToDictionaryAsync<int, DumpQuestInfo>(
             "questinfo", qi => qi.ID,
-            validFunc: qi => qi.Name.Contains("World Quest") || qi.ID == 281);
+            validFunc: qi => qi.Name.Contains("World Quest") || qi.ID == 281 || qi.ID == 289);
 
         var modifierTreeByParent = modifierTreeMap.Values
             .Where(mt => mt.Parent > 0)

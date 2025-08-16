@@ -16,4 +16,6 @@ export enum QuestInfoType {
     Threat = 14,
     CovenantCalling = 15,
     DragonRacing = 16,
+    Capstone = 17,
+    WorldBoss = 18,
 }

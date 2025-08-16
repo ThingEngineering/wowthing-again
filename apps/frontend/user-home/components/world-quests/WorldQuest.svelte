@@ -141,7 +141,7 @@
                 <div class="world-quest-type drop-shadow">
                     <IconifyIcon icon={iconLibrary[questInfoIcon[questInfo.type]]} />
                 </div>
-            {:else if questInfo?.type === QuestInfoType.Normal}
+            {:else if questInfo?.type === QuestInfoType.Normal || questInfo?.type === QuestInfoType.WorldBoss}
                 {#if (questInfo.flags & QuestInfoFlags.Elite) > 0}
                     <div class="world-quest-type drop-shadow">
                         <IconifyIcon icon={iconLibrary['gameCrownedSkull']} />
