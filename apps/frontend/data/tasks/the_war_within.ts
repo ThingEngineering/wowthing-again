@@ -502,10 +502,10 @@ export const twwChores11_2_0: Chore[] = [
     {
         taskKey: 'twwEcologicalSuccession',
         taskName: '[W] Ecological Succession',
+        icon: iconLibrary.gameBearFace,
         questIds: [85460],
         questReset: DbResetType.Weekly,
-        couldGetFunc: (char) =>
-            userState.quests.characterById.get(char.id)?.hasQuestById?.has?.(85037), // Shadows En Garde (chapter 4)
+        couldGetFunc: () => userState.quests.anyCharacterHasById.has(85262), // The Royal Procession
     },
     {
         taskKey: 'twwMakingDeposit1',
