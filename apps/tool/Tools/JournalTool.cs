@@ -641,7 +641,7 @@ public class JournalTool
                             dataInstance != null &&
                             dataInstance.Encounters.TryGetValue(encounterSlug, out var dataInstanceEncounter))
                         {
-                            foreach (var dataContent in dataInstanceEncounter.Contents)
+                            foreach (var dataContent in dataInstanceEncounter.Contents.EmptyIfNull())
                             {
                                 var dropDifficultiesString = string.IsNullOrEmpty(dataContent.Difficulties)
                                     ? dataInstance.Difficulties
