@@ -63,14 +63,14 @@
         colspan={span}
         use:componentTooltip={{
             component: Tooltip,
-            props: {
+            propsFunc: () => ({
                 have,
                 set,
                 setTitle,
                 slotHave,
                 subType,
                 total,
-            },
+            }),
             tippyProps: {
                 allowHTML: true,
                 getReferenceClientRect: () => spanElement.getBoundingClientRect(),
