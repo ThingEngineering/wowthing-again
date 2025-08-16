@@ -32,6 +32,7 @@ WITH quest_ids AS (
                 WHERE   ls.language = {Language.enUS}
                         AND ls.type = {StringType.WowQuestName}
                         AND ls.id = wq.id
+                        AND ls.string != '~PLACEHOLDER~'
             )
     ORDER BY wq.id
     FOR UPDATE SKIP LOCKED
@@ -48,13 +49,6 @@ RETURNING *
 
         foreach (var quest in quests)
         {
-            Context.LanguageString.Add(new LanguageString
-            {
-                Language = Language.enUS,
-                Type = StringType.WowQuestName,
-                Id = quest.Id,
-                String = "~PLACEHOLDER~",
-            });
             await JobRepository.AddJobAsync(
                 JobPriority.Bulk,
                 JobType.DataQuest,

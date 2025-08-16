@@ -43,6 +43,13 @@ public class DataQuestJob : JobBase
 
     public override async Task Run(string[] data)
     {
+        var dbQuest = await Context.WowQuest.FindAsync(_questId);
+        if (dbQuest == null)
+        {
+            Logger.Error("WowQuest missing?? {id}", _questId);
+            return;
+        }
+
         var languages = RegionLanguages[_region];
         var languageMap = await Context.LanguageString
             .Where(ls => languages.Contains(ls.Language) &&
@@ -54,6 +61,18 @@ public class DataQuestJob : JobBase
         foreach (var language in languages)
         {
             string locale = LanguageToLocale[language];
+
+            if (!languageMap.TryGetValue(language, out var languageString))
+            {
+                languageString = new LanguageString
+                {
+                    Language = language,
+                    Type = StringType.WowQuestName,
+                    Id = _questId,
+                };
+                Context.Add(languageString);
+            }
+
             var uri = GenerateUri(
                 WowRegion.US,
                 ApiNamespace.Static,
@@ -79,27 +98,22 @@ public class DataQuestJob : JobBase
 
                 if (e.Message == "404")
                 {
+                    languageString.String = "~NOTFOUND~";
                     break;
                 }
 
                 continue;
             }
 
-            if (!languageMap.TryGetValue(language, out var languageString))
-            {
-                languageString = new LanguageString
-                {
-                    Language = language,
-                    Type = StringType.WowQuestName,
-                    Id = _questId,
-                };
-                Context.Add(languageString);
-            }
-
             if (languageString.String != resultData.Title)
             {
                 languageString.String = resultData.Title;
             }
+
+            dbQuest.AreaId = resultData.Area?.Id ?? 0;
+            dbQuest.CategoryId = resultData.Category?.Id ?? 0;
+            dbQuest.MinimumLevel = resultData.Requirements?.MinCharacterLevel ?? 0;
+            dbQuest.MaximumLevel = resultData.Requirements?.MaxCharacterLevel ?? 0;
         }
 
         await Context.SaveChangesAsync(CancellationToken);
