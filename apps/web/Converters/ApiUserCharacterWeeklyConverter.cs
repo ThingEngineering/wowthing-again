@@ -59,6 +59,8 @@ public class ApiUserCharacterWeeklyConverter : JsonConverter<ApiUserCharacterWee
             writer.WriteNumberValue(vaultProgress.Tier);
             writer.WriteNumberValue(vaultProgress.Progress);
             writer.WriteNumberValue(vaultProgress.Threshold);
+            writer.WriteNumberValue(vaultProgress.ItemLevel ?? 0);
+            writer.WriteNumberValue(vaultProgress.UpgradeItemLevel ?? 0);
 
             writer.WriteStartArray();
             foreach (var reward in vaultProgress.Rewards.EmptyIfNull())

@@ -74,6 +74,8 @@ export class CharacterWeeklyProgress {
         public tier: number,
         public progress: number,
         public threshold: number,
+        public itemLevel: number,
+        public upgradeItemLevel: number,
         rewardArrays?: CharacterItemArray[]
     ) {
         if (rewardArrays?.length > 0) {

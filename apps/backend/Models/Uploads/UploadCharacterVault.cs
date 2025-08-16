@@ -6,6 +6,8 @@ public class UploadCharacterVault
     public int Progress { get; set; }
     public int Threshold { get; set; }
     public int Tier { get; set; }
+    public int? ItemLevel { get; set; }
+    public int? UpgradeItemLevel { get; set; }
 
     public List<string> Rewards { get; set; }
 }
