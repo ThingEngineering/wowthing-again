@@ -2,6 +2,7 @@
     import { wowthingData } from '@/shared/stores/data';
     import type { ManualDataReputationSet } from '@/types/data/manual';
     import AccountWide from './AccountWide.svelte';
+    import Table from './Table.svelte';
 
     type RepSetData = [ManualDataReputationSet[], number][];
 
@@ -27,13 +28,18 @@
 </script>
 
 <style lang="scss">
-    .flex-wrapper {
+    div {
         align-items: flex-start;
+        gap: 1.5rem;
     }
 </style>
 
-<div class="flex-wrapper">
+<div class={accountSets.length > 0 && characterSets.length > 0 ? 'flex-wrapper' : 'wrapper-column'}>
     {#if accountSets.length > 0}
-        <AccountWide {accountSets} {slug} />
+        <AccountWide {accountSets} {slug} hasCharacterSets={characterSets.length > 0} />
+    {/if}
+
+    {#if characterSets.length > 0}
+        <Table {characterSets} {slug} />
     {/if}
 </div>

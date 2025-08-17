@@ -11,7 +11,6 @@
         ManualDataReputationSet,
     } from '@/types/data/manual';
 
-    import AccountWide from './AccountWide.svelte';
     import CharacterTable from '@/components/character-table/CharacterTable.svelte';
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte';
     import Error from '@/components/common/Error.svelte';
@@ -19,6 +18,7 @@
     import TableCell from './TableCell.svelte';
     import TableCellRenown from './TableCellRenown.svelte';
 
+    export let characterSets: [ManualDataReputationSet[], number][];
     export let slug: string;
 
     let category: ManualDataReputationCategory;
@@ -69,22 +69,6 @@
                   reputationSet.alliance?.id || reputationSet.horde.id
               ).renownCurrencyId > 0;
     }
-
-    type RepSetData = [ManualDataReputationSet[], number][];
-    function splitSets(reputationSets: ManualDataReputationSet[][]): [RepSetData, RepSetData] {
-        const accountSets: RepSetData = [];
-        const characterSets: RepSetData = [];
-
-        for (let setIndex = 0; setIndex < reputationSets.length; setIndex++) {
-            const reputationSet = reputationSets[setIndex];
-            const hasAccountWide = reputationSet.some(
-                (rep) => wowthingData.static.reputationById.get(rep.both?.id)?.accountWide
-            );
-            (hasAccountWide ? accountSets : characterSets).push([reputationSet, setIndex]);
-        }
-
-        return [accountSets, characterSets];
-    }
 </script>
 
 <style lang="scss">
@@ -95,12 +79,7 @@
 </style>
 
 {#if category?.reputations?.length > 0}
-    {@const [accountSets, characterSets] = splitSets(category.reputations)}
     <div class="flex-wrapper">
-        {#if accountSets.length > 0}
-            <AccountWide {accountSets} {slug} />
-        {/if}
-
         {#if characterSets.length > 0}
             <CharacterTable skipGrouping={sorted} skipIgnored={true} {filterFunc} {sortFunc}>
                 <CharacterTableHead slot="head">
