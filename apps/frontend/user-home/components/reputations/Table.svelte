@@ -1,6 +1,7 @@
 <script lang="ts">
     import find from 'lodash/find';
 
+    import { wowthingData } from '@/shared/stores/data';
     import { reputationState } from '@/stores/local-storage';
     import { leftPad } from '@/utils/formatting';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
@@ -17,7 +18,6 @@
     import TableHead from './TableHead.svelte';
     import TableCell from './TableCell.svelte';
     import TableCellRenown from './TableCellRenown.svelte';
-    import { wowthingData } from '@/shared/stores/data';
 
     export let slug: string;
 

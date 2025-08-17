@@ -6,6 +6,7 @@
     import TooltipReputation from '@/components/tooltips/reputation/TooltipReputation.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import ProgressBar from '@/components/common/ProgressBar.svelte';
 
     type Props = {
         accountSets: [ManualDataReputationSet[], number][];
@@ -15,68 +16,120 @@
 </script>
 
 <style lang="scss">
-    .column {
+    .account-wide {
+        columns: 4;
+        gap: 1rem;
+    }
+    table {
         --image-border-width: 2px;
 
-        columns: 2;
+        min-width: 20rem;
+        width: 20rem;
+
+        & + table {
+            margin-top: 1rem;
+        }
     }
-    .set {
-        display: flex;
-        flex-direction: column;
-        gap: 0.2rem;
-        margin-bottom: 1rem;
+    .icon {
+        padding: 2px 0;
+        width: 52px;
     }
-    .reputation {
-        position: relative;
-    }
-    .pill {
-        left: 50%;
-        pointer-events: none;
-        position: absolute;
-        transform: translateX(-50%);
-    }
-    .text {
-        top: 1px;
+    .data {
+        --bar-height: 1.25rem;
+
+        padding-left: var(--padding-size);
+
+        :global(> button) {
+            border-bottom: 0;
+            border-right: 0;
+            padding-bottom: 1px;
+        }
     }
     .level {
-        bottom: 1px;
+        padding-right: var(--padding-size);
+        white-space: nowrap;
+    }
+    .value {
+        border-left: 0 !important;
     }
 </style>
 
-<div class="column">
+<div class="account-wide">
     {#each accountSets as [reputationSets, reputationsIndex] (reputationSets)}
-        <div class="set no-break">
-            {#each reputationSets as reputationSet, reputationSetsIndex (reputationSet)}
-                {@const { characterRep, dataRep, cls, renownLevel } = getRenownData({
-                    reputation: reputationSet,
-                    reputationsIndex,
-                    reputationSetsIndex,
-                    slug,
-                })}
-                <div
-                    class="reputation {cls}"
-                    use:componentTooltip={{
-                        component: TooltipReputation,
-                        props: {
-                            characterRep: characterRep.value,
-                            // character,
-                            dataRep,
-                            // paragon,
-                            // reputation,
-                        },
-                    }}
-                >
-                    <WowheadLink type="faction" id={reputationSet.both.id}>
-                        <WowthingImage name={reputationSet.both.icon} size={48} border={2} />
-                    </WowheadLink>
+        <table class="table table-striped2 b-t no-break">
+            <tbody>
+                {#each reputationSets as reputationSet, reputationSetsIndex (reputationSet)}
+                    {@const {
+                        characterParagon,
+                        characterRep,
+                        dataRep,
+                        cls,
+                        renownCurrent,
+                        renownMax,
+                        repTier,
+                    } = getRenownData({
+                        reputation: reputationSet,
+                        reputationsIndex,
+                        reputationSetsIndex,
+                        slug,
+                    })}
+                    <tr
+                        use:componentTooltip={{
+                            component: TooltipReputation,
+                            props: {
+                                characterRep: characterRep.value,
+                                // character,
+                                dataRep,
+                                // paragon,
+                                // reputation,
+                            },
+                        }}
+                    >
+                        <td class="icon">
+                            <WowheadLink type="faction" id={reputationSet.both.id}>
+                                <WowthingImage
+                                    name={reputationSet.both.icon}
+                                    size={48}
+                                    border={2}
+                                />
+                            </WowheadLink>
+                        </td>
+                        <td class="data">
+                            <div class="flex-wrapper {cls}">
+                                <div class="name text-overflow">{dataRep.name}</div>
+                                <div class="level">
+                                    {#if renownMax}
+                                        {Math.floor(renownCurrent)} / {renownMax}
+                                    {:else if repTier && repTier.maxValue === 0}
+                                        {repTier.name}
+                                    {/if}
+                                </div>
+                            </div>
 
-                    {#if reputationSet.both.iconText}
-                        <span class="text pill">{reputationSet.both.iconText}</span>
-                    {/if}
-
-                    <span class="level pill">{renownLevel || '??'}</span>
-                </div>
-            {/each}
-        </div>
+                            {#if characterParagon}
+                                <ProgressBar
+                                    title="Paragon"
+                                    have={characterParagon.current}
+                                    total={characterParagon.max}
+                                />
+                            {:else if repTier && repTier.maxValue > 0}
+                                <ProgressBar
+                                    title={repTier.name}
+                                    have={repTier.value}
+                                    total={repTier.maxValue}
+                                />
+                            {:else if dataRep && renownCurrent < renownMax}
+                                {@const perRenown = dataRep.maxValues[0]}
+                                <ProgressBar
+                                    title="Renown"
+                                    have={Math.floor((renownCurrent % 1) * perRenown)}
+                                    total={perRenown}
+                                />
+                            {/if}
+                        </td>
+                    </tr>
+                {/each}
+            </tbody>
+        </table>
     {/each}
 </div>

@@ -3,7 +3,12 @@ import { wowthingData } from '@/shared/stores/data';
 import findReputationTier from '@/utils/find-reputation-tier';
 
 import type { StaticDataReputation } from '@/shared/stores/static/types';
-import type { Character, CharacterReputationParagon, CharacterReputationReputation } from '@/types';
+import type {
+    Character,
+    CharacterReputationParagon,
+    CharacterReputationReputation,
+    ReputationTier,
+} from '@/types';
 import type { ManualDataReputationSet } from '@/types/data/manual';
 import { userState } from '@/user-home/state/user';
 
@@ -21,6 +26,9 @@ class RenownData {
     public cls: string;
     public dataRep: StaticDataReputation;
     public renownLevel: string;
+    public renownCurrent: number;
+    public renownMax: number;
+    public repTier: ReputationTier;
 }
 
 const brannId = 2640;
@@ -52,12 +60,14 @@ export function getRenownData({
     if (ret.characterRep.value !== -1) {
         if (ret.dataRep.renownCurrencyId > 0) {
             const currency = wowthingData.static.currencyById.get(ret.dataRep.renownCurrencyId);
-            const maxRenown = currency.maxTotal;
+            ret.renownMax = currency.maxTotal;
 
-            let tier = ret.characterRep.value / (ret.dataRep.maxValues[0] || 2500);
-            ret.cls = `quality${1 + Math.floor(tier / (maxRenown / 5))}`;
+            ret.renownCurrent = ret.characterRep.value / (ret.dataRep.maxValues[0] || 2500);
+            ret.cls = `quality${1 + Math.floor(ret.renownCurrent / (ret.renownMax / 5))}`;
 
             ret.characterParagon = actualCharacter.paragons?.[ret.characterRep.reputationId];
+
+            let tier = ret.renownCurrent;
             if (ret.characterParagon) {
                 tier += ret.characterParagon.current / ret.characterParagon.max;
             }
@@ -67,18 +77,18 @@ export function getRenownData({
             const tiers =
                 wowthingData.static.reputationTierById.get(ret.dataRep.tierId) ||
                 wowthingData.static.reputationTierById.get(0);
-            const repTier = findReputationTier(tiers, ret.characterRep.value);
+            ret.repTier = findReputationTier(tiers, ret.characterRep.value);
 
             if (ret.dataRep.id === brannId) {
-                const levelMatch = repTier.name.match(/(\d\d)$/);
+                const levelMatch = ret.repTier.name.match(/(\d\d)$/);
                 if (levelMatch) {
                     const oof = brannHack(levelMatch[1]);
                     ret.cls = `reputation${oof} reputation${oof}-border`;
 
                     // Brann hack to treat him as blocks of 10 levels
                     let actualMax = 0;
-                    let actualValue = repTier.value;
-                    const currentIndex = tiers.names.length - repTier.tier;
+                    let actualValue = ret.repTier.value;
+                    const currentIndex = tiers.names.length - ret.repTier.tier;
                     const start = Math.floor(currentIndex / 10) * 10;
                     const end = Math.floor((start + 10) / 10) * 10;
                     for (let i = start; i < end; i++) {
@@ -92,8 +102,12 @@ export function getRenownData({
                     ret.renownLevel = ((actualValue / actualMax) * 100).toFixed(1) + '%';
                 }
             } else {
-                ret.cls = `reputation${repTier.tier} reputation${repTier.tier}-border`;
-                ret.renownLevel = `${repTier.percent}%`;
+                ret.cls = `reputation${ret.repTier.tier} reputation${ret.repTier.tier}-border`;
+                ret.renownLevel = `${ret.repTier.percent}%`;
+
+                if (ret.dataRep.paragonId) {
+                    ret.characterParagon = actualCharacter.paragons?.[ret.dataRep.id];
+                }
             }
         }
     }
