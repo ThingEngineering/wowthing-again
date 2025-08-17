@@ -655,6 +655,15 @@ export const multiTaskMap: Record<string, Chore[]> = {
             questIds: [87407],
             questReset: DbResetType.Weekly,
         },
+        {
+            taskKey: 'twwDelveRepKaresh',
+            taskName: "Rep: The K'aresh Trust",
+            minimumLevel: 80,
+            noProgress: true,
+            accountWide: true,
+            questIds: [91453],
+            questReset: DbResetType.Weekly,
+        },
         null,
         {
             taskKey: 'twwDelveKey1',
