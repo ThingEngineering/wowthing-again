@@ -43,6 +43,7 @@
     .data {
         --bar-height: 1.25rem;
 
+        align-content: center;
         background: var(--color-thing-background);
         border: 1px solid var(--image-border-color);
         border-radius: var(--border-radius);
