@@ -303,17 +303,27 @@ export class DataUserDerived {
         console.time('doReputations');
 
         const maxReps: Record<number, [number, number]> = {};
+        const hasParagons = new Set<number>();
         for (const character of allCharacters) {
             for (const expansion of Object.values(character.reputationData)) {
                 for (const reputationSet of expansion.sets) {
                     for (const { reputationId, value } of reputationSet) {
-                        if (value > (maxReps[reputationId]?.[0] || -99999)) {
+                        const maxRep = maxReps[reputationId]?.[0] || -99999;
+                        if (value > maxRep) {
+                            maxReps[reputationId] = [value, character.id];
+                        } else if (
+                            value === maxRep &&
+                            !hasParagons.has(reputationId) &&
+                            character.paragons?.[reputationId]
+                        ) {
+                            hasParagons.add(reputationId);
                             maxReps[reputationId] = [value, character.id];
                         }
                     }
                 }
             }
         }
+        console.log(maxReps);
 
         console.timeEnd('doReputations');
 
