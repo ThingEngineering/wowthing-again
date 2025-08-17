@@ -6,55 +6,89 @@
     import TooltipReputation from '@/components/tooltips/reputation/TooltipReputation.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import ProgressBar from '@/components/common/ProgressBar.svelte';
 
     type Props = {
         accountSets: [ManualDataReputationSet[], number][];
+        hasCharacterSets: boolean;
         slug: string;
     };
-    let { accountSets, slug }: Props = $props();
+    let { accountSets, hasCharacterSets, slug }: Props = $props();
 </script>
 
 <style lang="scss">
-    .column {
-        --image-border-width: 2px;
+    .account-container {
+        --image-border-width: 1px;
 
-        columns: 2;
+        columns: var(--columns);
+        gap: 1rem;
     }
-    .set {
-        display: flex;
-        flex-direction: column;
-        gap: 0.2rem;
-        margin-bottom: 1rem;
+    .account-set + .account-set {
+        margin-top: 1rem;
     }
-    .reputation {
-        position: relative;
+    .account-rep {
+        align-items: stretch;
+        min-width: 20rem;
+        width: 20rem;
+
+        & + .account-rep {
+            margin-top: 0.5rem;
+        }
     }
-    .pill {
-        left: 50%;
-        pointer-events: none;
-        position: absolute;
-        transform: translateX(-50%);
+    .icon {
+        flex-shrink: 0;
+        height: 50px;
+        width: 50px;
     }
-    .text {
-        top: 1px;
+    .data {
+        --bar-height: 1.25rem;
+
+        align-content: center;
+        background: var(--color-thing-background);
+        border: 1px solid var(--image-border-color);
+        border-radius: var(--border-radius);
+        flex-grow: 1;
+        margin-left: var(--padding-size);
+        overflow: hidden;
+
+        :global(> button) {
+            border-bottom: 0;
+            border-left: 0;
+            border-right: 0;
+            padding-bottom: 1px;
+        }
+    }
+    .name {
+        padding-left: 0.6rem;
     }
     .level {
-        bottom: 1px;
+        font-size: 90%;
+        padding-right: 0.6rem;
+        white-space: nowrap;
+        word-spacing: -0.2ch;
     }
 </style>
 
-<div class="column">
+<div class="account-container" style:--columns={hasCharacterSets ? '1' : '4'}>
     {#each accountSets as [reputationSets, reputationsIndex] (reputationSets)}
-        <div class="set no-break">
+        <div class="account-set no-break">
             {#each reputationSets as reputationSet, reputationSetsIndex (reputationSet)}
-                {@const { characterRep, dataRep, cls, renownLevel } = getRenownData({
+                {@const {
+                    characterParagon,
+                    characterRep,
+                    dataRep,
+                    cls,
+                    renownCurrent,
+                    renownMax,
+                    repTier,
+                } = getRenownData({
                     reputation: reputationSet,
                     reputationsIndex,
                     reputationSetsIndex,
                     slug,
                 })}
                 <div
-                    class="reputation {cls}"
+                    class="account-rep {cls} flex-wrapper"
                     use:componentTooltip={{
                         component: TooltipReputation,
                         props: {
@@ -66,15 +100,44 @@
                         },
                     }}
                 >
-                    <WowheadLink type="faction" id={reputationSet.both.id}>
-                        <WowthingImage name={reputationSet.both.icon} size={48} border={2} />
-                    </WowheadLink>
+                    <div class="icon">
+                        <WowheadLink type="faction" id={reputationSet.both.id}>
+                            <WowthingImage name={reputationSet.both.icon} size={48} border={2} />
+                        </WowheadLink>
+                    </div>
+                    <div class="data">
+                        <div class="flex-wrapper {cls}">
+                            <div class="name text-overflow">{dataRep.name}</div>
+                            <div class="level">
+                                {#if renownMax}
+                                    {Math.floor(renownCurrent)} / {renownMax}
+                                {:else if repTier && repTier.maxValue === 0}
+                                    {repTier.name}
+                                {/if}
+                            </div>
+                        </div>
 
-                    {#if reputationSet.both.iconText}
-                        <span class="text pill">{reputationSet.both.iconText}</span>
-                    {/if}
-
-                    <span class="level pill">{renownLevel || '??'}</span>
+                        {#if characterParagon}
+                            <ProgressBar
+                                title="Paragon"
+                                have={characterParagon.current}
+                                total={characterParagon.max}
+                            />
+                        {:else if repTier && repTier.maxValue > 0}
+                            <ProgressBar
+                                title={repTier.name}
+                                have={repTier.value}
+                                total={repTier.maxValue}
+                            />
+                        {:else if dataRep && renownCurrent < renownMax}
+                            {@const perRenown = dataRep.maxValues[0]}
+                            <ProgressBar
+                                title="Renown"
+                                have={Math.floor((renownCurrent % 1) * perRenown)}
+                                total={perRenown}
+                            />
+                        {/if}
+                    </div>
                 </div>
             {/each}
         </div>

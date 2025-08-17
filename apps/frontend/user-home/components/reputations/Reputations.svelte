@@ -1,19 +1,19 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte'
+    import { afterUpdate } from 'svelte';
 
-    import getSavedRoute from '@/utils/get-saved-route'
+    import getSavedRoute from '@/utils/get-saved-route';
 
-    import Sidebar from './Sidebar.svelte'
-    import Table from './Table.svelte'
+    import Category from './Category.svelte';
+    import Sidebar from './Sidebar.svelte';
 
-    export let params: { slug: string }
+    export let params: { slug: string };
 
-    afterUpdate(() => getSavedRoute('reputations', params.slug))
+    afterUpdate(() => getSavedRoute('reputations', params.slug));
 </script>
 
 <div class="view">
     <Sidebar />
     {#if params.slug}
-        <Table slug={params.slug} />
+        <Category slug={params.slug} />
     {/if}
 </div>
