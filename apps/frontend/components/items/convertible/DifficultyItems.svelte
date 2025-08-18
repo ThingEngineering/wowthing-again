@@ -7,24 +7,31 @@
 
     import DifficultyTable from './DifficultyTable.svelte';
 
-    export let difficultySlug: string;
-    export let season: ConvertibleCategory;
+    const modifierLookup = ['normal', 'heroic', null, 'mythic', 'looking-for-raid'];
 
-    $: modifier = ['normal', 'heroic', null, 'mythic', 'looking-for-raid'].indexOf(difficultySlug);
+    type Props = {
+        difficultySlug: string;
+        season: ConvertibleCategory;
+    };
 
-    let classData: Record<number, Record<number, LazyConvertibleModifier>>;
-    $: {
-        classData = {};
+    let { difficultySlug, season }: Props = $props();
+
+    let modifier = $derived(modifierLookup.indexOf(difficultySlug));
+
+    // let classData: Record<number, Record<number, LazyConvertibleModifier>>;
+    const classData = $derived.by(() => {
+        const ret: Record<number, Record<number, LazyConvertibleModifier>> = {};
         for (const [classId, slots] of getNumberKeyedEntries(
             lazyState.convertible.seasons[season.id]
         )) {
-            classData[classId] = {};
+            ret[classId] = {};
 
             for (const [slotId, slotData] of getNumberKeyedEntries(slots)) {
-                classData[classId][slotId] = slotData.modifiers[modifier];
+                ret[classId][slotId] = slotData.modifiers[modifier];
             }
         }
-    }
+        return ret;
+    });
 </script>
 
 <DifficultyTable {classData} {modifier} {season} />

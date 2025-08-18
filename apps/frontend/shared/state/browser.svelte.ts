@@ -13,6 +13,9 @@ interface BrowserStateIdk {
     auctions: {
         commoditiesCurrentExpansion: boolean;
     };
+    convertible: {
+        includePurchases: boolean;
+    };
     explore: {
         achievementId: number;
         bonusIds: string;
@@ -132,6 +135,9 @@ interface BrowserStateIdk {
 const initialState: BrowserStateIdk = {
     auctions: {
         commoditiesCurrentExpansion: true,
+    },
+    convertible: {
+        includePurchases: true,
     },
     explore: {
         achievementId: 0,

@@ -16,13 +16,20 @@
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
-    export let modifier: AppearanceModifier;
-    export let playerClass: StaticDataCharacterClass;
-    export let season: ConvertibleCategory;
+    type Props = {
+        modifier: AppearanceModifier;
+        playerClass: StaticDataCharacterClass;
+        season: ConvertibleCategory;
+    };
+    let { modifier, playerClass, season }: Props = $props();
 
-    $: data = lazyState.convertible.seasons[season.id]?.[playerClass.id];
-    $: hasEverySlot = convertibleTypes.every((type) => data?.[type]?.modifiers[modifier]?.userHas);
-    $: stats = lazyState.convertible.stats[`${season.id}--c${playerClass.id}--m${modifier}`];
+    let data = $derived(lazyState.convertible.seasons[season.id]?.[playerClass.id]);
+    let hasEverySlot = $derived(
+        convertibleTypes.every((type) => data?.[type]?.modifiers[modifier]?.userHas)
+    );
+    let stats = $derived(
+        lazyState.convertible.stats[`${season.id}--c${playerClass.id}--m${modifier}`]
+    );
 
     const filterFunc = function (char: Character): boolean {
         return (

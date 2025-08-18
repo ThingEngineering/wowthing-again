@@ -6,15 +6,17 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character;
-    export let season: ConvertibleCategory;
-    export let tier: number;
+    type Props = {
+        character: Character;
+        season: ConvertibleCategory;
+        tier: number;
+    };
+    let { character, season, tier }: Props = $props();
 
-    $: seasonTier = season.tiers[season.tiers.length - tier];
+    let seasonTier = $derived(season.tiers[season.tiers.length - tier]);
 
-    let currencies: [number?, number?, number?][][];
-    $: {
-        currencies = [];
+    let currencies = $derived.by(() => {
+        const ret: [number?, number?, number?][][] = [];
 
         const first: [number, number][] = [];
         if (season.conversionCurrencyId) {
@@ -23,11 +25,11 @@
         if (seasonTier.lowUpgrade || seasonTier.highUpgrade) {
             first.push([Constants.currencies.itemUpgrade, 1]);
         }
-        currencies.push(first);
+        ret.push(first);
 
         if (season.id === 3) {
             if (tier === 2 || tier === 3) {
-                currencies.push([[2122, 1]], [[204276, 1]]);
+                ret.push([[2122, 1]], [[204276, 1]]);
             }
         } else {
             const tier: [number, number, number?][] = [];
@@ -40,7 +42,7 @@
                 tier.push([upgrade.upgradeId, upgrade.upgradeCost, upgrade.achievementUpgradeCost]);
             }
             if (tier.length > 0) {
-                currencies.push(tier);
+                ret.push(tier);
             }
         }
 
@@ -53,9 +55,11 @@
                     purchaseCurrencies.push([purchaseData.costId, 1] as [number?, number?]);
                 }
             }
-            currencies.push(purchaseCurrencies);
+            ret.push(purchaseCurrencies);
         }
-    }
+
+        return ret;
+    });
 </script>
 
 <style lang="scss">
