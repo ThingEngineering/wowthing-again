@@ -4,28 +4,29 @@
 
     import { timeStore } from '@/shared/stores/time';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { userQuestStore } from '@/stores';
+    import { zoneMap } from '@/user-home/components/world-quests/data';
     import { worldQuestStore } from '@/user-home/components/world-quests/store';
+    import { userState } from '@/user-home/state/user';
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
     import type { ApiWorldQuest } from '@/user-home/components/world-quests/types';
 
     import Tooltip from '@/components/tooltips/GoldWorldQuests.svelte';
-    import { userState } from '@/user-home/state/user';
-    import { zoneMap } from '@/user-home/components/world-quests/data';
+    import { timeState } from '@/shared/state/time.svelte';
+    import { wowthingData } from '@/shared/stores/data';
+    import { QuestInfoType } from '@/shared/stores/static/enums';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 
-    let goldWorldQuests: [number, number, number][];
-    let questMap: Record<number, number>;
-
-    $: {
-        const now = $timeStore.toUnixInteger();
-        goldWorldQuests = ($userQuestStore.characters[character.id]?.goldWorldQuests || []).filter(
+    let now = $derived(timeState.time.toUnixInteger());
+    let goldWorldQuests = $derived(
+        (userState.quests.characterById.get(character.id)?.goldWorldQuests || []).filter(
             ([, expires]) => expires > now
-        );
-        questMap = Object.fromEntries(goldWorldQuests.map(([questId, , gold]) => [questId, gold]));
-    }
+        )
+    );
+    let questMap = $derived(
+        Object.fromEntries(goldWorldQuests.map(([questId, , gold]) => [questId, gold]))
+    );
 
     // zoneId: worldQuest[]
     function processQuests(
@@ -38,7 +39,16 @@
         const blah: [number, ApiWorldQuest][] = [];
         for (const [zoneId, zoneQuests] of getNumberKeyedEntries(worldQuests)) {
             for (const zoneQuest of zoneQuests) {
-                blah.push([zoneId, zoneQuest]);
+                // const worldQuest = wowthingData.static.worldQuestById.get(zoneQuest.questId);
+                // const questInfo = wowthingData.static.questInfoById.get(worldQuest?.questInfoId);
+                // if (worldQuest?.expansion >= 10 && questInfo?.type === QuestInfoType.WorldBoss) {
+                //     continue;
+                // }
+
+                // Undermine + K'aresh world bosses change reward all the damn time, skip them
+                if (![85088, 87354].includes(zoneQuest.questId)) {
+                    blah.push([zoneId, zoneQuest]);
+                }
             }
         }
 
