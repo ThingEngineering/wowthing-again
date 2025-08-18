@@ -414,7 +414,10 @@ public class StaticTool
                 .ToDictionary(kvp => kvp.Key.Id, kvp => kvp.Value);
 
             cacheData.QuestNames = _stringMap
-                .Where(kvp => kvp.Key.Type == StringType.WowQuestName && kvp.Key.Language == language)
+                .Where(kvp => kvp.Key.Type == StringType.WowQuestName &&
+                              kvp.Key.Language == language &&
+                              kvp.Value != "~PLACEHOLDER~" &&
+                              kvp.Value != "~NOTFOUND~")
                 .ToDictionary(kvp => kvp.Key.Id, kvp => kvp.Value);
 
             cacheData.SharedStrings = _stringMap

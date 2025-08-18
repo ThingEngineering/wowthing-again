@@ -7,53 +7,60 @@
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { lazyState } from '@/user-home/state/lazy';
     import { getTierPieces } from '@/utils/characters/get-tier-pieces';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
     import type { LazyConvertibleCharacterItem } from '@/user-home/state/lazy/convertible.svelte';
 
     import TooltipSet from '@/components/tooltips/tier-set/TooltipTierSet.svelte';
 
-    export let character: Character;
+    type GearPieces = [string, number, number, LazyConvertibleCharacterItem?][];
 
-    let currentCount: number;
-    let currentPieces: [string, number, number, LazyConvertibleCharacterItem?][];
-    let previousCount: number;
-    let previousPieces: [string, number, number, LazyConvertibleCharacterItem?][];
-    $: {
-        currentPieces = getTierPieces(currentTier, wowthingData.items.currentTier, character);
-        currentCount = currentPieces.filter(([, itemId]) => itemId > 0).length;
+    let { character }: CharacterProps = $props();
+
+    let { currentCount, currentPieces, previousCount, previousPieces } = $derived.by(() => {
+        const ret: {
+            currentCount: number;
+            previousCount: number;
+            currentPieces: GearPieces;
+            previousPieces: GearPieces;
+        } = {
+            currentCount: 0,
+            previousCount: 0,
+            currentPieces: [],
+            previousPieces: [],
+        };
+
+        ret.currentPieces = getTierPieces(currentTier, wowthingData.items.currentTier, character);
+        ret.currentCount = ret.currentPieces.filter(([, itemId]) => itemId > 0).length;
 
         if (previousTier) {
-            previousPieces = getTierPieces(
+            ret.previousPieces = getTierPieces(
                 previousTier,
                 wowthingData.items.previousTier,
                 character
             );
-            previousCount = previousPieces.filter(([, itemId]) => itemId > 0).length;
-        } else {
-            previousPieces = [];
-            previousCount = 0;
+            ret.previousCount = ret.previousPieces.filter(([, itemId]) => itemId > 0).length;
         }
 
         // Convertibles
         const category = convertibleCategories[0];
         const seasonData = lazyState.convertible.seasons[category.id][character.classId];
-        if (!seasonData) {
-            break $;
+        if (seasonData) {
+            slots.forEach((inventoryType, index) => {
+                if (ret.currentPieces[index][2] === 0) {
+                    const slotData = seasonData[inventoryType];
+                    const bestPiece = Object.values(slotData.modifiers)
+                        .flatMap((modifier) => modifier.characters[character.id] || [])
+                        .filter((item) => item.isConvertible)
+                        .reduce((a, b) => (a && a.currentTier > b.currentTier ? a : b), null);
+                    if (bestPiece) {
+                        ret.currentPieces[index].push(bestPiece);
+                    }
+                }
+            });
         }
 
-        slots.forEach((inventoryType, index) => {
-            if (currentPieces[index][2] === 0) {
-                const slotData = seasonData[inventoryType];
-                const bestPiece = Object.values(slotData.modifiers)
-                    .flatMap((modifier) => modifier.characters[character.id] || [])
-                    .filter((item) => item.isConvertible)
-                    .reduce((a, b) => (a && a.currentTier > b.currentTier ? a : b), null);
-                if (bestPiece) {
-                    currentPieces[index].push(bestPiece);
-                }
-            }
-        });
-    }
+        return ret;
+    });
 
     const slots = [
         InventoryType.Head,
@@ -111,10 +118,10 @@
             class:faded={currentCount + previousCount === 0}
             use:componentTooltip={{
                 component: TooltipSet,
-                props: {
+                propsFunc: () => ({
                     character,
                     tierSets: [currentPieces],
-                },
+                }),
             }}
         >
             {currentCount} pc

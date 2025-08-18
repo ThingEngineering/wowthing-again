@@ -1,20 +1,17 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte'
-
     import { convertibleCategories } from './data';
-    import { characterClassBySlug } from '@/data/character-class'
-    import getSavedRoute from '@/utils/get-saved-route'
+    import { characterClassBySlug } from '@/data/character-class';
+    import getSavedRoute from '@/utils/get-saved-route';
 
-    import ClassItems from './ClassItems.svelte'
-    import DifficultyItems from './DifficultyItems.svelte'
-    import Sidebar from './Sidebar.svelte'
+    import ClassItems from './ClassItems.svelte';
+    import DifficultyItems from './DifficultyItems.svelte';
+    import Sidebar from './Sidebar.svelte';
 
-    export let slug1: string
-    export let slug2: string
+    let { slug1, slug2 }: { slug1: string; slug2: string } = $props();
 
-    $: season = convertibleCategories.find((cc) => cc.slug === slug1)
+    let season = $derived(convertibleCategories.find((cc) => cc.slug === slug1));
 
-    afterUpdate(() => getSavedRoute('items/convertible', slug1, slug2))
+    $effect(() => getSavedRoute('items/convertible', slug1, slug2));
 </script>
 
 <div class="view">
@@ -22,15 +19,9 @@
 
     {#if slug1 && slug2}
         {#if characterClassBySlug[slug2]}
-            <ClassItems
-                {season}
-                classSlug={slug2}
-            />
+            <ClassItems {season} classSlug={slug2} />
         {:else}
-            <DifficultyItems
-                {season}
-                difficultySlug={slug2}
-            />
+            <DifficultyItems {season} difficultySlug={slug2} />
         {/if}
     {/if}
 </div>

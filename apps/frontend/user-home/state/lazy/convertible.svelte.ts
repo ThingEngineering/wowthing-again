@@ -6,6 +6,7 @@ import { ItemLocation } from '@/enums/item-location';
 import { inventoryTypeToItemRedundancySlot } from '@/enums/item-redundancy-slot';
 import { PlayableClass, playableClasses } from '@/enums/playable-class';
 import { QuestStatus } from '@/enums/quest-status';
+import { browserState } from '@/shared/state/browser.svelte';
 import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
 import { UserCount, type Character, type CharacterEquippedItem, type CharacterItem } from '@/types';
@@ -62,6 +63,7 @@ export function doConvertible(): LazyConvertible {
     const completionistMode = settingsState.value.transmog.completionistMode;
     const hasAppearanceById = $state.snapshot(userState.general.hasAppearanceById);
     const hasAppearanceBySource = $state.snapshot(userState.general.hasAppearanceBySource);
+    const includePurchases = browserState.current.convertible.includePurchases;
 
     const maskToClass: Record<number, number> = Object.fromEntries(
         playableClasses.map(([name, mask]) => [
@@ -307,7 +309,11 @@ export function doConvertible(): LazyConvertible {
                     }
 
                     // Purchaseable?
-                    if (characterData.length === 0 && convertibleCategory.purchases) {
+                    if (
+                        includePurchases &&
+                        characterData.length === 0 &&
+                        convertibleCategory.purchases
+                    ) {
                         const usefulPurchases = convertibleCategory.purchases.filter(
                             (purchase) =>
                                 purchase.costAmount[setItemInventoryType] &&

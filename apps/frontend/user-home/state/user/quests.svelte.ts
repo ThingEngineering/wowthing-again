@@ -28,6 +28,7 @@ export class DataUserQuests {
             characterQuests.process(
                 characterData.scannedAt,
                 characterData.questList,
+                characterData.goldWorldQuests,
                 characterData.rawProgressQuests
             );
         }

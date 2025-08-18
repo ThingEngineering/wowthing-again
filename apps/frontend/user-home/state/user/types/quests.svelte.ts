@@ -1,25 +1,30 @@
+import cloneDeep from 'lodash/cloneDeep';
 import differenceWith from 'lodash/differenceWith';
 import { DateTime } from 'luxon';
 import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 
+import { timeState } from '@/shared/state/time.svelte';
 import parseApiTime from '@/utils/parse-api-time';
 import {
     UserQuestDataCharacterProgress,
     type UserQuestDataCharacterProgressArray,
 } from '@/types/data';
-import { timeState } from '@/shared/state/time.svelte';
+
+type GoldWorldQuests = [number, number, number][];
 
 export class CharacterQuests {
     public hasQuestById = new SvelteSet<number>();
     public progressQuestByKey = new SvelteMap<string, UserQuestDataCharacterProgress>();
     public scannedAt = $state<string>();
     public scannedTime = $state<DateTime>();
+    public goldWorldQuests = $state<GoldWorldQuests>();
 
     constructor(public characterId: number) {}
 
     public process(
         scannedAt: string,
         questDiffs: number[],
+        goldWorldQuests: GoldWorldQuests,
         progressQuestArrayMap: Record<string, UserQuestDataCharacterProgressArray>
     ) {
         if (scannedAt === this.scannedAt) {
@@ -45,6 +50,10 @@ export class CharacterQuests {
             }
         }
 
+        // Gold world quests
+        this.goldWorldQuests = cloneDeep(goldWorldQuests);
+
+        // Progress
         const seenKeys = new Set<string>();
         for (const [key, progressQuestArray] of Object.entries(progressQuestArrayMap || {})) {
             // skip any quests that we know are expired

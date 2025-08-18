@@ -2,11 +2,13 @@
     import { afterUpdate } from 'svelte';
     import active from 'svelte-spa-router/active';
 
+    import { browserState } from '@/shared/state/browser.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
     import getSavedRoute from '@/utils/get-saved-route';
     import type { MultiSlugParams } from '@/types';
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte';
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import Convertible from './convertible/Convertible.svelte';
     import GuildBanks from './guild-banks/GuildBanks.svelte';
     import Options from './ItemsOptions.svelte';
@@ -30,27 +32,49 @@
         gap: 1rem;
         width: 100%;
     }
+    .flex-wrapper {
+        gap: 1rem;
+        justify-content: flex-start;
+        width: 100%;
+    }
+    nav {
+        width: auto;
+    }
 </style>
 
 <div class="items-wrapper">
-    <nav class="subnav" id="items-subnav">
-        <a href="#/items/bags" use:active>Bags</a>
-        <a href="#/items/equipped" use:active>Equipped</a>
+    <div class="flex-wrapper">
+        <nav class="subnav" id="items-subnav">
+            <a href="#/items/bags" use:active>Bags</a>
+            <a href="#/items/equipped" use:active>Equipped</a>
 
-        <a class="b-l m-l" href="#/items/convertible" use:active={{ path: /^\/items\/convertible/ }}
-            >Convertible</a
-        >
-        <a href="#/items/tokens" use:active={{ path: /^\/items\/tokens/ }}>Tokens</a>
-
-        {#if !sharedState.public}
             <a
                 class="b-l m-l"
-                href="#/items/guild-banks"
-                use:active={{ path: /^\/items\/guild-banks/ }}>Guild Banks</a
+                href="#/items/convertible"
+                use:active={{ path: /^\/items\/convertible/ }}>Convertible</a
             >
-            <a href="#/items/search" use:active={{ path: /^\/items\/search/ }}>Search</a>
+            <a href="#/items/tokens" use:active={{ path: /^\/items\/tokens/ }}>Tokens</a>
+
+            {#if !sharedState.public}
+                <a
+                    class="b-l m-l"
+                    href="#/items/guild-banks"
+                    use:active={{ path: /^\/items\/guild-banks/ }}>Guild Banks</a
+                >
+                <a href="#/items/search" use:active={{ path: /^\/items\/search/ }}>Search</a>
+            {/if}
+        </nav>
+
+        {#if params.slug1 === 'convertible'}
+            <div class="options-group">
+                <Checkbox
+                    name="current_expansion"
+                    bind:value={browserState.current.convertible.includePurchases}
+                    >Include purchased items</Checkbox
+                >
+            </div>
         {/if}
-    </nav>
+    </div>
 
     {#if params.slug1 === 'convertible'}
         <Convertible slug1={params.slug2} slug2={params.slug3} />

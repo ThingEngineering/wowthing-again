@@ -57,6 +57,8 @@ public static partial class Hardcoded
         16986, // Blood Talon
         34529, // Nether Chain Shirt
         34530, // TBC Twisting Nether Chain Shirt
+        55183, // WotLK Corroded Saronite Edge
+        55184, // WotLK Corroded Saronite Woundbringer
         55186, // WotLK Chestplate of Conquest
         55187, // WotLK Legplates of Conquest
         409224, // Reclaimed Gauntlet Chassis (temporary legendary craft)
@@ -151,6 +153,7 @@ public static partial class Hardcoded
 
         // Enchanting
         44612, // WotLK Greater Blasting
+        62257, // WotLK Titanguard
         343681, // Shadowlands ??
         422338, // Shalasar's Sophic Vellum (temporary legendary craft)
 
