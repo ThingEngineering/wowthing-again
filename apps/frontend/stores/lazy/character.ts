@@ -201,23 +201,23 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
     const charProgressQuests = charQuests?.progressQuestByKey;
     const charScanned = charQuests?.scannedTime;
 
-    if (charProgressQuests && !charProgressQuests.has('twwDelveGilded')) {
-        const have = character.weekly?.delveGilded || 0;
-        charProgressQuests.set('twwDelveGilded', {
-            id: 0,
-            status: have === 3 ? QuestStatus.Completed : QuestStatus.InProgress,
-            expires: 0,
-            name: `${have}/3 Gilded Stash`,
-            objectives: [
-                {
-                    type: 'bar',
-                    have: 0,
-                    need: 3,
-                    text: `${have}/3 Gilded Stash`,
-                },
-            ],
-        } as UserQuestDataCharacterProgress);
-    }
+    // if (charProgressQuests && !charProgressQuests.has('twwDelveGilded')) {
+    //     const have = character.weekly?.delveGilded || 0;
+    //     charProgressQuests.set('twwDelveGilded', {
+    //         id: 0,
+    //         status: have === 3 ? QuestStatus.Completed : QuestStatus.InProgress,
+    //         expires: 0,
+    //         name: `${have}/3 Gilded Stash`,
+    //         objectives: [
+    //             {
+    //                 type: 'bar',
+    //                 have: 0,
+    //                 need: 3,
+    //                 text: `${have}/3 Gilded Stash`,
+    //             },
+    //         ],
+    //     } as UserQuestDataCharacterProgress);
+    // }
 
     for (const view of stores.settings.views) {
         for (const fullTaskName of view.homeTasks) {

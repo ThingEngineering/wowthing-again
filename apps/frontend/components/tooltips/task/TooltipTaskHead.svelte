@@ -138,26 +138,26 @@
                         <td class="value">
                             <ParsedText text={multiTaskName} />
                         </td>
-                        <td class="label drop-shadow status-fail">{questStatuses[0]}</td>
-                        <td class="label drop-shadow status-shrug">{questStatuses[1]}</td>
-                        <td class="label drop-shadow status-success">{questStatuses[2]}</td>
+                        <td class="label status-fail">{questStatuses[0]}</td>
+                        <td class="label status-shrug">{questStatuses[1]}</td>
+                        <td class="label status-success">{questStatuses[2]}</td>
                     </tr>
                 {/if}
             {:else}
                 <tr>
                     <td class="label status-success">Completed:</td>
-                    <td class="value drop-shadow">{completed}</td>
+                    <td class="value">{completed}</td>
                 </tr>
                 {#if inProgress > 0}
                     <tr>
                         <td class="label status-shrug">In progress:</td>
-                        <td class="value drop-shadow">{inProgress}</td>
+                        <td class="value">{inProgress}</td>
                     </tr>
                 {/if}
                 {#if needToGet > 0}
                     <tr>
                         <td class="label status-fail">Not started:</td>
-                        <td class="value drop-shadow">{needToGet}</td>
+                        <td class="value">{needToGet}</td>
                     </tr>
                 {/if}
             {/each}

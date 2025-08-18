@@ -91,10 +91,15 @@ export function homeSort(
         }
 
         const progress = char.isMaxLevel ? char.weekly?.vault?.dungeonProgress : [];
+        const levels = [
+            getVaultItemLevel(getDungeonLevel(progress?.[0]))[0] || progress?.[0]?.progress || 0,
+            getVaultItemLevel(getDungeonLevel(progress?.[1]))[0] || progress?.[1]?.progress || 0,
+            getVaultItemLevel(getDungeonLevel(progress?.[2]))[0] || progress?.[2]?.progress || 0,
+        ];
         return [
-            leftPad(900 - getVaultItemLevel(getDungeonLevel(progress?.[0]))[0], 3, '0'),
-            leftPad(900 - getVaultItemLevel(getDungeonLevel(progress?.[1]))[0], 3, '0'),
-            leftPad(900 - getVaultItemLevel(getDungeonLevel(progress?.[2]))[0], 3, '0'),
+            leftPad(900 - levels[0], 3, '0'),
+            leftPad(900 - levels[1], 3, '0'),
+            leftPad(900 - levels[2], 3, '0'),
         ].join('|');
     } else if (sortBy === 'vaultRaid') {
         if (char.weekly?.vault?.generatedRewards) {
@@ -117,10 +122,15 @@ export function homeSort(
         }
 
         const progress = char.isMaxLevel ? char.weekly?.vault?.worldProgress : [];
+        const levels = [
+            getWorldTier(progress?.[0]?.level)[0] || progress?.[0]?.progress || 0,
+            getWorldTier(progress?.[1]?.level)[0] || progress?.[1]?.progress || 0,
+            getWorldTier(progress?.[2]?.level)[0] || progress?.[2]?.progress || 0,
+        ];
         return [
-            leftPad(900 - getWorldTier(progress?.[0]?.level)[0], 3, '0'),
-            leftPad(900 - getWorldTier(progress?.[1]?.level)[0], 3, '0'),
-            leftPad(900 - getWorldTier(progress?.[2]?.level)[0], 3, '0'),
+            leftPad(900 - levels[0], 3, '0'),
+            leftPad(900 - levels[1], 3, '0'),
+            leftPad(900 - levels[2], 3, '0'),
         ].join('|');
     } else if (sortBy.startsWith('currency:')) {
         const currencyId = parseInt(sortBy.split(':')[1]);
