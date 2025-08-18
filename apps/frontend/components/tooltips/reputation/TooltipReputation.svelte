@@ -153,16 +153,16 @@
 
         <table class="table-striped">
             <tbody>
-                {#each reps as rep}
+                {#each reps as rep (rep)}
                     <tr class={rep.cls}>
                         {#if rep.name === 'Paragon'}
-                            <td class="drop-shadow number1">{toNiceNumber(paragon.current)}</td>
+                            <td class="number1">{toNiceNumber(paragon.current)}</td>
                             <td class="separator">/</td>
-                            <td class="drop-shadow number2">{toNiceNumber(paragon.max)}</td>
+                            <td class="number2">{toNiceNumber(paragon.max)}</td>
                         {:else if characterRep >= rep.maxValue}
                             <td class="number1" colspan="3">✔</td>
                         {:else}
-                            <td class="drop-shadow number1">
+                            <td class="number1">
                                 {#if rep.thisOne}
                                     {toNiceNumber(
                                         characterRep < 0
@@ -176,7 +176,7 @@
                                 {/if}
                             </td>
                             <td class="separator">/</td>
-                            <td class="drop-shadow number2">
+                            <td class="number2">
                                 {toNiceNumber(
                                     rep.minValue < 0
                                         ? rep.minValue - rep.maxValue
