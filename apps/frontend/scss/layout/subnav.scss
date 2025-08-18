@@ -29,7 +29,7 @@
             background: $active-background;
             border: 1px solid #eee;
 
-            &:not(:first-child) {
+            &:not(:first-child):not(.m-l) {
                 margin-left: -1px;
             }
         }
