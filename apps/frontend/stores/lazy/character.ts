@@ -110,11 +110,13 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
 function doCharacterTasks(stores: LazyStores, character: Character, characterData: LazyCharacter) {
     const currentTime = timeState.time.toUnixInteger();
     const customTaskMap = settingsState.customTaskMap;
-    const charQuests = stores.userQuestData.characters[character?.id];
-    const charScanned = charQuests?.scannedTime;
 
     const processTask = (choreTask: Chore, character: Character): LazyCharacterChoreTask => {
         const charTask = new LazyCharacterChoreTask(choreTask.taskKey, undefined);
+
+        const charQuests = userState.quests.characterById.get(character?.id);
+        const charProgressQuests = charQuests?.progressQuestByKey;
+        const charScanned = charQuests?.scannedTime;
 
         if (!character || !charQuests) {
             return charTask;
@@ -124,7 +126,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
             const questIds = choreTask.questIdFunc?.(character, choreTask) || choreTask.questIds;
             for (const questId of questIds) {
                 // is the quest in progress?
-                const questProgress = charProgressQuests?.[`q${questId}`];
+                const questProgress = charProgressQuests?.get(`q${questId}`);
                 if (questProgress) {
                     charTask.quest = questProgress;
                     charTask.status = questProgress.status;
@@ -142,7 +144,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                 }
 
                 // is the quest completed?
-                if (stores.userQuestData.characters[character.id]?.quests?.has(questId)) {
+                if (charQuests.hasQuestById.has(questId)) {
                     charTask.quest = {
                         expires: getExpiry(choreTask, character, charScanned),
                         id: questId,
@@ -160,7 +162,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                 charTask.status = QuestStatus.NotStarted;
             }
         } else {
-            charTask.quest = charQuests?.progressQuests?.[choreTask.taskKey];
+            charTask.quest = charQuests?.progressQuestByKey?.get(choreTask.taskKey);
             if (charTask.quest) {
                 charTask.status = charTask.quest.status;
             }
@@ -178,10 +180,30 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
         return charTask;
     };
 
-    const charProgressQuests = stores.userQuestData.characters[character.id]?.progressQuests;
-    if (charProgressQuests && !charProgressQuests['twwDelveGilded']) {
+    const getAccountTask = (choreTask: Chore) => {
+        if (!accountTasks[choreTask.taskKey]?.status) {
+            let bestTask: LazyCharacterChoreTask;
+            for (const character of userState.general.characters) {
+                const charTask = processTask(choreTask, character);
+                if (!bestTask || charTask.status > bestTask.status) {
+                    bestTask = charTask;
+                }
+                if (bestTask.status === QuestStatus.Completed) {
+                    break;
+                }
+            }
+            accountTasks[choreTask.taskKey] = bestTask;
+        }
+        return accountTasks[choreTask.taskKey];
+    };
+
+    const charQuests = userState.quests.characterById.get(character?.id);
+    const charProgressQuests = charQuests?.progressQuestByKey;
+    const charScanned = charQuests?.scannedTime;
+
+    if (charProgressQuests && !charProgressQuests.has('twwDelveGilded')) {
         const have = character.weekly?.delveGilded || 0;
-        charProgressQuests['twwDelveGilded'] = {
+        charProgressQuests.set('twwDelveGilded', {
             id: 0,
             status: have === 3 ? QuestStatus.Completed : QuestStatus.InProgress,
             expires: 0,
@@ -194,7 +216,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                     text: `${have}/3 Gilded Stash`,
                 },
             ],
-        } as UserQuestDataCharacterProgress;
+        } as UserQuestDataCharacterProgress);
     }
 
     for (const view of stores.settings.views) {
@@ -266,13 +288,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
 
                     let charTask: LazyCharacterChoreTask;
                     if (choreTask.accountWide) {
-                        charTask = accountTasks[choreTask.taskKey];
-                        if (!charTask || charTask.status < QuestStatus.Completed) {
-                            const newCharTask = processTask(choreTask, character);
-                            if (!charTask || newCharTask.status > charTask.status) {
-                                charTask = accountTasks[choreTask.taskKey] = newCharTask;
-                            }
-                        }
+                        charTask = getAccountTask(choreTask);
                     } else {
                         charTask = processTask(choreTask, character);
                     }
@@ -579,7 +595,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                 if (task.questReset !== undefined) {
                     for (const questId of task.questIds) {
                         // is the quest in progress?
-                        const questProgress = charProgressQuests?.[`q${questId}`];
+                        const questProgress = charProgressQuests?.get(`q${questId}`);
                         if (
                             questProgress &&
                             (!charTask.quest || charTask.quest.status < questProgress.status)

@@ -2,7 +2,7 @@
     import groupBy from 'lodash/groupBy';
     import orderBy from 'lodash/orderBy';
 
-    import { timeStore } from '@/shared/stores/time';
+    import { timeState } from '@/shared/state/time.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { zoneMap } from '@/user-home/components/world-quests/data';
     import { worldQuestStore } from '@/user-home/components/world-quests/store';
@@ -12,9 +12,6 @@
     import type { ApiWorldQuest } from '@/user-home/components/world-quests/types';
 
     import Tooltip from '@/components/tooltips/GoldWorldQuests.svelte';
-    import { timeState } from '@/shared/state/time.svelte';
-    import { wowthingData } from '@/shared/stores/data';
-    import { QuestInfoType } from '@/shared/stores/static/enums';
 
     let { character }: CharacterProps = $props();
 
@@ -67,7 +64,7 @@
                     .get(character.id)
                     .hasQuestById.has(worldQuest.questId)
             ) {
-                const expires = worldQuest.expires.diff($timeStore).toMillis();
+                const expires = worldQuest.expires.diff(timeState.time).toMillis();
                 if (expires > 0) {
                     active.push([
                         zoneId,
