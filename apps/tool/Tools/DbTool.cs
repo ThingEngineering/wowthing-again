@@ -78,7 +78,7 @@ public class DbTool
         var dirRequirementIds = new HashSet<int>(requirementIds);
         var dirTagIds = new HashSet<int>(tagIds);
 
-        var fileInfos = dirInfo.GetFiles()
+        var fileInfos = dirInfo.GetFiles("*.yml", SearchOption.AllDirectories)
             .OrderBy(fi => fi.Name)
             .ToArray();
         foreach (var fileInfo in fileInfos)
