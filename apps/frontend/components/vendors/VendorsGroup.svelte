@@ -76,6 +76,16 @@
                         modifier = appearanceKeys[0];
                     }
 
+                    if (group.overrideDifficulty === 14) {
+                        modifier = AppearanceModifier.Normal;
+                    } else if (group.overrideDifficulty === 15) {
+                        modifier = AppearanceModifier.Heroic;
+                    } else if (group.overrideDifficulty === 16) {
+                        modifier = AppearanceModifier.Mythic;
+                    } else if (group.overrideDifficulty === 17) {
+                        modifier = AppearanceModifier.LookingForRaid;
+                    }
+
                     if (modifier === AppearanceModifier.Mythic) {
                         thingData.difficulty = 'M';
                     } else if (modifier === AppearanceModifier.Heroic) {
