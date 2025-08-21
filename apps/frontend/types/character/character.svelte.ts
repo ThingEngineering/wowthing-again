@@ -67,6 +67,9 @@ import type { Account } from '../account';
 import type { CharacterAura } from './aura';
 import type { CharacterPatronOrder } from './patron-order';
 import type { CharacterMovementSpeed } from './movement-speed';
+import { seasonMap } from '@/data/mythic-plus';
+import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
+import { getDungeonScores } from '@/utils/mythic-plus';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Static
@@ -394,6 +397,23 @@ export class Character implements ContainsItems, HasNameAndRealm {
                     ...mapArray
                 );
             }
+        }
+
+        for (const [seasonId, addonMaps] of getNumberKeyedEntries(this.mythicPlusSeasons ?? {})) {
+            const season = seasonMap[seasonId];
+            let total = 0;
+            for (const addonMap of Object.values(addonMaps)) {
+                if (season?.scoreType === MythicPlusScoreType.FortifiedTyrannical) {
+                    const scores = getDungeonScores(addonMap);
+                    total += scores.fortifiedFinal + scores.tyrannicalFinal;
+                } else {
+                    total += addonMap.overallScore;
+                }
+            }
+
+            const rioScore = this.raiderIo?.[seasonId]?.['all'] || 0;
+            this.mythicPlusSeasonScores[seasonId] =
+                Math.abs(total - rioScore) > 10 ? total : rioScore;
         }
 
         for (const [week, runsArray] of Object.entries(rawMythicPlusWeeks || {})) {

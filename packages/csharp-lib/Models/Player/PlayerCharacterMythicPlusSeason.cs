@@ -9,7 +9,8 @@ public class PlayerCharacterMythicPlusSeason
     public PlayerCharacter Character { get; set; }
 
     public int Season { get; set; }
-        
+    public double Rating { get; set; }
+
     [Column(TypeName = "jsonb")]
     public List<PlayerCharacterMythicPlusRun> Runs { get; set; }
 }

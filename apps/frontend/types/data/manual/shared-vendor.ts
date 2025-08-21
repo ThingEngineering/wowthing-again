@@ -172,6 +172,8 @@ export class ManualDataSharedVendor {
 export type ManualDataSharedVendorArray = ConstructorParameters<typeof ManualDataSharedVendor>;
 
 export class ManualDataSharedVendorSet {
+    public overrideDifficulty?: number;
+
     constructor(
         public name: string,
         public range: number[],

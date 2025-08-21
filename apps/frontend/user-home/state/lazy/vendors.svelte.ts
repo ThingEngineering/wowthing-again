@@ -466,7 +466,8 @@ class LazyVendorsProcessor {
                         set.name,
                         [],
                         true,
-                        set.showNormalTag
+                        set.showNormalTag,
+                        set.overrideDifficulty
                     ));
                     for (let itemIndex = setPosition; itemIndex < setEnd; itemIndex++) {
                         coveredBySets.add(itemIndex);

@@ -46,17 +46,23 @@ public class CharacterMythicKeystoneProfileSeasonJob : JobBase
             .Where(mps => mps.CharacterId == _query.CharacterId)
             .ToDictionaryAsync(k => k.Season, CancellationToken);
 
+        if (!seasonMap.TryGetValue(seasonId, out var season))
+        {
+            season = new PlayerCharacterMythicPlusSeason
+            {
+                CharacterId = _query.CharacterId,
+                Season = seasonId,
+            };
+            Context.PlayerCharacterMythicPlusSeason.Add(season);
+        }
+
+        if (resultData.MythicRating != null)
+        {
+            season.Rating = resultData.MythicRating.Rating;
+        }
+
         if (resultData.BestRuns != null)
         {
-            if (!seasonMap.TryGetValue(seasonId, out PlayerCharacterMythicPlusSeason season))
-            {
-                season = new PlayerCharacterMythicPlusSeason
-                {
-                    CharacterId = _query.CharacterId,
-                    Season = seasonId,
-                };
-                Context.PlayerCharacterMythicPlusSeason.Add(season);
-            }
 
             season.Runs = resultData.BestRuns
                 .EmptyIfNull()
