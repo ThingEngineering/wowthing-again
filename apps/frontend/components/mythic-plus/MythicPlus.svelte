@@ -1,15 +1,14 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte'
+    import getSavedRoute from '@/utils/get-saved-route';
+    import type { ParamsSlugsProps } from '@/types/props';
 
-    import getSavedRoute from '@/utils/get-saved-route'
+    import MythicPlusSidebar from './MythicPlusSidebar.svelte';
+    import MythicPlusStats from './MythicPlusStats.svelte';
+    import MythicPlusTable from './MythicPlusTable.svelte';
 
-    import MythicPlusSidebar from './MythicPlusSidebar.svelte'
-    import MythicPlusStats from './MythicPlusStats.svelte'
-    import MythicPlusTable from './MythicPlusTable.svelte'
+    let { params }: ParamsSlugsProps = $props();
 
-    export let params: { slug: string }
-
-    afterUpdate(() => getSavedRoute('mythic-plus', params.slug))
+    $effect(() => getSavedRoute('mythic-plus', params.slug1));
 </script>
 
 <style lang="scss">
@@ -21,11 +20,11 @@
 <div class="view">
     <MythicPlusSidebar />
     <div class="view sub-wrapper">
-        {#if params.slug}
-            <MythicPlusTable slug={params.slug} />
+        {#if params.slug1}
+            <MythicPlusTable slug={params.slug1} />
 
-            {#if params.slug !== 'this-week'}
-                <MythicPlusStats slug={params.slug} />
+            {#if params.slug1 !== 'this-week'}
+                <MythicPlusStats slug={params.slug1} />
             {/if}
         {/if}
     </div>

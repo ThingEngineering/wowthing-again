@@ -69,7 +69,7 @@
         '/journal/:slug1?/:slug2?/:slug3?': Journal,
         '/lockouts': Lockouts,
         '/matrix': Matrix,
-        '/mythic-plus/:slug?': MythicPlus,
+        '/mythic-plus/:slug1?': MythicPlus,
         '/professions/:slug1?/:slug2?/:slug3?': Professions,
         '/progress/:slug1?/:slug2?': Progress,
         '/reputations/:slug?': Reputations,
