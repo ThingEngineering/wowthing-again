@@ -66,7 +66,7 @@ public class CharacterMythicKeystoneProfileJob : JobBase
                 .EmptyIfNull()
                 .Select(run => new PlayerCharacterMythicPlusRun
                 {
-                    Affixes = run.Affixes.Select(a => a.Id).ToList(),
+                    Affixes = run.Affixes.EmptyIfNull().Select(a => a.Id).ToList(),
                     Completed = run.CompletedTimestamp.AsUtcTimestamp(),
                     DungeonId = run.Dungeon.Id,
                     Duration = run.Duration,
