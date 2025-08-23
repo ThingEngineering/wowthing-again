@@ -1,17 +1,18 @@
 <script lang="ts">
     import find from 'lodash/find';
     import sortBy from 'lodash/sortBy';
+    import uniq from 'lodash/uniq';
     import { replace } from 'svelte-spa-router';
 
     import { achievementStore } from '@/stores';
     import { achievementState } from '@/stores/local-storage';
+    import { userState } from '@/user-home/state/user';
     import { leftPad } from '@/utils/formatting';
     import type { AchievementDataCategory } from '@/types';
 
     import Achievement from './Achievement.svelte';
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import ProgressBar from '@/components/common/ProgressBar.svelte';
-    import { userState } from '@/user-home/state/user';
 
     export let slug1: string;
     export let slug2: string;
@@ -33,7 +34,7 @@
             replace(`/achievements/${slug1}/${category.children[0].slug}`);
         }
 
-        achievementIds =
+        achievementIds = uniq(
             category.id >= 200000
                 ? category.achievementIds
                 : sortBy(category.achievementIds as number[], (id) =>
@@ -57,7 +58,8 @@
                           (cheev.faction === 1 && $achievementState.showAlliance) ||
                           (cheev.faction === 0 && $achievementState.showHorde)
                       );
-                  });
+                  })
+        );
     }
 </script>
 
