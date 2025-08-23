@@ -1,8 +1,12 @@
 <script lang="ts">
-    export let name: string;
-    export let options: [number | string, number | string][];
-    export let selected: number | string;
-    export let width = '';
+    type Props = {
+        disabled?: boolean;
+        name: string;
+        options: [number | string, number | string][];
+        selected: number | string;
+        width?: string;
+    };
+    let { disabled = false, name, options, selected = $bindable(), width }: Props = $props();
 </script>
 
 <style lang="scss">
@@ -21,7 +25,7 @@
 </style>
 
 <fieldset>
-    <select class="border" {name} bind:value={selected} style:width>
+    <select class="border" {name} bind:value={selected} style:width {disabled}>
         {#each options as [value, text]}
             <option {value}>{text}</option>
         {/each}

@@ -1,3 +1,4 @@
+import type { InventorySlot } from '@/enums/inventory-slot';
 import { objectKeys } from '@/utils/object-keys';
 
 export interface CollectibleState {
@@ -34,6 +35,18 @@ interface BrowserStateIdk {
         highlightMissing: boolean;
         showCollected: boolean;
         showUncollected: boolean;
+    };
+    items: {
+        highlightBagSize: boolean;
+        highlightEnchants: boolean;
+        highlightGems: boolean;
+        highlightHeirlooms: boolean;
+        highlightItemLevel: boolean;
+        highlightUpgrades: boolean;
+        itemLevelComparison: '<' | '<=' | '=' | '>=' | '>';
+        itemLevelSlot: number;
+        itemLevelValue: number;
+        minimumBagSize: number;
     };
     journal: {
         filtersExpanded: boolean;
@@ -157,6 +170,18 @@ const initialState: BrowserStateIdk = {
         highlightMissing: true,
         showCollected: true,
         showUncollected: true,
+    },
+    items: {
+        highlightBagSize: false,
+        highlightEnchants: false,
+        highlightGems: false,
+        highlightHeirlooms: false,
+        highlightItemLevel: false,
+        highlightUpgrades: false,
+        itemLevelComparison: '<',
+        itemLevelSlot: 0,
+        itemLevelValue: 0,
+        minimumBagSize: 0,
     },
     journal: {
         filtersExpanded: false,

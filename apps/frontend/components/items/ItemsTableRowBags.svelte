@@ -1,7 +1,7 @@
 <script lang="ts">
     import { bankBagSlots, characterBagSlots } from '@/data/inventory-slot';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { gearState } from '@/stores/local-storage';
     import { CharacterEquippedItem, type Character, type CharacterGear } from '@/types';
 
     import Empty from './ItemsEmpty.svelte';
@@ -34,8 +34,8 @@
                                 []
                             ),
                             highlight:
-                                $gearState.minimumBagSize > 0 &&
-                                bag.slots < $gearState.minimumBagSize,
+                                browserState.current.items.minimumBagSize > 0 &&
+                                bag.slots < browserState.current.items.minimumBagSize,
                         },
                     ]);
                 } else {
@@ -65,7 +65,8 @@
         {#if gear}
             <Item
                 {gear}
-                useHighlighting={$gearState.highlightBagSize && $gearState.minimumBagSize > 0}
+                useHighlighting={browserState.current.items.highlightBagSize &&
+                    browserState.current.items.minimumBagSize > 0}
             />
         {:else}
             <Empty text={getSlotText(bagSlot)} />

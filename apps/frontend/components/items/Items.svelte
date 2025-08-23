@@ -1,11 +1,10 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte';
     import active from 'svelte-spa-router/active';
 
     import { browserState } from '@/shared/state/browser.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
     import getSavedRoute from '@/utils/get-saved-route';
-    import type { MultiSlugParams } from '@/types';
+    import type { ParamsSlugsProps } from '@/types/props';
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte';
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
@@ -20,9 +19,9 @@
     import Search from './ItemsSearch.svelte';
     import Tokens from './tokens/Tokens.svelte';
 
-    export let params: MultiSlugParams;
+    let { params }: ParamsSlugsProps = $props();
 
-    afterUpdate(() => getSavedRoute('items', params.slug1, null, null, 'items-subnav'));
+    $effect(() => getSavedRoute('items', params.slug1, null, null, 'items-subnav'));
 </script>
 
 <style lang="scss">

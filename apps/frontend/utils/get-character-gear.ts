@@ -9,14 +9,22 @@ import { InventorySlot } from '@/enums/inventory-slot';
 import { ItemBonusType } from '@/enums/item-bonus-type';
 import { ItemClass } from '@/enums/item-class';
 import { WeaponSubclass } from '@/enums/weapon-subclass';
+import { browserState } from '@/shared/state/browser.svelte';
 import { wowthingData } from '@/shared/stores/data';
 // import getFirstMatch from '@/utils/get-first-match'
-import type { GearState } from '@/stores/local-storage';
 import type { Character, CharacterGear } from '@/types';
 import type { ItemDataItem } from '@/types/data/item';
 
-export default function getCharacterGear(state: GearState, character: Character): CharacterGear[] {
+const inventorySlotMap: Record<number, InventorySlot> = {
+    [InventorySlot.OffHand]: InventorySlot.MainHand,
+    [InventorySlot.Ring2]: InventorySlot.Ring1,
+    [InventorySlot.Trinket2]: InventorySlot.Trinket1,
+};
+
+export default function getCharacterGear(character: Character): CharacterGear[] {
     const ret: CharacterGear[] = [];
+
+    const state = browserState.current.items;
 
     const highlightAny =
         state.highlightEnchants ||
@@ -62,8 +70,22 @@ export default function getCharacterGear(state: GearState, character: Character)
             }
         }
 
-        if (state.highlightItemLevel && gear.equipped.itemLevel < state.minimumItemLevel) {
-            gear.lowItemLevel = true;
+        if (
+            state.highlightItemLevel &&
+            (state.itemLevelSlot === 0 ||
+                state.itemLevelSlot === (inventorySlotMap[inventorySlot] || inventorySlot))
+        ) {
+            if (state.itemLevelComparison === '<') {
+                gear.lowItemLevel = gear.equipped.itemLevel < state.itemLevelValue;
+            } else if (state.itemLevelComparison === '<=') {
+                gear.lowItemLevel = gear.equipped.itemLevel <= state.itemLevelValue;
+            } else if (state.itemLevelComparison === '=') {
+                gear.lowItemLevel = gear.equipped.itemLevel === state.itemLevelValue;
+            } else if (state.itemLevelComparison === '>=') {
+                gear.lowItemLevel = gear.equipped.itemLevel >= state.itemLevelValue;
+            } else if (state.itemLevelComparison === '>') {
+                gear.lowItemLevel = gear.equipped.itemLevel > state.itemLevelValue;
+            }
         }
 
         if (character.level === Constants.characterMaxLevel && gear.equipped.itemLevel >= 580) {

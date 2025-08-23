@@ -4,7 +4,6 @@ export * from './auctions';
 export * from './characters';
 export * from './collecting-settings';
 export * from './currency';
-export * from './gear';
 export * from './history';
 export * from './home';
 export * from './new-nav';
