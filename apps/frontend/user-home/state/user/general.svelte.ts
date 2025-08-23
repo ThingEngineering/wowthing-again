@@ -41,7 +41,7 @@ export class DataUserGeneral {
     public guildById: Record<number, Guild> = $state({});
     public petsById: Record<number, UserDataPet[]> = $state({});
     public warbankItems: WarbankItem[] = $state([]);
-    public warbankItemsByItemId: Record<number, WarbankItem[]> = $state({});
+    public warbankItemsByItemId: Record<number, WarbankItem[]> = $state.raw({});
 
     public honorCurrent = $state(0);
     public honorLevel = $state(0);

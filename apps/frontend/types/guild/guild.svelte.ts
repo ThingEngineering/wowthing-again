@@ -14,9 +14,9 @@ export class Guild implements ContainsItems, HasNameAndRealm {
     public realm: StaticDataRealm;
 
     public items: GuildItem[] = $state([]);
-    public itemsByAppearanceId: Record<number, GuildItem[]> = $state({});
-    public itemsByAppearanceSource: Record<string, GuildItem[]> = $state({});
-    public itemsById: Record<number, GuildItem[]> = $state({});
+    public itemsByAppearanceId: Record<number, GuildItem[]> = $state.raw({});
+    public itemsByAppearanceSource: Record<string, GuildItem[]> = $state.raw({});
+    public itemsById: Record<number, GuildItem[]> = $state.raw({});
 
     public init(
         id: number,
