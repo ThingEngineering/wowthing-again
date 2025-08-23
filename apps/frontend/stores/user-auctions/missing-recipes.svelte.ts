@@ -63,10 +63,7 @@ export class UserAuctionMissingRecipeDataStore {
             });
 
             if (response.ok) {
-                const userItemsById = $state.snapshot(userState.general.itemsById) as Record<
-                    number,
-                    [HasNameAndRealm, UserItem[]][]
-                >;
+                const userItemsById = userState.general.itemsById;
 
                 const responseData = (await response.json()) as {
                     auctions: Record<string, UserAuctionDataMissingRecipeAuctionArray[]>;

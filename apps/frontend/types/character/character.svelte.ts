@@ -119,9 +119,9 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public bags: Record<number, number> = $state({});
     public currencies: Record<number, CharacterCurrency> = $state({});
     public equippedItems: Record<number, CharacterEquippedItem> = $state({});
-    public itemsByAppearanceId: Record<number, CharacterItem[]> = $state({});
-    public itemsByAppearanceSource: Record<string, CharacterItem[]> = $state({});
-    public itemsById: Record<number, CharacterItem[]> = $state({});
+    public itemsByAppearanceId: Record<number, CharacterItem[]> = $state.raw({});
+    public itemsByAppearanceSource: Record<string, CharacterItem[]> = $state.raw({});
+    public itemsById: Record<number, CharacterItem[]> = $state.raw({});
     public itemsByLocation = new SvelteMap<ItemLocation, CharacterItem[]>();
     public knownRecipes = new SvelteSet<number>();
     public mythicPlusSeasonScores: Record<number, number> = $state({});
@@ -131,7 +131,6 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public mythicPlusWeeks: Record<number, CharacterMythicPlusAddonRun[]> = $state({});
     public professionSpecializations: Record<number, number> = $state({});
     public specializations: Record<number, CharacterSpecializationLoadout[]> = $state({});
-
     public statistics: CharacterStatistics = new CharacterStatistics();
     public weekly: CharacterWeekly = new CharacterWeekly();
 

@@ -1,4 +1,3 @@
-
 <script lang="ts">
     import find from 'lodash/find';
     import type { Component } from 'svelte';
@@ -60,6 +59,7 @@
 <style lang="scss">
     .thing-container {
         min-width: 1100px;
+        padding-bottom: 1rem;
         position: relative;
         width: 1100px;
     }
