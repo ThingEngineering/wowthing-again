@@ -129,9 +129,9 @@
 </style>
 
 <div class="court guests border">
-    {#each emberCourtFriends as slot}
+    {#each emberCourtFriends as slot (slot)}
         <div class="slot">
-            {#each slot as friend}
+            {#each slot as friend (friend)}
                 {@const bff = quests?.has(friend.friendQuestId)}
                 {@const rsvp = quests?.has(friend.rsvpQuestId)}
                 <div
