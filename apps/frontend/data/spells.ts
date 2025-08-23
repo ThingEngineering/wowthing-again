@@ -32,4 +32,4 @@ export const durationAuras: [number, string, boolean?][] = [
     [432473, 'Flask of Saving Graces'],
 ];
 
-export const staticAuras: [number, string][] = [[473218, "Delver's Bounty"]];
+export const staticAuras: [number, string][] = [[1246363, "Delver's Bounty"]];
