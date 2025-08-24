@@ -30,6 +30,8 @@ public class ApiUserCharacter
     public string Name { get; set; }
     public DateTime LastApiModified { get; set; }
     public DateTime LastSeenAddon { get; set; }
+    public DateTime? DailyReset { get; set; }
+    public DateTime? WeeklyReset { get; set; }
     public DateTime? ScannedCurrencies { get; set; }
     public WowFaction Faction { get; set; }
     public WowGender Gender { get; set; }
@@ -84,6 +86,9 @@ public class ApiUserCharacter
         Level = Math.Max(character.Level, character.AddonData?.Level ?? 0);
         LevelXp = character.AddonData?.LevelXp ?? 0;
         RaceId = character.RaceId;
+
+        DailyReset = character.AddonData?.DailyReset;
+        WeeklyReset = character.AddonData?.WeeklyReset;
 
         if (pub && privacy?.Anonymized == true)
         {
