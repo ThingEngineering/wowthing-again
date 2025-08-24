@@ -13,6 +13,12 @@
     import ParagonQuests from '../table/paragon/ParagonQuests.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
+    let totalGold = $derived(
+        (
+            userState.general.warbankGold +
+            userState.general.characters.map((char) => char.gold || 0).reduce((a, b) => a + b, 0)
+        ).toLocaleString()
+    );
     let warbankGold = $derived(userState.general.warbankGold.toLocaleString());
 
     const setActiveView = (viewId: string) => {
@@ -57,6 +63,7 @@
     }
     .account-gold {
         border-color: #7f7;
+        cursor: pointer;
     }
 </style>
 
@@ -84,9 +91,19 @@
         </a>
 
         <div class="flex-wrapper">
-            <span class="account-gold">
-                Warbank: {warbankGold} g
-            </span>
+            <button
+                class="account-gold"
+                use:basicTooltip={'Click to toggle between Warbank and Total gold'}
+                onclick={() =>
+                    (browserState.current.home.showTotalGold =
+                        !browserState.current.home.showTotalGold)}
+            >
+                {#if browserState.current.home.showTotalGold}
+                    Total: {totalGold} g
+                {:else}
+                    Warbank: {warbankGold} g
+                {/if}
+            </button>
 
             <ParagonQuests />
 

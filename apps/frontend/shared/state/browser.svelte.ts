@@ -30,6 +30,7 @@ interface BrowserStateIdk {
     };
     home: {
         activeView: string;
+        showTotalGold: boolean;
     };
     illusions: {
         highlightMissing: boolean;
@@ -165,6 +166,7 @@ const initialState: BrowserStateIdk = {
     },
     home: {
         activeView: '',
+        showTotalGold: false,
     },
     illusions: {
         highlightMissing: true,
