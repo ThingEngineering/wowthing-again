@@ -7,18 +7,17 @@
     import { timeStore } from '@/shared/stores/time';
     import { wowthingData } from '@/shared/stores/data';
     import { toNiceDuration } from '@/utils/formatting';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 
-    let images: [string, string, string?][];
-    $: {
-        images = [];
+    let images = $derived.by(() => {
+        const ret: [string, string, string?][] = [];
 
         if (character.auras?.[418563] !== undefined) {
-            images.push([Constants.icons.anniversary, 'Anniversary Buff']);
+            ret.push([Constants.icons.anniversary, 'Anniversary Buff']);
         }
 
         for (const [spellId, spellName] of durationAuras) {
@@ -50,7 +49,7 @@
                     }
                     lines.push(`${timeText} remaining`);
 
-                    images.push([
+                    ret.push([
                         `spell/${spellId}`,
                         `<div class="center">${lines.join('<br>')}</div>`,
                         iconText,
@@ -63,7 +62,7 @@
             const [spellId, auraTooltip] = staticAuras[auraIndex];
             const aura = character.auras?.[spellId];
             if (aura) {
-                images.push([
+                ret.push([
                     `spell/${spellId}`,
                     `<div class="center">${auraTooltip}</div>`,
                     auraIndex <= 7 ? (auraIndex + 1).toString() : null,
@@ -73,15 +72,15 @@
 
         if (character.level < Constants.characterMaxLevel) {
             if (character.chromieTime) {
-                images.push([Constants.icons.chromieTime, 'Chromie Time']);
+                ret.push([Constants.icons.chromieTime, 'Chromie Time']);
             }
             if (character.isResting) {
-                images.push([Constants.icons.resting, 'Resting']);
+                ret.push([Constants.icons.resting, 'Resting']);
             }
         }
 
         if (character.isWarMode) {
-            images.push([Constants.icons.warMode, 'War Mode']);
+            ret.push([Constants.icons.warMode, 'War Mode']);
         }
 
         for (const spellId in contractAuras) {
@@ -96,7 +95,7 @@
                 const niceRemaining = toNiceDuration(diff).replace('&nbsp;', '');
                 const [reputationId, rank] = contractAuras[spellId];
                 const reputation = wowthingData.static.reputationById.get(reputationId);
-                images.push([
+                ret.push([
                     `spell/${spellId}`,
                     `<div class="center">{craftedQuality:${rank}} ${reputation.name}<br>${niceRemaining} remaining</div>`,
                 ]);
@@ -130,13 +129,15 @@
                 lines.push(`${itemCount}x {itemWithIcon:${itemId}}`);
             }
 
-            images.push([
+            ret.push([
                 'item/163633',
                 `<div>${lines.join('<br>')}</div>`,
                 openableItems.reduce((a, b) => a + b[1], 0).toString(),
             ]);
         }
-    }
+
+        return ret;
+    });
 </script>
 
 <style lang="scss">

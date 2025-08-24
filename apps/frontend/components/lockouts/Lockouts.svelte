@@ -31,8 +31,8 @@
             : anyLockouts(char);
     };
 
-    let sortFunc = $derived.by(() =>
-        $getCharacterSortFunc(
+    let sortFunc = $derived(
+        getCharacterSortFunc(
             browserState.current.lockouts.sortBy > 0 ? hasSortedLockout : anyLockouts
         )
     );

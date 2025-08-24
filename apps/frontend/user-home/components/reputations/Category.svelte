@@ -39,7 +39,7 @@
         <AccountWide {accountSets} {slug} hasCharacterSets={characterSets.length > 0} />
     {/if}
 
-    {#if characterSets.length > 0}
-        <Table {characterSets} {slug} />
+    {#if category && characterSets.length > 0}
+        <Table {category} {characterSets} {slug} />
     {/if}
 </div>

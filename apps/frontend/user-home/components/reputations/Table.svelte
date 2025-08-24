@@ -1,6 +1,4 @@
 <script lang="ts">
-    import find from 'lodash/find';
-
     import { wowthingData } from '@/shared/stores/data';
     import { reputationState } from '@/stores/local-storage';
     import { leftPad } from '@/utils/formatting';
@@ -18,49 +16,48 @@
     import TableCell from './TableCell.svelte';
     import TableCellRenown from './TableCellRenown.svelte';
 
-    export let characterSets: [ManualDataReputationSet[], number][];
-    export let slug: string;
+    type Props = {
+        category: ManualDataReputationCategory;
+        characterSets: [ManualDataReputationSet[], number][];
+        slug: string;
+    };
+    let { category, characterSets, slug }: Props = $props();
 
-    let category: ManualDataReputationCategory;
-    let sorted: boolean;
-    let filterFunc: (char: Character) => boolean;
-    let sortFunc: (char: Character) => string;
-    $: {
-        category = find(wowthingData.manual.reputationSets, (r) => r?.slug === slug);
-        if (!category) {
-            break $;
-        }
+    let filterFunc = $derived((char: Character) => char.level >= (category.minimumLevel ?? 0));
 
-        filterFunc = (char: Character) => char.level >= (category.minimumLevel ?? 0);
-
+    let [sorted, sortFunc]: [boolean, (char: Character) => string] = $derived.by(() => {
+        // let sorted: boolean;
+        // let sortFunc: (char: Character) => string;
+        // $: {
         const order: number[] = $reputationState.sortOrder[slug];
         if (order?.length > 0) {
-            sorted = true;
-            sortFunc = (char) => {
-                let repValue = -1;
-                let paragonValue = -1;
-                for (const repId of order) {
-                    repValue = Math.max(repValue, char.reputations?.[repId] ?? -1);
-                    const paragon = char.paragons?.[repId];
-                    if (paragon) {
-                        if (paragon.rewardAvailable) {
-                            paragonValue = 99999;
-                        } else {
-                            paragonValue = paragon.current;
+            return [
+                true,
+                (char) => {
+                    let repValue = -1;
+                    let paragonValue = -1;
+                    for (const repId of order) {
+                        repValue = Math.max(repValue, char.reputations?.[repId] ?? -1);
+                        const paragon = char.paragons?.[repId];
+                        if (paragon) {
+                            if (paragon.rewardAvailable) {
+                                paragonValue = 99999;
+                            } else {
+                                paragonValue = paragon.current;
+                            }
                         }
                     }
-                }
 
-                return [
-                    leftPad(100000 - repValue, 6, '0'),
-                    leftPad(10000 - paragonValue, 6, '0'),
-                ].join('|');
-            };
+                    return [
+                        leftPad(100000 - repValue, 6, '0'),
+                        leftPad(10000 - paragonValue, 6, '0'),
+                    ].join('|');
+                },
+            ];
         } else {
-            sorted = false;
-            sortFunc = $getCharacterSortFunc();
+            return [false, getCharacterSortFunc()];
         }
-    }
+    });
 
     function isRenown(reputationSet: ManualDataReputationSet) {
         return reputationSet.both

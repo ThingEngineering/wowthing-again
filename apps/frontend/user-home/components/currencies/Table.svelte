@@ -1,5 +1,4 @@
 <script lang="ts">
-    import find from 'lodash/find';
     import sortBy from 'lodash/sortBy';
 
     import {
@@ -12,65 +11,63 @@
     import { currencyState } from '@/stores/local-storage';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import { leftPad } from '@/utils/formatting';
-    import type { Character, MultiSlugParams } from '@/types';
-    import type {
-        StaticDataCurrency,
-        StaticDataCurrencyCategory,
-    } from '@/shared/stores/static/types';
+    import type { StaticDataCurrency } from '@/shared/stores/static/types';
+    import type { Character } from '@/types';
+    import type { ParamsSlugsProps } from '@/types/props';
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte';
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte';
     import HeadCurrency from './TableHead.svelte';
     import RowCurrency from './TableRow.svelte';
 
-    export let params: MultiSlugParams;
+    let { params }: ParamsSlugsProps = $props();
 
-    let category: StaticDataCurrencyCategory;
-    let currencies: StaticDataCurrency[];
-    let slugKey: string;
-    let sorted: boolean;
-    let sortFunc: (char: Character) => string;
-    $: {
-        category = wowthingData.static.currencyCategoryBySlug.get(params.slug1);
+    let slugKey = $derived(params.slug2 ? `${params.slug1}--${params.slug2}` : params.slug1);
+    let category = $derived.by(() => {
+        let ret = wowthingData.static.currencyCategoryBySlug.get(params.slug1);
+
         if (params.slug2) {
-            category = find(categoryChildren[category.id], (cat) => cat.slug === params.slug2);
+            ret = (categoryChildren[category.id] || []).find((cat) => cat.slug === params.slug2);
         }
 
-        if (!category) {
-            break $;
-        }
+        return ret;
+    });
 
-        slugKey = params.slug2 ? `${params.slug1}--${params.slug2}` : params.slug1;
-
-        currencies = sortBy(
+    let currencies = $derived(
+        sortBy(
             Array.from(wowthingData.static.currencyById.values()).filter(
                 (c) => !skipCurrenciesMap[c.id] && c.categoryId === category.id
             ),
             (c) => c.name
         ).concat(
             (currencyExtra[category.id] || []).map((id) => wowthingData.static.currencyById.get(id))
-        );
+        )
+    );
 
-        const order = $currencyState.sortOrder[slugKey];
+    let order = $derived($currencyState.sortOrder[slugKey]);
+    let [sorted, sortFunc] = $derived.by(() => {
         if (order > 0) {
-            sorted = true;
-            sortFunc = $getCharacterSortFunc((char) =>
-                leftPad(
-                    1000000 -
-                        (char.getItemCount(order) || char.currencies?.[order]?.quantity || -1),
-                    7,
-                    '0'
-                )
-            );
+            return [
+                true,
+                getCharacterSortFunc((char) =>
+                    leftPad(
+                        1000000 -
+                            (char.getItemCount(order) || char.currencies?.[order]?.quantity || -1),
+                        7,
+                        '0'
+                    )
+                ),
+            ];
         } else {
-            sorted = false;
-            sortFunc = $getCharacterSortFunc();
+            return [false, getCharacterSortFunc()];
         }
-    }
+    });
 
-    const filterFuncUgh = (currencies: StaticDataCurrency[], char: Character): boolean =>
-        currencies.some((c) => !!c && char.currencies?.[c.id]?.quantity > 0) ||
-        (currencyItems[category.id] || []).some((itemId) => char.getItemCount(itemId) > 0);
+    const filterFuncUgh = $derived(
+        (currencies: StaticDataCurrency[], char: Character): boolean =>
+            currencies.some((c) => !!c && char.currencies?.[c.id]?.quantity > 0) ||
+            (currencyItems[category.id] || []).some((itemId) => char.getItemCount(itemId) > 0)
+    );
 </script>
 
 {#if category}
