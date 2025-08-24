@@ -1,12 +1,13 @@
 <script lang="ts">
     import { zoneData } from './data';
-    import { worldQuestState } from './state';
     import { Region } from '@/enums/region';
+    import { browserState } from '@/shared/state/browser.svelte';
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
 
     const setRegion = function (region: string) {
-        $worldQuestState.region = Region[region.toUpperCase() as keyof typeof Region];
+        browserState.current.worldQuests.region =
+            Region[region.toUpperCase() as keyof typeof Region];
     };
 </script>
 
@@ -41,7 +42,8 @@
             {#each ['us', 'eu', 'kr', 'tw'] as region (region)}
                 <button
                     class="border"
-                    class:active={Region[$worldQuestState.region].toLowerCase() === region}
+                    class:active={Region[browserState.current.worldQuests.region].toLowerCase() ===
+                        region}
                     on:click={() => setRegion(region)}
                 >
                     {region.toUpperCase()}

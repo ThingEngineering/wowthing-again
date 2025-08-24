@@ -1,4 +1,5 @@
 import type { InventorySlot } from '@/enums/inventory-slot';
+import { Region } from '@/enums/region';
 import { objectKeys } from '@/utils/object-keys';
 
 export interface CollectibleState {
@@ -139,6 +140,9 @@ interface BrowserStateIdk {
 
         hiddenCurrencies: number[];
     };
+    worldQuests: {
+        region: Region;
+    };
 
     'collectible-customizations': CollectibleState;
     'collectible-mounts': CollectibleState;
@@ -273,6 +277,9 @@ const initialState: BrowserStateIdk = {
         showAwakened: true,
 
         hiddenCurrencies: [],
+    },
+    worldQuests: {
+        region: Region.US,
     },
 
     'collectible-customizations': {
