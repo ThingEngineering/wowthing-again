@@ -1,9 +1,9 @@
 <script lang="ts">
-    import type { Character } from '@/types';
     import { toNiceNumber } from '@/utils/formatting';
+    import type { CharacterProps } from '@/types/props';
 
-    export let character: Character;
-    export let total: number;
+    type Props = CharacterProps & { total: number };
+    let { character, total }: Props = $props();
 
     const currencies: [string, number][] = [
         ['Primary', 2853],

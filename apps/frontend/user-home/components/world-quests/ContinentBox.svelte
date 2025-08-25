@@ -7,11 +7,14 @@
 
     import WorldQuest from './WorldQuest.svelte';
 
-    export let worldQuests: ApiWorldQuest[];
-    export let zone: WorldQuestZone;
+    type Props = {
+        worldQuests: ApiWorldQuest[];
+        zone: WorldQuestZone;
+    };
+    let { worldQuests, zone }: Props = $props();
 
-    $: sortedQuests = sortBy(worldQuests, (worldQuest) =>
-        [worldQuest.expires, sortFields(worldQuest)].join('|')
+    let sortedQuests = $derived(
+        sortBy(worldQuests, (worldQuest) => [worldQuest.expires, sortFields(worldQuest)].join('|'))
     );
 
     const sortFields = (worldQuest: ApiWorldQuest): string => {

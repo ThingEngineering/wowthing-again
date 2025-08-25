@@ -72,7 +72,7 @@
         '/mythic-plus/:slug1?': MythicPlus,
         '/professions/:slug1?/:slug2?/:slug3?': Professions,
         '/progress/:slug1?/:slug2?': Progress,
-        '/reputations/:slug?': Reputations,
+        '/reputations/:slug1?': Reputations,
         '/sets/:slug1?/:slug2?': Sets,
         '/vendors/:slug1?/:slug2?/:slug3?': Vendors,
         '/world-quests/:slug1?/:slug2?': WorldQuests,

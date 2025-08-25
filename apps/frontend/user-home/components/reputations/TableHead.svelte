@@ -7,26 +7,26 @@
     import Tooltip from '@/components/tooltips/reputation-header/TooltipReputationHeader.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let reputation: ManualDataReputationSet;
-    export let slug: string;
+    type Props = {
+        reputation: ManualDataReputationSet;
+        slug: string;
+    };
+    let { reputation, slug }: Props = $props();
 
-    let onClick: (event: Event) => void;
-    let repIds: number[];
-    let sortingBy: boolean;
-    $: {
-        repIds = [
-            reputation.both?.id ?? 0,
-            reputation.alliance?.id ?? 0,
-            reputation.horde?.id ?? 0,
-        ];
-        sortingBy = ($reputationState.sortOrder[slug] || []).some(
+    let repIds: number[] = $derived([
+        reputation.both?.id ?? 0,
+        reputation.alliance?.id ?? 0,
+        reputation.horde?.id ?? 0,
+    ]);
+    let sortingBy = $derived(
+        ($reputationState.sortOrder[slug] || []).some(
             (repId) => repId > 0 && repIds.indexOf(repId) >= 0
-        );
+        )
+    );
 
-        onClick = function () {
-            $reputationState.sortOrder[slug] = sortingBy ? [] : repIds;
-        };
-    }
+    let onClick: (event: Event) => void = $derived(() => () => {
+        $reputationState.sortOrder[slug] = sortingBy ? [] : repIds;
+    });
 </script>
 
 <style lang="scss">
@@ -47,7 +47,7 @@
 
 <th
     data-reputation-ids={repIds.filter((id) => id > 0).join(',')}
-    on:click|preventDefault={onClick}
+    onclick={onClick}
     use:componentTooltip={{
         component: Tooltip,
         props: { reputation },
