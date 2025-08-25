@@ -27,7 +27,7 @@
         let ret = wowthingData.static.currencyCategoryBySlug.get(params.slug1);
 
         if (params.slug2) {
-            ret = (categoryChildren[category.id] || []).find((cat) => cat.slug === params.slug2);
+            ret = (categoryChildren[ret.id] || []).find((cat) => cat.slug === params.slug2);
         }
 
         return ret;
