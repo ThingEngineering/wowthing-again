@@ -1,11 +1,8 @@
-import type { DateTime } from 'luxon';
-
 import { Constants } from '@/data/constants';
 import { dungeonMap } from '@/data/dungeon';
 import { leftPad } from '@/utils/formatting';
 import { getNextWeeklyReset } from '@/utils/get-next-reset';
 import { getVaultItemLevel } from '@/utils/mythic-plus';
-import type { SettingsView } from '@/shared/stores/settings/types';
 import type { LazyStore } from '@/stores';
 import type { Character } from '@/types';
 
@@ -13,14 +10,10 @@ import { getCharacterRested } from '../get-character-rested';
 import { getDungeonLevel } from '../mythic-plus/get-dungeon-level';
 import getRaidVaultItemLevel from '../get-raid-vault-item-level';
 import { getWorldTier } from '../vault/get-world-tier';
+import { settingsState } from '@/shared/state/settings.svelte';
+import { timeState } from '@/shared/state/time.svelte';
 
-export function homeSort(
-    activeView: SettingsView,
-    lazyStore: LazyStore,
-    currentTime: DateTime,
-    sortBy: string,
-    char: Character
-): string {
+export function homeSort(lazyStore: LazyStore, sortBy: string, char: Character): string {
     if (sortBy === 'gold') {
         return leftPad(10_000_000 - char.gold, 8, '0');
     } else if (sortBy === 'bagSpace') {
@@ -49,7 +42,7 @@ export function homeSort(
     } else if (sortBy === 'mythicPlusKeystone') {
         if (char.level === Constants.characterMaxLevel && char.weekly?.keystoneScannedAt) {
             const resetTime = getNextWeeklyReset(char.weekly.keystoneScannedAt, char.realm.region);
-            if (resetTime > currentTime) {
+            if (resetTime > timeState.time) {
                 return (
                     leftPad(100 - (char.weekly?.keystoneLevel || 0), 3, '0') +
                     (dungeonMap[char.weekly?.keystoneDungeon]?.abbreviation || 'ZZ')
@@ -78,7 +71,7 @@ export function homeSort(
         if (char.level === Constants.characterMaxLevel) {
             return '999';
         } else {
-            const [rested] = getCharacterRested(currentTime, char);
+            const [rested] = getCharacterRested(timeState.time, char);
             return leftPad(999 - parseInt(rested), 3, '0');
         }
     } else if (sortBy === 'statsSpeed') {
@@ -155,13 +148,13 @@ export function homeSort(
         }
     } else if (sortBy.startsWith('task:')) {
         let value = -5;
-        const taskName = `${activeView.id}|${sortBy.split(':')[1]}`;
+        const taskName = `${settingsState.activeView.id}|${sortBy.split(':')[1]}`;
 
         const charChore = lazyStore.characters[char.id].chores[taskName];
         if (charChore) {
             value = charChore.countCompleted * 100 + charChore.countStarted;
             if (charChore.countTotal > 0 && charChore.countCompleted === charChore.countTotal) {
-                value += 5000;
+                value += 100_000;
             }
         } else {
             const charTask = lazyStore.characters[char.id].tasks[taskName];
@@ -186,6 +179,6 @@ export function homeSort(
             }
         }
 
-        return leftPad(10000 - value, 5, '0');
+        return leftPad(1000000 - value, 7, '0');
     }
 }

@@ -95,13 +95,7 @@
             const keySort =
                 isHome && $homeState.groupSort[sortKey]
                     ? getCharacterSortFunc((char) =>
-                          homeSort(
-                              settingsState.activeView,
-                              $lazyStore,
-                              $timeStore,
-                              $homeState.groupSort[sortKey],
-                              char
-                          )
+                          homeSort($lazyStore, $homeState.groupSort[sortKey], char)
                       )
                     : sortFunc;
             pairs.push([key, sortBy(grouped[key], keySort)]);
