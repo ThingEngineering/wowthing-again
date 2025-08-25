@@ -27,7 +27,7 @@
         let retFirstCategory = retCategories[0];
 
         if (slug2) {
-            retCategories = categories.filter((s) => s !== null && s.slug === slug2);
+            retCategories = retCategories.filter((s) => s !== null && s.slug === slug2);
         }
 
         return [retCategories, retFirstCategory];
