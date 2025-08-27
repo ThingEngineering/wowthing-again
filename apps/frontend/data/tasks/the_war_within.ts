@@ -454,7 +454,8 @@ export const twwChores11_2_0: Chore[] = [
     {
         taskKey: 'twwMoreThanPhase',
         taskName: '[W][A] More Than Just a Phase',
-        accountWide: true,
+        // accountWide: true,
+        icon: iconLibrary.mdiSwimDive,
         questIds: [91093],
         questReset: DbResetType.Weekly,
         couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
@@ -477,6 +478,7 @@ export const twwChores11_2_0: Chore[] = [
         taskKey: 'twwReshanor',
         taskName: '[W][A] World Boss',
         accountWide: true,
+        icon: iconLibrary.emojiZzz,
         questIds: [87352],
         questReset: DbResetType.Weekly,
     },
