@@ -30,7 +30,7 @@
             icon={value ? iconLibrary.mdiCheckboxOutline : iconLibrary.mdiCheckboxBlankOutline}
         />
         <span class="text {textClass || ''}">
-            {@render children()}
+            {@render children?.()}
         </span>
     </label>
 </fieldset>
