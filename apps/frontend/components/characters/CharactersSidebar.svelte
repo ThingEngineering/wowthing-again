@@ -23,7 +23,9 @@
 
         const sortFunc = getCharacterSortFunc();
         for (const realmId in realmCharacters) {
-            const realm = wowthingData.static.realmById.get(parseInt(realmId));
+            const realm =
+                wowthingData.static.realmById.get(parseInt(realmId)) ||
+                wowthingData.static.realmById.get(0);
             const characters = sortBy(realmCharacters[realmId], (character) => sortFunc(character));
 
             ret.push({
