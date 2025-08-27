@@ -13,21 +13,22 @@
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
 
-    let categories: SidebarItem[];
-    let decorationFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => string;
-    $: {
+    let categories = $derived.by(() => {
+        const ret: SidebarItem[] = [];
+
         const realmCharacters: Record<string, Character[]> = groupBy(
             userState.general.activeCharacters,
             (char) => char.realmId
         );
 
-        categories = [];
-        const sortFunc = $getCharacterSortFunc();
+        const sortFunc = getCharacterSortFunc();
         for (const realmId in realmCharacters) {
-            const realm = wowthingData.static.realmById.get(parseInt(realmId));
+            const realm =
+                wowthingData.static.realmById.get(parseInt(realmId)) ||
+                wowthingData.static.realmById.get(0);
             const characters = sortBy(realmCharacters[realmId], (character) => sortFunc(character));
 
-            categories.push({
+            ret.push({
                 name: `[${Region[realm.region]}] ${realm.name}`,
                 slug: `${Region[realm.region].toLowerCase()}-${realm.slug}`,
                 children: characters.map((character) => ({
@@ -37,26 +38,24 @@
             });
         }
 
-        categories = sortBy(categories, (category) =>
-            [100 - category.children.length, category.name].join('|')
-        );
+        return sortBy(ret, (category) => [100 - category.children.length, category.name].join('|'));
+    });
 
-        decorationFunc = (entry: SidebarItem, parentEntries?: SidebarItem[]) => {
-            if (parentEntries?.length < 1) {
-                return entry.children.length.toString();
-            } else {
-                const [region, realm] = splitOnce(parentEntries.slice(-1)[0].slug, '-');
-                const character = find(
-                    userState.general.activeCharacters,
-                    (character: Character) =>
-                        Region[character.realm.region].toLowerCase() === region &&
-                        character.realm.slug === realm &&
-                        character.name === entry.name.split(' ')[1]
-                );
-                return character?.level.toString() ?? '??';
-            }
-        };
-    }
+    let decorationFunc = $derived.by(() => (entry: SidebarItem, parentEntries?: SidebarItem[]) => {
+        if (parentEntries?.length < 1) {
+            return entry.children.length.toString();
+        } else {
+            const [region, realm] = splitOnce(parentEntries.slice(-1)[0].slug, '-');
+            const character = find(
+                userState.general.activeCharacters,
+                (character: Character) =>
+                    Region[character.realm.region].toLowerCase() === region &&
+                    character.realm.slug === realm &&
+                    character.name === entry.name.split(' ')[1]
+            );
+            return character?.level.toString() ?? '??';
+        }
+    });
 </script>
 
 <style lang="scss">

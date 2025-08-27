@@ -1,23 +1,15 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte'
+    import getSavedRoute from '@/utils/get-saved-route';
+    import type { ParamsSlugsProps } from '@/types/props';
 
-    import getSavedRoute from '@/utils/get-saved-route'
-    import type { MultiSlugParams } from '@/types'
+    import Subnav from './Subnav.svelte';
+    import View from './View.svelte';
 
-    import Subnav from './Subnav.svelte'
-    import View from './View.svelte'
+    let { params }: ParamsSlugsProps = $props();
 
-    export let params: MultiSlugParams
-
-    afterUpdate(() => {
-        getSavedRoute(
-            'collections',
-            params.slug1,
-            null,
-            null,
-            'collections-subnav'
-        )
-    })
+    $effect(() => {
+        getSavedRoute('collections', params.slug1, null, null, 'collections-subnav');
+    });
 </script>
 
 <style lang="scss">

@@ -444,11 +444,18 @@ export const twwHorrificVisions: Chore[] = (<[number, string][]>[
     questReset: DbResetType.Weekly,
 }));
 
+const kareshEcologicalSuccessionQuestIds = [85460];
+const kareshSpecialAssignmentQuestIds = [
+    89293, // Overshadowed
+    89294, // Aligned Views
+];
+
 export const twwChores11_2_0: Chore[] = [
     {
         taskKey: 'twwMoreThanPhase',
         taskName: '[W][A] More Than Just a Phase',
-        accountWide: true,
+        // accountWide: true,
+        icon: iconLibrary.mdiSwimDive,
         questIds: [91093],
         questReset: DbResetType.Weekly,
         couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
@@ -471,6 +478,7 @@ export const twwChores11_2_0: Chore[] = [
         taskKey: 'twwReshanor',
         taskName: '[W][A] World Boss',
         accountWide: true,
+        icon: iconLibrary.emojiZzz,
         questIds: [87352],
         questReset: DbResetType.Weekly,
     },
@@ -492,10 +500,7 @@ export const twwChores11_2_0: Chore[] = [
         icon: iconLibrary.gameScrollQuill,
         noProgress: true,
         showQuestName: true,
-        questIds: [
-            89293, // Overshadowed
-            89294, // Aligned Views
-        ],
+        questIds: kareshSpecialAssignmentQuestIds,
         questReset: DbResetType.Weekly,
         couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
     },
@@ -503,7 +508,7 @@ export const twwChores11_2_0: Chore[] = [
         taskKey: 'twwEcologicalSuccession',
         taskName: '[W] Ecological Succession',
         icon: iconLibrary.gameBearFace,
-        questIds: [85460],
+        questIds: kareshEcologicalSuccessionQuestIds,
         questReset: DbResetType.Weekly,
         couldGetFunc: () => userState.quests.anyCharacterHasById.has(85262), // The Royal Procession
     },
@@ -553,4 +558,26 @@ export const twwPinnacle: Chore[] = [
         questIds: [91180],
         questReset: DbResetType.Weekly,
     },
+];
+
+export const twwCofferKeys: Chore[] = [
+    {
+        taskKey: 'keyEcological',
+        taskName: '[Full] Ecological Succession',
+        questIds: kareshEcologicalSuccessionQuestIds,
+        questReset: DbResetType.Weekly,
+    },
+    {
+        taskKey: 'keySpecial',
+        taskName: '[Full] Special Assignment',
+        questIds: kareshSpecialAssignmentQuestIds,
+        questReset: DbResetType.Weekly,
+    },
+    ...[1, 2, 3, 4].map((i) => ({
+        taskKey: `shard${i}`,
+        taskName: `[Half] Shards ${i}`,
+        noProgress: true,
+        questIds: [84735 + i],
+        questReset: DbResetType.Weekly,
+    })),
 ];

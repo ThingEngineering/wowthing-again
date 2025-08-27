@@ -2,6 +2,7 @@ export { default as carbonScatterMatrix } from '@iconify/icons-carbon/scatter-ma
 
 export { default as emojiConstruction } from '@iconify/icons-emojione-monotone/construction';
 export { default as emojiWorldMap } from '@iconify/icons-emojione-monotone/world-map';
+export { default as emojiZzz } from '@iconify/icons-emojione-monotone/zzz';
 
 export { default as faDungeon } from '@iconify/icons-fa-solid/dungeon';
 
@@ -160,6 +161,7 @@ export { default as mdiSortNumericDescending } from '@iconify/icons-mdi/sort-num
 export { default as mdiStarFace } from '@iconify/icons-mdi/star-face';
 export { default as mdiStarHalfFull } from '@iconify/icons-mdi/star-half-full';
 export { default as mdiStarOutline } from '@iconify/icons-mdi/star-outline';
+export { default as mdiSwimDive } from '@iconify/icons-mdi/swim-dive';
 export { default as mdiSwordCross } from '@iconify/icons-mdi/sword-cross';
 export { default as mdiTimerSand } from '@iconify/icons-mdi/timer-sand';
 export { default as mdiTrophy } from '@iconify/icons-mdi/trophy';

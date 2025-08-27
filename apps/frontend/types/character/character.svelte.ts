@@ -109,6 +109,8 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public currentLocation = $state<string>(undefined);
     public hearthLocation = $state<string>(undefined);
 
+    public dailyReset: DateTime = $state<DateTime>(undefined);
+    public weeklyReset: DateTime = $state<DateTime>(undefined);
     public lastApiUpdate: DateTime = $state<DateTime>(undefined);
     public lastApiUpdateUnix = $state(0);
     public lastSeenAddon: DateTime = $state<DateTime>(undefined);
@@ -177,6 +179,8 @@ export class Character implements ContainsItems, HasNameAndRealm {
         hearthLocation: string,
         lastApiUpdateUnix: number,
         lastSeenAddonUnix: number,
+        dailyResetUnix: number,
+        weeklyResetUnix: number,
         scannedCurrenciesUnix: number,
 
         configuration: CharacterConfiguration,
@@ -450,6 +454,14 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
         if (lastSeenAddonUnix && lastSeenAddonUnix > Constants.defaultUnixTime) {
             this.lastSeenAddon = DateTime.fromSeconds(lastSeenAddonUnix);
+        }
+
+        if (dailyResetUnix && dailyResetUnix > Constants.defaultUnixTime) {
+            this.dailyReset = DateTime.fromSeconds(dailyResetUnix);
+        }
+
+        if (weeklyResetUnix && weeklyResetUnix > Constants.defaultUnixTime) {
+            this.weeklyReset = DateTime.fromSeconds(weeklyResetUnix);
         }
 
         if (scannedCurrenciesUnix && scannedCurrenciesUnix > Constants.defaultUnixTime) {

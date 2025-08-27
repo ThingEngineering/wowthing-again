@@ -27,6 +27,7 @@ import {
     twwChores11_1_5,
     twwChores11_2_0,
     twwChoresChett,
+    twwCofferKeys,
     twwHorrificVisions,
     twwPinnacle,
 } from './the_war_within';
@@ -299,6 +300,13 @@ export const taskList: Task[] = [
         key: 'twwHorrificVisions',
         name: '[TWW] Horrific Visions Revisited',
         shortName: 'Vis',
+        minimumLevel: 80,
+        type: 'multi',
+    },
+    {
+        key: 'twwCofferKeys',
+        name: '[TWW] Coffer Keys',
+        shortName: 'Keys',
         minimumLevel: 80,
         type: 'multi',
     },
@@ -598,6 +606,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
     twwChores11_1_5,
     twwChores11_2_0,
     twwChoresChett,
+    twwCofferKeys,
     twwHorrificVisions,
     twwPinnacle,
     twwDelveKeys: [

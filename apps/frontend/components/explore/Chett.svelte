@@ -30,38 +30,40 @@
         ],
     ];
 
-    const sortFunc = $getCharacterSortFunc((char: Character) => {
-        if (char.itemsById[chettListItemId]?.[0]?.bonusIds?.includes(completedBonusId)) {
-            return '0';
-        }
-
-        const charQuests = userState.quests.characterById.get(char.id);
-        const tiers = [0, 0, 0];
-        let done = 0;
-        questTiers.forEach((questTier, index) => {
-            for (const [questId] of questTier) {
-                const completed = charQuests?.hasQuestById?.has(questId);
-                const prog = charQuests?.progressQuestByKey?.get(`q${questId}`);
-                if (completed) {
-                    done++;
-                }
-                if (completed || prog) {
-                    tiers[index]++;
-                }
+    let sortFunc = $derived(
+        getCharacterSortFunc((char: Character) => {
+            if (char.itemsById[chettListItemId]?.[0]?.bonusIds?.includes(completedBonusId)) {
+                return '0';
             }
-        });
-        if (done === 3) {
-            return '9';
-        } else if (tiers[0] === 2 && tiers[1] >= 1) {
-            return '1';
-        } else if (tiers[0] === 1 && tiers[1] >= 2) {
-            return '2';
-        } else if (tiers[0] === 1) {
-            return '3';
-        } else {
-            return '8';
-        }
-    });
+
+            const charQuests = userState.quests.characterById.get(char.id);
+            const tiers = [0, 0, 0];
+            let done = 0;
+            questTiers.forEach((questTier, index) => {
+                for (const [questId] of questTier) {
+                    const completed = charQuests?.hasQuestById?.has(questId);
+                    const prog = charQuests?.progressQuestByKey?.get(`q${questId}`);
+                    if (completed) {
+                        done++;
+                    }
+                    if (completed || prog) {
+                        tiers[index]++;
+                    }
+                }
+            });
+            if (done === 3) {
+                return '9';
+            } else if (tiers[0] === 2 && tiers[1] >= 1) {
+                return '1';
+            } else if (tiers[0] === 1 && tiers[1] >= 2) {
+                return '2';
+            } else if (tiers[0] === 1) {
+                return '3';
+            } else {
+                return '8';
+            }
+        })
+    );
 </script>
 
 <style lang="scss">

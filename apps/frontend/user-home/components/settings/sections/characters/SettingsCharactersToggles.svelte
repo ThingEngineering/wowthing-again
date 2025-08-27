@@ -24,9 +24,10 @@
         .filter((char) => settingsState.value.characters.ignoredCharacters.includes(char.id))
         .map((char) => char.id.toString());
 
-    let realms: [string, Character[]][];
-    $: {
-        const sortFunc = $getCharacterSortFunc();
+    let realms = $derived.by(() => {
+        let ret: [string, Character[]][];
+
+        const sortFunc = getCharacterSortFunc();
         const grouped: Record<string, Character[]> = groupBy(
             userState.general.activeCharacters,
             (c) => `${Region[c.realm.region]}|${c.realm.name}`
@@ -35,11 +36,12 @@
             grouped[realmName] = sortBy(grouped[realmName], sortFunc);
         }
 
-        realms = Object.entries(grouped);
-        realms.sort();
-    }
+        ret = Object.entries(grouped);
+        ret.sort();
+        return ret;
+    });
 
-    $: debouncedUpdateSettings(hiddenCharacters, ignoredCharacters);
+    $effect(() => debouncedUpdateSettings(hiddenCharacters, ignoredCharacters));
 
     const debouncedUpdateSettings = debounce((hiddenChars: string[], ignoredChars: string[]) => {
         settingsState.value.characters.hiddenCharacters = allCharacterIds

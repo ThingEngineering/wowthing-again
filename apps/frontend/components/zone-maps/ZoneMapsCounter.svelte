@@ -2,15 +2,14 @@
     import { lazyState } from '@/user-home/state/lazy';
     import getPercentClass from '@/utils/get-percent-class';
     import type { RewardType } from '@/enums/reward-type';
-    import type { UserCount } from '@/types';
 
-    export let key: string;
-    export let type: RewardType;
+    type Props = {
+        key: string;
+        type: RewardType;
+    };
+    let { key, type }: Props = $props();
 
-    let counts: UserCount;
-    $: {
-        counts = lazyState.zoneMaps.typeCounts[key]?.[type];
-    }
+    let counts = $derived(lazyState.zoneMaps.typeCounts[key]?.[type]);
 </script>
 
 <style lang="scss">
@@ -28,7 +27,7 @@
     }
 </style>
 
-{#if counts && counts.total > 0}
+{#if counts?.total > 0}
     <div class={getPercentClass((counts.have / counts.total) * 100)}>
         {counts.have} / {counts.total}
     </div>

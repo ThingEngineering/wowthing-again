@@ -2,10 +2,12 @@
     import { wowthingData } from '@/shared/stores/data';
     import { zoneMap } from '@/user-home/components/world-quests/data';
     import { toNiceDuration } from '@/utils/formatting';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
-    export let active: [number, number, number, number][];
-    export let character: Character;
+    type Props = CharacterProps & {
+        active: [number, number, number, number][];
+    };
+    let { active, character }: Props = $props();
 </script>
 
 <style lang="scss">

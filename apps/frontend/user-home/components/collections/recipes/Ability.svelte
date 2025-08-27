@@ -13,12 +13,15 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 
-    export let ability: StaticDataProfessionAbility;
-    export let rank: number;
+    type Props = {
+        ability: StaticDataProfessionAbility;
+        rank: number;
+    };
+    let { ability, rank }: Props = $props();
 
-    $: name = ability.name || `{item:${ability.itemIds[0]}}` || `Spell #${spellId}`;
-    $: spellId = userState.recipes.abilitySpells[ability.id][rank - 1];
-    $: userHas = userState.recipes.hasAbility[ability.id][rank - 1];
+    let spellId = $derived(userState.recipes.abilitySpells[ability.id][rank - 1]);
+    let userHas = $derived(userState.recipes.hasAbility[ability.id][rank - 1]);
+    let name = $derived(ability.name || `{item:${ability.itemIds[0]}}` || `Spell #${spellId}`);
 </script>
 
 <style lang="scss">

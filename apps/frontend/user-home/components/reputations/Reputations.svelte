@@ -1,19 +1,18 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte';
-
     import getSavedRoute from '@/utils/get-saved-route';
+    import type { ParamsSlugsProps } from '@/types/props';
 
     import Category from './Category.svelte';
     import Sidebar from './Sidebar.svelte';
 
-    export let params: { slug: string };
+    let { params }: ParamsSlugsProps = $props();
 
-    afterUpdate(() => getSavedRoute('reputations', params.slug));
+    $effect(() => getSavedRoute('reputations', params.slug1));
 </script>
 
 <div class="view">
     <Sidebar />
-    {#if params.slug}
-        <Category slug={params.slug} />
+    {#if params.slug1}
+        <Category slug={params.slug1} />
     {/if}
 </div>

@@ -35,10 +35,12 @@
         skipGrouping = false,
         skipIgnored = false,
         filterFunc = () => true,
-        sortFunc,
+        sortFunc: sortFuncProp,
     }: Partial<Props> = $props();
 
-    sortFunc ||= $getCharacterSortFunc(undefined, settingsState.activeView.sortBy);
+    let sortFunc = $derived(
+        sortFuncProp || getCharacterSortFunc(undefined, settingsState.activeView.sortBy)
+    );
 
     let groupByContext = $derived.by(() =>
         getCharacterGroupContext(
@@ -92,14 +94,8 @@
             const sortKey = `${settingsState.activeView.id}|${keyIndex}`;
             const keySort =
                 isHome && $homeState.groupSort[sortKey]
-                    ? $getCharacterSortFunc((char) =>
-                          homeSort(
-                              settingsState.activeView,
-                              $lazyStore,
-                              $timeStore,
-                              $homeState.groupSort[sortKey],
-                              char
-                          )
+                    ? getCharacterSortFunc((char) =>
+                          homeSort($lazyStore, $homeState.groupSort[sortKey], char)
                       )
                     : sortFunc;
             pairs.push([key, sortBy(grouped[key], keySort)]);

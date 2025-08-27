@@ -8,7 +8,7 @@
 
     import MagicLists from '../../MagicLists.svelte';
 
-    const sortFunc = $getCharacterSortFunc();
+    let sortFunc = $derived(getCharacterSortFunc());
 
     let characterChoices: SettingsChoice[] = $derived.by(() =>
         sortBy(userState.general.characters, (char) => sortFunc(char)).map((char) => ({

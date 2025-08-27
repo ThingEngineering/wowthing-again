@@ -6,9 +6,12 @@
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import ProgressBar from '@/components/common/ProgressBar.svelte';
 
-    export let category: StaticDataProfessionCategory;
-    export let expansionSlug: string;
-    export let professionSlug: string;
+    type Props = {
+        category: StaticDataProfessionCategory;
+        expansionSlug: string;
+        professionSlug: string;
+    };
+    let { category, expansionSlug, professionSlug }: Props = $props();
 </script>
 
 <style lang="scss">

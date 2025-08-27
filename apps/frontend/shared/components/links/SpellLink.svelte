@@ -1,22 +1,29 @@
 <script lang="ts">
+    import type { Snippet } from 'svelte';
+
     import { settingsState } from '@/shared/state/settings.svelte';
 
-    export let id: number;
-    export let itemLevel = 0;
+    type Props = {
+        children: Snippet;
+        id: number;
+        itemLevel?: number;
+    };
+    let { children, id, itemLevel = 0 }: Props = $props();
 
-    let url = '';
-    $: {
+    let url = $derived.by(() => {
+        let ret: string;
         if (settingsState.value.general.useWowdb) {
-            url = `https://www.wowdb.com/spells/${id}`;
+            ret = `https://www.wowdb.com/spells/${id}`;
         } else {
-            url = `https://${settingsState.wowheadBaseUrl}/spell=${id}`;
+            ret = `https://${settingsState.wowheadBaseUrl}/spell=${id}`;
             if (itemLevel > 0) {
-                url += `?ilvl=${itemLevel}`;
+                ret += `?ilvl=${itemLevel}`;
             }
         }
-    }
+        return ret;
+    });
 </script>
 
 <a href={url}>
-    <slot />
+    {@render children()}
 </a>

@@ -2,8 +2,8 @@
     import find from 'lodash/find';
 
     import { zoneData } from './data';
-    import { worldQuestState } from './state';
     import { worldQuestStore } from './store';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
 
     import ContinentBox from './ContinentBox.svelte';
@@ -44,7 +44,7 @@
             height={1000}
         />
 
-        {#await worldQuestStore.fetch($worldQuestState.region)}
+        {#await worldQuestStore.fetch(browserState.current.worldQuests.region)}
             L O A D I N G . . .
         {:then worldQuests}
             {#each (zone.children || []).filter((zone) => zone?.continentPoint) as childZone (childZone.id)}
