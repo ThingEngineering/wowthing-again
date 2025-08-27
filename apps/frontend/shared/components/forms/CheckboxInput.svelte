@@ -6,13 +6,13 @@
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
     type Props = {
-        children: Snippet;
         name: string;
         value: boolean;
+        children?: Snippet;
         disabled?: boolean;
         textClass?: string;
     };
-    let { children, disabled, name, textClass, value }: Props = $props();
+    let { children, disabled, name, textClass, value = $bindable() }: Props = $props();
 </script>
 
 <style lang="scss">
