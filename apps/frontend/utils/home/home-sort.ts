@@ -12,6 +12,7 @@ import getRaidVaultItemLevel from '../get-raid-vault-item-level';
 import { getWorldTier } from '../vault/get-world-tier';
 import { settingsState } from '@/shared/state/settings.svelte';
 import { timeState } from '@/shared/state/time.svelte';
+import { QuestStatus } from '@/enums/quest-status';
 
 export function homeSort(lazyStore: LazyStore, sortBy: string, char: Character): string {
     if (sortBy === 'gold') {
@@ -154,7 +155,7 @@ export function homeSort(lazyStore: LazyStore, sortBy: string, char: Character):
         if (charChore) {
             value = charChore.countCompleted * 100 + charChore.countStarted;
             if (charChore.countTotal > 0 && charChore.countCompleted === charChore.countTotal) {
-                value += 100_000;
+                value += charChore.status === QuestStatus.Completed ? 100_000 : 90_000;
             }
         } else {
             const charTask = lazyStore.characters[char.id].tasks[taskName];
