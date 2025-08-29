@@ -157,7 +157,11 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                 }
             }
 
-            if (charTask.quest && charTask.quest.expires < currentTime) {
+            if (
+                charTask.quest &&
+                (charTask.status === QuestStatus.Completed || forcedReset[choreTask.taskKey]) &&
+                charTask.quest.expires < currentTime
+            ) {
                 charTask.quest = undefined;
                 charTask.status = QuestStatus.NotStarted;
             }
@@ -446,7 +450,8 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                     } else {
                         if (
                             !!charTask.quest &&
-                            (DateTime.fromSeconds(charTask.quest.expires) > stores.currentTime ||
+                            (!forcedReset[choreTask.taskKey] ||
+                                DateTime.fromSeconds(charTask.quest.expires) > stores.currentTime ||
                                 (choreTask.taskKey.startsWith('dmf') &&
                                     charTask.quest.expires === 0))
                         ) {

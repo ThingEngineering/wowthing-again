@@ -584,9 +584,11 @@ export class DataUserDerived {
                             }
                         }
                     } else {
+                        // not a profession hack
                         if (
                             !!charTask.quest &&
-                            (DateTime.fromSeconds(charTask.quest.expires) > timeState.time ||
+                            (!forcedReset[charTask.key] ||
+                                DateTime.fromSeconds(charTask.quest.expires) > timeState.time ||
                                 (choreTask.taskKey.startsWith('dmf') &&
                                     charTask.quest.expires === 0))
                         ) {
