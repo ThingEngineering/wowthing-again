@@ -9,7 +9,6 @@ export * from './home';
 export * from './new-nav';
 export * from './professions-recipes';
 export * from './progress';
-export * from './reputation';
 export * from './sub-sidebar';
 export * from './transmog-sets';
 export * from './zone-map';

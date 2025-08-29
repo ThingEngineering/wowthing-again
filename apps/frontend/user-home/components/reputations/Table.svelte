@@ -1,6 +1,6 @@
 <script lang="ts">
+    import { browserState } from '@/shared/state/browser.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { reputationState } from '@/stores/local-storage';
     import { leftPad } from '@/utils/formatting';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import type { Character } from '@/types';
@@ -26,10 +26,7 @@
     let filterFunc = $derived((char: Character) => char.level >= (category.minimumLevel ?? 0));
 
     let [sorted, sortFunc]: [boolean, (char: Character) => string] = $derived.by(() => {
-        // let sorted: boolean;
-        // let sortFunc: (char: Character) => string;
-        // $: {
-        const order: number[] = $reputationState.sortOrder[slug];
+        const order: number[] = browserState.current.reputations.sortOrder[slug];
         if (order?.length > 0) {
             return [
                 true,
