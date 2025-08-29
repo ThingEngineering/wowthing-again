@@ -156,7 +156,9 @@
             {/if}
         {/if}
 
-        {#if teachesTransmog}
+        {#if thing.item.requirement && !thing.userHas}
+            <div class="stats pill">{thing.item.requirement}</div>
+        {:else if teachesTransmog}
             {@const setStats = lazyState.transmog.stats[`ensemble:${teachesTransmog}`]}
             {#if setStats}
                 <div class="stats pill">
@@ -165,7 +167,13 @@
                     <span class={getPercentClass(setStats.percent)}>{setStats.total}</span>
                 </div>
             {/if}
-        {:else if isMount || isPet || isToy}
+        {:else if thing.difficulty}
+            <div class="stats pill quality1">
+                {thing.difficulty}
+            </div>
+        {/if}
+
+        {#if isMount || isPet || isToy}
             <div class="icon icon-class quality1 drop-shadow">
                 <IconifyIcon
                     icon={isMount
@@ -178,10 +186,6 @@
         {:else if professionAbility}
             <div class="icon icon-class drop-shadow">
                 <ProfessionIcon border={2} size={20} id={professionAbility.professionId} />
-            </div>
-        {:else if thing.difficulty}
-            <div class="stats pill quality1">
-                {thing.difficulty}
             </div>
         {/if}
 

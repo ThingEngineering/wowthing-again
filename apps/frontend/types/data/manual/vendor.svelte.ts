@@ -61,6 +61,7 @@ export class ManualDataVendorItem {
     public faction: Faction = Faction.Both;
     public sortedCosts: [string, number, string, number, number][];
     public trackingQuestId: number;
+    public requirement?: string;
 
     constructor(
         public id: number,
