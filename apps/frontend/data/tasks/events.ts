@@ -3,8 +3,8 @@ import type { Chore, Task } from '@/types/tasks';
 
 export const eventsTurboBoost: Chore[] = [
     {
-        taskKey: 'eventsTurboBoost',
-        taskName: '[W] Turbo Boost',
+        key: 'eventsTurboBoost',
+        name: '[W] Turbo Boost',
         minimumLevel: 80,
         questIds: [
             89039, // Turbo-Boost: Powerhouse Challenges

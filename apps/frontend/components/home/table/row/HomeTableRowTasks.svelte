@@ -6,7 +6,7 @@
     import type { CharacterProps } from '@/types/props';
 
     import RowProgressQuest from './HomeTableRowProgressQuest.svelte';
-    import RowTaskChores from './HomeTableRowTaskChores.svelte';
+    import RowTask from './HomeTableRowTask.svelte';
 
     let { character }: CharacterProps = $props();
 </script>
@@ -14,16 +14,16 @@
 {#key settingsState.activeView.id}
     {#each activeViewTasks.value as fullTaskName (fullTaskName)}
         {@const [taskName, choreName] = fullTaskName.split('|', 2)}
-        {#if taskMap[taskName]?.type === 'multi'}
-            <RowTaskChores {character} {taskName} {choreName} />
-        {:else}
+        <!-- {#if taskMap[taskName]?.type === 'multi'} -->
+        <RowTask {character} {taskName} {choreName} />
+        <!-- {:else}
             <RowProgressQuest
                 {character}
                 quest={taskName}
                 title={taskName.startsWith('holidayTimewalking')
                     ? taskMap[taskName]?.name
                     : $activeHolidays[taskName]?.name || taskMap[taskName]?.name}
-            />
-        {/if}
+            /> -->
+        <!-- {/if} -->
     {/each}
 {/key}

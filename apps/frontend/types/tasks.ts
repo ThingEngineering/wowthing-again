@@ -12,18 +12,15 @@ export type Task = {
     icon?: IconifyIcon;
     minimumLevel?: number;
     maximumLevel?: number;
-    questIds?: number[];
-    questReset?: DbResetType;
     requiredQuestId?: number;
     showSeparate?: boolean;
-    type?: 'multi';
-    /**
-     * Function to check if this quest is current
-     */
-    isCurrentFunc?: (char: Character, questId: number) => boolean;
+    chores: Chore[];
 };
 
 export type Chore = {
+    key: string;
+    name: string;
+    icon?: IconifyIcon;
     accountWide?: boolean;
     noAlone?: boolean;
     noProgress?: boolean;
@@ -31,11 +28,9 @@ export type Chore = {
     minimumLevel?: number;
     maximumLevel?: number;
     questIds?: number[];
-    questReset?: DbResetType;
+    questIdFunc?: (char: Character, chore?: Chore) => number[];
+    questReset: DbResetType;
     subChores?: Chore[];
-    taskKey: string;
-    taskName: string;
-    icon?: IconifyIcon;
     requiredHolidays?: Holiday[];
     /**
      * Function to check if character is eligibile for this task (eg has a profession)
@@ -47,6 +42,5 @@ export type Chore = {
     canGetFunc?: (char: Character) => string;
 
     customExpiryFunc?: (char: Character, scannedAt: DateTime) => DateTime;
-    questIdFunc?: (char: Character, chore?: Chore) => number[];
     decorationFunc?: (expires: DateTime) => string;
 };

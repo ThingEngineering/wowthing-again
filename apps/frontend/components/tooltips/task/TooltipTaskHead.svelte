@@ -4,7 +4,7 @@
     import { Constants } from '@/data/constants';
     import { covenantMap } from '@/data/covenant';
     import { progressQuestMap } from '@/data/quests';
-    import { multiTaskMap, taskMap } from '@/data/tasks';
+    import { taskMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { lazyStore } from '@/stores';
@@ -37,10 +37,10 @@
         if (task.type === 'multi' && taskName !== 'dfProfessionWeeklies') {
             multiStats = sortBy(
                 multiTaskMap[taskName].filter(
-                    (chore) => !!chore && (!choreName || chore.taskKey === choreName)
+                    (chore) => !!chore && (!choreName || chore.key === choreName)
                 ),
-                (multiTask) => disabledChores.indexOf(multiTask.taskKey) >= 0
-            ).map((multi) => [multi.taskKey, multi.taskName, { 0: 0, 1: 0, 2: 0, 3: 0 }]);
+                (multiTask) => disabledChores.indexOf(multiTask.key) >= 0
+            ).map((multi) => [multi.key, multi.name, { 0: 0, 1: 0, 2: 0, 3: 0 }]);
 
             for (let i = 0; i < multiStats.length; i++) {
                 multiMap[multiStats[i][0]] = i;

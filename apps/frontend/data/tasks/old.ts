@@ -49,8 +49,8 @@ function buildProfessionTasks(
 
         if (prefix === 'df') {
             tasks.push({
-                taskKey: `${prefix}Profession${name}Provide`,
-                taskName: `${name}: Provide`,
+                key: `${prefix}Profession${name}Provide`,
+                name: `${name}: Provide`,
                 minimumLevel,
                 couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
                 canGetFunc: (char) =>
@@ -60,8 +60,8 @@ function buildProfessionTasks(
 
         if (profession.hasTasks === true) {
             tasks.push({
-                taskKey: `${prefix}Profession${name}Task`,
-                taskName: `${name}: Task`,
+                key: `${prefix}Profession${name}Task`,
+                name: `${name}: Task`,
                 minimumLevel: 60,
                 couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
                 canGetFunc: (char) =>
@@ -75,8 +75,8 @@ function buildProfessionTasks(
         }
 
         tasks.push({
-            taskKey: `${prefix}Profession${name}Drop#`,
-            taskName: `${name}: Drops`,
+            key: `${prefix}Profession${name}Drop#`,
+            name: `${name}: Drops`,
             minimumLevel,
             couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
             //canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
@@ -84,8 +84,8 @@ function buildProfessionTasks(
 
         if (profession.hasOrders === true) {
             tasks.push({
-                taskKey: `${prefix}Profession${name}Orders`,
-                taskName: `${name}: Orders`,
+                key: `${prefix}Profession${name}Orders`,
+                name: `${name}: Orders`,
                 minimumLevel,
                 couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
                 canGetFunc: (char) =>
@@ -94,8 +94,8 @@ function buildProfessionTasks(
         }
 
         tasks.push({
-            taskKey: `${prefix}Profession${name}Treatise`,
-            taskName: `${name}: Treatise`,
+            key: `${prefix}Profession${name}Treatise`,
+            name: `${name}: Treatise`,
             minimumLevel,
             couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
         });
@@ -257,52 +257,52 @@ export const taskList: Task[] = [
     },
 
     // The War Within
-    {
-        key: 'twwChores11_0',
-        name: '[TWW] 11.0.x',
-        shortName: '11.0',
-        minimumLevel: 70,
-        showSeparate: true,
-        type: 'multi',
-    },
-    {
-        key: 'twwChores11_1',
-        name: '[TWW] 11.1.x',
-        shortName: '11.1',
-        minimumLevel: 80,
-        showSeparate: true,
-        type: 'multi',
-    },
-    {
-        key: 'twwChoresChett',
-        name: '[TWW] C.H.E.T.T. List',
-        shortName: 'CHETT',
-        minimumLevel: 80,
-        type: 'multi',
-    },
-    {
-        key: 'twwChores11_1_5',
-        name: "[TWW] 11.1.5 Flame's Radiance",
-        shortName: 'Rad',
-        minimumLevel: 10,
-        showSeparate: true,
-        type: 'multi',
-    },
-    {
-        key: 'twwChores11_2_0',
-        name: '[TWW] 11.2.x',
-        shortName: '11.2',
-        minimumLevel: 80,
-        showSeparate: true,
-        type: 'multi',
-    },
-    {
-        key: 'twwHorrificVisions',
-        name: '[TWW] Horrific Visions Revisited',
-        shortName: 'Vis',
-        minimumLevel: 80,
-        type: 'multi',
-    },
+    // {
+    //     key: 'twwChores11_0',
+    //     name: '[TWW] 11.0.x',
+    //     shortName: '11.0',
+    //     minimumLevel: 70,
+    //     showSeparate: true,
+    //     type: 'multi',
+    // },
+    // {
+    //     key: 'twwChores11_1',
+    //     name: '[TWW] 11.1.x',
+    //     shortName: '11.1',
+    //     minimumLevel: 80,
+    //     showSeparate: true,
+    //     type: 'multi',
+    // },
+    // {
+    //     key: 'twwChoresChett',
+    //     name: '[TWW] C.H.E.T.T. List',
+    //     shortName: 'CHETT',
+    //     minimumLevel: 80,
+    //     type: 'multi',
+    // },
+    // {
+    //     key: 'twwChores11_1_5',
+    //     name: "[TWW] 11.1.5 Flame's Radiance",
+    //     shortName: 'Rad',
+    //     minimumLevel: 10,
+    //     showSeparate: true,
+    //     type: 'multi',
+    // },
+    // {
+    //     key: 'twwChores11_2_0',
+    //     name: '[TWW] 11.2.x',
+    //     shortName: '11.2',
+    //     minimumLevel: 80,
+    //     showSeparate: true,
+    //     type: 'multi',
+    // },
+    // {
+    //     key: 'twwHorrificVisions',
+    //     name: '[TWW] Horrific Visions Revisited',
+    //     shortName: 'Vis',
+    //     minimumLevel: 80,
+    //     type: 'multi',
+    // },
     {
         key: 'twwCofferKeys',
         name: '[TWW] Coffer Keys',
@@ -359,653 +359,653 @@ function garrisonCouldGet(char: Character): boolean {
     );
 }
 
-export const multiTaskMap: Record<string, Chore[]> = {
-    greedyEmissary: eventGreedyEmissaryChores,
-    turboBoost: eventsTurboBoost,
-    ...actualHolidayChores,
-    ...holidayTimewalkingChores,
-    wodGarrison: [
-        {
-            taskKey: 'invasionBronze',
-            taskName: '{item:120320}', // Invader's Abandoned Sack
-            couldGetFunc: garrisonCouldGet,
-            minimumLevel: 10,
-        },
-        {
-            taskKey: 'invasionSilver',
-            taskName: '{item:120319}', // Invader's Damaged Cache
-            couldGetFunc: garrisonCouldGet,
-            minimumLevel: 10,
-        },
-        {
-            taskKey: 'invasionGold',
-            taskName: '{item:116980}', // Invader's Forgotten Treasure
-            couldGetFunc: garrisonCouldGet,
-            minimumLevel: 10,
-        },
-        {
-            taskKey: 'invasionPlatinum',
-            taskName: '{item:122163}', // Routed Invader's Crate of Spoils
-            couldGetFunc: garrisonCouldGet,
-            minimumLevel: 10,
-        },
-    ],
-    dfCatchRelease: [
-        {
-            taskKey: 'dfCatchAileron',
-            taskName: 'Aileron Seamoth',
-        },
-        {
-            taskKey: 'dfCatchCerulean',
-            taskName: 'Cerulean Spinefish',
-        },
-        {
-            taskKey: 'dfCatchIslefin',
-            taskName: 'Islefin Dorado',
-        },
-        {
-            taskKey: 'dfCatchScalebelly',
-            taskName: 'Scalebelly Mackerel',
-        },
-        {
-            taskKey: 'dfCatchTemporal',
-            taskName: 'Temporal Dragonhead',
-        },
-        {
-            taskKey: 'dfCatchThousandbite',
-            taskName: 'Thousandbite Piranha',
-        },
-    ],
-    dfChores: [
-        {
-            minimumLevel: 60,
-            taskKey: 'dfCommunityFeast',
-            taskName: 'Community Feast',
-        },
-        // { // actually daily
-        //     taskKey: 'dfCommunityFeastKill',
-        //     taskName: 'Community Feast: Boss',
-        // },
-        {
-            taskKey: 'dfDragonAllegiance',
-            taskName: 'Dragon selected',
-        },
-        {
-            taskKey: 'dfDragonKey',
-            taskName: 'Dragon key turned in',
-        },
-        {
-            minimumLevel: 60,
-            taskKey: 'dfGrandHuntMythic',
-            taskName: 'Grand Hunt: Epic',
-        },
-        {
-            minimumLevel: 60,
-            taskKey: 'dfGrandHuntRare',
-            taskName: 'Grand Hunt: Rare',
-        },
-        {
-            minimumLevel: 60,
-            taskKey: 'dfGrandHuntUncommon',
-            taskName: 'Grand Hunt: Uncommon',
-        },
-        {
-            taskKey: 'dfPrimalStorm',
-            taskName: 'Primal Storm: Air',
-        },
-        {
-            taskKey: 'dfPrimalEarth',
-            taskName: 'Primal Storm: Earth',
-        },
-        {
-            taskKey: 'dfPrimalFire',
-            taskName: 'Primal Storm: Fire',
-        },
-        {
-            taskKey: 'dfPrimalWater',
-            taskName: 'Primal Storm: Water',
-        },
-        {
-            minimumLevel: 60,
-            taskKey: 'dfSiegeDragonbaneKeep',
-            taskName: 'Siege on Dragonbane Keep',
-        },
-        {
-            taskKey: 'dfStormsFury',
-            taskName: "Storm's Fury",
-        },
-        {
-            minimumLevel: 60,
-            taskKey: 'dfTrialElements',
-            taskName: 'Trial of Elements',
-        },
-        {
-            minimumLevel: 60,
-            taskKey: 'dfTrialFlood',
-            taskName: 'Trial of the Flood',
-        },
-        {
-            minimumLevel: 70,
-            taskKey: 'dfReachStormsChest',
-            taskName: '[FR] Chest of Storms',
-        },
-    ],
-    dfChores10_1_0: [
-        {
-            taskKey: 'dfDreamsurge',
-            taskName: 'Dreamsurge',
-        },
-        {
-            minimumLevel: 60,
-            taskKey: 'dfFyrakkAssault',
-            taskName: 'Fyrakk - Assault',
-        },
-        {
-            minimumLevel: 60,
-            taskKey: 'dfFyrakkDisciple',
-            taskName: 'Fyrakk - Disciple',
-        },
-        {
-            minimumLevel: 60,
-            taskKey: 'dfFyrakkShipment',
-            taskName: 'Fyrakk - Secured Shipment',
-        },
-        {
-            minimumLevel: 70,
-            taskKey: 'dfResearchersUnderFire1',
-            taskName: 'Researchers Under Fire :quality-1-T1:',
-        },
-        {
-            minimumLevel: 70,
-            taskKey: 'dfResearchersUnderFire2',
-            taskName: 'Researchers Under Fire :quality-2-T2:',
-        },
-        {
-            minimumLevel: 70,
-            taskKey: 'dfResearchersUnderFire3',
-            taskName: 'Researchers Under Fire :quality-3-T3:',
-        },
-        {
-            minimumLevel: 70,
-            taskKey: 'dfResearchersUnderFire4',
-            taskName: 'Researchers Under Fire :quality-4-T4:',
-        },
-        {
-            minimumLevel: 70,
-            taskKey: 'dfSniffenDig1',
-            taskName: 'Sniffenseeking - Dig 1',
-        },
-        {
-            minimumLevel: 70,
-            taskKey: 'dfSniffenDig2',
-            taskName: 'Sniffenseeking - Dig 2',
-        },
-        {
-            minimumLevel: 70,
-            taskKey: 'dfSniffenDig3',
-            taskName: 'Sniffenseeking - Dig 3',
-        },
-    ],
-    dfChores10_2_0: [
-        {
-            taskKey: 'dfWorthyAllyDreamWardens',
-            taskName: 'A Worthy Ally: Dream Wardens',
-        },
-        {
-            taskKey: 'dfBloomingDreamseeds',
-            taskName: 'Blooming Dreamseeds',
-        },
-        {
-            taskKey: 'dfGoodsShipments1',
-            taskName: 'Shipments x1',
-        },
-        {
-            taskKey: 'dfGoodsShipments5',
-            taskName: 'Shipments x5',
-        },
-        {
-            taskKey: 'dfSuperbloom',
-            taskName: 'Superbloom',
-        },
-        {
-            taskKey: 'dfBigDig',
-            taskName: 'The Big Dig',
-        },
-    ],
-    dfDungeonWeeklies: [
-        {
-            taskKey: 'dfDungeonPreserving',
-            taskName: 'Preserving the Past',
-        },
-        {
-            taskKey: 'dfDungeonRelic',
-            taskName: 'Relic Recovery',
-        },
-    ],
-    dfProfessionWeeklies: [
-        {
-            taskKey: 'dfProfessionMettle',
-            taskName: 'Show Your Mettle',
-            minimumLevel: 60,
-            couldGetFunc: (char) =>
-                Array.from(wowthingData.static.professionById.values())
-                    .filter((prof) => prof.type === 0)
-                    .some(
-                        (profession) =>
-                            !!char.professions?.[profession.id]?.subProfessions?.[
-                                profession.expansionSubProfession[9].id
-                            ]
-                    ),
-            canGetFunc: (char) =>
-                char.reputations?.[2544] >= 500 ? '' : "Need Preferred with Artisan's Consortium",
-        },
-        ...dragonflightProfessionTasks,
-    ],
-    twwChores11_0,
-    twwChores11_1,
-    twwChores11_1_5,
-    twwChores11_2_0,
-    twwChoresChett,
-    twwCofferKeys,
-    twwHorrificVisions,
-    twwPinnacle,
-    twwDelveKeys: [
-        {
-            taskKey: 'twwDelveArchaic',
-            taskName: 'Archaic Cipher',
-            minimumLevel: 70,
-            noProgress: true,
-            accountWide: true,
-            questIds: [84370],
-            questReset: DbResetType.Weekly,
-        },
-        {
-            taskKey: 'twwDelveRepCouncil',
-            taskName: 'Rep: Council of Dornogal',
-            minimumLevel: 80,
-            noProgress: true,
-            accountWide: true,
-            questIds: [83317],
-            questReset: DbResetType.Weekly,
-        },
-        {
-            taskKey: 'twwDelveRepAssembly',
-            taskName: 'Rep: Assembly of the Deeps',
-            minimumLevel: 80,
-            noProgress: true,
-            accountWide: true,
-            questIds: [83318],
-            questReset: DbResetType.Weekly,
-        },
-        {
-            taskKey: 'twwDelveRepSevered',
-            taskName: 'Rep: Severed Threads',
-            minimumLevel: 80,
-            noProgress: true,
-            accountWide: true,
-            questIds: [83319],
-            questReset: DbResetType.Weekly,
-        },
-        {
-            taskKey: 'twwDelveRepHallowfall',
-            taskName: 'Rep: Hallowfall Arathi',
-            minimumLevel: 80,
-            noProgress: true,
-            accountWide: true,
-            questIds: [83320],
-            questReset: DbResetType.Weekly,
-        },
-        {
-            taskKey: 'twwDelveRepCartels',
-            taskName: 'Rep: Cartels of Undermine',
-            minimumLevel: 80,
-            noProgress: true,
-            accountWide: true,
-            questIds: [87407],
-            questReset: DbResetType.Weekly,
-        },
-        {
-            taskKey: 'twwDelveRepKaresh',
-            taskName: "Rep: The K'aresh Trust",
-            minimumLevel: 80,
-            noProgress: true,
-            accountWide: true,
-            questIds: [91453],
-            questReset: DbResetType.Weekly,
-        },
-        null,
-        {
-            taskKey: 'twwDelveKey1',
-            taskName: 'Key #1',
-            minimumLevel: 80,
-            noProgress: true,
-            questIds: [91175],
-            questReset: DbResetType.Weekly,
-        },
-        {
-            taskKey: 'twwDelveKey2',
-            taskName: 'Key #2',
-            minimumLevel: 80,
-            noProgress: true,
-            questIds: [91176],
-            questReset: DbResetType.Weekly,
-        },
-        {
-            taskKey: 'twwDelveKey3',
-            taskName: 'Key #3',
-            minimumLevel: 80,
-            noProgress: true,
-            questIds: [91177],
-            questReset: DbResetType.Weekly,
-        },
-        {
-            taskKey: 'twwDelveKey4',
-            taskName: 'Key #4',
-            minimumLevel: 80,
-            noProgress: true,
-            questIds: [91178],
-            questReset: DbResetType.Weekly,
-        },
-        {
-            taskKey: 'twwDelveGilded',
-            taskName: 'Gilded Stash',
-            minimumLevel: 80,
-            showQuestName: true,
-        },
-        {
-            taskKey: 'twwDelveMap',
-            taskName: 'Map Drop',
-            minimumLevel: 80,
-            noProgress: true,
-            questIds: [86371],
-            questReset: DbResetType.Weekly,
-        },
-        {
-            taskKey: 'twwDelveUnderpin',
-            taskName: 'Underpin Invasion',
-            minimumLevel: 80,
-            noProgress: true,
-            questIds: [87286, 87287],
-            questReset: DbResetType.Weekly,
-        },
-    ],
-    twwSpreading: [
-        {
-            taskKey: 'twwSpreadingTheLight',
-            taskName: 'Spreading the Light',
-            noProgress: true,
-        },
-        {
-            taskKey: 'twwSpreadingBleak',
-            taskName: 'Bleak Sand',
-            noProgress: true,
-        },
-        {
-            taskKey: 'twwSpreadingDuskrise',
-            taskName: 'Duskrise Acreage',
-            noProgress: true,
-        },
-        {
-            taskKey: 'twwSpreadingFaded',
-            taskName: 'Faded Shore',
-            noProgress: true,
-        },
-        {
-            taskKey: 'twwSpreadingFungal',
-            taskName: 'Fungal Field',
-            noProgress: true,
-        },
-        {
-            taskKey: 'twwSpreadingLights',
-            taskName: "Light's Blooming",
-            noProgress: true,
-        },
-        {
-            taskKey: 'twwSpreadingStillstone',
-            taskName: 'Stillstone Pond',
-            noProgress: true,
-        },
-        {
-            taskKey: 'twwSpreadingTorchlight',
-            taskName: 'Torchlight Mine',
-            noProgress: true,
-        },
-        {
-            taskKey: 'twwSpreadingWhirring',
-            taskName: 'Whirring Field',
-            noProgress: true,
-        },
-        {
-            taskKey: 'twwSpreadingAttica',
-            taskName: 'Attica Whiskervale',
-            subChores: [
-                {
-                    taskKey: 'twwSpreadingAtticaFlame',
-                    taskName: nameFire,
-                },
-                {
-                    taskKey: 'twwSpreadingAtticaQuest',
-                    taskName: nameQuest,
-                    showQuestName: true,
-                },
-            ],
-        },
-        {
-            taskKey: 'twwSpreadingAuebry',
-            taskName: 'Auebry Irongear',
-            subChores: [
-                {
-                    taskKey: 'twwSpreadingAuebryFlame',
-                    taskName: nameFire,
-                },
-                {
-                    taskKey: 'twwSpreadingAuebryQuest',
-                    taskName: nameQuest,
-                    showQuestName: true,
-                },
-            ],
-        },
-        {
-            taskKey: 'twwSpreadingChef',
-            taskName: 'Chef Dinaire',
-            subChores: [
-                {
-                    taskKey: 'twwSpreadingChefFlame',
-                    taskName: nameFire,
-                },
-                {
-                    taskKey: 'twwSpreadingChefQuest',
-                    taskName: nameQuest,
-                    showQuestName: true,
-                },
-            ],
-        },
-        {
-            taskKey: 'twwSpreadingCrab',
-            taskName: 'Crab Cage',
-            subChores: [
-                {
-                    taskKey: 'twwSpreadingCrabFlame',
-                    taskName: nameFire,
-                },
-                {
-                    taskKey: 'twwSpreadingCrabQuest',
-                    taskName: nameQuest,
-                    showQuestName: true,
-                },
-            ],
-        },
-        {
-            taskKey: 'twwSpreadingErol',
-            taskName: 'Erol Ellimoore',
-            subChores: [
-                {
-                    taskKey: 'twwSpreadingErolFlame',
-                    taskName: nameFire,
-                },
-                {
-                    taskKey: 'twwSpreadingErolQuest',
-                    taskName: nameQuest,
-                    showQuestName: true,
-                },
-            ],
-        },
-        {
-            taskKey: 'twwSpreadingSeraphine',
-            taskName: 'Seraphine Seedheart',
-            subChores: [
-                {
-                    taskKey: 'twwSpreadingSeraphineFlame',
-                    taskName: nameFire,
-                },
-                {
-                    taskKey: 'twwSpreadingSeraphineQuest',
-                    taskName: nameQuest,
-                    showQuestName: true,
-                },
-            ],
-        },
-        {
-            taskKey: 'twwSpreadingTaerry',
-            taskName: 'Taerry Bligestone',
-            subChores: [
-                {
-                    taskKey: 'twwSpreadingTaerryFlame',
-                    taskName: nameFire,
-                },
-                {
-                    taskKey: 'twwSpreadingTaerryQuest',
-                    taskName: nameQuest,
-                    showQuestName: true,
-                },
-            ],
-        },
-        {
-            taskKey: 'twwSpreadingYorvas',
-            taskName: 'Yorvas Flintstrike',
-            subChores: [
-                {
-                    taskKey: 'twwSpreadingYorvasFlame',
-                    taskName: nameFire,
-                },
-                {
-                    taskKey: 'twwSpreadingYorvasQuest',
-                    taskName: nameQuest,
-                    showQuestName: true,
-                },
-            ],
-        },
-    ],
-    twwProfessionWeeklies: [...warWithinProfessionTasks],
-    pvpBrawl: [
-        {
-            taskKey: 'brawlFirstWin',
-            taskName: '[D] First Win',
-            noAlone: true,
-            noProgress: true,
-            questIds: [47144],
-            questReset: DbResetType.Daily,
-        },
-        {
-            taskKey: 'brawlArathiBlizzard',
-            taskName: '[W] Arathi Blizzard',
-            questIds: somethingDifferent,
-            questReset: DbResetType.Weekly,
-            requiredHolidays: [Holiday.BrawlArathiBlizzard],
-        },
-        {
-            taskKey: 'brawlClassicAshran',
-            taskName: '[W] Classic Ashran',
-            questIds: somethingDifferent,
-            questReset: DbResetType.Weekly,
-            requiredHolidays: [Holiday.BrawlClassicAshran],
-        },
-        {
-            taskKey: 'brawlCompStomp',
-            taskName: '[W] Comp Stomp',
-            questIds: somethingDifferent,
-            questReset: DbResetType.Weekly,
-            requiredHolidays: [Holiday.BrawlCompStomp],
-        },
-        {
-            taskKey: 'brawlCookingImpossible',
-            taskName: '[W] Cooking Impossible',
-            questIds: somethingDifferent,
-            questReset: DbResetType.Weekly,
-            requiredHolidays: [Holiday.BrawlCookingImpossible],
-        },
-        {
-            taskKey: 'brawlDeepSix',
-            taskName: '[W] Deep Six',
-            questIds: somethingDifferent,
-            questReset: DbResetType.Weekly,
-            requiredHolidays: [Holiday.BrawlDeepSix],
-        },
-        {
-            taskKey: 'brawlDeepwindDunk',
-            taskName: '[W] Deepwind Dunk',
-            questIds: somethingDifferent,
-            questReset: DbResetType.Weekly,
-            requiredHolidays: [Holiday.BrawlDeepwindDunk],
-        },
-        {
-            taskKey: 'brawlGravityLapse',
-            taskName: '[W] Gravity Lapse',
-            questIds: somethingDifferent,
-            questReset: DbResetType.Weekly,
-            requiredHolidays: [Holiday.BrawlGravityLapse],
-        },
-        {
-            taskKey: 'brawlPackedHouse',
-            taskName: '[W] Packed House',
-            questIds: somethingDifferent,
-            questReset: DbResetType.Weekly,
-            requiredHolidays: [Holiday.BrawlPackedHouse],
-        },
-        {
-            taskKey: 'brawlShadoPanShowdown',
-            taskName: '[W] Shado-Pan Showdown',
-            questIds: somethingDifferent,
-            questReset: DbResetType.Weekly,
-            requiredHolidays: [Holiday.BrawlShadoPanShowdown],
-        },
-        {
-            taskKey: 'brawlSouthshoreVsTarrenMill',
-            taskName: '[W] Southshore vs. Tarren Mill',
-            questIds: somethingDifferent,
-            questReset: DbResetType.Weekly,
-            requiredHolidays: [Holiday.BrawlSouthshoreVsTarrenMill],
-        },
-        {
-            taskKey: 'brawlTempleOfHotmogu',
-            taskName: '[W] Temple of Hotmogu',
-            questIds: somethingDifferent,
-            questReset: DbResetType.Weekly,
-            requiredHolidays: [Holiday.BrawlTempleOfHotmogu],
-        },
-        {
-            taskKey: 'brawlWarsongScramble',
-            taskName: '[W] Warsong Scramble',
-            questIds: somethingDifferent,
-            questReset: DbResetType.Weekly,
-            requiredHolidays: [Holiday.BrawlWarsongScramble],
-        },
-    ],
-    pvpBlitz: [
-        {
-            taskKey: 'pvpBlitz1',
-            taskName: 'Gotta Go Fast',
-        },
-        {
-            taskKey: 'pvpBlitz3',
-            taskName: 'Gotta Go Faster',
-        },
-    ],
-};
+// export const multiTaskMap: Record<string, Chore[]> = {
+//     greedyEmissary: eventGreedyEmissaryChores,
+//     turboBoost: eventsTurboBoost,
+//     ...actualHolidayChores,
+//     ...holidayTimewalkingChores,
+//     wodGarrison: [
+//         {
+//             key: 'invasionBronze',
+//             name: '{item:120320}', // Invader's Abandoned Sack
+//             couldGetFunc: garrisonCouldGet,
+//             minimumLevel: 10,
+//         },
+//         {
+//             key: 'invasionSilver',
+//             name: '{item:120319}', // Invader's Damaged Cache
+//             couldGetFunc: garrisonCouldGet,
+//             minimumLevel: 10,
+//         },
+//         {
+//             key: 'invasionGold',
+//             name: '{item:116980}', // Invader's Forgotten Treasure
+//             couldGetFunc: garrisonCouldGet,
+//             minimumLevel: 10,
+//         },
+//         {
+//             key: 'invasionPlatinum',
+//             name: '{item:122163}', // Routed Invader's Crate of Spoils
+//             couldGetFunc: garrisonCouldGet,
+//             minimumLevel: 10,
+//         },
+//     ],
+//     dfCatchRelease: [
+//         {
+//             key: 'dfCatchAileron',
+//             name: 'Aileron Seamoth',
+//         },
+//         {
+//             key: 'dfCatchCerulean',
+//             name: 'Cerulean Spinefish',
+//         },
+//         {
+//             key: 'dfCatchIslefin',
+//             name: 'Islefin Dorado',
+//         },
+//         {
+//             key: 'dfCatchScalebelly',
+//             name: 'Scalebelly Mackerel',
+//         },
+//         {
+//             key: 'dfCatchTemporal',
+//             name: 'Temporal Dragonhead',
+//         },
+//         {
+//             key: 'dfCatchThousandbite',
+//             name: 'Thousandbite Piranha',
+//         },
+//     ],
+//     dfChores: [
+//         {
+//             minimumLevel: 60,
+//             key: 'dfCommunityFeast',
+//             name: 'Community Feast',
+//         },
+//         // { // actually daily
+//         //     taskKey: 'dfCommunityFeastKill',
+//         //     taskName: 'Community Feast: Boss',
+//         // },
+//         {
+//             key: 'dfDragonAllegiance',
+//             name: 'Dragon selected',
+//         },
+//         {
+//             key: 'dfDragonKey',
+//             name: 'Dragon key turned in',
+//         },
+//         {
+//             minimumLevel: 60,
+//             key: 'dfGrandHuntMythic',
+//             name: 'Grand Hunt: Epic',
+//         },
+//         {
+//             minimumLevel: 60,
+//             key: 'dfGrandHuntRare',
+//             name: 'Grand Hunt: Rare',
+//         },
+//         {
+//             minimumLevel: 60,
+//             key: 'dfGrandHuntUncommon',
+//             name: 'Grand Hunt: Uncommon',
+//         },
+//         {
+//             key: 'dfPrimalStorm',
+//             name: 'Primal Storm: Air',
+//         },
+//         {
+//             key: 'dfPrimalEarth',
+//             name: 'Primal Storm: Earth',
+//         },
+//         {
+//             key: 'dfPrimalFire',
+//             name: 'Primal Storm: Fire',
+//         },
+//         {
+//             key: 'dfPrimalWater',
+//             name: 'Primal Storm: Water',
+//         },
+//         {
+//             minimumLevel: 60,
+//             key: 'dfSiegeDragonbaneKeep',
+//             name: 'Siege on Dragonbane Keep',
+//         },
+//         {
+//             key: 'dfStormsFury',
+//             name: "Storm's Fury",
+//         },
+//         {
+//             minimumLevel: 60,
+//             key: 'dfTrialElements',
+//             name: 'Trial of Elements',
+//         },
+//         {
+//             minimumLevel: 60,
+//             key: 'dfTrialFlood',
+//             name: 'Trial of the Flood',
+//         },
+//         {
+//             minimumLevel: 70,
+//             key: 'dfReachStormsChest',
+//             name: '[FR] Chest of Storms',
+//         },
+//     ],
+//     dfChores10_1_0: [
+//         {
+//             key: 'dfDreamsurge',
+//             name: 'Dreamsurge',
+//         },
+//         {
+//             minimumLevel: 60,
+//             key: 'dfFyrakkAssault',
+//             name: 'Fyrakk - Assault',
+//         },
+//         {
+//             minimumLevel: 60,
+//             key: 'dfFyrakkDisciple',
+//             name: 'Fyrakk - Disciple',
+//         },
+//         {
+//             minimumLevel: 60,
+//             key: 'dfFyrakkShipment',
+//             name: 'Fyrakk - Secured Shipment',
+//         },
+//         {
+//             minimumLevel: 70,
+//             key: 'dfResearchersUnderFire1',
+//             name: 'Researchers Under Fire :quality-1-T1:',
+//         },
+//         {
+//             minimumLevel: 70,
+//             key: 'dfResearchersUnderFire2',
+//             name: 'Researchers Under Fire :quality-2-T2:',
+//         },
+//         {
+//             minimumLevel: 70,
+//             key: 'dfResearchersUnderFire3',
+//             name: 'Researchers Under Fire :quality-3-T3:',
+//         },
+//         {
+//             minimumLevel: 70,
+//             key: 'dfResearchersUnderFire4',
+//             name: 'Researchers Under Fire :quality-4-T4:',
+//         },
+//         {
+//             minimumLevel: 70,
+//             key: 'dfSniffenDig1',
+//             name: 'Sniffenseeking - Dig 1',
+//         },
+//         {
+//             minimumLevel: 70,
+//             key: 'dfSniffenDig2',
+//             name: 'Sniffenseeking - Dig 2',
+//         },
+//         {
+//             minimumLevel: 70,
+//             key: 'dfSniffenDig3',
+//             name: 'Sniffenseeking - Dig 3',
+//         },
+//     ],
+//     dfChores10_2_0: [
+//         {
+//             key: 'dfWorthyAllyDreamWardens',
+//             name: 'A Worthy Ally: Dream Wardens',
+//         },
+//         {
+//             key: 'dfBloomingDreamseeds',
+//             name: 'Blooming Dreamseeds',
+//         },
+//         {
+//             key: 'dfGoodsShipments1',
+//             name: 'Shipments x1',
+//         },
+//         {
+//             key: 'dfGoodsShipments5',
+//             name: 'Shipments x5',
+//         },
+//         {
+//             key: 'dfSuperbloom',
+//             name: 'Superbloom',
+//         },
+//         {
+//             key: 'dfBigDig',
+//             name: 'The Big Dig',
+//         },
+//     ],
+//     dfDungeonWeeklies: [
+//         {
+//             key: 'dfDungeonPreserving',
+//             name: 'Preserving the Past',
+//         },
+//         {
+//             key: 'dfDungeonRelic',
+//             name: 'Relic Recovery',
+//         },
+//     ],
+//     dfProfessionWeeklies: [
+//         {
+//             key: 'dfProfessionMettle',
+//             name: 'Show Your Mettle',
+//             minimumLevel: 60,
+//             couldGetFunc: (char) =>
+//                 Array.from(wowthingData.static.professionById.values())
+//                     .filter((prof) => prof.type === 0)
+//                     .some(
+//                         (profession) =>
+//                             !!char.professions?.[profession.id]?.subProfessions?.[
+//                                 profession.expansionSubProfession[9].id
+//                             ]
+//                     ),
+//             canGetFunc: (char) =>
+//                 char.reputations?.[2544] >= 500 ? '' : "Need Preferred with Artisan's Consortium",
+//         },
+//         ...dragonflightProfessionTasks,
+//     ],
+//     twwChores11_0,
+//     twwChores11_1,
+//     twwChores11_1_5,
+//     twwChores11_2_0,
+//     twwChoresChett,
+//     twwCofferKeys,
+//     twwHorrificVisions,
+//     twwPinnacle,
+//     twwDelveKeys: [
+//         {
+//             key: 'twwDelveArchaic',
+//             name: 'Archaic Cipher',
+//             minimumLevel: 70,
+//             noProgress: true,
+//             accountWide: true,
+//             questIds: [84370],
+//             questReset: DbResetType.Weekly,
+//         },
+//         {
+//             key: 'twwDelveRepCouncil',
+//             name: 'Rep: Council of Dornogal',
+//             minimumLevel: 80,
+//             noProgress: true,
+//             accountWide: true,
+//             questIds: [83317],
+//             questReset: DbResetType.Weekly,
+//         },
+//         {
+//             key: 'twwDelveRepAssembly',
+//             name: 'Rep: Assembly of the Deeps',
+//             minimumLevel: 80,
+//             noProgress: true,
+//             accountWide: true,
+//             questIds: [83318],
+//             questReset: DbResetType.Weekly,
+//         },
+//         {
+//             key: 'twwDelveRepSevered',
+//             name: 'Rep: Severed Threads',
+//             minimumLevel: 80,
+//             noProgress: true,
+//             accountWide: true,
+//             questIds: [83319],
+//             questReset: DbResetType.Weekly,
+//         },
+//         {
+//             key: 'twwDelveRepHallowfall',
+//             name: 'Rep: Hallowfall Arathi',
+//             minimumLevel: 80,
+//             noProgress: true,
+//             accountWide: true,
+//             questIds: [83320],
+//             questReset: DbResetType.Weekly,
+//         },
+//         {
+//             key: 'twwDelveRepCartels',
+//             name: 'Rep: Cartels of Undermine',
+//             minimumLevel: 80,
+//             noProgress: true,
+//             accountWide: true,
+//             questIds: [87407],
+//             questReset: DbResetType.Weekly,
+//         },
+//         {
+//             key: 'twwDelveRepKaresh',
+//             name: "Rep: The K'aresh Trust",
+//             minimumLevel: 80,
+//             noProgress: true,
+//             accountWide: true,
+//             questIds: [91453],
+//             questReset: DbResetType.Weekly,
+//         },
+//         null,
+//         {
+//             key: 'twwDelveKey1',
+//             name: 'Key #1',
+//             minimumLevel: 80,
+//             noProgress: true,
+//             questIds: [91175],
+//             questReset: DbResetType.Weekly,
+//         },
+//         {
+//             key: 'twwDelveKey2',
+//             name: 'Key #2',
+//             minimumLevel: 80,
+//             noProgress: true,
+//             questIds: [91176],
+//             questReset: DbResetType.Weekly,
+//         },
+//         {
+//             key: 'twwDelveKey3',
+//             name: 'Key #3',
+//             minimumLevel: 80,
+//             noProgress: true,
+//             questIds: [91177],
+//             questReset: DbResetType.Weekly,
+//         },
+//         {
+//             key: 'twwDelveKey4',
+//             name: 'Key #4',
+//             minimumLevel: 80,
+//             noProgress: true,
+//             questIds: [91178],
+//             questReset: DbResetType.Weekly,
+//         },
+//         {
+//             key: 'twwDelveGilded',
+//             name: 'Gilded Stash',
+//             minimumLevel: 80,
+//             showQuestName: true,
+//         },
+//         {
+//             key: 'twwDelveMap',
+//             name: 'Map Drop',
+//             minimumLevel: 80,
+//             noProgress: true,
+//             questIds: [86371],
+//             questReset: DbResetType.Weekly,
+//         },
+//         {
+//             key: 'twwDelveUnderpin',
+//             name: 'Underpin Invasion',
+//             minimumLevel: 80,
+//             noProgress: true,
+//             questIds: [87286, 87287],
+//             questReset: DbResetType.Weekly,
+//         },
+//     ],
+//     twwSpreading: [
+//         {
+//             key: 'twwSpreadingTheLight',
+//             name: 'Spreading the Light',
+//             noProgress: true,
+//         },
+//         {
+//             key: 'twwSpreadingBleak',
+//             name: 'Bleak Sand',
+//             noProgress: true,
+//         },
+//         {
+//             key: 'twwSpreadingDuskrise',
+//             name: 'Duskrise Acreage',
+//             noProgress: true,
+//         },
+//         {
+//             key: 'twwSpreadingFaded',
+//             name: 'Faded Shore',
+//             noProgress: true,
+//         },
+//         {
+//             key: 'twwSpreadingFungal',
+//             name: 'Fungal Field',
+//             noProgress: true,
+//         },
+//         {
+//             key: 'twwSpreadingLights',
+//             name: "Light's Blooming",
+//             noProgress: true,
+//         },
+//         {
+//             key: 'twwSpreadingStillstone',
+//             name: 'Stillstone Pond',
+//             noProgress: true,
+//         },
+//         {
+//             key: 'twwSpreadingTorchlight',
+//             name: 'Torchlight Mine',
+//             noProgress: true,
+//         },
+//         {
+//             key: 'twwSpreadingWhirring',
+//             name: 'Whirring Field',
+//             noProgress: true,
+//         },
+//         {
+//             key: 'twwSpreadingAttica',
+//             name: 'Attica Whiskervale',
+//             subChores: [
+//                 {
+//                     key: 'twwSpreadingAtticaFlame',
+//                     name: nameFire,
+//                 },
+//                 {
+//                     key: 'twwSpreadingAtticaQuest',
+//                     name: nameQuest,
+//                     showQuestName: true,
+//                 },
+//             ],
+//         },
+//         {
+//             key: 'twwSpreadingAuebry',
+//             name: 'Auebry Irongear',
+//             subChores: [
+//                 {
+//                     key: 'twwSpreadingAuebryFlame',
+//                     name: nameFire,
+//                 },
+//                 {
+//                     key: 'twwSpreadingAuebryQuest',
+//                     name: nameQuest,
+//                     showQuestName: true,
+//                 },
+//             ],
+//         },
+//         {
+//             key: 'twwSpreadingChef',
+//             name: 'Chef Dinaire',
+//             subChores: [
+//                 {
+//                     key: 'twwSpreadingChefFlame',
+//                     name: nameFire,
+//                 },
+//                 {
+//                     key: 'twwSpreadingChefQuest',
+//                     name: nameQuest,
+//                     showQuestName: true,
+//                 },
+//             ],
+//         },
+//         {
+//             key: 'twwSpreadingCrab',
+//             name: 'Crab Cage',
+//             subChores: [
+//                 {
+//                     key: 'twwSpreadingCrabFlame',
+//                     name: nameFire,
+//                 },
+//                 {
+//                     key: 'twwSpreadingCrabQuest',
+//                     name: nameQuest,
+//                     showQuestName: true,
+//                 },
+//             ],
+//         },
+//         {
+//             key: 'twwSpreadingErol',
+//             name: 'Erol Ellimoore',
+//             subChores: [
+//                 {
+//                     key: 'twwSpreadingErolFlame',
+//                     name: nameFire,
+//                 },
+//                 {
+//                     key: 'twwSpreadingErolQuest',
+//                     name: nameQuest,
+//                     showQuestName: true,
+//                 },
+//             ],
+//         },
+//         {
+//             key: 'twwSpreadingSeraphine',
+//             name: 'Seraphine Seedheart',
+//             subChores: [
+//                 {
+//                     key: 'twwSpreadingSeraphineFlame',
+//                     name: nameFire,
+//                 },
+//                 {
+//                     key: 'twwSpreadingSeraphineQuest',
+//                     name: nameQuest,
+//                     showQuestName: true,
+//                 },
+//             ],
+//         },
+//         {
+//             key: 'twwSpreadingTaerry',
+//             name: 'Taerry Bligestone',
+//             subChores: [
+//                 {
+//                     key: 'twwSpreadingTaerryFlame',
+//                     name: nameFire,
+//                 },
+//                 {
+//                     key: 'twwSpreadingTaerryQuest',
+//                     name: nameQuest,
+//                     showQuestName: true,
+//                 },
+//             ],
+//         },
+//         {
+//             key: 'twwSpreadingYorvas',
+//             name: 'Yorvas Flintstrike',
+//             subChores: [
+//                 {
+//                     key: 'twwSpreadingYorvasFlame',
+//                     name: nameFire,
+//                 },
+//                 {
+//                     key: 'twwSpreadingYorvasQuest',
+//                     name: nameQuest,
+//                     showQuestName: true,
+//                 },
+//             ],
+//         },
+//     ],
+//     twwProfessionWeeklies: [...warWithinProfessionTasks],
+//     pvpBrawl: [
+//         {
+//             key: 'brawlFirstWin',
+//             name: '[D] First Win',
+//             noAlone: true,
+//             noProgress: true,
+//             questIds: [47144],
+//             questReset: DbResetType.Daily,
+//         },
+//         {
+//             key: 'brawlArathiBlizzard',
+//             name: '[W] Arathi Blizzard',
+//             questIds: somethingDifferent,
+//             questReset: DbResetType.Weekly,
+//             requiredHolidays: [Holiday.BrawlArathiBlizzard],
+//         },
+//         {
+//             key: 'brawlClassicAshran',
+//             name: '[W] Classic Ashran',
+//             questIds: somethingDifferent,
+//             questReset: DbResetType.Weekly,
+//             requiredHolidays: [Holiday.BrawlClassicAshran],
+//         },
+//         {
+//             key: 'brawlCompStomp',
+//             name: '[W] Comp Stomp',
+//             questIds: somethingDifferent,
+//             questReset: DbResetType.Weekly,
+//             requiredHolidays: [Holiday.BrawlCompStomp],
+//         },
+//         {
+//             key: 'brawlCookingImpossible',
+//             name: '[W] Cooking Impossible',
+//             questIds: somethingDifferent,
+//             questReset: DbResetType.Weekly,
+//             requiredHolidays: [Holiday.BrawlCookingImpossible],
+//         },
+//         {
+//             key: 'brawlDeepSix',
+//             name: '[W] Deep Six',
+//             questIds: somethingDifferent,
+//             questReset: DbResetType.Weekly,
+//             requiredHolidays: [Holiday.BrawlDeepSix],
+//         },
+//         {
+//             key: 'brawlDeepwindDunk',
+//             name: '[W] Deepwind Dunk',
+//             questIds: somethingDifferent,
+//             questReset: DbResetType.Weekly,
+//             requiredHolidays: [Holiday.BrawlDeepwindDunk],
+//         },
+//         {
+//             key: 'brawlGravityLapse',
+//             name: '[W] Gravity Lapse',
+//             questIds: somethingDifferent,
+//             questReset: DbResetType.Weekly,
+//             requiredHolidays: [Holiday.BrawlGravityLapse],
+//         },
+//         {
+//             key: 'brawlPackedHouse',
+//             name: '[W] Packed House',
+//             questIds: somethingDifferent,
+//             questReset: DbResetType.Weekly,
+//             requiredHolidays: [Holiday.BrawlPackedHouse],
+//         },
+//         {
+//             key: 'brawlShadoPanShowdown',
+//             name: '[W] Shado-Pan Showdown',
+//             questIds: somethingDifferent,
+//             questReset: DbResetType.Weekly,
+//             requiredHolidays: [Holiday.BrawlShadoPanShowdown],
+//         },
+//         {
+//             key: 'brawlSouthshoreVsTarrenMill',
+//             name: '[W] Southshore vs. Tarren Mill',
+//             questIds: somethingDifferent,
+//             questReset: DbResetType.Weekly,
+//             requiredHolidays: [Holiday.BrawlSouthshoreVsTarrenMill],
+//         },
+//         {
+//             key: 'brawlTempleOfHotmogu',
+//             name: '[W] Temple of Hotmogu',
+//             questIds: somethingDifferent,
+//             questReset: DbResetType.Weekly,
+//             requiredHolidays: [Holiday.BrawlTempleOfHotmogu],
+//         },
+//         {
+//             key: 'brawlWarsongScramble',
+//             name: '[W] Warsong Scramble',
+//             questIds: somethingDifferent,
+//             questReset: DbResetType.Weekly,
+//             requiredHolidays: [Holiday.BrawlWarsongScramble],
+//         },
+//     ],
+//     pvpBlitz: [
+//         {
+//             key: 'pvpBlitz1',
+//             name: 'Gotta Go Fast',
+//         },
+//         {
+//             key: 'pvpBlitz3',
+//             name: 'Gotta Go Faster',
+//         },
+//     ],
+// };
 
 export const taskChoreMap = Object.fromEntries(
     Object.entries(multiTaskMap).flatMap(([taskKey, chores]) =>
-        chores.filter((chore) => !!chore).map((chore) => [`${taskKey}_${chore.taskKey}`, chore])
+        chores.filter((chore) => !!chore).map((chore) => [`${taskKey}_${chore.key}`, chore])
     )
 );
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { multiTaskMap, taskMap } from '@/data/tasks';
+    import { taskMap } from '@/data/tasks';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { timeState } from '@/shared/state/time.svelte';
     import { userState } from '@/user-home/state/user';
@@ -44,9 +44,10 @@
 
 {#each activeTasks as fullTaskName (fullTaskName)}
     {@const [taskName, choreName] = fullTaskName.split('|', 2)}
-    {@const task = taskMap[taskName] || settingsState.customTaskMap[fullTaskName]}
+    {@const task = taskMap[taskName]}
+    <!-- || settingsState.customTaskMap[fullTaskName]} -->
     {@const sortField = `task:${fullTaskName}`}
-    {@const chore = multiTaskMap[taskName]?.find((task) => task?.taskKey === choreName)}
+    {@const chore = task.chores.find((task) => task?.key === choreName)}
     {@const customExpiry = chore?.decorationFunc?.(
         chore?.customExpiryFunc(userState.general.characters[0], timeState.time)
     )}
@@ -64,11 +65,8 @@
             },
         }}
     >
-        {#if choreName}
-            <IconifyIcon
-                icon={multiTaskMap[taskName].find((chore) => chore?.taskKey === choreName)?.icon}
-                scale="0.9"
-            />
+        {#if chore}
+            <IconifyIcon icon={chore?.icon} scale="0.9" />
         {:else}
             <ParsedText text={task.shortName} />
         {/if}

@@ -67,13 +67,13 @@ export const actualHolidayTasks: Task[] = [
 export const actualHolidayChores: Record<string, Chore[]> = {
     anniversary: [
         {
-            taskKey: 'anniversaryCelebrate',
-            taskName: 'Celebrate',
+            key: 'anniversaryCelebrate',
+            name: 'Celebrate',
             couldGetFunc: (char) => char.auras?.[465631]?.duration > 0,
         },
         {
-            taskKey: 'anniversaryChromie',
-            taskName: "Chromie's Codex",
+            key: 'anniversaryChromie',
+            name: "Chromie's Codex",
         },
         // {
         //     taskKey: 'anniversaryOriginals',
@@ -81,168 +81,168 @@ export const actualHolidayChores: Record<string, Chore[]> = {
         //     minimumLevel: 30,
         // },
         {
-            taskKey: 'anniversaryGatecrashers',
-            taskName: 'Timely Gate Crashers',
+            key: 'anniversaryGatecrashers',
+            name: 'Timely Gate Crashers',
             minimumLevel: 30,
         },
         {
-            taskKey: 'anniversaryReflect',
-            taskName: 'Reflect',
+            key: 'anniversaryReflect',
+            name: 'Reflect',
         },
         {
-            taskKey: 'anniversarySoldier',
-            taskName: 'Alterac Valley',
+            key: 'anniversarySoldier',
+            name: 'Alterac Valley',
         },
     ],
     holidayDarkmoonFaire: [
         {
-            taskKey: 'dmfStrength',
-            taskName: 'Test Your Strength',
+            key: 'dmfStrength',
+            name: 'Test Your Strength',
         },
         {
-            taskKey: 'dmfDenmother',
-            taskName: 'Kill Moonfang',
+            key: 'dmfDenmother',
+            name: 'Kill Moonfang',
         },
         // Items
         {
-            taskKey: 'dmfStrategist',
-            taskName: '{itemWithIcon:71715}', // A Treatise on Strategy
+            key: 'dmfStrategist',
+            name: '{itemWithIcon:71715}', // A Treatise on Strategy
         },
         {
-            taskKey: 'dmfBanner',
-            taskName: '{itemWithIcon:71951}', // Banner of the Fallen
+            key: 'dmfBanner',
+            name: '{itemWithIcon:71951}', // Banner of the Fallen
         },
         {
-            taskKey: 'dmfInsignia',
-            taskName: '{itemWithIcon:71952}', // Captured Insignia
+            key: 'dmfInsignia',
+            name: '{itemWithIcon:71952}', // Captured Insignia
         },
         {
-            taskKey: 'dmfJournal',
-            taskName: '{itemWithIcon:71953}', // Fallen Adventurer's Journal
+            key: 'dmfJournal',
+            name: '{itemWithIcon:71953}', // Fallen Adventurer's Journal
         },
         {
-            taskKey: 'dmfCrystal',
-            taskName: '{itemWithIcon:71635}', // Imbued Crystal
+            key: 'dmfCrystal',
+            name: '{itemWithIcon:71635}', // Imbued Crystal
         },
         {
-            taskKey: 'dmfEgg',
-            taskName: '{itemWithIcon:71636}', // Monstrous Egg
+            key: 'dmfEgg',
+            name: '{itemWithIcon:71636}', // Monstrous Egg
         },
         {
-            taskKey: 'dmfGrimoire',
-            taskName: '{itemWithIcon:71637}', // Mysterious Grimoire
+            key: 'dmfGrimoire',
+            name: '{itemWithIcon:71637}', // Mysterious Grimoire
         },
         {
-            taskKey: 'dmfWeapon',
-            taskName: '{itemWithIcon:71638}', // Ornate Weapon
+            key: 'dmfWeapon',
+            name: '{itemWithIcon:71638}', // Ornate Weapon
         },
         {
-            taskKey: 'dmfDivination',
-            taskName: '{itemWithIcon:71716}', // Soothsayer's Runes
+            key: 'dmfDivination',
+            name: '{itemWithIcon:71716}', // Soothsayer's Runes
         },
         // Professions
         {
-            taskKey: 'dmfAlchemy',
-            taskName: ':alchemy: A Fizzy Fusion',
+            key: 'dmfAlchemy',
+            name: ':alchemy: A Fizzy Fusion',
             couldGetFunc: (char) => !!char.professions?.[Profession.Alchemy],
         },
         {
-            taskKey: 'dmfBlacksmithing',
-            taskName: ':blacksmithing: Baby Needs Two Pair of Shoes',
+            key: 'dmfBlacksmithing',
+            name: ':blacksmithing: Baby Needs Two Pair of Shoes',
             couldGetFunc: (char) => !!char.professions?.[Profession.Blacksmithing],
         },
         {
-            taskKey: 'dmfEnchanting',
-            taskName: ':enchanting: Putting Trash to Good Use',
+            key: 'dmfEnchanting',
+            name: ':enchanting: Putting Trash to Good Use',
             couldGetFunc: (char) => !!char.professions?.[Profession.Enchanting],
         },
         {
-            taskKey: 'dmfEngineering',
-            taskName: ":engineering: Talkin' Tonks",
+            key: 'dmfEngineering',
+            name: ":engineering: Talkin' Tonks",
             couldGetFunc: (char) => !!char.professions?.[Profession.Engineering],
         },
         {
-            taskKey: 'dmfHerbalism',
-            taskName: ':herbalism: Herbs for Healing',
+            key: 'dmfHerbalism',
+            name: ':herbalism: Herbs for Healing',
             couldGetFunc: (char) => !!char.professions?.[Profession.Herbalism],
         },
         {
-            taskKey: 'dmfInscription',
-            taskName: ':inscription: Writing the Future',
+            key: 'dmfInscription',
+            name: ':inscription: Writing the Future',
             couldGetFunc: (char) => !!char.professions?.[Profession.Inscription],
         },
         {
-            taskKey: 'dmfJewelcrafting',
-            taskName: ':jewelcrafting: Keeping the Faire Sparkling',
+            key: 'dmfJewelcrafting',
+            name: ':jewelcrafting: Keeping the Faire Sparkling',
             couldGetFunc: (char) => !!char.professions?.[Profession.Jewelcrafting],
         },
         {
-            taskKey: 'dmfLeatherworking',
-            taskName: ':leatherworking: Eyes on the Prizes',
+            key: 'dmfLeatherworking',
+            name: ':leatherworking: Eyes on the Prizes',
             couldGetFunc: (char) => !!char.professions?.[Profession.Leatherworking],
         },
         {
-            taskKey: 'dmfMining',
-            taskName: ':mining: Rearm, Reuse, Recycle',
+            key: 'dmfMining',
+            name: ':mining: Rearm, Reuse, Recycle',
             couldGetFunc: (char) => !!char.professions?.[Profession.Mining],
         },
         {
-            taskKey: 'dmfSkinning',
-            taskName: ':skinning: Tan My Hide',
+            key: 'dmfSkinning',
+            name: ':skinning: Tan My Hide',
             couldGetFunc: (char) => !!char.professions?.[Profession.Skinning],
         },
         {
-            taskKey: 'dmfTailoring',
-            taskName: ':tailoring: Banners, Banners Everywhere!',
+            key: 'dmfTailoring',
+            name: ':tailoring: Banners, Banners Everywhere!',
             couldGetFunc: (char) => !!char.professions?.[Profession.Tailoring],
         },
         {
-            taskKey: 'dmfArchaeology',
-            taskName: ':archaeology: Fun for the Little Ones',
+            key: 'dmfArchaeology',
+            name: ':archaeology: Fun for the Little Ones',
             couldGetFunc: (char) => !!char.professions?.[Profession.Archaeology],
         },
         {
-            taskKey: 'dmfCooking',
-            taskName: ':cooking: Putting the Crunch in the Frog',
+            key: 'dmfCooking',
+            name: ':cooking: Putting the Crunch in the Frog',
             couldGetFunc: (char) => !!char.professions?.[Profession.Cooking],
         },
         {
-            taskKey: 'dmfFishing',
-            taskName: ":fishing: Spoilin' for Salty Sea Dogs",
+            key: 'dmfFishing',
+            name: ":fishing: Spoilin' for Salty Sea Dogs",
             couldGetFunc: (char) => !!char.professions?.[Profession.Fishing],
         },
     ],
     holidayHallowsEnd: [
         {
-            taskKey: 'hallowsBuild',
-            taskName: 'Bonfire',
+            key: 'hallowsBuild',
+            name: 'Bonfire',
             minimumLevel: 10,
         },
         {
-            taskKey: 'hallowsBreak',
-            taskName: 'Douse',
+            key: 'hallowsBreak',
+            name: 'Douse',
             minimumLevel: 10,
         },
         {
-            taskKey: 'hallowsCleanUp',
-            taskName: 'Clean Up',
+            key: 'hallowsCleanUp',
+            name: 'Clean Up',
             minimumLevel: 10,
         },
         {
-            taskKey: 'hallowsStinkBombs',
-            taskName: 'Stink Bombs',
+            key: 'hallowsStinkBombs',
+            name: 'Stink Bombs',
             minimumLevel: 10,
         },
         {
-            taskKey: 'hallowsTree',
-            taskName: 'The Crooked Tree',
+            key: 'hallowsTree',
+            name: 'The Crooked Tree',
             minimumLevel: 40,
         },
     ],
     holidayLove: [
         {
-            taskKey: 'loveCrownAccount',
-            taskName: 'Crown Chemical Co. [Account]',
+            key: 'loveCrownAccount',
+            name: 'Crown Chemical Co. [Account]',
             accountWide: true,
             noProgress: true,
             questIds: [
@@ -253,15 +253,15 @@ export const actualHolidayChores: Record<string, Chore[]> = {
             questReset: DbResetType.Daily,
         },
         {
-            taskKey: 'loveDonation',
-            taskName: 'Donate',
+            key: 'loveDonation',
+            name: 'Donate',
             noProgress: true,
             questIds: [78683],
             questReset: DbResetType.Daily,
         },
         {
-            taskKey: 'loveGetaway',
-            taskName: 'Getaway',
+            key: 'loveGetaway',
+            name: 'Getaway',
             questIds: [
                 78594, // Getaway to Scenic Feralas! [A]
                 78988, // Getaway to Scenic Feralas! [H]
@@ -273,8 +273,8 @@ export const actualHolidayChores: Record<string, Chore[]> = {
             questReset: DbResetType.Daily,
         },
         {
-            taskKey: 'loveGift',
-            taskName: 'Gift',
+            key: 'loveGift',
+            name: 'Gift',
             questIds: [
                 78679, // The Gift of Relaxation [A]
                 78991, // The Gift of Relaxation [H]
@@ -293,8 +293,8 @@ export const actualHolidayChores: Record<string, Chore[]> = {
     holidayMidsummer: [
         {
             minimumLevel: 10,
-            taskKey: 'midsummerAhune',
-            taskName: 'Ahune [Account]',
+            key: 'midsummerAhune',
+            name: 'Ahune [Account]',
             accountWide: true,
             questIds: [83134],
             questReset: DbResetType.Daily,
@@ -303,8 +303,8 @@ export const actualHolidayChores: Record<string, Chore[]> = {
     holidayNoblegarden: [
         {
             minimumLevel: 60,
-            taskKey: 'nobleDaetan',
-            taskName: 'Feathered Fiend',
+            key: 'nobleDaetan',
+            name: 'Feathered Fiend',
             questIds: [
                 73192, // Feathered Fiend [A]
                 79558, // Feathered Fiend [H]
@@ -313,8 +313,8 @@ export const actualHolidayChores: Record<string, Chore[]> = {
         },
         {
             minimumLevel: 1,
-            taskKey: 'nobleQuacking',
-            taskName: 'Quacking Down',
+            key: 'nobleQuacking',
+            name: 'Quacking Down',
             questIds: [
                 78274, // Quacking Down [A]
                 79135, // Quacking Down [H]
@@ -327,8 +327,8 @@ export const actualHolidayChores: Record<string, Chore[]> = {
         },
         {
             minimumLevel: 1,
-            taskKey: 'nobleEggs',
-            taskName: 'The Great Egg Hunt',
+            key: 'nobleEggs',
+            name: 'The Great Egg Hunt',
             questIds: [
                 13480, // The Great Egg Hunt [A]
                 13479, // The Great Egg Hunt [H]
@@ -338,38 +338,38 @@ export const actualHolidayChores: Record<string, Chore[]> = {
     ],
     holidayWinterVeil: [
         {
-            taskKey: 'merryMeanOneHigh',
-            taskName: `...You're a Mean One &gte; ${Constants.characterMaxLevel - 10}`,
+            key: 'merryMeanOneHigh',
+            name: `...You're a Mean One &gte; ${Constants.characterMaxLevel - 10}`,
             minimumLevel: Constants.characterMaxLevel - 10,
         },
         {
-            taskKey: 'merryMeanOneLow',
-            taskName: `...You're a Mean One &lt; ${Constants.characterMaxLevel - 10}`,
+            key: 'merryMeanOneLow',
+            name: `...You're a Mean One &lt; ${Constants.characterMaxLevel - 10}`,
             minimumLevel: 30,
             maximumLevel: Constants.characterMaxLevel - 11,
         },
         {
             minimumLevel: 40,
-            taskKey: 'merryGrumpus',
-            taskName: 'Grumpus',
+            key: 'merryGrumpus',
+            name: 'Grumpus',
             couldGetFunc: winterVeilCouldGet,
         },
         {
             minimumLevel: 40,
-            taskKey: 'merryGrumplings',
-            taskName: 'Menacing Grumplings',
+            key: 'merryGrumplings',
+            name: 'Menacing Grumplings',
             couldGetFunc: winterVeilCouldGet,
         },
         {
             minimumLevel: 40,
-            taskKey: 'merryPresents',
-            taskName: 'What Horrible Presents!',
+            key: 'merryPresents',
+            name: 'What Horrible Presents!',
             couldGetFunc: winterVeilCouldGet,
         },
         {
             minimumLevel: 40,
-            taskKey: 'merryChildren',
-            taskName: 'Where Are the Children?',
+            key: 'merryChildren',
+            name: 'Where Are the Children?',
             couldGetFunc: winterVeilCouldGet,
         },
     ],
@@ -451,8 +451,8 @@ export const weeklyHolidayTasks: Task[] = [
 export const holidayTimewalkingChores: Record<string, Chore[]> = {
     holidayTimewalking: [
         {
-            taskKey: 'twDungeonsNotMax',
-            taskName: `Timewalking Dungeons &lt; ${Constants.characterMaxLevel}`,
+            key: 'twDungeonsNotMax',
+            name: `Timewalking Dungeons &lt; ${Constants.characterMaxLevel}`,
             minimumLevel: 10,
             maximumLevel: Constants.characterMaxLevel - 1,
             questIds: [
@@ -468,8 +468,8 @@ export const holidayTimewalkingChores: Record<string, Chore[]> = {
             questReset: DbResetType.Weekly,
         },
         {
-            taskKey: 'twDungeonsMax',
-            taskName: `Timewalking Dungeons @ ${Constants.characterMaxLevel}`,
+            key: 'twDungeonsMax',
+            name: `Timewalking Dungeons @ ${Constants.characterMaxLevel}`,
             minimumLevel: Constants.characterMaxLevel,
             questIds: [
                 83274, // An Original Path Through Time [Classic]
