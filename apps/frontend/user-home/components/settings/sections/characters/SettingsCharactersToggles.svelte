@@ -16,13 +16,17 @@
         char.id.toString()
     );
 
-    let hiddenCharacters: string[] = userState.general.activeCharacters
-        .filter((char) => settingsState.value.characters.hiddenCharacters.includes(char.id))
-        .map((char) => char.id.toString());
+    let hiddenCharacters: string[] = $state(
+        userState.general.activeCharacters
+            .filter((char) => settingsState.value.characters.hiddenCharacters.includes(char.id))
+            .map((char) => char.id.toString())
+    );
 
-    let ignoredCharacters: string[] = userState.general.activeCharacters
-        .filter((char) => settingsState.value.characters.ignoredCharacters.includes(char.id))
-        .map((char) => char.id.toString());
+    let ignoredCharacters: string[] = $state(
+        userState.general.activeCharacters
+            .filter((char) => settingsState.value.characters.ignoredCharacters.includes(char.id))
+            .map((char) => char.id.toString())
+    );
 
     let realms = $derived.by(() => {
         let ret: [string, Character[]][];
@@ -151,10 +155,10 @@
                     <th class="level">[{realmParts[0]}]</th>
                     <th class="name">{realmParts[1]}</th>
                     <th class="ignore">
-                        <button on:click={realmClick}>[ignore all]</button>
+                        <button onclick={realmClick}>[ignore all]</button>
                     </th>
                     <th class="hide">
-                        <button on:click={realmClick}>[hide all]</button>
+                        <button onclick={realmClick}>[hide all]</button>
                     </th>
                 </tr>
             </thead>
@@ -170,7 +174,7 @@
                             <GroupedCheckbox
                                 name="ignore_character_{character.id}"
                                 bind:bindGroup={ignoredCharacters}
-                                disabled={hiddenCharacters.indexOf(idString) >= 0}
+                                disabled={hiddenCharacters.includes(idString)}
                                 value={idString}>Ignore</GroupedCheckbox
                             >
                         </td>
