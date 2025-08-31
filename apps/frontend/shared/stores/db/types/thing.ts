@@ -76,22 +76,46 @@ export class DbDataThing {
     private _vendor: ManualDataSharedVendor;
     public asVendor(): ManualDataSharedVendor {
         if (!this._vendor) {
+            const sells: ManualDataVendorItem[] = [];
+
+            const requirementIds = this.requirementIds || [];
+
+            for (const content of this.contents || []) {
+                let contentRequirement: string;
+
+                const dropRequirementIds = requirementIds.concat(content.requirementIds || []);
+                for (const requirementId of dropRequirementIds) {
+                    const requirement = wowthingData.db.requirementsById.get(requirementId);
+                    if (requirement.startsWith('reputation')) {
+                        const reputationParts = requirement.split(' ');
+                        const reputationId = parseInt(reputationParts[1]);
+                        if (reputationId > 0) {
+                            if (reputationParts[2]?.startsWith('renown-')) {
+                                contentRequirement = reputationParts[2].replace('renown-', 'R ');
+                            } else {
+                                console.log('dunno what to do with this', reputationParts);
+                            }
+                        }
+                    }
+                }
+
+                sells.push(<ManualDataVendorItem>{
+                    type: thingContentTypeToRewardType[content.type],
+                    id: content.id,
+                    costs: content.costs,
+                    faction: Faction.Both,
+                    trackingQuestId: content.trackingQuestId,
+                    requirement: contentRequirement,
+                });
+            }
+
             this._vendor = <ManualDataSharedVendor>{
                 id: this.id,
                 faction: this.faction,
                 name: this.name,
                 note: this.note,
                 sets: this.groups.map((group) => <ManualDataSharedVendorSet>group),
-                sells: this.contents.map(
-                    (content) =>
-                        <ManualDataVendorItem>{
-                            type: thingContentTypeToRewardType[content.type],
-                            id: content.id,
-                            costs: content.costs,
-                            faction: Faction.Both,
-                            trackingQuestId: content.trackingQuestId,
-                        }
-                ),
+                sells,
             };
         }
 

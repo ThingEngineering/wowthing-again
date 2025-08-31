@@ -1,5 +1,7 @@
 <script lang="ts">
     import { Faction } from '@/enums/faction';
+    import { RewardType } from '@/enums/reward-type';
+    import { rewardTypeIcons } from '@/shared/icons/mappings';
     import { browserState } from '@/shared/state/browser.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { lazyState } from '@/user-home/state/lazy';
@@ -11,6 +13,7 @@
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
     import CurrencyLink from '@/shared/components/links/CurrencyLink.svelte';
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
@@ -105,6 +108,9 @@
     style:height={!thing.userHas ? 52 + 20 * thing.item.sortedCosts.length + 'px' : null}
 >
     {#if intersected}
+        {@const isMount = wowthingData.static.mountByItemId.has(thing.item.id)}
+        {@const isPet = wowthingData.static.petByItemId.has(thing.item.id)}
+        {@const isToy = wowthingData.static.toyByItemId.has(thing.item.id)}
         {@const teachesTransmog = wowthingData.items.teachesTransmog[thing.item.id]}
         {@const item = wowthingData.items.items[thing.item.id]}
         {@const classes = getClassesFromMask(item?.classMask || 0)}
@@ -150,7 +156,9 @@
             {/if}
         {/if}
 
-        {#if teachesTransmog}
+        {#if thing.item.requirement && !thing.userHas}
+            <div class="stats pill">{thing.item.requirement}</div>
+        {:else if teachesTransmog}
             {@const setStats = lazyState.transmog.stats[`ensemble:${teachesTransmog}`]}
             {#if setStats}
                 <div class="stats pill">
@@ -159,13 +167,25 @@
                     <span class={getPercentClass(setStats.percent)}>{setStats.total}</span>
                 </div>
             {/if}
-        {:else if professionAbility}
-            <div class="icon icon-class drop-shadow">
-                <ProfessionIcon border={2} size={20} id={professionAbility.professionId} />
-            </div>
         {:else if thing.difficulty}
             <div class="stats pill quality1">
                 {thing.difficulty}
+            </div>
+        {/if}
+
+        {#if isMount || isPet || isToy}
+            <div class="icon icon-class quality1 drop-shadow">
+                <IconifyIcon
+                    icon={isMount
+                        ? rewardTypeIcons[RewardType.Mount]
+                        : isPet
+                          ? rewardTypeIcons[RewardType.Pet]
+                          : rewardTypeIcons[RewardType.Toy]}
+                />
+            </div>
+        {:else if professionAbility}
+            <div class="icon icon-class drop-shadow">
+                <ProfessionIcon border={2} size={20} id={professionAbility.professionId} />
             </div>
         {/if}
 

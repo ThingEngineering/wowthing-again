@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { reputationState } from '@/stores/local-storage';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import type { ManualDataReputationSet } from '@/types/data/manual';
 
@@ -19,13 +19,13 @@
         reputation.horde?.id ?? 0,
     ]);
     let sortingBy = $derived(
-        ($reputationState.sortOrder[slug] || []).some(
+        (browserState.current.reputations.sortOrder[slug] || []).some(
             (repId) => repId > 0 && repIds.indexOf(repId) >= 0
         )
     );
 
-    let onClick: (event: Event) => void = $derived(() => () => {
-        $reputationState.sortOrder[slug] = sortingBy ? [] : repIds;
+    let onClick: (event: Event) => void = $derived(() => {
+        browserState.current.reputations.sortOrder[slug] = sortingBy ? [] : repIds;
     });
 </script>
 

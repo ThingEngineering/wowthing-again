@@ -100,6 +100,9 @@ interface BrowserStateIdk {
         xAxis: string[];
         yAxis: string[];
     };
+    reputations: {
+        sortOrder: Record<string, number[]>;
+    };
     settings: {
         selectedGroup: string;
         selectedView: string;
@@ -238,6 +241,9 @@ const initialState: BrowserStateIdk = {
         showEmptyRows: false,
         xAxis: [],
         yAxis: [],
+    },
+    reputations: {
+        sortOrder: {},
     },
     settings: {
         selectedGroup: '',

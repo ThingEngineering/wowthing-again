@@ -11,7 +11,7 @@ export class ThingData {
 
     constructor(
         public item: ManualDataVendorItem,
-        public userHas: boolean,
+        public userHas: boolean
     ) {
         this.extraParams = {};
     }
