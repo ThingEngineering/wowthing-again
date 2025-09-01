@@ -331,138 +331,6 @@ export class DataUserDerived {
         return maxReps;
     }
 
-    // derived function will memoize based on parameters? probably
-    private doCharacterChore = $derived(
-        (chore: Chore, character: Character, characterQuests: CharacterQuests) => {
-            const charChore = new CharacterChore(chore.key, undefined);
-
-            if (!character || !characterQuests) {
-                return charChore;
-            }
-
-            const charScanned = characterQuests.scannedTime;
-
-            // if (chore.questReset !== undefined) {
-            const questIds =
-                typeof chore.questIds === 'function'
-                    ? chore.questIds(character, chore)
-                    : chore.questIds;
-            for (const questId of questIds) {
-                // is the quest in progress?
-                const questProgress = characterQuests?.progressQuestByKey?.get(`q${questId}`);
-                if (questProgress) {
-                    charChore.quest = questProgress;
-                    charChore.status = questProgress.status;
-
-                    if (
-                        questProgress.status === QuestStatus.InProgress &&
-                        questProgress.objectives?.length > 0
-                    ) {
-                        charChore.statusTexts = this.getObjectivesText(questProgress.objectives);
-                    }
-
-                    if (chore.questReset === DbResetType.Custom) {
-                        charChore.quest.expires = chore
-                            .customExpiryFunc(character, charScanned)
-                            .toUnixInteger();
-                    }
-
-                    break;
-                }
-
-                // is the quest completed?
-                if (characterQuests?.hasQuestById?.has(questId)) {
-                    let expiresAt: DateTime;
-                    if (chore.questReset === DbResetType.Weekly) {
-                        expiresAt = getNextWeeklyResetFromTime(
-                            charScanned,
-                            character.realm?.region || Region.US
-                        );
-                    } else if (chore.questReset === DbResetType.Custom) {
-                        expiresAt = chore.customExpiryFunc(character, charScanned);
-                    } else {
-                        expiresAt = getNextDailyResetFromTime(
-                            charScanned,
-                            character.realm?.region || Region.US
-                        );
-                    }
-
-                    if (expiresAt > timeState.time) {
-                        charChore.quest = {
-                            expires: expiresAt.toUnixInteger(),
-                            id: questId,
-                            name: wowthingData.static.questNameById.get(questId) || chore.name,
-                            objectives: [],
-                            status: QuestStatus.Completed,
-                        };
-                    }
-                    break;
-                }
-            }
-            // } else {
-            //     charTask.quest = characterQuests?.progressQuestByKey?.get(chore.key);
-            //     if (charTask.quest) {
-            //         charTask.status = charTask.quest.status;
-            //     }
-            // }
-
-            // if (
-            //     chore.key === 'twwChettList' &&
-            //     charTask.status === 0 &&
-            //     (character.getItemCount(235053) > 0 || character.getItemCount(236682) > 0)
-            // ) {
-            //     charTask.status = 1;
-            // }
-
-            if (character.name === 'Jouko') {
-                console.log(chore, { ...charChore });
-            }
-
-            if (
-                charChore.status === QuestStatus.InProgress &&
-                charChore.quest?.objectives?.length > 0
-            ) {
-                const lastObjective = charChore.quest.objectives.at(-1);
-                charChore.progressCurrent = lastObjective.have;
-                charChore.progressTotal = lastObjective.need;
-            }
-            //                 if (charChore.tasks.length === 1 && charChore.tasks[0] !== null) {
-            //                     const choreTask = multiTaskMap[taskName].find(
-            //                         (chore) => chore?.key === charChore.tasks[0].key
-            //                     );
-            //                     if (!choreTask) {
-            //                         continue;
-            //                     }
-
-            //                     // noAlone chores can't be the only one
-            //                     if (choreTask.noAlone) {
-            //                         continue;
-            //                     }
-
-            //                     charChore.status = charChore.tasks[0].status;
-
-            //                     const objectives = charChore.tasks[0].quest?.objectives;
-            //                     if (objectives?.length > 0) {
-            //                         const objective = objectives[objectives.length - 1];
-            //                         charChore.countCompleted = objective.have;
-            //                         charChore.countTotal = objective.need;
-            //                         charChore.countStarted = charChore.countTotal - charChore.countCompleted;
-            //                     }
-            //                 } else {
-            //                     const statuses = uniq(
-            //                         charChore.tasks
-            //                             .filter((task) => !!task && !task.skipped)
-            //                             .map((task) => task.status)
-            //                     );
-            //                     if (statuses.length === 1) {
-            //                         charChore.status = statuses[0];
-            //                     }
-            //                 }
-
-            return charChore;
-        }
-    );
-
     public doActiveViewTasks(character: Character, characterQuests: CharacterQuests) {
         const ret: Record<string, CharacterTask> = {};
 
@@ -512,6 +380,9 @@ export class DataUserDerived {
                 }
 
                 const charChore = this.processTaskChore(character, characterQuests, task, chore);
+                if (!charChore) {
+                    continue;
+                }
 
                 // TODO: split?
                 // if (chore.key.endsWith('Split')) {
@@ -1182,10 +1053,8 @@ export class DataUserDerived {
         task: Task,
         chore: Chore
     ): CharacterChore {
-        const charChore = new CharacterChore(chore.key, undefined);
-
         if (!character || !characterQuests) {
-            return charChore;
+            return null;
         }
 
         if (
@@ -1193,7 +1062,7 @@ export class DataUserDerived {
             character.level > (chore.maximumLevel || Constants.characterMaxLevel) ||
             chore.couldGetFunc?.(character, chore) === false
         ) {
-            return charChore;
+            return null;
         }
 
         // Any chore with required holidays needs at least one active
@@ -1203,9 +1072,10 @@ export class DataUserDerived {
                 holidayIds[holiday].some((holidayId) => activeHolidays.value[`h${holidayId}`])
             )
         ) {
-            return charChore;
+            return null;
         }
 
+        const charChore = new CharacterChore(chore.key, undefined);
         const charScanned = characterQuests.scannedTime;
 
         // if (chore.questReset !== undefined) {

@@ -2,12 +2,11 @@ import type { DbResetType } from '@/shared/stores/db/enums';
 
 export interface SettingsTask {
     key: string;
+    name: string;
+    shortName: string;
     maximumLevel?: number;
     minimumLevel?: number;
-    name: string;
+    requiredQuestId?: number;
     questIds: number[];
     questReset: DbResetType;
-    requiredQuestId?: number;
-    shortName: string;
-    type?: string;
 }

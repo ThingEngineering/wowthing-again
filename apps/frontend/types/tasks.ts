@@ -10,8 +10,8 @@ export type Task = {
     name: string;
     shortName: string;
     icon?: IconifyIcon;
-    minimumLevel?: number;
     maximumLevel?: number;
+    minimumLevel?: number;
     requiredQuestId?: number;
     showSeparate?: boolean;
     chores: Chore[];

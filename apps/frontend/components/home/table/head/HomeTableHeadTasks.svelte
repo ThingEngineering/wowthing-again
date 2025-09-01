@@ -2,10 +2,10 @@
     import { taskMap } from '@/data/tasks';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { timeState } from '@/shared/state/time.svelte';
-    import { userState } from '@/user-home/state/user';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { homeState } from '@/stores/local-storage';
     import { activeViewTasks } from '@/user-home/state/activeViewTasks.svelte';
+    import { userState } from '@/user-home/state/user';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
@@ -44,8 +44,7 @@
 
 {#each activeTasks as fullTaskName (fullTaskName)}
     {@const [taskName, choreName] = fullTaskName.split('|', 2)}
-    {@const task = taskMap[taskName]}
-    <!-- || settingsState.customTaskMap[fullTaskName]} -->
+    {@const task = taskMap[taskName] || settingsState.customTaskMap[fullTaskName]}
     {@const sortField = `task:${fullTaskName}`}
     {@const chore = task.chores.find((task) => task?.key === choreName)}
     {@const customExpiry = chore?.decorationFunc?.(
@@ -61,7 +60,9 @@
         use:componentTooltip={{
             component: Tooltip,
             props: {
+                chore,
                 fullTaskName,
+                task,
             },
         }}
     >
