@@ -1,7 +1,7 @@
 <script lang="ts">
     import groupBy from 'lodash/groupBy';
 
-    import { taskMap } from '@/data/tasks';
+    import { taskChoreMap, taskMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
     import { uiIcons } from '@/shared/icons';
     import type { LazyCharacterChore, LazyCharacterChoreTask } from '@/stores/lazy/character';
@@ -9,7 +9,6 @@
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
-    import { taskChoreMap } from '@/data/tasks';
 
     export let character: Character;
     export let chore: LazyCharacterChore;

@@ -1,40 +1,29 @@
 <script lang="ts">
+    import { taskMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
     import { uiIcons } from '@/shared/icons/ui';
-    import { settingsState } from '@/shared/state/settings.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { lazyStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import type { CharacterProps } from '@/types/props';
 
     import Tooltip from '@/components/tooltips/task/TooltipTaskChore.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
-    import { taskMap } from '@/data/tasks';
 
     type Props = CharacterProps & {
-        choreName: string;
         taskName: string;
     };
-    let { character, choreName, taskName }: Props = $props();
+    let { character, taskName }: Props = $props();
 
     let task = $derived(taskMap[taskName]);
+    let charTask = $derived(userState.activeViewTasks[character.id]?.[taskName]);
 
-    let lazyCharacter = $derived($lazyStore.characters[character.id]);
-    let charTask = $derived(
-        lazyCharacter.chores[
-            `${settingsState.activeView.id}|${choreName ? `${taskName}|${choreName}` : taskName}`
-        ]
+    let inProgress = $derived(
+        charTask &&
+            Object.values(charTask.chores).every((charChore) => {
+                const oof = task.chores.find((chore) => chore.key === charChore.key);
+                return oof?.noProgress === true || charChore?.status > 0;
+            })
     );
-    let inProgress = false;
-
-    // let inProgress = $derived(
-    //     charTask &&
-    //         charTask.tasks?.every((taskData) => {
-    //             const oof = (multiTaskMap[taskName] || []).filter(
-    //                 (multi) => multi?.name === taskData?.name
-    //             )[0];
-    //             return oof?.noProgress === true || taskData?.status > 0;
-    //         })
-    // );
 </script>
 
 <style lang="scss">
@@ -52,7 +41,7 @@
 {#if charTask?.countTotal === 0}
     <td
         class="sized b-l status-fail"
-        data-chore={choreName}
+        data-task={taskName}
         use:componentTooltip={{
             component: Tooltip,
             props: {
@@ -64,7 +53,7 @@
     >
         ---
     </td>
-{:else if charTask?.tasks?.length > 0}
+{:else if Object.keys(charTask?.chores).length > 0}
     {@const notStarted = charTask.countTotal - charTask.countCompleted - charTask.countStarted}
     <td
         class="sized b-l"
@@ -73,7 +62,6 @@
             (notStarted === 0 && charTask.countCompleted < charTask.countTotal)}
         class:status-success={charTask.status === QuestStatus.Completed}
         class:ready={charTask.anyReady}
-        data-chore={choreName}
         data-task={taskName}
         use:componentTooltip={{
             component: Tooltip,
@@ -84,7 +72,7 @@
             },
         }}
     >
-        {#if task.chores.length === 1 || choreName}
+        {#if task.chores.length === 1}
             {#if charTask.status === QuestStatus.Completed}
                 <IconifyIcon icon={uiIcons.starFull} />
             {:else if charTask.countCompleted === charTask.countTotal}

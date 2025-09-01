@@ -9,6 +9,7 @@ import { DataUserDerived } from './derived.svelte';
 import { DataUserGeneral } from './general.svelte';
 import { DataUserQuests } from './quests.svelte';
 import { logErrors } from '@/utils/log-errors';
+import type { CharacterTask } from './types/tasks.svelte';
 
 type GenericCategory<T> = {
     name: string;
@@ -59,6 +60,21 @@ class UserState {
         // TODO: process
         // this.general.process(userData);
     }
+
+    public activeViewTasks = $derived.by(() => logErrors(this._activeViewTasks));
+    private _activeViewTasks = () => {
+        console.time('derived activeViewTasks');
+        const ret: Record<number, Record<string, CharacterTask>> = {};
+        for (const character of userState.general.activeCharacters) {
+            ret[character.id] = this.derived.doActiveViewTasks(
+                character,
+                userState.quests.characterById.get(character.id)
+            );
+        }
+        console.timeEnd('derived activeViewTasks');
+        console.log(ret);
+        return ret;
+    };
 
     private _appearanceMasks() {
         const hasAppearanceBySource = $state.snapshot(this.general.hasAppearanceBySource);

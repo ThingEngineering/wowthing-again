@@ -31,7 +31,8 @@ import type { Chore, Task } from '@/types/tasks';
 
 import { activeHolidays } from '../activeHolidays.svelte';
 import type { CharacterQuests } from './types';
-import { CharacterChore, CharacterChoreTask, CharacterTask } from './types/tasks.svelte';
+import { CharacterChore, CharacterTask } from './types/tasks.svelte';
+import { activeViewTasks } from '../activeViewTasks.svelte';
 
 interface UserCollectible {
     filteredCategories: ManualDataSetCategory[][];
@@ -330,339 +331,143 @@ export class DataUserDerived {
         return maxReps;
     }
 
-    public doCharacterTask(task: Task, character: Character) {
-        const ret = new CharacterTask(task);
-
-        for (const chore of task.chores) {
-            if (chore.accountWide) {
-                this.doCharacterChore(chore, character);
-            } else {
-                this.doAccountChore(chore);
-            }
-        }
-
-        return ret;
-    }
-
-    private doAccountChore = $derived((chore: Chore) => {
-        return 'meow';
-    });
-
     // derived function will memoize based on parameters? probably
-    private doCharacterChore = $derived((chore: Chore, character: Character) => {
-        const ret = new CharacterChore(chore);
-        if (!chore) {
-            return ret;
+    private doCharacterChore = $derived(
+        (chore: Chore, character: Character, characterQuests: CharacterQuests) => {
+            const charChore = new CharacterChore(chore.key, undefined);
+
+            if (!character || !characterQuests) {
+                return charChore;
+            }
+
+            const charScanned = characterQuests.scannedTime;
+
+            // if (chore.questReset !== undefined) {
+            const questIds =
+                typeof chore.questIds === 'function'
+                    ? chore.questIds(character, chore)
+                    : chore.questIds;
+            for (const questId of questIds) {
+                // is the quest in progress?
+                const questProgress = characterQuests?.progressQuestByKey?.get(`q${questId}`);
+                if (questProgress) {
+                    charChore.quest = questProgress;
+                    charChore.status = questProgress.status;
+
+                    if (
+                        questProgress.status === QuestStatus.InProgress &&
+                        questProgress.objectives?.length > 0
+                    ) {
+                        charChore.statusTexts = this.getObjectivesText(questProgress.objectives);
+                    }
+
+                    if (chore.questReset === DbResetType.Custom) {
+                        charChore.quest.expires = chore
+                            .customExpiryFunc(character, charScanned)
+                            .toUnixInteger();
+                    }
+
+                    break;
+                }
+
+                // is the quest completed?
+                if (characterQuests?.hasQuestById?.has(questId)) {
+                    let expiresAt: DateTime;
+                    if (chore.questReset === DbResetType.Weekly) {
+                        expiresAt = getNextWeeklyResetFromTime(
+                            charScanned,
+                            character.realm?.region || Region.US
+                        );
+                    } else if (chore.questReset === DbResetType.Custom) {
+                        expiresAt = chore.customExpiryFunc(character, charScanned);
+                    } else {
+                        expiresAt = getNextDailyResetFromTime(
+                            charScanned,
+                            character.realm?.region || Region.US
+                        );
+                    }
+
+                    if (expiresAt > timeState.time) {
+                        charChore.quest = {
+                            expires: expiresAt.toUnixInteger(),
+                            id: questId,
+                            name: wowthingData.static.questNameById.get(questId) || chore.name,
+                            objectives: [],
+                            status: QuestStatus.Completed,
+                        };
+                    }
+                    break;
+                }
+            }
+            // } else {
+            //     charTask.quest = characterQuests?.progressQuestByKey?.get(chore.key);
+            //     if (charTask.quest) {
+            //         charTask.status = charTask.quest.status;
+            //     }
+            // }
+
+            // if (
+            //     chore.key === 'twwChettList' &&
+            //     charTask.status === 0 &&
+            //     (character.getItemCount(235053) > 0 || character.getItemCount(236682) > 0)
+            // ) {
+            //     charTask.status = 1;
+            // }
+
+            if (character.name === 'Jouko') {
+                console.log(chore, { ...charChore });
+            }
+
+            if (
+                charChore.status === QuestStatus.InProgress &&
+                charChore.quest?.objectives?.length > 0
+            ) {
+                const lastObjective = charChore.quest.objectives.at(-1);
+                charChore.progressCurrent = lastObjective.have;
+                charChore.progressTotal = lastObjective.need;
+            }
+            //                 if (charChore.tasks.length === 1 && charChore.tasks[0] !== null) {
+            //                     const choreTask = multiTaskMap[taskName].find(
+            //                         (chore) => chore?.key === charChore.tasks[0].key
+            //                     );
+            //                     if (!choreTask) {
+            //                         continue;
+            //                     }
+
+            //                     // noAlone chores can't be the only one
+            //                     if (choreTask.noAlone) {
+            //                         continue;
+            //                     }
+
+            //                     charChore.status = charChore.tasks[0].status;
+
+            //                     const objectives = charChore.tasks[0].quest?.objectives;
+            //                     if (objectives?.length > 0) {
+            //                         const objective = objectives[objectives.length - 1];
+            //                         charChore.countCompleted = objective.have;
+            //                         charChore.countTotal = objective.need;
+            //                         charChore.countStarted = charChore.countTotal - charChore.countCompleted;
+            //                     }
+            //                 } else {
+            //                     const statuses = uniq(
+            //                         charChore.tasks
+            //                             .filter((task) => !!task && !task.skipped)
+            //                             .map((task) => task.status)
+            //                     );
+            //                     if (statuses.length === 1) {
+            //                         charChore.status = statuses[0];
+            //                     }
+            //                 }
+
+            return charChore;
         }
+    );
 
-        if (
-            character.level < (chore.minimumLevel || 1) ||
-            character.level > (chore.maximumLevel || Constants.characterMaxLevel) ||
-            chore.couldGetFunc?.(character, chore) === false
-        ) {
-            return ret;
-        }
-
-        // Any chore with required holidays needs at least one active
-        if (
-            chore.requiredHolidays?.length > 0 &&
-            !chore.requiredHolidays.some((holiday) =>
-                holidayIds[holiday].some((holidayId) => activeHolidays.value[`h${holidayId}`])
-            )
-        ) {
-            return ret;
-        }
-
-        // TODO: split?
-        // if (choreTask.key.endsWith('Split')) {
-        //     choreTask.key = choreTask.key.slice(0, -5);
-        // }
-
-        //     let charTask: CharacterChoreTask;
-        //     // if (chore.accountWide) {
-        //         // charTask = accountTasks[choreTask.taskKey] ||= sortBy(
-        //         //     getNumberKeyedEntries(userState.quests).map(
-        //         //         ([charId, charQuests]) => {
-        //         //             const charTask = this.processTask(
-        //         //                 userState.general.characterById[parseInt(charId)],
-        //         //                 characterQuests,
-        //         //                 choreTask,
-        //         //             );
-        //         //             return [charTask.status, charQuests.scannedAt, charTask];
-        //         //         }
-        //         //     ),
-        //         //     ([status, scannedAt]) => `${status}|${scannedAt}`
-        //         // ).at(-1)?.[2] as CharacterChoreTask;
-        //     // } else {
-        //         charTask = this.processTask(character, characterQuests, choreTask);
-        //     // }
-
-        //     // TODO: treatise?
-        //     // if (
-        //     //     !charTask.quest &&
-        //     //     choreTask.key.endsWith('Treatise') &&
-        //     //     !settingsState.value.professions.dragonflightTreatises
-        //     // ) {
-        //     //     continue;
-        //     // }
-
-        //     if (charTask.statusTexts.length === 0) {
-        //         charTask.statusTexts.push(
-        //             !charTask.quest ? chore.canGetFunc?.(character) || '' : ''
-        //         );
-        //     }
-
-        //     const nameParts = chore.name.split(': ');
-        //     // TODO: cooking/fishing?
-        //     // if (['Cooking', 'Fishing'].indexOf(nameParts[0]) >= 0) {
-        //     //     continue;
-        //     // }
-
-        //     let skipTraits = false;
-        //     // TODO: traits?
-        //     // if (
-        //     //     settingsState.value.professions.ignoreTasksWhenDoneWithTraits &&
-        //     //     choreTask.key.match(/^[a-z]+Profession/)
-        //     // ) {
-        //     //     const professionId = wowthingData.static.professionBySlug.get(
-        //     //         nameParts[0].toLocaleLowerCase()
-        //     //     )?.id;
-        //     //     if (professionId) {
-        //     //         const professionData = choreTask.key.startsWith('df')
-        //     //             ? dragonflightProfessionMap[professionId]
-        //     //             : warWithinProfessionMap[professionId];
-        //     //         const traitStats =
-        //     //             character.professions[professionId]?.subProfessionTraitStats?.[
-        //     //                 professionData.subProfessionId
-        //     //             ];
-        //     //         if (traitStats && traitStats.percent === 100) {
-        //     //             skipTraits = true;
-        //     //         }
-        //     //     }
-        //     // }
-
-        //     // TODO: skipped?
-        //     // const isGathering = ['Herbalism', 'Mining', 'Skinning'].indexOf(nameParts[0]) >= 0;
-        //     // charTask.skipped =
-        //     //     charTask.status !== QuestStatus.Completed &&
-        //     //     ((!settingsState.value.professions.dragonflightCountCraftingDrops &&
-        //     //         nameParts[1] === 'Drops') ||
-        //     //         (!settingsState.value.professions.dragonflightCountTasks &&
-        //     //             nameParts[1] === 'Task') ||
-        //     //         (!settingsState.value.professions.dragonflightCountGathering &&
-        //     //             isGathering &&
-        //     //             ['Gather'].indexOf(nameParts[1]) >= 0) ||
-        //     //         // charTask.statusTexts[0] !== '' ||
-        //     //         skipTraits);
-
-        //     if (!charTask.skipped) {
-        //         charChore.countTotal++;
-        //     }
-
-        //     if (charTask.statusTexts[0].startsWith('Need')) {
-        //         charTask.status = QuestStatus.Error;
-        //     } else if (choreTask.key.endsWith('Drop#')) {
-        //         charTask.statusTexts = [];
-        //         let haveCount = 0;
-        //         let needCount = 0;
-
-        //         if (taskName.endsWith('ProfessionWeeklies')) {
-        //             const professionName = choreTask.key
-        //                 .replace(/^\w+Profession/, '')
-        //                 .replace('Drop#', '');
-        //             const profession = Profession[professionName as keyof typeof Profession];
-        //             const professionData: TaskProfession = taskName.startsWith('df')
-        //                 ? dragonflightProfessionMap[profession]
-        //                 : warWithinProfessionMap[profession];
-
-        //             if (professionData.dropQuests?.length > 0) {
-        //                 needCount = professionData.dropQuests.length;
-
-        //                 professionData.dropQuests.forEach((drop, index) => {
-        //                     const dropKey = choreTask.key.replace('#', (index + 1).toString());
-        //                     const progressQuest =
-        //                         characterQuests?.progressQuestByKey?.get(dropKey);
-
-        //                     let statusText = '';
-        //                     if (
-        //                         progressQuest?.status === QuestStatus.Completed &&
-        //                         DateTime.fromSeconds(progressQuest.expires) > timeState.time
-        //                     ) {
-        //                         haveCount++;
-        //                         statusText += '<span class="status-success">:starFull:</span>';
-        //                     } else {
-        //                         statusText += '<span class="status-fail">:starEmpty:</span>';
-        //                     }
-
-        //                     statusText += `{item:${drop.itemId}}`;
-        //                     statusText += ` <span class="status-shrug">(${drop.source})</span>`;
-
-        //                     charTask.statusTexts.push(statusText);
-        //                 });
-        //             }
-        //         }
-
-        //         if (charTask.statusTexts.length === 0) {
-        //             needCount = choreTask.name.match(/^\[\w+\] (Herbalism|Mining|Skinning):/)
-        //                 ? 6
-        //                 : 4;
-        //             for (let dropIndex = 0; dropIndex < needCount; dropIndex++) {
-        //                 const dropKey = choreTask.key.replace('#', (dropIndex + 1).toString());
-        //                 const progressQuest = characterQuests?.progressQuestByKey?.get(dropKey);
-        //                 if (
-        //                     progressQuest?.status === QuestStatus.Completed &&
-        //                     DateTime.fromSeconds(progressQuest.expires) > timeState.time
-        //                 ) {
-        //                     haveCount++;
-        //                 }
-        //             }
-        //         }
-
-        //         if (haveCount === needCount) {
-        //             charTask.status = QuestStatus.Completed;
-        //         } else {
-        //             charTask.status = QuestStatus.InProgress;
-        //             if (charTask.statusTexts.length === 0) {
-        //                 charTask.statusTexts.push(`${haveCount}/${needCount} Collected`);
-        //             }
-        //         }
-        //     } else {
-        //         // not a profession hack
-        //         if (
-        //             !!charTask.quest &&
-        //             (!forcedReset[charTask.key] ||
-        //                 DateTime.fromSeconds(charTask.quest.expires) > timeState.time ||
-        //                 (choreTask.key.startsWith('dmf') && charTask.quest.expires === 0))
-        //         ) {
-        //             charTask.status = charTask.quest.status;
-        //             if (
-        //                 charTask.status === QuestStatus.InProgress &&
-        //                 charTask.quest.objectives?.length > 0
-        //             ) {
-        //                 charTask.statusTexts = this.getObjectivesText(
-        //                     charTask.quest.objectives
-        //                 );
-        //             }
-        //         } else if (choreTask.subChores?.length > 0) {
-        //             let firstChore: Chore = undefined;
-        //             let firstQuest: UserQuestDataCharacterProgress = undefined;
-
-        //             let subCompleted = 0;
-        //             let subTotal = 0;
-        //             for (const subChore of choreTask.subChores) {
-        //                 subTotal++;
-
-        //                 const subQuest = characterQuests?.progressQuestByKey?.get(subChore.key);
-        //                 if (subQuest?.status === QuestStatus.Completed) {
-        //                     subCompleted++;
-        //                 } else {
-        //                     firstChore ||= subChore;
-        //                     firstQuest ||= subQuest;
-        //                 }
-        //             }
-
-        //             charTask.quest = <UserQuestDataCharacterProgress>{
-        //                 id: 0,
-        //                 name: [
-        //                     `[${subCompleted}/${subTotal}]`,
-        //                     ...(firstChore ? [firstChore.name] : []),
-        //                     choreTask.name,
-        //                 ].join(' '),
-        //                 status:
-        //                     subCompleted === 0
-        //                         ? QuestStatus.NotStarted
-        //                         : subCompleted < subTotal
-        //                           ? QuestStatus.InProgress
-        //                           : QuestStatus.Completed,
-        //             };
-        //             charTask.status = charTask.quest.status;
-
-        //             if (charTask.status === QuestStatus.InProgress) {
-        //                 let otherText = firstChore.name;
-        //                 const starHtml = this.getStarHtml(
-        //                     false,
-        //                     firstChore.noProgress || !!firstQuest,
-        //                     !firstChore.noProgress
-        //                 );
-
-        //                 if (firstChore.showQuestName) {
-        //                     if (firstQuest) {
-        //                         charTask.statusTexts = this.getObjectivesText(
-        //                             firstQuest.objectives
-        //                         );
-        //                     } else {
-        //                         otherText = 'Get quest!';
-        //                     }
-        //                 }
-
-        //                 if (charTask.statusTexts[0] === '') {
-        //                     charTask.statusTexts = [`${starHtml} ${otherText}`];
-        //                 }
-        //             }
-        //         } else if (choreTask.noProgress && charTask.status === QuestStatus.NotStarted) {
-        //             charTask.status = QuestStatus.InProgress;
-        //         }
-        //     }
-
-        //     charTask.name =
-        //         choreTask.showQuestName || choreTask.subChores?.length > 0
-        //             ? charTask.quest?.name || choreTask.name
-        //             : choreTask.name;
-
-        //     if (!charTask.skipped) {
-        //         if (charTask.status === QuestStatus.Completed) {
-        //             charChore.countCompleted++;
-        //         } else if (charTask.status === QuestStatus.InProgress) {
-        //             charChore.countStarted++;
-        //             if (
-        //                 charTask.status === QuestStatus.InProgress &&
-        //                 charTask.quest?.objectives?.length > 0
-        //             ) {
-        //                 charChore.anyReady ||= charTask.quest.objectives.every(
-        //                     (obj) => !!obj.text && obj.have >= obj.need
-        //                 );
-        //             }
-        //         }
-        //     }
-
-        //     charChore.tasks.push(charTask);
-        // }
-
-        // if (charChore.tasks.length === 1) {
-        //     const choreTask = multiTaskMap[taskName].find(
-        //         (chore) => chore.key === charChore.tasks[0].key
-        //     );
-
-        //     // noAlone chores can't be the only one
-        //     if (choreTask.noAlone) {
-        //         continue;
-        //     }
-
-        //     charChore.status = charChore.tasks[0].status;
-
-        //     const objectives = charChore.tasks[0].quest?.objectives;
-        //     if (objectives?.length > 0) {
-        //         const objective = objectives[objectives.length - 1];
-        //         charChore.countCompleted = objective.have;
-        //         charChore.countTotal = objective.need;
-        //         charChore.countStarted = charChore.countTotal - charChore.countCompleted;
-        //     }
-        // } else {
-        //     const statuses = uniq(
-        //         charChore.tasks
-        //             .filter((task) => !!task && !task.skipped)
-        //             .map((task) => task.status)
-        //     );
-        //     if (statuses.length === 1) {
-        //         charChore.status = statuses[0];
-        //     }
-        // }
-    });
-
-    public doCharacterTasks(character: Character, characterQuests: CharacterQuests) {
+    public doActiveViewTasks(character: Character, characterQuests: CharacterQuests) {
         const ret: Record<string, CharacterTask> = {};
 
-        // const charProgressQuests = characterQuests?.progressQuestByKey;
+        const charProgressQuests = characterQuests?.progressQuestByKey;
+
         // // FIXME: gilded hack can't run inside a $derived
         // // if (
         // //     character.level === Constants.characterMaxLevel &&
@@ -684,6 +489,279 @@ export class DataUserDerived {
         // //         ],
         // //     } as UserQuestDataCharacterProgress);
         // // }
+
+        for (const fullTaskName of activeViewTasks.value) {
+            const [taskName, choreName] = fullTaskName.split('|', 2);
+            const task = taskMap[taskName];
+            if (
+                !task ||
+                character.ignored ||
+                character.level < (task.minimumLevel || 1) ||
+                character.level > (task.maximumLevel || Constants.characterMaxLevel)
+            ) {
+                continue;
+            }
+
+            const charTask = (ret[task.key] = new CharacterTask(task));
+
+            // activeHoliday?
+
+            for (const chore of task.chores) {
+                if (!chore || (choreName && chore.key !== choreName)) {
+                    continue;
+                }
+
+                const charChore = this.processTaskChore(character, characterQuests, task, chore);
+
+                // TODO: split?
+                // if (chore.key.endsWith('Split')) {
+                //     chore.key = chore.key.slice(0, -5);
+                // }
+
+                // let charTask: CharacterChoreTask;
+                // if (chore.accountWide) {
+                //     // charTask = accountTasks[choreTask.taskKey] ||= sortBy(
+                //     //     getNumberKeyedEntries(userState.quests).map(
+                //     //         ([charId, charQuests]) => {
+                //     //             const charTask = this.processTask(
+                //     //                 userState.general.characterById[parseInt(charId)],
+                //     //                 characterQuests,
+                //     //                 choreTask,
+                //     //             );
+                //     //             return [charTask.status, charQuests.scannedAt, charTask];
+                //     //         }
+                //     //     ),
+                //     //     ([status, scannedAt]) => `${status}|${scannedAt}`
+                //     // ).at(-1)?.[2] as CharacterChoreTask;
+                // } else {
+                //     charTask = this.processTask(character, characterQuests, chore);
+                // }
+
+                if (
+                    !charChore.quest &&
+                    chore.key.endsWith('Treatise') &&
+                    !settingsState.value.professions.dragonflightTreatises
+                ) {
+                    continue;
+                }
+
+                if (charChore.statusTexts.length === 0) {
+                    charChore.statusTexts.push(
+                        !charChore.quest ? chore.canGetFunc?.(character) || '' : ''
+                    );
+                }
+
+                // const nameParts = chore.name.split(': ');
+                // if (['Cooking', 'Fishing'].indexOf(nameParts[0]) >= 0) {
+                //     continue;
+                // }
+
+                // let skipTraits = false;
+                // if (
+                //     settingsState.value.professions.ignoreTasksWhenDoneWithTraits &&
+                //     chore.key.match(/^[a-z]+Profession/)
+                // ) {
+                //     const professionId = wowthingData.static.professionBySlug.get(
+                //         nameParts[0].toLocaleLowerCase()
+                //     )?.id;
+                //     if (professionId) {
+                //         const professionData = chore.key.startsWith('df')
+                //             ? dragonflightProfessionMap[professionId]
+                //             : warWithinProfessionMap[professionId];
+                //         const traitStats =
+                //             character.professions[professionId]?.subProfessionTraitStats?.[
+                //                 professionData.subProfessionId
+                //             ];
+                //         if (traitStats && traitStats.percent === 100) {
+                //             skipTraits = true;
+                //         }
+                //     }
+                // }
+
+                // const isGathering = ['Herbalism', 'Mining', 'Skinning'].indexOf(nameParts[0]) >= 0;
+                // charChore.skipped =
+                //     charChore.status !== QuestStatus.Completed &&
+                //     ((!settingsState.value.professions.dragonflightCountCraftingDrops &&
+                //         nameParts[1] === 'Drops') ||
+                //         (!settingsState.value.professions.dragonflightCountTasks &&
+                //             nameParts[1] === 'Task') ||
+                //         (!settingsState.value.professions.dragonflightCountGathering &&
+                //             isGathering &&
+                //             ['Gather'].indexOf(nameParts[1]) >= 0) ||
+                //         // charTask.statusTexts[0] !== '' ||
+                //         skipTraits);
+
+                if (!charChore.skipped) {
+                    charTask.countTotal++;
+                }
+
+                // if (charChore.statusTexts[0].startsWith('Need')) {
+                //     charChore.status = QuestStatus.Error;
+                // } else if (chore.key.endsWith('Drop#')) {
+                //     charChore.statusTexts = [];
+                //     let haveCount = 0;
+                //     let needCount = 0;
+
+                //     if (taskName.endsWith('ProfessionWeeklies')) {
+                //         const professionName = chore.key
+                //             .replace(/^\w+Profession/, '')
+                //             .replace('Drop#', '');
+                //         const profession = Profession[professionName as keyof typeof Profession];
+                //         const professionData: TaskProfession = taskName.startsWith('df')
+                //             ? dragonflightProfessionMap[profession]
+                //             : warWithinProfessionMap[profession];
+
+                //         if (professionData.dropQuests?.length > 0) {
+                //             needCount = professionData.dropQuests.length;
+
+                //             professionData.dropQuests.forEach((drop, index) => {
+                //                 const dropKey = chore.key.replace('#', (index + 1).toString());
+                //                 const progressQuest =
+                //                     characterQuests?.progressQuestByKey?.get(dropKey);
+
+                //                 let statusText = '';
+                //                 if (
+                //                     progressQuest?.status === QuestStatus.Completed &&
+                //                     DateTime.fromSeconds(progressQuest.expires) > timeState.time
+                //                 ) {
+                //                     haveCount++;
+                //                     statusText += '<span class="status-success">:starFull:</span>';
+                //                 } else {
+                //                     statusText += '<span class="status-fail">:starEmpty:</span>';
+                //                 }
+
+                //                 statusText += `{item:${drop.itemId}}`;
+                //                 statusText += ` <span class="status-shrug">(${drop.source})</span>`;
+
+                //                 charChore.statusTexts.push(statusText);
+                //             });
+                //         }
+                //     }
+
+                //     if (charChore.statusTexts.length === 0) {
+                //         needCount = chore.name.match(/^\[\w+\] (Herbalism|Mining|Skinning):/)
+                //             ? 6
+                //             : 4;
+                //         for (let dropIndex = 0; dropIndex < needCount; dropIndex++) {
+                //             const dropKey = chore.key.replace('#', (dropIndex + 1).toString());
+                //             const progressQuest = characterQuests?.progressQuestByKey?.get(dropKey);
+                //             if (
+                //                 progressQuest?.status === QuestStatus.Completed &&
+                //                 DateTime.fromSeconds(progressQuest.expires) > timeState.time
+                //             ) {
+                //                 haveCount++;
+                //             }
+                //         }
+                //     }
+
+                //     if (haveCount === needCount) {
+                //         charChore.status = QuestStatus.Completed;
+                //     } else {
+                //         charChore.status = QuestStatus.InProgress;
+                //         if (charChore.statusTexts.length === 0) {
+                //             charChore.statusTexts.push(`${haveCount}/${needCount} Collected`);
+                //         }
+                //     }
+                // } else {
+                // not a profession hack
+                if (
+                    !!charChore.quest &&
+                    (!forcedReset[charChore.key] ||
+                        DateTime.fromSeconds(charChore.quest.expires) > timeState.time ||
+                        (chore.key.startsWith('dmf') && charChore.quest.expires === 0))
+                ) {
+                    charChore.status = charChore.quest.status;
+                    if (
+                        charChore.status === QuestStatus.InProgress &&
+                        charChore.quest.objectives?.length > 0
+                    ) {
+                        charChore.statusTexts = this.getObjectivesText(charChore.quest.objectives);
+                    }
+                } else if (chore.subChores?.length > 0) {
+                    let firstChore: Chore = undefined;
+                    let firstQuest: UserQuestDataCharacterProgress = undefined;
+
+                    let subCompleted = 0;
+                    let subTotal = 0;
+                    for (const subChore of chore.subChores) {
+                        subTotal++;
+
+                        const subQuest = characterQuests?.progressQuestByKey?.get(subChore.key);
+                        if (subQuest?.status === QuestStatus.Completed) {
+                            subCompleted++;
+                        } else {
+                            firstChore ||= subChore;
+                            firstQuest ||= subQuest;
+                        }
+                    }
+
+                    charChore.quest = <UserQuestDataCharacterProgress>{
+                        id: 0,
+                        name: [
+                            `[${subCompleted}/${subTotal}]`,
+                            ...(firstChore ? [firstChore.name] : []),
+                            chore.name,
+                        ].join(' '),
+                        status:
+                            subCompleted === 0
+                                ? QuestStatus.NotStarted
+                                : subCompleted < subTotal
+                                  ? QuestStatus.InProgress
+                                  : QuestStatus.Completed,
+                    };
+                    charChore.status = charChore.quest.status;
+
+                    if (charChore.status === QuestStatus.InProgress) {
+                        let otherText = firstChore.name;
+                        const starHtml = this.getStarHtml(
+                            false,
+                            firstChore.noProgress || !!firstQuest,
+                            !firstChore.noProgress
+                        );
+
+                        if (firstChore.showQuestName) {
+                            if (firstQuest) {
+                                charChore.statusTexts = this.getObjectivesText(
+                                    firstQuest.objectives
+                                );
+                            } else {
+                                otherText = 'Get quest!';
+                            }
+                        }
+
+                        if (charChore.statusTexts[0] === '') {
+                            charChore.statusTexts = [`${starHtml} ${otherText}`];
+                        }
+                    }
+                } else if (chore.noProgress && charChore.status === QuestStatus.NotStarted) {
+                    charChore.status = QuestStatus.InProgress;
+                }
+                // }
+
+                charChore.name =
+                    chore.showQuestName || chore.subChores?.length > 0
+                        ? charChore.quest?.name || chore.name
+                        : chore.name;
+
+                if (!charChore.skipped) {
+                    if (charChore.status === QuestStatus.Completed) {
+                        charTask.countCompleted++;
+                    } else if (charChore.status === QuestStatus.InProgress) {
+                        charTask.countStarted++;
+                        if (
+                            charChore.status === QuestStatus.InProgress &&
+                            charChore.quest?.objectives?.length > 0
+                        ) {
+                            charTask.anyReady ||= charChore.quest.objectives.every(
+                                (obj) => !!obj.text && obj.have >= obj.need
+                            );
+                        }
+                    }
+                }
+
+                charTask.chores[chore.key] = charChore;
+            }
+        }
 
         // for (const fullTaskName of settingsState.allTasks) {
         //     const [taskName, choreName] = fullTaskName.split('|', 2);
@@ -1098,89 +1176,114 @@ export class DataUserDerived {
         return ret;
     }
 
-    private processTask(
+    private processTaskChore(
         character: Character,
         characterQuests: CharacterQuests,
-        choreTask: Chore
-    ): CharacterChoreTask {
-        const charTask = new CharacterChoreTask(choreTask.key, undefined);
+        task: Task,
+        chore: Chore
+    ): CharacterChore {
+        const charChore = new CharacterChore(chore.key, undefined);
 
         if (!character || !characterQuests) {
-            return charTask;
+            return charChore;
+        }
+
+        if (
+            character.level < (chore.minimumLevel || 1) ||
+            character.level > (chore.maximumLevel || Constants.characterMaxLevel) ||
+            chore.couldGetFunc?.(character, chore) === false
+        ) {
+            return charChore;
+        }
+
+        // Any chore with required holidays needs at least one active
+        if (
+            chore.requiredHolidays?.length > 0 &&
+            !chore.requiredHolidays.some((holiday) =>
+                holidayIds[holiday].some((holidayId) => activeHolidays.value[`h${holidayId}`])
+            )
+        ) {
+            return charChore;
         }
 
         const charScanned = characterQuests.scannedTime;
 
-        if (choreTask.questReset !== undefined) {
-            const questIds = choreTask.questIdFunc?.(character, choreTask) || choreTask.questIds;
-            for (const questId of questIds) {
-                // is the quest in progress?
-                const questProgress = characterQuests?.progressQuestByKey?.get(`q${questId}`);
-                if (questProgress) {
-                    charTask.quest = questProgress;
-                    charTask.status = questProgress.status;
+        // if (chore.questReset !== undefined) {
+        const questIds =
+            typeof chore.questIds === 'function'
+                ? chore.questIds(character, chore)
+                : chore.questIds;
+        for (const questId of questIds) {
+            // is the quest in progress?
+            const questProgress = characterQuests?.progressQuestByKey?.get(`q${questId}`);
+            if (questProgress) {
+                charChore.quest = questProgress;
+                charChore.status = questProgress.status;
 
-                    if (
-                        questProgress.status === QuestStatus.InProgress &&
-                        questProgress.objectives?.length > 0
-                    ) {
-                        charTask.statusTexts = this.getObjectivesText(questProgress.objectives);
-                    }
-
-                    if (choreTask.questReset === DbResetType.Custom) {
-                        charTask.quest.expires = choreTask
-                            .customExpiryFunc(character, charScanned)
-                            .toUnixInteger();
-                    }
-
-                    break;
+                if (
+                    questProgress.status === QuestStatus.InProgress &&
+                    questProgress.objectives?.length > 0
+                ) {
+                    charChore.statusTexts = this.getObjectivesText(questProgress.objectives);
                 }
 
-                // is the quest completed?
-                if (characterQuests?.hasQuestById?.has(questId)) {
-                    let expiresAt: DateTime;
-                    if (choreTask.questReset === DbResetType.Weekly) {
-                        expiresAt = getNextWeeklyResetFromTime(
-                            charScanned,
-                            character.realm?.region || Region.US
-                        );
-                    } else if (choreTask.questReset === DbResetType.Custom) {
-                        expiresAt = choreTask.customExpiryFunc(character, charScanned);
-                    } else {
-                        expiresAt = getNextDailyResetFromTime(
-                            charScanned,
-                            character.realm?.region || Region.US
-                        );
-                    }
-
-                    if (expiresAt > timeState.time) {
-                        charTask.quest = {
-                            expires: expiresAt.toUnixInteger(),
-                            id: questId,
-                            name: wowthingData.static.questNameById.get(questId) || choreTask.name,
-                            objectives: [],
-                            status: QuestStatus.Completed,
-                        };
-                    }
-                    break;
+                if (chore.questReset === DbResetType.Custom) {
+                    charChore.quest.expires = chore
+                        .customExpiryFunc(character, charScanned)
+                        .toUnixInteger();
                 }
+
+                break;
             }
-        } else {
-            charTask.quest = characterQuests?.progressQuestByKey?.get(choreTask.key);
-            if (charTask.quest) {
-                charTask.status = charTask.quest.status;
+
+            // is the quest completed?
+            if (characterQuests?.hasQuestById?.has(questId)) {
+                let expiresAt: DateTime;
+                if (chore.questReset === DbResetType.Weekly) {
+                    expiresAt = getNextWeeklyResetFromTime(
+                        charScanned,
+                        character.realm?.region || Region.US
+                    );
+                } else if (chore.questReset === DbResetType.Custom) {
+                    expiresAt = chore.customExpiryFunc(character, charScanned);
+                } else {
+                    expiresAt = getNextDailyResetFromTime(
+                        charScanned,
+                        character.realm?.region || Region.US
+                    );
+                }
+
+                if (expiresAt > timeState.time) {
+                    charChore.quest = {
+                        expires: expiresAt.toUnixInteger(),
+                        id: questId,
+                        name: wowthingData.static.questNameById.get(questId) || chore.name,
+                        objectives: [],
+                        status: QuestStatus.Completed,
+                    };
+                }
+                break;
             }
         }
 
         if (
-            choreTask.key === 'twwChettList' &&
-            charTask.status === 0 &&
+            chore.key === 'twwChettList' &&
+            charChore.status === 0 &&
             (character.getItemCount(235053) > 0 || character.getItemCount(236682) > 0)
         ) {
-            charTask.status = 1;
+            charChore.status = 1;
         }
 
-        return charTask;
+        if (
+            charChore.status === QuestStatus.InProgress &&
+            charChore.quest?.objectives?.length > 0
+        ) {
+            const lastObjective = charChore.quest.objectives.at(-1);
+            charChore.progressCurrent = lastObjective.have;
+            charChore.progressTotal = lastObjective.need;
+        }
+
+        return charChore;
     }
 
     private getObjectivesText(objectives: UserQuestDataCharacterProgressObjective[]): string[] {

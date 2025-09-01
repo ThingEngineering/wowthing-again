@@ -20,7 +20,7 @@ const threeWeekDecorator = (expires: DateTime) => {
 };
 
 export const twwChores11_0_0: Task = {
-    key: 'tww11_0',
+    key: 'twwChores11_0',
     name: '[TWW] 11.0.x',
     shortName: '11.0',
     showSeparate: true,
@@ -30,7 +30,7 @@ export const twwChores11_0_0: Task = {
             name: '[Dor] Archives',
             minimumLevel: 70,
             icon: aliasedIcons.bookshelf,
-            questIdFunc: (char) =>
+            questIds: (char) =>
                 userQuestStore.characterHas(char.id, 83450)
                     ? [82679] // Archives: Seeking History
                     : [82678], // Archives: The First Disc

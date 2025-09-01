@@ -11,8 +11,11 @@
     import { userState } from '@/user-home/state/user';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import type { Chore } from '@/types/tasks';
 
     export let fullTaskName: string;
+
+    let multiTaskMap: Record<string, Chore[]> = {};
 
     let completed: number;
     let disabledChores: string[];
@@ -29,12 +32,12 @@
         const [taskName, choreName] = fullTaskName.split('|', 2);
 
         const questName = progressQuestMap[taskName] || taskName;
-        const task = taskMap[taskName] || settingsState.customTaskMap[fullTaskName];
+        const task = taskMap[taskName]; //|| settingsState.customTaskMap[fullTaskName];
         disabledChores = settingsState.activeView.disabledChores?.[fullTaskName] || [];
 
         const multiMap: Record<string, number> = {};
         multiStats = [];
-        if (task.type === 'multi' && taskName !== 'dfProfessionWeeklies') {
+        if (taskName !== 'dfProfessionWeeklies') {
             multiStats = sortBy(
                 multiTaskMap[taskName].filter(
                     (chore) => !!chore && (!choreName || chore.key === choreName)
@@ -69,7 +72,7 @@
                     }
                 }
 
-                if (task.type === 'multi') {
+                if (task.chores.length > 1) {
                     const taskChores =
                         lazyCharacter?.chores?.[`${settingsState.activeView.id}|${fullTaskName}`];
 

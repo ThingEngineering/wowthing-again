@@ -49,9 +49,9 @@ function couldChett(char: Character, chore: Chore): boolean {
 }
 
 export const twwChoresChett: Task = {
-    key: 'twwChores11_1',
-    name: '[TWW] 11.1.x',
-    shortName: '11.1',
+    key: 'twwChett',
+    name: '[TWW] C.H.E.T.T',
+    shortName: 'CHETT',
     minimumLevel: 80,
     showSeparate: true,
     chores: [

@@ -5,7 +5,7 @@
     import { activeViewTasks } from '@/user-home/state/activeViewTasks.svelte';
     import type { CharacterProps } from '@/types/props';
 
-    import RowProgressQuest from './HomeTableRowProgressQuest.svelte';
+    import RowChore from './HomeTableRowTaskChore.svelte';
     import RowTask from './HomeTableRowTask.svelte';
 
     let { character }: CharacterProps = $props();
@@ -14,8 +14,12 @@
 {#key settingsState.activeView.id}
     {#each activeViewTasks.value as fullTaskName (fullTaskName)}
         {@const [taskName, choreName] = fullTaskName.split('|', 2)}
+        {#if choreName}
+            <RowChore {character} {taskName} {choreName} />
+        {:else}
+            <RowTask {character} {taskName} {choreName} />
+        {/if}
         <!-- {#if taskMap[taskName]?.type === 'multi'} -->
-        <RowTask {character} {taskName} {choreName} />
         <!-- {:else}
             <RowProgressQuest
                 {character}

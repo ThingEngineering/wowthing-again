@@ -19,20 +19,23 @@ export class CharacterTask {
 //     text: string;
 // }
 
+// export class CharacterChore {
+//     public name: string;
+//     public quest: UserQuestDataCharacterProgress;
+//     public status = QuestStatus.NotStarted;
+//     public statusTexts: string[] = [];
+
+//     constructor(public chore: Chore) {}
+// }
+
 export class CharacterChore {
     public name: string;
-    public quest: UserQuestDataCharacterProgress;
-    public status = QuestStatus.NotStarted;
+    public skipped = false;
+    public status: QuestStatus = QuestStatus.NotStarted;
     public statusTexts: string[] = [];
 
-    constructor(public chore: Chore) {}
-}
-
-export class CharacterChoreTask {
-    name: string;
-    skipped = false;
-    status: QuestStatus = QuestStatus.NotStarted;
-    statusTexts: string[] = [];
+    public progressCurrent = 0;
+    public progressTotal = 1;
 
     constructor(
         public key: string,
