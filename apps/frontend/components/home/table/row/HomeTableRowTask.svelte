@@ -6,8 +6,8 @@
     import { userState } from '@/user-home/state/user';
     import type { CharacterProps } from '@/types/props';
 
-    import Tooltip from '@/components/tooltips/task/TooltipTaskChore.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import Tooltip from '@/components/tooltips/task/TooltipTaskRow.svelte';
 
     type Props = CharacterProps & {
         taskName: string;
@@ -46,7 +46,7 @@
             component: Tooltip,
             props: {
                 character,
-                chore: charTask,
+                charTask,
                 taskName,
             },
         }}
@@ -67,7 +67,7 @@
             component: Tooltip,
             props: {
                 character,
-                chore: charTask,
+                charTask,
                 taskName,
             },
         }}

@@ -17,7 +17,7 @@
         {#if choreName}
             <RowChore {character} {taskName} {choreName} />
         {:else}
-            <RowTask {character} {taskName} {choreName} />
+            <RowTask {character} {taskName} />
         {/if}
         <!-- {#if taskMap[taskName]?.type === 'multi'} -->
         <!-- {:else}

@@ -1,47 +1,53 @@
 <script lang="ts">
-    import groupBy from 'lodash/groupBy';
+    // import groupBy from 'lodash/groupBy';
 
     import { taskChoreMap, taskMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
     import { uiIcons } from '@/shared/icons';
-    import type { LazyCharacterChore, LazyCharacterChoreTask } from '@/stores/lazy/character';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
+    import type { CharacterChore, CharacterTask } from '@/user-home/state/user/types/tasks.svelte';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
-    export let character: Character;
-    export let chore: LazyCharacterChore;
-    export let taskName: string;
+    type Props = CharacterProps & {
+        charChore?: CharacterChore;
+        charTask?: CharacterTask;
+        taskName: string;
+    };
+    let { character, charChore, charTask, taskName }: Props = $props();
 
-    let anyErrors: boolean;
-    let taskSets: Array<LazyCharacterChoreTask[]>;
-    $: {
-        taskSets = [];
+    let taskSets = $derived.by(() => {
+        const ret: CharacterChore[][] = [];
 
-        if (taskName === 'dfProfessionWeeklies') {
-            taskSets.push(chore.tasks.slice(0, 1));
-
-            const grouped = groupBy(chore.tasks.slice(1), (chore) => chore.name.split(' ')[0]);
-            const keys = Object.keys(grouped);
-            keys.sort();
-            for (const key of keys) {
-                taskSets.push(grouped[key]);
-            }
+        if (charChore) {
+            ret.push([charChore]);
+            //} else if (taskName === 'dfProfessionWeeklies') {
+            //     taskSets.push(chore.tasks.slice(0, 1));
+            //     const grouped = groupBy(chore.tasks.slice(1), (chore) => chore.name.split(' ')[0]);
+            //     const keys = Object.keys(grouped);
+            //     keys.sort();
+            //     for (const key of keys) {
+            //         taskSets.push(grouped[key]);
+            //     }
         } else {
-            let currentSet: LazyCharacterChoreTask[] = [];
-            for (const task of chore.tasks) {
-                if (!task) {
-                    taskSets.push(currentSet);
+            let currentSet: CharacterChore[] = [];
+            for (const chore of charTask.task.chores) {
+                if (!chore) {
+                    ret.push(currentSet);
                     currentSet = [];
                 } else {
-                    currentSet.push(task);
+                    currentSet.push(charTask.chores[chore.key]);
                 }
             }
-            taskSets.push(currentSet);
+            ret.push(currentSet);
         }
 
-        anyErrors = taskSets.some((taskSet) =>
+        return ret;
+    });
+
+    let anyErrors = $derived(
+        taskSets.some((taskSet) =>
             taskSet.some(
                 (task) =>
                     !!task &&
@@ -49,8 +55,8 @@
                     task.name !== '' &&
                     task.statusTexts.some((st) => !!st)
             )
-        );
-    }
+        )
+    );
 
     const getFixedText = function (text: string): [string, string] {
         text = text.replace(/\[\[tier(\d)\]\]/, '{craftedQuality:$1}');
