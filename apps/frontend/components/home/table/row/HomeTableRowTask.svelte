@@ -53,7 +53,7 @@
     >
         ---
     </td>
-{:else if Object.keys(charTask?.chores).length > 0}
+{:else if Object.keys(charTask?.chores || {}).length > 0}
     {@const notStarted = charTask.countTotal - charTask.countCompleted - charTask.countStarted}
     <td
         class="sized b-l"

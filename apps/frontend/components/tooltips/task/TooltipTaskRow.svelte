@@ -37,7 +37,10 @@
                     ret.push(currentSet);
                     currentSet = [];
                 } else {
-                    currentSet.push(charTask.chores[chore.key]);
+                    const charTaskChore = charTask.chores[chore.key];
+                    if (charTaskChore) {
+                        currentSet.push(charTaskChore);
+                    }
                 }
             }
             ret.push(currentSet);
