@@ -1,18 +1,13 @@
 <script lang="ts">
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { componentTooltip } from '@/shared/utils/tooltips';
     import { wowthingData } from '@/shared/stores/data';
-    import { homeState } from '@/stores/local-storage';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import type { SortableProps } from '@/types/props';
 
     import Tooltip from '@/components/tooltips/currency/TooltipCurrency.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    let { sortKey }: { sortKey: string } = $props();
-
-    function setSorting(column: string) {
-        const current = $homeState.groupSort[sortKey];
-        $homeState.groupSort[sortKey] = current === column ? undefined : column;
-    }
+    let { getSortState, setSortState }: SortableProps = $props();
 </script>
 
 <style lang="scss">
@@ -24,12 +19,10 @@
 </style>
 
 {#each settingsState.activeView.homeCurrencies as currencyId (currencyId)}
-    {@const sortField = `currency:${currencyId}`}
+    {@const currencyIdString = currencyId.toString()}
     <td
-        class="sortable"
-        class:sorted-by={$homeState.groupSort[sortKey] === sortField}
-        onclick={() => setSorting(sortField)}
-        onkeypress={() => setSorting(sortField)}
+        class="sortable sorted-{getSortState(currencyIdString)}"
+        onclick={() => setSortState(currencyIdString)}
         use:componentTooltip={{
             component: Tooltip,
             propsFunc: () => ({

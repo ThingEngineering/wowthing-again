@@ -31,6 +31,7 @@ interface BrowserStateIdk {
     };
     home: {
         activeView: string;
+        groupSort: Record<string, [string, boolean]>;
         showTotalGold: boolean;
     };
     illusions: {
@@ -173,6 +174,7 @@ const initialState: BrowserStateIdk = {
     },
     home: {
         activeView: '',
+        groupSort: {},
         showTotalGold: false,
     },
     illusions: {

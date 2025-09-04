@@ -1,20 +1,20 @@
 import { Constants } from '@/data/constants';
 import { dungeonMap } from '@/data/dungeon';
+import { QuestStatus } from '@/enums/quest-status';
+import { timeState } from '@/shared/state/time.svelte';
+import { wowthingData } from '@/shared/stores/data';
+import { userState } from '@/user-home/state/user';
 import { leftPad } from '@/utils/formatting';
+import { getCharacterRested } from '@/utils/get-character-rested';
 import { getNextWeeklyReset } from '@/utils/get-next-reset';
+import getProgress from '@/utils/get-progress';
+import getRaidVaultItemLevel from '@/utils/get-raid-vault-item-level';
 import { getVaultItemLevel } from '@/utils/mythic-plus';
-import type { LazyStore } from '@/stores';
+import { getDungeonLevel } from '@/utils/mythic-plus/get-dungeon-level';
+import { getWorldTier } from '@/utils/vault/get-world-tier';
 import type { Character } from '@/types';
 
-import { getCharacterRested } from '../get-character-rested';
-import { getDungeonLevel } from '../mythic-plus/get-dungeon-level';
-import getRaidVaultItemLevel from '../get-raid-vault-item-level';
-import { getWorldTier } from '../vault/get-world-tier';
-import { settingsState } from '@/shared/state/settings.svelte';
-import { timeState } from '@/shared/state/time.svelte';
-import { QuestStatus } from '@/enums/quest-status';
-
-export function homeSort(lazyStore: LazyStore, sortBy: string, char: Character): string {
+export function homeSort(char: Character, sortBy: string): string {
     if (sortBy === 'gold') {
         return leftPad(10_000_000 - char.gold, 8, '0');
     } else if (sortBy === 'bagSpace') {
@@ -58,16 +58,16 @@ export function homeSort(lazyStore: LazyStore, sortBy: string, char: Character):
             char.raiderIo?.[Constants.mythicPlusSeason]?.all ||
             0;
         return leftPad(Math.floor(100000 - rating * 10), 6, '0');
-    } else if (sortBy === 'professionCooldowns') {
-        const cooldownData = lazyStore.characters[char.id].professionCooldowns;
-        return leftPad(
-            100 - (cooldownData.total > 0 ? (cooldownData.have / cooldownData.total) * 100 : -1),
-            3,
-            '0'
-        );
-    } else if (sortBy === 'professionWorkOrders') {
-        const orderData = lazyStore.characters[char.id].professionWorkOrders;
-        return leftPad(10 - (orderData.total > 0 ? orderData.have : -1), 3, '0');
+        // } else if (sortBy === 'professionCooldowns') {
+        //     const cooldownData = lazyStore.characters[char.id].professionCooldowns;
+        //     return leftPad(
+        //         100 - (cooldownData.total > 0 ? (cooldownData.have / cooldownData.total) * 100 : -1),
+        //         3,
+        //         '0'
+        //     );
+        // } else if (sortBy === 'professionWorkOrders') {
+        //     const orderData = lazyStore.characters[char.id].professionWorkOrders;
+        //     return leftPad(10 - (orderData.total > 0 ? orderData.have : -1), 3, '0');
     } else if (sortBy === 'restedExperience') {
         if (char.level === Constants.characterMaxLevel) {
             return '999';
@@ -126,17 +126,17 @@ export function homeSort(lazyStore: LazyStore, sortBy: string, char: Character):
             leftPad(900 - levels[1], 3, '0'),
             leftPad(900 - levels[2], 3, '0'),
         ].join('|');
-    } else if (sortBy.startsWith('currency:')) {
+    } else if (sortBy.startsWith('currencies:')) {
         const currencyId = parseInt(sortBy.split(':')[1]);
         const value =
             currencyId > 1_000_000
                 ? char.getItemCount(currencyId - 1_000_000)
                 : char.currencies?.[currencyId]?.quantity || 0;
         return leftPad(1000000 - value, 7, '0');
-    } else if (sortBy.startsWith('item:')) {
+    } else if (sortBy.startsWith('items:')) {
         const itemId = parseInt(sortBy.split(':')[1]);
         return leftPad(1000000 - char.getItemCount(itemId), 7, '0');
-    } else if (sortBy.startsWith('lockout:')) {
+    } else if (sortBy.startsWith('lockouts:')) {
         const lockoutKey = sortBy.split(':')[1];
         const lockout = char.lockouts?.[lockoutKey];
         if (lockout?.locked === true) {
@@ -147,36 +147,44 @@ export function homeSort(lazyStore: LazyStore, sortBy: string, char: Character):
         } else {
             return '999|999';
         }
-    } else if (sortBy.startsWith('task:')) {
+    } else if (sortBy.startsWith('progress:')) {
+        let value = -1;
+        const progressParts = sortBy.split(':')[1].split('|');
+        const category = wowthingData.manual.progressSets.find(
+            (p) => p[0]?.slug === progressParts[0]
+        );
+        if (category) {
+            const subCategory = category.find((cat) => cat.slug === progressParts[1]);
+            if (subCategory) {
+                const charProgress = getProgress(
+                    char,
+                    subCategory,
+                    subCategory.groups[parseInt(progressParts[2])]
+                );
+                if (charProgress) {
+                    value = charProgress.have * 100;
+                }
+            }
+        }
+        return leftPad(10_000 - value, 5, '0');
+    } else if (sortBy.startsWith('tasks:')) {
         let value = -5;
-        const taskName = `${settingsState.activeView.id}|${sortBy.split(':')[1]}`;
-
-        const charChore = lazyStore.characters[char.id].chores[taskName];
+        const [taskName, choreName] = sortBy.split(':')[1].split('|', 2);
+        const charTask = userState.activeViewTasks[char.id]?.[taskName];
+        const charChore = charTask?.chores?.[choreName];
         if (charChore) {
-            value = charChore.countCompleted * 100 + charChore.countStarted;
-            if (charChore.countTotal > 0 && charChore.countCompleted === charChore.countTotal) {
+            value = charChore.progressCurrent * 100;
+            if (
+                charChore.progressTotal > 0 &&
+                (charChore.progressCurrent === charChore.progressTotal ||
+                    charChore.status === QuestStatus.Completed) // TODO: remove when fixed derived
+            ) {
                 value += charChore.status === QuestStatus.Completed ? 100_000 : 90_000;
             }
-        } else {
-            const charTask = lazyStore.characters[char.id].tasks[taskName];
-            if (charTask) {
-                if (charTask.text === 'Done') {
-                    value = 9999;
-                } else if (charTask.text === 'Get!') {
-                    value = -1;
-                } else {
-                    const percentMatch = charTask.text.match(/^(\d+) %$/);
-                    if (percentMatch) {
-                        value = parseInt(percentMatch[1]);
-                    } else {
-                        const countMatch = charTask.text.match(/^(\d+) \/ (\d+)$/);
-                        if (countMatch) {
-                            value = Math.floor(
-                                (parseInt(countMatch[1]) / parseInt(countMatch[2])) * 100
-                            );
-                        }
-                    }
-                }
+        } else if (charTask) {
+            value = charTask.countCompleted * 100 + charTask.countStarted;
+            if (charTask.countTotal > 0 && charTask.countCompleted === charTask.countTotal) {
+                value += charTask.status === QuestStatus.Completed ? 100_000 : 90_000;
             }
         }
 

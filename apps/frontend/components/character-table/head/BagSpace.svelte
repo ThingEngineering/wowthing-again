@@ -1,28 +1,19 @@
 <script lang="ts">
     import { iconLibrary } from '@/shared/icons';
     import { basicTooltip } from '@/shared/utils/tooltips/basic-tooltip';
-    import { homeState } from '@/stores/local-storage';
+    import type { SortableProps } from '@/types/props';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
-    let { sortKey }: { sortKey: string } = $props();
-
-    function setSorting(column: string) {
-        const current = $homeState.groupSort[sortKey];
-        $homeState.groupSort[sortKey] = current === column ? undefined : column;
-    }
-
-    const sortField = 'bagSpace';
+    let { getSortState, setSortState }: SortableProps = $props();
 </script>
 
 <style lang="scss">
 </style>
 
 <td
-    class="sortable"
-    class:sorted-by={$homeState.groupSort[sortKey] === sortField}
-    onclick={() => setSorting(sortField)}
-    onkeypress={() => setSorting(sortField)}
+    class="sortable sorted-{getSortState()}"
+    onclick={() => setSortState()}
     use:basicTooltip={'Free Bag Slots'}
 >
     <IconifyIcon icon={iconLibrary.gameBackpack} scale="0.9" />

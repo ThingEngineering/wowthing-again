@@ -541,6 +541,7 @@ export class DataUserDerived {
                         DateTime.fromSeconds(charChore.quest.expires) > timeState.time ||
                         (chore.key.startsWith('dmf') && charChore.quest.expires === 0))
                 ) {
+                    // charTask maybe?
                     charChore.status = charChore.quest.status;
                     if (
                         charChore.status === QuestStatus.InProgress &&
@@ -1151,6 +1152,8 @@ export class DataUserDerived {
             const lastObjective = charChore.quest.objectives.at(-1);
             charChore.progressCurrent = lastObjective.have;
             charChore.progressTotal = lastObjective.need;
+        } else if (charChore.status === QuestStatus.Completed) {
+            charChore.progressCurrent = charChore.progressTotal = 1;
         }
 
         return charChore;

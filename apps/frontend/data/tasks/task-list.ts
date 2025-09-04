@@ -1,8 +1,9 @@
 import type { Task } from '@/types/tasks';
 
 import { twwTasks } from './10-the-war-within';
+import { pvpTasks } from './pvp';
 
-export const taskList: Task[] = [...twwTasks];
+export const taskList: Task[] = [...pvpTasks, ...twwTasks];
 
 export const taskMap: Record<string, Task> = Object.fromEntries(
     taskList.map((task) => [task.key, task])

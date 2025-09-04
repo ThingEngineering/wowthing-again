@@ -3,22 +3,17 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { timeState } from '@/shared/state/time.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { homeState } from '@/stores/local-storage';
     import { activeViewTasks } from '@/user-home/state/activeViewTasks.svelte';
     import { userState } from '@/user-home/state/user';
+    import type { SortableProps } from '@/types/props';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import Tooltip from '@/components/tooltips/task/TooltipTaskHead.svelte';
 
-    let { sortKey }: { sortKey: string } = $props();
+    let { getSortState, setSortState }: SortableProps = $props();
 
     let activeTasks = $derived(activeViewTasks.value);
-
-    function setSorting(column: string) {
-        const current = $homeState.groupSort[sortKey];
-        $homeState.groupSort[sortKey] = current === column ? undefined : column;
-    }
 </script>
 
 <style lang="scss">
@@ -45,18 +40,15 @@
 {#each activeTasks as fullTaskName (fullTaskName)}
     {@const [taskName, choreName] = fullTaskName.split('|', 2)}
     {@const task = taskMap[taskName] || settingsState.customTaskMap[fullTaskName]}
-    {@const sortField = `task:${fullTaskName}`}
     {@const chore = task.chores.find((task) => task?.key === choreName)}
     {@const customExpiry = chore?.decorationFunc?.(
         chore?.customExpiryFunc(userState.general.characters[0], timeState.time)
     )}
 
     <td
-        class="sortable {customExpiry || ''}"
-        class:sorted-by={$homeState.groupSort[sortKey] === sortField}
+        class="sortable sorted-{getSortState(fullTaskName)} {customExpiry || ''}"
         data-task={taskName}
-        onclick={() => setSorting(sortField)}
-        onkeypress={() => setSorting(sortField)}
+        onclick={() => setSortState(fullTaskName)}
         use:componentTooltip={{
             component: Tooltip,
             props: {

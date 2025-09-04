@@ -72,7 +72,6 @@ class UserState {
             );
         }
         console.timeEnd('derived activeViewTasks');
-        console.log(ret);
         return ret;
     };
 
