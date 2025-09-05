@@ -324,7 +324,6 @@ export class DataUserDerived {
                 }
             }
         }
-        console.log(maxReps);
 
         console.timeEnd('doReputations');
 
@@ -535,85 +534,29 @@ export class DataUserDerived {
                 //     }
                 // } else {
                 // not a profession hack
-                if (
-                    !!charChore.quest &&
-                    (!forcedReset[charChore.key] ||
-                        DateTime.fromSeconds(charChore.quest.expires) > timeState.time ||
-                        (chore.key.startsWith('dmf') && charChore.quest.expires === 0))
-                ) {
-                    // charTask maybe?
-                    charChore.status = charChore.quest.status;
-                    if (
-                        charChore.status === QuestStatus.InProgress &&
-                        charChore.quest.objectives?.length > 0
-                    ) {
-                        charChore.statusTexts = this.getObjectivesText(charChore.quest.objectives);
-                    }
-                } else if (chore.subChores?.length > 0) {
-                    let firstChore: Chore = undefined;
-                    let firstQuest: UserQuestDataCharacterProgress = undefined;
-
-                    let subCompleted = 0;
-                    let subTotal = 0;
-                    for (const subChore of chore.subChores) {
-                        subTotal++;
-
-                        const subQuest = characterQuests?.progressQuestByKey?.get(subChore.key);
-                        if (subQuest?.status === QuestStatus.Completed) {
-                            subCompleted++;
-                        } else {
-                            firstChore ||= subChore;
-                            firstQuest ||= subQuest;
-                        }
-                    }
-
-                    charChore.quest = <UserQuestDataCharacterProgress>{
-                        id: 0,
-                        name: [
-                            `[${subCompleted}/${subTotal}]`,
-                            ...(firstChore ? [firstChore.name] : []),
-                            chore.name,
-                        ].join(' '),
-                        status:
-                            subCompleted === 0
-                                ? QuestStatus.NotStarted
-                                : subCompleted < subTotal
-                                  ? QuestStatus.InProgress
-                                  : QuestStatus.Completed,
-                    };
-                    charChore.status = charChore.quest.status;
-
-                    if (charChore.status === QuestStatus.InProgress) {
-                        let otherText = firstChore.name;
-                        const starHtml = this.getStarHtml(
-                            false,
-                            firstChore.noProgress || !!firstQuest,
-                            !firstChore.noProgress
-                        );
-
-                        if (firstChore.showQuestName) {
-                            if (firstQuest) {
-                                charChore.statusTexts = this.getObjectivesText(
-                                    firstQuest.objectives
-                                );
-                            } else {
-                                otherText = 'Get quest!';
-                            }
-                        }
-
-                        if (charChore.statusTexts[0] === '') {
-                            charChore.statusTexts = [`${starHtml} ${otherText}`];
-                        }
-                    }
-                } else if (chore.noProgress && charChore.status === QuestStatus.NotStarted) {
-                    charChore.status = QuestStatus.InProgress;
-                }
+                // if (
+                //     !!charChore.quest &&
+                //     (!forcedReset[charChore.key] ||
+                //         DateTime.fromSeconds(charChore.quest.expires) > timeState.time ||
+                //         (chore.key.startsWith('dmf') && charChore.quest.expires === 0))
+                // ) {
+                //     // charTask maybe?
+                //     charChore.status = charChore.quest.status;
+                //     if (
+                //         charChore.status === QuestStatus.InProgress &&
+                //         charChore.quest.objectives?.length > 0
+                //     ) {
+                //         charChore.statusTexts = this.getObjectivesText(charChore.quest.objectives);
+                //     }
+                // } else if (chore.noProgress && charChore.status === QuestStatus.NotStarted) {
+                //     charChore.status = QuestStatus.InProgress;
                 // }
+                // // }
 
-                charChore.name =
-                    chore.showQuestName || chore.subChores?.length > 0
-                        ? charChore.quest?.name || chore.name
-                        : chore.name;
+                // charChore.name =
+                //     chore.showQuestName || chore.subChores?.length > 0
+                //         ? charChore.quest?.name || chore.name
+                //         : chore.name;
 
                 if (!charChore.skipped) {
                     if (charChore.status === QuestStatus.Completed) {
@@ -1080,60 +1023,103 @@ export class DataUserDerived {
         const charScanned = characterQuests.scannedTime;
 
         // if (chore.questReset !== undefined) {
-        const questIds =
-            typeof chore.questIds === 'function'
-                ? chore.questIds(character, chore)
-                : chore.questIds;
-        for (const questId of questIds) {
-            // is the quest in progress?
-            const questProgress = characterQuests?.progressQuestByKey?.get(`q${questId}`);
-            if (questProgress) {
-                charChore.quest = questProgress;
-                charChore.status = questProgress.status;
+        if (chore.questIds) {
+            const questIds =
+                typeof chore.questIds === 'function'
+                    ? chore.questIds(character, chore)
+                    : chore.questIds;
+            for (const questId of questIds) {
+                // is the quest in progress?
+                const questProgress = characterQuests?.progressQuestByKey?.get(`q${questId}`);
+                if (questProgress) {
+                    charChore.quest = questProgress;
+                    charChore.status = questProgress.status;
 
-                if (
-                    questProgress.status === QuestStatus.InProgress &&
-                    questProgress.objectives?.length > 0
-                ) {
-                    charChore.statusTexts = this.getObjectivesText(questProgress.objectives);
+                    if (
+                        questProgress.status === QuestStatus.InProgress &&
+                        questProgress.objectives?.length > 0
+                    ) {
+                        charChore.statusTexts = this.getObjectivesText(questProgress.objectives);
+                    }
+
+                    if (chore.questReset === DbResetType.Custom) {
+                        charChore.quest.expires = chore
+                            .customExpiryFunc(character, charScanned)
+                            .toUnixInteger();
+                    }
+
+                    break;
                 }
 
-                if (chore.questReset === DbResetType.Custom) {
-                    charChore.quest.expires = chore
-                        .customExpiryFunc(character, charScanned)
-                        .toUnixInteger();
-                }
+                // is the quest completed?
+                if (characterQuests?.hasQuestById?.has(questId)) {
+                    let expiresAt: DateTime;
+                    if (chore.questReset === DbResetType.Weekly) {
+                        expiresAt = getNextWeeklyResetFromTime(
+                            charScanned,
+                            character.realm?.region || Region.US
+                        );
+                    } else if (chore.questReset === DbResetType.Custom) {
+                        expiresAt = chore.customExpiryFunc(character, charScanned);
+                    } else {
+                        expiresAt = getNextDailyResetFromTime(
+                            charScanned,
+                            character.realm?.region || Region.US
+                        );
+                    }
 
-                break;
+                    if (expiresAt > timeState.time) {
+                        charChore.quest = {
+                            expires: expiresAt.toUnixInteger(),
+                            id: questId,
+                            name: wowthingData.static.questNameById.get(questId) || chore.name,
+                            objectives: [],
+                            status: QuestStatus.Completed,
+                        };
+                    }
+                    break;
+                }
+            }
+        } else if (chore.subChores) {
+            // sub-chores need to be completed in order
+            charChore.progressTotal = chore.subChores.length;
+            charChore.statusTexts = [];
+
+            for (const subChore of chore.subChores) {
+                const charSubChore = this.processTaskChore(
+                    character,
+                    characterQuests,
+                    task,
+                    subChore
+                );
+
+                if (charSubChore.status === QuestStatus.Completed) {
+                    charChore.progressCurrent++;
+                    charChore.statusTexts.push(
+                        `<span class="status-success">:starFull:</span> ${charSubChore.name}`
+                    );
+                } else {
+                    charChore.status = Math.max(charChore.status, charSubChore.status);
+
+                    const isFirst = charChore.statusTexts.length === 0;
+                    const suffixText = `[${charSubChore.progressCurrent}/${charSubChore.progressTotal}] ${charSubChore.name}`;
+                    if (
+                        charSubChore.status === QuestStatus.InProgress &&
+                        (isFirst || !charChore.statusTexts.at(-1).includes(':starHalf:'))
+                    ) {
+                        charChore.statusTexts.push(
+                            `<span class="status-shrug">:starHalf:</span> ${suffixText}`
+                        );
+                    } else {
+                        charChore.statusTexts.push(
+                            `<span class="status-fail">:starEmpty:</span> ${suffixText}`
+                        );
+                    }
+                }
             }
 
-            // is the quest completed?
-            if (characterQuests?.hasQuestById?.has(questId)) {
-                let expiresAt: DateTime;
-                if (chore.questReset === DbResetType.Weekly) {
-                    expiresAt = getNextWeeklyResetFromTime(
-                        charScanned,
-                        character.realm?.region || Region.US
-                    );
-                } else if (chore.questReset === DbResetType.Custom) {
-                    expiresAt = chore.customExpiryFunc(character, charScanned);
-                } else {
-                    expiresAt = getNextDailyResetFromTime(
-                        charScanned,
-                        character.realm?.region || Region.US
-                    );
-                }
-
-                if (expiresAt > timeState.time) {
-                    charChore.quest = {
-                        expires: expiresAt.toUnixInteger(),
-                        id: questId,
-                        name: wowthingData.static.questNameById.get(questId) || chore.name,
-                        objectives: [],
-                        status: QuestStatus.Completed,
-                    };
-                }
-                break;
+            if (charChore.progressCurrent === charChore.progressTotal) {
+                charChore.status = QuestStatus.Completed;
             }
         }
 
@@ -1152,9 +1138,30 @@ export class DataUserDerived {
             const lastObjective = charChore.quest.objectives.at(-1);
             charChore.progressCurrent = lastObjective.have;
             charChore.progressTotal = lastObjective.need;
-        } else if (charChore.status === QuestStatus.Completed) {
-            charChore.progressCurrent = charChore.progressTotal = 1;
         }
+
+        if (
+            !!charChore.quest &&
+            (!forcedReset[charChore.key] ||
+                DateTime.fromSeconds(charChore.quest.expires) > timeState.time ||
+                (chore.key.startsWith('dmf') && charChore.quest.expires === 0))
+        ) {
+            // charTask maybe?
+            charChore.status = charChore.quest.status;
+            if (
+                charChore.status === QuestStatus.InProgress &&
+                charChore.quest.objectives?.length > 0
+            ) {
+                charChore.statusTexts = this.getObjectivesText(charChore.quest.objectives);
+            }
+        } else if (chore.noProgress && charChore.status === QuestStatus.NotStarted) {
+            charChore.status = QuestStatus.InProgress;
+        }
+
+        charChore.name =
+            chore.showQuestName || chore.subChores?.length > 0
+                ? charChore.quest?.name || chore.name
+                : chore.name;
 
         return charChore;
     }

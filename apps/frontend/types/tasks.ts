@@ -27,9 +27,8 @@ export type Chore = {
     showQuestName?: boolean;
     minimumLevel?: number;
     maximumLevel?: number;
+    questReset?: DbResetType;
     questIds?: number[] | ((char: Character, chore?: Chore) => number[]);
-    // questIdFunc?: (char: Character, chore?: Chore) => number[];
-    questReset: DbResetType;
     subChores?: Chore[];
     requiredHolidays?: Holiday[];
     /**

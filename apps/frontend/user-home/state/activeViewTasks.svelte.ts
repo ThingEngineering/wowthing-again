@@ -15,21 +15,21 @@ class ActiveViewTasks {
     value = $derived.by(() => logErrors(this._value));
 
     private _value() {
-        const customTaskMap = $state.snapshot(settingsState.customTaskMap) as Record<
-            string,
-            SettingsTask
-        >;
+        // const customTaskMap = $state.snapshot(settingsState.customTaskMap) as Record<
+        //     string,
+        //     SettingsTask
+        // >;
 
         const activeTasks: string[] = [];
 
         for (const fullTaskName of settingsState.activeView.homeTasks) {
-            const [taskName] = fullTaskName.split('|', 2);
+            const [taskName, choreName] = fullTaskName.split('|', 2);
             const task = taskMap[taskName]; // || customTaskMap[fullTaskName]; // FIXME
-            if (!task) {
+            if (!task || (choreName && !task.chores.some((chore) => chore.key === choreName))) {
                 continue;
             }
 
-            const taskViewKey = `${settingsState.activeView.id}|${fullTaskName}`;
+            // const taskViewKey = `${settingsState.activeView.id}|${fullTaskName}`;
 
             if (!activeHolidays.value[taskName] && wowthingData.static.holidayIds.get(taskName)) {
                 continue;

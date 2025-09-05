@@ -1,8 +1,8 @@
 import { Constants } from '@/data/constants';
 import { iconLibrary } from '@/shared/icons';
 import { DbResetType } from '@/shared/stores/db/enums';
-import type { Task } from '@/types/tasks';
 import { userState } from '@/user-home/state/user';
+import type { Task } from '@/types/tasks';
 
 export const twwChores11_2_0: Task = {
     key: 'twwChores11_2_0',
@@ -13,7 +13,7 @@ export const twwChores11_2_0: Task = {
     chores: [
         {
             key: 'twwMoreThanPhase',
-            name: '[W][A] More Than Just a Phase',
+            name: 'More Than Just a Phase',
             // accountWide: true,
             icon: iconLibrary.mdiSwimDive,
             questIds: [91093],
@@ -22,7 +22,7 @@ export const twwChores11_2_0: Task = {
         },
         {
             key: 'twwWarrant',
-            name: '[W][A] Warrant',
+            name: 'Warrant',
             accountWide: true,
             questIds: [
                 90122, // Eliminate Xy'vox the Twisted
@@ -36,40 +36,53 @@ export const twwChores11_2_0: Task = {
         },
         {
             key: 'twwReshanor',
-            name: '[W][A] World Boss',
+            name: 'World Boss',
             accountWide: true,
             icon: iconLibrary.emojiZzz,
             questIds: [87352],
             questReset: DbResetType.Weekly,
         },
-        {
-            key: 'twwKareshSpecialUnlock',
-            name: '[W] Special Unlock',
-            icon: iconLibrary.mdiLockOutline,
-            questIds: [
-                91193, // Overshadowed Unlock
-                91203, // Aligned Views Unlock
-            ],
-            questReset: DbResetType.Weekly,
-            couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
-        },
-
+        // {
+        //     key: 'twwKareshSpecialUnlock',
+        //     name: 'Special Unlock',
+        //     icon: iconLibrary.mdiLockOutline,
+        //     questIds: [
+        //         91193, // Overshadowed Unlock
+        //         91203, // Aligned Views Unlock
+        //     ],
+        //     questReset: DbResetType.Weekly,
+        //     couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
+        // },
         {
             key: 'twwKareshSpecial',
-            name: '[W] Special Assignment',
+            name: '[Kar] Special Assignment',
             icon: iconLibrary.gameScrollQuill,
-            noProgress: true,
             showQuestName: true,
-            questIds: [
-                89293, // Overshadowed
-                89294, // Aligned Views
-            ],
             questReset: DbResetType.Weekly,
+            subChores: [
+                {
+                    key: 'unlock',
+                    name: 'World Quests',
+                    questIds: [
+                        91193, // Overshadowed Unlock
+                        91203, // Aligned Views Unlock
+                    ],
+                },
+                {
+                    key: 'assignment',
+                    name: 'Assignment',
+                    noProgress: true,
+                    questIds: [
+                        89293, // Overshadowed
+                        89294, // Aligned Views
+                    ],
+                },
+            ],
             couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
         },
         {
             key: 'twwEcologicalSuccession',
-            name: '[W] Ecological Succession',
+            name: 'Ecological Succession',
             icon: iconLibrary.gameBearFace,
             questIds: [85460],
             questReset: DbResetType.Weekly,
@@ -77,7 +90,7 @@ export const twwChores11_2_0: Task = {
         },
         {
             key: 'twwMakingDeposit1',
-            name: '[W] Anima: Atrium',
+            name: 'Anima: Atrium',
             // maybe these need to be subChores?
             questIds: [89062], // Devourer Attack: The Atrium
             questReset: DbResetType.Weekly,
@@ -85,21 +98,21 @@ export const twwChores11_2_0: Task = {
         },
         {
             key: 'twwMakingDeposit2',
-            name: '[W] Anima: Eco-dome',
+            name: 'Anima: Eco-dome',
             questIds: [89061], // Devourer Attack: Eco-dome: Primus
             questReset: DbResetType.Weekly,
             couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
         },
         {
             key: 'twwMakingDeposit3',
-            name: '[W] Anima: Oasis',
+            name: 'Anima: Oasis',
             questIds: [85722], // Devourer Attack: The Oasis
             questReset: DbResetType.Weekly,
             couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
         },
         {
             key: 'twwMakingDeposit4',
-            name: '[W] Anima: Tazavesh',
+            name: 'Anima: Tazavesh',
             questIds: [89063], // Devourer Attack: Tazavesh
             questReset: DbResetType.Weekly,
             couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
