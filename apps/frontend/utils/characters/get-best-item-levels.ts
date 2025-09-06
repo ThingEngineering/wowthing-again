@@ -26,7 +26,7 @@ export function getBestItemLevels(character: Character): BestItemLevels {
         const missingSlots: InventoryType[] = [];
         const primaryStats = primaryStatToStats[specialization.primaryStat];
 
-        for (const locationItem of character.itemsByLocation.get(ItemLocation.Bags)) {
+        for (const locationItem of character.itemsByLocation[ItemLocation.Bags]) {
             const item = wowthingData.items.items[locationItem.itemId];
             if (!item) {
                 continue;
