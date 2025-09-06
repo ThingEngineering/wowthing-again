@@ -1,10 +1,53 @@
 import { Profession } from '@/enums/profession';
 import type { TaskProfession } from '@/types/data';
 
+const taskQuestIds = [
+    83102, // Bismuth is Business
+    83103, // Acquiring Aqirite
+    83104, // Identifying Ironclaw
+    83105, // Rush-order Requisition
+    83106, // Null Pebble Excavation
+];
+
 export const warWithinMining: TaskProfession = {
     id: Profession.Mining,
     subProfessionId: 2881,
-    hasTasks: true,
+    taskQuests: taskQuestIds.map((questId) => ({
+        itemId: 224818, // Algari Miner's Notes
+        questId,
+    })),
+    gatherQuests: [
+        {
+            itemId: 224583, // Slab of Slate
+            questId: 83054,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224583, // Slab of Slate
+            questId: 83053,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224583, // Slab of Slate
+            questId: 83052,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224583, // Slab of Slate
+            questId: 83051,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224583, // Slab of Slate
+            questId: 83050,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224584, // Erosion Polished Slate
+            questId: 83049,
+            source: 'Gathering',
+        },
+    ],
     bookQuests: [
         {
             itemId: 227416, // Faded Miner's Notes
@@ -47,38 +90,6 @@ export const warWithinMining: TaskProfession = {
             questId: 87259,
             source: 'TV 12',
             costs: [{ amount: 75, itemId: 210814 }], // Artisan's Acuity
-        },
-    ],
-    dropQuests: [
-        {
-            itemId: 224583, // Slab of Slate
-            questId: 83054,
-            source: 'Gathering',
-        },
-        {
-            itemId: 224583, // Slab of Slate
-            questId: 83053,
-            source: 'Gathering',
-        },
-        {
-            itemId: 224583, // Slab of Slate
-            questId: 83052,
-            source: 'Gathering',
-        },
-        {
-            itemId: 224583, // Slab of Slate
-            questId: 83051,
-            source: 'Gathering',
-        },
-        {
-            itemId: 224583, // Slab of Slate
-            questId: 83050,
-            source: 'Gathering',
-        },
-        {
-            itemId: 224584, // Erosion Polished Slate
-            questId: 83049,
-            source: 'Gathering',
         },
     ],
     treasureQuests: [],

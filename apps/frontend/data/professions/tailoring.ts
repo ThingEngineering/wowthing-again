@@ -5,6 +5,25 @@ export const warWithinTailoring: TaskProfession = {
     id: Profession.Tailoring,
     subProfessionId: 2883,
     hasOrders: true,
+    dropQuests: [
+        {
+            itemId: 225220, // Chitin Needle
+            questId: 83270,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 225221, // Spool of Webweave
+            questId: 83269,
+            source: 'Mobs/Treasures',
+        },
+    ],
+    orderQuests: [
+        {
+            itemId: 228779, // Algari Tailor's Notebook
+            questId: 84132,
+            source: 'Work Orders',
+        },
+    ],
     bookQuests: [
         {
             itemId: 227410, // Faded Tailor's Diagrams
@@ -47,18 +66,6 @@ export const warWithinTailoring: TaskProfession = {
             questId: 87257,
             source: 'TV 12',
             costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
-        },
-    ],
-    dropQuests: [
-        {
-            itemId: 225220, // Chitin Needle
-            questId: 83270,
-            source: 'Mobs/Treasures',
-        },
-        {
-            itemId: 225221, // Spool of Webweave
-            questId: 83269,
-            source: 'Mobs/Treasures',
         },
     ],
     treasureQuests: [],

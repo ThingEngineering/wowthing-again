@@ -5,6 +5,25 @@ export const warWithinBlacksmithing: TaskProfession = {
     id: Profession.Blacksmithing,
     subProfessionId: 2872,
     hasOrders: true,
+    dropQuests: [
+        {
+            itemId: 225232, // Coreway Billet
+            questId: 83257,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 225233, // Dense Bladestone
+            questId: 83256,
+            source: 'Mobs/Treasures',
+        },
+    ],
+    orderQuests: [
+        {
+            itemId: 228774, // Algari Blacksmith's Journal
+            questId: 84127,
+            source: 'Work Orders',
+        },
+    ],
     bookQuests: [
         {
             itemId: 227407, // Faded Blacksmith's Diagrams
@@ -47,18 +66,6 @@ export const warWithinBlacksmithing: TaskProfession = {
             questId: 87266,
             source: 'TV 12',
             costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
-        },
-    ],
-    dropQuests: [
-        {
-            itemId: 225232, // Coreway Billet
-            questId: 83257,
-            source: 'Mobs/Treasures',
-        },
-        {
-            itemId: 225233, // Dense Bladestone
-            questId: 83256,
-            source: 'Mobs/Treasures',
         },
     ],
     treasureQuests: [],

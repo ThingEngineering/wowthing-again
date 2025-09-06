@@ -5,6 +5,25 @@ export const warWithinEngineering: TaskProfession = {
     id: Profession.Engineering,
     subProfessionId: 2875,
     hasOrders: true,
+    dropQuests: [
+        {
+            itemId: 225229, // Earthen Induction Coil
+            questId: 83261,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 225228, // Rust-Locked Mechanism
+            questId: 83260,
+            source: 'Mobs/Treasures',
+        },
+    ],
+    orderQuests: [
+        {
+            itemId: 228775, // Algari Engineer's Notepad
+            questId: 84128,
+            source: 'Work Orders',
+        },
+    ],
     bookQuests: [
         {
             itemId: 227412, // Faded Engineer's Scribblings
@@ -49,19 +68,6 @@ export const warWithinEngineering: TaskProfession = {
             costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
         },
     ],
-    dropQuests: [
-        {
-            itemId: 225229, // Earthen Induction Coil
-            questId: 83261,
-            source: 'Mobs/Treasures',
-        },
-        {
-            itemId: 225228, // Rust-Locked Mechanism
-            questId: 83260,
-            source: 'Mobs/Treasures',
-        },
-    ],
-
     treasureQuests: [],
 };
 

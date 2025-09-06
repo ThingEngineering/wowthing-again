@@ -31,6 +31,7 @@ export type Chore = {
     questIds?: number[] | ((char: Character, chore?: Chore) => number[]);
     questReset?: DbResetType;
     questResetForced?: boolean;
+    subChoresAnyOrder?: boolean;
     subChores?: Chore[];
     requiredHolidays?: Holiday[];
     /**

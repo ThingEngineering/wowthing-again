@@ -5,6 +5,25 @@ export const warWithinAlchemy: TaskProfession = {
     id: Profession.Alchemy,
     subProfessionId: 2871,
     hasOrders: true,
+    dropQuests: [
+        {
+            itemId: 225234, // Alchemical Sediment
+            questId: 83253,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 225235, // Deepstone Crucible
+            questId: 83255,
+            source: 'Mobs/Treasures',
+        },
+    ],
+    orderQuests: [
+        {
+            itemId: 228773, // Algari Alchemist's Notebook
+            questId: 84133,
+            source: 'Work Orders',
+        },
+    ],
     bookQuests: [
         {
             itemId: 227409, // Faded Alchemist's Research
@@ -47,18 +66,6 @@ export const warWithinAlchemy: TaskProfession = {
             questId: 87255,
             source: 'TV 12',
             costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
-        },
-    ],
-    dropQuests: [
-        {
-            itemId: 225234, // Alchemical Sediment
-            questId: 83253,
-            source: 'Mobs/Treasures',
-        },
-        {
-            itemId: 225235, // Deepstone Crucible
-            questId: 83255,
-            source: 'Mobs/Treasures',
         },
     ],
     treasureQuests: [],

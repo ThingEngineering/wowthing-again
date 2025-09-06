@@ -19,7 +19,11 @@ export type TaskProfession = {
     hasTasks?: boolean;
     masterQuestId?: number;
 
-    bookQuests?: TaskProfessionQuest[];
     dropQuests?: TaskProfessionQuest[];
+    gatherQuests?: TaskProfessionQuest[];
+    orderQuests?: TaskProfessionQuest[];
+    taskQuests?: TaskProfessionQuest[];
+
+    bookQuests?: TaskProfessionQuest[];
     treasureQuests?: TaskProfessionQuest[];
 };

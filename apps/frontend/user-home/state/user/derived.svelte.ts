@@ -1124,7 +1124,9 @@ export class DataUserDerived {
                     const suffixText = `[${charSubChore.progressCurrent}/${charSubChore.progressTotal}] ${charSubChore.name}`;
                     if (
                         charSubChore.status === QuestStatus.InProgress &&
-                        (isFirst || !charChore.statusTexts.at(-1).includes(':starHalf:'))
+                        (chore.subChoresAnyOrder ||
+                            isFirst ||
+                            charChore.statusTexts.at(-1).includes(':starFull:'))
                     ) {
                         charChore.progressCurrent += charSubChore.progressCurrent;
                         charChore.statusTexts.push(
