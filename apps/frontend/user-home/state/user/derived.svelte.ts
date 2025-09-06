@@ -584,6 +584,14 @@ export class DataUserDerived {
 
                 charTask.chores[chore.key] = charChore;
             }
+
+            // Propagate chore status to the task
+            const statuses = uniq(
+                Object.values(charTask.chores)
+                    .filter((chore) => !!chore && !chore.skipped)
+                    .map((task) => task.status as number)
+            );
+            charTask.status = Math.min(...statuses.filter((s) => s >= 1)) || 0;
         }
 
         // for (const fullTaskName of settingsState.allTasks) {
