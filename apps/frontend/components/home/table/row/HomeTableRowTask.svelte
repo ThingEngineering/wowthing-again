@@ -2,6 +2,7 @@
     import { taskMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
     import { uiIcons } from '@/shared/icons/ui';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { userState } from '@/user-home/state/user';
     import type { CharacterProps } from '@/types/props';
@@ -14,7 +15,7 @@
     };
     let { character, taskName }: Props = $props();
 
-    let task = $derived(taskMap[taskName]);
+    let task = $derived(taskMap[taskName] || settingsState.customTaskMap[taskName]);
     let charTask = $derived(userState.activeViewTasks[character.id]?.[taskName]);
 
     let inProgress = $derived(
@@ -47,6 +48,7 @@
             props: {
                 character,
                 charTask,
+                task,
                 taskName,
             },
         }}
@@ -68,6 +70,7 @@
             props: {
                 character,
                 charTask,
+                task,
                 taskName,
             },
         }}

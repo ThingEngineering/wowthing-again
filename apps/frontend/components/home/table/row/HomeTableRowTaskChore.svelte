@@ -1,6 +1,8 @@
 <script lang="ts">
+    import { taskMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
     import { uiIcons } from '@/shared/icons';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { userState } from '@/user-home/state/user';
     import type { CharacterProps } from '@/types/props';
@@ -14,6 +16,7 @@
     };
     let { character, choreName, taskName }: Props = $props();
 
+    let task = $derived(taskMap[taskName] || settingsState.customTaskMap[taskName]);
     let charChore = $derived(
         userState.activeViewTasks[character.id]?.[taskName]?.chores?.[choreName]
     );
@@ -40,6 +43,7 @@
         propsFunc: () => ({
             character,
             charChore,
+            task,
             taskName,
         }),
     }}

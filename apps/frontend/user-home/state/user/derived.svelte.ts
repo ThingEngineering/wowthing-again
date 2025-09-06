@@ -357,9 +357,10 @@ export class DataUserDerived {
         // //     } as UserQuestDataCharacterProgress);
         // // }
 
+        const customTaskMap = $state.snapshot(settingsState.customTaskMap) as Record<string, Task>;
         for (const fullTaskName of activeViewTasks.value) {
             const [taskName, choreName] = fullTaskName.split('|', 2);
-            const task = taskMap[taskName];
+            const task = taskMap[taskName] || customTaskMap[taskName];
             if (
                 !task ||
                 character.ignored ||

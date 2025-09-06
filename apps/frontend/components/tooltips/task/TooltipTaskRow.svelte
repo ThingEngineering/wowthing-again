@@ -9,13 +9,15 @@
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import type { Task } from '@/types/tasks';
 
     type Props = CharacterProps & {
         charChore?: CharacterChore;
         charTask?: CharacterTask;
+        task: Task;
         taskName: string;
     };
-    let { character, charChore, charTask, taskName }: Props = $props();
+    let { character, charChore, charTask, task, taskName }: Props = $props();
 
     let taskSets = $derived.by(() => {
         const ret: CharacterChore[][] = [];
@@ -131,7 +133,7 @@
 
 <div class="wowthing-tooltip">
     <h4>{character.name}</h4>
-    <h5>{taskMap[taskName].name}</h5>
+    <h5>{task?.name || `Unknown Task "${taskName}"`}</h5>
 
     {#each taskSets as taskSet}
         <table class="table-striped">
