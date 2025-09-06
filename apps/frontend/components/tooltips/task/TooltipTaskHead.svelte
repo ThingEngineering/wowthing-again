@@ -51,7 +51,7 @@
             if (chore) {
                 doChore(characterTask, chore.key);
             } else {
-                for (const chore of task.chores) {
+                for (const chore of task.chores.filter((c) => !!c)) {
                     doChore(characterTask, chore.key);
                 }
             }
@@ -82,7 +82,7 @@
     <h4>{task.name}</h4>
     <table class="table-striped">
         <tbody>
-            {#each task.chores as taskChore (taskChore.key)}
+            {#each task.chores.filter((c) => !!c) as taskChore (taskChore.key)}
                 {@const disabled = disabledChores.indexOf(taskChore.key) >= 0}
                 {@const questStatuses = choreStats[taskChore.key]}
                 {#if questStatuses && Object.values(questStatuses).reduce((a, b) => a + b, 0) > 0 && (!disabled || questStatuses[1] > 0 || questStatuses[2] > 0)}
