@@ -1187,6 +1187,10 @@ export class DataUserDerived {
                 charChore.status === QuestStatus.InProgress &&
                 charChore.quest.objectives?.length > 0
             ) {
+                const lastObjective = charChore.quest.objectives.at(-1);
+                charChore.progressCurrent = lastObjective.have;
+                charChore.progressTotal = lastObjective.need;
+
                 charChore.statusTexts = this.getObjectivesText(charChore.quest.objectives);
             }
         } else if (chore.noProgress && charChore.status === QuestStatus.NotStarted) {
