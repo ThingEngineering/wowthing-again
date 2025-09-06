@@ -370,18 +370,26 @@ export class DataUserDerived {
             }
 
             const charTask = (ret[task.key] = new CharacterTask(task));
+            const disabledChores = settingsState.activeView.disabledChores?.[fullTaskName] || [];
 
             // activeHoliday?
 
-            for (const chore of task.chores) {
-                if (!chore || (choreName && chore.key !== choreName)) {
+            for (const chore of task.chores.filter((c) => !!c)) {
+                // want a specific chore that isn't this one
+                if (choreName && chore.key !== choreName) {
                     continue;
                 }
 
+                // don't want a specific chore and this one is disabled
+                // if (!choreName && disabledChores.includes(chore.key)) {
+                //     continue;
+                // }
                 const charChore = this.processTaskChore(character, characterQuests, task, chore);
                 if (!charChore) {
                     continue;
                 }
+
+                charChore.skipped = !choreName && disabledChores.includes(chore.key);
 
                 // TODO: split?
                 // if (chore.key.endsWith('Split')) {
@@ -460,10 +468,6 @@ export class DataUserDerived {
                 //             ['Gather'].indexOf(nameParts[1]) >= 0) ||
                 //         // charTask.statusTexts[0] !== '' ||
                 //         skipTraits);
-
-                if (!charChore.skipped) {
-                    charTask.countTotal++;
-                }
 
                 // if (charChore.statusTexts[0].startsWith('Need')) {
                 //     charChore.status = QuestStatus.Error;
@@ -559,6 +563,8 @@ export class DataUserDerived {
                 //         : chore.name;
 
                 if (!charChore.skipped) {
+                    charTask.countTotal++;
+
                     if (charChore.status === QuestStatus.Completed) {
                         charTask.countCompleted++;
                     } else if (charChore.status === QuestStatus.InProgress) {

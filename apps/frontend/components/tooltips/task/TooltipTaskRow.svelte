@@ -30,7 +30,7 @@
             //     for (const key of keys) {
             //         taskSets.push(grouped[key]);
             //     }
-        } else {
+        } else if (charTask) {
             let currentSet: CharacterChore[] = [];
             for (const chore of charTask.task.chores) {
                 if (!chore) {
