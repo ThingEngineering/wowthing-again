@@ -71,7 +71,7 @@
             }
         } else {
             browserState.current.home.groupSort[sortKey] = actualField;
-            browserState.current.home.groupSortReverse[sortKey] = true;
+            browserState.current.home.groupSortReverse[sortKey] = false;
         }
     });
 </script>
