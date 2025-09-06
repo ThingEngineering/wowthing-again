@@ -5,6 +5,25 @@ export const warWithinLeatherworking: TaskProfession = {
     id: Profession.Leatherworking,
     subProfessionId: 2880,
     hasOrders: true,
+    dropQuests: [
+        {
+            itemId: 225222, // Stone-Leather Swatch
+            questId: 83268,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 225223, // Sturdy Nerubian Carapace
+            questId: 83267,
+            source: 'Mobs/Treasures',
+        },
+    ],
+    orderQuests: [
+        {
+            itemId: 228778, // Algari Leatherworker's Journal
+            questId: 84131,
+            source: 'Work Orders',
+        },
+    ],
     bookQuests: [
         {
             itemId: 227414, // Faded Leatherworker's Diagrams
@@ -47,18 +66,6 @@ export const warWithinLeatherworking: TaskProfession = {
             questId: 87260,
             source: 'TV 12',
             costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
-        },
-    ],
-    dropQuests: [
-        {
-            itemId: 225222, // Stone-Leather Swatch
-            questId: 83268,
-            source: 'Mobs/Treasures',
-        },
-        {
-            itemId: 225223, // Sturdy Nerubian Carapace
-            questId: 83267,
-            source: 'Mobs/Treasures',
         },
     ],
     treasureQuests: [],

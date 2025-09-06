@@ -1,10 +1,53 @@
 import { Profession } from '@/enums/profession';
 import type { TaskProfession } from '@/types/data';
 
+const taskQuestIds = [
+    82916, // When Fungi Bloom
+    82958, // Little Blessings
+    82962, // A Handful of Luredrops
+    82965, // Light and Shadow
+    82970, // A Bloom and A Blossom
+];
+
 export const warWithinHerbalism: TaskProfession = {
     id: Profession.Herbalism,
     subProfessionId: 2877,
-    hasTasks: true,
+    taskQuests: taskQuestIds.map((questId) => ({
+        itemId: 224817, // Algari Herbalist's Notes
+        questId,
+    })),
+    gatherQuests: [
+        {
+            itemId: 224264, // Deepgrove Rose Petal
+            questId: 81416,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224264, // Deepgrove Rose Petal
+            questId: 81417,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224264, // Deepgrove Rose Petal
+            questId: 81418,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224264, // Deepgrove Rose Petal
+            questId: 81419,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224264, // Deepgrove Rose Petal
+            questId: 81420,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224265, // Deepgrove Rose
+            questId: 81421,
+            source: 'Gathering',
+        },
+    ],
     bookQuests: [
         {
             itemId: 227415, // Faded Herbalist's Notes
@@ -47,38 +90,6 @@ export const warWithinHerbalism: TaskProfession = {
             questId: 87263,
             source: 'TV 12',
             costs: [{ amount: 75, itemId: 210814 }], // Artisan's Acuity
-        },
-    ],
-    dropQuests: [
-        {
-            itemId: 224264, // Deepgrove Rose Petal
-            questId: 81416,
-            source: 'Gathering',
-        },
-        {
-            itemId: 224264, // Deepgrove Rose Petal
-            questId: 81417,
-            source: 'Gathering',
-        },
-        {
-            itemId: 224264, // Deepgrove Rose Petal
-            questId: 81418,
-            source: 'Gathering',
-        },
-        {
-            itemId: 224264, // Deepgrove Rose Petal
-            questId: 81419,
-            source: 'Gathering',
-        },
-        {
-            itemId: 224264, // Deepgrove Rose Petal
-            questId: 81420,
-            source: 'Gathering',
-        },
-        {
-            itemId: 224265, // Deepgrove Rose
-            questId: 81421,
-            source: 'Gathering',
         },
     ],
     treasureQuests: [],

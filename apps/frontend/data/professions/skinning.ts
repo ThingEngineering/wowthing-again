@@ -1,10 +1,53 @@
 import { Profession } from '@/enums/profession';
 import type { TaskProfession } from '@/types/data';
 
+const taskQuestIds = [
+    82992, // Stormcharged Goods
+    82993, // From Shadows
+    83097, // Cinder and Storm
+    83098, // Snap and Crackle
+    83100, // Cracking the Shell
+];
+
 export const warWithinSkinning: TaskProfession = {
     id: Profession.Skinning,
     subProfessionId: 2882,
-    hasTasks: true,
+    taskQuests: taskQuestIds.map((questId) => ({
+        itemId: 224807, // Algari Skinner's Notes
+        questId,
+    })),
+    gatherQuests: [
+        {
+            itemId: 224780, // Toughened Tempest Pelt
+            questId: 81459,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224780, // Toughened Tempest Pelt
+            questId: 81460,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224780, // Toughened Tempest Pelt
+            questId: 81461,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224780, // Toughened Tempest Pelt
+            questId: 81462,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224780, // Toughened Tempest Pelt
+            questId: 81463,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224781, // Abyssal Fur
+            questId: 81464,
+            source: 'Gathering',
+        },
+    ],
     bookQuests: [
         {
             itemId: 227417, // Faded Skinner's Notes
@@ -47,38 +90,6 @@ export const warWithinSkinning: TaskProfession = {
             questId: 87258,
             source: 'TV 12',
             costs: [{ amount: 75, itemId: 210814 }], // Artisan's Acuity
-        },
-    ],
-    dropQuests: [
-        {
-            itemId: 224780, // Toughened Tempest Pelt
-            questId: 81459,
-            source: 'Gathering',
-        },
-        {
-            itemId: 224780, // Toughened Tempest Pelt
-            questId: 81460,
-            source: 'Gathering',
-        },
-        {
-            itemId: 224780, // Toughened Tempest Pelt
-            questId: 81461,
-            source: 'Gathering',
-        },
-        {
-            itemId: 224780, // Toughened Tempest Pelt
-            questId: 81462,
-            source: 'Gathering',
-        },
-        {
-            itemId: 224780, // Toughened Tempest Pelt
-            questId: 81463,
-            source: 'Gathering',
-        },
-        {
-            itemId: 224781, // Abyssal Fur
-            questId: 81464,
-            source: 'Gathering',
         },
     ],
     treasureQuests: [],

@@ -3,9 +3,15 @@ import { twwChores11_1_0 } from './11-1-0';
 import { twwChores11_1_5 } from './11-1-5';
 import { twwChores11_2_0 } from './11-2-0';
 import { twwChoresChett } from './chett';
+import { twwDelves } from './delves';
 import { twwHorrificVisions } from './horrific-visions';
+import { twwProfessions } from './professions';
+import { twwVeteranCaches } from './veteran-caches';
 
 export const twwTasks = [
+    twwVeteranCaches,
+    twwDelves,
+    twwProfessions,
     twwChores11_0_0,
     twwChores11_1_0,
     twwChoresChett,

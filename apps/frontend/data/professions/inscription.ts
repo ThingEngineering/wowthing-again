@@ -5,6 +5,25 @@ export const warWithinInscription: TaskProfession = {
     id: Profession.Inscription,
     subProfessionId: 2878,
     hasOrders: true,
+    dropQuests: [
+        {
+            itemId: 225226, // Striated Inkstone
+            questId: 83264,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 225227, // Wax-Sealed Records
+            questId: 83262,
+            source: 'Mobs/Treasures',
+        },
+    ],
+    orderQuests: [
+        {
+            itemId: 228776, // Algari Scribe's Journal
+            questId: 84129,
+            source: 'Work Orders',
+        },
+    ],
     bookQuests: [
         {
             itemId: 227408, // Faded Scribe's Runic Drawings
@@ -47,18 +66,6 @@ export const warWithinInscription: TaskProfession = {
             questId: 87262,
             source: 'TV 12',
             costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
-        },
-    ],
-    dropQuests: [
-        {
-            itemId: 225226, // Striated Inkstone
-            questId: 83264,
-            source: 'Mobs/Treasures',
-        },
-        {
-            itemId: 225227, // Wax-Sealed Records
-            questId: 83262,
-            source: 'Mobs/Treasures',
         },
     ],
     treasureQuests: [],

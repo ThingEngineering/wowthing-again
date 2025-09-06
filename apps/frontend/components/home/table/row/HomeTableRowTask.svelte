@@ -21,7 +21,7 @@
     let inProgress = $derived(
         charTask &&
             Object.values(charTask.chores).every((charChore) => {
-                const oof = task.chores.find((chore) => chore.key === charChore.key);
+                const oof = task.chores.find((chore) => chore?.key === charChore.key);
                 return oof?.noProgress === true || charChore?.status > 0;
             })
     );

@@ -5,6 +5,25 @@ export const warWithinJewelcrafting: TaskProfession = {
     id: Profession.Jewelcrafting,
     subProfessionId: 2879,
     hasOrders: true,
+    dropQuests: [
+        {
+            itemId: 225225, // Deepstone Fragment
+            questId: 83266,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 225224, // Diaphanous Gem Shards
+            questId: 83265,
+            source: 'Mobs/Treasures',
+        },
+    ],
+    orderQuests: [
+        {
+            itemId: 228777, // Algari Jewelcrafter's Notebook
+            questId: 84130,
+            source: 'Work Orders',
+        },
+    ],
     bookQuests: [
         {
             itemId: 227413, // Faded Jeweler's Illustrations
@@ -47,18 +66,6 @@ export const warWithinJewelcrafting: TaskProfession = {
             questId: 87261,
             source: 'TV 12',
             costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
-        },
-    ],
-    dropQuests: [
-        {
-            itemId: 225225, // Deepstone Fragment
-            questId: 83266,
-            source: 'Mobs/Treasures',
-        },
-        {
-            itemId: 225224, // Diaphanous Gem Shards
-            questId: 83265,
-            source: 'Mobs/Treasures',
         },
     ],
     treasureQuests: [],

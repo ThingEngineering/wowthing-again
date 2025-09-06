@@ -36,7 +36,7 @@ export const heirloomSlots: Record<number, boolean> = Object.fromEntries(
         [InventorySlot.Trinket2],
         [InventorySlot.MainHand],
         [InventorySlot.OffHand],
-    ].map((n) => [n, true]),
+    ].map((n) => [n, true])
 );
 
 // SpellItemEnchantment.db2
@@ -145,6 +145,9 @@ export const validEnchants: Record<number, number[]> = {
     ],
 
     [InventorySlot.Feet]: [
+        7416, // Scout's March 1
+        7417, // Scout's March 2
+        7418, // Scout's March 3
         7422, // Defender's March 1 [1578]
         7423, // Defender's March 2
         7424, // Defender's March 3

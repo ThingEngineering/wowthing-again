@@ -1,10 +1,63 @@
 import { Profession } from '@/enums/profession';
 import type { TaskProfession } from '@/types/data';
 
+const taskQuestIds = [
+    84084, // Just a Pinch
+    84085, // The Power of Potential
+    84086, // A Rare Necessity
+];
+
 export const warWithinEnchanting: TaskProfession = {
     id: Profession.Enchanting,
     subProfessionId: 2874,
-    hasTasks: true,
+    taskQuests: taskQuestIds.map((questId) => ({
+        itemId: 227667, // Algari Enchanter's Folio
+        questId,
+    })),
+    dropQuests: [
+        {
+            itemId: 225230, // Crystalline Repository
+            questId: 83259,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 225231, // Powdered Fulgurance
+            questId: 83258,
+            source: 'Mobs/Treasures',
+        },
+    ],
+    gatherQuests: [
+        {
+            itemId: 227659, // Fleeting Arcane Manifestation
+            questId: 84290,
+            source: 'Disenchanting',
+        },
+        {
+            itemId: 227659, // Fleeting Arcane Manifestation
+            questId: 84291,
+            source: 'Disenchanting',
+        },
+        {
+            itemId: 227659, // Fleeting Arcane Manifestation
+            questId: 84292,
+            source: 'Disenchanting',
+        },
+        {
+            itemId: 227659, // Fleeting Arcane Manifestation
+            questId: 84293,
+            source: 'Disenchanting',
+        },
+        {
+            itemId: 227659, // Fleeting Arcane Manifestation
+            questId: 84294,
+            source: 'Disenchanting',
+        },
+        {
+            itemId: 227661, // Gleaming Telluric Crystal
+            questId: 84295,
+            source: 'Disenchanting',
+        },
+    ],
     bookQuests: [
         {
             itemId: 227411, // Faded Enchanter's Research
@@ -47,48 +100,6 @@ export const warWithinEnchanting: TaskProfession = {
             questId: 87265,
             source: 'TV 12',
             costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
-        },
-    ],
-    dropQuests: [
-        {
-            itemId: 225230, // Crystalline Repository
-            questId: 83259,
-            source: 'Mobs/Treasures',
-        },
-        {
-            itemId: 225231, // Powdered Fulgurance
-            questId: 83258,
-            source: 'Mobs/Treasures',
-        },
-        {
-            itemId: 227659, // Fleeting Arcane Manifestation
-            questId: 84290,
-            source: 'Disenchanting',
-        },
-        {
-            itemId: 227659, // Fleeting Arcane Manifestation
-            questId: 84291,
-            source: 'Disenchanting',
-        },
-        {
-            itemId: 227659, // Fleeting Arcane Manifestation
-            questId: 84292,
-            source: 'Disenchanting',
-        },
-        {
-            itemId: 227659, // Fleeting Arcane Manifestation
-            questId: 84293,
-            source: 'Disenchanting',
-        },
-        {
-            itemId: 227659, // Fleeting Arcane Manifestation
-            questId: 84294,
-            source: 'Disenchanting',
-        },
-        {
-            itemId: 227661, // Gleaming Telluric Crystal
-            questId: 84295,
-            source: 'Disenchanting',
         },
     ],
     treasureQuests: [],

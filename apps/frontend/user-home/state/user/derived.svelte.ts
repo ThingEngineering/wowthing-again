@@ -591,8 +591,22 @@ export class DataUserDerived {
                     .filter((chore) => !!chore && !chore.skipped)
                     .map((task) => task.status as number)
             );
-            charTask.status = Math.min(...statuses.filter((s) => s >= 1)) || 0;
-        }
+            if (statuses.length === 1) {
+                charTask.status = statuses[0];
+            } else if (statuses.length > 1) {
+                charTask.status = Math.min(...statuses);
+            }
+
+            // Use chore progress if there's only one
+            if (charTask.status === QuestStatus.InProgress) {
+                const charChores = Object.values(charTask.chores);
+                if (charChores.length === 1) {
+                    charTask.countCompleted = charChores[0].progressCurrent;
+                    charTask.countTotal = charChores[0].progressTotal;
+                    charTask.countStarted = charTask.countTotal - charTask.countCompleted;
+                }
+            }
+        } // for fullTaskName
 
         // for (const fullTaskName of settingsState.allTasks) {
         //     const [taskName, choreName] = fullTaskName.split('|', 2);
@@ -1110,21 +1124,24 @@ export class DataUserDerived {
                     subChore
                 );
 
+                const suffixText = `[${charSubChore.progressCurrent}/${charSubChore.progressTotal}] ${charSubChore.name}`;
+
                 charChore.progressTotal += charSubChore.progressTotal;
 
                 if (charSubChore.status === QuestStatus.Completed) {
                     charChore.progressCurrent += charSubChore.progressCurrent;
                     charChore.statusTexts.push(
-                        `<span class="status-success">:starFull:</span> ${charSubChore.name}`
+                        `<span class="status-success">:starFull:</span> ${suffixText}`
                     );
                 } else {
                     charChore.status = Math.max(charChore.status, charSubChore.status);
 
                     const isFirst = charChore.statusTexts.length === 0;
-                    const suffixText = `[${charSubChore.progressCurrent}/${charSubChore.progressTotal}] ${charSubChore.name}`;
                     if (
                         charSubChore.status === QuestStatus.InProgress &&
-                        (isFirst || !charChore.statusTexts.at(-1).includes(':starHalf:'))
+                        (chore.subChoresAnyOrder ||
+                            isFirst ||
+                            charChore.statusTexts.at(-1).includes(':starFull:'))
                     ) {
                         charChore.progressCurrent += charSubChore.progressCurrent;
                         charChore.statusTexts.push(
@@ -1137,6 +1154,14 @@ export class DataUserDerived {
                     }
                 }
             }
+
+            if (charChore.progressCurrent === charChore.progressTotal) {
+                charChore.status = QuestStatus.Completed;
+            }
+        } else if (chore.progressFunc) {
+            const { have, need } = chore.progressFunc(character);
+            charChore.progressCurrent = have;
+            charChore.progressTotal = need;
 
             if (charChore.progressCurrent === charChore.progressTotal) {
                 charChore.status = QuestStatus.Completed;
@@ -1172,6 +1197,10 @@ export class DataUserDerived {
                 charChore.status === QuestStatus.InProgress &&
                 charChore.quest.objectives?.length > 0
             ) {
+                const lastObjective = charChore.quest.objectives.at(-1);
+                charChore.progressCurrent = lastObjective.have;
+                charChore.progressTotal = lastObjective.need;
+
                 charChore.statusTexts = this.getObjectivesText(charChore.quest.objectives);
             }
         } else if (chore.noProgress && charChore.status === QuestStatus.NotStarted) {
