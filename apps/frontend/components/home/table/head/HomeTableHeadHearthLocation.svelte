@@ -1,18 +1,11 @@
 <script lang="ts">
-    import { homeState } from '@/stores/local-storage';
     import { imageStrings } from '@/data/icons';
     import { basicTooltip } from '@/shared/utils/tooltips';
+    import type { SortableProps } from '@/types/props';
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    let { sortKey }: { sortKey: string } = $props();
-
-    function setSorting(column: string) {
-        const current = $homeState.groupSort[sortKey];
-        $homeState.groupSort[sortKey] = current === column ? undefined : column;
-    }
-
-    const sortField = 'locationHearth';
+    let { getSortState, setSortState }: SortableProps = $props();
 </script>
 
 <style lang="scss">
@@ -24,10 +17,8 @@
 </style>
 
 <td
-    class="sortable"
-    class:sorted-by={$homeState.groupSort[sortKey] === sortField}
-    onclick={() => setSorting(sortField)}
-    onkeypress={() => setSorting(sortField)}
+    class="sortable sorted-{getSortState()}"
+    onclick={() => setSortState()}
     use:basicTooltip={'Hearth Location'}
 >
     <WowthingImage name={imageStrings.hearthstone} size={20} border={1} />

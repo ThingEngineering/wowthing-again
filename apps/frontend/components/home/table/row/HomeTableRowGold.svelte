@@ -1,14 +1,12 @@
 <script lang="ts">
-    import { homeState } from '@/stores/local-storage';
+    import type { SortableProps } from '@/types/props';
 
-    type Props = { gold: number; showSortable?: boolean; sortKey?: string };
+    type Props = {
+        gold: number;
+        showSortable?: boolean;
+    } & Partial<SortableProps>;
 
-    let { gold, showSortable = false, sortKey = undefined }: Props = $props();
-
-    function setSorting(column: string) {
-        const current = $homeState.groupSort[sortKey];
-        $homeState.groupSort[sortKey] = current === column ? undefined : column;
-    }
+    let { gold, showSortable = false, getSortState, setSortState }: Props = $props();
 </script>
 
 <style lang="scss">
@@ -21,13 +19,7 @@
 </style>
 
 {#if showSortable}
-    {@const field = 'gold'}
-    <td
-        class="sortable"
-        class:sorted-by={$homeState.groupSort[sortKey] === field}
-        onclick={() => setSorting(field)}
-        onkeypress={() => setSorting(field)}
-    >
+    <td class="sortable sorted-{getSortState()}" onclick={() => setSortState()}>
         {gold.toLocaleString()} g
     </td>
 {:else}

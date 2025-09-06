@@ -2,10 +2,10 @@
     import sumBy from 'lodash/sumBy';
 
     import { iconStrings } from '@/data/icons';
-    import { basicTooltip } from '@/shared/utils/tooltips';
-    import { homeState } from '@/stores/local-storage';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { basicTooltip } from '@/shared/utils/tooltips';
     import type { Character } from '@/types';
     import type { GroupByContext } from '@/utils/get-character-group-func';
 
@@ -25,7 +25,6 @@
     import RowPlayedTime from './row/HomeTableRowPlayedTime.svelte';
     import SpacerRow from '@/components/character-table/CharacterTableSpacerRow.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import Vault from '@/components/character-table/head/Vault.svelte';
 
     type Props = {
         group: Character[];
@@ -46,10 +45,35 @@
     let gold = $derived(sumBy(group, (c: Character) => c.gold));
     let playedTotal = $derived(sumBy(group, (c: Character) => c.playedTotal));
 
-    function setSorting(column: string) {
-        const current = $homeState.groupSort[sortKey];
-        $homeState.groupSort[sortKey] = current === column ? undefined : column;
-    }
+    const getGetSortState = $derived((field: string) => (suffix?: string) => {
+        const sortedBy = browserState.current.home.groupSort[sortKey];
+        const reversed = browserState.current.home.groupSortReverse[sortKey];
+
+        const actualField = suffix ? `${field}:${suffix}` : field;
+        if (sortedBy === actualField) {
+            return reversed ? 2 : 1;
+        } else {
+            return 0;
+        }
+    });
+
+    const getSetSortState = $derived((field: string) => (suffix?: string) => {
+        const sortedBy = browserState.current.home.groupSort[sortKey];
+        const reversed = browserState.current.home.groupSortReverse[sortKey];
+
+        const actualField = suffix ? `${field}:${suffix}` : field;
+        if (sortedBy === actualField) {
+            if (reversed) {
+                delete browserState.current.home.groupSort[sortKey];
+                delete browserState.current.home.groupSortReverse[sortKey];
+            } else {
+                browserState.current.home.groupSortReverse[sortKey] = true;
+            }
+        } else {
+            browserState.current.home.groupSort[sortKey] = actualField;
+            browserState.current.home.groupSortReverse[sortKey] = true;
+        }
+    });
 </script>
 
 <style lang="scss">
@@ -67,6 +91,16 @@
         }
         :global(.sorted-by) {
             border: 1px solid #eee !important;
+        }
+        :global(.sorted-1) {
+            border: 1px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to top, #9f9f00, #00ff00);
+        }
+        :global(.sorted-2) {
+            border: 1px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to bottom, #9f9f00, #ff0000);
         }
     }
     td {
@@ -87,13 +121,15 @@
     </td>
 
     {#each settingsState.activeView.homeFields as field (field)}
+        {@const getSortState = getGetSortState(field)}
+        {@const setSortState = getSetSortState(field)}
+
         {#if field === 'bagSpace'}
-            <HeadBagSpace {sortKey} />
+            <HeadBagSpace {getSortState} {setSortState} />
         {:else if field === 'bestItemLevel'}
             <td
-                class="sortable"
-                class:sorted-by={$homeState.groupSort[sortKey] === field}
-                onclick={() => setSorting(field)}
+                class="sortable sorted-{getSortState()}"
+                onclick={() => setSortState()}
                 use:basicTooltip={'Best Item Level'}>Best</td
             >
         {:else if field === 'callings'}
@@ -103,9 +139,9 @@
         {:else if field === 'covenant'}
             <HeadCovenant />
         {:else if field === 'currencies'}
-            <HeadCurrencies {sortKey} />
+            <HeadCurrencies {getSortState} {setSortState} />
         {:else if field === 'currentLocation'}
-            <HeadCurrentLocation {sortKey} />
+            <HeadCurrentLocation {getSortState} {setSortState} />
         {:else if field === 'emissariesBfa'}
             <td use:basicTooltip={'Battle for Azeroth Emissaries'}>
                 <IconifyIcon icon={iconStrings['calendar-quest']} /> BfA
@@ -118,7 +154,7 @@
             <td>Gear</td>
         {:else if field === 'gold'}
             {#if !isPublic}
-                <RowGold {gold} {sortKey} showSortable={true} />
+                <RowGold {gold} showSortable={true} {getSortState} {setSortState} />
             {/if}
         {:else if field === 'goldWorldQuests'}
             <td>
@@ -128,46 +164,33 @@
         {:else if field === 'guild'}
             <td>Guild</td>
         {:else if field === 'hearthLocation'}
-            <HeadHearthLocation {sortKey} />
+            <HeadHearthLocation {getSortState} {setSortState} />
         {:else if field === 'itemLevel'}
             <td
-                class="sortable"
-                class:sorted-by={$homeState.groupSort[sortKey] === field}
-                onclick={() => setSorting(field)}
+                class="sortable sorted-{getSortState()}"
+                onclick={() => setSortState()}
                 use:basicTooltip={'Equipped Item Level'}>Equip</td
             >
         {:else if field === 'items'}
             {#if !isPublic}
-                <HeadItems {sortKey} />
+                <HeadItems {getSortState} {setSortState} />
             {/if}
         {:else if field === 'keystone'}
             {#if !isPublic || settingsState.value.privacy.publicMythicPlus}
-                {@const sortField = 'mythicPlusKeystone'}
-                <td
-                    class="sortable"
-                    class:sorted-by={$homeState.groupSort[sortKey] === sortField}
-                    onclick={() => setSorting(sortField)}
-                >
+                <td class="sortable sorted-{getSortState()}" onclick={() => setSortState()}>
                     M+ Key
                 </td>
             {/if}
         {:else if field === 'lastSeenAddon'}
-            <td
-                class="sortable"
-                class:sorted-by={$homeState.groupSort[sortKey] === field}
-                onclick={() => setSorting(field)}
-            >
-                Seen
-            </td>
+            <td class="sortable sorted-{getSortState()}" onclick={() => setSortState()}> Seen </td>
         {:else if field === 'lockouts'}
             {#if !isPublic || settingsState.value.privacy.publicLockouts}
-                <HeadLockouts {sortKey} />
+                <HeadLockouts {getSortState} {setSortState} />
             {/if}
         {:else if field === 'mythicPlusScore'}
             <td
-                class="mythic-plus-score sortable"
-                class:sorted-by={$homeState.groupSort[sortKey] === field}
-                onclick={() => setSorting(field)}
+                class="mythic-plus-score sortable sorted-{getSortState()}"
+                onclick={() => setSortState()}
             >
                 M+
             </td>
@@ -179,16 +202,14 @@
             <td>Concentration</td>
         {:else if field === 'professionCooldowns'}
             <td
-                class="sortable"
-                class:sorted-by={$homeState.groupSort[sortKey] === field}
-                onclick={() => setSorting(field)}
+                class="sortable sorted-{getSortState()}"
+                onclick={() => setSortState()}
                 use:basicTooltip={'Profession Cooldowns'}>CDs</td
             >
         {:else if field === 'professionWorkOrders'}
             <td
-                class="sortable"
-                class:sorted-by={$homeState.groupSort[sortKey] === field}
-                onclick={() => setSorting(field)}
+                class="sortable sorted-{getSortState()}"
+                onclick={() => setSortState()}
                 use:basicTooltip={'Profession Work Orders'}>WOs</td
             >
         {:else if field === 'professions'}
@@ -196,46 +217,29 @@
         {:else if field === 'professionsSecondary'}
             <td>Secondary Profs</td>
         {:else if field === 'progress'}
-            <HeadProgress {sortKey} />
+            <HeadProgress {getSortState} {setSortState} />
         {:else if field === 'restedExperience'}
             {#if !isPublic}
-                {@const sortField = 'restedExperience'}
-                <td
-                    class="sortable"
-                    class:sorted-by={$homeState.groupSort[sortKey] === sortField}
-                    onclick={() => setSorting(sortField)}
-                >
+                <td class="sortable sorted-{getSortState()}" onclick={() => setSortState()}>
                     Rest
                 </td>
             {/if}
         {:else if field === 'statsSpeed'}
-            <HeadMovementSpeed {sortKey} />
+            <HeadMovementSpeed {getSortState} {setSortState} />
         {:else if field === 'tasks'}
-            <HeadTasks {sortKey} />
+            <HeadTasks {getSortState} {setSortState} />
         {:else if field === 'vaultMythicPlus'}
-            <td
-                class="sortable"
-                class:sorted-by={$homeState.groupSort[sortKey] === field}
-                onclick={() => setSorting(field)}
+            <td class="sortable sorted-{getSortState()}" onclick={() => setSortState()}
+                >Dungeon Vault</td
             >
-                Dungeon Vault
-            </td>
         {:else if field === 'vaultRaid'}
-            <td
-                class="sortable"
-                class:sorted-by={$homeState.groupSort[sortKey] === field}
-                onclick={() => setSorting(field)}
+            <td class="sortable sorted-{getSortState()}" onclick={() => setSortState()}
+                >Raid Vault</td
             >
-                Raid Vault
-            </td>
         {:else if field === 'vaultWorld'}
-            <td
-                class="sortable"
-                class:sorted-by={$homeState.groupSort[sortKey] === field}
-                onclick={() => setSorting(field)}
+            <td class="sortable sorted-{getSortState()}" onclick={() => setSortState()}
+                >World Vault</td
             >
-                World Vault
-            </td>
         {:else}
             <td>&nbsp;</td>
         {/if}

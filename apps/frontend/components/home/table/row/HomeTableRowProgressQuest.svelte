@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { taskMap } from '@/data/tasks';
-    import { QuestStatus } from '@/enums/quest-status';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { lazyStore } from '@/stores';
@@ -14,16 +12,7 @@
         $lazyStore.characters[character.id].tasks[`${settingsState.activeView.id}|${quest}`]
     );
 
-    let status = $derived.by(() => {
-        let ret = charTask?.status;
-        if (charTask?.quest?.status === QuestStatus.InProgress && charTask.text !== '100 %') {
-            const task = taskMap[quest];
-            if (task?.isCurrentFunc?.(character, charTask.quest.id) === false) {
-                ret = 'warn';
-            }
-        }
-        return ret;
-    });
+    let status = $derived(charTask?.status);
 </script>
 
 <style lang="scss">

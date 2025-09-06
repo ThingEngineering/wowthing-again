@@ -61,9 +61,9 @@ export function doConvertible(): LazyConvertible {
     console.time('LazyState.doConvertible');
 
     const completionistMode = settingsState.value.transmog.completionistMode;
+    const includePurchases = browserState.current.convertible.includePurchases;
     const hasAppearanceById = $state.snapshot(userState.general.hasAppearanceById);
     const hasAppearanceBySource = $state.snapshot(userState.general.hasAppearanceBySource);
-    const includePurchases = browserState.current.convertible.includePurchases;
 
     const maskToClass: Record<number, number> = Object.fromEntries(
         playableClasses.map(([name, mask]) => [
@@ -82,6 +82,21 @@ export function doConvertible(): LazyConvertible {
 
     const itemConversionBonusEntries = getNumberKeyedEntries(
         wowthingData.items.itemConversionBonus
+    );
+
+    const minimumLevel = convertibleCategories.at(-1).minimumLevel;
+    const charactersByClassId: Record<number, [Character, WhateverItem[][]][]> = groupBy(
+        userState.general.activeCharacters
+            .filter((char) => char.level >= minimumLevel)
+            .map((char) => [
+                char,
+                [
+                    char.itemsByLocation[ItemLocation.Bags],
+                    char.itemsByLocation[ItemLocation.Bank],
+                    Object.values(char.equippedItems),
+                ],
+            ]),
+        ([char]) => char.classId
     );
 
     const itemCounts: Record<number, number> = {};
@@ -114,28 +129,24 @@ export function doConvertible(): LazyConvertible {
                 setItem
             ));
 
-            const validCharacters = userState.general.activeCharacters.filter(
-                (char) => char.classId === classId && char.level >= convertibleCategory.minimumLevel
-            );
-
-            const charactersWithItems: [Character, WhateverItem[]][] = validCharacters.map(
-                (char) => [
+            const charactersWithItems: [Character, WhateverItem[]][] = charactersByClassId[classId]
+                .filter(([char]) => char.level >= convertibleCategory.minimumLevel)
+                .map(([char, charItems]) => [
                     char,
                     [
-                        ...char.itemsByLocation.get(ItemLocation.Bags),
-                        ...char.itemsByLocation.get(ItemLocation.Bank),
-                        ...Object.values(char.equippedItems),
-                        ...(warbankByType[setItemInventoryType] || []).map(([wbi]) => wbi),
-                    ].filter(
-                        (item) =>
-                            ((wowthingData.items.items[item.itemId]?.classMask || 0) &
-                                setItem.classMask) ===
-                                setItem.classMask &&
-                            (item.itemId === setItemId ||
-                                (item.bonusIds || []).some((bonusId) => bonusIds.has(bonusId)))
+                        ...charItems,
+                        (warbankByType[setItemInventoryType] || []).map(([wbi]) => wbi),
+                    ].flatMap((array) =>
+                        array.filter(
+                            (item) =>
+                                ((wowthingData.items.items[item.itemId]?.classMask || 0) &
+                                    setItem.classMask) ===
+                                    setItem.classMask &&
+                                (item.itemId === setItemId ||
+                                    (item.bonusIds || []).some((bonusId) => bonusIds.has(bonusId)))
+                        )
                     ),
-                ]
-            );
+                ]);
 
             for (const modifier of [0, 1, 3, 4]) {
                 const modifierData = (slotData.modifiers[modifier] = new LazyConvertibleModifier());
@@ -159,15 +170,6 @@ export function doConvertible(): LazyConvertible {
                     const maxItemLevel = character.highestItemLevel?.[setItemRedundancySlot] || 0;
 
                     for (const charItem of charItems) {
-                        if (
-                            !(
-                                charItem.itemId === setItem.id ||
-                                (charItem.bonusIds || []).some((bonusId) => bonusIds.has(bonusId))
-                            )
-                        ) {
-                            continue;
-                        }
-
                         const item = wowthingData.items.items[charItem.itemId];
                         const charItemInventoryType = fixedInventoryType(item.inventoryType);
                         if (charItemInventoryType !== setItemInventoryType) {
@@ -177,9 +179,9 @@ export function doConvertible(): LazyConvertible {
                         let currentTierLevel = 0;
                         let isConvertible = false;
                         let isUpgradeable = false;
+                        // sharedStringId, current, max
                         let upgrade: [number, number, number];
                         for (const bonusId of charItem.bonusIds) {
-                            // sharedStringId, current, max
                             upgrade = wowthingData.items.itemBonusToUpgrade[bonusId];
                             if (!upgrade) {
                                 continue;
@@ -483,12 +485,14 @@ export function doConvertible(): LazyConvertible {
                 } // for character
 
                 for (const entries of Object.values(modifierData.characters)) {
-                    modifierData.anyCanAfford ||= entries.some((entry) => entry.canAfford);
-                    modifierData.anyCanConvert ||= entries.some((entry) => entry.canConvert);
-                    modifierData.anyCanUpgrade ||= entries.some((entry) => entry.canUpgrade);
-                    modifierData.anyIsConvertible ||= entries.some((entry) => entry.isConvertible);
-                    modifierData.anyIsPurchaseable ||= entries.some((entry) => entry.isPurchased);
-                    modifierData.anyIsUpgradeable ||= entries.some((entry) => entry.isUpgradeable);
+                    for (const entry of entries) {
+                        modifierData.anyCanAfford ||= entry.canAfford;
+                        modifierData.anyCanConvert ||= entry.canConvert;
+                        modifierData.anyCanUpgrade ||= entry.canUpgrade;
+                        modifierData.anyIsConvertible ||= entry.isConvertible;
+                        modifierData.anyIsPurchaseable ||= entry.isPurchased;
+                        modifierData.anyIsUpgradeable ||= entry.isUpgradeable;
+                    }
                 }
             } // for modifier
         } // for setItemId
@@ -535,4 +539,8 @@ export function doConvertible(): LazyConvertible {
     console.timeEnd('LazyState.doConvertible');
 
     return ret;
+}
+
+function flatFilter<T>(arrays: T[][], filterFunc: (obj: T) => boolean): T[] {
+    return arrays.flatMap((array) => array.filter(filterFunc));
 }

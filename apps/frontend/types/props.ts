@@ -17,3 +17,8 @@ export type ParamsSlugsProps = {
         slug9?: string;
     };
 };
+
+export type SortableProps = {
+    getSortState: (prefix?: string) => number;
+    setSortState: (prefix?: string) => void;
+};

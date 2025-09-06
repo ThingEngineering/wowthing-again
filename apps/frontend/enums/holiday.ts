@@ -1,6 +1,15 @@
 export enum Holiday {
     MidsummerFireFestival,
 
+    TimewalkingClassic,
+    TimewalkingTbc,
+    TimewalkingWotlk,
+    TimewalkingCata,
+    TimewalkingMop,
+    TimewalkingWod,
+    TimewalkingLegion,
+    TimewalkingBfa,
+
     BrawlArathiBlizzard = 1000,
     BrawlClassicAshran,
     BrawlCompStomp,
@@ -14,3 +23,14 @@ export enum Holiday {
     BrawlTempleOfHotmogu,
     BrawlWarsongScramble,
 }
+
+export const timewalkingHolidays = [
+    Holiday.TimewalkingClassic,
+    Holiday.TimewalkingTbc,
+    Holiday.TimewalkingWotlk,
+    Holiday.TimewalkingCata,
+    Holiday.TimewalkingMop,
+    Holiday.TimewalkingWod,
+    Holiday.TimewalkingLegion,
+    Holiday.TimewalkingBfa,
+];

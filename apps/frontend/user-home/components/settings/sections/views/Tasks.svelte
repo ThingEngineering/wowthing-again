@@ -1,17 +1,13 @@
 <script lang="ts">
-    import sortBy from 'lodash/sortBy';
-
-    import { multiTaskMap, taskList, taskMap } from '@/data/tasks';
+    import { taskList } from '@/data/tasks';
     import { settingsState } from '@/shared/state/settings.svelte';
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types';
 
     import MagicLists from '../../MagicLists.svelte';
-    import Multi from './TasksMulti.svelte';
+    import TaskOptions from './TaskOptions.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
 
     let { active, view = $bindable() }: { active: boolean; view: SettingsView } = $props();
-
-    const multiTasks = sortBy(Object.keys(multiTaskMap), (key) => key);
 
     let taskFilter = $state('');
 
@@ -24,15 +20,16 @@
 
         for (const task of taskList) {
             ret.push({ id: task.key, name: task.name });
-            if (task.showSeparate && multiTaskMap[task.key]) {
-                for (const multiTask of multiTaskMap[task.key].filter((t) => !!t)) {
+            if (task.showSeparate && task.chores.length > 1) {
+                for (const chore of task.chores.filter((c) => !!c)) {
                     ret.push({
-                        id: `${task.key}|${multiTask.taskKey}`,
-                        name: `${task.name} - ${multiTask.taskName}`,
+                        id: `${task.key}|${chore.key}`,
+                        name: `${task.name} - ${chore.name}`,
                     });
                 }
             }
         }
+
         return ret;
     });
 </script>
@@ -65,12 +62,12 @@
         />
     </div>
 
-    {#each multiTasks as taskKey (taskKey)}
-        {#if multiTaskMap[taskKey]?.length > 1 && taskMap[taskKey] && view.homeTasks.indexOf(taskKey) >= 0}
+    {#each taskList as task (task.key)}
+        {#if task.chores.length > 1 && view.homeTasks.indexOf(task.key) >= 0}
             <div class="settings-block">
                 <div>
-                    <h3>{taskMap[taskKey].name}</h3>
-                    <Multi multiTaskKey={taskKey} bind:view />
+                    <h3>{task.name}</h3>
+                    <TaskOptions bind:view {task} />
                 </div>
             </div>
         {/if}

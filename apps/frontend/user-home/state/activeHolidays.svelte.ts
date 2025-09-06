@@ -33,10 +33,10 @@ class ActiveHolidays {
 
         const activeHolidays: ActiveHolidayMap = {};
         for (const holiday of filteredHolidays) {
-            const taskKeys = wowthingData.static.holidayIdToKeys.get(holiday.id);
-            if (!taskKeys || taskKeys.every((key) => activeHolidays[key])) {
-                continue;
-            }
+            // const taskKeys = wowthingData.static.holidayIdToKeys.get(holiday.id);
+            // if (!taskKeys || taskKeys.every((key) => activeHolidays[key])) {
+            //     continue;
+            // }
 
             for (const startDate of holiday.startDates) {
                 // Repeats, duration0 is duration and duration1 is time between
@@ -71,13 +71,11 @@ class ActiveHolidays {
                     });
 
                     if (actualStartDate < currentTime && endDate > currentTime) {
-                        for (const taskKey of taskKeys) {
-                            activeHolidays[taskKey] = {
-                                holiday,
-                                startDate: actualStartDate,
-                                endDate,
-                            };
-                        }
+                        activeHolidays[`h${holiday.id}`] = {
+                            holiday,
+                            startDate: actualStartDate,
+                            endDate,
+                        };
                         break;
                     }
                 }

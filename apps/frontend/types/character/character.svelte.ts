@@ -124,7 +124,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public itemsByAppearanceId: Record<number, CharacterItem[]> = $state.raw({});
     public itemsByAppearanceSource: Record<string, CharacterItem[]> = $state.raw({});
     public itemsById: Record<number, CharacterItem[]> = $state.raw({});
-    public itemsByLocation = new SvelteMap<ItemLocation, CharacterItem[]>();
+    public itemsByLocation: Record<number, CharacterItem[]> = $state.raw({});
     public knownRecipes = new SvelteSet<number>();
     public mythicPlusSeasonScores: Record<number, number> = $state({});
     public mythicPlusSeasons: Record<number, Record<number, CharacterMythicPlusAddonMap>> = $state(
@@ -325,8 +325,11 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
         this._itemCounts = {};
 
-        for (const itemLocation of Object.values(ItemLocation)) {
-            this.itemsByLocation.set(itemLocation as number, []);
+        this.itemsByLocation = {};
+        for (const locationValue of Object.values(ItemLocation)) {
+            if (!isNaN(Number(locationValue))) {
+                this.itemsByLocation[locationValue as number] = [];
+            }
         }
 
         if (rawWeekly) {
@@ -351,7 +354,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
                 this.bags[obj.bagId] = obj.itemId;
             } else {
                 items.push(obj);
-                this.itemsByLocation.get(obj.location).push(obj);
+                this.itemsByLocation[obj.location].push(obj);
             }
         }
 
@@ -539,7 +542,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
             }
         }
 
-        for (const item of this.itemsByLocation.get(ItemLocation.Bags) || []) {
+        for (const item of this.itemsByLocation[ItemLocation.Bags] || []) {
             if (item.bagId !== 5 && item.slot > 0) {
                 free--;
             }

@@ -5,7 +5,6 @@ export * from './characters';
 export * from './collecting-settings';
 export * from './currency';
 export * from './history';
-export * from './home';
 export * from './new-nav';
 export * from './professions-recipes';
 export * from './progress';

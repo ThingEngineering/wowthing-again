@@ -15,6 +15,7 @@ import type { Expansion } from '@/types';
 import { browserState } from './browser.svelte';
 import type { Settings } from '../stores/settings/types';
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
+import type { Task } from '@/types/tasks';
 
 const languageToSubdomain: Record<Language, string> = {
     [Language.deDE]: 'de',
@@ -76,7 +77,23 @@ function createSettingsState() {
     });
 
     const customTaskMap = $derived(
-        Object.fromEntries((settings.customTasks || []).map((task) => [task.key, task]))
+        Object.fromEntries(
+            (settings.customTasks || []).map((task) => [
+                task.key,
+                {
+                    ...task,
+                    chores: [
+                        {
+                            key: `${task.key}1`,
+                            name: task.name,
+                            questIds: task.questIds,
+                            questReset: task.questReset,
+                        },
+                    ],
+                } as Task,
+                // task
+            ])
+        )
     );
 
     const derivedTransmogClassMask = $derived.by(() => getTransmogClassMask());
