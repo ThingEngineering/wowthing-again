@@ -24,9 +24,13 @@ class ActiveViewTasks {
                 continue;
             }
 
-            // const taskViewKey = `${settingsState.activeView.id}|${fullTaskName}`;
-
-            if (!activeHolidays.value[taskName] && wowthingData.static.holidayIds.get(taskName)) {
+            // Any task with required holidays needs at least one active
+            if (
+                task.requiredHolidays?.length > 0 &&
+                !task.requiredHolidays.some((holiday) =>
+                    holidayIds[holiday].some((holidayId) => activeHolidays.value[`h${holidayId}`])
+                )
+            ) {
                 continue;
             }
 
