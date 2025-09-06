@@ -48,9 +48,6 @@ export const warWithinSkinning: TaskProfession = {
             source: 'Gathering',
         },
     ],
-    taskQuests: [
-        // TODO
-    ],
     bookQuests: [
         {
             itemId: 227417, // Faded Skinner's Notes
