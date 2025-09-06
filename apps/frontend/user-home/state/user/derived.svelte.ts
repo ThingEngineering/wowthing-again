@@ -1069,17 +1069,17 @@ export class DataUserDerived {
                         );
                     } else if (chore.questReset === DbResetType.Custom) {
                         expiresAt = chore.customExpiryFunc(character, charScanned);
-                    } else {
+                    } else if (chore.questReset !== DbResetType.Never) {
                         expiresAt = getNextDailyResetFromTime(
                             charScanned,
                             character.realm?.region || Region.US
                         );
                     }
 
-                    if (expiresAt > timeState.time) {
+                    if (chore.questReset === DbResetType.Never || expiresAt > timeState.time) {
                         charChore.progressCurrent = 1;
                         charChore.quest = {
-                            expires: expiresAt.toUnixInteger(),
+                            expires: expiresAt?.toUnixInteger(),
                             id: questId,
                             name: wowthingData.static.questNameById.get(questId) || chore.name,
                             objectives: [],
