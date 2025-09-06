@@ -29,7 +29,6 @@
 //     twwChoresChett,
 //     twwCofferKeys,
 //     twwHorrificVisions,
-//     twwPinnacle,
 // } from './the_war_within';
 
 // const nameFire = '<span class="status-warn">:fire:</span>';
@@ -307,13 +306,6 @@
 //         key: 'twwCofferKeys',
 //         name: '[TWW] Coffer Keys',
 //         shortName: 'Keys',
-//         minimumLevel: 80,
-//         type: 'multi',
-//     },
-//     {
-//         key: 'twwPinnacle',
-//         name: '[TWW] Veteran Caches',
-//         shortName: 'Vet',
 //         minimumLevel: 80,
 //         type: 'multi',
 //     },
@@ -600,7 +592,6 @@
 // //     twwChoresChett,
 // //     twwCofferKeys,
 // //     twwHorrificVisions,
-// //     twwPinnacle,
 // //     twwSpreading: [
 // //         {
 // //             key: 'twwSpreadingTheLight',
