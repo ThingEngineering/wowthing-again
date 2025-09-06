@@ -562,6 +562,7 @@ export class DataUserDerived {
                     if (charChore.status === QuestStatus.Completed) {
                         charTask.countCompleted++;
                     } else if (charChore.status === QuestStatus.InProgress) {
+                        charTask.status ||= QuestStatus.InProgress;
                         charTask.countStarted++;
                         if (
                             charChore.status === QuestStatus.InProgress &&
