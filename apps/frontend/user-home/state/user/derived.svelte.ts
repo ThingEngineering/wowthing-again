@@ -596,7 +596,17 @@ export class DataUserDerived {
             } else if (statuses.length > 1) {
                 charTask.status = Math.min(...statuses);
             }
-        }
+
+            // Use chore progress if there's only one
+            if (charTask.status === QuestStatus.InProgress) {
+                const charChores = Object.values(charTask.chores);
+                if (charChores.length === 1) {
+                    charTask.countCompleted = charChores[0].progressCurrent;
+                    charTask.countTotal = charChores[0].progressTotal;
+                    charTask.countStarted = charTask.countTotal - charTask.countCompleted;
+                }
+            }
+        } // for fullTaskName
 
         // for (const fullTaskName of settingsState.allTasks) {
         //     const [taskName, choreName] = fullTaskName.split('|', 2);
