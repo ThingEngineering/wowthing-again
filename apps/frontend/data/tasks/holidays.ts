@@ -21,13 +21,6 @@
 //         type: 'multi',
 //     },
 //     {
-//         key: 'holidayDarkmoonFaire',
-//         minimumLevel: 1,
-//         name: '[Event] Darkmoon Faire',
-//         shortName: 'DMF',
-//         type: 'multi',
-//     },
-//     {
 //         key: 'holidayHallowsEnd',
 //         minimumLevel: 10,
 //         name: "[Event] Hallow's End",
@@ -92,124 +85,6 @@
 //         {
 //             key: 'anniversarySoldier',
 //             name: 'Alterac Valley',
-//         },
-//     ],
-//     holidayDarkmoonFaire: [
-//         {
-//             key: 'dmfStrength',
-//             name: 'Test Your Strength',
-//         },
-//         {
-//             key: 'dmfDenmother',
-//             name: 'Kill Moonfang',
-//         },
-//         // Items
-//         {
-//             key: 'dmfStrategist',
-//             name: '{itemWithIcon:71715}', // A Treatise on Strategy
-//         },
-//         {
-//             key: 'dmfBanner',
-//             name: '{itemWithIcon:71951}', // Banner of the Fallen
-//         },
-//         {
-//             key: 'dmfInsignia',
-//             name: '{itemWithIcon:71952}', // Captured Insignia
-//         },
-//         {
-//             key: 'dmfJournal',
-//             name: '{itemWithIcon:71953}', // Fallen Adventurer's Journal
-//         },
-//         {
-//             key: 'dmfCrystal',
-//             name: '{itemWithIcon:71635}', // Imbued Crystal
-//         },
-//         {
-//             key: 'dmfEgg',
-//             name: '{itemWithIcon:71636}', // Monstrous Egg
-//         },
-//         {
-//             key: 'dmfGrimoire',
-//             name: '{itemWithIcon:71637}', // Mysterious Grimoire
-//         },
-//         {
-//             key: 'dmfWeapon',
-//             name: '{itemWithIcon:71638}', // Ornate Weapon
-//         },
-//         {
-//             key: 'dmfDivination',
-//             name: '{itemWithIcon:71716}', // Soothsayer's Runes
-//         },
-//         // Professions
-//         {
-//             key: 'dmfAlchemy',
-//             name: ':alchemy: A Fizzy Fusion',
-//             couldGetFunc: (char) => !!char.professions?.[Profession.Alchemy],
-//         },
-//         {
-//             key: 'dmfBlacksmithing',
-//             name: ':blacksmithing: Baby Needs Two Pair of Shoes',
-//             couldGetFunc: (char) => !!char.professions?.[Profession.Blacksmithing],
-//         },
-//         {
-//             key: 'dmfEnchanting',
-//             name: ':enchanting: Putting Trash to Good Use',
-//             couldGetFunc: (char) => !!char.professions?.[Profession.Enchanting],
-//         },
-//         {
-//             key: 'dmfEngineering',
-//             name: ":engineering: Talkin' Tonks",
-//             couldGetFunc: (char) => !!char.professions?.[Profession.Engineering],
-//         },
-//         {
-//             key: 'dmfHerbalism',
-//             name: ':herbalism: Herbs for Healing',
-//             couldGetFunc: (char) => !!char.professions?.[Profession.Herbalism],
-//         },
-//         {
-//             key: 'dmfInscription',
-//             name: ':inscription: Writing the Future',
-//             couldGetFunc: (char) => !!char.professions?.[Profession.Inscription],
-//         },
-//         {
-//             key: 'dmfJewelcrafting',
-//             name: ':jewelcrafting: Keeping the Faire Sparkling',
-//             couldGetFunc: (char) => !!char.professions?.[Profession.Jewelcrafting],
-//         },
-//         {
-//             key: 'dmfLeatherworking',
-//             name: ':leatherworking: Eyes on the Prizes',
-//             couldGetFunc: (char) => !!char.professions?.[Profession.Leatherworking],
-//         },
-//         {
-//             key: 'dmfMining',
-//             name: ':mining: Rearm, Reuse, Recycle',
-//             couldGetFunc: (char) => !!char.professions?.[Profession.Mining],
-//         },
-//         {
-//             key: 'dmfSkinning',
-//             name: ':skinning: Tan My Hide',
-//             couldGetFunc: (char) => !!char.professions?.[Profession.Skinning],
-//         },
-//         {
-//             key: 'dmfTailoring',
-//             name: ':tailoring: Banners, Banners Everywhere!',
-//             couldGetFunc: (char) => !!char.professions?.[Profession.Tailoring],
-//         },
-//         {
-//             key: 'dmfArchaeology',
-//             name: ':archaeology: Fun for the Little Ones',
-//             couldGetFunc: (char) => !!char.professions?.[Profession.Archaeology],
-//         },
-//         {
-//             key: 'dmfCooking',
-//             name: ':cooking: Putting the Crunch in the Frog',
-//             couldGetFunc: (char) => !!char.professions?.[Profession.Cooking],
-//         },
-//         {
-//             key: 'dmfFishing',
-//             name: ":fishing: Spoilin' for Salty Sea Dogs",
-//             couldGetFunc: (char) => !!char.professions?.[Profession.Fishing],
 //         },
 //     ],
 //     holidayHallowsEnd: [
@@ -403,85 +278,8 @@
 //         shortName: 'Pets',
 //     },
 //     {
-//         key: 'holidayTimewalking',
-//         name: '[Event] Timewalking Dungeons',
-//         shortName: 'TW :exclamation:',
-//         minimumLevel: 10,
-//         type: 'multi',
-//     },
-//     {
-//         key: 'holidayTimewalkingItem',
-//         name: '[Event] Timewalking Item',
-//         shortName: 'TW :item:',
-//         minimumLevel: 10,
-//         questIds: [
-//             83285, // Classic
-//             40168, // TBC
-//             40173, // WotLK
-//             40787, // Cata [A]
-//             40786, // Cata [H]
-//             45563, // MoP
-//             55498, // WoD [A]
-//             55499, // WoD [H]
-//             64710, // Legion
-//             89222, // BfA [A]
-//             89223, // BfA [H]
-//         ],
-//         questReset: DbResetType.Weekly,
-//     },
-//     {
-//         key: 'holidayTimewalkingRaid',
-//         name: '[Event] Timewalking Raid',
-//         shortName: 'TW :rocket:',
-//         minimumLevel: 30,
-//         questIds: [
-//             47523, // TBC [Black Temple]
-//             50316, // WotLK [Ulduar]
-//             57637, // Cata [Firelands]
-//         ],
-//         questReset: DbResetType.Weekly,
-//     },
-//     {
 //         key: 'holidayWorldQuests',
 //         name: '[Event] World Quests',
 //         shortName: 'WQs',
 //     },
 // ];
-
-// export const holidayTimewalkingChores: Record<string, Chore[]> = {
-//     holidayTimewalking: [
-//         {
-//             key: 'twDungeonsNotMax',
-//             name: `Timewalking Dungeons &lt; ${Constants.characterMaxLevel}`,
-//             minimumLevel: 10,
-//             maximumLevel: Constants.characterMaxLevel - 1,
-//             questIds: [
-//                 85947, // An Original Journey Through Time [Classic]
-//                 85948, // A Burning Journey Through Time [TBC]
-//                 85949, // A Frozen Journey Through Time [Wrath]
-//                 86556, // A Shattered Journey Through Time [Cata]
-//                 86560, // A Shrouded Journey Through Time [MoP]
-//                 86563, // A Savage Journey Through Time [WoD]
-//                 86564, // A Fel Journey Through Time [Legion]
-//                 88808, // A Scarred Journey Through Time [BfA]
-//             ],
-//             questReset: DbResetType.Weekly,
-//         },
-//         {
-//             key: 'twDungeonsMax',
-//             name: `Timewalking Dungeons @ ${Constants.characterMaxLevel}`,
-//             minimumLevel: Constants.characterMaxLevel,
-//             questIds: [
-//                 83274, // An Original Path Through Time [Classic]
-//                 83363, // A Burning Path Through Time [TBC]
-//                 83365, // A Frozen Path Through Time [Wrath]
-//                 83359, // A Shattered Path Through Time [Cata]
-//                 83362, // A Shrouded Path Through Time [MoP]
-//                 83364, // A Savage Path Through Time [WoD]
-//                 83360, // A Fel Path Through Time [Legion]
-//                 88805, // A Scarred Path Through Time [BfA]
-//             ],
-//             questReset: DbResetType.Weekly,
-//         },
-//     ],
-// };
