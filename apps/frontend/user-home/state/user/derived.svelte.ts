@@ -1110,18 +1110,19 @@ export class DataUserDerived {
                     subChore
                 );
 
+                const suffixText = `[${charSubChore.progressCurrent}/${charSubChore.progressTotal}] ${charSubChore.name}`;
+
                 charChore.progressTotal += charSubChore.progressTotal;
 
                 if (charSubChore.status === QuestStatus.Completed) {
                     charChore.progressCurrent += charSubChore.progressCurrent;
                     charChore.statusTexts.push(
-                        `<span class="status-success">:starFull:</span> ${charSubChore.name}`
+                        `<span class="status-success">:starFull:</span> ${suffixText}`
                     );
                 } else {
                     charChore.status = Math.max(charChore.status, charSubChore.status);
 
                     const isFirst = charChore.statusTexts.length === 0;
-                    const suffixText = `[${charSubChore.progressCurrent}/${charSubChore.progressTotal}] ${charSubChore.name}`;
                     if (
                         charSubChore.status === QuestStatus.InProgress &&
                         (chore.subChoresAnyOrder ||
