@@ -1,4 +1,3 @@
-import type { InventorySlot } from '@/enums/inventory-slot';
 import { Region } from '@/enums/region';
 import { objectKeys } from '@/utils/object-keys';
 
@@ -31,6 +30,8 @@ interface BrowserStateIdk {
     };
     home: {
         activeView: string;
+        groupSort: Record<string, string>;
+        groupSortReverse: Record<string, boolean>;
         showTotalGold: boolean;
     };
     illusions: {
@@ -173,6 +174,8 @@ const initialState: BrowserStateIdk = {
     },
     home: {
         activeView: '',
+        groupSort: {},
+        groupSortReverse: {},
         showTotalGold: false,
     },
     illusions: {

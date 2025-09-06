@@ -53,7 +53,6 @@
 
         const professionCharacters = userState.general.visibleCharacters.filter((char) =>
             useCharacterFilter(
-                $lazyStore,
                 settingsState.value,
                 $userQuestStore,
                 (c) =>

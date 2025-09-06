@@ -22,7 +22,7 @@
     let cls: string;
     let dataChunks: [ManualDataProgressData, number][][];
     $: {
-        cls = datas.some((data, i) => {
+        cls = (datas || []).some((data, i) => {
             const desc = descriptionText[i] || data.description;
             if (desc && desc.length > 20) {
                 return true;

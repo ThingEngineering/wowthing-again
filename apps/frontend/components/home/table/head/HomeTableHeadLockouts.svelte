@@ -3,12 +3,12 @@
     import { wowthingData } from '@/shared/stores/data';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { viewHasLockout } from '@/shared/utils/view-has-lockout';
-    import { homeState } from '@/stores/local-storage';
     import { userState } from '@/user-home/state/user';
+    import type { SortableProps } from '@/types/props';
 
     import Tooltip from '@/components/tooltips/lockout-header/TooltipLockoutHeader.svelte';
 
-    let { sortKey }: { sortKey: string } = $props();
+    let { getSortState, setSortState }: SortableProps = $props();
 
     let filteredLockouts = $derived.by(() =>
         userState.general.homeLockouts.filter(
@@ -21,11 +21,6 @@
                 )
         )
     );
-
-    function setSorting(column: string) {
-        const current = $homeState.groupSort[sortKey];
-        $homeState.groupSort[sortKey] = current === column ? undefined : column;
-    }
 </script>
 
 <style lang="scss">
@@ -37,12 +32,10 @@
 {#each filteredLockouts as instanceDifficulty (instanceDifficulty)}
     {@const { difficulty, instanceId } = instanceDifficulty}
     {@const instance = wowthingData.static.instanceById.get(instanceId)}
-    {@const sortField = `lockout:${instanceId}-${difficulty?.id || 0}`}
+    {@const sortKey = `${instanceId}-${difficulty?.id || 0}`}
     <td
-        class="sortable"
-        class:sorted-by={$homeState.groupSort[sortKey] === sortField}
-        onclick={() => setSorting(sortField)}
-        onkeypress={() => setSorting(sortField)}
+        class="sortable sorted-{getSortState(sortKey)}"
+        onclick={() => setSortState(sortKey)}
         use:componentTooltip={{
             component: Tooltip,
             props: {

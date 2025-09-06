@@ -38,26 +38,26 @@
             border-color: #{$color-success};
         }
     }
-    .tier {
-        display: flex;
-        gap: 0.3rem;
+    // .tier {
+    //     display: flex;
+    //     gap: 0.3rem;
 
-        &.none-chosen {
-            --image-border-color: #{$color-fail};
-        }
-        &:not(.none-chosen) {
-            .talent:not(.selected) {
-                filter: grayscale(50%) opacity(75%);
-            }
-        }
-    }
-    .talent {
-        --image-border-width: 2px;
+    //     &.none-chosen {
+    //         --image-border-color: #{$color-fail};
+    //     }
+    //     &:not(.none-chosen) {
+    //         .talent:not(.selected) {
+    //             filter: grayscale(50%) opacity(75%);
+    //         }
+    //     }
+    // }
+    // .talent {
+    //     --image-border-width: 2px;
 
-        &.selected {
-            --image-border-color: #{$color-success};
-        }
-    }
+    //     &.selected {
+    //         --image-border-color: #{$color-success};
+    //     }
+    // }
 </style>
 
 <div class="specialization border" class:selected={character.activeSpecId === specializationId}>

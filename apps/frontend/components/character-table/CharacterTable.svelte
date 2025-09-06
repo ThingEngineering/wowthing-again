@@ -3,10 +3,10 @@
     import sortBy from 'lodash/sortBy';
     import { location } from 'svelte-spa-router';
 
+    import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { timeStore } from '@/shared/stores/time';
-    import { lazyStore, userQuestStore } from '@/stores';
-    import { homeState, newNavState } from '@/stores/local-storage';
+    import { userQuestStore } from '@/stores';
+    import { newNavState } from '@/stores/local-storage';
     import { userState } from '@/user-home/state/user';
     import { useCharacterFilter } from '@/utils/characters';
     import { getCharacterGroupContext } from '@/utils/get-character-group-func';
@@ -62,7 +62,6 @@
 
         characters = characters.filter((char) =>
             useCharacterFilter(
-                $lazyStore,
                 settingsState.value,
                 $userQuestStore,
                 filterFunc,
@@ -88,20 +87,28 @@
         const groupKeys = Object.keys(grouped);
         groupKeys.sort();
 
-        const pairs: [string, Character[]][] = [];
+        let pairs: [string, Character[]][] = [];
         for (let keyIndex = 0; keyIndex < groupKeys.length; keyIndex++) {
             const key = groupKeys[keyIndex];
             const sortKey = `${settingsState.activeView.id}|${keyIndex}`;
+            const sortedBy = browserState.current.home.groupSort[sortKey];
+            const reversed = browserState.current.home.groupSortReverse[sortKey];
+
             const keySort =
-                isHome && $homeState.groupSort[sortKey]
-                    ? getCharacterSortFunc((char) =>
-                          homeSort($lazyStore, $homeState.groupSort[sortKey], char)
-                      )
+                isHome && sortedBy
+                    ? getCharacterSortFunc((char) => homeSort(char, sortedBy))
                     : sortFunc;
-            pairs.push([key, sortBy(grouped[key], keySort)]);
+
+            const sorted = sortBy(grouped[key], keySort);
+            if (reversed) {
+                sorted.reverse();
+            }
+
+            pairs.push([key, sorted]);
         }
 
         pairs.sort();
+
         let groups = pairs.map(([, group]) => group);
         if (groups.length === 1 && groups[0].length === 0) {
             groups = [];

@@ -1,24 +1,19 @@
 <script lang="ts">
-    import { multiTaskMap, taskMap } from '@/data/tasks';
+    import { taskMap } from '@/data/tasks';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { timeState } from '@/shared/state/time.svelte';
-    import { userState } from '@/user-home/state/user';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { homeState } from '@/stores/local-storage';
     import { activeViewTasks } from '@/user-home/state/activeViewTasks.svelte';
+    import { userState } from '@/user-home/state/user';
+    import type { SortableProps } from '@/types/props';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import Tooltip from '@/components/tooltips/task/TooltipTaskHead.svelte';
 
-    let { sortKey }: { sortKey: string } = $props();
+    let { getSortState, setSortState }: SortableProps = $props();
 
     let activeTasks = $derived(activeViewTasks.value);
-
-    function setSorting(column: string) {
-        const current = $homeState.groupSort[sortKey];
-        $homeState.groupSort[sortKey] = current === column ? undefined : column;
-    }
 </script>
 
 <style lang="scss">
@@ -45,30 +40,26 @@
 {#each activeTasks as fullTaskName (fullTaskName)}
     {@const [taskName, choreName] = fullTaskName.split('|', 2)}
     {@const task = taskMap[taskName] || settingsState.customTaskMap[fullTaskName]}
-    {@const sortField = `task:${fullTaskName}`}
-    {@const chore = multiTaskMap[taskName]?.find((task) => task?.taskKey === choreName)}
+    {@const chore = task.chores.find((task) => task?.key === choreName)}
     {@const customExpiry = chore?.decorationFunc?.(
         chore?.customExpiryFunc(userState.general.characters[0], timeState.time)
     )}
 
     <td
-        class="sortable {customExpiry || ''}"
-        class:sorted-by={$homeState.groupSort[sortKey] === sortField}
+        class="sortable sorted-{getSortState(fullTaskName)} {customExpiry || ''}"
         data-task={taskName}
-        onclick={() => setSorting(sortField)}
-        onkeypress={() => setSorting(sortField)}
+        onclick={() => setSortState(fullTaskName)}
         use:componentTooltip={{
             component: Tooltip,
             props: {
+                chore,
                 fullTaskName,
+                task,
             },
         }}
     >
-        {#if choreName}
-            <IconifyIcon
-                icon={multiTaskMap[taskName].find((chore) => chore?.taskKey === choreName)?.icon}
-                scale="0.9"
-            />
+        {#if chore}
+            <IconifyIcon icon={chore?.icon} scale="0.9" />
         {:else}
             <ParsedText text={task.shortName} />
         {/if}

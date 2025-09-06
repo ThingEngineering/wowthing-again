@@ -7,7 +7,6 @@ import { QuestStatus } from '@/enums/quest-status';
 import { Role } from '@/enums/role';
 import { wowthingData } from '@/shared/stores/data';
 import { parseBooleanQuery } from '@/shared/utils/boolean-parser';
-import { LazyStore } from '@/stores';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { Character } from '@/types';
 import type { UserQuestData } from '@/types/data';
@@ -17,7 +16,6 @@ type FilterFunc = (char: Character) => boolean;
 const _cache: Record<string, string[][]> = {};
 
 export function useCharacterFilter(
-    lazyStore: LazyStore,
     settings: Settings,
     userQuestData: UserQuestData,
     filterFunc: FilterFunc,
@@ -232,9 +230,9 @@ export function useCharacterFilter(
                             }
 
                             // Work orders available?
-                            if (part === 'orders') {
-                                return lazyStore.characters[char.id].professionWorkOrders.have > 0;
-                            }
+                            // if (part === 'orders') {
+                            //     return lazyStore.characters[char.id].professionWorkOrders.have > 0;
+                            // }
 
                             return false;
                         })(outerPart.replace(/^!/, '')) === outerPart.startsWith('!')

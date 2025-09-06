@@ -2,22 +2,25 @@
     import debounce from 'lodash/debounce';
     import xor from 'lodash/xor';
 
-    import { multiTaskMap } from '@/data/tasks';
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types';
 
     import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import type { Task } from '@/types/tasks';
 
-    let { multiTaskKey, view = $bindable() }: { multiTaskKey: string; view: SettingsView } =
-        $props();
+    type Props = {
+        task: Task;
+        view: SettingsView;
+    };
+    let { task, view = $bindable() }: Props = $props();
 
-    const taskChoices: SettingsChoice[] = multiTaskMap[multiTaskKey]
-        .filter((t) => !!t)
-        .map((t) => ({ id: t.taskKey, name: t.taskName }));
+    const taskChoices: SettingsChoice[] = task.chores
+        .filter((c) => !!c)
+        .map((c) => ({ id: c.key, name: c.name }));
 
     let taskActive = $derived.by(() =>
         taskChoices
-            .filter((choice) => (view.disabledChores[multiTaskKey] || []).indexOf(choice.id) === -1)
+            .filter((choice) => (view.disabledChores[task.key] || []).indexOf(choice.id) === -1)
             .map((choice) => choice.id)
     );
 
@@ -32,7 +35,7 @@
     let lastKeys: string[] = [];
     const onTaskChange = debounce((keys: string[]) => {
         if (xor(lastKeys, keys).length > 0) {
-            (view.disabledChores ||= {})[multiTaskKey] = keys;
+            (view.disabledChores ||= {})[task.key] = keys;
             lastKeys = keys;
         }
     }, 250);

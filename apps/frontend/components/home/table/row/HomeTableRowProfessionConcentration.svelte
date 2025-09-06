@@ -12,13 +12,22 @@
     import type { CharacterProps } from '@/types/props';
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { Constants } from '@/data/constants';
 
     let { character }: CharacterProps = $props();
 
     let professions = $derived.by(() =>
         sortBy(
             Object.keys(professionConcentration)
-                .filter((id) => !!character.professions?.[parseInt(id)])
+                .filter((professionIdString) => {
+                    const professionId = parseInt(professionIdString);
+                    const profession = wowthingData.static.professionById.get(professionId);
+                    const charProf = character.professions?.[professionId];
+                    const subProfession = profession.expansionSubProfession[Constants.expansion];
+                    return (
+                        !!charProf && charProf.subProfessions[subProfession.id]?.skillCurrent >= 50
+                    );
+                })
                 .map((id) => wowthingData.static.professionById.get(parseInt(id))),
             (prof) => getProfessionSortKey(prof)
         )
@@ -77,6 +86,7 @@
                     settingsState.value.professions.fullConcentrationIsBad,
                     percent
                 )}"
+                class:faded={['leatherworking', 'tailoring'].includes(profession.slug)}
                 use:basicTooltip={{
                     allowHTML: true,
                     content: tooltip,
