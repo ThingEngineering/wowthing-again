@@ -34,6 +34,7 @@ export type Chore = {
     subChoresAnyOrder?: boolean;
     subChores?: Chore[];
     requiredHolidays?: Holiday[];
+    progressFunc?: (char: Character) => { have: number; need: number };
     /**
      * Function to check if character is eligibile for this task (eg has a profession)
      */
