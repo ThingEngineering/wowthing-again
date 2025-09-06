@@ -1,15 +1,13 @@
 <script lang="ts">
-    // import groupBy from 'lodash/groupBy';
-
-    import { taskChoreMap, taskMap } from '@/data/tasks';
+    import { taskChoreMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
     import { uiIcons } from '@/shared/icons';
     import type { CharacterProps } from '@/types/props';
+    import type { Task } from '@/types/tasks';
     import type { CharacterChore, CharacterTask } from '@/user-home/state/user/types/tasks.svelte';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
-    import type { Task } from '@/types/tasks';
 
     type Props = CharacterProps & {
         charChore?: CharacterChore;
@@ -19,7 +17,7 @@
     };
     let { character, charChore, charTask, task, taskName }: Props = $props();
 
-    let taskSets = $derived.by(() => {
+    let choreSets = $derived.by(() => {
         const ret: CharacterChore[][] = [];
 
         if (charChore) {
@@ -40,7 +38,7 @@
                     currentSet = [];
                 } else {
                     const charTaskChore = charTask.chores[chore.key];
-                    if (charTaskChore) {
+                    if (charTaskChore && !charTaskChore.skipped) {
                         currentSet.push(charTaskChore);
                     }
                 }
@@ -52,7 +50,7 @@
     });
 
     let anyErrors = $derived(
-        taskSets.some((taskSet) =>
+        choreSets.some((taskSet) =>
             taskSet.some(
                 (task) =>
                     !!task &&
@@ -135,49 +133,53 @@
     <h4>{character.name}</h4>
     <h5>{task?.name || `Unknown Task "${taskName}"`}</h5>
 
-    {#each taskSets as taskSet}
+    {#each choreSets as choreSet (choreSet)}
         <table class="table-striped">
             <tbody>
-                {#each taskSet as charTask}
-                    {@const taskChore = taskChoreMap[`${taskName}_${charTask.key}`]}
-                    <tr class:skipped={charTask.skipped && charTask.status !== QuestStatus.Error}>
+                {#each choreSet as charTaskChore (charTaskChore)}
+                    {@const chore = taskChoreMap[`${taskName}_${charTaskChore.key}`]}
+                    <tr
+                        class:skipped={!charChore &&
+                            charTaskChore.skipped &&
+                            charTaskChore.status !== QuestStatus.Error}
+                    >
                         <td
                             class="name text-overflow"
-                            class:status-shrug={charTask.status === QuestStatus.Error}
+                            class:status-shrug={charTaskChore.status === QuestStatus.Error}
                         >
                             <ParsedText
                                 text={taskName.startsWith('tww')
-                                    ? charTask.name
-                                    : charTask.name.replace(/^\[.*?\] /, '')}
+                                    ? charTaskChore.name
+                                    : charTaskChore.name.replace(/^\[.*?\] /, '')}
                             />
                         </td>
                         <td class="status">
                             <IconifyIcon
                                 extraClass="status-{['fail', 'shrug', 'success', 'fail'][
-                                    charTask.status
+                                    charTaskChore.status
                                 ]}"
-                                icon={taskChore?.icon ||
+                                icon={chore?.icon ||
                                     [
                                         uiIcons.starEmpty,
                                         uiIcons.starHalf,
                                         uiIcons.starFull,
                                         uiIcons.lock,
-                                    ][charTask.status]}
+                                    ][charTaskChore.status]}
                             />
                         </td>
                         {#if anyErrors}
                             <td class="error-text">
-                                {#if charTask.status === QuestStatus.Error}
-                                    {charTask.statusTexts[0]}
+                                {#if charTaskChore.status === QuestStatus.Error}
+                                    {charTaskChore.statusTexts[0]}
                                 {/if}
                             </td>
                         {/if}
                     </tr>
 
-                    {#if charTask.status === QuestStatus.InProgress && charTask.statusTexts[0]}
-                        <tr class:skipped={charTask.skipped}>
+                    {#if charTaskChore.status === QuestStatus.InProgress && charTaskChore.statusTexts[0]}
+                        <tr class:skipped={charTaskChore.skipped}>
                             <td class="status-text" colspan={anyErrors ? 3 : 2}>
-                                {#each charTask.statusTexts as statusText}
+                                {#each charTaskChore.statusTexts as statusText}
                                     {@const [fixedText, textClass] = getFixedText(statusText)}
                                     <div>
                                         {#if !statusText.startsWith('<')}
