@@ -1,4 +1,5 @@
 export enum Holiday {
+    DarkmoonFaire,
     MidsummerFireFestival,
 
     TimewalkingClassic,

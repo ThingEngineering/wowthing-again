@@ -4,10 +4,8 @@ import { holidayIds } from '@/data/holidays';
 import { taskMap } from '@/data/tasks';
 import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
-import { lazyStore } from '@/stores';
 import { logErrors } from '@/utils/log-errors';
-import type { SettingsTask } from '@/shared/stores/settings/types/task';
-import type { Chore } from '@/types/tasks';
+import type { Chore, Task } from '@/types/tasks';
 
 import { activeHolidays } from './activeHolidays.svelte';
 
@@ -15,23 +13,24 @@ class ActiveViewTasks {
     value = $derived.by(() => logErrors(this._value));
 
     private _value() {
-        // const customTaskMap = $state.snapshot(settingsState.customTaskMap) as Record<
-        //     string,
-        //     SettingsTask
-        // >;
+        const customTaskMap = $state.snapshot(settingsState.customTaskMap) as Record<string, Task>;
 
         const activeTasks: string[] = [];
 
         for (const fullTaskName of settingsState.activeView.homeTasks) {
             const [taskName, choreName] = fullTaskName.split('|', 2);
-            const task = taskMap[taskName]; // || customTaskMap[fullTaskName]; // FIXME
+            const task = taskMap[taskName] || customTaskMap[fullTaskName];
             if (!task || (choreName && !task.chores.some((chore) => chore.key === choreName))) {
                 continue;
             }
 
-            // const taskViewKey = `${settingsState.activeView.id}|${fullTaskName}`;
-
-            if (!activeHolidays.value[taskName] && wowthingData.static.holidayIds.get(taskName)) {
+            // Any task with required holidays needs at least one active
+            if (
+                task.requiredHolidays?.length > 0 &&
+                !task.requiredHolidays.some((holiday) =>
+                    holidayIds[holiday].some((holidayId) => activeHolidays.value[`h${holidayId}`])
+                )
+            ) {
                 continue;
             }
 

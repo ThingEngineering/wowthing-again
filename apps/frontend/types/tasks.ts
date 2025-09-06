@@ -12,6 +12,7 @@ export type Task = {
     icon?: IconifyIcon;
     maximumLevel?: number;
     minimumLevel?: number;
+    requiredHolidays?: Holiday[];
     requiredQuestId?: number;
     showSeparate?: boolean;
     chores: Chore[];

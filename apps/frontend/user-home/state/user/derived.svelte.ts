@@ -357,9 +357,10 @@ export class DataUserDerived {
         // //     } as UserQuestDataCharacterProgress);
         // // }
 
+        const customTaskMap = $state.snapshot(settingsState.customTaskMap) as Record<string, Task>;
         for (const fullTaskName of activeViewTasks.value) {
             const [taskName, choreName] = fullTaskName.split('|', 2);
-            const task = taskMap[taskName];
+            const task = taskMap[taskName] || customTaskMap[taskName];
             if (
                 !task ||
                 character.ignored ||
@@ -583,6 +584,14 @@ export class DataUserDerived {
 
                 charTask.chores[chore.key] = charChore;
             }
+
+            // Propagate chore status to the task
+            const statuses = uniq(
+                Object.values(charTask.chores)
+                    .filter((chore) => !!chore && !chore.skipped)
+                    .map((task) => task.status as number)
+            );
+            charTask.status = Math.min(...statuses.filter((s) => s >= 1)) || 0;
         }
 
         // for (const fullTaskName of settingsState.allTasks) {
@@ -1068,17 +1077,17 @@ export class DataUserDerived {
                         );
                     } else if (chore.questReset === DbResetType.Custom) {
                         expiresAt = chore.customExpiryFunc(character, charScanned);
-                    } else {
+                    } else if (chore.questReset !== DbResetType.Never) {
                         expiresAt = getNextDailyResetFromTime(
                             charScanned,
                             character.realm?.region || Region.US
                         );
                     }
 
-                    if (expiresAt > timeState.time) {
+                    if (chore.questReset === DbResetType.Never || expiresAt > timeState.time) {
                         charChore.progressCurrent = 1;
                         charChore.quest = {
-                            expires: expiresAt.toUnixInteger(),
+                            expires: expiresAt?.toUnixInteger(),
                             id: questId,
                             name: wowthingData.static.questNameById.get(questId) || chore.name,
                             objectives: [],
