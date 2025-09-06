@@ -1069,6 +1069,7 @@ export class DataUserDerived {
                     }
 
                     if (expiresAt > timeState.time) {
+                        charChore.progressCurrent = 1;
                         charChore.quest = {
                             expires: expiresAt.toUnixInteger(),
                             id: questId,
@@ -1082,7 +1083,7 @@ export class DataUserDerived {
             }
         } else if (chore.subChores) {
             // sub-chores need to be completed in order
-            charChore.progressTotal = chore.subChores.length;
+            charChore.progressTotal = 0;
             charChore.statusTexts = [];
 
             for (const subChore of chore.subChores) {
@@ -1093,8 +1094,10 @@ export class DataUserDerived {
                     subChore
                 );
 
+                charChore.progressTotal += charSubChore.progressTotal;
+
                 if (charSubChore.status === QuestStatus.Completed) {
-                    charChore.progressCurrent++;
+                    charChore.progressCurrent += charSubChore.progressCurrent;
                     charChore.statusTexts.push(
                         `<span class="status-success">:starFull:</span> ${charSubChore.name}`
                     );
@@ -1107,6 +1110,7 @@ export class DataUserDerived {
                         charSubChore.status === QuestStatus.InProgress &&
                         (isFirst || !charChore.statusTexts.at(-1).includes(':starHalf:'))
                     ) {
+                        charChore.progressCurrent += charSubChore.progressCurrent;
                         charChore.statusTexts.push(
                             `<span class="status-shrug">:starHalf:</span> ${suffixText}`
                         );
@@ -1142,7 +1146,7 @@ export class DataUserDerived {
 
         if (
             !!charChore.quest &&
-            (!forcedReset[charChore.key] ||
+            (!chore.questResetForced ||
                 DateTime.fromSeconds(charChore.quest.expires) > timeState.time ||
                 (chore.key.startsWith('dmf') && charChore.quest.expires === 0))
         ) {
