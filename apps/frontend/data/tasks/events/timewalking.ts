@@ -8,6 +8,7 @@ export const eventTimewalking: Task = {
     name: '[Event] Timewalking',
     shortName: 'TW',
     minimumLevel: 10,
+    showSeparate: true,
     chores: [
         {
             key: 'dungeons',
