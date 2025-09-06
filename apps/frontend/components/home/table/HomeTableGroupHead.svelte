@@ -46,7 +46,9 @@
     let playedTotal = $derived(sumBy(group, (c: Character) => c.playedTotal));
 
     const getGetSortState = $derived((field: string) => (suffix?: string) => {
-        const [sortedBy, reversed] = browserState.current.home.groupSort[sortKey] || [];
+        const sortedBy = browserState.current.home.groupSort[sortKey];
+        const reversed = browserState.current.home.groupSortReverse[sortKey];
+
         const actualField = suffix ? `${field}:${suffix}` : field;
         if (sortedBy === actualField) {
             return reversed ? 2 : 1;
@@ -56,16 +58,20 @@
     });
 
     const getSetSortState = $derived((field: string) => (suffix?: string) => {
-        const [sortedBy, reversed] = browserState.current.home.groupSort[sortKey] || [];
+        const sortedBy = browserState.current.home.groupSort[sortKey];
+        const reversed = browserState.current.home.groupSortReverse[sortKey];
+
         const actualField = suffix ? `${field}:${suffix}` : field;
         if (sortedBy === actualField) {
             if (reversed) {
                 delete browserState.current.home.groupSort[sortKey];
+                delete browserState.current.home.groupSortReverse[sortKey];
             } else {
-                browserState.current.home.groupSort[sortKey][1] = true;
+                browserState.current.home.groupSortReverse[sortKey] = true;
             }
         } else {
-            browserState.current.home.groupSort[sortKey] = [actualField, false];
+            browserState.current.home.groupSort[sortKey] = actualField;
+            browserState.current.home.groupSortReverse[sortKey] = true;
         }
     });
 </script>

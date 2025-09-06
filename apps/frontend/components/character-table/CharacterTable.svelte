@@ -91,7 +91,9 @@
         for (let keyIndex = 0; keyIndex < groupKeys.length; keyIndex++) {
             const key = groupKeys[keyIndex];
             const sortKey = `${settingsState.activeView.id}|${keyIndex}`;
-            const [sortedBy, reversed] = browserState.current.home.groupSort[sortKey] || [];
+            const sortedBy = browserState.current.home.groupSort[sortKey];
+            const reversed = browserState.current.home.groupSortReverse[sortKey];
+
             const keySort =
                 isHome && sortedBy
                     ? getCharacterSortFunc((char) => homeSort(char, sortedBy))

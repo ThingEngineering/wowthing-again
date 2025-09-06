@@ -21,7 +21,7 @@ function couldChett(char: Character, chore: Chore): boolean {
     }
 
     // did they complete this task?
-    const questId = chore.questIds[0];
+    const questId = (chore.questIds as number[])[0];
     if (userQuestStore.characterHas(char.id, questId)) {
         return true;
     }
