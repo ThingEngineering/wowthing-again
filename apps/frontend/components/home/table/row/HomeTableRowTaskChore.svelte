@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { taskChoreMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
     import { uiIcons } from '@/shared/icons';
     import { componentTooltip } from '@/shared/utils/tooltips';
