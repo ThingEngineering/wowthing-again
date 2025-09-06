@@ -39,7 +39,9 @@ export const holidayMinimumLevel: Record<number, number> = {
 };
 
 export const holidayIds: Record<number, number[]> = {
+    [Holiday.DarkmoonFaire]: [479],
     [Holiday.MidsummerFireFestival]: [11],
+
     [Holiday.TimewalkingClassic]: [1508, 1583, 1584, 1585],
     [Holiday.TimewalkingTbc]: [559, 622, 623, 624],
     [Holiday.TimewalkingWotlk]: [562, 616, 617, 618],
@@ -48,6 +50,7 @@ export const holidayIds: Record<number, number[]> = {
     [Holiday.TimewalkingWod]: [1056, 1063, 1065, 1068],
     [Holiday.TimewalkingLegion]: [1263, 1265, 1267, 1269, 1271, 1273, 1275, 1277],
     [Holiday.TimewalkingBfa]: [1666, 1667, 1668, 1669],
+
     [Holiday.BrawlArathiBlizzard]: [666, 673, 680, 697, 737],
     [Holiday.BrawlClassicAshran]: [1120, 1121, 1122, 1123, 1124],
     [Holiday.BrawlCompStomp]: [1234, 1235, 1236, 1237, 1238],
