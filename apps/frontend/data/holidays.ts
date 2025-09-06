@@ -40,7 +40,7 @@ export const holidayMinimumLevel: Record<number, number> = {
 
 export const holidayIds: Record<number, number[]> = {
     [Holiday.MidsummerFireFestival]: [11],
-    [Holiday.TimewalkingClassic]: [],
+    [Holiday.TimewalkingClassic]: [1508, 1583, 1584, 1585],
     [Holiday.TimewalkingTbc]: [559, 622, 623, 624],
     [Holiday.TimewalkingWotlk]: [562, 616, 617, 618],
     [Holiday.TimewalkingCata]: [587, 628, 629, 630],
