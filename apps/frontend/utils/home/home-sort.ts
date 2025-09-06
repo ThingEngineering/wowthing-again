@@ -168,18 +168,18 @@ export function homeSort(char: Character, sortBy: string): string {
         }
         return leftPad(10_000 - value, 5, '0');
     } else if (sortBy.startsWith('tasks:')) {
-        let value = -5;
         const [taskName, choreName] = sortBy.split(':')[1].split('|', 2);
         const charTask = userState.activeViewTasks[char.id]?.[taskName];
         const charChore = charTask?.chores?.[choreName];
+
+        let value = -5;
         if (charChore) {
             value = charChore.progressCurrent * 100;
-            if (
-                charChore.progressTotal > 0 &&
-                (charChore.progressCurrent === charChore.progressTotal ||
-                    charChore.status === QuestStatus.Completed) // TODO: remove when fixed derived
-            ) {
-                value += charChore.status === QuestStatus.Completed ? 100_000 : 90_000;
+
+            if (charChore.status === QuestStatus.InProgress) {
+                value += 50_000;
+            } else if (charChore.status === QuestStatus.Completed) {
+                value += 100_000;
             }
         } else if (charTask) {
             value = charTask.countCompleted * 100 + charTask.countStarted;
