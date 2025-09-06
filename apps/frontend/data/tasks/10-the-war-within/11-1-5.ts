@@ -4,7 +4,7 @@ import type { Task } from '@/types/tasks';
 
 export const twwChores11_1_5: Task = {
     key: 'twwChores11_1_5',
-    name: "[TWW] 11.1.5 Flame's Radiance",
+    name: '[TWW] 11.1.5',
     shortName: 'Rad',
     minimumLevel: 10,
     showSeparate: true,

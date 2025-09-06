@@ -53,7 +53,6 @@ export const twwChoresChett: Task = {
     name: '[TWW] C.H.E.T.T',
     shortName: 'CHETT',
     minimumLevel: 80,
-    showSeparate: true,
     chores: [
         {
             key: 'twwChettList',
