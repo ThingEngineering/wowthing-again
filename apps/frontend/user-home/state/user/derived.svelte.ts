@@ -591,7 +591,11 @@ export class DataUserDerived {
                     .filter((chore) => !!chore && !chore.skipped)
                     .map((task) => task.status as number)
             );
-            charTask.status = Math.min(...statuses.filter((s) => s >= 1)) || 0;
+            if (statuses.length === 1) {
+                charTask.status = statuses[0];
+            } else if (statuses.length > 1) {
+                charTask.status = Math.min(...statuses);
+            }
         }
 
         // for (const fullTaskName of settingsState.allTasks) {
