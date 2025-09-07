@@ -256,72 +256,12 @@
 //     },
 
 //     // The War Within
-//     // {
-//     //     key: 'twwChores11_0',
-//     //     name: '[TWW] 11.0.x',
-//     //     shortName: '11.0',
-//     //     minimumLevel: 70,
-//     //     showSeparate: true,
-//     //     type: 'multi',
-//     // },
-//     // {
-//     //     key: 'twwChores11_1',
-//     //     name: '[TWW] 11.1.x',
-//     //     shortName: '11.1',
-//     //     minimumLevel: 80,
-//     //     showSeparate: true,
-//     //     type: 'multi',
-//     // },
-//     // {
-//     //     key: 'twwChoresChett',
-//     //     name: '[TWW] C.H.E.T.T. List',
-//     //     shortName: 'CHETT',
-//     //     minimumLevel: 80,
-//     //     type: 'multi',
-//     // },
-//     // {
-//     //     key: 'twwChores11_1_5',
-//     //     name: "[TWW] 11.1.5 Flame's Radiance",
-//     //     shortName: 'Rad',
-//     //     minimumLevel: 10,
-//     //     showSeparate: true,
-//     //     type: 'multi',
-//     // },
-//     // {
-//     //     key: 'twwChores11_2_0',
-//     //     name: '[TWW] 11.2.x',
-//     //     shortName: '11.2',
-//     //     minimumLevel: 80,
-//     //     showSeparate: true,
-//     //     type: 'multi',
-//     // },
-//     // {
-//     //     key: 'twwHorrificVisions',
-//     //     name: '[TWW] Horrific Visions Revisited',
-//     //     shortName: 'Vis',
-//     //     minimumLevel: 80,
-//     //     type: 'multi',
-//     // },
-//     {
-//         key: 'twwCofferKeys',
-//         name: '[TWW] Coffer Keys',
-//         shortName: 'Keys',
-//         minimumLevel: 80,
-//         type: 'multi',
-//     },
 //     {
 //         key: 'twwSpreading',
 //         name: '[TWW] Spreading the Light',
 //         shortName: 'StL',
 //         minimumLevel: 70,
 //         type: 'multi',
-//     },
-//     {
-//         key: 'twwProfessionWeeklies',
-//         name: '[TWW] Profession Weeklies',
-//         shortName: 'Pro',
-//         type: 'multi',
-//         minimumLevel: 70,
 //     },
 //     {
 //         key: 'twwSparks',
@@ -585,13 +525,6 @@
 // //         },
 // //         ...dragonflightProfessionTasks,
 // //     ],
-// //     twwChores11_0,
-// //     twwChores11_1,
-// //     twwChores11_1_5,
-// //     twwChores11_2_0,
-// //     twwChoresChett,
-// //     twwCofferKeys,
-// //     twwHorrificVisions,
 // //     twwSpreading: [
 // //         {
 // //             key: 'twwSpreadingTheLight',
@@ -759,7 +692,6 @@
 // //             ],
 // //         },
 // //     ],
-// //     twwProfessionWeeklies: [...warWithinProfessionTasks],
 // //     pvpBlitz: [
 // //         {
 // //             key: 'pvpBlitz1',
