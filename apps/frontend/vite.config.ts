@@ -13,6 +13,7 @@ import { svelte } from '@sveltejs/vite-plugin-svelte';
 import path from 'path';
 import { sveltePreprocess } from 'svelte-preprocess';
 import autoprefixer from 'autoprefixer';
+import Icons from 'unplugin-icons/vite';
 //import pkg from './package.json'
 import tsconfig from './tsconfig.json';
 
@@ -41,6 +42,7 @@ const config = <UserConfig>defineConfig({
             // hot: true,
             prebundleSvelteLibraries: true,
         }),
+        Icons({ compiler: 'svelte' }),
     ],
     build: {
         manifest: true,
