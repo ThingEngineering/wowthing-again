@@ -67,12 +67,12 @@
         data-task={taskName}
         use:componentTooltip={{
             component: Tooltip,
-            props: {
+            propsFunc: () => ({
                 character,
                 charTask,
                 task,
                 taskName,
-            },
+            }),
         }}
     >
         {#if task.chores.length === 1}
