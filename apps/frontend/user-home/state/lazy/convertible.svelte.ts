@@ -129,7 +129,9 @@ export function doConvertible(): LazyConvertible {
                 setItem
             ));
 
-            const charactersWithItems: [Character, WhateverItem[]][] = charactersByClassId[classId]
+            const charactersWithItems: [Character, WhateverItem[]][] = (
+                charactersByClassId[classId] || []
+            )
                 .filter(([char]) => char.level >= convertibleCategory.minimumLevel)
                 .map(([char, charItems]) => [
                     char,
