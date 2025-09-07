@@ -1,9 +1,10 @@
+import { slTasks } from './08-shadowlands';
 import { twwTasks } from './10-the-war-within';
 import { eventTasks } from './events';
 import { pvpTasks } from './pvp';
 import type { Task } from '@/types/tasks';
 
-export const taskList: Task[] = [...eventTasks, ...pvpTasks, ...twwTasks];
+export const taskList: Task[] = [...eventTasks, ...pvpTasks, ...slTasks, ...twwTasks];
 
 export const taskMap: Record<string, Task> = Object.fromEntries(
     taskList.map((task) => [task.key, task])

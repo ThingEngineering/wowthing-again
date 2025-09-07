@@ -1,3 +1,3 @@
-import { pvpChoresBrawl } from './brawl';
+import { pvpBrawl } from './brawl';
 
-export const pvpTasks = [pvpChoresBrawl];
+export const pvpTasks = [pvpBrawl];
