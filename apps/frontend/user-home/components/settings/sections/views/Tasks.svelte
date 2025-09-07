@@ -20,7 +20,7 @@
 
         for (const task of taskList) {
             ret.push({ id: task.key, name: task.name });
-            if (task.showSeparate && task.chores.length > 1) {
+            if (task.showSeparate) {
                 for (const chore of task.chores.filter((c) => !!c)) {
                     ret.push({
                         id: `${task.key}|${chore.key}`,
