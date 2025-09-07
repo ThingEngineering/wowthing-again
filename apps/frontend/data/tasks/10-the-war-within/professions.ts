@@ -8,5 +8,5 @@ export const twwProfessions: Task = {
     name: '[TWW] Professions',
     shortName: 'Pro',
     minimumLevel: 70,
-    chores: buildProfessionChores(warWithinProfessions, 10, 'tww', 70),
+    chores: buildProfessionChores(10, warWithinProfessions),
 };

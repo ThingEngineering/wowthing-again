@@ -1,5 +1,6 @@
 import { isGatheringProfession, professionIdToSlug } from '@/data/professions';
 import { Profession } from '@/enums/profession';
+import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
 import { DbResetType } from '@/shared/stores/db/enums';
 import type { Character } from '@/types';
@@ -7,38 +8,16 @@ import type { TaskProfession } from '@/types/data';
 import type { Chore } from '@/types/tasks';
 
 export function buildProfessionChores(
-    taskProfessions: TaskProfession[],
     expansion: number,
-    prefix: string,
-    minimumLevel: number
+    taskProfessions: TaskProfession[]
 ): Chore[] {
     return taskProfessions.flatMap((taskProfession) => {
         const chores: Chore[] = [];
 
         const name = Profession[taskProfession.id];
-        const slug = professionIdToSlug[taskProfession.id];
 
         const couldGetFunc = (char: Character) =>
             couldGet(char, taskProfession.id, taskProfession.subProfessionId);
-
-        // if (prefix === 'df') {
-        //     ret.push({
-        //         key: `${prefix}Profession${professionName}Provide`,
-        //         name: `${professionName}: Provide`,
-        //         minimumLevel,
-        //         couldGetFunc: (char) =>
-        //             couldGet(char, taskProfession.id, taskProfession.subProfessionId),
-        //         canGetFunc: (char) =>
-        //             getExpansionSkill(
-        //                 char,
-        //                 taskProfession.id,
-        //                 expansionSlugMap['dragonflight'].id,
-        //                 45
-        //             ),
-        //     });
-        // }
-
-        // task, drop, orders, treatise
 
         if (taskProfession.taskQuests) {
             chores.push({
@@ -111,9 +90,19 @@ export function buildProfessionChores(
     });
 }
 
-function couldGet(char: Character, professionId: number, subProfessionId: number): boolean {
-    const profession = wowthingData.static.professionById.get(professionId);
-    return !!char.professions?.[profession.id]?.subProfessions?.[subProfessionId];
+function couldGet(character: Character, professionId: number, subProfessionId: number): boolean {
+    const characterProfession = character.professions?.[professionId];
+
+    if (!characterProfession?.subProfessions?.[subProfessionId]) {
+        return false;
+    }
+
+    if (settingsState.value.professions.ignoreTasksWhenDoneWithTraits) {
+        const traitStats = characterProfession.subProfessionTraitStats?.[subProfessionId];
+        return traitStats?.percent !== 100;
+    }
+
+    return true;
 }
 
 function getExpansionSkill(

@@ -39,23 +39,7 @@
     }
 </style>
 
-{#if charTask?.countTotal === 0}
-    <td
-        class="sized b-l status-fail"
-        data-task={taskName}
-        use:componentTooltip={{
-            component: Tooltip,
-            props: {
-                character,
-                charTask,
-                task,
-                taskName,
-            },
-        }}
-    >
-        ---
-    </td>
-{:else if Object.keys(charTask?.chores || {}).length > 0}
+{#if charTask?.countTotal > 0 && Object.keys(charTask?.chores || {}).length > 0}
     {@const notStarted = charTask.countTotal - charTask.countCompleted - charTask.countStarted}
     <td
         class="sized b-l"
@@ -67,12 +51,12 @@
         data-task={taskName}
         use:componentTooltip={{
             component: Tooltip,
-            props: {
+            propsFunc: () => ({
                 character,
                 charTask,
                 task,
                 taskName,
-            },
+            }),
         }}
     >
         {#if task.chores.length === 1}
@@ -96,5 +80,5 @@
         {/if}
     </td>
 {:else}
-    <td class="sized b-l"></td>
+    <td class="sized b-l status-warn">---</td>
 {/if}
