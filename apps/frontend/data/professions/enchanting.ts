@@ -58,6 +58,10 @@ export const warWithinEnchanting: TaskProfession = {
             source: 'Disenchanting',
         },
     ],
+    treatiseQuest: {
+        itemId: 222550, // Algari Treatise on Enchanting
+        questId: 83727,
+    },
     bookQuests: [
         {
             itemId: 227411, // Faded Enchanter's Research

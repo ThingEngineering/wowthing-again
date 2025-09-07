@@ -24,6 +24,10 @@ export const warWithinTailoring: TaskProfession = {
             source: 'Work Orders',
         },
     ],
+    treatiseQuest: {
+        itemId: 222547, // Algari Treatise on Tailoring
+        questId: 83735,
+    },
     bookQuests: [
         {
             itemId: 227410, // Faded Tailor's Diagrams

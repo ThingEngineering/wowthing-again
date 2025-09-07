@@ -68,6 +68,24 @@ export function buildProfessionChores(
             });
         }
 
+        if (taskProfession.treatiseQuest) {
+            chores.push({
+                key: `${name}Treatise`,
+                name: `${name}: Treatise`,
+                subChores: [
+                    {
+                        key: 'treatise',
+                        name: `{item:${taskProfession.treatiseQuest.itemId}}`,
+                        noProgress: true,
+                        questIds: [taskProfession.treatiseQuest.questId],
+                        questReset: DbResetType.Weekly,
+                    },
+                ],
+                couldGetFunc,
+                canGetFunc: (char) => getExpansionSkill(char, taskProfession.id, expansion, 1),
+            });
+        }
+
         if (taskProfession.orderQuests) {
             chores.push({
                 key: `${name}Orders`,
@@ -78,13 +96,6 @@ export function buildProfessionChores(
                 canGetFunc: (char) => getExpansionSkill(char, taskProfession.id, expansion, 25),
             });
         }
-
-        // chores.push({
-        //     key: `${prefix}Profession${name}Treatise`,
-        //     name: `${name}: Treatise`,
-        //     minimumLevel,
-        //     couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
-        // });
 
         return chores;
     });

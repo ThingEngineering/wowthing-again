@@ -48,6 +48,10 @@ export const warWithinHerbalism: TaskProfession = {
             source: 'Gathering',
         },
     ],
+    treatiseQuest: {
+        itemId: 222552, // Algari Treatise on Herbalism
+        questId: 83729,
+    },
     bookQuests: [
         {
             itemId: 227415, // Faded Herbalist's Notes

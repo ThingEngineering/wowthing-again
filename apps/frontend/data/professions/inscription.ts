@@ -24,6 +24,10 @@ export const warWithinInscription: TaskProfession = {
             source: 'Work Orders',
         },
     ],
+    treatiseQuest: {
+        itemId: 222548, // Algari Treatise on Inscription
+        questId: 83730,
+    },
     bookQuests: [
         {
             itemId: 227408, // Faded Scribe's Runic Drawings

@@ -24,6 +24,10 @@ export const warWithinJewelcrafting: TaskProfession = {
             source: 'Work Orders',
         },
     ],
+    treatiseQuest: {
+        itemId: 222551, // Algari Treatise on Jewelcrafting
+        questId: 83731,
+    },
     bookQuests: [
         {
             itemId: 227413, // Faded Jeweler's Illustrations

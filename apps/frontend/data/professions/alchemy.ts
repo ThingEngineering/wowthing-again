@@ -24,6 +24,10 @@ export const warWithinAlchemy: TaskProfession = {
             source: 'Work Orders',
         },
     ],
+    treatiseQuest: {
+        itemId: 222546, // Algari Treatise on Alchemy
+        questId: 83725,
+    },
     bookQuests: [
         {
             itemId: 227409, // Faded Alchemist's Research

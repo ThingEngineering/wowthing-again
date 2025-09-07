@@ -23,6 +23,7 @@ export type TaskProfession = {
     gatherQuests?: TaskProfessionQuest[];
     orderQuests?: TaskProfessionQuest[];
     taskQuests?: TaskProfessionQuest[];
+    treatiseQuest?: TaskProfessionQuest;
 
     bookQuests?: TaskProfessionQuest[];
     treasureQuests?: TaskProfessionQuest[];

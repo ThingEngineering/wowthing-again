@@ -24,6 +24,10 @@ export const warWithinBlacksmithing: TaskProfession = {
             source: 'Work Orders',
         },
     ],
+    treatiseQuest: {
+        itemId: 222554, // Algari Treatise on Blacksmithing
+        questId: 83726,
+    },
     bookQuests: [
         {
             itemId: 227407, // Faded Blacksmith's Diagrams
