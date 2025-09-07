@@ -107,9 +107,12 @@ export interface Settings {
         cooldowns: Record<string, boolean>;
     };
 
-    // tasks: {
-    //     disabledChores: Record<string, string[]>
-    // }
+    tasks: {
+        showIconLegend: boolean;
+        showAccountIcon: boolean;
+        showDailyIcon: boolean;
+        showWeeklyIcon: boolean;
+    };
 
     transmog: {
         [index: string]: boolean;

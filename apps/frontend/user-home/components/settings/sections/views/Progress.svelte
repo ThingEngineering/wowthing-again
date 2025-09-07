@@ -44,8 +44,6 @@
             }
         }
 
-        console.log(wowthingData.manual.progressSets);
-
         return ret;
     });
 </script>

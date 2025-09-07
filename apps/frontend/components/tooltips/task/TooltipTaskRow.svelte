@@ -2,12 +2,20 @@
     import { taskChoreMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
     import { uiIcons } from '@/shared/icons';
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import { DbResetType } from '@/shared/stores/db/enums';
     import type { CharacterProps } from '@/types/props';
     import type { Task } from '@/types/tasks';
     import type { CharacterChore, CharacterTask } from '@/user-home/state/user/types/tasks.svelte';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import {
+        MynauiLetterASquare,
+        MynauiLetterDSquare,
+        MynauiLetterWSquare,
+    } from '@/shared/icons/components';
 
     type Props = CharacterProps & {
         charChore?: CharacterChore;
@@ -97,6 +105,7 @@
     }
     .name {
         --image-border-width: 1px;
+        --scale: 1.2;
 
         max-width: 15rem;
         min-width: 11rem;
@@ -147,6 +156,15 @@
                             class="name text-overflow"
                             class:status-shrug={charTaskChore.status === QuestStatus.Error}
                         >
+                            {#if chore.questReset === DbResetType.Daily && settingsState.value.tasks.showDailyIcon}
+                                <IconifyWrapper Icon={MynauiLetterDSquare} cls="quality3" />
+                            {:else if chore.questReset === DbResetType.Weekly && settingsState.value.tasks.showWeeklyIcon}
+                                <IconifyWrapper Icon={MynauiLetterWSquare} cls="quality3" />
+                            {/if}
+                            {#if chore.accountWide && settingsState.value.tasks.showAccountIcon}
+                                <IconifyWrapper Icon={MynauiLetterASquare} cls="status-shrug" />
+                            {/if}
+
                             <ParsedText text={charTaskChore.name} />
                         </td>
                         <td class="status">
@@ -191,4 +209,18 @@
             </tbody>
         </table>
     {/each}
+
+    {#if settingsState.value.tasks.showIconLegend}
+        <div class="bottom" style:--scale="1.2">
+            <span>
+                <IconifyWrapper Icon={MynauiLetterDSquare} cls="quality3" /> Daily
+            </span>
+            <span>
+                <IconifyWrapper Icon={MynauiLetterWSquare} cls="quality3" /> Weekly
+            </span>
+            <span>
+                <IconifyWrapper Icon={MynauiLetterASquare} cls="status-shrug" /> Account
+            </span>
+        </div>
+    {/if}
 </div>
