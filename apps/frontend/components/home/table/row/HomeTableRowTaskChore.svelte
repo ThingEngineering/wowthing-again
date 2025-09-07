@@ -12,13 +12,14 @@
 
     type Props = CharacterProps & {
         choreName: string;
+        fullTaskName: string;
         taskName: string;
     };
-    let { character, choreName, taskName }: Props = $props();
+    let { character, choreName, fullTaskName, taskName }: Props = $props();
 
     let task = $derived(taskMap[taskName] || settingsState.customTaskMap[taskName]);
     let charChore = $derived(
-        userState.activeViewTasks[character.id]?.[taskName]?.chores?.[choreName]
+        userState.activeViewTasks[character.id]?.[fullTaskName]?.chores?.[choreName]
     );
 </script>
 
@@ -36,6 +37,8 @@
 
 <td
     class="sized b-l"
+    class:ready={charChore?.status === QuestStatus.InProgress &&
+        charChore.progressCurrent === charChore.progressTotal}
     data-task={taskName}
     data-chore={choreName}
     use:componentTooltip={{

@@ -370,7 +370,7 @@ export class DataUserDerived {
                 continue;
             }
 
-            const charTask = (ret[task.key] = new CharacterTask(task));
+            const charTask = (ret[fullTaskName] = new CharacterTask(task));
             const disabledChores = settingsState.activeView.disabledChores?.[fullTaskName] || [];
 
             // activeHoliday?
