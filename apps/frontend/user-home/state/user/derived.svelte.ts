@@ -327,6 +327,8 @@ export class DataUserDerived {
         const ret: Record<string, CharacterTask> = {};
 
         const customTaskMap = $state.snapshot(settingsState.customTaskMap) as Record<string, Task>;
+        const showCompletedUntrackedChores = settingsState.activeView.showCompletedUntrackedChores;
+
         for (const fullTaskName of activeViewTasks.value) {
             const [taskName, choreName] = fullTaskName.split('|', 2);
             const task = taskMap[taskName] || customTaskMap[taskName];
@@ -357,7 +359,10 @@ export class DataUserDerived {
                     continue;
                 }
 
-                charChore.skipped = !choreName && disabledChores.includes(chore.key);
+                charChore.skipped =
+                    !choreName &&
+                    disabledChores.includes(chore.key) &&
+                    (!showCompletedUntrackedChores || charChore.status !== QuestStatus.Completed);
 
                 // let charTask: CharacterChoreTask;
                 // if (chore.accountWide) {
