@@ -148,7 +148,6 @@ public class ApplicationUserSettings
                 HomeFields = Layout.HomeFields,
                 HomeLockouts = Layout.HomeLockouts,
                 HomeTasks = Layout.HomeTasks,
-                DisabledChores = Tasks.DisabledChores,
             });
         }
 
@@ -393,7 +392,10 @@ public class ApplicationUserSettingsTag
 
 public class ApplicationUserSettingsTasks
 {
-    public Dictionary<string, List<string>> DisabledChores { get; set; } = new();
+    public bool ShowIconLegend { get; set; } = true;
+    public bool ShowAccountIcon { get; set; } = true;
+    public bool ShowDailyIcon { get; set; } = true;
+    public bool ShowWeeklyIcon { get; set; } = true;
 }
 
 public class ApplicationUserSettingsTransmog

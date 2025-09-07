@@ -12,15 +12,6 @@ export const twwChores11_2_0: Task = {
     showSeparate: true,
     chores: [
         {
-            key: 'twwMoreThanPhase',
-            name: 'More Than Just a Phase',
-            // accountWide: true,
-            icon: iconLibrary.mdiSwimDive,
-            questIds: [91093],
-            questReset: DbResetType.Weekly,
-            couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
-        },
-        {
             key: 'twwWarrant',
             name: 'Warrant',
             accountWide: true,
@@ -42,20 +33,18 @@ export const twwChores11_2_0: Task = {
             questIds: [87352],
             questReset: DbResetType.Weekly,
         },
-        // {
-        //     key: 'twwKareshSpecialUnlock',
-        //     name: 'Special Unlock',
-        //     icon: iconLibrary.mdiLockOutline,
-        //     questIds: [
-        //         91193, // Overshadowed Unlock
-        //         91203, // Aligned Views Unlock
-        //     ],
-        //     questReset: DbResetType.Weekly,
-        //     couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
-        // },
+        {
+            key: 'twwMoreThanPhase',
+            name: 'More Than Just a Phase',
+            // accountWide: true,
+            icon: iconLibrary.mdiSwimDive,
+            questIds: [91093],
+            questReset: DbResetType.Weekly,
+            couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
+        },
         {
             key: 'twwKareshSpecial',
-            name: '[Kar] Special Assignment',
+            name: 'Special Assignment',
             icon: iconLibrary.gameScrollQuill,
             showQuestName: true,
             questReset: DbResetType.Weekly,

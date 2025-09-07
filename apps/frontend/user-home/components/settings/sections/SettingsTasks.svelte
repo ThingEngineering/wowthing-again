@@ -2,15 +2,21 @@
     import xor from 'lodash/xor';
 
     import { Constants } from '@/data/constants';
+    import {
+        MynauiLetterASquare,
+        MynauiLetterDSquare,
+        MynauiLetterWSquare,
+    } from '@/shared/icons/components';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { DbResetType } from '@/shared/stores/db/enums';
     import type { SettingsTask } from '@/shared/stores/settings/types/task';
 
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import NumberInput from '@/shared/components/forms/NumberInput.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import Select from '@/shared/components/forms/Select.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
-    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
 
     let currentIds = $derived.by(() =>
         (settingsState.value.customTasks || []).map((task) => task.key)
@@ -52,8 +58,13 @@
 </script>
 
 <style lang="scss">
-    table {
+    div {
         --image-margin-top: -4px;
+    }
+    .task-tooltips {
+        --scale: 1.2;
+    }
+    table {
         --padding: 2;
     }
     tr:first-child td {
@@ -81,9 +92,41 @@
 </style>
 
 <div class="settings-block">
-    <UnderConstruction />
+    <h3>Tooltips</h3>
 
-    <h3>Tasks</h3>
+    <div class="task-tooltips">
+        <CheckboxInput
+            name="tasks_show_icon_legend"
+            bind:value={settingsState.value.tasks.showIconLegend}
+            >Show icon legend at bottom of tooltip</CheckboxInput
+        >
+
+        <CheckboxInput
+            name="tasks_show_account_icon"
+            bind:value={settingsState.value.tasks.showAccountIcon}
+        >
+            <IconifyWrapper Icon={MynauiLetterASquare} cls="status-shrug" />
+            Show account icon
+        </CheckboxInput>
+
+        <CheckboxInput
+            name="tasks_show_daily_icon"
+            bind:value={settingsState.value.tasks.showDailyIcon}
+        >
+            <IconifyWrapper Icon={MynauiLetterDSquare} cls="quality3" />
+            Show daily icon
+        </CheckboxInput>
+
+        <CheckboxInput
+            name="tasks_show_weekly_icon"
+            bind:value={settingsState.value.tasks.showWeeklyIcon}
+        >
+            <IconifyWrapper Icon={MynauiLetterWSquare} cls="quality3" />
+            Show weekly icon
+        </CheckboxInput>
+    </div>
+
+    <h3>Custom Tasks</h3>
 
     <p>
         Create custom tasks to use in Views. Quest IDs is a space-separated list of numbers like

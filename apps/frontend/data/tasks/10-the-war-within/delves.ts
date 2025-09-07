@@ -12,6 +12,7 @@ export const twwDelves: Task = {
             key: 'keys',
             name: 'Keys',
             minimumLevel: 80,
+            questReset: DbResetType.Weekly,
             subChores: [91175, 91176, 91177, 91178].map((questId, index) => ({
                 key: `key${index}`,
                 name: '{currency:3028}', // Restored Coffer Key
@@ -24,6 +25,7 @@ export const twwDelves: Task = {
             key: 'gilded',
             name: 'Gilded Stash',
             minimumLevel: 80,
+            questReset: DbResetType.Weekly,
             subChores: [1, 2, 3].map((index) => ({
                 key: `stash${index}`,
                 name: '{currency:3290}', // Gilded Ethereal Crest
