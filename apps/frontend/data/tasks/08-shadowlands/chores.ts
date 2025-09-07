@@ -9,6 +9,57 @@ export const slChores: Task = {
     showSeparate: true,
     chores: [
         {
+            key: 'dungeons',
+            name: 'Dungeons',
+            noProgress: true,
+            subChoresAnyOrder: true,
+            subChores: [
+                {
+                    key: 'aValuableFind',
+                    name: 'A Valuable Find',
+                    showQuestName: true,
+                    questIds: [
+                        60250, // A Valuable Find: Theater of Pain
+                        60251, // A Valuable Find: Plaguefall
+                        60252, // A Valuable Find: Spires of Ascension
+                        60253, // A Valuable Find: Necrotic Wake
+                        60254, // A Valuable Find: Tirna Scithe
+                        60255, // A Valuable Find: The Other Side
+                        60256, // A Valuable Find: Halls of Atonement
+                        60257, // A Valuable Find: Sanguine Depths
+                    ],
+                    questReset: DbResetType.Weekly,
+                },
+                {
+                    key: 'tradingFavors',
+                    name: 'Trading Favors',
+                    showQuestName: true,
+                    questIds: [
+                        60242, // Trading Favors: Necrotic Wake
+                        60243, // Trading Favors: Sanguine Depths
+                        60244, // Trading Favors: Halls of Atonement
+                        60245, // Trading Favors: The Other Side
+                        60246, // Trading Favors: Tirna Scithe
+                        60247, // Trading Favors: Theater of Pain
+                        60248, // Trading Favors: Plaguefall
+                        60249, // Trading Favors: Spires of Ascension
+                    ],
+                    questReset: DbResetType.Weekly,
+                },
+            ],
+        },
+        {
+            key: 'worldBoss',
+            name: 'World Boss',
+            questIds: [
+                61813, // Valinor, the Light of Eons
+                61814, // Nurgash Muckformed
+                61815, // Oranomonos the Everbranching
+                61816, // Mortanis
+            ],
+            questReset: DbResetType.Weekly,
+        },
+        {
             key: 'anima',
             name: 'Anima',
             questIds: [
@@ -27,17 +78,6 @@ export const slChores: Task = {
                 62863, // Kyrian
                 62866, // Necrolord
                 62869, // Venthyr
-            ],
-            questReset: DbResetType.Weekly,
-        },
-        {
-            key: 'worldBoss',
-            name: 'World Boss',
-            questIds: [
-                61813, // Valinor, the Light of Eons
-                61814, // Nurgash Muckformed
-                61815, // Oranomonos the Everbranching
-                61816, // Mortanis
             ],
             questReset: DbResetType.Weekly,
         },
