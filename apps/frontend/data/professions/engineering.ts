@@ -24,6 +24,10 @@ export const warWithinEngineering: TaskProfession = {
             source: 'Work Orders',
         },
     ],
+    treatiseQuest: {
+        itemId: 222621, // Algari Treatise on Engineering
+        questId: 83728,
+    },
     bookQuests: [
         {
             itemId: 227412, // Faded Engineer's Scribblings

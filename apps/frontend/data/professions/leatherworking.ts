@@ -24,6 +24,10 @@ export const warWithinLeatherworking: TaskProfession = {
             source: 'Work Orders',
         },
     ],
+    treatiseQuest: {
+        itemId: 222549, // Algari Treatise on Leatherworking
+        questId: 83732,
+    },
     bookQuests: [
         {
             itemId: 227414, // Faded Leatherworker's Diagrams

@@ -48,6 +48,10 @@ export const warWithinMining: TaskProfession = {
             source: 'Gathering',
         },
     ],
+    treatiseQuest: {
+        itemId: 222553, // Algari Treatise on Mining
+        questId: 83733,
+    },
     bookQuests: [
         {
             itemId: 227416, // Faded Miner's Notes

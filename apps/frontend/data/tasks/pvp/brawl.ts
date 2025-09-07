@@ -4,7 +4,7 @@ import type { Task } from '@/types/tasks';
 
 const somethingDifferentQuestIds = [47148];
 
-export const pvpChoresBrawl: Task = {
+export const pvpBrawl: Task = {
     key: 'pvpBrawl',
     name: '[PvP] Brawl',
     shortName: 'Brawl',

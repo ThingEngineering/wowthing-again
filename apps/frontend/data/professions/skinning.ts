@@ -48,6 +48,10 @@ export const warWithinSkinning: TaskProfession = {
             source: 'Gathering',
         },
     ],
+    treatiseQuest: {
+        itemId: 222649, // Algari Treatise on Skinning
+        questId: 83734,
+    },
     bookQuests: [
         {
             itemId: 227417, // Faded Skinner's Notes
