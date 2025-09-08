@@ -10,6 +10,7 @@
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import Tooltip from '@/components/tooltips/task/TooltipTaskHead.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     let { getSortState, setSortState }: SortableProps = $props();
 
@@ -59,7 +60,13 @@
         }}
     >
         {#if chore}
-            <IconifyIcon icon={chore?.icon} scale="0.9" />
+            {#if chore.icon}
+                {#if 'body' in chore.icon}
+                    <IconifyIcon icon={chore.icon} scale="0.9" />
+                {:else}
+                    <IconifyWrapper Icon={chore.icon} scale="1" />
+                {/if}
+            {/if}
         {:else}
             <ParsedText text={task.shortName} />
         {/if}
