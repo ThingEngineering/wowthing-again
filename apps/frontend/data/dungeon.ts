@@ -127,12 +127,13 @@ export const raidVaultItemLevel: Record<number, Array<number>> = {
 
 export const worldVaultItemLevel: Array<Array<number>> = [
     [8, 694, 4], // Hero 1
-    [6, 691, 3], // Champion 4
-    [5, 687, 3], // Champion 3
-    [4, 681, 2], // Champion 1
-    [3, 671, 2], // Veteran 2? (was Veteran 3)
+    [7, 691, 3], // Champion 4
+    [6, 688, 3], // Champion 3?
+    [5, 681, 3], // Champion 1
+    [4, 678, 2], // Veteran 4
+    [3, 675, 2], // Veteran 3
     [2, 668, 2], // Veteran 1? (was Veteran 2)
-    [1, 655, 2], // Adventurer 1? (was Veteran 1)
+    [1, 655, 1], // Adventurer 1? (was Veteran 1)
 ];
 
 export const keyTiers = ['2-5', '6-10', '11-15', '16-20', '21-25', '26-30', '31+'];
