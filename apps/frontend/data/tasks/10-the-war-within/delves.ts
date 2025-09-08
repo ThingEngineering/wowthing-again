@@ -1,3 +1,4 @@
+import { iconComponents } from '@/shared/icons';
 import { DbResetType } from '@/shared/stores/db/enums';
 import type { Task } from '@/types/tasks';
 
@@ -25,6 +26,7 @@ export const twwDelves: Task = {
             key: 'gilded',
             name: 'Gilded Stash',
             minimumLevel: 80,
+            icon: iconComponents.EmojioneGemStone,
             questReset: DbResetType.Weekly,
             subChores: [1, 2, 3].map((index) => ({
                 key: `stash${index}`,
