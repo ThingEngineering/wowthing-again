@@ -43,7 +43,7 @@
         };
 
         for (const characterTasks of Object.values(userState.activeViewTasks)) {
-            const characterTask = characterTasks[task.key];
+            const characterTask = characterTasks[fullTaskName];
             if (!characterTask) {
                 continue;
             }
