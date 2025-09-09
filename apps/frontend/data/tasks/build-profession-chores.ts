@@ -37,6 +37,7 @@ export function buildProfessionChores(
                 name: `${name}: Drops`,
                 noProgress: true,
                 subChoresAnyOrder: true,
+                questReset: DbResetType.Weekly,
                 subChores: taskProfession.dropQuests.map((taskQuest, index) => ({
                     key: `drop${index}`,
                     name: `{item:${taskQuest.itemId}}`,
@@ -55,6 +56,7 @@ export function buildProfessionChores(
                 key: `${name}Gather`,
                 name: `${name}: Gather`,
                 noProgress: true,
+                questReset: DbResetType.Weekly,
                 subChores: taskProfession.gatherQuests.map((taskQuest, index) => ({
                     key: `gather${index}`,
                     name: `{item:${taskQuest.itemId}}`,
@@ -72,6 +74,7 @@ export function buildProfessionChores(
             chores.push({
                 key: `${name}Treatise`,
                 name: `${name}: Treatise`,
+                questReset: DbResetType.Weekly,
                 subChores: [
                     {
                         key: 'treatise',
@@ -90,8 +93,8 @@ export function buildProfessionChores(
             chores.push({
                 key: `${name}Orders`,
                 name: `${name}: Orders`,
-                questIds: taskProfession.orderQuests.map((taskQuest) => taskQuest.questId),
                 questReset: DbResetType.Weekly,
+                questIds: taskProfession.orderQuests.map((taskQuest) => taskQuest.questId),
                 couldGetFunc,
                 canGetFunc: (char) => getExpansionSkill(char, taskProfession.id, expansion, 25),
             });

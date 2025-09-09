@@ -1,4 +1,6 @@
 import type { DateTime } from 'luxon';
+import type { Component } from 'svelte';
+import type { SvelteHTMLElements } from 'svelte/elements';
 import type { IconifyIcon } from '@iconify/types';
 
 import type { Holiday } from '@/enums/holiday';
@@ -21,7 +23,7 @@ export type Task = {
 export type Chore = {
     key: string;
     name: string;
-    icon?: IconifyIcon;
+    icon?: IconifyIcon | Component<SvelteHTMLElements['svg']>;
     accountWide?: boolean;
     noAlone?: boolean;
     noProgress?: boolean;
