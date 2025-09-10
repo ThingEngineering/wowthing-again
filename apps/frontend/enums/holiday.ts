@@ -2,6 +2,13 @@ export enum Holiday {
     DarkmoonFaire,
     MidsummerFireFestival,
 
+    BonusArenaSkirmish,
+    BonusBattleground,
+    BonusDelve,
+    BonusDungeon,
+    BonusPetBattle,
+    BonusWorldQuest,
+
     TimewalkingClassic,
     TimewalkingTbc,
     TimewalkingWotlk,

@@ -42,6 +42,13 @@ export const holidayIds: Record<number, number[]> = {
     [Holiday.DarkmoonFaire]: [479],
     [Holiday.MidsummerFireFestival]: [11],
 
+    [Holiday.BonusArenaSkirmish]: [561, 610, 611, 612],
+    [Holiday.BonusBattleground]: [563, 602, 603, 604],
+    [Holiday.BonusDelve]: [1559, 1560, 1561, 1562],
+    [Holiday.BonusDungeon]: [1558, 1563, 1564, 1565],
+    [Holiday.BonusPetBattle]: [565, 599, 600, 601],
+    [Holiday.BonusWorldQuest]: [592, 613, 614, 615],
+
     [Holiday.TimewalkingClassic]: [1508, 1583, 1584, 1585],
     [Holiday.TimewalkingTbc]: [559, 622, 623, 624],
     [Holiday.TimewalkingWotlk]: [562, 616, 617, 618],
