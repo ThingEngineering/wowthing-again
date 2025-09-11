@@ -43,12 +43,12 @@
     data-chore={choreName}
     use:componentTooltip={{
         component: Tooltip,
-        propsFunc: () => ({
+        props: {
             character,
             charChore,
             task,
             taskName,
-        }),
+        },
     }}
 >
     {#if charChore?.status === QuestStatus.Completed}
