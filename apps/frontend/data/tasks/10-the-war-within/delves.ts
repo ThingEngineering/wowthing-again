@@ -25,14 +25,16 @@ export const twwDelves: Task = {
         {
             key: 'gilded',
             name: 'Gilded Stash',
-            minimumLevel: 80,
             icon: iconComponents.EmojioneGemStone,
+            minimumLevel: 80,
             questReset: DbResetType.Weekly,
+            questResetForced: true,
             subChores: [1, 2, 3].map((index) => ({
                 key: `stash${index}`,
                 name: '{currency:3290}', // Gilded Ethereal Crest
                 noProgress: true,
                 questReset: DbResetType.Weekly,
+                questResetForced: true,
                 progressFunc: (char) => {
                     const have = char.weekly?.delveGilded || 0;
                     return { have: have >= index ? 1 : 0, need: 1 };
@@ -42,9 +44,9 @@ export const twwDelves: Task = {
         {
             key: 'map',
             name: 'Map Drop',
+            icon: iconComponents.EmojioneWorldMap,
             minimumLevel: 80,
             noProgress: true,
-            icon: iconComponents.EmojioneWorldMap,
             questReset: DbResetType.Weekly,
             questIds: [86371],
         },

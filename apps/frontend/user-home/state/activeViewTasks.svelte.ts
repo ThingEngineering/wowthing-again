@@ -1,9 +1,6 @@
-import { get } from 'svelte/store';
-
 import { holidayIds } from '@/data/holidays';
 import { taskMap } from '@/data/tasks';
 import { settingsState } from '@/shared/state/settings.svelte';
-import { wowthingData } from '@/shared/stores/data';
 import { logErrors } from '@/utils/log-errors';
 import type { Chore, Task } from '@/types/tasks';
 
@@ -45,7 +42,7 @@ class ActiveViewTasks {
                     if (
                         chore.requiredHolidays.some((holiday) =>
                             holidayIds[holiday].some(
-                                (holidayId) => activeHolidays.value[`h${holidayId}`]
+                                (holidayId) => !!activeHolidays.value[`h${holidayId}`]
                             )
                         )
                     ) {
@@ -56,7 +53,10 @@ class ActiveViewTasks {
                 }
             }
 
-            if (activeChores.length === 1 && activeChores[0].noAlone) {
+            if (
+                activeChores.length === 0 ||
+                (activeChores.length === 1 && activeChores[0].noAlone)
+            ) {
                 continue;
             }
 

@@ -1,7 +1,7 @@
 import { Profession } from '@/enums/profession';
 import type { TaskProfession } from '@/types/data';
 
-const taskQuestIds = [
+const warWithinTaskQuests = [
     83102, // Bismuth is Business
     83103, // Acquiring Aqirite
     83104, // Identifying Ironclaw
@@ -12,7 +12,11 @@ const taskQuestIds = [
 export const warWithinMining: TaskProfession = {
     id: Profession.Mining,
     subProfessionId: 2881,
-    taskQuests: taskQuestIds.map((questId) => ({
+    treatiseQuest: {
+        itemId: 222553, // Algari Treatise on Mining
+        questId: 83733,
+    },
+    taskQuests: warWithinTaskQuests.map((questId) => ({
         itemId: 224818, // Algari Miner's Notes
         questId,
     })),
@@ -48,10 +52,6 @@ export const warWithinMining: TaskProfession = {
             source: 'Gathering',
         },
     ],
-    treatiseQuest: {
-        itemId: 222553, // Algari Treatise on Mining
-        questId: 83733,
-    },
     bookQuests: [
         {
             itemId: 227416, // Faded Miner's Notes
@@ -99,10 +99,53 @@ export const warWithinMining: TaskProfession = {
     treasureQuests: [],
 };
 
+const iridescentOreFragmentsItemId = 201300;
+const miningFieldNotesQuest = (questId: number) => ({
+    itemId: 199122,
+    questId,
+});
+const dragonflightProvideQuests = [
+    70617, // All Mine, Mine, Mine
+    70618, // The Call of the Forge
+    72156, // A Fiery Fight
+    72157, // The Weight of Earth
+];
+
 export const dragonflightMining: TaskProfession = {
     id: Profession.Mining,
     subProfessionId: 2833,
     masterQuestId: 70258,
+    treatiseQuest: {
+        itemId: 194708, // Draconic Treatise on Mining
+        questId: 74106,
+    },
+    provideQuests: dragonflightProvideQuests.map(miningFieldNotesQuest),
+    gatherQuests: [
+        {
+            itemId: iridescentOreFragmentsItemId,
+            questId: 72160,
+        },
+        {
+            itemId: iridescentOreFragmentsItemId,
+            questId: 72161,
+        },
+        {
+            itemId: iridescentOreFragmentsItemId,
+            questId: 72162,
+        },
+        {
+            itemId: iridescentOreFragmentsItemId,
+            questId: 72163,
+        },
+        {
+            itemId: iridescentOreFragmentsItemId,
+            questId: 72164,
+        },
+        {
+            itemId: 198841, // Large Sample of Curious Hide
+            questId: 72165,
+        },
+    ],
     bookQuests: [
         {
             itemId: 200981, // Artisan's Consortium, Preferred

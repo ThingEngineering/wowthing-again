@@ -4,7 +4,15 @@ import type { TaskProfession } from '@/types/data';
 export const warWithinTailoring: TaskProfession = {
     id: Profession.Tailoring,
     subProfessionId: 2883,
-    hasOrders: true,
+    orderQuest: {
+        itemId: 228779, // Algari Tailor's Notebook
+        questId: 84132,
+        source: 'Work Orders',
+    },
+    treatiseQuest: {
+        itemId: 222547, // Algari Treatise on Tailoring
+        questId: 83735,
+    },
     dropQuests: [
         {
             itemId: 225220, // Chitin Needle
@@ -17,17 +25,6 @@ export const warWithinTailoring: TaskProfession = {
             source: 'Mobs/Treasures',
         },
     ],
-    orderQuests: [
-        {
-            itemId: 228779, // Algari Tailor's Notebook
-            questId: 84132,
-            source: 'Work Orders',
-        },
-    ],
-    treatiseQuest: {
-        itemId: 222547, // Algari Treatise on Tailoring
-        questId: 83735,
-    },
     bookQuests: [
         {
             itemId: 227410, // Faded Tailor's Diagrams
@@ -75,12 +72,65 @@ export const warWithinTailoring: TaskProfession = {
     treasureQuests: [],
 };
 
+const tailoringExamplesQuest = (questId: number) => ({
+    itemId: 198609,
+    questId,
+});
+const dragonflightProvideQuests = [
+    70572, // The Cold Does Bother Them, Actually
+    70582, // Weave Well Enough Alone
+    70586, // Sew Many Cooks
+    70587, // A Knapsack Problem
+];
+const dragonflightTaskQuests = [
+    66899, // Fuzzy Legs
+    66952, // The Gnoll's Clothes
+    66953, // All Things Fluffy
+    72410, // Pincers and Needles
+    75407, // [ZC] Silk Scavenging
+    75600, // [ZC] Silk's Silk
+    77947, // [ED] Primalist Fashion
+    77949, // [ED] Fashion Feathers
+];
+
 export const dragonflightTailoring: TaskProfession = {
     id: Profession.Tailoring,
     subProfessionId: 2831,
-    hasTasks: true,
-    hasOrders: true,
     masterQuestId: 70260,
+    orderQuest: tailoringExamplesQuest(70594),
+    treatiseQuest: {
+        itemId: 194698, // Draconic Treatise on Tailoring
+        questId: 74115,
+    },
+    provideQuests: dragonflightProvideQuests.map(tailoringExamplesQuest),
+    taskQuests: dragonflightTaskQuests.map(tailoringExamplesQuest),
+    dropQuests: [
+        {
+            itemId: 193898, // Umbral Bone Needle
+            questId: 66386,
+            source: 'Treasures',
+        },
+        {
+            itemId: 193899, // Primalweave Spindle
+            questId: 66387,
+            source: 'Treasures',
+        },
+        {
+            itemId: 198977, // Ohn'ahran Weave
+            questId: 70524,
+            source: 'Mobs: Centaur',
+        },
+        {
+            itemId: 198978, // Stupidly Effective Stitchery
+            questId: 70525,
+            source: 'Mobs: Gnoll',
+        },
+        {
+            itemId: 204225, // Perfect Windfeather
+            questId: 74321,
+            source: 'FR: Gareed',
+        },
+    ],
     bookQuests: [
         {
             itemId: 200975, // Artisan's Consortium, Preferred
@@ -131,33 +181,6 @@ export const dragonflightTailoring: TaskProfession = {
             itemId: 205431, // Bartered Tailoring Notes
             questId: 75837,
             source: 'ZCB',
-        },
-    ],
-    dropQuests: [
-        {
-            itemId: 193898, // Umbral Bone Needle
-            questId: 66386,
-            source: 'Treasures',
-        },
-        {
-            itemId: 193899, // Primalweave Spindle
-            questId: 66387,
-            source: 'Treasures',
-        },
-        {
-            itemId: 198977, // Ohn'ahran Weave
-            questId: 70524,
-            source: 'Mobs: Centaur',
-        },
-        {
-            itemId: 198978, // Stupidly Effective Stitchery
-            questId: 70525,
-            source: 'Mobs: Gnoll',
-        },
-        {
-            itemId: 204225, // Perfect Windfeather
-            questId: 74321,
-            source: 'FR: Gareed',
         },
     ],
     treasureQuests: [

@@ -71,6 +71,8 @@ export default [
             'svelte/no-at-html-tags': 'off',
             // TODO: fix the hundreds of these
             'svelte/require-each-key': 'warn',
+            // ehhhh
+            'svelte/prefer-svelte-reactivity': 'warn',
         },
     },
 ];

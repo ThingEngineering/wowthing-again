@@ -12,6 +12,10 @@ const taskQuestIds = [
 export const warWithinSkinning: TaskProfession = {
     id: Profession.Skinning,
     subProfessionId: 2882,
+    treatiseQuest: {
+        itemId: 222649, // Algari Treatise on Skinning
+        questId: 83734,
+    },
     taskQuests: taskQuestIds.map((questId) => ({
         itemId: 224807, // Algari Skinner's Notes
         questId,
@@ -48,10 +52,6 @@ export const warWithinSkinning: TaskProfession = {
             source: 'Gathering',
         },
     ],
-    treatiseQuest: {
-        itemId: 222649, // Algari Treatise on Skinning
-        questId: 83734,
-    },
     bookQuests: [
         {
             itemId: 227417, // Faded Skinner's Notes
@@ -99,10 +99,53 @@ export const warWithinSkinning: TaskProfession = {
     treasureQuests: [],
 };
 
+const curiousHideScrapsItemId = 198837;
+const skinningFieldNotesQuest = (questId: number) => ({
+    itemId: 199128,
+    questId,
+});
+const dragonflightProvideQuests = [
+    70619, // A Study of Leather
+    70620, // Scaling Up
+    72158, // A Dense Delivery
+    72159, // Scaling Down
+];
+
 export const dragonflightSkinning: TaskProfession = {
     id: Profession.Skinning,
     subProfessionId: 2834,
     masterQuestId: 70259,
+    treatiseQuest: {
+        itemId: 201023, // Draconic Treatise on Skinning
+        questId: 74114,
+    },
+    provideQuests: dragonflightProvideQuests.map(skinningFieldNotesQuest),
+    gatherQuests: [
+        {
+            itemId: curiousHideScrapsItemId,
+            questId: 70381,
+        },
+        {
+            itemId: curiousHideScrapsItemId,
+            questId: 70383,
+        },
+        {
+            itemId: curiousHideScrapsItemId,
+            questId: 70384,
+        },
+        {
+            itemId: curiousHideScrapsItemId,
+            questId: 70385,
+        },
+        {
+            itemId: curiousHideScrapsItemId,
+            questId: 70386,
+        },
+        {
+            itemId: 198841, // Large Sample of Curious Hide
+            questId: 70389,
+        },
+    ],
     bookQuests: [
         {
             itemId: 200982, // Artisan's Consortium, Preferred

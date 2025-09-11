@@ -4,7 +4,14 @@ import type { TaskProfession } from '@/types/data';
 export const warWithinEngineering: TaskProfession = {
     id: Profession.Engineering,
     subProfessionId: 2875,
-    hasOrders: true,
+    orderQuest: {
+        itemId: 228775, // Algari Engineer's Notepad
+        questId: 84128,
+    },
+    treatiseQuest: {
+        itemId: 222621, // Algari Treatise on Engineering
+        questId: 83728,
+    },
     dropQuests: [
         {
             itemId: 225229, // Earthen Induction Coil
@@ -17,17 +24,6 @@ export const warWithinEngineering: TaskProfession = {
             source: 'Mobs/Treasures',
         },
     ],
-    orderQuests: [
-        {
-            itemId: 228775, // Algari Engineer's Notepad
-            questId: 84128,
-            source: 'Work Orders',
-        },
-    ],
-    treatiseQuest: {
-        itemId: 222621, // Algari Treatise on Engineering
-        questId: 83728,
-    },
     bookQuests: [
         {
             itemId: 227412, // Faded Engineer's Scribblings
@@ -75,12 +71,65 @@ export const warWithinEngineering: TaskProfession = {
     treasureQuests: [],
 };
 
+const engineeringDetailsQuest = (questId: number) => ({
+    itemId: 198611,
+    questId,
+});
+const dragonflightProvideQuests = [
+    70539, // And You Thought They Did Nothing
+    70540, // An Engineer's Best Friend
+    70545, // Blingtron 8000...?
+    70557, // No Scopes
+];
+const dragonflightTaskQuests = [
+    66890, // Stolen Tools
+    66891, // Explosive Ash
+    66942, // Enemy Engineering
+    72396, // Horns of Plenty
+    75575, // [ZC] Ballistae Bits
+    75608, // [ZC] Titan Trash or Titan Treasure?
+    77891, // [ED] An Unlikely Engineer
+    77938, // [ED] Fixing the Dream
+];
+
 export const dragonflightEngineering: TaskProfession = {
     id: Profession.Engineering,
     subProfessionId: 2827,
-    hasTasks: true,
-    hasOrders: true,
     masterQuestId: 70252,
+    orderQuest: engineeringDetailsQuest(70591),
+    treatiseQuest: {
+        itemId: 198510, // Draconic Treatise on Engineering
+        questId: 74111,
+    },
+    provideQuests: dragonflightProvideQuests.map(engineeringDetailsQuest),
+    taskQuests: dragonflightTaskQuests.map(engineeringDetailsQuest),
+    dropQuests: [
+        {
+            itemId: 193902, // Eroded Titan Gizmo
+            questId: 66379,
+            source: 'Treasures',
+        },
+        {
+            itemId: 193903, // Watcher Power Core
+            questId: 66380,
+            source: 'Treasures',
+        },
+        {
+            itemId: 198969, // Keeper's Mark
+            questId: 70516,
+            source: 'Mobs: Keeper',
+        },
+        {
+            itemId: 198970, // Infinitely Attachable Pair o' Docks
+            questId: 70517,
+            source: 'Mobs: Dragonkin',
+        },
+        {
+            itemId: 204227, // Everflowing Antifreeze
+            questId: 74330,
+            source: 'FR: Fimbol',
+        },
+    ],
     bookQuests: [
         {
             itemId: 200977, // Artisan's Consortium, Preferred
@@ -131,33 +180,6 @@ export const dragonflightEngineering: TaskProfession = {
             itemId: 205425, // Bartered Engineering Notes
             questId: 75844,
             source: 'ZCB',
-        },
-    ],
-    dropQuests: [
-        {
-            itemId: 193902, // Eroded Titan Gizmo
-            questId: 66379,
-            source: 'Treasures',
-        },
-        {
-            itemId: 193903, // Watcher Power Core
-            questId: 66380,
-            source: 'Treasures',
-        },
-        {
-            itemId: 198969, // Keeper's Mark
-            questId: 70516,
-            source: 'Mobs: Keeper',
-        },
-        {
-            itemId: 198970, // Infinitely Attachable Pair o' Docks
-            questId: 70517,
-            source: 'Mobs: Dragonkin',
-        },
-        {
-            itemId: 204227, // Everflowing Antifreeze
-            questId: 74330,
-            source: 'FR: Fimbol',
         },
     ],
     treasureQuests: [

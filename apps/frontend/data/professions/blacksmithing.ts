@@ -4,7 +4,14 @@ import type { TaskProfession } from '@/types/data';
 export const warWithinBlacksmithing: TaskProfession = {
     id: Profession.Blacksmithing,
     subProfessionId: 2872,
-    hasOrders: true,
+    orderQuest: {
+        itemId: 228774, // Algari Blacksmith's Journal
+        questId: 84127,
+    },
+    treatiseQuest: {
+        itemId: 222554, // Algari Treatise on Blacksmithing
+        questId: 83726,
+    },
     dropQuests: [
         {
             itemId: 225232, // Coreway Billet
@@ -17,17 +24,6 @@ export const warWithinBlacksmithing: TaskProfession = {
             source: 'Mobs/Treasures',
         },
     ],
-    orderQuests: [
-        {
-            itemId: 228774, // Algari Blacksmith's Journal
-            questId: 84127,
-            source: 'Work Orders',
-        },
-    ],
-    treatiseQuest: {
-        itemId: 222554, // Algari Treatise on Blacksmithing
-        questId: 83726,
-    },
     bookQuests: [
         {
             itemId: 227407, // Faded Blacksmith's Diagrams
@@ -75,12 +71,65 @@ export const warWithinBlacksmithing: TaskProfession = {
     treasureQuests: [],
 };
 
+const blacksmithsWritQuest = (questId: number) => ({
+    itemId: 198606,
+    questId,
+});
+const dragonflightProvideQuests = [
+    70211, // Stomping Explorers
+    70233, // Axe Shortage
+    70234, // All This Hammering
+    70235, // Repair Bill
+];
+const dragonflightTaskQuests = [
+    66517, // A New Source of Weapons
+    66897, // Fuel for the Forge
+    66941, // Tremendous Tools
+    72398, // Rock and Stone
+    75148, // [ZC] Ancient Techniques
+    75569, // [ZC] Blacksmith, Black Dragon
+    77935, // [ED] A-Sword-ed Needs
+    77936, // [ED] A Warm Harvest
+];
+
 export const dragonflightBlacksmithing: TaskProfession = {
     id: Profession.Blacksmithing,
     subProfessionId: 2822,
-    hasTasks: true,
-    hasOrders: true,
     masterQuestId: 70250,
+    orderQuest: blacksmithsWritQuest(70589),
+    treatiseQuest: {
+        itemId: 198454, // Draconic Treatise on Blacksmithing
+        questId: 74109,
+    },
+    provideQuests: dragonflightProvideQuests.map(blacksmithsWritQuest),
+    taskQuests: dragonflightTaskQuests.map(blacksmithsWritQuest),
+    dropQuests: [
+        {
+            itemId: 192131, // Valdrakken Weapon Chain
+            questId: 66381,
+            source: 'Treasures',
+        },
+        {
+            itemId: 192132, // Draconium Blade Sharpener
+            questId: 66382,
+            source: 'Treasures',
+        },
+        {
+            itemId: 198965, // Primeval Earth Fragment
+            questId: 70512,
+            source: 'Mobs: Earth',
+        },
+        {
+            itemId: 198966, // Molten Globule
+            questId: 70513,
+            source: 'Mobs: Fire',
+        },
+        {
+            itemId: 204230, // Dense Seaforged Javelin
+            questId: 74325,
+            source: 'FR: Tidesmith Zarviss',
+        },
+    ],
     bookQuests: [
         {
             itemId: 200972, // Artisan's Consortium, Preferred
@@ -131,33 +180,6 @@ export const dragonflightBlacksmithing: TaskProfession = {
             itemId: 205428, // Bartered Blacksmithing Notes
             questId: 75846,
             source: 'ZCB',
-        },
-    ],
-    dropQuests: [
-        {
-            itemId: 192131, // Valdrakken Weapon Chain
-            questId: 66381,
-            source: 'Treasures',
-        },
-        {
-            itemId: 192132, // Draconium Blade Sharpener
-            questId: 66382,
-            source: 'Treasures',
-        },
-        {
-            itemId: 198965, // Primeval Earth Fragment
-            questId: 70512,
-            source: 'Mobs: Earth',
-        },
-        {
-            itemId: 198966, // Molten Globule
-            questId: 70513,
-            source: 'Mobs: Fire',
-        },
-        {
-            itemId: 204230, // Dense Seaforged Javelin
-            questId: 74325,
-            source: 'FR: Tidesmith Zarviss',
         },
     ],
     treasureQuests: [

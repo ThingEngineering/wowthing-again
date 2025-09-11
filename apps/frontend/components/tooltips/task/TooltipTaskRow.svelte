@@ -168,18 +168,28 @@
                             <ParsedText text={charTaskChore.name} />
                         </td>
                         <td class="status">
-                            <IconifyIcon
-                                extraClass="status-{['fail', 'shrug', 'success', 'fail'][
+                            <span
+                                class="status-{['fail', 'shrug', 'success', 'fail'][
                                     charTaskChore.status
                                 ]}"
-                                icon={chore?.icon ||
-                                    [
-                                        uiIcons.starEmpty,
-                                        uiIcons.starHalf,
-                                        uiIcons.starFull,
-                                        uiIcons.lock,
-                                    ][charTaskChore.status]}
-                            />
+                            >
+                                {#if chore?.icon}
+                                    {#if 'body' in chore.icon}
+                                        <IconifyIcon icon={chore.icon} />
+                                    {:else}
+                                        <IconifyWrapper Icon={chore.icon} scale="1" />
+                                    {/if}
+                                {:else}
+                                    <IconifyIcon
+                                        icon={[
+                                            uiIcons.starEmpty,
+                                            uiIcons.starHalf,
+                                            uiIcons.starFull,
+                                            uiIcons.lock,
+                                        ][charTaskChore.status]}
+                                    />
+                                {/if}
+                            </span>
                         </td>
                         {#if anyErrors}
                             <td class="error-text">

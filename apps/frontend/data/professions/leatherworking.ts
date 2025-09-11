@@ -4,7 +4,14 @@ import type { TaskProfession } from '@/types/data';
 export const warWithinLeatherworking: TaskProfession = {
     id: Profession.Leatherworking,
     subProfessionId: 2880,
-    hasOrders: true,
+    orderQuest: {
+        itemId: 228778, // Algari Leatherworker's Journal
+        questId: 84131,
+    },
+    treatiseQuest: {
+        itemId: 222549, // Algari Treatise on Leatherworking
+        questId: 83732,
+    },
     dropQuests: [
         {
             itemId: 225222, // Stone-Leather Swatch
@@ -17,17 +24,6 @@ export const warWithinLeatherworking: TaskProfession = {
             source: 'Mobs/Treasures',
         },
     ],
-    orderQuests: [
-        {
-            itemId: 228778, // Algari Leatherworker's Journal
-            questId: 84131,
-            source: 'Work Orders',
-        },
-    ],
-    treatiseQuest: {
-        itemId: 222549, // Algari Treatise on Leatherworking
-        questId: 83732,
-    },
     bookQuests: [
         {
             itemId: 227414, // Faded Leatherworker's Diagrams
@@ -75,12 +71,65 @@ export const warWithinLeatherworking: TaskProfession = {
     treasureQuests: [],
 };
 
+const leatherworkingDesignsQuest = (questId: number) => ({
+    itemId: 198613,
+    questId,
+});
+const dragonflightProvideQuests = [
+    70567, // When You Give Bakar a Bone
+    70568, // Tipping the Scales
+    70569, // For Trisket, a Task Kit
+    70571, // Drums Here!
+];
+const dragonflightTaskQuests = [
+    66363, // Basilisk Bucklers
+    66364, // To Fly a Kite
+    66951, // Population Control
+    72407, // Soaked in Success
+    75354, // [ZC] Mycelium Mastery
+    75368, // [ZC] Stones and Scales
+    77945, // [ED] Boots on the Ground
+    77946, // [ED] Fibrous Thread
+];
+
 export const dragonflightLeatherworking: TaskProfession = {
     id: Profession.Leatherworking,
     subProfessionId: 2830,
-    hasTasks: true,
-    hasOrders: true,
     masterQuestId: 70256,
+    orderQuest: leatherworkingDesignsQuest(70594),
+    treatiseQuest: {
+        itemId: 194700, // Draconic Treatise on Leatherworking
+        questId: 74113,
+    },
+    provideQuests: dragonflightProvideQuests.map(leatherworkingDesignsQuest),
+    taskQuests: dragonflightTaskQuests.map(leatherworkingDesignsQuest),
+    dropQuests: [
+        {
+            itemId: 193910, // Molted Dragon Scales
+            questId: 66384,
+            source: 'Treasures',
+        },
+        {
+            itemId: 193913, // Preserved Animal Parts
+            questId: 66385,
+            source: 'Treasures',
+        },
+        {
+            itemId: 198975, // Ossified Hide
+            questId: 70522,
+            source: 'Mobs: Proto-Drakes',
+        },
+        {
+            itemId: 198976, // Extremely Soft Skin
+            questId: 70523,
+            source: 'Mobs: Slyvern & Vorquin',
+        },
+        {
+            itemId: 204232, // Slyvern Alpha Claw
+            questId: 74307,
+            source: 'FR: Snarfang',
+        },
+    ],
     bookQuests: [
         {
             itemId: 200979, // Artisan's Consortium, Preferred
@@ -131,33 +180,6 @@ export const dragonflightLeatherworking: TaskProfession = {
             itemId: 205426, // Bartered Leatherworking Notes
             questId: 75840,
             source: 'ZCB',
-        },
-    ],
-    dropQuests: [
-        {
-            itemId: 193910, // Molted Dragon Scales
-            questId: 66384,
-            source: 'Treasures',
-        },
-        {
-            itemId: 193913, // Preserved Animal Parts
-            questId: 66385,
-            source: 'Treasures',
-        },
-        {
-            itemId: 198975, // Ossified Hide
-            questId: 70522,
-            source: 'Mobs: Proto-Drakes',
-        },
-        {
-            itemId: 198976, // Extremely Soft Skin
-            questId: 70523,
-            source: 'Mobs: Slyvern & Vorquin',
-        },
-        {
-            itemId: 204232, // Slyvern Alpha Claw
-            questId: 74307,
-            source: 'FR: Snarfang',
         },
     ],
     treasureQuests: [

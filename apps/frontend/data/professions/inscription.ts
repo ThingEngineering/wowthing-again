@@ -4,7 +4,15 @@ import type { TaskProfession } from '@/types/data';
 export const warWithinInscription: TaskProfession = {
     id: Profession.Inscription,
     subProfessionId: 2878,
-    hasOrders: true,
+    orderQuest: {
+        itemId: 228776, // Algari Scribe's Journal
+        questId: 84129,
+        source: 'Work Orders',
+    },
+    treatiseQuest: {
+        itemId: 222548, // Algari Treatise on Inscription
+        questId: 83730,
+    },
     dropQuests: [
         {
             itemId: 225226, // Striated Inkstone
@@ -17,17 +25,6 @@ export const warWithinInscription: TaskProfession = {
             source: 'Mobs/Treasures',
         },
     ],
-    orderQuests: [
-        {
-            itemId: 228776, // Algari Scribe's Journal
-            questId: 84129,
-            source: 'Work Orders',
-        },
-    ],
-    treatiseQuest: {
-        itemId: 222548, // Algari Treatise on Inscription
-        questId: 83730,
-    },
     bookQuests: [
         {
             itemId: 227408, // Faded Scribe's Runic Drawings
@@ -75,12 +72,65 @@ export const warWithinInscription: TaskProfession = {
     treasureQuests: [],
 };
 
+const scribesGlyphsQuest = (questId: number) => ({
+    itemId: 198607,
+    questId,
+});
+const dragonflightProvideQuests = [
+    70558, // Disillusioned Illusions
+    70559, // Quill You Help?
+    70560, // The Most Powerful Tool: Good Documentation
+    70561, // A Scribe's Tragedy
+];
+const dragonflightTaskQuests = [
+    66943, // Wood for Writing
+    66944, // Peacock Pigments
+    66945, // Icy Ink
+    72438, // Tarasek Intentions
+    75149, // [ZC] Obsidian Essays
+    75573, // [ZC] Proclamation Reclamation
+    77889, // [ED] A Fiery Proposal
+    77914, // [ED] Burning Runes
+];
+
 export const dragonflightInscription: TaskProfession = {
     id: Profession.Inscription,
     subProfessionId: 2828,
-    hasTasks: true,
-    hasOrders: true,
     masterQuestId: 70254,
+    orderQuest: scribesGlyphsQuest(70592),
+    treatiseQuest: {
+        itemId: 194699, // Draconic Treatise on Inscription
+        questId: 74105,
+    },
+    provideQuests: dragonflightProvideQuests.map(scribesGlyphsQuest),
+    taskQuests: dragonflightTaskQuests.map(scribesGlyphsQuest),
+    dropQuests: [
+        {
+            itemId: 193904, // Phoenix Feather Quill
+            questId: 66375,
+            source: 'Treasures',
+        },
+        {
+            itemId: 193905, // Iskaaran Trading Ledger
+            questId: 66376,
+            source: 'Treasures',
+        },
+        {
+            itemId: 198971, // Curious Djaradin Rune
+            questId: 70518,
+            source: 'Mobs: Djaradin',
+        },
+        {
+            itemId: 198972, // Draconic Glamour
+            questId: 70519,
+            source: 'Mobs: Dragonkin',
+        },
+        {
+            itemId: 204229, // Glimmering Rune of Arcantrix
+            questId: 74328,
+            source: 'FR: Arcantrix',
+        },
+    ],
     bookQuests: [
         {
             itemId: 200973, // Artisan's Consortium, Preferred
@@ -131,33 +181,6 @@ export const dragonflightInscription: TaskProfession = {
             itemId: 205430, // Bartered Inscription Notes
             questId: 75842,
             source: 'ZCB',
-        },
-    ],
-    dropQuests: [
-        {
-            itemId: 193904, // Phoenix Feather Quill
-            questId: 66375,
-            source: 'Treasures',
-        },
-        {
-            itemId: 193905, // Iskaaran Trading Ledger
-            questId: 66376,
-            source: 'Treasures',
-        },
-        {
-            itemId: 198971, // Curious Djaradin Rune
-            questId: 70518,
-            source: 'Mobs: Djaradin',
-        },
-        {
-            itemId: 198972, // Draconic Glamour
-            questId: 70519,
-            source: 'Mobs: Dragonkin',
-        },
-        {
-            itemId: 204229, // Glimmering Rune of Arcantrix
-            questId: 74328,
-            source: 'FR: Arcantrix',
         },
     ],
     treasureQuests: [

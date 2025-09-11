@@ -99,10 +99,53 @@ export const warWithinHerbalism: TaskProfession = {
     treasureQuests: [],
 };
 
+const dreambloomPetalItemId = 200677;
+const herbalismFieldNotesQuest = (questId: number) => ({
+    itemId: 199115,
+    questId,
+});
+const dragonflightProvideQuests = [
+    70613, // Get Their Bark Before They Bite
+    70614, // Bubble Craze
+    70615, // The Case of the Missing Herbs
+    70616, // How Many??
+];
+
 export const dragonflightHerbalism: TaskProfession = {
     id: Profession.Herbalism,
     subProfessionId: 2832,
     masterQuestId: 70253,
+    treatiseQuest: {
+        itemId: 194704, // Draconic Treatise on Herbalism
+        questId: 74107,
+    },
+    provideQuests: dragonflightProvideQuests.map(herbalismFieldNotesQuest),
+    gatherQuests: [
+        {
+            itemId: dreambloomPetalItemId,
+            questId: 71857,
+        },
+        {
+            itemId: dreambloomPetalItemId,
+            questId: 71858,
+        },
+        {
+            itemId: dreambloomPetalItemId,
+            questId: 71859,
+        },
+        {
+            itemId: dreambloomPetalItemId,
+            questId: 71860,
+        },
+        {
+            itemId: dreambloomPetalItemId,
+            questId: 71861,
+        },
+        {
+            itemId: 200678, // Dreambloom
+            questId: 71864,
+        },
+    ],
     bookQuests: [
         {
             itemId: 200980, // Artisan's Consortium, Preferred
