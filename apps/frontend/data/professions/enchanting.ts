@@ -1,7 +1,7 @@
 import { Profession } from '@/enums/profession';
 import type { TaskProfession } from '@/types/data';
 
-const taskQuestIds = [
+const warWithinTaskQuests = [
     84084, // Just a Pinch
     84085, // The Power of Potential
     84086, // A Rare Necessity
@@ -10,7 +10,11 @@ const taskQuestIds = [
 export const warWithinEnchanting: TaskProfession = {
     id: Profession.Enchanting,
     subProfessionId: 2874,
-    taskQuests: taskQuestIds.map((questId) => ({
+    treatiseQuest: {
+        itemId: 222550, // Algari Treatise on Enchanting
+        questId: 83727,
+    },
+    taskQuests: warWithinTaskQuests.map((questId) => ({
         itemId: 227667, // Algari Enchanter's Folio
         questId,
     })),
@@ -58,10 +62,6 @@ export const warWithinEnchanting: TaskProfession = {
             source: 'Disenchanting',
         },
     ],
-    treatiseQuest: {
-        itemId: 222550, // Algari Treatise on Enchanting
-        questId: 83727,
-    },
     bookQuests: [
         {
             itemId: 227411, // Faded Enchanter's Research
@@ -109,11 +109,64 @@ export const warWithinEnchanting: TaskProfession = {
     treasureQuests: [],
 };
 
+const enchantersScriptQuest = (questId: number) => ({
+    itemId: 198610,
+    questId,
+});
+const dragonflightProvideQuests = [
+    72155, // Spread the Enchantment
+    72172, // Essence, Shards, and Chromatic Dust
+    72173, // Braced for Enchantment
+    72175, // A Scept-acular Time
+];
+const dragonflightTaskQuests = [
+    66884, // Fireproof Gear
+    66900, // Enchanted Relics
+    66935, // Crystal Quill Pens
+    72423, // Weathering the Storm
+    75150, // [ZC] Incandescence
+    75865, // [ZC] Relic Rustler
+    77910, // [ED] Enchanted Shrubbery
+    77937, // [ED] Forbidden Sugar
+];
+
 export const dragonflightEnchanting: TaskProfession = {
     id: Profession.Enchanting,
     subProfessionId: 2825,
-    hasTasks: true,
     masterQuestId: 70251,
+    treatiseQuest: {
+        itemId: 194702, // Draconic Treatise on Enchanting
+        questId: 74110,
+    },
+    provideQuests: dragonflightProvideQuests.map(enchantersScriptQuest),
+    taskQuests: dragonflightTaskQuests.map(enchantersScriptQuest),
+    dropQuests: [
+        {
+            itemId: 193900, // Prismatic Focusing Shard
+            questId: 66377,
+            source: 'Treasures',
+        },
+        {
+            itemId: 193901, // Primal Dust
+            questId: 66378,
+            source: 'Treasures',
+        },
+        {
+            itemId: 198967, // Primordial Aether
+            questId: 70514,
+            source: 'Mobs: Arcane',
+        },
+        {
+            itemId: 198968, // Primalist Charm
+            questId: 70515,
+            source: 'Mobs: Primalist',
+        },
+        {
+            itemId: 204224, // Speck of Arcane Awareness
+            questId: 74306,
+            source: 'FR: Manathema',
+        },
+    ],
     bookQuests: [
         {
             itemId: 200976, // Artisan's Consortium, Preferred
@@ -164,33 +217,6 @@ export const dragonflightEnchanting: TaskProfession = {
             itemId: 205427, // Bartered Enchanting Notes
             questId: 75845,
             source: 'ZCB',
-        },
-    ],
-    dropQuests: [
-        {
-            itemId: 193900, // Prismatic Focusing Shard
-            questId: 66377,
-            source: 'Treasures',
-        },
-        {
-            itemId: 193901, // Primal Dust
-            questId: 66378,
-            source: 'Treasures',
-        },
-        {
-            itemId: 198967, // Primordial Aether
-            questId: 70514,
-            source: 'Mobs: Arcane',
-        },
-        {
-            itemId: 198968, // Primalist Charm
-            questId: 70515,
-            source: 'Mobs: Primalist',
-        },
-        {
-            itemId: 204224, // Speck of Arcane Awareness
-            questId: 74306,
-            source: 'FR: Manathema',
         },
     ],
     treasureQuests: [

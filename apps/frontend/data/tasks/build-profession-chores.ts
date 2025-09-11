@@ -19,6 +19,19 @@ export function buildProfessionChores(
         const couldGetFunc = (char: Character) =>
             couldGet(char, taskProfession.id, taskProfession.subProfessionId);
 
+        if (taskProfession.provideQuests) {
+            chores.push({
+                key: `${name}Provide`,
+                name: `${name}: Provide`,
+                showQuestName: true,
+                questIds: taskProfession.provideQuests.map((taskQuest) => taskQuest.questId),
+                questReset: DbResetType.Weekly,
+                couldGetFunc,
+                canGetFunc: (char) =>
+                    getExpansionSkill(char, taskProfession.id, taskProfession.subProfessionId, 25),
+            });
+        }
+
         if (taskProfession.taskQuests) {
             chores.push({
                 key: `${name}Task`,
@@ -27,7 +40,8 @@ export function buildProfessionChores(
                 questIds: taskProfession.taskQuests.map((taskQuest) => taskQuest.questId),
                 questReset: DbResetType.Weekly,
                 couldGetFunc,
-                canGetFunc: (char) => getExpansionSkill(char, taskProfession.id, expansion, 25),
+                canGetFunc: (char) =>
+                    getExpansionSkill(char, taskProfession.id, taskProfession.subProfessionId, 25),
             });
         }
 
@@ -46,11 +60,11 @@ export function buildProfessionChores(
                     questReset: DbResetType.Weekly,
                 })),
                 couldGetFunc,
-                canGetFunc: (char) => getExpansionSkill(char, taskProfession.id, expansion, 1),
+                canGetFunc: (char) =>
+                    getExpansionSkill(char, taskProfession.id, taskProfession.subProfessionId, 1),
             });
         }
 
-        // gather quests are sequential, use sub-chores
         if (taskProfession.gatherQuests) {
             chores.push({
                 key: `${name}Gather`,
@@ -66,7 +80,8 @@ export function buildProfessionChores(
                     questReset: DbResetType.Weekly,
                 })),
                 couldGetFunc,
-                canGetFunc: (char) => getExpansionSkill(char, taskProfession.id, expansion, 1),
+                canGetFunc: (char) =>
+                    getExpansionSkill(char, taskProfession.id, taskProfession.subProfessionId, 1),
             });
         }
 
@@ -85,18 +100,20 @@ export function buildProfessionChores(
                     },
                 ],
                 couldGetFunc,
-                canGetFunc: (char) => getExpansionSkill(char, taskProfession.id, expansion, 1),
+                canGetFunc: (char) =>
+                    getExpansionSkill(char, taskProfession.id, taskProfession.subProfessionId, 1),
             });
         }
 
-        if (taskProfession.orderQuests) {
+        if (taskProfession.orderQuest) {
             chores.push({
                 key: `${name}Orders`,
                 name: `${name}: Orders`,
                 questReset: DbResetType.Weekly,
-                questIds: taskProfession.orderQuests.map((taskQuest) => taskQuest.questId),
+                questIds: [taskProfession.orderQuest.questId],
                 couldGetFunc,
-                canGetFunc: (char) => getExpansionSkill(char, taskProfession.id, expansion, 25),
+                canGetFunc: (char) =>
+                    getExpansionSkill(char, taskProfession.id, taskProfession.subProfessionId, 25),
             });
         }
 
@@ -122,13 +139,9 @@ function couldGet(character: Character, professionId: number, subProfessionId: n
 function getExpansionSkill(
     char: Character,
     professionId: number,
-    expansion: number,
+    subprofessionId: number,
     minSkill: number
 ): string {
-    const currentSubProfession =
-        wowthingData.static.professionById.get(professionId).expansionSubProfession[expansion];
-    const skill =
-        char.professions[professionId].subProfessions[currentSubProfession?.id]?.skillCurrent ?? 0;
-
+    const skill = char.professions[professionId].subProfessions[subprofessionId]?.skillCurrent ?? 0;
     return skill < minSkill ? `Need ${minSkill} skill` : '';
 }

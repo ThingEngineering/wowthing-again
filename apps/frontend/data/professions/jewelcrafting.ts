@@ -4,7 +4,14 @@ import type { TaskProfession } from '@/types/data';
 export const warWithinJewelcrafting: TaskProfession = {
     id: Profession.Jewelcrafting,
     subProfessionId: 2879,
-    hasOrders: true,
+    orderQuest: {
+        itemId: 228777, // Algari Jewelcrafter's Notebook
+        questId: 84130,
+    },
+    treatiseQuest: {
+        itemId: 222551, // Algari Treatise on Jewelcrafting
+        questId: 83731,
+    },
     dropQuests: [
         {
             itemId: 225225, // Deepstone Fragment
@@ -17,17 +24,6 @@ export const warWithinJewelcrafting: TaskProfession = {
             source: 'Mobs/Treasures',
         },
     ],
-    orderQuests: [
-        {
-            itemId: 228777, // Algari Jewelcrafter's Notebook
-            questId: 84130,
-            source: 'Work Orders',
-        },
-    ],
-    treatiseQuest: {
-        itemId: 222551, // Algari Treatise on Jewelcrafting
-        questId: 83731,
-    },
     bookQuests: [
         {
             itemId: 227413, // Faded Jeweler's Illustrations
@@ -75,12 +71,65 @@ export const warWithinJewelcrafting: TaskProfession = {
     treasureQuests: [],
 };
 
+const jewelersCutsQuest = (questId: number) => ({
+    itemId: 198612,
+    questId,
+});
+const dragonflightProvideQuests = [
+    70562, // The Plumbers, Mason
+    70563, // The Exhibition
+    70564, // Spectacular
+    70565, // Separation by Saturation
+];
+const dragonflightTaskQuests = [
+    66516, // Mundane Gems, I Think Not!
+    66949, // Trinket Bandits
+    66950, // Heart of a Giant
+    72428, // Hornswog Hoarders
+    75362, // [ZC] Cephalo-crystalization
+    75602, // [ZC] Chips off the Old Crystal Block
+    77892, // [ED] Pearls of Great Value
+    77912, // [ED] Unmodern Jewelry
+];
+
 export const dragonflightJewelcrafting: TaskProfession = {
     id: Profession.Jewelcrafting,
     subProfessionId: 2829,
-    hasTasks: true,
-    hasOrders: true,
     masterQuestId: 70255,
+    orderQuest: jewelersCutsQuest(70593),
+    treatiseQuest: {
+        itemId: 194703, // Draconic Treatise on Jewelcrafting
+        questId: 74112,
+    },
+    provideQuests: dragonflightProvideQuests.map(jewelersCutsQuest),
+    taskQuests: dragonflightTaskQuests.map(jewelersCutsQuest),
+    dropQuests: [
+        {
+            itemId: 193909, // Ancient Gem Fragments
+            questId: 66388,
+            source: 'Treasures',
+        },
+        {
+            itemId: 193907, // Chipped Tyrstone
+            questId: 66389,
+            source: 'Treasures',
+        },
+        {
+            itemId: 198973, // Incandescent Curio
+            questId: 70520,
+            source: 'Mobs: Elemental',
+        },
+        {
+            itemId: 198974, // Elegantly Engrabed Embellishment
+            questId: 70521,
+            source: 'Mobs: Dragonkin',
+        },
+        {
+            itemId: 204222, // Conductive Ametrine Shard
+            questId: 74333,
+            source: 'FR: Amephyst',
+        },
+    ],
     bookQuests: [
         {
             itemId: 200978, // Artisan's Consortium, Preferred
@@ -131,33 +180,6 @@ export const dragonflightJewelcrafting: TaskProfession = {
             itemId: 205424, // Bartered Jewelcrafting Notes
             questId: 75841,
             source: 'ZCB',
-        },
-    ],
-    dropQuests: [
-        {
-            itemId: 193909, // Ancient Gem Fragments
-            questId: 66388,
-            source: 'Treasures', //
-        },
-        {
-            itemId: 193907, // Chipped Tyrstone
-            questId: 66389,
-            source: 'Treasures',
-        },
-        {
-            itemId: 198973, // Incandescent Curio
-            questId: 70520,
-            source: 'Mobs: Elemental',
-        },
-        {
-            itemId: 198974, // Elegantly Engrabed Embellishment
-            questId: 70521,
-            source: 'Mobs: Dragonkin',
-        },
-        {
-            itemId: 204222, // Conductive Ametrine Shard
-            questId: 74333,
-            source: 'FR: Amephyst',
         },
     ],
     treasureQuests: [

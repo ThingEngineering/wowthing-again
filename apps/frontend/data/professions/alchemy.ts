@@ -4,7 +4,14 @@ import type { TaskProfession } from '@/types/data';
 export const warWithinAlchemy: TaskProfession = {
     id: Profession.Alchemy,
     subProfessionId: 2871,
-    hasOrders: true,
+    orderQuest: {
+        itemId: 228773, // Algari Alchemist's Notebook
+        questId: 84133,
+    },
+    treatiseQuest: {
+        itemId: 222546, // Algari Treatise on Alchemy
+        questId: 83725,
+    },
     dropQuests: [
         {
             itemId: 225234, // Alchemical Sediment
@@ -17,17 +24,6 @@ export const warWithinAlchemy: TaskProfession = {
             source: 'Mobs/Treasures',
         },
     ],
-    orderQuests: [
-        {
-            itemId: 228773, // Algari Alchemist's Notebook
-            questId: 84133,
-            source: 'Work Orders',
-        },
-    ],
-    treatiseQuest: {
-        itemId: 222546, // Algari Treatise on Alchemy
-        questId: 83725,
-    },
     bookQuests: [
         {
             itemId: 227409, // Faded Alchemist's Research
@@ -75,11 +71,64 @@ export const warWithinAlchemy: TaskProfession = {
     treasureQuests: [],
 };
 
+const alchemyNotesQuest = (questId: number) => ({
+    itemId: 198608,
+    questId,
+});
+const dragonflightProvideQuests = [
+    70530, // Examination Week
+    70531, // Mana Markets
+    70532, // Aiding the Raiding
+    70533, // Draught, Oiled Again
+];
+const dragonflightTaskQuests = [
+    66937, // Decaying News
+    66938, // Mammoth Marrow
+    66940, // Elixir Experiment
+    72427, // Animated Infusion
+    75363, // [ZC] Deepflayer Dust
+    75371, // [ZC] Fascinating Fungi
+    77932, // [ED] Warmth of Life
+    77933, // [ED] Bubbling Discoveries
+];
+
 export const dragonflightAlchemy: TaskProfession = {
     id: Profession.Alchemy,
     subProfessionId: 2823,
-    hasTasks: true,
     masterQuestId: 70247,
+    treatiseQuest: {
+        itemId: 194697, // Draconic Treatise on Alchemy
+        questId: 74108,
+    },
+    provideQuests: dragonflightProvideQuests.map(alchemyNotesQuest),
+    taskQuests: dragonflightTaskQuests.map(alchemyNotesQuest),
+    dropQuests: [
+        {
+            itemId: 193891, // Experimental Substance
+            questId: 66373,
+            source: 'Treasures',
+        },
+        {
+            itemId: 193897, // Reawakened Catalyst
+            questId: 66374,
+            source: 'Treasures',
+        },
+        {
+            itemId: 198963, // Decaying Phlegm
+            questId: 70504,
+            source: 'Mobs: Decay',
+        },
+        {
+            itemId: 198964, // Elementious Splinter
+            questId: 70511,
+            source: 'Mobs: Elemental',
+        },
+        {
+            itemId: 204226, // Blazehoof Ashes
+            questId: 74331,
+            source: 'FR: Agni Blazehoof',
+        },
+    ],
     bookQuests: [
         {
             itemId: 200974, // Artisan's Consortium, Preferred
@@ -130,33 +179,6 @@ export const dragonflightAlchemy: TaskProfession = {
             itemId: 205429, // Bartered Alchemy Notes
             questId: 75847,
             source: 'ZCB',
-        },
-    ],
-    dropQuests: [
-        {
-            itemId: 193891, // Experimental Substance
-            questId: 66373,
-            source: 'Treasures',
-        },
-        {
-            itemId: 193897, // Reawakened Catalyst
-            questId: 66374,
-            source: 'Treasures',
-        },
-        {
-            itemId: 198963, // Decaying Phlegm
-            questId: 70504,
-            source: 'Mobs: Decay',
-        },
-        {
-            itemId: 198964, // Elementious Splinter
-            questId: 70511,
-            source: 'Mobs: Elemental',
-        },
-        {
-            itemId: 204226, // Blazehoof Ashes
-            questId: 74331,
-            source: 'FR: Agni Blazehoof',
         },
     ],
     treasureQuests: [

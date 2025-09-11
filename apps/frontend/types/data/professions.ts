@@ -15,15 +15,16 @@ export interface TaskProfessionQuest {
 export type TaskProfession = {
     id: Profession;
     subProfessionId: number;
-    hasOrders?: boolean;
-    hasTasks?: boolean;
     masterQuestId?: number;
+
+    orderQuest?: TaskProfessionQuest;
+    treatiseQuest?: TaskProfessionQuest;
+
+    provideQuests?: TaskProfessionQuest[];
+    taskQuests?: TaskProfessionQuest[];
 
     dropQuests?: TaskProfessionQuest[];
     gatherQuests?: TaskProfessionQuest[];
-    orderQuests?: TaskProfessionQuest[];
-    taskQuests?: TaskProfessionQuest[];
-    treatiseQuest?: TaskProfessionQuest;
 
     bookQuests?: TaskProfessionQuest[];
     treasureQuests?: TaskProfessionQuest[];
