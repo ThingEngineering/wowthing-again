@@ -2,6 +2,7 @@
     import { Constants } from '@/data/constants';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
+    import { delegatedTooltips } from './utils/delegated-tooltips';
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte';
     import GroupHead from './table/HomeTableGroupHead.svelte';
@@ -49,7 +50,7 @@
     }
 </style>
 
-<div class="wrapper-column">
+<div class="wrapper-column" use:delegatedTooltips>
     <ViewSwitcher />
 
     <CharacterTable isHome={true} {characterLimit}>

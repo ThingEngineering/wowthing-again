@@ -1,23 +1,18 @@
 <script lang="ts">
-    import { taskMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
     import { uiIcons } from '@/shared/icons';
-    import { settingsState } from '@/shared/state/settings.svelte';
-    import { componentTooltip } from '@/shared/utils/tooltips';
     import { userState } from '@/user-home/state/user';
     import type { CharacterProps } from '@/types/props';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
-    import Tooltip from '@/components/tooltips/task/TooltipTaskRow.svelte';
 
     type Props = CharacterProps & {
         choreName: string;
         fullTaskName: string;
         taskName: string;
     };
-    let { character, choreName, fullTaskName, taskName }: Props = $props();
+    let { character, choreName, fullTaskName }: Props = $props();
 
-    let task = $derived(taskMap[taskName] || settingsState.customTaskMap[taskName]);
     let charChore = $derived(
         userState.activeViewTasks[character.id]?.[fullTaskName]?.chores?.[choreName]
     );
@@ -36,20 +31,11 @@
 </style>
 
 <td
-    class="sized b-l"
+    class="sized b-l tooltip-task"
     class:ready={charChore?.status === QuestStatus.InProgress &&
         charChore.progressCurrent === charChore.progressTotal}
-    data-task={taskName}
-    data-chore={choreName}
-    use:componentTooltip={{
-        component: Tooltip,
-        props: {
-            character,
-            charChore,
-            task,
-            taskName,
-        },
-    }}
+    data-character-id={character.id}
+    data-full-task-name={fullTaskName}
 >
     {#if charChore?.status === QuestStatus.Completed}
         <IconifyIcon icon={uiIcons.starFull} extraClass="status-success" />

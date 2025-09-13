@@ -15,7 +15,7 @@
         {#if choreName}
             <RowChore {character} {fullTaskName} {taskName} {choreName} />
         {:else}
-            <RowTask {character} {taskName} />
+            <RowTask {character} {fullTaskName} {taskName} />
         {/if}
     {/each}
 {/key}
