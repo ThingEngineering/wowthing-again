@@ -81,7 +81,7 @@
                 reps[i].cls = ['status-shrug', 'status-warn', 'status-fail'][Math.min(2, badCount)];
                 badCount++;
             } else if (dataRep.id === brannId) {
-                const levelMatch = reps[i].name.match(/(\d\d)/);
+                const levelMatch = reps[i].name.match(/(\d\d\d?)/);
                 if (levelMatch) {
                     reps[i].cls = `reputation${brannHack(levelMatch[1])}`;
                 }
