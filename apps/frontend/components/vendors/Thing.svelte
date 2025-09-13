@@ -30,7 +30,7 @@
     .collected-appearances {
         border-bottom-left-radius: 0;
         border-top-right-radius: 0;
-        color: $color-success;
+        color: var(--color-success);
         line-height: 1;
         padding: 0.1rem 0.2rem;
         pointer-events: none;

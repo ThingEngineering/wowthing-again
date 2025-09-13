@@ -35,19 +35,7 @@
         &.empty {
             padding: 0;
         }
-        &.done {
-            --image-border-color: #{$color-shrug};
-
-            color: $color-shrug;
-        }
-        &.partial {
-            --image-border-color: #{$color-success};
-
-            color: $color-success;
-        }
-        &.prereq {
-            --image-border-color: #{$color-fail};
-
+        &.status-fail {
             filter: opacity(70%);
         }
     }
@@ -69,9 +57,9 @@
                 <div
                     class="talent"
                     class:bordered={tree.direction === 'vertical'}
-                    class:done={hasRank === talent.ranks}
-                    class:partial={hasRank > 0 && hasRank < talent.ranks}
-                    class:prereq={noRequired}
+                    class:status-success={hasRank === talent.ranks}
+                    class:status-shrug={hasRank > 0 && hasRank < talent.ranks}
+                    class:border-fail={noRequired}
                 >
                     <WowheadLink type="order-advancement" id={talent.id}>
                         <WowthingImage name="garrison-talent/{talent.id}" size={56} border={2} />

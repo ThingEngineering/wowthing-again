@@ -136,8 +136,8 @@
         width: 100%;
 
         &.completed {
-            background: mix($thing-background, $color-success, 91%);
-            border-color: color-mix(in hsl, var(--border-color) 80%, var(--color-success) 20%);
+            // background: mix($thing-background, $color-success, 91%);
+            // border-color: color-mix(in hsl, var(--border-color) 80%, var(--color-success) 20%);
 
             :global(.status-fail) {
                 --shadow-color: rgba(30, 30, 30, 0.5);
@@ -226,7 +226,11 @@
 </style>
 
 {#if achievement && show}
-    <div class="thing-container faction{faction}" class:completed={earned}>
+    <div
+        class="thing-container faction{faction}"
+        class:bg-success={earned}
+        class:border-success={earned}
+    >
         <AchievementLink id={achievementId}>
             <WowthingImage name="achievement/{achievementId}" size={48} border={2} />
 

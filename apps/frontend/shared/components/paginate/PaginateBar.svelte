@@ -38,9 +38,6 @@
             border-right: 1px solid var(--border-color);
         }
     }
-    .current {
-        border: 1px solid $color-success !important;
-    }
     .showing {
         margin-left: 1rem;
     }
@@ -69,7 +66,7 @@
         <span>&nbsp;</span>
     {/if}
 
-    <span class="current">{page}</span>
+    <span class="border-success">{page}</span>
 
     {#if page + 1 <= pages}
         <a href="{url}/{page + 1}" use:basicTooltip={`Page ${page + 1}`}>{page + 1}</a>

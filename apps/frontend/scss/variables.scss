@@ -1,4 +1,8 @@
 :root {
+    --color-body-background: #101112;
+    --color-body-text: #ffffff;
+    --color-thing-background: #1a1b1c;
+
     --border-color: #676b6f;
     --border-radius-large: 8px;
     --border-radius: 5px;
@@ -7,8 +11,6 @@
     --padding-size: 0.25rem;
 
     --width-vault: 6.5rem;
-
-    --color-thing-background: #1a1b1c;
 
     --color-success: #1eff00;
     --color-shrug: #efef00;
@@ -47,6 +49,21 @@
     // --color-quality7-color:           darken(#00ccff, 8%);
     // --color-quality7-border:          $quality7-color;
 
+    --color-class-1: #c69b6d; // Warrior
+    --color-class-2: #f48cba; // Paladin
+    --color-class-3: #aad372; // Hunter
+    --color-class-4: #fff468; // Rogue
+    --color-class-5: #ffffff; // Priest
+    --color-class-6: hsl(from #c41e3a h s calc(l + 5)); // Death Knight
+    --color-class-7: hsl(from #0070dd h s calc(l + 5)); // Shaman
+    --color-class-8: #3fc7eb; // Mage
+    --color-class-9: #8788ee; // Warlock
+    --color-class-10: #00ff98; // Monk
+    --color-class-11: #ff7c0a; // Druid
+    --color-class-12: #a330c9; // Demon Hunter
+    --color-class-13: #33937f; // Evoker
+
+    // svelte-multiselect
     --sms-li-active-bg: #003048;
     --sms-options-bg: #0a0b0c;
     --sms-options-border: 1px solid #8b8d8f;

@@ -233,6 +233,10 @@ div.content {
 .border-top {
     border-top: 1px solid var(--border-color);
 }
+.b-radius,
+.border-radius {
+    border-radius: var(--border-radius);
+}
 .m-l,
 .margin-left {
     margin-left: 0.5rem;

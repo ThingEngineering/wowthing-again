@@ -1,39 +1,54 @@
 .status-success {
-    --link-color: $color-success;
+    --link-color: var(--color-success);
 
-    color: $color-success !important;
+    color: var(--color-success) !important;
 }
 .status-shrug {
-    --link-color: $color-shrug;
+    --link-color: var(--color-shrug);
 
-    color: $color-shrug;
+    color: var(--color-shrug);
 }
 .status-warn {
-    --link-color: $color-warn;
+    --link-color: var(--color-warn);
 
-    color: $color-warn;
+    color: var(--color-warn);
 }
 .status-fail {
-    --link-color: $color-fail;
+    --link-color: var(--color-fail);
 
-    color: $color-fail;
+    color: var(--color-fail);
 }
 
+.b-success,
 .border-success {
-    --image-border-color: color-mix(in hsl, var(--color-success) 90%, var(--border-color) 10%) !important;
-    border-color: color-mix(in hsl, var(--color-success) 90%, var(--border-color) 10%) !important;
+    --temp-color: color-mix(in hsl, var(--color-success) 70%, var(--border-color) 30%);
+    --image-border-color: var(--temp-color) !important;
+    border-color: var(--temp-color) !important;
 }
+.b-shrug,
 .border-shrug {
     --image-border-color: color-mix(in hsl, var(--color-shrug) 90%, var(--border-color) 10%) !important;
     border-color: color-mix(in hsl, var(--color-shrug) 90%, var(--border-color) 10%) !important;
 }
+.b-warn,
 .border-warn {
     --image-border-color: color-mix(in hsl, var(--color-warn) 90%, var(--border-color) 10%) !important;
     border-color: color-mix(in hsl, var(--color-warn) 90%, var(--border-color) 10%) !important;
 }
+.b-fail,
 .border-fail {
     --image-border-color: color-mix(in hsl, var(--color-fail) 90%, var(--border-color) 10%) !important;
     border-color: color-mix(in hsl, var(--color-fail) 90%, var(--border-color) 10%) !important;
+}
+
+.bg-success {
+    background: color-mix(in hsl, var(--color-success) 30%, #000 70%) !important;
+}
+.bg-shrug {
+    background: color-mix(in hsl, var(--color-shrug) 30%, #000 70%) !important;
+}
+.bg-fail {
+    background: color-mix(in hsl, var(--color-fail) 30%, #000 70%) !important;
 }
 
 .location0 {
@@ -45,21 +60,6 @@
 .location2 {
     color: #86c177;
 }
-
-// class colours
-$color-class-1: #c69b6d; // Warrior
-$color-class-2: #f48cba; // Paladin
-$color-class-3: #aad372; // Hunter
-$color-class-4: #fff468; // Rogue
-$color-class-5: #ffffff; // Priest
-$color-class-6: lighten(#c41e3a, 5%); // Death Knight
-$color-class-7: lighten(#0070dd, 5%); // Shaman
-$color-class-8: #3fc7eb; // Mage
-$color-class-9: #8788ee; // Warlock
-$color-class-10: #00ff98; // Monk
-$color-class-11: #ff7c0a; // Druid
-$color-class-12: #a330c9; // Demon Hunter
-$color-class-13: #33937f; // Evoker
 
 // auction ages
 // .auction-age-1 {

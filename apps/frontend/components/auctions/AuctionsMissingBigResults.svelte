@@ -207,7 +207,7 @@
         }
     }
     .already-have {
-        color: $color-fail;
+        color: var(--color-fail);
     }
     .clipboard {
         cursor: pointer;

@@ -1,105 +1,105 @@
 // Class colours
 .class-1,
 .class-warrior {
-    --image-border-color: #{color-class-1};
-    --link-color: #{$color-class-1};
+    --image-border-color: var(--color-class-1);
+    --link-color: var(--color-class-1);
 
-    color: $color-class-1;
+    color: var(--color-class-1);
 }
 
 .class-2,
 .class-paladin {
-    --image-border-color: #{color-class-2};
-    --link-color: #{$color-class-2};
+    --image-border-color: var(--color-class-2);
+    --link-color: var(--color-class-2);
 
-    color: $color-class-2;
+    color: var(--color-class-2);
 }
 
 .class-3,
 .class-hunter {
-    --image-border-color: #{color-class-3};
-    --link-color: #{$color-class-3};
+    --image-border-color: var(--color-class-3);
+    --link-color: var(--color-class-3);
 
-    color: $color-class-3;
+    color: var(--color-class-3);
 }
 
 .class-4,
 .class-rogue {
-    --image-border-color: #{color-class-4};
-    --link-color: #{$color-class-4};
+    --image-border-color: var(--color-class-4);
+    --link-color: var(--color-class-4);
 
-    color: $color-class-4;
+    color: var(--color-class-4);
 }
 
 .class-5,
 .class-priest {
-    --image-border-color: #{color-class-5};
-    --link-color: #{$color-class-5};
+    --image-border-color: var(--color-class-5);
+    --link-color: var(--color-class-5);
 
-    color: $color-class-5;
+    color: var(--color-class-5);
 }
 
 .class-6,
 .class-death-knight {
-    --image-border-color: #{color-class-6};
-    --link-color: #{$color-class-6};
+    --image-border-color: var(--color-class-6);
+    --link-color: var(--color-class-6);
 
-    color: $color-class-6;
+    color: var(--color-class-6);
 }
 
 .class-7,
 .class-shaman {
-    --image-border-color: #{color-class-7};
-    --link-color: #{$color-class-7};
+    --image-border-color: var(--color-class-7);
+    --link-color: var(--color-class-7);
 
-    color: $color-class-7;
+    color: var(--color-class-7);
 }
 
 .class-8,
 .class-mage {
-    --image-border-color: #{color-class-8};
-    --link-color: #{$color-class-8};
+    --image-border-color: var(--color-class-8);
+    --link-color: var(--color-class-8);
 
-    color: $color-class-8;
+    color: var(--color-class-8);
 }
 
 .class-9,
 .class-warlock {
-    --image-border-color: #{color-class-9};
-    --link-color: #{$color-class-9};
+    --image-border-color: var(--color-class-9);
+    --link-color: var(--color-class-9);
 
-    color: $color-class-9;
+    color: var(--color-class-9);
 }
 
 .class-10,
 .class-monk {
-    --image-border-color: #{color-class-10};
-    --link-color: #{$color-class-10};
+    --image-border-color: var(--color-class-10);
+    --link-color: var(--color-class-10);
 
-    color: $color-class-10;
+    color: var(--color-class-10);
 }
 
 .class-11,
 .class-druid {
-    --image-border-color: #{color-class-11};
-    --link-color: #{$color-class-11};
+    --image-border-color: var(--color-class-11);
+    --link-color: var(--color-class-11);
 
-    color: $color-class-11;
+    color: var(--color-class-11);
 }
 
 .class-12,
 .class-demon-hunter {
-    --image-border-color: #{color-class-12};
-    --link-color: #{$color-class-12};
+    --image-border-color: var(--color-class-12);
+    --link-color: var(--color-class-12);
 
-    color: $color-class-12;
+    color: var(--color-class-12);
 }
 .class-13,
 .class-evoker {
-    --image-border-color: #{color-class-13};
-    --link-color: #{$color-class-13};
+    --image-border-color: var(--color-class-13);
+    --link-color: var(--color-class-13);
 
-    color: $color-class-13;
+    color: var(--color-class-13);
 }
 
 // Junk

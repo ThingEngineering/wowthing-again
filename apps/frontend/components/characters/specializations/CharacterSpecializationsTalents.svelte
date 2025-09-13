@@ -35,7 +35,7 @@
         padding: 0.5rem 1rem;
 
         &.selected {
-            border-color: #{$color-success};
+            border-color: var(--color-success);
         }
     }
     // .tier {

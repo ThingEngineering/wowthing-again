@@ -84,9 +84,6 @@
         }
     }
     button {
-        background: darken($color-success, 40%);
-        border: 1px solid darken($color-success, 20%);
-        border-radius: var(--border-radius);
         cursor: pointer;
         margin-top: 0.75rem;
     }
@@ -133,6 +130,8 @@
     </table>
 
     {#if currentIds.length < 10}
-        <button class="group-entry" onclick={newTag}>New Tag</button>
+        <button class="group-entry bg-success border b-success b-radius" onclick={newTag}
+            >New Tag</button
+        >
     {/if}
 </div>

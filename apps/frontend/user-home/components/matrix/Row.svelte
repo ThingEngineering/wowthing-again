@@ -35,12 +35,6 @@
         &.as-name {
             @include cell-width(6rem);
         }
-        &.max-level {
-            background: mix($thing-background, $color-success, 90%);
-        }
-        &.no-characters {
-            background: mix($thing-background, $color-fail, 90%);
-        }
     }
     .character {
         --image-margin-top: -4px;
@@ -63,10 +57,10 @@
                 {@const keyCharacters = getCharacters(xKey, yKey)}
                 <td
                     class="characters as-{browserState.current.matrix.showCharacterAs}"
-                    class:max-level={keyCharacters.some(
+                    class:bg-success={keyCharacters.some(
                         (char) => char.level === Constants.characterMaxLevel
                     )}
-                    class:no-characters={keyCharacters.length === 0}
+                    class:bg-fail={keyCharacters.length === 0}
                 >
                     {#each keyCharacters as character}
                         <div

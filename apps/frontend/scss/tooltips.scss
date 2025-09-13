@@ -34,7 +34,7 @@
 
     > h5 {
         border-bottom: 1px solid $tooltip-border;
-        color: $color-success;
+        color: var(--color-success);
         font-size: 1rem;
         margin-top: -0.2rem;
         padding: 0 0.5rem 0.2rem 0.5rem;

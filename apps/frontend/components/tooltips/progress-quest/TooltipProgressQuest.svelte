@@ -1,45 +1,48 @@
 <script lang="ts">
-    import { DateTime } from 'luxon'
+    import { DateTime } from 'luxon';
 
-    import { forcedReset } from '@/data/quests'
-    import { timeStore } from '@/shared/stores/time'
-    import { QuestStatus } from '@/enums/quest-status'
-    import { toNiceDuration } from '@/utils/formatting'
-    import type { Character } from '@/types'
-    import type { UserQuestDataCharacterProgress, UserQuestDataCharacterProgressObjective } from '@/types/data'
+    import { forcedReset } from '@/data/quests';
+    import { timeStore } from '@/shared/stores/time';
+    import { QuestStatus } from '@/enums/quest-status';
+    import { toNiceDuration } from '@/utils/formatting';
+    import type { Character } from '@/types';
+    import type {
+        UserQuestDataCharacterProgress,
+        UserQuestDataCharacterProgressObjective,
+    } from '@/types/data';
 
-    export let character: Character
-    export let progressQuest: UserQuestDataCharacterProgress
-    export let title: string
+    export let character: Character;
+    export let progressQuest: UserQuestDataCharacterProgress;
+    export let title: string;
 
-    let duration: string
-    let status: QuestStatus
+    let duration: string;
+    let status: QuestStatus;
     $: {
-        status = progressQuest?.status ?? QuestStatus.NotStarted
-        const isForcedReset = forcedReset[progressQuest?.objectives?.[0]?.type]
+        status = progressQuest?.status ?? QuestStatus.NotStarted;
+        const isForcedReset = forcedReset[progressQuest?.objectives?.[0]?.type];
         if (progressQuest && (progressQuest.status === QuestStatus.Completed || isForcedReset)) {
-            const expires = DateTime.fromSeconds(progressQuest.expires)
-            duration = toNiceDuration(expires.diff($timeStore).toMillis())
+            const expires = DateTime.fromSeconds(progressQuest.expires);
+            duration = toNiceDuration(expires.diff($timeStore).toMillis());
         }
     }
 
-    const objectiveStatus = function(objective: UserQuestDataCharacterProgressObjective): number {
+    const objectiveStatus = function (objective: UserQuestDataCharacterProgressObjective): number {
         if (objective.have < objective.need) {
-            return 1
+            return 1;
         }
-        return 2
-    }
+        return 2;
+    };
 
-    const skipObjective = function(objectiveIndex: number): boolean {
+    const skipObjective = function (objectiveIndex: number): boolean {
         if (
-            ([75859, 78446, 78447].indexOf(progressQuest.id) >= 0) &&
+            [75859, 78446, 78447].indexOf(progressQuest.id) >= 0 &&
             objectiveIndex === 0 &&
             progressQuest.objectives[0].have === 1
         ) {
-            return true
+            return true;
         }
-        return false
-    }
+        return false;
+    };
 </script>
 
 <style lang="scss">
@@ -49,13 +52,13 @@
         }
     }
     .status-0 {
-        color: $color-fail;
+        color: var(--color-fail);
     }
     .status-1 {
-        color: $color-shrug;
+        color: var(--color-shrug);
     }
     .status-2 {
-        color: $color-success;
+        color: var(--color-success);
     }
 </style>
 

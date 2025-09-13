@@ -73,11 +73,11 @@
         text-align: left;
 
         :global(span[data-string='yes']) {
-            color: $color-success;
+            color: var(--color-success);
         }
 
         :global(span[data-string='no']) {
-            color: $color-fail;
+            color: var(--color-fail);
         }
     }
 </style>

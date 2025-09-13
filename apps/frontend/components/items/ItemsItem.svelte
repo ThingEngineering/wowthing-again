@@ -151,7 +151,7 @@
         background: $thing-background;
         border: 2px solid var(--image-border-color);
         border-radius: var(--border-radius);
-        color: $color-success;
+        color: var(--color-success);
         display: flex;
         height: 24px;
         width: 24px;

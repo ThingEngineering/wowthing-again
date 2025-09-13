@@ -75,10 +75,10 @@
         margin-bottom: 0.5rem;
 
         & :global(.column:first-child svg) {
-            color: $color-success;
+            color: var(--color-success);
         }
         & :global(.column:last-child svg) {
-            color: $color-fail;
+            color: var(--color-fail);
         }
     }
 

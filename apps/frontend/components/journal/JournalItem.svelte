@@ -103,7 +103,7 @@
         border-bottom-left-radius: 0;
         border-bottom-width: 0 !important;
         border-top-right-radius: 0;
-        color: $color-success;
+        color: var(--color-success);
         font-size: 95%;
         line-height: 1;
         padding: 0.1rem 0.2rem;
@@ -117,7 +117,7 @@
         background-color: $highlight-background;
         border: 2px solid;
         border-radius: var(--border-radius-small);
-        color: $color-shrug;
+        color: var(--color-shrug);
         line-height: 1;
         position: absolute;
         right: -2px;
