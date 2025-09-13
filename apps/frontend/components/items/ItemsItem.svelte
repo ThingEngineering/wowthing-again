@@ -129,7 +129,7 @@
     }
     .no-problem {
         > * {
-            opacity: $inactive-opacity;
+            opacity: var(--opacity-faded);
         }
     }
     .problems {

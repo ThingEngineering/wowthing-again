@@ -160,9 +160,6 @@
         top: 50%;
         transform: translateY(-50%);
     }
-    .expand-no {
-        opacity: $inactive-opacity;
-    }
     .expand-clickable {
         cursor: crosshair;
     }
@@ -218,7 +215,7 @@
                 <button
                     class="expand"
                     class:expand-clickable={!noCollapse}
-                    class:expand-no={noCollapse}
+                    class:faded={noCollapse}
                     on:click|preventDefault|stopPropagation={noCollapse ? null : toggleExpanded}
                 >
                     <IconifyIcon icon={iconStrings['chevron-' + (expanded ? 'down' : 'right')]} />

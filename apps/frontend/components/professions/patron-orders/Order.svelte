@@ -77,9 +77,6 @@
         align-items: stretch;
         justify-content: start;
 
-        &.faded {
-            opacity: $inactive-opacity;
-        }
         &:not(:last-child) {
             border-bottom: 1px solid var(--border-color);
         }

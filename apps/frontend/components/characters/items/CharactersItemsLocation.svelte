@@ -66,7 +66,7 @@
         gap: 0.04rem;
     }
     .slot-count {
-        color: darken($body-text, 15%);
+        color: oklch(from var(--color-body-text) calc(l - 0.15) c h);
         font-size: 90%;
         margin-left: 0.2rem;
         word-spacing: -0.2ch;

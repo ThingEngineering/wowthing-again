@@ -135,13 +135,13 @@ div.content {
 }
 
 .faction0 {
-    --image-border-color: #{$alliance-border};
-    --link-color: #{$alliance-link};
+    --image-border-color: var(--color-alliance-border);
+    --link-color: var(--color-alliance);
 }
 
 .faction1 {
-    --image-border-color: #{$horde-border};
-    --link-color: #{$horde-link};
+    --image-border-color: var(--color-horde-border);
+    --link-color: var(--color-horde);
 }
 
 .flex-wrapper {
@@ -242,7 +242,7 @@ div.content {
     margin-left: 0.5rem;
 }
 .faded {
-    opacity: 0.5;
+    opacity: var(--opacity-faded);
 }
 .no-break {
     break-inside: avoid;

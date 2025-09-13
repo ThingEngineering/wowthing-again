@@ -96,7 +96,7 @@
             }
         }
         &.portal {
-            box-shadow: inset 0 0 0 1px #{$quality5-border};
+            box-shadow: inset 0 0 0 1px var(--color-quality5-border);
         }
     }
     span {

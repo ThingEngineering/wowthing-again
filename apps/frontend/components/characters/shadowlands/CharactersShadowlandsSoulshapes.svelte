@@ -61,7 +61,7 @@
         margin-top: 0.5rem;
     }
     .collection-object {
-        --image-border-color: #{$color-success};
+        --image-border-color: var(--color-success);
         --image-border-width: 1px;
 
         &.missing {
@@ -82,7 +82,11 @@
         {#each allShapes as shapes (shapes)}
             <div class="collection-objects">
                 {#each shapes as [questId, icon, has] (questId)}
-                    <div class="collection-object" class:missing={!has}>
+                    <div
+                        class="collection-object border"
+                        class:border-success={has}
+                        class:border-fail={!has}
+                    >
                         <WowheadLink type="quest" id={questId}>
                             <WowthingImage
                                 name={icon}

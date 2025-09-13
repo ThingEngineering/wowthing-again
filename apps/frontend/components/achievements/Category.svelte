@@ -82,11 +82,9 @@
     .new-group {
         margin-left: 1rem;
     }
-    .faction0 {
-        border-color: $alliance-border;
-    }
+    .faction0,
     .faction1 {
-        border-color: $horde-border;
+        border-color: var(--image-border-color);
     }
     .progress-bar {
         width: 15rem;

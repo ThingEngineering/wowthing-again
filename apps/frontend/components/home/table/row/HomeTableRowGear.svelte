@@ -75,7 +75,7 @@
     td {
         @include cell-width($width-home-gear, $maxWidth: $width-home-gear-max);
 
-        --link-color: #{$quality5-color};
+        --link-color: var(--quality5-color);
 
         border-left: 1px solid var(--border-color);
         text-align: center;

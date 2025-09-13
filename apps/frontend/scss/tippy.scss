@@ -7,14 +7,14 @@
 }
 .tippy-box {
     position: relative;
-    background-color: $tooltip-background;
-    color: $tooltip-color;
+    background-color: var(--tooltip-background);
+    color: var(--tooltip-color);
     border-radius: var(--border-radius);
     font-size: 1rem;
     line-height: 1.4;
     outline: 0;
     transition-property: transform, visibility, opacity;
-    border: 1px solid $tooltip-border;
+    border: 1px solid var(--tooltip-border);
     box-shadow: 3px 6px 6px 0 rgba(0, 0, 0, 0.75);
 }
 .tippy-box[data-placement^="top"] > .tippy-arrow {
@@ -61,7 +61,7 @@
 .tippy-arrow {
     width: 16px;
     height: 16px;
-    color: $tooltip-background;
+    color: var(--tooltip-background);
 }
 .tippy-arrow:before {
     content: "";
@@ -73,7 +73,7 @@
     border-radius: var(--border-radius);
     overflow: hidden;
     position: relative;
-    padding: $tooltip-padding-y $tooltip-padding-x;
+    padding: var(--tooltip-padding-y) var(--tooltip-padding-x);
     z-index: 1;
 }
 

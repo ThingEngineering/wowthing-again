@@ -169,9 +169,9 @@
     .child {
         padding-left: 1.5rem;
     }
-    .status-fail {
-        color: adjust-color($color-fail, $lightness: +15%);
-    }
+    // .status-fail {
+    //     color: adjust-color($color-fail, $lightness: +15%);
+    // }
 </style>
 
 {#if criteriaTree && (forceShowCriteriaTree.has(criteriaTree.id) || (criteriaTree.flags & 0x02) === 0) && (description || criteriaTree.children.length > 0)}

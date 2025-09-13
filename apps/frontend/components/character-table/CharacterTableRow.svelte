@@ -26,9 +26,6 @@
 </script>
 
 <style lang="scss">
-    .inactive {
-        opacity: $inactive-opacity;
-    }
     .tag {
         background: $highlight-background;
         border-right: 1px solid var(--border-color);
@@ -49,7 +46,7 @@
     <tr
         bind:this={element}
         class="faction{character?.faction}"
-        class:inactive={!accountEnabled}
+        class:faded={!accountEnabled}
         class:last-of-group={last}
         data-id={character?.id}
     >

@@ -57,7 +57,7 @@
         filter: saturate(200%) contrast(200%);
     }
     .quest-item {
-        --image-border-color: #{$quality4-color};
+        --image-border-color: var(--quality4-color);
 
         position: absolute;
         top: -1px;

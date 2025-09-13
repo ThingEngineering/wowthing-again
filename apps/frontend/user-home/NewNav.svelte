@@ -54,7 +54,7 @@
             outline: none;
         }
         &:not(.active) {
-            background: darken(#2c2d2e, 5%);
+            background: #202122;
         }
     }
     .spacer {

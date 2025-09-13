@@ -2,7 +2,7 @@
 
 <style lang="scss">
     a {
-        background: darken(#0074e0, 15%);
+        background: #004c94;
         border: 1px solid #0074e0;
         border-radius: var(--border-radius);
         color: #fff;

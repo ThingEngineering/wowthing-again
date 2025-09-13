@@ -92,10 +92,6 @@
             margin: 0;
         }
     }
-    .bff {
-        //background: mix($thing-background, $color-success, 90%);
-        color: lighten($color-success, 20%);
-    }
     .feature {
         --image-border-width: 2px;
         display: flex;
@@ -120,10 +116,10 @@
             filter: grayscale(100%);
         }
         &.available {
-            --image-border-color: #{$color-fail};
+            --image-border-color: var(--color-fail);
         }
         &.unlocked {
-            --image-border-color: #{$color-success};
+            --image-border-color: var(--color-success);
         }
     }
 </style>
@@ -148,7 +144,11 @@
                         },
                     }}
                 >
-                    <div class="name text-overflow" class:bff class:unlocked={rsvp}>
+                    <div
+                        class="name text-overflow"
+                        class:status-success={bff}
+                        class:unlocked={rsvp}
+                    >
                         {friend.name}
                     </div>
 

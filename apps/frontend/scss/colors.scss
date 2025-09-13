@@ -21,34 +21,36 @@
 
 .b-success,
 .border-success {
-    --temp-color: color-mix(in hsl, var(--color-success) 70%, var(--border-color) 30%);
-    --image-border-color: var(--temp-color) !important;
-    border-color: var(--temp-color) !important;
+    --image-border-color: var(--color-sucess-border) !important;
+    border-color: var(--color-sucess-border) !important;
 }
 .b-shrug,
 .border-shrug {
-    --image-border-color: color-mix(in hsl, var(--color-shrug) 90%, var(--border-color) 10%) !important;
-    border-color: color-mix(in hsl, var(--color-shrug) 90%, var(--border-color) 10%) !important;
+    --image-border-color: var(--color-shrug-border) !important;
+    border-color: var(--color-shrug-border) !important;
 }
 .b-warn,
 .border-warn {
-    --image-border-color: color-mix(in hsl, var(--color-warn) 90%, var(--border-color) 10%) !important;
-    border-color: color-mix(in hsl, var(--color-warn) 90%, var(--border-color) 10%) !important;
+    --image-border-color: var(--color-warn-border) !important;
+    border-color: var(--color-warn-border) !important;
 }
 .b-fail,
 .border-fail {
-    --image-border-color: color-mix(in hsl, var(--color-fail) 90%, var(--border-color) 10%) !important;
-    border-color: color-mix(in hsl, var(--color-fail) 90%, var(--border-color) 10%) !important;
+    --image-border-color: var(--color-fail-border) !important;
+    border-color: var(--color-fail-border) !important;
 }
 
 .bg-success {
-    background: color-mix(in hsl, var(--color-success) 30%, #000 70%) !important;
+    background: var(--color-success-background) !important;
 }
 .bg-shrug {
-    background: color-mix(in hsl, var(--color-shrug) 30%, #000 70%) !important;
+    background: var(--color-shrug-background) !important;
+}
+.bg-warn {
+    background: var(--color-warn-background) !important;
 }
 .bg-fail {
-    background: color-mix(in hsl, var(--color-fail) 30%, #000 70%) !important;
+    background: var(--color-fail-background) !important;
 }
 
 .location0 {

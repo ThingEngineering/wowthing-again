@@ -29,9 +29,9 @@ const config = <UserConfig>defineConfig({
                 },
                 scss: {
                     prependData: `
-@import 'scss/mixins.scss';
-@import 'scss/variables.scss';
-`,
+                @import 'scss/mixins.scss';
+                @import 'scss/variables.scss';
+                `,
                 },
             }),
             compilerOptions: {
