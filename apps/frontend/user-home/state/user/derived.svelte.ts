@@ -522,7 +522,7 @@ export class DataUserDerived {
                         );
                     }
 
-                    if (chore.questReset === DbResetType.Never || expiresAt > timeState.time) {
+                    if (chore.questReset === DbResetType.Never || expiresAt > timeState.slowTime) {
                         charChore.progressCurrent = 1;
                         charChore.quest = {
                             expires: expiresAt?.toUnixInteger(),
@@ -612,7 +612,7 @@ export class DataUserDerived {
         if (
             !!charChore.quest &&
             (!chore.questResetForced ||
-                DateTime.fromSeconds(charChore.quest.expires) > timeState.time ||
+                DateTime.fromSeconds(charChore.quest.expires) > timeState.slowTime ||
                 (chore.key.startsWith('dmf') && charChore.quest.expires === 0))
         ) {
             // charTask maybe?

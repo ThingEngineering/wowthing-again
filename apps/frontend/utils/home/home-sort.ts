@@ -43,7 +43,7 @@ export function homeSort(char: Character, sortBy: string): string {
     } else if (sortBy === 'mythicPlusKeystone') {
         if (char.level === Constants.characterMaxLevel && char.weekly?.keystoneScannedAt) {
             const resetTime = getNextWeeklyReset(char.weekly.keystoneScannedAt, char.realm.region);
-            if (resetTime > timeState.time) {
+            if (resetTime > timeState.slowTime) {
                 return (
                     leftPad(100 - (char.weekly?.keystoneLevel || 0), 3, '0') +
                     (dungeonMap[char.weekly?.keystoneDungeon]?.abbreviation || 'ZZ')

@@ -9,7 +9,7 @@ import type { Task } from '@/types/tasks';
 import { customResetPeriod } from '../custom-reset-period';
 
 const threeWeekDecorator = (expires: DateTime) => {
-    const daysRemaining = expires.diff(timeState.time).toMillis() / 1000 / 86400;
+    const daysRemaining = expires.diff(timeState.slowTime).toMillis() / 1000 / 86400;
     if (daysRemaining < 7) {
         return 'decorator-warn';
     } else if (daysRemaining < 14) {

@@ -20,7 +20,7 @@ class ActiveHolidays {
             return {} as ActiveHolidayMap;
         }
 
-        const currentTime = timeState.time;
+        const currentTime = timeState.slowTime;
 
         const regionMask = allRegions.reduce((a, b) => a + (1 << (b - 1)), 0);
         if (this.cachedTime[regionMask] === currentTime) {
