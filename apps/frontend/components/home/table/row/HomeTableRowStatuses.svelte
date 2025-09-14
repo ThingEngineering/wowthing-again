@@ -161,6 +161,7 @@
     }
     .status-icon {
         position: relative;
+        width: 22px;
     }
     .pill {
         bottom: -2px;
@@ -178,7 +179,7 @@
     }
 </style>
 
-<td style:--width="calc((22px * {images.length}) + (3px * ({images.length} - 1)))">
+<td>
     <div class="flex-wrapper">
         {#each images as [icon, tooltip, iconText]}
             <div class="status-icon">
