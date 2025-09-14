@@ -537,14 +537,7 @@ public class ApiController : Controller
 
         if (lastModified > DateTimeOffset.MinValue)
         {
-            if (access == "private")
-            {
-                Response.AddApiCacheHeaders(false, lastModified);
-            }
-            else
-            {
-                Response.AddLongApiCacheHeaders(lastModified);
-            }
+            Response.AddLongApiCacheHeaders(lastModified, access == "private");
         }
 
         return Content(json, MediaTypeNames.Application.Json);

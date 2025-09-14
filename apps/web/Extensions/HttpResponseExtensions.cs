@@ -23,13 +23,13 @@ public static class HttpResponseExtensions
         responseHeaders.LastModified = lastModified;
     }
 
-    public static void AddLongApiCacheHeaders(this HttpResponse response, DateTimeOffset lastModified)
+    public static void AddLongApiCacheHeaders(this HttpResponse response, DateTimeOffset lastModified, bool isPrivate = false)
     {
         var responseHeaders = response.GetTypedHeaders();
         responseHeaders.CacheControl = new CacheControlHeaderValue
         {
             MaxAge = LongPublicCacheTime,
-            Private = false,
+            Private = isPrivate,
         };
         responseHeaders.LastModified = lastModified;
     }
