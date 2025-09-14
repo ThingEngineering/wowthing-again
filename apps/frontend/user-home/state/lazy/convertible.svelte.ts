@@ -542,7 +542,3 @@ export function doConvertible(): LazyConvertible {
 
     return ret;
 }
-
-function flatFilter<T>(arrays: T[][], filterFunc: (obj: T) => boolean): T[] {
-    return arrays.flatMap((array) => array.filter(filterFunc));
-}

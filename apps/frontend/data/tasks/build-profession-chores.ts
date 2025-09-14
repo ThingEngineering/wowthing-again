@@ -1,7 +1,5 @@
-import { isGatheringProfession, professionIdToSlug } from '@/data/professions';
 import { Profession } from '@/enums/profession';
 import { settingsState } from '@/shared/state/settings.svelte';
-import { wowthingData } from '@/shared/stores/data';
 import { DbResetType } from '@/shared/stores/db/enums';
 import type { Character } from '@/types';
 import type { TaskProfession } from '@/types/data';

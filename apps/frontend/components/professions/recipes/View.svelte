@@ -7,7 +7,7 @@
     import { iconLibrary } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { lazyStore, userQuestStore } from '@/stores';
+    import { userQuestStore } from '@/stores';
     import { newNavState, professionsRecipesState } from '@/stores/local-storage';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { userState } from '@/user-home/state/user';

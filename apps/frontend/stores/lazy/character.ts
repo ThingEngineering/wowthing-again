@@ -1,18 +1,9 @@
-import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
 
-import { Constants } from '@/data/constants';
-import { holidayIds, holidayMinimumLevel } from '@/data/holidays';
-import { dragonflightProfessionMap, warWithinProfessionMap } from '@/data/professions';
 import { professionCooldowns, professionWorkOrders } from '@/data/professions/cooldowns';
-import { forcedReset, progressQuestMap } from '@/data/quests';
-import { taskMap } from '@/data/tasks';
 import { CharacterFlag } from '@/enums/character-flag';
-import { Profession } from '@/enums/profession';
 import { QuestStatus } from '@/enums/quest-status';
 import { Region } from '@/enums/region';
-import { settingsState } from '@/shared/state/settings.svelte';
-import { wowthingData } from '@/shared/stores/data';
 import { DbResetType } from '@/shared/stores/db/enums';
 import { userState } from '@/user-home/state/user';
 import { getNextDailyResetFromTime, getNextWeeklyResetFromTime } from '@/utils/get-next-reset';
@@ -24,14 +15,12 @@ import {
 } from '@/types';
 import type { Settings } from '@/shared/stores/settings/types';
 import type {
-    TaskProfession,
     UserQuestData,
     UserQuestDataCharacterProgress,
     UserQuestDataCharacterProgressObjective,
 } from '@/types/data';
 import type { Chore } from '@/types/tasks';
 import type { ActiveHolidays } from '../derived/active-holidays';
-import { timeState } from '@/shared/state/time.svelte';
 
 export interface LazyCharacter {
     chores: Record<string, LazyCharacterChore>;
