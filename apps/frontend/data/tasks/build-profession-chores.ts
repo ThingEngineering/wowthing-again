@@ -55,7 +55,6 @@ export function buildProfessionChores(
                     name: `{item:${taskQuest.itemId}}`,
                     noProgress: true,
                     questIds: [taskQuest.questId],
-                    questReset: DbResetType.Weekly,
                 })),
                 couldGetFunc,
                 canGetFunc: (char) =>
@@ -75,7 +74,6 @@ export function buildProfessionChores(
                     noProgress: true,
                     showQuestName: true,
                     questIds: [taskQuest.questId],
-                    questReset: DbResetType.Weekly,
                 })),
                 couldGetFunc,
                 canGetFunc: (char) =>
@@ -94,7 +92,6 @@ export function buildProfessionChores(
                         name: `{item:${taskProfession.treatiseQuest.itemId}}`,
                         noProgress: true,
                         questIds: [taskProfession.treatiseQuest.questId],
-                        questReset: DbResetType.Weekly,
                     },
                 ],
                 couldGetFunc,

@@ -28,7 +28,6 @@ export const slChores: Task = {
                         60256, // A Valuable Find: Halls of Atonement
                         60257, // A Valuable Find: Sanguine Depths
                     ],
-                    questReset: DbResetType.Weekly,
                 },
                 {
                     key: 'tradingFavors',
@@ -44,7 +43,6 @@ export const slChores: Task = {
                         60248, // Trading Favors: Plaguefall
                         60249, // Trading Favors: Spires of Ascension
                     ],
-                    questReset: DbResetType.Weekly,
                 },
             ],
         },
