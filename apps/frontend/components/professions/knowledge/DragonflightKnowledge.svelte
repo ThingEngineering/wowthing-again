@@ -1,6 +1,5 @@
 <script lang="ts">
     import { dragonflightKnowledge, dragonflightProfessions } from '@/data/professions';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import type { Character } from '@/types';
 
     import CharacterKnowledge from './CharacterKnowledge.svelte';
@@ -42,7 +41,7 @@
             {#if dk === null}
                 <th class="spacer"></th>
             {:else}
-                <th class="zone" use:basicTooltip={dk.name}>
+                <th class="zone" data-tooltip={dk.name}>
                     <WowthingImage name={dk.icon} size={48} />
                     <span class="pill abs-center">{dk.shortName}</span>
                 </th>

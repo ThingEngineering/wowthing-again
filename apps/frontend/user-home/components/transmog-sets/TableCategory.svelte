@@ -4,7 +4,6 @@
     import { transmogSets } from '@/data/transmog';
     import { iconLibrary, uiIcons } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';
     import { transmogSetsState } from '@/stores/local-storage';
     import getPercentClass from '@/utils/get-percent-class';
@@ -383,7 +382,7 @@
                             {#if completionistReady(group, setIndex)}
                                 <span
                                     class="has-transmog-set-id"
-                                    use:basicTooltip={'Uses a Blizzard transmog set'}
+                                    data-tooltip="Uses a Blizzard transmog set"
                                 >
                                     <IconifyIcon icon={iconLibrary.gameStaryu} scale="0.8" />
                                 </span>

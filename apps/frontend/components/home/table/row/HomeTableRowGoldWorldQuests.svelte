@@ -85,7 +85,7 @@
 
 <style lang="scss">
     td {
-        --width: 3rem;
+        --width: 4rem;
 
         text-align: center;
     }

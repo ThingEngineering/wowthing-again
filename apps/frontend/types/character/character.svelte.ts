@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { SvelteMap, SvelteSet } from 'svelte/reactivity';
+import { SvelteSet } from 'svelte/reactivity';
 
 import { Constants } from '@/data/constants';
 import { characterBagSlots, slotOrder } from '@/data/inventory-slot';

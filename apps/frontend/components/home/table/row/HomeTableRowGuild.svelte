@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import type { CharacterProps } from '@/types/props';
 
     let { character }: CharacterProps = $props();
@@ -20,7 +19,7 @@
     }
 </style>
 
-<td class="max-width text-overflow" use:basicTooltip={character.guildId ? guildName : null}>
+<td class="max-width text-overflow" data-tooltip={character.guildId ? guildName : null}>
     {#if character.guildId}
         {guildName}
     {:else}

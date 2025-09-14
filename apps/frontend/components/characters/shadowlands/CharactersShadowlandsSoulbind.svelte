@@ -2,7 +2,6 @@
     import find from 'lodash/find';
 
     import { soulbindSockets } from '@/data/icons';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import type { Character, CharacterShadowlandsSoulbind } from '@/types';
     import type { StaticDataSoulbind } from '@/shared/stores/static/types';
 
@@ -107,7 +106,7 @@
 >
     <h3
         class="text-overflow"
-        use:basicTooltip={`${soulbind.name}${characterSoulbind?.unlocked !== true ? ' [not unlocked]' : ''}`}
+        data-tooltip={`${soulbind.name}${characterSoulbind?.unlocked !== true ? ' [not unlocked]' : ''}`}
     >
         {soulbind.name}
     </h3>
@@ -145,7 +144,7 @@
                             <IconifyIcon dropShadow={true} icon={soulbindSockets[column[1]]} />
                         </SpellLink>
                     {:else}
-                        <div class="empty-socket" use:basicTooltip={'Empty socket'}>
+                        <div class="empty-socket" data-tooltip="Empty socket">
                             <IconifyIcon dropShadow={true} icon={soulbindSockets[column[1]]} />
                         </div>
                     {/if}

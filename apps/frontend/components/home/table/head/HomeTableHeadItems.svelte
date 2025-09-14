@@ -1,6 +1,5 @@
 <script lang="ts">
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { wowthingData } from '@/shared/stores/data';
     import type { SortableProps } from '@/types/props';
 
@@ -21,8 +20,8 @@
     {@const itemIdString = itemId.toString()}
     <td
         class="sortable sorted-{getSortState(itemIdString)}"
+        data-tooltip={wowthingData.items.items[itemId].name}
         onclick={() => setSortState(itemIdString)}
-        use:basicTooltip={wowthingData.items.items[itemId].name}
     >
         <WowthingImage name="item/{itemId}" size={16} border={1} />
     </td>

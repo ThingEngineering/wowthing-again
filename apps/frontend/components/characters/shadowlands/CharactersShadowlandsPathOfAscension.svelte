@@ -1,7 +1,6 @@
 <script lang="ts">
     import { ascensionFightOrder, ascensionFights, ascensionItems } from '@/data/covenant';
     import { uiIcons } from '@/shared/icons';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { userState } from '@/user-home/state/user';
     import type { CharacterShadowlandsCovenantFeature } from '@/types';
     import type { CharacterProps } from '@/types/props';
@@ -74,19 +73,19 @@
     <thead>
         <tr>
             <th></th>
-            <th class="border-left" use:basicTooltip={ascensionFightOrder[0]}>C</th>
-            <th use:basicTooltip={ascensionFightOrder[1]}>L</th>
-            <th use:basicTooltip={ascensionFightOrder[2]}>W</th>
-            <th class="border-left" use:basicTooltip={ascensionFightOrder[3]}>P</th>
-            <th use:basicTooltip={ascensionFightOrder[4]}>K</th>
-            <th use:basicTooltip={ascensionFightOrder[5]}>M</th>
-            <th use:basicTooltip={ascensionFightOrder[6]}>H</th>
+            <th class="border-left" data-tooltip={ascensionFightOrder[0]}>C</th>
+            <th data-tooltip={ascensionFightOrder[1]}>L</th>
+            <th data-tooltip={ascensionFightOrder[2]}>W</th>
+            <th class="border-left" data-tooltip={ascensionFightOrder[3]}>P</th>
+            <th data-tooltip={ascensionFightOrder[4]}>K</th>
+            <th data-tooltip={ascensionFightOrder[5]}>M</th>
+            <th data-tooltip={ascensionFightOrder[6]}>H</th>
         </tr>
     </thead>
     <tbody>
         {#each ascensionFights as fight}
             <tr>
-                <td class="name text-overflow" use:basicTooltip={fight.name}>
+                <td class="name text-overflow" data-tooltip={fight.name}>
                     {fight.name}
                 </td>
                 {#each fight.fightQuestIds as questId, questIndex}
@@ -96,7 +95,7 @@
                         class:border-left={questIndex === 0 || questIndex === 3}
                         class:status-success={characterHas}
                         class:status-fail={!characterHas}
-                        use:basicTooltip={`${fight.name} - ${ascensionFightOrder[questIndex]}`}
+                        data-tooltip={`${fight.name} - ${ascensionFightOrder[questIndex]}`}
                     >
                         {#if characterHas}
                             <IconifyIcon icon={uiIcons.starFull} />

@@ -4,7 +4,6 @@
     import { euLocales } from '@/data/region';
     import { Region } from '@/enums/region';
     import { wowthingData } from '@/shared/stores/data';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { leftPad } from '@/utils/formatting';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
@@ -75,7 +74,7 @@
                         auction.connectedRealmId
                     )}
                     <tr>
-                        <td class="realm text-overflow" use:basicTooltip={realm.displayText}>
+                        <td class="realm text-overflow" data-tooltip={realm.displayText}>
                             <!-- <code>[{Region[realm.region]}]</code> -->
                             {#if realm.region === Region.EU && euLocales[realm.locale]}
                                 {@const { icon: countryIcon, name: countryName } =

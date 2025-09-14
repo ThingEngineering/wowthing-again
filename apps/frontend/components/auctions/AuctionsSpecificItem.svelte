@@ -5,7 +5,6 @@
     import { wowthingData } from '@/shared/stores/data';
     import { auctionState } from '@/stores/local-storage';
     import connectedRealmName from '@/utils/connected-realm-name';
-    import { basicTooltip } from '@/shared/utils/tooltips';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
@@ -108,7 +107,7 @@
                     <tr>
                         <td
                             class="realm text-overflow"
-                            use:basicTooltip={connectedRealm.realmNames.join(' / ')}
+                            data-tooltip={connectedRealm.realmNames.join(' / ')}
                         >
                             <code>[{Region[connectedRealm.region]}]</code>
                             {connectedRealmName(auction.connectedRealmId)}

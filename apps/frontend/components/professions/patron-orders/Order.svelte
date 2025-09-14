@@ -3,7 +3,6 @@
 
     import { wowthingData } from '@/shared/stores/data';
     import { timeStore } from '@/shared/stores/time';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { toNiceDuration, toNiceNumber } from '@/utils/formatting';
     import type { StaticDataProfessionAbility } from '@/shared/stores/static/types';
     import type { Character, CharacterPatronOrder } from '@/types/character';
@@ -151,11 +150,7 @@
                 {wowthingData.items.items[patronOrder.itemId].name}
             </WowheadLink>
         </div>
-        <div
-            class="gold border-left"
-            class:status-warn={notLearned}
-            use:basicTooltip={'Gold reward'}
-        >
+        <div class="gold border-left" class:status-warn={notLearned} data-tooltip="Gold reward">
             {(patronOrder.tipAmount / 10000).toFixed(1)} g
         </div>
         <div class="rewards border-left">
@@ -180,7 +175,7 @@
             class="cost border-left"
             class:status-success={craftingPrice * 100 <= patronOrder.tipAmount}
             class:status-warn={craftingPrice * 100 > patronOrder.tipAmount}
-            use:basicTooltip={'APPROXIMATE cost to craft'}
+            data-tooltip="APPROXIMATE cost to craft"
         >
             -{toNiceNumber(Math.floor(craftingPrice / 100))} g
         </div>

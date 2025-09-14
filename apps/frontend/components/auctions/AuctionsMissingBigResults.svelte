@@ -12,8 +12,7 @@
     import { iconLibrary } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { timeStore } from '@/shared/stores/time';
-    import { basicTooltip, componentTooltip } from '@/shared/utils/tooltips';
+    import { componentTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';
     import { auctionState } from '@/stores/local-storage';
     import { userState } from '@/user-home/state/user';
@@ -35,6 +34,7 @@
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { timeState } from '@/shared/state/time.svelte';
 
     let { page, slug1 }: { page: number; slug1: string } = $props();
 
@@ -401,7 +401,7 @@
                                             {:else}
                                                 <button
                                                     class="clipboard"
-                                                    use:basicTooltip={'Copy to clipboard'}
+                                                    data-tooltip="Copy to clipboard"
                                                     onclick={() =>
                                                         navigator.clipboard.writeText(item.name)}
                                                 >
@@ -422,7 +422,7 @@
                                     auction.connectedRealmId
                                 )}
                                 {@const ageInMinutes = Math.floor(
-                                    $timeStore
+                                    timeState.time
                                         .diff(
                                             DateTime.fromSeconds(
                                                 updated[auction.connectedRealmId] || 1000
@@ -504,7 +504,7 @@
                     <span class="shopping-list">
                         <button
                             class="clipboard"
-                            use:basicTooltip={'Copy shopping list to clipboard'}
+                            data-tooltip="Copy shopping list to clipboard"
                             onclick={() => exportShoppingList()}
                         >
                             <IconifyIcon icon={iconLibrary.mdiClipboardPlusOutline} scale="0.9" />
@@ -512,7 +512,7 @@
                     </span>
                     <span
                         class="total-gold"
-                        use:basicTooltip={'Total gold required to buy the cheapest of each item'}
+                        data-tooltip="Total gold required to buy the cheapest of each item"
                     >
                         {Math.floor(
                             things.reduce((a, b) => a + b.auctions[0].buyoutPrice, 0) / 10000

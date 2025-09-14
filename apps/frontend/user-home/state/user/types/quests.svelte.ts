@@ -1,7 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep';
-import differenceWith from 'lodash/differenceWith';
 import { DateTime } from 'luxon';
-import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 
 import { timeState } from '@/shared/state/time.svelte';
 import parseApiTime from '@/utils/parse-api-time';
@@ -13,8 +11,8 @@ import {
 type GoldWorldQuests = [number, number, number][];
 
 export class CharacterQuests {
-    public hasQuestById = new SvelteSet<number>();
-    public progressQuestByKey = new SvelteMap<string, UserQuestDataCharacterProgress>();
+    public hasQuestById = $state.raw(new Set<number>());
+    public progressQuestByKey = $state.raw(new Map<string, UserQuestDataCharacterProgress>());
     public scannedAt = $state<string>();
     public scannedTime = $state<DateTime>();
     public goldWorldQuests = $state<GoldWorldQuests>();
@@ -35,26 +33,22 @@ export class CharacterQuests {
         this.scannedAt = scannedAt;
         this.scannedTime = parseApiTime(scannedAt);
 
-        const seenQuests = new Set<number>();
+        // Quest IDs are packed as an array of deltas to the previous value
+        const questIds = new Set<number>();
         let lastQuestId = 0;
         for (const questDiff of questDiffs || []) {
             const questId = lastQuestId + questDiff;
-            this.hasQuestById.add(questId);
-            seenQuests.add(questId);
+            questIds.add(questId);
             lastQuestId = questId;
         }
 
-        for (const questId of this.hasQuestById.values()) {
-            if (!seenQuests.has(questId)) {
-                this.hasQuestById.delete(questId);
-            }
-        }
+        this.hasQuestById = questIds;
 
         // Gold world quests
         this.goldWorldQuests = cloneDeep(goldWorldQuests);
 
         // Progress
-        const seenKeys = new Set<string>();
+        const progressQuests = new Map<string, UserQuestDataCharacterProgress>();
         for (const [key, progressQuestArray] of Object.entries(progressQuestArrayMap || {})) {
             // skip any quests that we know are expired
             const expires = progressQuestArray[2];
@@ -62,34 +56,10 @@ export class CharacterQuests {
                 continue;
             }
 
-            seenKeys.add(key);
-
-            const existingQuest = this.progressQuestByKey.get(key);
             const progressQuest = new UserQuestDataCharacterProgress(...progressQuestArray);
-            if (!existingQuest) {
-                this.progressQuestByKey.set(key, progressQuest);
-            } else if (
-                existingQuest.expires !== progressQuest.expires ||
-                existingQuest.status !== progressQuest.status ||
-                existingQuest.objectives.length !== progressQuest.objectives.length ||
-                differenceWith(
-                    existingQuest.objectives,
-                    progressQuest.objectives,
-                    (first, second) =>
-                        first.have !== second.have ||
-                        first.need !== second.need ||
-                        first.text !== second.text ||
-                        first.type !== second.type
-                ).length > 0
-            ) {
-                this.progressQuestByKey.set(key, progressQuest);
-            }
+            progressQuests.set(key, progressQuest);
         }
 
-        for (const key of this.progressQuestByKey.keys()) {
-            if (!seenKeys.has(key)) {
-                this.progressQuestByKey.delete(key);
-            }
-        }
+        this.progressQuestByKey = progressQuests;
     }
 }

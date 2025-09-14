@@ -476,7 +476,7 @@ export class DataUserDerived {
 
         const charChore = new CharacterChore(chore.key, undefined);
         const charScanned = characterQuests.scannedTime;
-        const choreReset = chore.questReset || parent.questReset;
+        const choreReset = chore.questReset || parent?.questReset;
 
         // if (chore.questReset !== undefined) {
         if (chore.questIds) {

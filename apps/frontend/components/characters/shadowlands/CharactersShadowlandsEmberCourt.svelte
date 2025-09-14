@@ -8,7 +8,7 @@
         type EmberCourtFeatureType,
     } from '@/data/covenant';
     import { wowthingData } from '@/shared/stores/data';
-    import { basicTooltip, componentTooltip } from '@/shared/utils/tooltips';
+    import { componentTooltip } from '@/shared/utils/tooltips';
     import findReputationTier from '@/utils/find-reputation-tier';
     import { userState } from '@/user-home/state/user';
     import type { CharacterProps } from '@/types/props';
@@ -174,10 +174,7 @@
                         class:locked={!typeUnlocked && tier?.tier > typeReputation}
                         class:available={!typeUnlocked && tier?.tier <= typeReputation}
                         class:unlocked={typeUnlocked}
-                        use:basicTooltip={{
-                            allowHTML: true,
-                            content: getTooltip(type),
-                        }}
+                        data-tooltip={getTooltip(type)}
                     >
                         <WowthingImage name={type.icon} size={iconSize} border={2} />
                     </div>

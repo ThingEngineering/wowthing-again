@@ -1,7 +1,6 @@
 <script lang="ts">
     import { Constants } from '@/data/constants';
     import { timeStore } from '@/shared/stores/time';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import type { StaticDataCurrency } from '@/shared/stores/static/types';
     import type { Character } from '@/types/character';
@@ -40,10 +39,7 @@
         class:status-warn={percent >= 90}
         class:status-fail={percent >= 100}
         class:faded={amount === '0' && percent === 0}
-        use:basicTooltip={{
-            allowHTML: true,
-            content: tooltip,
-        }}
+        data-tooltip={tooltip}
     >
         {amount}
     </td>

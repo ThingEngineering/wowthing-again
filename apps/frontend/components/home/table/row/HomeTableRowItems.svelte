@@ -1,6 +1,5 @@
 <script lang="ts">
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { wowthingData } from '@/shared/stores/data';
     import { toNiceNumber } from '@/utils/formatting';
     import type { CharacterProps } from '@/types/props';
@@ -25,7 +24,7 @@
     {@const count = character.getItemCount(itemId)}
     <td
         class:faded={count === 0}
-        use:basicTooltip={`${count}x ${wowthingData.items.items[itemId].name}`}
+        data-tooltip={`${count}x ${wowthingData.items.items[itemId].name}`}
     >
         {toNiceNumber(count)}
     </td>

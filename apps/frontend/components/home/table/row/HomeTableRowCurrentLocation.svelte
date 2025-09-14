@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import type { CharacterProps } from '@/types/props';
 
     let { character }: CharacterProps = $props();
@@ -31,7 +30,7 @@
 <td
     class="max-width text-overflow"
     class:status-fail={!character.currentLocation}
-    use:basicTooltip={{ allowHTML: true, content: location }}
+    data-tooltip={location}
 >
     {@html location}
 </td>

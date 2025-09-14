@@ -1,7 +1,6 @@
 <script lang="ts">
     import { expansionSlugMap } from '@/data/expansion';
     import { wowthingData } from '@/shared/stores/data';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { UserCount } from '@/types';
     import { userState } from '@/user-home/state/user';
     import getPercentClass from '@/utils/get-percent-class';
@@ -90,7 +89,7 @@
                     <th
                         class={getPercentClass(subStats.percent)}
                         colspan="2"
-                        use:basicTooltip={`Category ${subCategory.id}`}
+                        data-tooltip={`Category ${subCategory.id}`}
                     >
                         <div class="flex-wrapper">
                             <span class="text-overflow">

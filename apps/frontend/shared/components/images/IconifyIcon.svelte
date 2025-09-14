@@ -5,8 +5,6 @@
 
     import type { IconifyIcon } from '@iconify/types';
 
-    import { basicTooltip } from '@/shared/utils/tooltips';
-
     export let dropShadow = false;
     export let extraClass: string = undefined;
     export let icon: IconifyIcon;
@@ -32,8 +30,8 @@
     role="img"
     class={extraClass}
     class:drop-shadow-single={dropShadow}
+    data-tooltip={tooltip}
     on:click
-    use:basicTooltip={tooltip}
 >
     {@html icon.body}
 </svg>

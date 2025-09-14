@@ -16,7 +16,7 @@
     } from '@/types/items';
     import type { Guild } from '@/types/guild';
 
-    import CharacterTag from '@/shared/components/CharacterTag.svelte';
+    import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
 
     export let characterItem: ItemSearchResponseCharacter = null;
     export let guildBankItem: ItemSearchResponseGuildBank = null;
@@ -59,11 +59,7 @@
             </a>
         </td>
     {:else if character}
-        {#if settingsState.useAccountTags}
-            <td class="tag">
-                <CharacterTag {character} />
-            </td>
-        {/if}
+        <CharacterTag {character} />
         <td class="name text-overflow">
             <a class="class-{character.classId}" href={getItemUrlSearch(itemId, item)}>
                 {character.name}

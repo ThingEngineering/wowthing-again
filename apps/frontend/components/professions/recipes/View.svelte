@@ -9,7 +9,6 @@
     import { wowthingData } from '@/shared/stores/data';
     import { userQuestStore } from '@/stores';
     import { newNavState, professionsRecipesState } from '@/stores/local-storage';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { userState } from '@/user-home/state/user';
     import { useCharacterFilter } from '@/utils/characters';
     import type { Character, Expansion } from '@/types';
@@ -239,7 +238,7 @@
                                 <a
                                     href="#/auctions/specific-item/{recipes[0]}"
                                     target="_blank"
-                                    use:basicTooltip={'Find auctions'}
+                                    data-tooltip="Find auctions"
                                 >
                                     <IconifyIcon icon={iconLibrary.mdiBank} />
                                 </a>

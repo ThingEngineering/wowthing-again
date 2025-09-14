@@ -1,16 +1,15 @@
 <script lang="ts">
-    import { covenantMap } from '@/data/covenant'
-    import type { Character } from '@/types'
-    import { basicTooltip } from '@/shared/utils/tooltips'
+    import { covenantMap } from '@/data/covenant';
+    import type { Character } from '@/types';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character
+    export let character: Character;
 
     const covenant =
         character.shadowlands !== undefined
             ? covenantMap[character.shadowlands.covenantId]
-            : undefined
+            : undefined;
 </script>
 
 <style lang="scss">
@@ -22,13 +21,10 @@
 {#if covenant !== undefined}
     <div
         class={'covenant' + character.shadowlands.covenantId}
-        use:basicTooltip={covenant.getTooltip(character.shadowlands.renownLevel)}
+        data-tooltip={covenant.getTooltip(character.shadowlands.renownLevel)}
     >
-        <WowthingImage
-            name={covenant.icon}
-            size={24}
-            border={1}
-        />{character.shadowlands.renownLevel}
+        <WowthingImage name={covenant.icon} size={24} border={1} />{character.shadowlands
+            .renownLevel}
     </div>
 {:else}
     &nbsp;

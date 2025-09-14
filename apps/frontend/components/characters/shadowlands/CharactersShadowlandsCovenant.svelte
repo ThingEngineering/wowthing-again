@@ -3,10 +3,9 @@
 
     import { Constants } from '@/data/constants';
     import { covenantFeatureOrder, covenantFeatureReputation } from '@/data/covenant';
-    import { timeStore } from '@/shared/stores/time';
-    import getPercentClass from '@/utils/get-percent-class';
-    import { basicTooltip } from '@/shared/utils/tooltips';
+    import { timeState } from '@/shared/state/time.svelte';
     import { toNiceDuration, toNiceNumber } from '@/utils/formatting';
+    import getPercentClass from '@/utils/get-percent-class';
     import type {
         Character,
         CharacterShadowlandsCovenant,
@@ -68,10 +67,10 @@
 
                 if (characterFeature.researchEnds > 0) {
                     const ends: DateTime = DateTime.fromSeconds(characterFeature.researchEnds);
-                    if (ends <= $timeStore) {
+                    if (ends <= timeState.slowTime) {
                         featureData.rank++;
                     } else {
-                        const duration = toNiceDuration(ends.diff($timeStore).toMillis());
+                        const duration = toNiceDuration(ends.diff(timeState.slowTime).toMillis());
                         featureData.rank++;
                         featureData.researching = `<code class="status-shrug">${duration}</code> until&nbsp;`;
                     }
@@ -148,7 +147,7 @@
     <div class="left">
         <div class="info">
             <div class="info-row large info-icons">
-                <div class="info-icon" use:basicTooltip={`${renown} Renown`}>
+                <div class="info-icon" data-tooltip={`${renown} Renown`}>
                     <WowthingImage name="spell/370359" size={40} border={2} />
                     <span
                         class="drop-shadow {getPercentClass((renown / Constants.maxRenown) * 100)}"
@@ -159,7 +158,7 @@
 
                 <div
                     class="info-icon"
-                    use:basicTooltip={`${progress.toLocaleString()} Adventure Campaign Progress`}
+                    data-tooltip={`${progress.toLocaleString()} Adventure Campaign Progress`}
                 >
                     <WowthingImage name="currency/1889" size={40} border={2} />
                     <span class="drop-shadow {getPercentClass((progress / 20) * 100)}">
@@ -167,20 +166,14 @@
                     </span>
                 </div>
 
-                <div
-                    class="info-icon"
-                    use:basicTooltip={`${souls.toLocaleString()} Redeemed Souls`}
-                >
+                <div class="info-icon" data-tooltip={`${souls.toLocaleString()} Redeemed Souls`}>
                     <WowthingImage name="currency/1810" size={40} border={2} />
                     <span class="drop-shadow">
                         {toNiceNumber(souls)}
                     </span>
                 </div>
 
-                <div
-                    class="info-icon"
-                    use:basicTooltip={`${anima.toLocaleString()} Reservoir Anima`}
-                >
+                <div class="info-icon" data-tooltip={`${anima.toLocaleString()} Reservoir Anima`}>
                     <WowthingImage name="currency/1813" size={40} border={2} />
                     <span class="drop-shadow">
                         {toNiceNumber(anima)}

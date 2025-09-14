@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import type { SortableProps } from '@/types/props';
 
     let { getSortState, setSortState }: SortableProps = $props();
@@ -16,8 +15,8 @@
 
 <td
     class="max-width sortable sorted-{getSortState()}"
+    data-tooltip="Current Location"
     onclick={() => setSortState()}
-    use:basicTooltip={'Current Location'}
 >
     Location
 </td>

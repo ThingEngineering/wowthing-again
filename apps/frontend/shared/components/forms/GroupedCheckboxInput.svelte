@@ -1,6 +1,5 @@
 <script lang="ts">
     import { iconLibrary } from '@/shared/icons';
-    import { basicTooltip } from '@/shared/utils/tooltips';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
@@ -39,7 +38,7 @@
 </style>
 
 <fieldset class="fancy-checkbox" class:disabled data-state={checked}>
-    <label class="text-overflow" for="input-{name}" use:basicTooltip={tooltip}>
+    <label class="text-overflow" for="input-{name}" data-tooltip={tooltip}>
         <input
             id="input-{name}"
             {name}

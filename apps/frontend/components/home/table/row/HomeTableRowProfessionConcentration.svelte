@@ -6,7 +6,6 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { timeStore } from '@/shared/stores/time';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import { getProfessionSortKey } from '@/utils/professions';
     import type { CharacterProps } from '@/types/props';
@@ -87,10 +86,7 @@
                     percent
                 )}"
                 class:faded={['leatherworking', 'tailoring'].includes(profession.slug)}
-                use:basicTooltip={{
-                    allowHTML: true,
-                    content: tooltip,
-                }}
+                data-tooltip={tooltip}
             >
                 <WowthingImage name={imageStrings[profession.slug]} size={20} border={1} />
                 <span>{amount}</span>

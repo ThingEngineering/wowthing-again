@@ -9,7 +9,6 @@
     import connectedRealmName from '@/utils/connected-realm-name';
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import petLocationTooltip from '@/utils/pet-location-tooltip';
-    import { basicTooltip } from '@/shared/utils/tooltips';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import Paginate from '@/shared/components/paginate/Paginate.svelte';
@@ -152,7 +151,7 @@
                                             <td
                                                 class="pet-location"
                                                 data-location={pet.location}
-                                                use:basicTooltip={petLocationTooltip(pet)}
+                                                data-tooltip={petLocationTooltip(pet)}
                                             >
                                                 <IconifyIcon
                                                     extraClass="drop-shadow"

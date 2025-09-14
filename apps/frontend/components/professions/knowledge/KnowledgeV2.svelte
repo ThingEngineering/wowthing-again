@@ -1,7 +1,6 @@
 <script lang="ts">
     import { warWithinProfessions } from '@/data/professions';
     import { warWithinZones } from '@/data/zones';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import type { Character } from '@/types';
 
     import CharacterKnowledge from './CharacterKnowledge.svelte';
@@ -46,7 +45,7 @@
             {#if zone === null}
                 <th class="spacer"></th>
             {:else}
-                <th class="zone" use:basicTooltip={zone.name}>
+                <th class="zone" data-tooltip={zone.name}>
                     <WowthingImage name={zone.icon} size={48} />
                     <span class="pill abs-center">{zone.shortName}</span>
                 </th>

@@ -9,7 +9,6 @@
     import { browserState } from '@/shared/state/browser.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { getItemUrl } from '@/utils/get-item-url';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { userState } from '@/user-home/state/user';
     import type {
         JournalDataEncounter,
@@ -212,7 +211,7 @@
                 </div>
             {/if}
 
-            <div class="difficulties" use:basicTooltip={diffLong.join(' / ')}>
+            <div class="difficulties" data-tooltip={diffLong.join(' / ')}>
                 {#each diffShort as difficulty}
                     <span>{difficulty}</span>
                 {/each}

@@ -1,7 +1,6 @@
 <script lang="ts">
     import { browserState } from '@/shared/state/browser.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { userState } from '@/user-home/state/user';
     import type { ManualDataIllusionItem } from '@/types/data/manual';
 
@@ -38,7 +37,7 @@
     class="collection-object"
     class:missing={(browserState.current.illusions.highlightMissing && have) ||
         (!browserState.current.illusions.highlightMissing && !have)}
-    use:basicTooltip={illusion.name}
+    data-tooltip={illusion.name}
 >
     <WowthingImage name="enchantment/{item.enchantmentId}" size={40} border={2} />
 
