@@ -123,7 +123,7 @@
     }
     .spacer {
         td {
-            background: $body-background !important;
+            background: var(--color-body-background) !important;
             border-left-width: 0 !important;
             border-right-width: 0 !important;
         }

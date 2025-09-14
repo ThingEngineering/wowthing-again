@@ -41,7 +41,7 @@
             flex-basis: 10rem;
         }
         :global(input) {
-            background: $highlight-background;
+            background: var(--color-highlight-background);
         }
     }
 </style>

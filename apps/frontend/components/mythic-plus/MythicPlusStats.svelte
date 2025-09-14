@@ -59,7 +59,7 @@
         justify-content: flex-start;
     }
     .stats-box {
-        background: $thing-background;
+        background: var(--color-thing-background);
         margin-top: 0.5rem;
         padding: 0.1rem 0.3rem;
         white-space: nowrap;

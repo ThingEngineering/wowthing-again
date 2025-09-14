@@ -11,9 +11,9 @@
 
 <style lang="scss">
     th {
-        @include cell-width($width-mplus-dungeon);
+        --width: var(--width-mplus-dungeon);
 
-        background: $thing-background;
+        background: var(--color-thing-background);
         border: 1px solid var(--border-color);
         border-right-width: 0;
         border-top-width: 0;

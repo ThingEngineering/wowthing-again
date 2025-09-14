@@ -4,7 +4,7 @@
 
 <style lang="scss">
     div {
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         border: 2px solid var(--item-empty-border, var(--color-fail-border));
         border-radius: var(--border-radius);
         display: flex;

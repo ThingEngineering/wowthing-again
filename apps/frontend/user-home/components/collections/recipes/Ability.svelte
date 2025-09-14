@@ -37,8 +37,9 @@
     }
     .name {
         --image-border-width: 1px;
-
-        @include cell-width(20rem, $paddingLeft: 0, $paddingRight: 0);
+        --padding-left: 0;
+        --padding-right: 0;
+        --width: 20rem;
 
         .flex-wrapper {
             max-width: 20rem;

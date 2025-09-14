@@ -42,7 +42,7 @@
         padding: 0.3rem 0.5rem;
 
         &.active {
-            background: $active-background;
+            background: var(--color-active-background);
         }
 
         &:nth-last-child(-n + 2) {

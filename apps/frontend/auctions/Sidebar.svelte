@@ -59,7 +59,7 @@
             font-size: 110%;
 
             &:global(.active) {
-                background: $active-background;
+                background: var(--color-active-background);
                 border-color: #fff;
             }
         }

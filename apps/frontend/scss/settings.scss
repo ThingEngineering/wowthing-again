@@ -50,7 +50,7 @@
         }
 
         pre {
-            background: $highlight-background;
+            background: var(--color-highlight-background);
             display: inline;
             margin: 0;
         }
@@ -132,7 +132,7 @@
         justify-content: space-between;
 
         fieldset {
-            background: $highlight-background;
+            background: var(--color-highlight-background);
             font-size: 1rem;
             margin-bottom: -1rem;
             margin-top: -1rem;
@@ -152,7 +152,7 @@
     position: relative;
 
     fieldset {
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         bottom: 0.4rem;
         position: absolute;
         right: 0;

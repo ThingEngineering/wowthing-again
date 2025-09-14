@@ -23,7 +23,7 @@
             flex-basis: 22%;
 
             &:global(.active) {
-                background: $active-background;
+                background: var(--color-active-background);
                 border-color: #fff;
             }
         }

@@ -1,5 +1,5 @@
 .thing-container {
-    background: $thing-background;
+    background: var(--color-thing-background);
     //border: 1px solid var(--border-color);
     //border-radius: var(--border-radius);
     //overflow: hidden;

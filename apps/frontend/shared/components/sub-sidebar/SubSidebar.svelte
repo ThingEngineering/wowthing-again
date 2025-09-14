@@ -64,7 +64,7 @@
     }
 
     nav {
-        --link-color: #64e1ff;
+        --color-link: #64e1ff;
 
         border: 1px solid var(--border-color);
         padding: 0.2rem 0;

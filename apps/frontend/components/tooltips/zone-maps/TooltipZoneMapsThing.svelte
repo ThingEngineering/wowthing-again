@@ -153,7 +153,7 @@
         width: 5rem;
 
         :global(code) {
-            color: $body-text;
+            color: var(--color-body-text);
             word-spacing: normal;
         }
     }

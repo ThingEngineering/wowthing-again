@@ -8,14 +8,8 @@
 </script>
 
 <style lang="scss">
-    // .level {
-    //     @include cell-width($width-level);
-
-    //     text-align: right;
-    // }
     .level-partial {
-        @include cell-width($width-level-partial);
-
+        --width: 2.6rem;
         text-align: right;
     }
 </style>

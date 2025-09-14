@@ -114,7 +114,7 @@
     }
     .buyable {
         --scale: 0.9;
-        background-color: $highlight-background;
+        background-color: var(--color-highlight-background);
         border: 2px solid;
         border-radius: var(--border-radius-small);
         color: var(--color-shrug);
@@ -125,7 +125,7 @@
         transform: scale(0.7);
     }
     .difficulties {
-        background-color: $highlight-background;
+        background-color: var(--color-highlight-background);
         border: 1px solid;
         border-radius: var(--border-radius-small);
         border-top-left-radius: 0;

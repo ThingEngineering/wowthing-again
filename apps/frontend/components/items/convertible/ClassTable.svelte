@@ -44,7 +44,9 @@
 
 <style lang="scss">
     .item-slot {
-        @include cell-width(6rem, $paddingLeft: 0px, $paddingRight: 0px);
+        --padding-left: 0;
+        --padding-right: 0;
+        --width: 6rem;
 
         border-left: 1px solid var(--border-color);
         text-align: center;
@@ -59,7 +61,7 @@
         word-spacing: -0.2ch;
     }
     .currency-head {
-        background: $body-background;
+        background: var(--color-body-background);
         border-bottom: 1px solid var(--border-color);
         border-left: 1px solid var(--border-color);
         border-right-width: 0 !important;

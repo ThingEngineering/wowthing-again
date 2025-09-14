@@ -21,7 +21,8 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-currency, $maxWidth: $width-currency-max);
+        --width: var(--width-currency);
+        --width-max: var(--width-currency-max);
 
         border-left: 1px solid var(--border-color);
         text-align: center;
@@ -33,6 +34,7 @@
 
 {#if amount}
     <td
+        class="sized"
         class:alt={sortingBy}
         class:status-success={currency?.id === Constants.currencies.honor && amountRaw >= 2000}
         class:status-shrug={percent > 50}

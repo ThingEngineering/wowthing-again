@@ -48,7 +48,7 @@
 
 <style lang="scss">
     .world-quest {
-        --link-color: #{$body-text};
+        --color-link: var(--color-body-text);
 
         display: flex;
         flex-direction: column;
@@ -65,7 +65,7 @@
     }
     .world-quest-icon,
     .world-quest-amount {
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         border: 2px solid var(--image-border-color, var(--border-color));
     }
     .world-quest-icon {

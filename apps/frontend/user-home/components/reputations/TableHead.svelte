@@ -31,13 +31,13 @@
 
 <style lang="scss">
     th {
+        --width: 3.8rem;
+
         border: 1px solid var(--border-color);
         border-right-width: 0;
         border-top-width: 0;
         padding: 0.3rem 0;
         position: relative;
-        min-width: $width-reputation;
-        width: $width-reputation;
     }
     .faction0,
     .faction1 {

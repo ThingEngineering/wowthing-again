@@ -45,7 +45,7 @@
         z-index: 10;
 
         &.active {
-            background: $active-background;
+            background: var(--color-active-background);
             border-color: #ddd;
             color: #fff;
         }

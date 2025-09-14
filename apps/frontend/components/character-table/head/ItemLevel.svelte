@@ -2,7 +2,7 @@
 
 <style lang="scss">
     th {
-        @include cell-width($width-item-level);
+        --width: var(--width-item-level);
     }
 </style>
 

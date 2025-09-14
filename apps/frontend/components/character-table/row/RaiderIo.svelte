@@ -29,8 +29,8 @@
 </script>
 
 <style lang="scss">
-    .score {
-        @include cell-width($width-raider-io);
+    td {
+        --width: var(--width-raider-io);
 
         border-left: 1px solid var(--border-color);
         text-align: right;
@@ -39,8 +39,8 @@
 
 {#if overallScore > 0}
     <td
-        class="score"
-        style:--link-color={getRaiderIoColor(tiers, overallScore)}
+        class="sized"
+        style:--color-link={getRaiderIoColor(tiers, overallScore)}
         use:componentTooltip={{
             component: Tooltip,
             props: {
@@ -60,5 +60,5 @@
         </a>
     </td>
 {:else}
-    <td class="score">&nbsp;</td>
+    <td class="sized">&nbsp;</td>
 {/if}

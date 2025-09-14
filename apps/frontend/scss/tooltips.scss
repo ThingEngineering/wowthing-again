@@ -18,7 +18,7 @@
 
     > h4 {
         padding: 0.3rem 0.5rem;
-        color: var(--link-color, var(--tooltip-title-color));
+        color: var(--color-link, var(--tooltip-title-color));
         font-size: 1.05rem;
 
         &:first-child {
@@ -70,13 +70,13 @@
             }
         }
 
-        &.table-striped {
-            tbody {
-                tr:nth-child(odd) {
-                    background: $tooltip-striped-bg;
-                }
-            }
-        }
+        // &.table-striped {
+        //     tbody {
+        //         tr:nth-child(odd) {
+        //             background: $tooltip-striped-bg;
+        //         }
+        //     }
+        // }
     }
 
     em {

@@ -60,12 +60,12 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-professions);
+        --width: calc(var(--width-profession) * 2);
 
         border-left: 1px solid var(--border-color);
 
         &.triple {
-            @include cell-width($width-professions-triple);
+            --width: calc(var(--width-profession) * 3);
         }
     }
     .flex-wrapper {
@@ -73,7 +73,7 @@
     }
     a {
         align-items: center;
-        color: $body-text;
+        color: var(--color-body-text);
         display: flex;
         justify-content: space-between;
 

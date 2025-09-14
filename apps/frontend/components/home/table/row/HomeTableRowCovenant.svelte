@@ -19,10 +19,10 @@
         border-left: 1px solid var(--border-color);
 
         &.current {
-            @include cell-width($width-covenant);
+            --width: var(--width-covenant);
         }
         &.all {
-            @include cell-width($width-covenant-all);
+            --width: var(--width-covenant-all);
 
             .flex-wrapper {
                 gap: calc(0.4rem - 4px);
@@ -35,10 +35,10 @@
                     width: 26px;
                 }
                 a {
-                    color: $body-text;
+                    color: var(--color-body-text);
 
                     &:hover {
-                        color: $link-color;
+                        color: var(--color-link);
                     }
 
                     &.active {

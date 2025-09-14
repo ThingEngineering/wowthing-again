@@ -92,10 +92,8 @@
     .tag {
         --width: 1rem;
 
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         border-right: 1px solid var(--border-color);
-        padding-left: $width-padding;
-        padding-right: $width-padding;
     }
     .name {
         --width: 10rem;

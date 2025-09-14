@@ -39,13 +39,13 @@
     }
     td,
     th {
-        @include cell-width(4.5rem);
+        --width: 4.5rem;
 
         border-left: 1px solid var(--border-color);
         text-align: center;
     }
     .specialization {
-        @include cell-width(12rem);
+        --width: 12rem;
     }
     td.specialization {
         text-align: left;

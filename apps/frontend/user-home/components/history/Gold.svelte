@@ -420,7 +420,7 @@
         flex-direction: column;
     }
     .radio-container {
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         margin-right: 0.5rem;
         padding: 0.25em 0.375em;
     }

@@ -31,25 +31,23 @@
 
 <style lang="scss">
     .yes-no {
-        @include cell-width(1rem, $paddingLeft: 0px, $paddingRight: 0.5rem);
+        --width: 1rem;
     }
     .name {
-        @include cell-width(15rem);
+        --width: 15rem;
 
         white-space: nowrap;
     }
     .item {
-        @include cell-width(20rem);
+        --width: 20rem;
 
         white-space: nowrap;
-    }
-    .faded {
-        opacity: 0.6;
     }
 </style>
 
 {#if show}
     <tr
+        class="sized"
         class:faded={browserState.current['collectible-customizations'].highlightMissing
             ? have
             : !have}

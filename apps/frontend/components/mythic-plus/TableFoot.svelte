@@ -84,7 +84,7 @@
 
 <style lang="scss">
     .hide-me {
-        background: $body-background;
+        background: var(--color-body-background);
         border-bottom: none !important;
         border-left: none !important;
     }

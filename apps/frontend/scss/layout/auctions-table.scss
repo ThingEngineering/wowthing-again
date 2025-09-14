@@ -10,7 +10,7 @@
     }
     .selected {
         td {
-            background: $highlight-background;
+            background: var(--color-highlight-background);
             border-color: #fff !important;
             border-top: 1px solid #fff;
         }
@@ -45,6 +45,6 @@
     }
     code {
         background: transparent;
-        color: $body-text;
+        color: var(--color-body-text);
     }
 }

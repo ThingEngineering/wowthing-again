@@ -117,18 +117,18 @@
 
 <style lang="scss">
     a {
-        color: var(--link-color, $link-color);
+        color: var(--color-link);
         display: block;
         padding: 0.15rem 0.5rem;
         position: relative;
 
         &:global(.active) {
-            --link-color: #eee;
+            --color-link: #eee;
 
-            background: $active-background;
+            background: var(--color-active-background);
         }
         &:hover {
-            background: $highlight-background;
+            background: var(--color-highlight-background);
         }
 
         > :global(span:first-child) {
@@ -137,7 +137,7 @@
         }
     }
     .subtree {
-        --link-color: #64ffd1;
+        --color-link: #64ffd1;
 
         > :global(a) {
             padding-left: calc(1rem * var(--subtree-depth, 1));
@@ -147,7 +147,7 @@
         }
 
         :global(.noVisitRoot) {
-            --link-color: #ccffd1;
+            --color-link: #ccffd1;
         }
     }
     .separator {
@@ -174,7 +174,7 @@
         right: 1.8rem;
     }
     .noVisitRoot {
-        --link-color: #ffffff;
+        --color-link: #ffffff;
     }
 </style>
 

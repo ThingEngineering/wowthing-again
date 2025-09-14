@@ -1,6 +1,6 @@
 body {
-    background: $body-background;
-    color: $body-text;
+    background: var(--color-body-background);
+    color: var(--color-body-text);
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -90,7 +90,7 @@ table {
 
 a,
 a:visited {
-    color: var(--link-color, $link-color);
+    color: var(--color-link);
     text-decoration: none;
 }
 
@@ -115,7 +115,7 @@ h6 {
 }
 
 code {
-    background: $thing-background;
+    background: var(--color-thing-background);
     color: #ffffaa;
     vertical-align: 1px;
     // padding: 0 0.2rem;
@@ -136,12 +136,12 @@ div.content {
 
 .faction0 {
     --image-border-color: var(--color-alliance-border);
-    --link-color: var(--color-alliance);
+    --color-link: var(--color-alliance);
 }
 
 .faction1 {
     --image-border-color: var(--color-horde-border);
-    --link-color: var(--color-horde);
+    --color-link: var(--color-horde);
 }
 
 .flex-wrapper {
@@ -167,7 +167,7 @@ div.content {
 }
 
 .text-overlay {
-    background-color: $highlight-background;
+    background-color: var(--color-highlight-background);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-small);
     font-size: 0.9rem;
@@ -178,13 +178,13 @@ div.content {
 }
 
 .background-box {
-    background-color: $highlight-background;
+    background-color: var(--color-highlight-background);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-small);
 }
 
 .pill {
-    background-color: $highlight-background;
+    background-color: var(--color-highlight-background);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-small);
     line-height: 1;

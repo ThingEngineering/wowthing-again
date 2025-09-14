@@ -78,7 +78,7 @@
 
 <style lang="scss">
     .only-weekly {
-        padding: 0 $width-padding;
+        padding: 0 inherit;
     }
     tr {
         --scale: 0.91;
@@ -107,7 +107,7 @@
         text-align: center;
     }
     .mythic-plus-score {
-        @include cell-width($width-raider-io);
+        --width: var(--width-raider-io);
     }
 </style>
 
@@ -189,7 +189,7 @@
             {/if}
         {:else if field === 'mythicPlusScore'}
             <td
-                class="mythic-plus-score sortable sorted-{getSortState()}"
+                class="mythic-plus-score sized sortable sorted-{getSortState()}"
                 onclick={() => setSortState()}
             >
                 M+

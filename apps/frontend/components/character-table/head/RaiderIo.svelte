@@ -2,11 +2,11 @@
 
 <style lang="scss">
     th {
-        @include cell-width($width-raider-io);
+        --width: var(--width-raider-io);
 
         text-align: center;
         vertical-align: bottom;
     }
 </style>
 
-<th>Score</th>
+<th class="sized">Score</th>

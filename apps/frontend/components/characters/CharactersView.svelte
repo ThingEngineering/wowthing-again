@@ -77,7 +77,7 @@
         margin: 0.25rem 0 0.5rem 0;
     }
     nav {
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         border-bottom: 1px solid var(--border-color);
         border-top: 1px solid var(--border-color);
         display: flex;
@@ -89,7 +89,7 @@
             padding: 0.5rem 1rem;
 
             &:global(.active) {
-                background: $active-background;
+                background: var(--color-active-background);
                 color: #fff;
             }
         }

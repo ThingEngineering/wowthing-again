@@ -139,7 +139,8 @@
 
 <style lang="scss">
     .profession-knowledge {
-        @include cell-width($width-progress, $maxWidth: $width-progress-max);
+        --max-width: var(--width-progress-max);
+        --width: var(--width-progress);
 
         border-left: 1px solid var(--border-color);
         text-align: center;

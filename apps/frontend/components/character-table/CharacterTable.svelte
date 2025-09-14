@@ -126,7 +126,7 @@
 
 <style lang="scss">
     .uhoh {
-        @include cell-width(50rem);
+        --width: 50rem;
 
         padding-top: 0.5rem;
         white-space: normal;
@@ -161,7 +161,7 @@
                     {#if !showWarbank}
                         <slot name="emptyRow">
                             <tr>
-                                <td class="uhoh bg-fail">
+                                <td class="uhoh bg-fail sized">
                                     {#if userState.general.characters.length > 0}
                                         It looks like you have characters but none match your
                                         current character filter, try clearing that (end of the

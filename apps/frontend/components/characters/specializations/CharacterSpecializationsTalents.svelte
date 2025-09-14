@@ -28,7 +28,7 @@
         text-align: center;
     }
     .specialization {
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         display: flex;
         flex-direction: column;
         gap: 0.5rem;

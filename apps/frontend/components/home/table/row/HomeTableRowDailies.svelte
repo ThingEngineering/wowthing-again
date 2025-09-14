@@ -67,9 +67,8 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-callings);
-
         --scale: 0.91;
+        --width: var(--width-callings);
 
         border-left: 1px solid var(--border-color);
     }

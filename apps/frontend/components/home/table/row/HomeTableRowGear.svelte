@@ -73,9 +73,10 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-home-gear, $maxWidth: $width-home-gear-max);
+        --max-width: 4rem;
+        --width: 2rem;
 
-        --link-color: var(--quality5-color);
+        --color-link: var(--quality5-color);
 
         border-left: 1px solid var(--border-color);
         text-align: center;
@@ -89,6 +90,7 @@
 {#if character.level === Constants.characterMaxLevel}
     {#if previousCount > 0 && currentCount < 4}
         <td
+            class="max-width"
             use:componentTooltip={{
                 component: TooltipSet,
                 propsFunc: () => ({
@@ -113,6 +115,7 @@
         </td>
     {:else}
         <td
+            class="max-width"
             class:status-shrug={currentCount >= 2 && currentCount < 4}
             class:status-success={currentCount >= 4}
             class:faded={currentCount + previousCount === 0}

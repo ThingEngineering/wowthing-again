@@ -28,14 +28,14 @@
         margin-bottom: 0.5rem;
     }
     th {
-        background-color: $highlight-background;
+        background-color: var(--color-highlight-background);
         font-weight: normal;
     }
     .item {
         --image-border-width: 1px;
         --image-margin-top: -4px;
 
-        padding: 0.2rem $width-padding;
+        padding: 0.2rem inherit;
         text-align: left;
     }
     // .ignore {
@@ -53,16 +53,17 @@
     //     }
     // }
     .realm {
-        @include cell-width(11rem, $paddingLeft: 0px);
+        --padding-left: 0;
+        --width: 11rem;
     }
     // .level {
-    //     @include cell-width(1.8rem);
+    //     --width: 1.8rem;
 
     //     text-align: right;
     //     white-space: nowrap;
     // }
     .price {
-        @include cell-width(4.5rem);
+        --width: 4.5rem;
 
         text-align: right;
         white-space: nowrap;
@@ -72,7 +73,7 @@
         }
     }
     .time-left {
-        @include cell-width(4.2rem);
+        --width: 4.2rem;
 
         text-align: right;
         word-spacing: -0.2ch;

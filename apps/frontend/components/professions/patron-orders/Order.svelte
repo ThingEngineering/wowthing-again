@@ -107,7 +107,7 @@
         width: 4.4rem;
     }
     .rewards {
-        --link-color: $text-color;
+        --color-link: $text-color;
 
         display: flex;
         gap: 0.2rem;

@@ -32,7 +32,7 @@
         text-align: center;
     }
     .soulbind {
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
@@ -92,7 +92,7 @@
         }
     }
     .empty-socket {
-        background: $thing-background;
+        background: var(--color-thing-background);
         border: 2px solid var(--border-color);
         border-radius: var(--border-radius-large);
         height: 100%;

@@ -62,10 +62,10 @@
         border-top: 1px solid var(--border-color);
     }
     .name {
-        @include cell-width(12rem);
+        --width: 12rem;
     }
     .icon {
-        @include cell-width(1.2rem);
+        --width: 1.2rem;
 
         :global(svg) {
             cursor: pointer;

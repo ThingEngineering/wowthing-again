@@ -29,24 +29,23 @@
 
 <style lang="scss">
     th {
-        @include cell-width($width-currency, $maxWidth: $width-currency-max);
-
         --image-border-width: 2px;
-        --padding: 0;
+        --width: var(--width-currency);
+        --width-max: var(--width-currency-max);
 
-        background: $thing-background;
+        background: var(--color-thing-background);
         border: 1px solid var(--border-color);
         border-right-width: 0;
         border-top-width: 0;
-        padding-bottom: $width-padding;
-        padding-top: $width-padding;
+        padding-bottom: var(--padding);
+        padding-top: var(--padding);
         position: relative;
         text-align: center;
     }
 </style>
 
 <th
-    class={cls}
+    class="sized {cls}"
     use:componentTooltip={{
         component: Tooltip,
         props: {

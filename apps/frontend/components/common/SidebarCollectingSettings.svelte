@@ -65,7 +65,7 @@
         justify-content: center;
 
         button {
-            background: $thing-background;
+            background: var(--color-thing-background);
             border-radius: var(--border-radius);
             cursor: pointer;
             width: 4rem;

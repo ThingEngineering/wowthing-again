@@ -16,12 +16,11 @@
 
 <style lang="scss">
     .zone {
-        @include cell-width($width-mplus-dungeon);
-
         --image-border-radius: var(--border-radius);
         --image-border-width: 2px;
+        --width: var(--width-mplus-dungeon);
 
-        background: $thing-background;
+        background: var(--color-thing-background);
         border: 1px solid var(--border-color);
         padding-bottom: 0.3rem;
         padding-top: 0.3rem;

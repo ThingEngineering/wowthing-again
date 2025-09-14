@@ -4,7 +4,7 @@
     thead {
         tr {
             th {
-                background: $thing-background;
+                background: var(--color-thing-background);
                 font-weight: 600;
                 position: sticky;
                 top: 0;

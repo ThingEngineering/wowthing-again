@@ -37,9 +37,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-lockout - var(--less-width, 0px));
-
-        border-left: 1px solid var(--border-color);
+        --width: calc(3.5rem - var(--less-width, 0px)) border-left: 1px solid var(--border-color);
         text-align: center;
 
         :global(svg) {
@@ -50,6 +48,7 @@
 
 {#if lockout}
     <td
+        class="sized"
         class:alt={!showNumbers && striped}
         class:status-success={lockout.defeatedBosses >= maxBosses}
         class:status-shrug={lockout.defeatedBosses > 0 && lockout.defeatedBosses < maxBosses}

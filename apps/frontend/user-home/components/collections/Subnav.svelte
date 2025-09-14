@@ -9,7 +9,7 @@
 
 <style lang="scss">
     .subnav-wrapper {
-        background: $body-background;
+        background: var(--color-body-background);
         padding-bottom: 1rem;
         position: sticky;
         top: 0;

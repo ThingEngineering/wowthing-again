@@ -13,7 +13,7 @@
 <style lang="scss">
     div {
         align-items: center;
-        background: $collection-background;
+        background: var(--color-highlight-background);
         border-bottom: 1px solid var(--border-color);
         color: #ddd;
         display: flex;

@@ -27,12 +27,12 @@ const config = <UserConfig>defineConfig({
                 typescript: {
                     tsconfigFile: 'tsconfig.json',
                 },
-                scss: {
-                    prependData: `
-                @import 'scss/mixins.scss';
-                @import 'scss/variables.scss';
-                `,
-                },
+                // scss: {
+                //     prependData: `
+                // @import 'scss/mixins.scss';
+                // @import 'scss/variables.scss';
+                // `,
+                // },
             }),
             compilerOptions: {
                 dev: !production,

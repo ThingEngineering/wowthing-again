@@ -103,23 +103,23 @@
         padding-top: 0.25rem;
     }
     .realm {
-        @include cell-width($width-name-max);
+        --width: var(--width-name-max);
 
         text-align: left;
     }
     .level {
-        @include cell-width(2rem);
+        --width: 2rem;
 
         text-align: right;
     }
     .name {
-        @include cell-width($width-name-max);
+        --width: var(--width-name-max);
 
         text-align: left;
     }
     .ignore,
     .hide {
-        @include cell-width(6rem);
+        --width: 6rem;
 
         cursor: pointer;
         text-align: center;

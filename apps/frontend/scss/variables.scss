@@ -1,17 +1,28 @@
 :root {
     --color-body-background: #101112;
     --color-body-text: #ffffff;
-    --color-thing-background: #1a1b1c;
+    --color-link: #44ddff;
+
     --color-active-background: #003048;
+    --color-highlight-background: #04080f;
+    --color-thing-background: #1a1b1c;
 
     --border-color: #676b6f;
     --border-radius-large: 8px;
     --border-radius: 5px;
     --border-radius-small: 3px;
 
+    --padding: 1;
     --padding-size: 0.25rem;
 
     --opacity-faded: 0.5;
+
+    --table-background-1: rgb(26, 27, 28);
+    --table-background-2: rgb(34, 35, 36);
+    --table-background-alt-1: rgb(21, 22, 38);
+    --table-background-alt-2: rgb(29, 30, 46);
+    --table-background-highlight-1: oklch(from var(--color-active-background) calc(l - 0.07) c h);
+    --table-background-highlight-2: oklch(from var(--color-active-background) calc(l - 0.03) c h);
 
     --tooltip-background: #0a0b0c;
     --tooltip-color: #ffffff;
@@ -20,8 +31,6 @@
     --tooltip-title-color: var(--tooltip-color);
     --tooltip-padding-x: 7px;
     --tooltip-padding-y: 5px;
-
-    --width-vault: 6.5rem;
 
     --color-success: #1eff00;
     --color-success-background: color-mix(in oklch, var(--color-success) 30%, #000 70%);
@@ -105,66 +114,36 @@
     --sms-options-border: 1px solid #8b8d8f;
     --sms-placeholder-color: #bbb;
     --sms-selected-li-padding: 0 0.2rem;
+
+    --width-callings: 4.6rem;
+    --width-covenant: 2.9rem;
+    --width-covenant-all: 7rem;
+    --width-currency: 2.3rem;
+    --width-currency-max: 4rem;
+    --width-icon: 26px;
+    --width-item-level: 2.5rem;
+    --width-keystone: 4rem;
+    --width-location: 5rem;
+    --width-location-max: 16rem;
+    --width-mplus-dungeon: 3.4rem;
+    --width-mplus-upgrade: 2.1rem;
+    --width-name: 6rem;
+    --width-name-max: 12rem;
+    --width-profession: 4rem;
+    --width-progress: 2rem;
+    --width-progress-max: 5.5rem;
+    --width-raider-io: 3rem;
+    --width-vault: 6.5rem;
 }
 
-$body-background: #101112;
-$body-text: #ffffff;
-$link-color: #44ddff;
 $link-hover-color: #88ffff;
 
 $header-footer-background: #2c2d2e;
 $thing-background: #1a1b1c;
-$highlight-background: #04080f;
 $active-background: #003048;
-$collection-background: $highlight-background;
 
-$table-bg: $thing-background;
-$table-striped-bg: lighten($table-bg, 3%);
-$table-alt-bg: #00151d9f;
-$table-striped-alt-bg: lighten($table-alt-bg, 3%);
-$table-hl-bg: darken($active-background, 7%);
-$table-striped-hl-bg: lighten($table-hl-bg, 3%);
-$tooltip-striped-bg: $table-bg;
-
-$width-callings: 4.6rem;
-$width-covenant: 2.9rem;
-$width-covenant-all: 7rem;
-$width-currency: 2.3rem;
-$width-currency-max: 4rem;
-$width-home-gear: 2rem;
-$width-home-gear-max: 4rem;
 $width-gold: 4rem;
 $width-gold-max: 6rem;
-$width-guild: 6rem;
-$width-guild-max: 15rem;
-$width-icon: 26px;
-$width-item-count: 2rem;
-$width-item-level: 2.5rem;
-$width-item-location: 3rem;
-$width-keystone: 4rem;
-$width-keystone-level: 1.2rem;
-$width-level: 1.1rem;
-$width-level-partial: 2.6rem;
-$width-location: 5rem;
-$width-location-max: 16rem;
-$width-lockout: 3.5rem;
 $width-mount-speed: 3.4rem;
-$width-mplus-dungeon: 3.4rem;
-$width-mplus-upgrade: 2.1rem;
-$width-name: 6rem;
-$width-name-max: 12rem;
-$width-played: 5.2rem;
-$width-played-max: 8rem;
-$width-professions: 8rem;
-$width-professions-triple: 12rem;
-$width-progress: 2rem;
-$width-progress-max: 5.5rem;
-$width-raider-io: 3rem;
-$width-realm: 8rem;
-$width-reputation: 3.8rem;
-$width-rested: 3rem;
 $width-spacer: 0.7rem;
 $width-transmog: 2.6rem;
-$width-weekly-quest: 2.7rem;
-
-$width-padding: 0.25rem;

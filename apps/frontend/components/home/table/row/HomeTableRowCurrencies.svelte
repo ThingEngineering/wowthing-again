@@ -12,7 +12,8 @@
 
 <style lang="scss">
     td {
-        @include cell-width(2rem, $maxWidth: 4rem);
+        --max-width: 4rem;
+        --width: 2rem;
 
         border-left: 1px solid var(--border-color);
         text-align: right;
@@ -34,6 +35,7 @@
     )}
     {#if amount}
         <td
+            class="max-width"
             class:status-success={currency?.id === Constants.currencies.honor && amountRaw >= 2000}
             class:status-shrug={percent >= 50 && percent < 100}
             class:status-fail={percent >= 100}

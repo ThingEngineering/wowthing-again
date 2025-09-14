@@ -142,8 +142,6 @@
 
 <style lang="scss">
     td {
-        @include cell-width(var(--width, 0));
-
         border-left: 1px solid var(--border-color);
         white-space: nowrap;
 

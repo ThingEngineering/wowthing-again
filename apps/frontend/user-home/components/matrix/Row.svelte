@@ -25,15 +25,16 @@
         height: 1.7rem;
     }
     .y-axis {
-        @include cell-width(4rem, $maxWidth: 10rem);
+        --max-width: 10rem;
+        --width: 4rem;
     }
     .characters {
         white-space: nowrap;
         &.as-level {
-            @include cell-width(2.5rem);
+            --width: 2.5rem;
         }
         &.as-name {
-            @include cell-width(6rem);
+            --width: 6rem;
         }
     }
     .character {
@@ -47,7 +48,7 @@
 <IntersectionObserver once {element} bind:intersecting={intersected}>
     <tr bind:this={element}>
         {#if intersected}
-            <td class="y-axis text-overflow">
+            <td class="y-axis max-width text-overflow">
                 {#each yEntries as line}
                     <ParsedText text={line} />
                     <!-- {line} -->

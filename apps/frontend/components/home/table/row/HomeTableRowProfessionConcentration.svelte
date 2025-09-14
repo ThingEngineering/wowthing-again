@@ -48,7 +48,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-professions);
+        --width: calc(var(--width-profession) * 2);
 
         border-left: 1px solid var(--border-color);
         text-align: right;

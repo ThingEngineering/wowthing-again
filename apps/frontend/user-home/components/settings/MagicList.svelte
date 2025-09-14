@@ -22,7 +22,7 @@
 
 <style lang="scss">
     .magic-list {
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         border-radius: var(--border-radius);
         flex: 1;
         height: var(--magic-max-height, 21rem);
@@ -30,7 +30,7 @@
         width: 100%;
 
         & :global(.selected:not(.dragged)) {
-            background: $active-background !important;
+            background: var(--color-active-background) !important;
         }
     }
     .magic-item {
@@ -41,10 +41,10 @@
         padding: 0.2rem 0.4rem;
 
         &:nth-child(even) {
-            background: $table-alt-bg;
+            background: var(--table-background-alt-1);
         }
         &:nth-child(odd) {
-            background: $table-striped-alt-bg;
+            background: var(--table-background-alt-2);
         }
         &:not(:first-child) {
             border-top: 1px solid var(--border-color);
@@ -53,7 +53,7 @@
             border-bottom: 1px solid var(--border-color);
         }
         &:hover {
-            background: $active-background;
+            background: var(--color-active-background);
         }
 
         & :global(svg) {

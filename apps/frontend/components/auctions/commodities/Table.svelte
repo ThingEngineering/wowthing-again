@@ -45,30 +45,28 @@
         width: 25rem;
     }
     .character-realm {
-        @include cell-width(19.5rem);
+        --width: 19.5rem;
 
         .realm {
             float: right;
         }
     }
     .tag {
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         border-left: 1px solid var(--border-color);
         border-right: 1px solid var(--border-color);
-        margin-right: $width-padding;
-        padding-left: $width-padding;
-        padding-right: $width-padding;
+        margin-right: var(--padding-width);
     }
     .name {
-        @include cell-width(16rem);
+        --width: 16rem;
     }
     .count {
-        @include cell-width(3rem);
+        --width: 3rem;
 
         text-align: right;
     }
     .value {
-        @include cell-width(5rem);
+        --width: 5rem;
 
         text-align: right;
     }

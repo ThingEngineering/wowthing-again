@@ -22,7 +22,7 @@
     import Sidebar from './Sidebar.svelte';
 
     // NOTE: can't switch to this until all SCSS variables are removed
-    // import '../scss/global.scss';
+    import '../scss/global.scss';
 
     let ready = $state(false);
 

@@ -40,9 +40,6 @@
 </script>
 
 <style lang="scss">
-    td {
-        padding-left: calc($width-padding * var(--padding, 1));
-    }
     .settings-icon {
         cursor: pointer;
         position: relative;

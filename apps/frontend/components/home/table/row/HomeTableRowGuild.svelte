@@ -13,13 +13,14 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-guild, $maxWidth: $width-guild-max);
+        --max-width: 15rem;
+        --width: 6rem;
 
         border-left: 1px solid var(--border-color);
     }
 </style>
 
-<td class="text-overflow" use:basicTooltip={character.guildId ? guildName : null}>
+<td class="max-width text-overflow" use:basicTooltip={character.guildId ? guildName : null}>
     {#if character.guildId}
         {guildName}
     {:else}

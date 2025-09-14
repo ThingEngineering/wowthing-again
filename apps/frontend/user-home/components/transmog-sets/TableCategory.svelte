@@ -89,7 +89,7 @@
 <style lang="scss">
     .spacer {
         td {
-            background: $body-background !important;
+            background: var(--color-body-background) !important;
             border-left-width: 0 !important;
             border-right-width: 0 !important;
         }
@@ -100,7 +100,7 @@
         --image-margin-top: 0;
 
         td {
-            background: $thing-background;
+            background: var(--color-thing-background);
             position: sticky;
             top: 0;
             z-index: 1;
@@ -129,7 +129,7 @@
         opacity: 0.5;
     }
     .name {
-        @include cell-width(18rem, $paddingLeft: 0.5rem);
+        --width: 18rem;
 
         position: relative;
 
@@ -149,7 +149,7 @@
         }
     }
     .highlight {
-        background-color: $highlight-background;
+        background-color: var(--color-highlight-background);
         color: #8ff1eb;
         padding-bottom: 0.2rem;
         padding-top: 0.2rem;
@@ -163,14 +163,14 @@
         word-spacing: -0.2ch;
     }
     .percent-cell {
-        @include cell-width(2.8rem);
+        --width: 2.8rem;
 
         border-right: 1px solid var(--border-color);
         text-align: right;
         word-spacing: -0.2ch;
     }
     .group .percent-cell {
-        background-color: $highlight-background;
+        background-color: var(--color-highlight-background);
     }
 </style>
 
@@ -338,14 +338,14 @@
     {#if groupIndex === 0 || category.groups[groupIndex - 1].name !== group.name}
         {@const groupPercent = getPercent(groupIndex, -1)}
         <tr class="group">
-            <td class="percent-cell">
+            <td class="percent-cell sized">
                 {#if showPercent && !isNaN(groupPercent)}
                     <span class="drop-shadow {getPercentClass(groupPercent)}">
                         {Math.floor(groupPercent).toFixed(0)} %
                     </span>
                 {/if}
             </td>
-            <td class="name highlight" colspan="100">
+            <td class="name highlight sized" colspan="100">
                 <IconifyIcon
                     icon={isExpanded ? uiIcons.minus : uiIcons.plus}
                     on:click={() => ($transmogSetsState.collapsedCategories[groupKey] = isExpanded)}

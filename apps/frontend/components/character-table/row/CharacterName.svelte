@@ -11,13 +11,15 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-name, $maxWidth: $width-name-max);
+        --max-width: var(--width-name-max);
+        --width: var(--width-name);
 
         white-space: nowrap;
     }
 </style>
 
 <td
+    class="max-width"
     use:componentTooltip={{
         component: Tooltip,
         props: {

@@ -9,10 +9,10 @@ const config = {
     preprocess: sveltePreprocess({
         scss: {
             includePaths: [path.join(__dirname, 'scss')],
-            prependData: `
-@import 'mixins.scss';
-@import 'variables.scss';
-`,
+//             prependData: `
+// @import 'mixins.scss';
+// @import 'variables.scss';
+// `,
         },
     }),
     vitePlugin: {

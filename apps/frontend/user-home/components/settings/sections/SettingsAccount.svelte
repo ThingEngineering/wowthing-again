@@ -37,25 +37,25 @@
         width: 100%;
     }
     th {
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         padding: 0.2rem 0.3rem;
     }
 
     .account-id {
-        @include cell-width(7rem);
+        --width: 7rem;
     }
     .account-tag {
-        @include cell-width(4rem);
+        --width: 4rem;
 
         text-align: center;
     }
     .account-enabled {
-        @include cell-width(4rem);
+        --width: 4rem;
 
         text-align: center;
     }
     .account-characters {
-        @include cell-width(100%);
+        --width: 100%;
 
         code {
             word-spacing: -0.5ch;

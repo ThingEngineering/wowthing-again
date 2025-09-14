@@ -11,7 +11,8 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-gold, $maxWidth: $width-gold-max);
+        --max-width: 6rem;
+        --width: 4rem;
 
         border-left: 1px solid var(--border-color);
         text-align: right;
@@ -19,11 +20,11 @@
 </style>
 
 {#if showSortable}
-    <td class="sortable sorted-{getSortState()}" onclick={() => setSortState()}>
+    <td class="max-width sortable sorted-{getSortState()}" onclick={() => setSortState()}>
         {gold.toLocaleString()} g
     </td>
 {:else}
-    <td>
+    <td class="max-width">
         {gold.toLocaleString()} g
     </td>
 {/if}

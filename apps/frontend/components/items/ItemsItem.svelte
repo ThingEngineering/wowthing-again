@@ -101,7 +101,7 @@
         }
     }
     .item-level {
-        background-color: $highlight-background;
+        background-color: var(--color-highlight-background);
         border: 1px solid var(--border-color);
         border-radius: var(--border-radius-small);
         bottom: 1px;
@@ -116,7 +116,7 @@
         white-space: nowrap;
 
         &.left {
-            color: $body-text;
+            color: var(--color-body-text);
             font-size: 0.85rem;
             left: 3px;
             transform: none;
@@ -148,7 +148,7 @@
     .icon {
         --image-border-width: 0;
 
-        background: $thing-background;
+        background: var(--color-thing-background);
         border: 2px solid var(--image-border-color);
         border-radius: var(--border-radius);
         color: var(--color-success);

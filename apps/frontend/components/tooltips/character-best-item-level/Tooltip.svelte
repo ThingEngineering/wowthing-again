@@ -31,11 +31,12 @@
     .icon {
         --image-border-width: 1px;
         // --image-margin-top: -4px;
-
-        @include cell-width(1.5rem, $paddingLeft: 0.1rem, $paddingRight: 0);
+        --padding-left: 0.1rem;
+        --padding-right: 0;
+        --width: 1.5rem;
     }
     .name {
-        @include cell-width(7rem);
+        --width: 7rem;
 
         text-align: left;
     }

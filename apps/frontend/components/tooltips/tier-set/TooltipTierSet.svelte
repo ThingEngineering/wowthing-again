@@ -67,12 +67,13 @@
         margin-bottom: -1px;
     }
     .slot {
-        @include cell-width(5rem);
+        --width: 5rem;
 
         text-align: left;
     }
-    .itemLevel {
-        @include cell-width(2rem, $maxWidth: 4rem);
+    .item-level {
+        --max-width: 4rem;
+        --width: 2rem;
 
         text-align: center;
         white-space: nowrap;
@@ -110,12 +111,16 @@
                         <tr>
                             <td class="slot">{slot}</td>
                             {#if itemLevel > 0}
-                                <td class="itemLevel quality{getItemLevelQuality(itemLevel)}">
+                                <td
+                                    class="item-level max-width quality{getItemLevelQuality(
+                                        itemLevel
+                                    )}"
+                                >
                                     {itemLevel}
                                 </td>
                             {:else if convertible && !convertible.isPurchased}
                                 <td
-                                    class="itemLevel quality{getItemLevelQuality(
+                                    class="item-level max-width quality{getItemLevelQuality(
                                         convertible.equippedItem.itemLevel
                                     )}"
                                 >
@@ -129,7 +134,7 @@
                                     />
                                 </td>
                             {:else}
-                                <td class="itemLevel quality0"> &mdash; </td>
+                                <td class="item-level max-width quality0"> &mdash; </td>
                             {/if}
                         </tr>
                     {/each}

@@ -39,7 +39,7 @@
     }
     .name,
     .realm {
-        @include cell-width(7rem);
+        --width: 7rem;
 
         text-align: left;
     }

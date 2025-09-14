@@ -50,7 +50,7 @@
     th {
         --image-border-width: 0;
 
-        background: $thing-background;
+        background: var(--color-thing-background);
         border: 1px solid var(--border-color);
         border-right-width: 0;
         border-top-width: 0;
@@ -68,7 +68,7 @@
         --image-border-radius: 50%;
         --image-border-width: 2px;
 
-        background: $thing-background;
+        background: var(--color-thing-background);
         border-radius: 50%;
         position: absolute;
         top: -7px;

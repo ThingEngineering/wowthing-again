@@ -2,7 +2,7 @@
 .class-1,
 .class-warrior {
     --image-border-color: var(--color-class-1);
-    --link-color: var(--color-class-1);
+    --color-link: var(--color-class-1);
 
     color: var(--color-class-1);
 }
@@ -10,7 +10,7 @@
 .class-2,
 .class-paladin {
     --image-border-color: var(--color-class-2);
-    --link-color: var(--color-class-2);
+    --color-link: var(--color-class-2);
 
     color: var(--color-class-2);
 }
@@ -18,7 +18,7 @@
 .class-3,
 .class-hunter {
     --image-border-color: var(--color-class-3);
-    --link-color: var(--color-class-3);
+    --color-link: var(--color-class-3);
 
     color: var(--color-class-3);
 }
@@ -26,7 +26,7 @@
 .class-4,
 .class-rogue {
     --image-border-color: var(--color-class-4);
-    --link-color: var(--color-class-4);
+    --color-link: var(--color-class-4);
 
     color: var(--color-class-4);
 }
@@ -34,7 +34,7 @@
 .class-5,
 .class-priest {
     --image-border-color: var(--color-class-5);
-    --link-color: var(--color-class-5);
+    --color-link: var(--color-class-5);
 
     color: var(--color-class-5);
 }
@@ -42,7 +42,7 @@
 .class-6,
 .class-death-knight {
     --image-border-color: var(--color-class-6);
-    --link-color: var(--color-class-6);
+    --color-link: var(--color-class-6);
 
     color: var(--color-class-6);
 }
@@ -50,7 +50,7 @@
 .class-7,
 .class-shaman {
     --image-border-color: var(--color-class-7);
-    --link-color: var(--color-class-7);
+    --color-link: var(--color-class-7);
 
     color: var(--color-class-7);
 }
@@ -58,7 +58,7 @@
 .class-8,
 .class-mage {
     --image-border-color: var(--color-class-8);
-    --link-color: var(--color-class-8);
+    --color-link: var(--color-class-8);
 
     color: var(--color-class-8);
 }
@@ -66,7 +66,7 @@
 .class-9,
 .class-warlock {
     --image-border-color: var(--color-class-9);
-    --link-color: var(--color-class-9);
+    --color-link: var(--color-class-9);
 
     color: var(--color-class-9);
 }
@@ -74,7 +74,7 @@
 .class-10,
 .class-monk {
     --image-border-color: var(--color-class-10);
-    --link-color: var(--color-class-10);
+    --color-link: var(--color-class-10);
 
     color: var(--color-class-10);
 }
@@ -82,7 +82,7 @@
 .class-11,
 .class-druid {
     --image-border-color: var(--color-class-11);
-    --link-color: var(--color-class-11);
+    --color-link: var(--color-class-11);
 
     color: var(--color-class-11);
 }
@@ -90,14 +90,14 @@
 .class-12,
 .class-demon-hunter {
     --image-border-color: var(--color-class-12);
-    --link-color: var(--color-class-12);
+    --color-link: var(--color-class-12);
 
     color: var(--color-class-12);
 }
 .class-13,
 .class-evoker {
     --image-border-color: var(--color-class-13);
-    --link-color: var(--color-class-13);
+    --color-link: var(--color-class-13);
 
     color: var(--color-class-13);
 }
@@ -105,7 +105,7 @@
 // Junk
 .quality0 {
     --image-border-color: var(--color-quality0-border);
-    --link-color: var(--color-quality0);
+    --color-link: var(--color-quality0);
     color: var(--color-quality0);
 
     div,
@@ -126,7 +126,7 @@ img.quality0 {
 // Common
 .quality1 {
     --image-border-color: var(--color-quality1-border);
-    --link-color: var(--color-quality1);
+    --color-link: var(--color-quality1);
     color: var(--color-quality1);
 
     div,
@@ -148,7 +148,7 @@ img.quality0 {
 // Uncommon
 .quality2 {
     --image-border-color: var(--color-quality2-border);
-    --link-color: var(--color-quality2);
+    --color-link: var(--color-quality2);
     color: var(--color-quality2);
 
     div,
@@ -169,7 +169,7 @@ img.quality2 {
 // Rare
 .quality3 {
     --image-border-color: var(--color-quality3-border);
-    --link-color: var(--color-quality3);
+    --color-link: var(--color-quality3);
     color: var(--color-quality3);
 
     div,
@@ -190,7 +190,7 @@ img.quality3 {
 // Epic
 .quality4 {
     --image-border-color: var(--color-quality4-border);
-    --link-color: var(--color-quality4);
+    --color-link: var(--color-quality4);
     color: var(--color-quality4);
 
     div,
@@ -210,7 +210,7 @@ img.quality4 {
 // Legendary
 .quality5 {
     --image-border-color: var(--color-quality5-border);
-    --link-color: var(--color-quality5);
+    --color-link: var(--color-quality5);
     color: var(--color-quality5);
 
     div,
@@ -233,7 +233,7 @@ img.quality5 {
 // Artifact
 .quality6 {
     --image-border-color: var(--color-quality6-border);
-    --link-color: var(--color-quality6);
+    --color-link: var(--color-quality6);
     color: var(--color-quality6);
 
     div,
@@ -250,7 +250,7 @@ img.quality5 {
 // Heirloom
 .quality7 {
     --image-border-color: var(--color-quality7-border);
-    --link-color: var(--color-quality7);
+    --color-link: var(--color-quality7);
     color: var(--color-quality7);
 
     div,
