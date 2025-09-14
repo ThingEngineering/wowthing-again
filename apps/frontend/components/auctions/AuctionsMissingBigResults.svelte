@@ -12,7 +12,6 @@
     import { iconLibrary } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { timeStore } from '@/shared/stores/time';
     import { basicTooltip, componentTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';
     import { auctionState } from '@/stores/local-storage';
@@ -35,6 +34,7 @@
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { timeState } from '@/shared/state/time.svelte';
 
     let { page, slug1 }: { page: number; slug1: string } = $props();
 
@@ -422,7 +422,7 @@
                                     auction.connectedRealmId
                                 )}
                                 {@const ageInMinutes = Math.floor(
-                                    $timeStore
+                                    timeState.time
                                         .diff(
                                             DateTime.fromSeconds(
                                                 updated[auction.connectedRealmId] || 1000

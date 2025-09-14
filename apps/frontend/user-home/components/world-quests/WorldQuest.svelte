@@ -2,10 +2,10 @@
     import { Faction } from '@/enums/faction';
     import { RewardType } from '@/enums/reward-type';
     import { iconLibrary } from '@/shared/icons';
+    import { timeState } from '@/shared/state/time.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { QuestInfoFlags, QuestInfoType } from '@/shared/stores/static/enums';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { timeStore } from '@/shared/stores/time';
     import { toNiceNumber } from '@/utils/formatting/to-nice-number';
 
     import { questInfoIcon } from './data';
@@ -19,7 +19,9 @@
 
     let { worldQuest }: { worldQuest: ApiWorldQuest } = $props();
 
-    let hoursRemaining = $derived(worldQuest.expires.diff($timeStore).toMillis() / 1000 / 60 / 60);
+    let hoursRemaining = $derived(
+        worldQuest.expires.diff(timeState.slowTime).toMillis() / 1000 / 60 / 60
+    );
     let staticWorldQuest = $derived(wowthingData.static.worldQuestById.get(worldQuest.questId));
     let questInfo = $derived(wowthingData.static.questInfoById.get(staticWorldQuest?.questInfoId));
 
@@ -103,7 +105,7 @@
     }
 </style>
 
-{#if worldQuest.expires > $timeStore}
+{#if worldQuest.expires > timeState.slowTime}
     <div
         class="world-quest drop-shadow"
         class:border-success={hoursRemaining >= 12}

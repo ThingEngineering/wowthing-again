@@ -3,10 +3,10 @@
 
     import { Constants } from '@/data/constants';
     import { covenantFeatureOrder, covenantFeatureReputation } from '@/data/covenant';
-    import { timeStore } from '@/shared/stores/time';
-    import getPercentClass from '@/utils/get-percent-class';
+    import { timeState } from '@/shared/state/time.svelte';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { toNiceDuration, toNiceNumber } from '@/utils/formatting';
+    import getPercentClass from '@/utils/get-percent-class';
     import type {
         Character,
         CharacterShadowlandsCovenant,
@@ -68,10 +68,10 @@
 
                 if (characterFeature.researchEnds > 0) {
                     const ends: DateTime = DateTime.fromSeconds(characterFeature.researchEnds);
-                    if (ends <= $timeStore) {
+                    if (ends <= timeState.slowTime) {
                         featureData.rank++;
                     } else {
-                        const duration = toNiceDuration(ends.diff($timeStore).toMillis());
+                        const duration = toNiceDuration(ends.diff(timeState.slowTime).toMillis());
                         featureData.rank++;
                         featureData.researching = `<code class="status-shrug">${duration}</code> until&nbsp;`;
                     }

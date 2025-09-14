@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants';
     import { dungeonMap } from '@/data/dungeon';
-    import { timeStore } from '@/shared/stores/time';
+    import { timeState } from '@/shared/state/time.svelte';
     import { getNextWeeklyReset } from '@/utils/get-next-reset';
     import { getRunQuality, isKeystoneUpgrade } from '@/utils/mythic-plus';
     import { componentTooltip } from '@/shared/utils/tooltips';
@@ -17,7 +17,7 @@
                 character.weekly.keystoneScannedAt,
                 character.realm.region
             );
-            if (resetTime > $timeStore) {
+            if (resetTime > timeState.slowTime) {
                 return dungeonMap[character.weekly.keystoneDungeon];
             }
         }

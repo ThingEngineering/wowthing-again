@@ -4,8 +4,8 @@
     import { timeLeft } from '@/data/auctions';
     import { euLocales } from '@/data/region';
     import { Region } from '@/enums/region';
+    import { timeState } from '@/shared/state/time.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { timeStore } from '@/shared/stores/time';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { userAuctionMissingStore } from '@/stores';
     import { auctionState } from '@/stores/local-storage/auctions';
@@ -201,7 +201,7 @@
                                     auction.connectedRealmId
                                 )}
                                 {@const ageInMinutes = Math.floor(
-                                    $timeStore
+                                    timeState.time
                                         .diff(
                                             DateTime.fromSeconds(
                                                 updated[auction.connectedRealmId] || 1000

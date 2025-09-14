@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { timeStore } from '@/shared/stores/time';
+    import { timeState } from '@/shared/state/time.svelte';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { toNiceDuration } from '@/utils/formatting';
     import type { CharacterProps } from '@/types/props';
@@ -17,7 +17,7 @@
 
 <td class="border-left" use:basicTooltip={'Addon data processed for this character'}>
     {#if character.lastSeenAddon}
-        {@const diff = $timeStore.diff(character.lastSeenAddon).toMillis()}
+        {@const diff = timeState.slowTime.diff(character.lastSeenAddon).toMillis()}
         <code>{@html toNiceDuration(diff)}</code>
     {:else}
         ???
