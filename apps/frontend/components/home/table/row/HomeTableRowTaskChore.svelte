@@ -9,7 +9,6 @@
     type Props = CharacterProps & {
         choreName: string;
         fullTaskName: string;
-        taskName: string;
     };
     let { character, choreName, fullTaskName }: Props = $props();
 
