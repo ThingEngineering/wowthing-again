@@ -13,7 +13,7 @@
     {#each activeViewTasks.value as fullTaskName (fullTaskName)}
         {@const [taskName, choreName] = fullTaskName.split('|', 2)}
         {#if choreName}
-            <RowChore {character} {fullTaskName} {taskName} {choreName} />
+            <RowChore {character} {fullTaskName} {choreName} />
         {:else}
             <RowTask {character} {fullTaskName} {taskName} />
         {/if}
