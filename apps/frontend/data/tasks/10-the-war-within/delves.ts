@@ -14,12 +14,12 @@ export const twwDelves: Task = {
             name: 'Keys',
             minimumLevel: 80,
             questReset: DbResetType.Weekly,
+            questResetForced: true,
             subChores: [91175, 91176, 91177, 91178].map((questId, index) => ({
                 key: `key${index}`,
                 name: '{currency:3028}', // Restored Coffer Key
                 noProgress: true,
                 questIds: [questId],
-                questReset: DbResetType.Weekly,
             })),
         },
         {
@@ -33,8 +33,6 @@ export const twwDelves: Task = {
                 key: `stash${index}`,
                 name: '{currency:3290}', // Gilded Ethereal Crest
                 noProgress: true,
-                questReset: DbResetType.Weekly,
-                questResetForced: true,
                 progressFunc: (char) => {
                     const have = char.weekly?.delveGilded || 0;
                     return { have: have >= index ? 1 : 0, need: 1 };
