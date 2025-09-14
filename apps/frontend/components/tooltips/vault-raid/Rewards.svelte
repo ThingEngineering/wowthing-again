@@ -89,7 +89,7 @@
                 <td class="icon">
                     <IconifyIcon icon={inventoryTypeIcons[item.inventoryType]} />
                 </td>
-                <td class="item-level sized">
+                <td class="item-level">
                     {calculated.itemLevel}
                 </td>
                 <td class="item-name quality{calculated.quality}">

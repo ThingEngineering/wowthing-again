@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { iconLibrary } from '@/shared/icons'
+    import { iconLibrary } from '@/shared/icons';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 </script>
 
 <style lang="scss">
@@ -11,7 +11,7 @@
         top: 50%;
         transform: translate(-50%, -50%);
 
-        color: $color-success;
+        color: var(--color-success);
         pointer-events: none;
 
         & :global(svg) {

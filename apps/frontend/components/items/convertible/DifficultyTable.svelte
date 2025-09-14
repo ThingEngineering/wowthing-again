@@ -32,18 +32,19 @@
         text-align: left;
     }
     .name {
-        @include cell-width(10rem);
+        --width: 10rem;
     }
     .counts {
-        @include cell-width(3rem);
+        --width: 3rem;
 
         border-left: 1px solid var(--border-color);
         text-align: center;
     }
     .item-slot {
         --image-margin-top: -5px;
-
-        @include cell-width(6rem, $paddingLeft: 0px, $paddingRight: 0px);
+        --padding-left: 0;
+        --padding-right: 0;
+        --width: 6rem;
 
         border-left: 1px solid var(--border-color);
         padding-bottom: 0.2rem;

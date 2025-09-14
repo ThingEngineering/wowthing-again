@@ -18,7 +18,9 @@
     type Props = { activeHoliday: ActiveHoliday; fancyHoliday: FancyHoliday };
     let { activeHoliday, fancyHoliday }: Props = $props();
 
-    let remainingTime = $derived.by(() => activeHoliday.endDate.diff(timeState.time).toMillis());
+    let remainingTime = $derived.by(() =>
+        activeHoliday.endDate.diff(timeState.slowTime).toMillis()
+    );
 
     let snapshot = $derived.by(() => snapshotStateForUserHasLookup());
     let { farms, stats } = $derived.by(() => {

@@ -21,7 +21,7 @@
 <style lang="scss">
     div {
         :global(td.realm) {
-            @include cell-width(9rem);
+            --width: 9rem;
         }
     }
 </style>

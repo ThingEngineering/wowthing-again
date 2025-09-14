@@ -8,7 +8,8 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-played, $maxWidth: $width-played-max);
+        --max-width: 8rem;
+        --width: 5.2rem;
 
         border-left: 1px solid var(--border-color);
         text-align: right;
@@ -18,6 +19,6 @@
     }
 </style>
 
-<td>
+<td class="max-width">
     <code>{@html played}</code>
 </td>

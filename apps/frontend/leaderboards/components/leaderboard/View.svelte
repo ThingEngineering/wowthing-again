@@ -96,7 +96,7 @@
     }
     .leaderboard-entry {
         align-items: center;
-        background: $thing-background;
+        background: var(--color-thing-background);
         border-radius: var(--border-radius);
         display: flex;
         padding: 0.3rem;

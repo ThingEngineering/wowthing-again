@@ -92,10 +92,8 @@
     .tag {
         --width: 1rem;
 
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         border-right: 1px solid var(--border-color);
-        padding-left: $width-padding;
-        padding-right: $width-padding;
     }
     .name {
         --width: 10rem;
@@ -125,7 +123,7 @@
         <tbody>
             {#if currencies.length > 0}
                 {#each currencies.slice(0, 10) as [character, amount] (character)}
-                    <tr class="sized">
+                    <tr>
                         {#if settingsState.useAccountTags}
                             <td class="tag">
                                 {#if character}

@@ -16,7 +16,7 @@
 
 <style lang="scss">
     .progress-container {
-        background: darken($thing-background, 3%);
+        background: var(--color-body-background);
         border: var(--bar-border-width, 1px) solid var(--bar-border-color, var(--border-color));
         display: block;
         margin-top: var(--progress-margin-top, 0);
@@ -47,7 +47,7 @@
         width: 100%;
     }
     .progress-bar-hider {
-        background: darken($thing-background, 3%);
+        background: var(--color-body-background);
         height: 100%;
         position: absolute;
         right: 0;

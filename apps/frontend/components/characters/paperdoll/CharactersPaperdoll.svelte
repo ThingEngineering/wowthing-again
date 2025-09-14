@@ -71,7 +71,7 @@
     .paperdoll {
         --scale: 0.9;
 
-        background-color: $highlight-background;
+        background-color: var(--color-highlight-background);
         border-bottom-left-radius: var(--border-radius);
         border-bottom-right-radius: var(--border-radius);
         height: 750px;
@@ -173,7 +173,7 @@
         bottom: 0;
         right: -1px;
         transform: translateY(100%);
-        background: $thing-background;
+        background: var(--color-thing-background);
         border-bottom-left-radius: 0;
         border-top-right-radius: 0;
         padding: 0 0.4rem 0.2rem 0.4rem;

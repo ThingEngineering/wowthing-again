@@ -1,12 +1,11 @@
 <script lang="ts">
-    import { taskChoreMap } from '@/data/tasks';
+    import { taskChoreMap, taskMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
     import { uiIcons } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { DbResetType } from '@/shared/stores/db/enums';
-    import type { CharacterProps } from '@/types/props';
-    import type { Task } from '@/types/tasks';
-    import type { CharacterChore, CharacterTask } from '@/user-home/state/user/types/tasks.svelte';
+    import { userState } from '@/user-home/state/user';
+    import type { CharacterChore } from '@/user-home/state/user/types/tasks.svelte';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
@@ -17,27 +16,25 @@
         MynauiLetterWSquare,
     } from '@/shared/icons/components';
 
-    type Props = CharacterProps & {
-        charChore?: CharacterChore;
-        charTask?: CharacterTask;
-        task: Task;
-        taskName: string;
+    type Props = {
+        characterId: number;
+        fullTaskName: string;
     };
-    let { character, charChore, charTask, task, taskName }: Props = $props();
+    let { characterId, fullTaskName }: Props = $props();
+
+    let [taskName, choreName] = $derived(fullTaskName.split('|', 2));
+    let character = $derived(userState.general.characterById[characterId]);
+    let task = $derived(taskMap[taskName] || settingsState.customTaskMap[taskName]);
+    let charTask = $derived(userState.activeViewTasks[character?.id]?.[taskName]);
+    let charChore = $derived(
+        userState.activeViewTasks[character?.id]?.[fullTaskName]?.chores?.[choreName]
+    );
 
     let choreSets = $derived.by(() => {
         const ret: CharacterChore[][] = [];
 
         if (charChore) {
             ret.push([charChore]);
-            //} else if (taskName === 'dfProfessionWeeklies') {
-            //     taskSets.push(chore.tasks.slice(0, 1));
-            //     const grouped = groupBy(chore.tasks.slice(1), (chore) => chore.name.split(' ')[0]);
-            //     const keys = Object.keys(grouped);
-            //     keys.sort();
-            //     for (const key of keys) {
-            //         taskSets.push(grouped[key]);
-            //     }
         } else if (charTask) {
             let currentSet: CharacterChore[] = [];
             for (const chore of charTask.task.chores) {
@@ -139,7 +136,7 @@
 </style>
 
 <div class="wowthing-tooltip">
-    <h4>{character.name}</h4>
+    <h4>{character?.name || `Unknown Character #${characterId}`}</h4>
     <h5>{task?.name || `Unknown Task "${taskName}"`}</h5>
 
     {#each choreSets as choreSet (choreSet)}

@@ -61,7 +61,7 @@
                             .filter((char) => !!char),
                         (char) => char.name
                     )}
-                    <tr class="sized">
+                    <tr>
                         <td class="reputation text-overflow">
                             {reputation?.name || `Reputation #${reputationId}`}
                         </td>

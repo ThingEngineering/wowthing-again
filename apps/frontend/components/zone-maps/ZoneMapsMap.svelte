@@ -219,7 +219,7 @@
 
 <style lang="scss">
     .overlay-box {
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         border: 1px solid var(--border-color);
         position: absolute;
         z-index: 10;

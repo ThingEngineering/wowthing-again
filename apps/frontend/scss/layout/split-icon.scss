@@ -11,12 +11,12 @@
 }
 .split-icon-yes {
     img:first-child {
-        border: 2px solid $alliance-border;
+        border: 2px solid var(--color-alliance-border);
         clip-path: polygon(0 0, 0 100%, 100% 0);
     }
 
     img:nth-child(2) {
-        border: 2px solid $horde-border;
+        border: 2px solid var(--horde-border);
         clip-path: polygon(100% 100%, 0 100%, 100% 0);
         position: absolute;
         bottom: 4px;

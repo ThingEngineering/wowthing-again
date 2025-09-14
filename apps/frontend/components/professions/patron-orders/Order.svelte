@@ -77,9 +77,6 @@
         align-items: stretch;
         justify-content: start;
 
-        &.faded {
-            opacity: $inactive-opacity;
-        }
         &:not(:last-child) {
             border-bottom: 1px solid var(--border-color);
         }
@@ -110,7 +107,7 @@
         width: 4.4rem;
     }
     .rewards {
-        --link-color: $text-color;
+        --color-link: $text-color;
 
         display: flex;
         gap: 0.2rem;

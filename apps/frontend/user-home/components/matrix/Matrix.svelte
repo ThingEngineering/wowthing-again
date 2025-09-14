@@ -335,7 +335,7 @@
         }
     }
     .empty {
-        background: #{$body-background};
+        background: var(--body-background);
         border-right-width: 0 !important;
         border-top-width: 0 !important;
     }

@@ -1,21 +1,21 @@
 <script lang="ts">
-    export let padLeft = 'unset'
-    export let padRight = 'unset'
+    export let padLeft = 'unset';
+    export let padRight = 'unset';
 
     $: {
-        padLeft = padLeft ?? 'unset'
-        padRight = padRight ?? 'unset'
+        padLeft = padLeft ?? 'unset';
+        padRight = padRight ?? 'unset';
     }
 </script>
 
 <style lang="scss">
     td {
-        @include cell-width($width-icon, var(--pad-left, $width-padding), var(--pad-right, $width-padding));
+        --width: var(--width-icon);
 
         text-align: center;
     }
 </style>
 
-<td style="--pad-left:{padLeft};--pad-right:{padRight};">
+<td style="--padding-left:{padLeft};--padding-right:{padRight};">
     <slot />
 </td>

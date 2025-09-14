@@ -12,7 +12,7 @@
         --image-border-width: 1px;
         --image-margin-top: -4px;
 
-        color: $body-text;
+        color: var(--color-body-text);
         display: flex;
         flex-wrap: wrap;
         //font-size: 90%;

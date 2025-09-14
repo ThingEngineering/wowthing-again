@@ -7,14 +7,15 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-location, $maxWidth: $width-location-max);
+        --max-width: var(--width-location-max);
+        --width: var(--width-location);
 
         border-left: 1px solid var(--border-color);
     }
 </style>
 
 <td
-    class="sortable sorted-{getSortState()}"
+    class="max-width sortable sorted-{getSortState()}"
     onclick={() => setSortState()}
     use:basicTooltip={'Current Location'}
 >

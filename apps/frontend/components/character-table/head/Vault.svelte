@@ -10,4 +10,4 @@
     }
 </style>
 
-<th class="sized">{vaultType} Vault</th>
+<th>{vaultType} Vault</th>

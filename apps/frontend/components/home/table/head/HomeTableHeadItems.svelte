@@ -11,7 +11,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width(2rem);
+        --width: 2rem;
 
         word-spacing: -0.2ch;
     }

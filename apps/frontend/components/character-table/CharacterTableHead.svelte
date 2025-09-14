@@ -12,7 +12,7 @@
     .head-text {
         --image-margin-top: -4px;
 
-        padding-left: calc($width-padding * var(--padding, 1));
+        padding-left: calc(var(--padding-width) * var(--padding, 1));
         text-align: left;
     }
 </style>

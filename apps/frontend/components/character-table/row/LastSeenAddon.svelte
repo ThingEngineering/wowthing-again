@@ -9,7 +9,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width(4.5rem);
+        --width: 4.5rem;
 
         text-align: right;
     }

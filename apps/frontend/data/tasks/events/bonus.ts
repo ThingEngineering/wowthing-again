@@ -1,6 +1,4 @@
-import { Constants } from '@/data/constants';
-import { Holiday, timewalkingHolidays } from '@/enums/holiday';
-import { iconLibrary } from '@/shared/icons';
+import { Holiday } from '@/enums/holiday';
 import { DbResetType } from '@/shared/stores/db/enums';
 import type { Task } from '@/types/tasks';
 

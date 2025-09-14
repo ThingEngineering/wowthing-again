@@ -17,7 +17,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-weekly-quest);
+        --width: 2.7rem;
 
         border-left: 1px solid var(--border-color);
         word-spacing: -0.2ch;

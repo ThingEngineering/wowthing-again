@@ -102,7 +102,7 @@
     .no-profession {
         --scale: 1.5;
 
-        color: $color-fail;
+        color: var(--color-fail);
     }
 </style>
 

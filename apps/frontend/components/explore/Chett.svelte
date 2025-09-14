@@ -75,11 +75,11 @@
 <CharacterTable filterFunc={(char) => char.level === 80} {sortFunc}>
     <CharacterTableHead slot="head">
         <th class="spacer"></th>
-        <th class="sized b-l">List</th>
+        <th class="b-l">List</th>
         {#each questTiers as questTier (questTier)}
             <th class="spacer"></th>
             {#each questTier as [, title] (title)}
-                <th class="sized b-l">{title}</th>
+                <th class="b-l">{title}</th>
             {/each}
         {/each}
     </CharacterTableHead>
@@ -90,7 +90,7 @@
         {@const gotList = charQuests?.hasQuestById?.has(87296)}
         <td class="spacer"></td>
         <td
-            class="sized c"
+            class="c"
             class:status-success={!gotList}
             class:status-fail={gotList}
             style:--width="1.6rem"
@@ -100,7 +100,7 @@
         {#if chettItem?.bonusIds?.includes(completedBonusId)}
             <td class="spacer"></td>
             <td
-                class="sized b-l status-warn"
+                class="b-l status-warn"
                 colspan={questTiers.reduce((a, b) => a + b.length, questTiers.length)}
                 >TURN IN COMPLETED LIST!</td
             >
@@ -111,7 +111,7 @@
                     {@const completed = charQuests?.hasQuestById?.has(questId)}
                     {@const progressQuest = charQuests?.progressQuestByKey?.get(`q${questId}`)}
                     <td
-                        class="sized c b-l"
+                        class="c b-l"
                         class:status-success={index === 0}
                         class:status-shrug={index === 1}
                         class:status-fail={index === 2}

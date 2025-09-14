@@ -12,10 +12,10 @@
         vertical-align: bottom;
 
         &.current {
-            @include cell-width($width-covenant);
+            --width: var(--width-covenant);
         }
         &.all {
-            @include cell-width($width-covenant-all);
+            --width: var(--width-covenant-all);
         }
     }
     .flex-wrapper {

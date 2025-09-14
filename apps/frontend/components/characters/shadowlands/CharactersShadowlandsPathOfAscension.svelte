@@ -47,7 +47,7 @@
         }
     }
     .name {
-        @include cell-width(9rem);
+        --width: 9rem;
     }
     .progress {
         padding-left: 2px;

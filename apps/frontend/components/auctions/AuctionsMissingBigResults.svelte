@@ -168,7 +168,7 @@
         }
     }
     th {
-        background-color: $highlight-background;
+        background-color: var(--color-highlight-background);
         font-weight: normal;
     }
     .filter-highlight {
@@ -181,7 +181,7 @@
         // --image-margin-top: -4px;
 
         max-width: 22rem;
-        padding: 0.2rem $width-padding;
+        padding: 0.2rem inherit;
         text-align: left;
 
         :global(a) {
@@ -207,25 +207,26 @@
         }
     }
     .already-have {
-        color: $color-fail;
+        color: var(--color-fail);
     }
     .clipboard {
         cursor: pointer;
         margin-right: -2px;
     }
     .realm {
-        @include cell-width(11rem, $paddingLeft: 0px);
+        --padding-left: 0;
+        --width: 11rem;
 
         cursor: pointer;
     }
     .price {
-        @include cell-width(5.5rem);
+        --width: 5.5rem;
 
         text-align: right;
         white-space: nowrap;
     }
     .time-left {
-        @include cell-width(4.2rem);
+        --width: 4.2rem;
 
         text-align: right;
         word-spacing: -0.2ch;
@@ -235,7 +236,7 @@
         padding-right: 0.5rem;
     }
     code {
-        color: $body-text;
+        color: var(--color-body-text);
     }
     .item-name-wrapper {
         :global(img + img) {

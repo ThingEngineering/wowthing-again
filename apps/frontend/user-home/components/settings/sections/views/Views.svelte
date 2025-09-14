@@ -71,10 +71,10 @@
         border-top: 1px solid var(--border-color);
     }
     .name {
-        @include cell-width(12rem);
+        --width: 12rem;
     }
     .icon {
-        @include cell-width(1.2rem);
+        --width: 1.2rem;
 
         :global(svg) {
             cursor: pointer;
@@ -93,9 +93,6 @@
         }
     }
     button {
-        background: darken($color-success, 40%);
-        border: 1px solid darken($color-success, 20%);
-        border-radius: var(--border-radius);
         cursor: pointer;
         margin-top: 0.75rem;
     }
@@ -163,6 +160,8 @@
     </table>
 
     {#if settingsState.value.views.length < 10}
-        <button class="group-entry" onclick={newView}> New View </button>
+        <button class="group-entry bg-success border b-success b-radius" onclick={newView}>
+            New View
+        </button>
     {/if}
 </div>

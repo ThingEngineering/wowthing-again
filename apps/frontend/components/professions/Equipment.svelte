@@ -37,8 +37,6 @@
     }
     .empty-slot {
         background: rgba(0, 0, 0, 0.2);
-        border: var(--image-border-width) solid lighten($color-fail, 15%);
-        border-radius: var(--border-radius);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -67,7 +65,7 @@
             </div>
             {index}
         {:else}
-            <div class="empty-slot border">
+            <div class="empty-slot border border-radius border-fail">
                 {#if index === 0}
                     Tool
                 {:else}

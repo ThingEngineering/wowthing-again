@@ -118,7 +118,7 @@
     thead {
         tr {
             th {
-                background: $highlight-background;
+                background: var(--color-highlight-background);
                 font-weight: normal;
                 padding: 0.2rem 0.4rem;
                 text-align: left;

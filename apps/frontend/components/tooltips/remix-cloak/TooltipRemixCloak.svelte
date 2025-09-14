@@ -20,7 +20,7 @@
 
 <style lang="scss">
     .text {
-        @include cell-width(5rem);
+        --width: 5rem;
 
         text-align: left;
     }

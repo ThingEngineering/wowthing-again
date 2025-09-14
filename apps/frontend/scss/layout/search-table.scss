@@ -3,7 +3,7 @@
 
     .item-row {
         th {
-            background-color: $highlight-background;
+            background-color: var(--color-highlight-background);
             font-weight: normal;
         }
         .realm {
@@ -12,29 +12,29 @@
     }
 
     .item {
-        @include cell-width(17.2rem);
+        --width: 17.2rem;
 
         --image-border-width: 1px;
         --image-margin-top: -4px;
 
-        padding: 0.2rem $width-padding;
+        padding: 0.2rem inherit;
         text-align: left;
     }
     .count {
-        @include cell-width($width-item-count);
+        --width: 2rem;
 
         text-align: right;
         white-space: nowrap;
     }
     .item-level {
-        @include cell-width(1.8rem);
+        --width: 1.8rem;
 
         text-align: right;
     }
     .tag {
-        @include cell-width(0.5rem);
+        --width: 0.5rem;
 
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         border-right: 1px solid var(--border-color);
         text-align: center;
     }
@@ -45,24 +45,19 @@
         }
     }
     .name {
-        @include cell-width(10.5rem);
+        --width: 10.5rem;
     }
     .guild-name {
-        @include cell-width(12rem);
+        --width: 12rem;
     }
     .realm {
-        @include cell-width(5.7rem);
+        --width: 5.7rem;
 
         white-space: nowrap;
     }
     .location {
-        @include cell-width($width-item-location);
+        --width: 3rem;
 
         white-space: nowrap;
-    }
-    .count {
-        @include cell-width($width-item-count);
-
-        text-align: right;
     }
 }

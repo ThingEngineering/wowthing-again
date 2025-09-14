@@ -48,16 +48,16 @@
         --image-border-width: 1px;
         --image-margin-top: -4px;
 
-        background-color: $highlight-background;
+        background-color: var(--color-highlight-background);
         font-weight: normal;
-        padding: 0.2rem $width-padding;
+        padding: 0.2rem inherit;
         text-align: left;
     }
     .realm {
-        @include cell-width(12rem);
+        --width: 12rem;
     }
     .price {
-        @include cell-width(5.3rem);
+        --width: 5.3rem;
 
         text-align: right;
 
@@ -73,12 +73,14 @@
         }
     }
     .pet-level {
-        @include cell-width(1.5rem, $paddingLeft: 0.1rem, $paddingRight: 0.1rem);
+        --width: 1.5rem;
+        --padding-left: 0.1rem;
+        --padding-right: 0.1rem;
 
         text-align: right;
     }
     .pet-breed {
-        @include cell-width(2.2rem);
+        --width: 2.2rem;
 
         text-align: center;
         letter-spacing: 0.2ch;

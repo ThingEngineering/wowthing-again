@@ -31,7 +31,7 @@
     }
     code {
         background: transparent;
-        color: $body-text;
+        color: var(--color-body-text);
     }
     .realm {
         --image-margin-top: -4px;

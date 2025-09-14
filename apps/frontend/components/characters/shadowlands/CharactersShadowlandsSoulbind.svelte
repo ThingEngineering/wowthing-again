@@ -32,7 +32,7 @@
         text-align: center;
     }
     .soulbind {
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
@@ -40,11 +40,11 @@
         width: calc(2px + 3rem + (0.3rem * 2) + (52px * 3));
 
         &.inactive {
-            border-color: $color-fail;
-            opacity: 0.5;
+            border-color: var(--color-fail);
+            opacity: var(--opacity-faded);
         }
         &.selected {
-            border-color: $color-success;
+            border-color: var(--color-success);
         }
     }
     .soulbind-row {
@@ -53,10 +53,10 @@
         justify-content: space-between;
 
         &.none-chosen.unlocked {
-            --image-border-color: #{$color-fail};
+            --image-border-color: var(--color-fail);
 
             .empty-socket {
-                border-color: $color-fail;
+                border-color: var(--color-fail);
             }
         }
 
@@ -75,10 +75,10 @@
         width: 52px;
 
         &.selected {
-            --image-border-color: #{$color-success};
+            --image-border-color: var(--color-success);
 
             .empty-socket {
-                border-color: $color-fail;
+                border-color: var(--color-fail);
             }
         }
 
@@ -92,7 +92,7 @@
         }
     }
     .empty-socket {
-        background: $thing-background;
+        background: var(--color-thing-background);
         border: 2px solid var(--border-color);
         border-radius: var(--border-radius-large);
         height: 100%;

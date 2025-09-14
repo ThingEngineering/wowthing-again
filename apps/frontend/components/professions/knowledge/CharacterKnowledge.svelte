@@ -37,7 +37,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width(4.4rem, $paddingLeft: 0.1rem);
+        --width: 4.4rem;
     }
     span {
         word-spacing: -0.2ch;

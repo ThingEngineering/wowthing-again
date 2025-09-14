@@ -31,7 +31,7 @@
         width: 162px;
 
         &.selected {
-            border-color: $color-success;
+            border-color: var(--color-success);
         }
         code {
             border-bottom-width: 0;

@@ -99,7 +99,7 @@
     }
     .state-valid {
         background: #0f4f0f;
-        color: $body-text;
+        color: var(--color-body-text);
     }
     .state-invalid {
         background: #4f0f0f;

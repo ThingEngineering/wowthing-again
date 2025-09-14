@@ -35,7 +35,7 @@
         position: relative;
 
         &.has-not {
-            --image-border-color: #{darken($color-fail, 10%)};
+            --image-border-color: var(--color-fail-border);
         }
 
         &.missing {

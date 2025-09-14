@@ -15,7 +15,8 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-progress, $maxWidth: $width-progress-max);
+        --max-width: var(--width-progress-max);
+        --width: var(--width-progress);
 
         border-left: 1px solid var(--border-color);
         text-align: right;
@@ -23,10 +24,6 @@
         &.status-fail {
             text-align: center;
         }
-    }
-    .has-icon {
-        @include cell-width(3.7rem, $maxWidth: $width-progress-max);
-
         :global(img) {
             margin-right: 2px;
         }
@@ -38,6 +35,7 @@
 
 {#if progressData?.total > 0}
     <td
+        class="max-width"
         class:has-icon={!!progressData.icon}
         use:componentTooltip={{
             component: TooltipProgress,

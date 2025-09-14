@@ -14,7 +14,7 @@
 </style>
 
 <td
-    class="r b-l sized"
+    class="r b-l"
     class:status-success={slots >= 30}
     class:status-shrug={slots >= 10 && slots < 30}
     class:status-warn={slots > 0 && slots < 10}

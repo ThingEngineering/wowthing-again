@@ -1,5 +1,14 @@
+/*
+$table-bg: $thing-background;
+$table-striped-bg: lighten($table-bg, 3%);
+$table-alt-bg: #00151d9f;
+$table-striped-alt-bg: lighten($table-alt-bg, 3%);
+$table-hl-bg: darken($active-background, 7%);
+$table-striped-hl-bg: lighten($table-hl-bg, 3%);
+*/
+
 .table {
-    background: $thing-background;
+    background: var(--table-background-1);
     //border-collapse: collapse;
     table-layout: fixed;
 
@@ -21,25 +30,25 @@
         }
     }
 
-    tr.sized > td, tr.sized > th, td.sized, th.sized {
+    td,
+    th {
         --calc-left: calc(
             var(--padding-left, var(--padding-size)) * var(--padding, 1)
         );
         --calc-right: calc(
             var(--padding-right, var(--padding-size)) * var(--padding, 1)
         );
-        --calc-width: calc(
-            var(--width) + var(--calc-left) + var(--calc-right)
-        );
+        --calc-width: var(--width, auto);
 
-        min-width: var(--calc-width);
         padding-left: var(--calc-left);
         padding-right: var(--calc-right);
+        min-width: var(--calc-width);
         width: var(--calc-width);
-    }
 
-    td,
-    th {
+        &.max-width {
+            max-width: calc(var(--calc-left) + var(--calc-right) + var(--max-width, var(--calc-width)));
+        }
+
         &:first-child {
             border-left: 1px solid var(--border-color);
         }
@@ -57,13 +66,13 @@
     tbody {
         tr {
             td.alt {
-                background: $table-alt-bg;
+                background: var(--table-background-alt-1);
             }
         }
     }
 
     .spacer {
-        background: $body-background;
+        background: var(--color-body-background);
         border-bottom-width: 0 !important;
         border-left: 1px solid var(--border-color);
         border-top-width: 0 !important;
@@ -76,7 +85,7 @@
     }
 
     .settings {
-        background: $body-background;
+        background: var(--color-body-background);
         border-bottom-width: 0 !important;
         border-left: 1px solid var(--border-color);
         border-right-width: 0 !important;
@@ -87,15 +96,10 @@
 }
 
 .table-striped {
-    --background-1: rgb(26, 27, 28);
-    --background-2: rgb(34, 35, 36);
-    --background-alt-1: rgb(21, 22, 38);
-    --background-alt-2: rgb(29, 30, 46);
-
     thead {
         tr {
             th.alt {
-                background: var(--background-alt-2);
+                background: var(--table-background-alt-2);
             }
         }
     }
@@ -103,27 +107,27 @@
     tbody {
         tr:nth-child(odd) {
             td {
-                background: var(--background-1);
+                background: var(--table-background-1);
 
                 &.alt {
-                    background: var(--background-alt-1);
+                    background: var(--table-background-alt-1);
                 }
             }
         }
         tr:nth-child(even) {
             td {
-                background: var(--background-2);
+                background: var(--table-background-2);
 
                 &.alt {
-                    background: var(--background-alt-2);
+                    background: var(--table-background-alt-2);
                 }
             }
         }
         tr.highlight {
-            background: $table-hl-bg;
+            background: var(--table-background-highlight-1);
 
             &:nth-child(odd) {
-                background: $table-striped-hl-bg;
+                background: var(--table-background-highlight-2);
             }
         }
     }
@@ -133,7 +137,7 @@
     tbody {
         tr:nth-child(4n + 1),
         tr:nth-child(4n + 2) {
-            background: $table-striped-bg;
+            background: var(--table-background-2);
         }
         tr:nth-child(2n):not(:last-child) {
             td {
@@ -154,7 +158,7 @@
 
 .table-group-head {
     td {
-        background: adjust-color($active-background, $alpha: -0.5);
+        background: var(--color-active-background);
         border-top: 1px solid var(--border-color);
         font-size: 1.05rem;
         text-align: center;

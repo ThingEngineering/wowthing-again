@@ -15,7 +15,7 @@
 
     let { character }: CharacterProps = $props();
 
-    let now = $derived(timeState.time.toUnixInteger());
+    let now = $derived(timeState.slowTime.toUnixInteger());
     let goldWorldQuests = $derived(
         (userState.quests.characterById.get(character.id)?.goldWorldQuests || []).filter(
             ([, expires]) => expires > now
@@ -64,7 +64,7 @@
                     .get(character.id)
                     .hasQuestById.has(worldQuest.questId)
             ) {
-                const expires = worldQuest.expires.diff(timeState.time).toMillis();
+                const expires = worldQuest.expires.diff(timeState.slowTime).toMillis();
                 if (expires > 0) {
                     active.push([
                         zoneId,
@@ -91,7 +91,7 @@
     }
 </style>
 
-<td class="sized b-l">
+<td class="b-l">
     {#if goldWorldQuests?.length > 0}
         {#await worldQuestStore.fetch(character.realm.region)}
             ...

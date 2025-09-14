@@ -71,13 +71,12 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-mplus-dungeon, 0px, 0px);
+        --active-background: rgba(0, 0, 0, 0.5);
+        --inactive-opacity: 0.8;
+        --width: var(--width-mplus-dungeon);
 
         border-left: 1px solid var(--border-color);
         text-align: center;
-
-        --active-background: rgba(0, 0, 0, 0.5);
-        --inactive-opacity: 0.8;
 
         &.fortified {
             span:first-child {
@@ -96,7 +95,7 @@
             }
         }
         &.portal {
-            box-shadow: inset 0 0 0 1px #{$quality5-border};
+            box-shadow: inset 0 0 0 1px var(--color-quality5-border);
         }
     }
     span {

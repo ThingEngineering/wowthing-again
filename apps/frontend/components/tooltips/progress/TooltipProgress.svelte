@@ -108,7 +108,7 @@
         margin-top: 1rem;
     }
     .progress {
-        @include cell-width(1.2rem);
+        --width: 1.2rem;
 
         padding-right: 0;
         vertical-align: top;

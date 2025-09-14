@@ -43,7 +43,7 @@ export function homeSort(char: Character, sortBy: string): string {
     } else if (sortBy === 'mythicPlusKeystone') {
         if (char.level === Constants.characterMaxLevel && char.weekly?.keystoneScannedAt) {
             const resetTime = getNextWeeklyReset(char.weekly.keystoneScannedAt, char.realm.region);
-            if (resetTime > timeState.time) {
+            if (resetTime > timeState.slowTime) {
                 return (
                     leftPad(100 - (char.weekly?.keystoneLevel || 0), 3, '0') +
                     (dungeonMap[char.weekly?.keystoneDungeon]?.abbreviation || 'ZZ')
@@ -168,8 +168,9 @@ export function homeSort(char: Character, sortBy: string): string {
         }
         return leftPad(10_000 - value, 5, '0');
     } else if (sortBy.startsWith('tasks:')) {
-        const [taskName, choreName] = sortBy.split(':')[1].split('|', 2);
-        const charTask = userState.activeViewTasks[char.id]?.[taskName];
+        const fullTaskName = sortBy.split(':')[1];
+        const [, choreName] = fullTaskName.split('|', 2);
+        const charTask = userState.activeViewTasks[char.id]?.[fullTaskName];
         const charChore = charTask?.chores?.[choreName];
 
         let value = -5;

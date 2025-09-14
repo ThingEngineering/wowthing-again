@@ -60,10 +60,10 @@
         padding-bottom: 0.2rem;
     }
     .name {
-        @include cell-width(10rem);
+        --width: 10rem;
     }
     .character {
-        @include cell-width(20rem);
+        --width: 20rem;
 
         :global(ul.selected) {
             flex-wrap: none;

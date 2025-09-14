@@ -5,12 +5,8 @@
 
 <style lang="scss">
     th {
-        @include cell-width(
-            $width-icon,
-            var(--pad-left, $width-padding),
-            var(--pad-right, $width-padding)
-        );
+        --width: var(--width-icon);
     }
 </style>
 
-<th style="--pad-left:{padLeft};--pad-right:{padRight};">&nbsp;</th>
+<th style="--padding-left:{padLeft};--padding-right:{padRight};">&nbsp;</th>

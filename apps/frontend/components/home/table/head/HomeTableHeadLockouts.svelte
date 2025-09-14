@@ -25,7 +25,8 @@
 
 <style lang="scss">
     td {
-        @include cell-width(2rem, $maxWidth: 5rem);
+        --max-width: 5rem;
+        --width: 2rem;
     }
 </style>
 
@@ -34,7 +35,7 @@
     {@const instance = wowthingData.static.instanceById.get(instanceId)}
     {@const sortKey = `${instanceId}-${difficulty?.id || 0}`}
     <td
-        class="sortable sorted-{getSortState(sortKey)}"
+        class="max-width sortable sorted-{getSortState(sortKey)}"
         onclick={() => setSortState(sortKey)}
         use:componentTooltip={{
             component: Tooltip,

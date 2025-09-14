@@ -26,22 +26,18 @@
 </script>
 
 <style lang="scss">
-    .inactive {
-        opacity: $inactive-opacity;
-    }
     .tag {
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         border-right: 1px solid var(--border-color);
-        padding-left: $width-padding;
-        padding-right: $width-padding;
     }
     .realm {
-        @include cell-width($width-realm);
+        --width: 8rem;
 
         white-space: nowrap;
     }
     .warband-bank {
-        padding: 1px $width-padding;
+        padding-bottom: 1px;
+        padding-top: 1px;
     }
 </style>
 
@@ -49,7 +45,7 @@
     <tr
         bind:this={element}
         class="faction{character?.faction}"
-        class:inactive={!accountEnabled}
+        class:faded={!accountEnabled}
         class:last-of-group={last}
         data-id={character?.id}
     >

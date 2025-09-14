@@ -2,7 +2,7 @@
 
 <style lang="scss">
     td {
-        background: $body-background !important;
+        background: var(--color-body-background) !important;
         border-width: 0 !important;
     }
 </style>

@@ -25,9 +25,9 @@
         padding: 0.15rem 0.5rem;
     }
     ul :global(.active) {
-        --link-color: #eee;
+        --color-link: #eee;
 
-        background: $active-background;
+        background: var(--color-active-background);
     }
     ul :global(.separator) {
         border-top: 1px solid var(--border-color);

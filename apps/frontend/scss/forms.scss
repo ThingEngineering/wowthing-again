@@ -9,8 +9,8 @@ input[type="file"] {
 }
 
 input[type="submit"] {
-    background: mix($color-success, $thing-background, 10%);
-    border: 1px solid color-mix(in hsl, var(--color-success) 50%, var(--border-color) 50%) !important;
+    background: var(--color-success-background);
+    border: 1px solid var(--color-success-border);
     border-radius: var(--border-radius);
     margin-top: 1rem;
     padding: 0.3rem 0.5rem;

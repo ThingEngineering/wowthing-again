@@ -1,13 +1,14 @@
 <script lang="ts">
-    import type { StaticDataProfessionAbility } from '@/shared/stores/static/types'
+    import type { StaticDataProfessionAbility } from '@/shared/stores/static/types';
 
-    export let ability: StaticDataProfessionAbility
-    export let currentSkill: number
+    export let ability: StaticDataProfessionAbility;
+    export let currentSkill: number;
 
-    $: useLow = ability.trivialLow &&
-                ability.trivialLow < ability.trivialHigh &&
-                ability.trivialLow > currentSkill
-    $: mid = Math.floor((ability.trivialLow + ability.trivialHigh) / 2)
+    $: useLow =
+        ability.trivialLow &&
+        ability.trivialLow < ability.trivialHigh &&
+        ability.trivialLow > currentSkill;
+    $: mid = Math.floor((ability.trivialLow + ability.trivialHigh) / 2);
 </script>
 
 <style lang="scss">
@@ -21,12 +22,6 @@
             width: 2.2rem;
         }
     }
-    .trivial-low {
-        color: $color-shrug;
-    }
-    .trivial-mid {
-        color: $color-success;
-    }
     .trivial-high {
         color: #bbb;
     }
@@ -34,10 +29,10 @@
 
 <div class="flex-wrapper">
     {#if useLow}
-        <span class="trivial-low">{ability.trivialLow}</span>
+        <span class="status-shrug">{ability.trivialLow}</span>
 
         {#if mid > currentSkill}
-            <span class="trivial-mid">{mid}</span>
+            <span class="status-success">{mid}</span>
         {/if}
     {/if}
 

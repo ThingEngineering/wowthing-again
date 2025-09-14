@@ -12,7 +12,8 @@
 
 <style lang="scss">
     td {
-        @include cell-width(2rem, $maxWidth: 4rem);
+        --max-width: 4rem;
+        --width: 2rem;
 
         border-left: 1px solid var(--border-color);
         text-align: right;
@@ -22,6 +23,7 @@
 
 {#if data?.total > 0}
     <td
+        class="max-width"
         class:status-shrug={data.anyHalf && !data.anyFull}
         class:status-fail={data.anyFull}
         use:componentTooltip={{

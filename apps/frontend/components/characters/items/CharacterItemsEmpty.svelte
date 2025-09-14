@@ -5,8 +5,8 @@
 
 <style lang="scss">
     div {
-        background: $highlight-background;
-        border: 2px solid lighten($color-fail, 15%);
+        background: var(--color-highlight-background);
+        border: 2px solid var(--color-fail-border);
         border-radius: var(--border-radius);
         display: flex;
         flex-direction: column;

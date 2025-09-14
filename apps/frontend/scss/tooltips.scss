@@ -5,19 +5,20 @@
 .wowthing-tooltip {
     --image-margin-top: -4px;
 
-    margin: $tooltip-padding-y * -1 $tooltip-padding-x * -1 $tooltip-padding-y *
-        -1 $tooltip-padding-x * -1;
+    margin:
+        calc(var(--tooltip-padding-y) * -1)
+        calc(var(--tooltip-padding-x) * -1);
     text-align: center;
 
     > h4,
     > h5 {
-        background: $tooltip-title-background;
+        background: var(--tooltip-title-background);
         font-weight: normal;
     }
 
     > h4 {
         padding: 0.3rem 0.5rem;
-        color: var(--link-color, #{$tooltip-title-color});
+        color: var(--color-link, var(--tooltip-title-color));
         font-size: 1.05rem;
 
         &:first-child {
@@ -26,15 +27,15 @@
         }
 
         &:not(.no-border) {
-            --border-color: #{$tooltip-border};
+            --border-color: var(--tooltip-border);
 
             border-bottom: 1px solid var(--border-color);
         }
     }
 
     > h5 {
-        border-bottom: 1px solid $tooltip-border;
-        color: $color-success;
+        border-bottom: 1px solid var(--tooltip-border);
+        color: var(--color-success);
         font-size: 1rem;
         margin-top: -0.2rem;
         padding: 0 0.5rem 0.2rem 0.5rem;
@@ -44,8 +45,8 @@
     > .bottom {
         --image-border-width: 1px;
 
-        background: darken($tooltip-title-background, 5%);
-        border-top: 1px solid $tooltip-border;
+        background: oklch(from var(--tooltip-title-background) calc(l - 0.05) c h);
+        border-top: 1px solid var(--tooltip-border);
         padding: 0.3rem 0.5rem;
         text-align: center;
     }
@@ -69,13 +70,13 @@
             }
         }
 
-        &.table-striped {
-            tbody {
-                tr:nth-child(odd) {
-                    background: $tooltip-striped-bg;
-                }
-            }
-        }
+        // &.table-striped {
+        //     tbody {
+        //         tr:nth-child(odd) {
+        //             background: $tooltip-striped-bg;
+        //         }
+        //     }
+        // }
     }
 
     em {

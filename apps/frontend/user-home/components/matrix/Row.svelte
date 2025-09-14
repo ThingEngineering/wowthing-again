@@ -25,21 +25,16 @@
         height: 1.7rem;
     }
     .y-axis {
-        @include cell-width(4rem, $maxWidth: 10rem);
+        --max-width: 10rem;
+        --width: 4rem;
     }
     .characters {
         white-space: nowrap;
         &.as-level {
-            @include cell-width(2.5rem);
+            --width: 2.5rem;
         }
         &.as-name {
-            @include cell-width(6rem);
-        }
-        &.max-level {
-            background: mix($thing-background, $color-success, 90%);
-        }
-        &.no-characters {
-            background: mix($thing-background, $color-fail, 90%);
+            --width: 6rem;
         }
     }
     .character {
@@ -53,7 +48,7 @@
 <IntersectionObserver once {element} bind:intersecting={intersected}>
     <tr bind:this={element}>
         {#if intersected}
-            <td class="y-axis text-overflow">
+            <td class="y-axis max-width text-overflow">
                 {#each yEntries as line}
                     <ParsedText text={line} />
                     <!-- {line} -->
@@ -63,10 +58,10 @@
                 {@const keyCharacters = getCharacters(xKey, yKey)}
                 <td
                     class="characters as-{browserState.current.matrix.showCharacterAs}"
-                    class:max-level={keyCharacters.some(
+                    class:bg-success={keyCharacters.some(
                         (char) => char.level === Constants.characterMaxLevel
                     )}
-                    class:no-characters={keyCharacters.length === 0}
+                    class:bg-fail={keyCharacters.length === 0}
                 >
                     {#each keyCharacters as character}
                         <div

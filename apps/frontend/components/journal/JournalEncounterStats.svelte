@@ -132,7 +132,7 @@
         }
     }
     .difficulty {
-        background: $active-background;
+        background: var(--color-active-background);
         border: 1px solid var(--border-color);
         display: inline-block;
         font-weight: 600;

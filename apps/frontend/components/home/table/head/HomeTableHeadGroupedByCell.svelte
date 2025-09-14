@@ -14,9 +14,7 @@
 
 <style lang="scss">
     .tag {
-        background: $highlight-background;
-        padding-left: $width-padding;
-        padding-right: $width-padding;
+        background: var(--color-highlight-background);
     }
     .groupings {
         // flex-grow: 1;

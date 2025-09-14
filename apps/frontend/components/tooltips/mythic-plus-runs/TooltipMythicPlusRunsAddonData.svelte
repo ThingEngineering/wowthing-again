@@ -30,7 +30,7 @@
         flex-wrap: wrap;
     }
     .data-box {
-        background: $thing-background;
+        background: var(--color-thing-background);
         padding: 0.2rem 0.4rem;
         white-space: nowrap;
     }

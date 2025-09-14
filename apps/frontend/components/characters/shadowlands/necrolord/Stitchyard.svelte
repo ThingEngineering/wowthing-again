@@ -35,7 +35,7 @@
         --image-border-width: 1px;
         --image-margin-top: -4px;
 
-        border: 2px solid $color-shrug;
+        border: 2px solid var(--color-shrug);
         border-radius: var(--border-radius);
         height: 52px;
         padding: 0 0.2rem;

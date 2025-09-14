@@ -28,14 +28,14 @@
         text-align: center;
     }
     .specialization {
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
         padding: 0.5rem 1rem;
 
         &.selected {
-            border-color: #{$color-success};
+            border-color: var(--color-success);
         }
     }
     // .tier {

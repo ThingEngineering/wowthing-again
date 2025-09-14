@@ -46,7 +46,7 @@
         }
     }
     a {
-        color: var(--link-color, #44ddff);
+        color: var(--color-link, #44ddff);
         padding: 0.25rem 0.7rem 0.3rem 0.5rem;
         position: relative;
 
@@ -54,7 +54,7 @@
             outline: none;
         }
         &:not(.active) {
-            background: darken(#2c2d2e, 5%);
+            background: #202122;
         }
     }
     .spacer {
@@ -69,7 +69,7 @@
         margin-left: 0 !important;
     }
     .wip:not(.active) {
-        --link-color: #ffbb00;
+        --color-link: #ffbb00;
     }
     .percent {
         border-color: #999;

@@ -1,265 +1,265 @@
 // Class colours
 .class-1,
 .class-warrior {
-    --image-border-color: #{color-class-1};
-    --link-color: #{$color-class-1};
+    --image-border-color: var(--color-class-1);
+    --color-link: var(--color-class-1);
 
-    color: $color-class-1;
+    color: var(--color-class-1);
 }
 
 .class-2,
 .class-paladin {
-    --image-border-color: #{color-class-2};
-    --link-color: #{$color-class-2};
+    --image-border-color: var(--color-class-2);
+    --color-link: var(--color-class-2);
 
-    color: $color-class-2;
+    color: var(--color-class-2);
 }
 
 .class-3,
 .class-hunter {
-    --image-border-color: #{color-class-3};
-    --link-color: #{$color-class-3};
+    --image-border-color: var(--color-class-3);
+    --color-link: var(--color-class-3);
 
-    color: $color-class-3;
+    color: var(--color-class-3);
 }
 
 .class-4,
 .class-rogue {
-    --image-border-color: #{color-class-4};
-    --link-color: #{$color-class-4};
+    --image-border-color: var(--color-class-4);
+    --color-link: var(--color-class-4);
 
-    color: $color-class-4;
+    color: var(--color-class-4);
 }
 
 .class-5,
 .class-priest {
-    --image-border-color: #{color-class-5};
-    --link-color: #{$color-class-5};
+    --image-border-color: var(--color-class-5);
+    --color-link: var(--color-class-5);
 
-    color: $color-class-5;
+    color: var(--color-class-5);
 }
 
 .class-6,
 .class-death-knight {
-    --image-border-color: #{color-class-6};
-    --link-color: #{$color-class-6};
+    --image-border-color: var(--color-class-6);
+    --color-link: var(--color-class-6);
 
-    color: $color-class-6;
+    color: var(--color-class-6);
 }
 
 .class-7,
 .class-shaman {
-    --image-border-color: #{color-class-7};
-    --link-color: #{$color-class-7};
+    --image-border-color: var(--color-class-7);
+    --color-link: var(--color-class-7);
 
-    color: $color-class-7;
+    color: var(--color-class-7);
 }
 
 .class-8,
 .class-mage {
-    --image-border-color: #{color-class-8};
-    --link-color: #{$color-class-8};
+    --image-border-color: var(--color-class-8);
+    --color-link: var(--color-class-8);
 
-    color: $color-class-8;
+    color: var(--color-class-8);
 }
 
 .class-9,
 .class-warlock {
-    --image-border-color: #{color-class-9};
-    --link-color: #{$color-class-9};
+    --image-border-color: var(--color-class-9);
+    --color-link: var(--color-class-9);
 
-    color: $color-class-9;
+    color: var(--color-class-9);
 }
 
 .class-10,
 .class-monk {
-    --image-border-color: #{color-class-10};
-    --link-color: #{$color-class-10};
+    --image-border-color: var(--color-class-10);
+    --color-link: var(--color-class-10);
 
-    color: $color-class-10;
+    color: var(--color-class-10);
 }
 
 .class-11,
 .class-druid {
-    --image-border-color: #{color-class-11};
-    --link-color: #{$color-class-11};
+    --image-border-color: var(--color-class-11);
+    --color-link: var(--color-class-11);
 
-    color: $color-class-11;
+    color: var(--color-class-11);
 }
 
 .class-12,
 .class-demon-hunter {
-    --image-border-color: #{color-class-12};
-    --link-color: #{$color-class-12};
+    --image-border-color: var(--color-class-12);
+    --color-link: var(--color-class-12);
 
-    color: $color-class-12;
+    color: var(--color-class-12);
 }
 .class-13,
 .class-evoker {
-    --image-border-color: #{color-class-13};
-    --link-color: #{$color-class-13};
+    --image-border-color: var(--color-class-13);
+    --color-link: var(--color-class-13);
 
-    color: $color-class-13;
+    color: var(--color-class-13);
 }
 
 // Junk
 .quality0 {
-    --image-border-color: #{$quality0-border};
-    --link-color: #{$quality0-color};
-    color: $quality0-color;
+    --image-border-color: var(--color-quality0-border);
+    --color-link: var(--color-quality0);
+    color: var(--color-quality0);
 
     div,
     img {
-        border-color: $quality0-border;
+        border-color: var(--color-quality0-border);
     }
 }
 .quality0-border {
-    --bar-border-color: #{$quality0-border};
-    --image-border-color: #{$quality0-border};
+    --bar-border-color: var(--color-quality0-border);
+    --image-border-color: var(--color-quality0-border);
 
-    border-color: $quality0-border;
+    border-color: var(--color-quality0-border);
 }
 img.quality0 {
-    border-color: $quality0-border;
+    border-color: var(--color-quality0-border);
 }
 
 // Common
 .quality1 {
-    --image-border-color: #{$quality1-border};
-    --link-color: #{$quality1-color};
-    color: $quality1-color;
+    --image-border-color: var(--color-quality1-border);
+    --color-link: var(--color-quality1);
+    color: var(--color-quality1);
 
     div,
     img,
     img & {
-        border-color: $quality1-border;
+        border-color: var(--color-quality1-border);
     }
 }
 .quality1-border {
-    --bar-border-color: #{$quality1-border};
-    --image-border-color: #{$quality1-border};
+    --bar-border-color: var(--color-quality1-border);
+    --image-border-color: var(--color-quality1-border);
 
-    border-color: $quality1-border;
+    border-color: var(--color-quality1-border);
 }
 /*img.quality1 {
-    border-color: $quality1-border;
+    border-color: var(--color-quality1-border);
 }*/
 
 // Uncommon
 .quality2 {
-    --image-border-color: #{$quality2-border};
-    --link-color: #{$quality2-color};
-    color: $quality2-color;
+    --image-border-color: var(--color-quality2-border);
+    --color-link: var(--color-quality2);
+    color: var(--color-quality2);
 
     div,
     img {
-        border-color: $quality2-border;
+        border-color: var(--color-quality2-border);
     }
 }
 .quality2-border {
-    --bar-border-color: #{$quality2-border};
-    --image-border-color: #{$quality2-border};
+    --bar-border-color: var(--color-quality2-border);
+    --image-border-color: var(--color-quality2-border);
 
-    border-color: $quality2-border;
+    border-color: var(--color-quality2-border);
 }
 img.quality2 {
-    border-color: $quality2-border;
+    border-color: var(--color-quality2-border);
 }
 
 // Rare
 .quality3 {
-    --image-border-color: #{$quality3-border};
-    --link-color: #{$quality3-color};
-    color: $quality3-color;
+    --image-border-color: var(--color-quality3-border);
+    --color-link: var(--color-quality3);
+    color: var(--color-quality3);
 
     div,
     img {
-        border-color: $quality3-border;
+        border-color: var(--color-quality3-border);
     }
 }
 .quality3-border {
-    --bar-border-color: #{$quality3-border};
-    --image-border-color: #{$quality3-border};
+    --bar-border-color: var(--color-quality3-border);
+    --image-border-color: var(--color-quality3-border);
 
-    border-color: $quality3-border;
+    border-color: var(--color-quality3-border);
 }
 img.quality3 {
-    border-color: $quality3-border;
+    border-color: var(--color-quality3-border);
 }
 
 // Epic
 .quality4 {
-    --image-border-color: #{$quality4-border};
-    --link-color: #{$quality4-color};
-    color: $quality4-color;
+    --image-border-color: var(--color-quality4-border);
+    --color-link: var(--color-quality4);
+    color: var(--color-quality4);
 
     div,
     img {
-        border-color: $quality4-border;
+        border-color: var(--color-quality4-border);
     }
 }
 .quality4-border {
-    --bar-border-color: #{$quality4-border};
+    --bar-border-color: var(--color-quality4-border);
 
-    border-color: $quality4-border;
+    border-color: var(--color-quality4-border);
 }
 img.quality4 {
-    border-color: $quality4-border;
+    border-color: var(--color-quality4-border);
 }
 
 // Legendary
 .quality5 {
-    --image-border-color: #{$quality5-border};
-    --link-color: #{$quality5-color};
-    color: $quality5-color;
+    --image-border-color: var(--color-quality5-border);
+    --color-link: var(--color-quality5);
+    color: var(--color-quality5);
 
     div,
     img {
-        border-color: $quality5-border;
+        border-color: var(--color-quality5-border);
     }
     span {
         color: #ff8000;
     }
 }
 .quality5-border {
-    --bar-border-color: #{$quality5-border};
+    --bar-border-color: var(--color-quality5-border);
 
-    border-color: $quality5-border;
+    border-color: var(--color-quality5-border);
 }
 img.quality5 {
-    border-color: $quality5-border;
+    border-color: var(--color-quality5-border);
 }
 
 // Artifact
 .quality6 {
-    --image-border-color: #{$quality6-border};
-    --link-color: #{$quality6-color};
-    color: $quality6-color;
+    --image-border-color: var(--color-quality6-border);
+    --color-link: var(--color-quality6);
+    color: var(--color-quality6);
 
     div,
     img {
-        border-color: $quality6-color;
+        border-color: var(--color-quality6);
     }
 }
 .quality6-border {
-    --bar-border-color: #{$quality6-border};
+    --bar-border-color: var(--color-quality6-border);
 
-    border-color: $quality6-border;
+    border-color: var(--color-quality6-border);
 }
 
 // Heirloom
 .quality7 {
-    --image-border-color: #{$quality7-border};
-    --link-color: #{$quality7-color};
-    color: $quality7-color;
+    --image-border-color: var(--color-quality7-border);
+    --color-link: var(--color-quality7);
+    color: var(--color-quality7);
 
     div,
     img {
-        border-color: $quality7-color;
+        border-color: var(--color-quality7);
     }
 }
 .quality7-border {
-    --bar-border-color: #{$quality7-border};
+    --bar-border-color: var(--color-quality7-border);
 
-    border-color: $quality7-border;
+    border-color: var(--color-quality7-border);
 }

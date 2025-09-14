@@ -29,7 +29,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-keystone, $paddingRight: 0.1rem);
+        --width: var(--width-keystone);
 
         border-left: 1px solid var(--border-color);
     }
@@ -41,9 +41,8 @@
         justify-content: flex-start;
     }
     .level {
-        min-width: $width-keystone-level;
-        width: $width-keystone-level;
         text-align: right;
+        width: 1.2rem;
     }
     .upgrade {
         color: #ff88ff;

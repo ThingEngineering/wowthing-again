@@ -3,20 +3,19 @@
     import { QuestStatus } from '@/enums/quest-status';
     import { uiIcons } from '@/shared/icons/ui';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { componentTooltip } from '@/shared/utils/tooltips';
     import { userState } from '@/user-home/state/user';
     import type { CharacterProps } from '@/types/props';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
-    import Tooltip from '@/components/tooltips/task/TooltipTaskRow.svelte';
 
     type Props = CharacterProps & {
+        fullTaskName: string;
         taskName: string;
     };
-    let { character, taskName }: Props = $props();
+    let { character, fullTaskName, taskName }: Props = $props();
 
     let task = $derived(taskMap[taskName] || settingsState.customTaskMap[taskName]);
-    let charTask = $derived(userState.activeViewTasks[character.id]?.[taskName]);
+    let charTask = $derived(userState.activeViewTasks[character.id]?.[fullTaskName]);
 
     let inProgress = $derived(
         charTask &&
@@ -42,22 +41,14 @@
 {#if charTask?.countTotal > 0 && Object.keys(charTask?.chores || {}).length > 0}
     {@const notStarted = charTask.countTotal - charTask.countCompleted - charTask.countStarted}
     <td
-        class="sized b-l"
+        class="b-l tooltip-task"
         class:status-fail={!inProgress && notStarted > 0}
         class:status-shrug={inProgress ||
             (notStarted === 0 && charTask.countCompleted < charTask.countTotal)}
         class:status-success={charTask.status === QuestStatus.Completed}
         class:ready={charTask.anyReady}
-        data-task={taskName}
-        use:componentTooltip={{
-            component: Tooltip,
-            props: {
-                character,
-                charTask,
-                task,
-                taskName,
-            },
-        }}
+        data-character-id={character.id}
+        data-full-task-name={fullTaskName}
     >
         {#if task.chores.length === 1}
             {#if charTask.status === QuestStatus.Completed}
@@ -80,5 +71,5 @@
         {/if}
     </td>
 {:else}
-    <td class="sized b-l status-warn">---</td>
+    <td class="b-l status-warn">---</td>
 {/if}

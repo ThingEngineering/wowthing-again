@@ -13,7 +13,7 @@
     }
     button {
         align-items: center;
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         border: 1px solid var(--border-color);
         border-radius: var(--border-radius);
         display: flex;

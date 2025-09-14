@@ -25,14 +25,15 @@
 
 <style lang="scss">
     td:first-child {
-        @include cell-width(6rem, $paddingRight: 0.5rem);
+        --width: 6rem;
 
         border-right: 1px solid var(--border-color);
         text-align: right;
     }
     table {
         :global(td:last-child) {
-            @include cell-width(15rem, $maxWidth: 20rem, $paddingLeft: 0.5rem);
+            --max-width: 20rem;
+            --width: 15rem;
 
             text-align: left !important;
 

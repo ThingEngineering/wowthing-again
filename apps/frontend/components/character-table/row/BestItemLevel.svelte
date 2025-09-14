@@ -13,7 +13,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-item-level);
+        --width: var(--width-item-level);
 
         text-align: right;
     }

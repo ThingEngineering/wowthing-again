@@ -39,18 +39,16 @@
         padding-left: 0.2rem;
     }
     .tag {
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         border-right: 1px solid var(--border-color);
-        padding-left: $width-padding;
-        padding-right: $width-padding;
     }
     .name {
-        @include cell-width(7rem);
+        --width: 7rem;
 
         text-align: left;
     }
     .gold {
-        @include cell-width(6rem);
+        --width: 6rem;
 
         text-align: right;
     }

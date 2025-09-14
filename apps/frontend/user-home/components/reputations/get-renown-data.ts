@@ -80,7 +80,7 @@ export function getRenownData({
             ret.repTier = findReputationTier(tiers, ret.characterRep.value);
 
             if (ret.dataRep.id === brannId) {
-                const levelMatch = ret.repTier.name.match(/(\d\d)$/);
+                const levelMatch = ret.repTier.name.match(/(\d\d\d?)$/);
                 if (levelMatch) {
                     const oof = brannHack(levelMatch[1]);
                     ret.cls = `reputation${oof} reputation${oof}-border`;

@@ -8,7 +8,7 @@
     width: 100%;
 
     a {
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         border-bottom: 1px solid var(--border-color);
         border-right: 1px solid var(--border-color);
         border-top: 1px solid var(--border-color);
@@ -24,9 +24,9 @@
         }
 
         &.active {
-            --link-color: #ddd;
+            --color-link: #ddd;
 
-            background: $active-background;
+            background: var(--color-active-background);
             border: 1px solid #eee;
 
             &:not(:first-child):not(.m-l) {

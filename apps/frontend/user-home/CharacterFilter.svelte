@@ -18,7 +18,7 @@
         display: flex;
 
         :global(svg) {
-            color: $color-fail;
+            color: var(--color-fail);
         }
     }
     .clear-filter {

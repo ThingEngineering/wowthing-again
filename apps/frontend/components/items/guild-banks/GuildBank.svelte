@@ -29,7 +29,6 @@
 
 <style lang="scss">
     .thing-container {
-        background: mix($thing-background, $color-fail, 90%);
         padding: 0.75rem;
     }
     .flex-wrapper {
@@ -66,7 +65,7 @@
             </div>
         {/key}
     {:else}
-        <div class="thing-container border">
+        <div class="thing-container bg-fail border">
             No tabs found for this guild, visit the guild bank and upload addon data.
         </div>
     {/if}

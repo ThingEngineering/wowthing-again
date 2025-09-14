@@ -29,7 +29,7 @@
         width: 18rem;
     }
     h4 {
-        background: $highlight-background;
+        background: var(--color-highlight-background);
         border-bottom: 1px solid var(--border-color);
         padding: 0.2rem 0;
         text-align: center;

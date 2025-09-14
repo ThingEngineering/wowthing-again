@@ -1,42 +1,42 @@
 .reputation1 {
-    color: $quality5-color;
+    color: var(--color-quality5);
 }
 .reputation1-border {
-    --image-border-color: #{$quality5-border};
-    border-color: $quality5-border;
+    --image-border-color: var(--color-quality5-border);
+    border-color: var(--color-quality5-border);
 }
 .reputation2 {
-    color: $quality4-color;
+    color: var(--color-quality4-color);
 }
 .reputation2-border {
-    --image-border-color: #{$quality4-border};
-    border-color: $quality4-border;
+    --image-border-color: var(--color-quality4-border);
+    border-color: var(--color-quality4-border);
 }
 .reputation3 {
-    color: $quality3-color;
+    color: var(--color-quality3-color);
 }
 .reputation3-border {
-    --image-border-color: #{$quality3-border};
-    border-color: $quality3-border;
+    --image-border-color: var(--color-quality3-border);
+    border-color: var(--color-quality3-border);
 }
 .reputation4 {
-    color: $quality2-color;
+    color: var(--color-quality2-color);
 }
 .reputation4-border {
-    --image-border-color: #{$quality2-border};
-    border-color: $quality2-border;
+    --image-border-color: var(--color-quality2-border);
+    border-color: var(--color-quality2-border);
 }
 .reputation5 {
-    color: $quality1-color;
+    color: var(--color-quality1-color);
 }
 .reputation5-border {
-    --image-border-color: #{$quality1-border};
-    border-color: $quality1-border;
+    --image-border-color: var(--color-quality1-border);
+    border-color: var(--color-quality1-border);
 }
 .reputation6 {
-    color: $quality0-color;
+    color: var(--color-quality0-color);
 }
 .reputation6-border {
-    --image-border-color: #{$quality0-border};
-    border-color: $quality0-border;
+    --image-border-color: var(--color-quality0-border);
+    border-color: var(--color-quality0-border);
 }
