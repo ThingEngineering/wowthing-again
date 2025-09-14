@@ -45,7 +45,7 @@
 </style>
 
 <th
-    class="sized {cls}"
+    class={cls}
     use:componentTooltip={{
         component: Tooltip,
         props: {

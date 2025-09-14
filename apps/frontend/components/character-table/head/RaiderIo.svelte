@@ -9,4 +9,4 @@
     }
 </style>
 
-<th class="sized">Score</th>
+<th>Score</th>

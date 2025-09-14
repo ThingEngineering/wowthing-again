@@ -23,7 +23,7 @@
         {@const data = getProgress(character, category, group, false)}
         {#if data.datas}
             <td
-                class="sized b-l c"
+                class="b-l c"
                 class:status-success={data.have > 0 && data.have === data.total}
                 class:status-shrug={data.have > 0 && data.have < data.total}
                 class:status-fail={data.have === 0}
@@ -48,7 +48,7 @@
                 {/if}
             </td>
         {:else}
-            <td class="sized b-l c">---</td>
+            <td class="b-l c">---</td>
         {/if}
     {/each}
 {/key}

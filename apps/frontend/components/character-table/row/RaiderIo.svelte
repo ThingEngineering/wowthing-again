@@ -39,7 +39,6 @@
 
 {#if overallScore > 0}
     <td
-        class="sized"
         style:--color-link={getRaiderIoColor(tiers, overallScore)}
         use:componentTooltip={{
             component: Tooltip,
@@ -60,5 +59,5 @@
         </a>
     </td>
 {:else}
-    <td class="sized">&nbsp;</td>
+    <td>&nbsp;</td>
 {/if}

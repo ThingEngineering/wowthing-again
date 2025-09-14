@@ -41,18 +41,18 @@
         <tbody>
             {#each active as [zoneId, questId, expires, gold]}
                 <tr>
-                    <td class="expires sized">
+                    <td class="expires">
                         <code class={expires < 86400000 ? 'status-warn' : 'status-shrug'}>
                             {@html toNiceDuration(expires)}
                         </code>
                     </td>
-                    <td class="zone sized b-l text-overflow"
+                    <td class="zone b-l text-overflow"
                         >{zoneMap[zoneId]?.name || `Zone #${zoneId}`}</td
                     >
-                    <td class="quest sized b-l text-overflow">
+                    <td class="quest b-l text-overflow">
                         {wowthingData.static.questNameById.get(questId) || `Quest #${questId}`}
                     </td>
-                    <td class="gold sized b-l">{gold}g</td>
+                    <td class="gold b-l">{gold}g</td>
                 </tr>
             {/each}
         </tbody>

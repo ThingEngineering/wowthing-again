@@ -91,7 +91,7 @@
     }
 </style>
 
-<td class="sized b-l">
+<td class="b-l">
     {#if goldWorldQuests?.length > 0}
         {#await worldQuestStore.fetch(character.realm.region)}
             ...

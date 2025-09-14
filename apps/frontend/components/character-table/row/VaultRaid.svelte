@@ -18,10 +18,7 @@
 </style>
 
 {#if raidVault?.length > 0}
-    <td
-        use:componentTooltip={{ component: TooltipVaultRaid, props: { character } }}
-        class="sized b-l"
-    >
+    <td use:componentTooltip={{ component: TooltipVaultRaid, props: { character } }} class="b-l">
         <VaultShared
             availableRewards={character.weekly?.vault.availableRewards}
             generatedRewards={character.weekly?.vault.generatedRewards}

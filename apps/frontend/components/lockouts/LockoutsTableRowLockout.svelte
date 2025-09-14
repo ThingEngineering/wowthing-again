@@ -48,7 +48,6 @@
 
 {#if lockout}
     <td
-        class="sized"
         class:alt={!showNumbers && striped}
         class:status-success={lockout.defeatedBosses >= maxBosses}
         class:status-shrug={lockout.defeatedBosses > 0 && lockout.defeatedBosses < maxBosses}

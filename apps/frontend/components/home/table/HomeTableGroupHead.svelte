@@ -189,7 +189,7 @@
             {/if}
         {:else if field === 'mythicPlusScore'}
             <td
-                class="mythic-plus-score sized sortable sorted-{getSortState()}"
+                class="mythic-plus-score sortable sorted-{getSortState()}"
                 onclick={() => setSortState()}
             >
                 M+

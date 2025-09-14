@@ -18,7 +18,7 @@
 </style>
 
 <td
-    class="r b-l sized"
+    class="r b-l"
     use:componentTooltip={{
         component: Tooltip,
         propsFunc: () => ({ character, movementSpeed: speed }),

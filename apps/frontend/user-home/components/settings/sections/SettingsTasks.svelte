@@ -150,7 +150,7 @@
         </thead>
         <tbody>
             {#each settingsState.value.customTasks as task (task.key)}
-                <tr class="sized">
+                <tr>
                     <td class="name">
                         <TextInput maxlength={25} name="task_name" bind:value={task.name} />
                     </td>

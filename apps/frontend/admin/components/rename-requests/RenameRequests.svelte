@@ -57,22 +57,22 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th class="id sized">ID</th>
-                <th class="name sized">Username</th>
-                <th class="name sized">Desired</th>
-                <th class="action sized"></th>
-                <th class="action sized"></th>
+                <th class="id">ID</th>
+                <th class="name">Username</th>
+                <th class="name">Desired</th>
+                <th class="action"></th>
+                <th class="action"></th>
             </tr>
         </thead>
         <tbody>
             {#each renameRequests as renameRequest}
                 <tr>
-                    <td class="id sized">{renameRequest.id}</td>
-                    <td class="name sized">{renameRequest.userName}</td>
-                    <td class="name sized" class:status-fail={renameRequest.inUse}
+                    <td class="id">{renameRequest.id}</td>
+                    <td class="name">{renameRequest.userName}</td>
+                    <td class="name" class:status-fail={renameRequest.inUse}
                         >{renameRequest.desiredAccountName}</td
                     >
-                    <td class="action sized status-success">
+                    <td class="action status-success">
                         {#if !renameRequest.inUse}
                             <IconifyIcon
                                 icon={iconLibrary.mdiCheck}
@@ -81,7 +81,7 @@
                             />
                         {/if}
                     </td>
-                    <td class="action sized status-fail">
+                    <td class="action status-fail">
                         <IconifyIcon
                             icon={iconLibrary.mdiClose}
                             tooltip="Decline request"

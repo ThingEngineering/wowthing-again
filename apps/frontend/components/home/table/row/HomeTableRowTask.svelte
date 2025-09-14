@@ -41,7 +41,7 @@
 {#if charTask?.countTotal > 0 && Object.keys(charTask?.chores || {}).length > 0}
     {@const notStarted = charTask.countTotal - charTask.countCompleted - charTask.countStarted}
     <td
-        class="sized b-l tooltip-task"
+        class="b-l tooltip-task"
         class:status-fail={!inProgress && notStarted > 0}
         class:status-shrug={inProgress ||
             (notStarted === 0 && charTask.countCompleted < charTask.countTotal)}
@@ -71,5 +71,5 @@
         {/if}
     </td>
 {:else}
-    <td class="sized b-l status-warn">---</td>
+    <td class="b-l status-warn">---</td>
 {/if}

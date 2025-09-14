@@ -31,7 +31,7 @@
 </style>
 
 <td
-    class="sized b-l tooltip-task"
+    class="b-l tooltip-task"
     class:ready={charChore?.status === QuestStatus.InProgress &&
         charChore.progressCurrent === charChore.progressTotal}
     data-character-id={character.id}

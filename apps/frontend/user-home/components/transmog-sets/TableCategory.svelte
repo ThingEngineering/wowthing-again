@@ -338,14 +338,14 @@
     {#if groupIndex === 0 || category.groups[groupIndex - 1].name !== group.name}
         {@const groupPercent = getPercent(groupIndex, -1)}
         <tr class="group">
-            <td class="percent-cell sized">
+            <td class="percent-cell">
                 {#if showPercent && !isNaN(groupPercent)}
                     <span class="drop-shadow {getPercentClass(groupPercent)}">
                         {Math.floor(groupPercent).toFixed(0)} %
                     </span>
                 {/if}
             </td>
-            <td class="name highlight sized" colspan="100">
+            <td class="name highlight" colspan="100">
                 <IconifyIcon
                     icon={isExpanded ? uiIcons.minus : uiIcons.plus}
                     on:click={() => ($transmogSetsState.collapsedCategories[groupKey] = isExpanded)}

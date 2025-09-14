@@ -33,7 +33,7 @@
 {#if mythicPlus?.length > 0}
     <td
         use:componentTooltip={{ component: TooltipMythicPlusVault, props: { character } }}
-        class="sized b-l"
+        class="b-l"
     >
         <VaultShared
             availableRewards={character.weekly?.vault.availableRewards}

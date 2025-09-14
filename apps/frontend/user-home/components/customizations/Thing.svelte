@@ -47,7 +47,6 @@
 
 {#if show}
     <tr
-        class="sized"
         class:faded={browserState.current['collectible-customizations'].highlightMissing
             ? have
             : !have}

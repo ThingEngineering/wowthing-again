@@ -123,7 +123,7 @@
         <tbody>
             {#if currencies.length > 0}
                 {#each currencies.slice(0, 10) as [character, amount] (character)}
-                    <tr class="sized">
+                    <tr>
                         {#if settingsState.useAccountTags}
                             <td class="tag">
                                 {#if character}
