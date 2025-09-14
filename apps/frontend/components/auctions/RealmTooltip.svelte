@@ -4,6 +4,7 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { userState } from '@/user-home/state/user';
     import type { StaticDataConnectedRealm } from '@/shared/stores/static/types';
+    import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
 
     type Props = {
         ageInMinutes: number;
@@ -74,11 +75,7 @@
         <tbody>
             {#each characters.slice(0, 3) as character (character.id)}
                 <tr>
-                    {#if settingsState.useAccountTags}
-                        <td class="tag">
-                            {settingsState.value.accounts?.[character.accountId]?.tag}
-                        </td>
-                    {/if}
+                    <CharacterTag {character} />
                     <td class="name">
                         {character.name}
                     </td>

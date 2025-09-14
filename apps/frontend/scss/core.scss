@@ -213,6 +213,9 @@ div.content {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.nowrap {
+    white-space: nowrap;
+}
 
 .border {
     border: 1px solid var(--border-color);

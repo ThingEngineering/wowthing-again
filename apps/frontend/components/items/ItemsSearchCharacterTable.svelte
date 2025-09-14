@@ -2,13 +2,12 @@
     import sortBy from 'lodash/sortBy';
 
     import { Region } from '@/enums/region';
-    import { settingsState } from '@/shared/state/settings.svelte';
     import { itemSearchState } from '@/stores';
     import { userState } from '@/user-home/state/user';
     import type { Character } from '@/types';
     import type { ItemSearchResponseCharacter, ItemSearchResponseItem } from '@/types/items';
 
-    import CharacterTag from '@/shared/components/CharacterTag.svelte';
+    import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import Row from './ItemsSearchCharacterRow.svelte';
 
@@ -60,11 +59,7 @@
     <table class="table table-striped search-table">
         <thead>
             <tr class="item-row">
-                {#if settingsState.useAccountTags}
-                    <td class="tag">
-                        <CharacterTag {character} />
-                    </td>
-                {/if}
+                <CharacterTag {character} />
                 <th class="item">
                     <ClassIcon classId={character.classId} size={16} border={1} />
                     {character.name}

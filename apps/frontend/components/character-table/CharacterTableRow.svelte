@@ -7,6 +7,7 @@
 
     import CharacterLevel from './row/CharacterLevel.svelte';
     import CharacterName from './row/CharacterName.svelte';
+    import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import RaceIcon from '@/shared/components/images/RaceIcon.svelte';
     import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
@@ -52,10 +53,8 @@
         {#if intersected}
             {#if character}
                 {#each commonFields as field (field)}
-                    {#if field === 'accountTag' && settingsState.useAccountTags}
-                        <td class="tag">
-                            {settingsState.value.accounts?.[character.accountId]?.tag}
-                        </td>
+                    {#if field === 'accountTag'}
+                        <CharacterTag {character} />
                     {:else if field === 'characterIconClass'}
                         <TableIcon padLeft="0.1rem" padRight="0px">
                             <ClassIcon {character} />

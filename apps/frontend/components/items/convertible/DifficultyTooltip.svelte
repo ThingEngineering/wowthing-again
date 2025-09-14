@@ -3,14 +3,13 @@
 
     import { InventoryType } from '@/enums/inventory-type';
     import { iconLibrary, uiIcons } from '@/shared/icons';
-    import { settingsState } from '@/shared/state/settings.svelte';
     import { userState } from '@/user-home/state/user';
     import { getGenderedName } from '@/utils/get-gendered-name';
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
     import type { StaticDataCharacterClass } from '@/shared/stores/static/types';
     import type { LazyConvertibleModifier } from '@/user-home/state/lazy/convertible.svelte';
 
-    import CharacterTag from '@/shared/components/CharacterTag.svelte';
+    import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
@@ -81,11 +80,7 @@
                     {@const isPurchased = characterData.some((item) => item.isPurchased)}
                     {@const isUpgradeable = characterData.some((item) => item.isUpgradeable)}
                     <tr>
-                        {#if settingsState.useAccountTags}
-                            <td class="tag">
-                                <CharacterTag {character} />
-                            </td>
-                        {/if}
+                        <CharacterTag {character} />
                         <td class="name">{character.name}</td>
                         <td class="realm">{character.realm.name}</td>
                         <td class="icon">

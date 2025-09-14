@@ -1,6 +1,7 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
     import { getCharacterNameRealm } from '@/utils/get-character-name-realm';
@@ -9,8 +10,8 @@
     import type { ItemDataItem } from '@/types/data/item';
     import type { StaticDataCurrency } from '@/shared/stores/static/types';
 
+    import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { settingsState } from '@/shared/state/settings.svelte';
 
     type Props = {
         currency?: StaticDataCurrency;
@@ -75,7 +76,7 @@
     .wowthing-tooltip {
         --image-border-width: 1px;
 
-        max-width: 22rem;
+        width: 22rem;
     }
     .description {
         margin-bottom: 0.5rem;
@@ -88,21 +89,16 @@
     }
     table {
         --padding: 2;
-    }
-    .tag {
-        --width: 1rem;
 
-        background: var(--color-highlight-background);
-        border-right: 1px solid var(--border-color);
+        table-layout: auto;
     }
     .name {
-        --width: 10rem;
-
         text-align: left;
-        white-space: nowrap;
+        width: auto;
     }
     .amount {
-        --width: 4rem;
+        --max-width: 4rem;
+        --width: 2rem;
 
         text-align: right;
         white-space: nowrap;
@@ -124,13 +120,7 @@
             {#if currencies.length > 0}
                 {#each currencies.slice(0, 10) as [character, amount] (character)}
                     <tr>
-                        {#if settingsState.useAccountTags}
-                            <td class="tag">
-                                {#if character}
-                                    {settingsState.value.accounts?.[character.accountId]?.tag}
-                                {/if}
-                            </td>
-                        {/if}
+                        <CharacterTag {character} />
                         <td class="name text-overflow">
                             {#if character}
                                 {getCharacterNameRealm(character.id)}
@@ -138,7 +128,7 @@
                                 Account Bank
                             {/if}
                         </td>
-                        <td class="amount">{amount.toLocaleString()}</td>
+                        <td class="amount max-width">{amount.toLocaleString()}</td>
                     </tr>
                 {/each}
 
