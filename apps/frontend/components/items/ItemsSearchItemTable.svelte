@@ -3,7 +3,6 @@
     import { toNiceNumber } from '@/utils/formatting';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import type { ItemSearchResponseCharacter, ItemSearchResponseItem } from '@/types/items';
 
     import Row from './ItemsSearchItemRow.svelte';
@@ -49,7 +48,7 @@
                         <WowthingImage name="item/{item.itemId}" size={20} border={1} />
                         {item.itemName}
                     </th>
-                    <th class="count" use:basicTooltip={itemCount.toLocaleString()}>
+                    <th class="count" data-tooltip={itemCount.toLocaleString()}>
                         {toNiceNumber(itemCount)}
                     </th>
                     <th class="item-level">ILvl</th>

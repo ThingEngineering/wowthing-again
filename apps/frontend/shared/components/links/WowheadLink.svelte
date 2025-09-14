@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { settingsState } from '@/shared/state/settings.svelte';
 
     export let extraParams: Record<string, string> = {};
@@ -46,10 +45,10 @@
         href={url}
         rel="noopener"
         target="_blank"
+        data-tooltip={tooltip}
         data-disable-wowhead-tooltip={noTooltip ? 'true' : undefined}
         data-wh-rename-link={rename ? 'true' : undefined}
         on:click
-        use:basicTooltip={tooltip}
     >
         <slot />
     </a>

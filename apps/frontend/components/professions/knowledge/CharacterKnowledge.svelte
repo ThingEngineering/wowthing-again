@@ -3,7 +3,6 @@
     import { imageStrings } from '@/data/icons';
     import { isSecondaryProfession, professionIdToSlug } from '@/data/professions';
     import { wowthingData } from '@/shared/stores/data';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
     import getPercentClass from '@/utils/get-percent-class';
     import { getProfessionSortKey } from '@/utils/professions';
@@ -52,7 +51,7 @@
         {@const charStats = characterProfession?.subProfessionTraitStats?.[staticSubProfession.id]}
         <div
             class="flex-wrapper"
-            use:basicTooltip={`${charStats?.have || 0} / ${charStats?.total || 0} knowledge`}
+            data-tooltip={`${charStats?.have || 0} / ${charStats?.total || 0} knowledge`}
         >
             <WowthingImage
                 name={imageStrings[professionIdToSlug[staticProfession.id]]}

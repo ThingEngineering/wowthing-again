@@ -5,7 +5,6 @@
     import { iconLibrary } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';
     import getPercentClass from '@/utils/get-percent-class';
 
@@ -90,10 +89,10 @@
                         !filteredNavItems[navIndex + 1]?.path}
                     class:wip={navItem.text.indexOf('WIP') >= 0}
                     href="#/{navItem.path}"
+                    data-tooltip={navItem.text}
                     use:active={navItem.path.endsWith('/')
                         ? `/${navItem.path}*`
                         : `/${navItem.path}`}
-                    use:basicTooltip={navItem.text}
                 >
                     <IconifyIcon icon={iconLibrary[navItem.icon]} dropShadow={true} />
 

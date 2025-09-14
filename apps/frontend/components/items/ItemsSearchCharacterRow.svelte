@@ -2,7 +2,6 @@
     import { ItemLocation } from '@/enums/item-location';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { itemSearchState } from '@/stores';
     import { getItemUrlSearch } from '@/utils/get-item-url';
     import { toNiceNumber } from '@/utils/formatting';
@@ -40,7 +39,7 @@
 
         <td
             class="location text-overflow"
-            use:basicTooltip={characterItem
+            data-tooltip={characterItem
                 ? ItemLocation[characterItem.location]
                 : `Tab ${guildBankItem.tab}`}
         >

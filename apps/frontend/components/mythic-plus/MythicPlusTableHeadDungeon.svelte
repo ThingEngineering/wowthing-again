@@ -1,6 +1,5 @@
 <script lang="ts">
     import { dungeonMap } from '@/data/dungeon';
-    import { basicTooltip } from '@/shared/utils/tooltips';
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
@@ -38,7 +37,7 @@
 </style>
 
 {#if dungeon !== undefined}
-    <th use:basicTooltip={dungeon.getTooltip()}>
+    <th data-tooltip={dungeon.getTooltip()}>
         <WowthingImage name={dungeon.icon} size={48} />
         <span class="text-overlay">{dungeon.abbreviation}</span>
     </th>

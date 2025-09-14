@@ -5,7 +5,6 @@
     import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { userState } from '@/user-home/state/user';
 
     import Holidays from './Holidays.svelte';
@@ -74,7 +73,7 @@
             class:active={browserState.current.home.activeView === view.id}
             data-id={view.id}
             onclick={() => setActiveView(view.id)}
-            use:basicTooltip={view.name}
+            data-tooltip={view.name}
         >
             <ParsedText text={view.name} />
         </button>
@@ -84,7 +83,7 @@
         <a
             class="tab"
             href="/settings/views/{browserState.current.home.activeView}"
-            use:basicTooltip={'Settings'}
+            data-tooltip="Settings"
             use:link
         >
             <IconifyIcon icon={iconLibrary.mdiCogOutline} />
@@ -93,7 +92,7 @@
         <div class="flex-wrapper">
             <button
                 class="account-gold"
-                use:basicTooltip={'Click to toggle between Warbank and Total gold'}
+                data-tooltip="Click to toggle between Warbank and Total gold"
                 onclick={() =>
                     (browserState.current.home.showTotalGold =
                         !browserState.current.home.showTotalGold)}

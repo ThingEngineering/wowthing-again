@@ -1,6 +1,5 @@
 <script lang="ts">
     import { iconLibrary } from '@/shared/icons';
-    import { basicTooltip } from '@/shared/utils/tooltips/basic-tooltip';
     import type { SortableProps } from '@/types/props';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
@@ -14,7 +13,7 @@
 <td
     class="sortable sorted-{getSortState()}"
     onclick={() => setSortState()}
-    use:basicTooltip={'Free Bag Slots'}
+    data-tooltip="Free Bag Slots"
 >
     <IconifyIcon icon={iconLibrary.gameBackpack} scale="0.9" />
 </td>

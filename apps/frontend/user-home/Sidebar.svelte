@@ -5,7 +5,6 @@
     import { iconLibrary } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import getPercentClass from '@/utils/get-percent-class';
 
     import CharacterFilter from './CharacterFilter.svelte';
@@ -58,10 +57,10 @@
             {#if !navItem.privateOnly || (navItem.privateOnly && navItem.text === 'Currencies' && settingsState.value.privacy.publicCurrencies) || !sharedState.public}
                 {@const percent = navItem.percentFunc?.()}
                 <li
+                    data-tooltip={navItem.text}
                     use:active={navItem.path.endsWith('/')
                         ? `/${navItem.path}*`
                         : `/${navItem.path}`}
-                    use:basicTooltip={navItem.text}
                 >
                     <a
                         class="text-overflow"

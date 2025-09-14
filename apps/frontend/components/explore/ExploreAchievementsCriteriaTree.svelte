@@ -3,7 +3,6 @@
     import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator';
     import { CriteriaType } from '@/enums/criteria-type';
     import { leftPad } from '@/utils/formatting';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import type {
         AchievementDataAchievement,
         AchievementDataCriteria,
@@ -57,7 +56,7 @@
     <div class="criteria-tree" style:--depth={depth}>
         <div class="info">
             <code>[{criteriaTreeId}]</code>
-            <span class="text-overflow" use:basicTooltip={criteriaTree.description}
+            <span class="text-overflow" data-tooltip={criteriaTree.description}
                 >{criteriaTree.description || 'BLANK'}</span
             >
         </div>

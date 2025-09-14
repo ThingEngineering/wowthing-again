@@ -1,7 +1,6 @@
 <script lang="ts">
     import { timeStore } from '@/shared/stores/time';
     import { getCharacterRested } from '@/utils/get-character-rested';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import type { CharacterProps } from '@/types/props';
 
     let { character }: CharacterProps = $props();
@@ -22,6 +21,6 @@
     }
 </style>
 
-<td class:center={rested === '???'} use:basicTooltip={'Rested XP'}>
+<td class:center={rested === '???'} data-tooltip="Rested XP">
     {rested || ''}
 </td>

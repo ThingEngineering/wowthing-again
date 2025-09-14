@@ -1,10 +1,9 @@
 <script lang="ts">
-    import { basicTooltip } from '@/shared/utils/tooltips';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import type { Character } from '@/types';
     import type { GroupByContext } from '@/utils/get-character-group-func';
 
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
-    import { settingsState } from '@/shared/state/settings.svelte';
 
     type Props = { group: Character[]; groupByContext: GroupByContext };
     let { group, groupByContext }: Props = $props();
@@ -45,7 +44,7 @@
                 {:else if groupBy === 'pinned'}
                     {groupValue === 'a' ? 'Pinned' : 'Not pinned'}
                 {:else if groupBy === 'realm'}
-                    <span class="realm-abbreviated text-overflow" use:basicTooltip={groupValue}>
+                    <span class="realm-abbreviated text-overflow" data-tooltip={groupValue}>
                         {groupValue}
                     </span>
                 {:else if groupBy.startsWith('tag:')}

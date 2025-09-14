@@ -1,6 +1,5 @@
 <script lang="ts">
     import { ItemQuality } from '@/enums/item-quality';
-    import { basicTooltip } from '@/shared/utils/tooltips';
 
     export let qualities: number[];
     export let total = 100;
@@ -39,12 +38,7 @@
     }
 </style>
 
-<button
-    class="progress-container"
-    use:basicTooltip={{ allowHTML: true, content: tooltip }}
-    on:click
-    on:keypress
->
+<button class="progress-container" data-tooltip={tooltip} on:click on:keypress>
     {#each qualities as haveQuality, quality}
         <div
             class="progress-bar quality{quality}-border"

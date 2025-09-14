@@ -7,6 +7,7 @@
     import { sharedState } from '@/shared/state/shared.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { timeStore } from '@/shared/stores/time';
+    import { delegateBasicTooltips } from '@/shared/utils/tooltips';
     import { userAchievementStore, userQuestStore, userStore } from '@/stores';
     import { worldQuestStore } from '@/user-home/components/world-quests/store';
     import { userState } from '@/user-home/state/user';
@@ -26,8 +27,12 @@
 
     let ready = $state(false);
 
+    let basicTooltipsDelegate: ReturnType<typeof delegateBasicTooltips> = $state();
+
     onMount(async () => {
         sharedState.public = userStore.dataUrl.includes('/public-');
+
+        basicTooltipsDelegate = delegateBasicTooltips();
 
         await wowthingData.fetch(settingsState.value.general.language);
 
@@ -83,7 +88,10 @@
         ready = true;
     });
 
-    onDestroy(() => userUpdateHubStore.disconnect());
+    onDestroy(() => {
+        userUpdateHubStore.disconnect();
+        basicTooltipsDelegate?.destroy();
+    });
 
     $effect(() => {
         const headerLinks = document

@@ -1,34 +1,34 @@
+<svelte:options immutable={true} />
+
 <script lang="ts">
-    import { itemModifierMap } from '@/data/item-modifier'
-    import { basicTooltip } from '@/shared/utils/tooltips'
-    import { appearanceState } from '@/stores/local-storage'
-    import type { AppearanceDataModifiedAppearance } from '@/types/data/appearance'
+    import { itemModifierMap } from '@/data/item-modifier';
+    import { appearanceState } from '@/stores/local-storage';
+    import type { AppearanceDataModifiedAppearance } from '@/types/data/appearance';
 
-    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let has: boolean
-    export let modifiedAppearance: AppearanceDataModifiedAppearance
+    export let has: boolean;
+    export let modifiedAppearance: AppearanceDataModifiedAppearance;
 
-    let bonusId: number
-    let difficulty: string
-    let difficultyShort: string
-    let imageName: string
+    let bonusId: number;
+    let difficulty: string;
+    let difficultyShort: string;
+    let imageName: string;
     $: {
-        const mod = modifiedAppearance
+        const mod = modifiedAppearance;
 
-        imageName = `item/${mod.itemId}`
+        imageName = `item/${mod.itemId}`;
         if (mod.modifier > 0) {
-            imageName += `_${mod.modifier}`
+            imageName += `_${mod.modifier}`;
         }
 
         if (itemModifierMap[mod.modifier]) {
-            [difficulty, difficultyShort, bonusId] = itemModifierMap[mod.modifier]
-        }
-        else {
+            [difficulty, difficultyShort, bonusId] = itemModifierMap[mod.modifier];
+        } else {
             const modifierString = mod.modifier.toString();
-            [difficulty, difficultyShort, bonusId] = [modifierString, modifierString, 0]
+            [difficulty, difficultyShort, bonusId] = [modifierString, modifierString, 0];
         }
     }
 </script>
@@ -47,28 +47,19 @@
         border-top-right-radius: 0;
         margin-top: -1px;
     }
-
 </style>
-
-<svelte:options immutable={true} />
 
 <div
     class="appearance-item quality{modifiedAppearance.quality}"
-    class:missing={
-        (has && $appearanceState.highlightMissing) ||
-        (!has && !$appearanceState.highlightMissing)
-    }
+    class:missing={(has && $appearanceState.highlightMissing) ||
+        (!has && !$appearanceState.highlightMissing)}
 >
     <WowheadLink
         id={modifiedAppearance.itemId}
         type="item"
-        extraParams={bonusId ? { 'bonus': bonusId.toString() } : null}
+        extraParams={bonusId ? { bonus: bonusId.toString() } : null}
     >
-        <WowthingImage
-            name={imageName}
-            size={48}
-            border={1}
-        />
+        <WowthingImage name={imageName} size={48} border={1} />
 
         {#if has}
             <CollectedIcon />
@@ -76,10 +67,7 @@
     </WowheadLink>
 
     {#if difficulty}
-        <div
-            class="pill difficulty"
-            use:basicTooltip={difficulty}
-        >
+        <div class="pill difficulty" data-tooltip={difficulty}>
             {difficultyShort}
         </div>
     {/if}

@@ -1,7 +1,6 @@
 <script lang="ts">
     import { abominations, CovenantAbomination } from '@/data/covenant';
     import { wowthingData } from '@/shared/stores/data';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { userState } from '@/user-home/state/user';
     import type { CharacterShadowlandsCovenantFeature } from '@/types';
     import type { CharacterProps } from '@/types/props';
@@ -57,14 +56,14 @@
                 <div class="currencies">
                     <div
                         class="currency"
-                        use:basicTooltip={`${character.getItemCount(178061)}x ${wowthingData.items.items[178061].name}`}
+                        data-tooltip={`${character.getItemCount(178061)}x ${wowthingData.items.items[178061].name}`}
                     >
                         {character.getItemCount(178061)}
                         <WowthingImage name="item/178061" size={16} border={1} />
                     </div>
                     <div
                         class="currency"
-                        use:basicTooltip={`${character.getItemCount(183744)}x ${wowthingData.items.items[183744].name}`}
+                        data-tooltip={`${character.getItemCount(183744)}x ${wowthingData.items.items[183744].name}`}
                     >
                         {character.getItemCount(183744)}
                         <WowthingImage name="item/183744" size={16} border={1} />

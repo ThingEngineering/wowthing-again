@@ -1,6 +1,5 @@
 <script lang="ts">
     import { iconLibrary } from '@/shared/icons';
-    import { basicTooltip } from '@/shared/utils/tooltips/basic-tooltip';
     import type { SortableProps } from '@/types/props';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
@@ -14,7 +13,7 @@
 <td
     class="sortable sorted-{getSortState()}"
     onclick={() => setSortState()}
-    use:basicTooltip={'Movement Speed'}
+    data-tooltip="Movement Speed"
 >
     <IconifyIcon icon={iconLibrary.mdiRunFast} scale="0.9" />
 </td>

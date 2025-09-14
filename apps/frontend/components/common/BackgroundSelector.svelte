@@ -2,7 +2,6 @@
     import { userStore } from '@/stores';
     import { settingsState } from '@/shared/state/settings.svelte';
     import backgroundThumbUrl from '@/utils/background-thumb-url';
-    import { basicTooltip } from '@/shared/utils/tooltips';
 
     export let selected: number;
     export let showDefault = false;
@@ -55,8 +54,8 @@
             class="background border"
             class:selected={selected === background.id}
             data-id={background.id}
+            data-tooltip={background.description}
             on:click={onClick}
-            use:basicTooltip={background.description}
         >
             <img src={backgroundThumbUrl(background)} alt={background.description} />
 

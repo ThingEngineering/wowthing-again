@@ -5,7 +5,6 @@
     import { browserState } from '@/shared/state/browser.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import type { Character } from '@/types';
     import type { GroupByContext } from '@/utils/get-character-group-func';
 
@@ -129,11 +128,11 @@
         {:else if field === 'bestItemLevel'}
             <td
                 class="sortable sorted-{getSortState()}"
-                onclick={() => setSortState()}
-                use:basicTooltip={'Best Item Level'}>Best</td
+                data-tooltip="Best Item Level"
+                onclick={() => setSortState()}>Best</td
             >
         {:else if field === 'callings'}
-            <td use:basicTooltip={'Shadowlands Callings'}>
+            <td data-tooltip="Shadowlands Callings">
                 <IconifyIcon icon={iconStrings['calendar-quest']} /> SL
             </td>
         {:else if field === 'covenant'}
@@ -143,11 +142,11 @@
         {:else if field === 'currentLocation'}
             <HeadCurrentLocation {getSortState} {setSortState} />
         {:else if field === 'emissariesBfa'}
-            <td use:basicTooltip={'Battle for Azeroth Emissaries'}>
+            <td data-tooltip="Battle for Azeroth Emissaries">
                 <IconifyIcon icon={iconStrings['calendar-quest']} /> BfA
             </td>
         {:else if field === 'emissariesLegion'}
-            <td use:basicTooltip={'Legion Emissaries'}>
+            <td data-tooltip="Legion Emissaries">
                 <IconifyIcon icon={iconStrings['calendar-quest']} /> Legion
             </td>
         {:else if field === 'gear'}
@@ -168,8 +167,8 @@
         {:else if field === 'itemLevel'}
             <td
                 class="sortable sorted-{getSortState()}"
-                onclick={() => setSortState()}
-                use:basicTooltip={'Equipped Item Level'}>Equip</td
+                data-tooltip="Equipped Item Level"
+                onclick={() => setSortState()}>Equip</td
             >
         {:else if field === 'items'}
             {#if !isPublic}
@@ -203,14 +202,14 @@
         {:else if field === 'professionCooldowns'}
             <td
                 class="sortable sorted-{getSortState()}"
-                onclick={() => setSortState()}
-                use:basicTooltip={'Profession Cooldowns'}>CDs</td
+                data-tooltip="Profession Cooldowns"
+                onclick={() => setSortState()}>CDs</td
             >
         {:else if field === 'professionWorkOrders'}
             <td
                 class="sortable sorted-{getSortState()}"
-                onclick={() => setSortState()}
-                use:basicTooltip={'Profession Work Orders'}>WOs</td
+                data-tooltip="Profession Work Orders"
+                onclick={() => setSortState()}>WOs</td
             >
         {:else if field === 'professions'}
             <td>Professions</td>

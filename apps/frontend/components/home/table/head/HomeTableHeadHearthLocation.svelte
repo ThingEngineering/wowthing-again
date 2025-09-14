@@ -1,6 +1,5 @@
 <script lang="ts">
     import { imageStrings } from '@/data/icons';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import type { SortableProps } from '@/types/props';
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
@@ -19,8 +18,8 @@
 
 <td
     class="max-width sortable sorted-{getSortState()}"
+    data-tooltip="Hearth Location"
     onclick={() => setSortState()}
-    use:basicTooltip={'Hearth Location'}
 >
     <WowthingImage name={imageStrings.hearthstone} size={20} border={1} />
 </td>

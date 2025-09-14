@@ -3,7 +3,6 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { timeStore } from '@/shared/stores/time';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import type { CharacterProps } from '@/types/props';
 
@@ -40,10 +39,7 @@
             class:status-shrug={percent >= 50 && percent < 100}
             class:status-fail={percent >= 100}
             class:faded={amount === '0' && percent === 0}
-            use:basicTooltip={{
-                allowHTML: true,
-                content: tooltip,
-            }}
+            data-tooltip={tooltip}
         >
             {amount}
         </td>

@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { basicTooltip } from '@/shared/utils/tooltips';
-    // import { componentTooltip } from '@/shared/utils/tooltips';
     import { activeViewProgress } from '@/user-home/state/activeViewProgress.svelte';
     import type { SortableProps } from '@/types/props';
 
@@ -20,9 +18,9 @@
 {#each activeProgress as [progressKey, , group] (progressKey)}
     <td
         class="sortable sorted-{getSortState(progressKey)}"
-        onclick={() => setSortState(progressKey)}
-        use:basicTooltip={group.name}
         data-progress={progressKey}
+        data-tooltip={group.name}
+        onclick={() => setSortState(progressKey)}
     >
         <WowthingImage name={group.icon} size={16} border={1} />
     </td>

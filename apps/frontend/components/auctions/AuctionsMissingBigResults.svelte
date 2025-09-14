@@ -12,7 +12,7 @@
     import { iconLibrary } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { basicTooltip, componentTooltip } from '@/shared/utils/tooltips';
+    import { componentTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';
     import { auctionState } from '@/stores/local-storage';
     import { userState } from '@/user-home/state/user';
@@ -401,7 +401,7 @@
                                             {:else}
                                                 <button
                                                     class="clipboard"
-                                                    use:basicTooltip={'Copy to clipboard'}
+                                                    data-tooltip="Copy to clipboard"
                                                     onclick={() =>
                                                         navigator.clipboard.writeText(item.name)}
                                                 >
@@ -504,7 +504,7 @@
                     <span class="shopping-list">
                         <button
                             class="clipboard"
-                            use:basicTooltip={'Copy shopping list to clipboard'}
+                            data-tooltip="Copy shopping list to clipboard"
                             onclick={() => exportShoppingList()}
                         >
                             <IconifyIcon icon={iconLibrary.mdiClipboardPlusOutline} scale="0.9" />
@@ -512,7 +512,7 @@
                     </span>
                     <span
                         class="total-gold"
-                        use:basicTooltip={'Total gold required to buy the cheapest of each item'}
+                        data-tooltip="Total gold required to buy the cheapest of each item"
                     >
                         {Math.floor(
                             things.reduce((a, b) => a + b.auctions[0].buyoutPrice, 0) / 10000

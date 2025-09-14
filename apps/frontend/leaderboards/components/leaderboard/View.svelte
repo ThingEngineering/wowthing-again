@@ -2,7 +2,6 @@
     import sortBy from 'lodash/sortBy';
     import { replace } from 'svelte-spa-router';
 
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import type { LeaderboardEntry } from './types';
 
     import Paginate from '@/shared/components/paginate/Paginate.svelte';
@@ -137,7 +136,7 @@
                         {rank.toLocaleString()}
                     </div>
                     <div class="info">
-                        <div class="name text-overflow" use:basicTooltip={username}>
+                        <div class="name text-overflow" data-tooltip={username}>
                             {#if linkTo}
                                 <a href="/user/{username}#/" target="_blank">{username}</a>
                             {:else}

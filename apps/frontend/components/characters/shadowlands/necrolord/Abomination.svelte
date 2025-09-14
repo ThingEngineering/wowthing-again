@@ -1,7 +1,6 @@
 <script lang="ts">
     import { classIdToArmorType } from '@/data/character-class';
     import { wowthingData } from '@/shared/stores/data';
-    import { basicTooltip } from '@/shared/utils/tooltips';
     import type { CovenantAbomination } from '@/data/covenant';
     import type { Character, CharacterShadowlandsCovenantFeature } from '@/types';
 
@@ -104,7 +103,7 @@
             <div
                 class="cost"
                 class:status-success={character.getItemCount(178061) >= abomination.flesh}
-                use:basicTooltip={`${abomination.flesh}x ${wowthingData.items.items[178061].name}`}
+                data-tooltip={`${abomination.flesh}x ${wowthingData.items.items[178061].name}`}
             >
                 {abomination.flesh}
                 <WowthingImage name="item/178061" size={16} border={1} />
@@ -114,7 +113,7 @@
                 <div
                     class="cost"
                     class:status-success={character.getItemCount(183744) >= abomination.parts}
-                    use:basicTooltip={`${abomination.parts}x ${wowthingData.items.items[183744].name}`}
+                    data-tooltip={`${abomination.parts}x ${wowthingData.items.items[183744].name}`}
                 >
                     {abomination.parts}
                     <WowthingImage name="item/183744" size={16} border={1} />
