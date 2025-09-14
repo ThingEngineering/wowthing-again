@@ -144,7 +144,7 @@
                             <IconifyIcon dropShadow={true} icon={soulbindSockets[column[1]]} />
                         </SpellLink>
                     {:else}
-                        <div class="empty-socket" data-tooltip={'Empty socket'}>
+                        <div class="empty-socket" data-tooltip="Empty socket">
                             <IconifyIcon dropShadow={true} icon={soulbindSockets[column[1]]} />
                         </div>
                     {/if}

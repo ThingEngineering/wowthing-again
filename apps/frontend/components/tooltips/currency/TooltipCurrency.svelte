@@ -1,7 +1,6 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
-    import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
     import { getCharacterNameRealm } from '@/utils/get-character-name-realm';
