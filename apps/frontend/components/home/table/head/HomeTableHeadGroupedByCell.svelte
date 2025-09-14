@@ -28,7 +28,7 @@
 
 <div class="flex-wrapper">
     <div class="flex-wrapper groupings">
-        {#each groupByContext?.groupBy as groupBy, groupByIndex}
+        {#each groupByContext?.groupBy as groupBy, groupByIndex (groupBy)}
             {@const groupValue = groupedByValues[groupByIndex]}
             <span>
                 {#if groupBy === 'account'}
