@@ -79,7 +79,7 @@
                     {/if}
                 {/each}
             {:else}
-                <td class="warband-bank" colspan={commonFields.length}> Warbank Bank </td>
+                <td class="warband-bank" colspan={commonFields.length}> Warband Bank </td>
             {/if}
 
             <slot name="rowExtra" />
