@@ -68,16 +68,21 @@
 
         display: inline-block;
         margin-bottom: 0.5rem;
+        width: 23.5rem;
     }
     th {
         background-color: var(--color-highlight-background);
         font-weight: normal;
     }
+    th.item {
+        --width: 18.5rem;
+    }
     .item {
         --image-border-width: 1px;
         --image-margin-top: -4px;
 
-        padding: 0.2rem inherit;
+        padding-bottom: 0.2rem;
+        padding-top: 0.2rem;
         text-align: left;
     }
     .ignore {
@@ -95,17 +100,21 @@
         }
     }
     .realm {
-        --padding-left: 0;
+        --padding-right: 0;
         --width: 11rem;
+
+        max-width: var(--width);
     }
     .level {
+        --padding-right: 0;
         --width: 1.8rem;
 
         text-align: right;
         white-space: nowrap;
     }
     .price {
-        --width: 4.5rem;
+        --padding-left: 0;
+        --width: 5.6rem;
 
         text-align: right;
         white-space: nowrap;
@@ -115,7 +124,8 @@
         }
     }
     .time-left {
-        --width: 4.2rem;
+        --padding-left: 0;
+        --width: 4.8rem;
 
         text-align: right;
         word-spacing: -0.2ch;

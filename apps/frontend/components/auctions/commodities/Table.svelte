@@ -55,7 +55,8 @@
         background: var(--color-highlight-background);
         border-left: 1px solid var(--border-color);
         border-right: 1px solid var(--border-color);
-        margin-right: var(--padding-width);
+        margin-right: var(--padding-size);
+        padding: 0 var(--padding-size);
     }
     .name {
         --width: 16rem;
