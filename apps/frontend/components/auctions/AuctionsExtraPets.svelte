@@ -37,6 +37,7 @@
         gap: 20px;
     }
     .pet-wrapper {
+        align-items: flex-start;
         display: inline-flex;
         gap: 0.5rem;
         margin-bottom: 1rem;
@@ -50,14 +51,18 @@
 
         background-color: var(--color-highlight-background);
         font-weight: normal;
-        padding: 0.2rem inherit;
+        padding-bottom: 0.2rem;
+        padding-top: 0.2rem;
         text-align: left;
     }
     .realm {
         --width: 12rem;
+
+        max-width: var(--width);
     }
     .price {
-        --width: 5.3rem;
+        --padding-left: 0;
+        --width: 5.7rem;
 
         text-align: right;
 
@@ -66,21 +71,22 @@
         }
     }
     .pet-location {
-        padding-left: 0.25rem;
+        --padding-left: 0.1rem;
 
         :global(svg) {
             margin-top: -4px;
         }
     }
     .pet-level {
-        --width: 1.5rem;
-        --padding-left: 0.1rem;
-        --padding-right: 0.1rem;
+        --padding-left: 0;
+        --width: 1.8rem;
 
         text-align: right;
     }
     .pet-breed {
-        --width: 2.2rem;
+        --padding-left: 0;
+        --padding-right: 0.1rem;
+        --width: 2.6rem;
 
         text-align: center;
         letter-spacing: 0.2ch;
@@ -144,11 +150,12 @@
                                     {#if !$auctionState.extraPetsIgnoreJournal || pet.location !== ItemLocation.PetCollection}
                                         <tr>
                                             <td
-                                                class="pet-location drop-shadow"
+                                                class="pet-location"
                                                 data-location={pet.location}
                                                 use:basicTooltip={petLocationTooltip(pet)}
                                             >
                                                 <IconifyIcon
+                                                    extraClass="drop-shadow"
                                                     icon={itemLocationIcons[pet.location]}
                                                     scale="0.9"
                                                 />

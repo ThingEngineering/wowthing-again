@@ -170,6 +170,7 @@
     th {
         background-color: var(--color-highlight-background);
         font-weight: normal;
+        width: 23.5rem !important;
     }
     .filter-highlight {
         td {
@@ -181,7 +182,8 @@
         // --image-margin-top: -4px;
 
         max-width: 22rem;
-        padding: 0.2rem inherit;
+        padding-bottom: 0.2rem;
+        padding-top: 0.2rem;
         text-align: left;
 
         :global(a) {
@@ -214,19 +216,23 @@
         margin-right: -2px;
     }
     .realm {
-        --padding-left: 0;
-        --width: 11rem;
+        --width: 13rem;
 
         cursor: pointer;
+        max-width: var(--width);
     }
     .price {
-        --width: 5.5rem;
+        --padding-left: 0;
+        --width: 5.6rem;
 
+        max-width: var(--width);
         text-align: right;
         white-space: nowrap;
+        word-spacing: -0.2ch;
     }
     .time-left {
-        --width: 4.2rem;
+        --padding-left: 0;
+        --width: 4.8rem;
 
         text-align: right;
         word-spacing: -0.2ch;
