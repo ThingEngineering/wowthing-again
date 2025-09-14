@@ -30,6 +30,8 @@
 <style lang="scss">
     th {
         --image-border-width: 2px;
+        --padding-left: 0;
+        --padding-right: 0;
         --width: var(--width-currency);
         --width-max: var(--width-currency-max);
 
@@ -45,7 +47,7 @@
 </style>
 
 <th
-    class={cls}
+    class="width-max {cls}"
     use:componentTooltip={{
         component: Tooltip,
         props: {
