@@ -73,8 +73,9 @@ export const twwChores11_2_0: Task = {
             key: 'twwEcologicalSuccession',
             name: 'Ecological Succession',
             icon: iconLibrary.gameBearFace,
-            questIds: [85460],
             questReset: DbResetType.Weekly,
+            // questResetForced: true,
+            questIds: [85460],
             couldGetFunc: () => userState.quests.anyCharacterHasById.has(85262), // The Royal Procession
         },
         {

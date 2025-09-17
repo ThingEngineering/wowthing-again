@@ -97,7 +97,7 @@ export const dragonflightTailoring: TaskProfession = {
     id: Profession.Tailoring,
     subProfessionId: 2831,
     masterQuestId: 70260,
-    orderQuest: tailoringExamplesQuest(70594),
+    orderQuest: tailoringExamplesQuest(70595),
     treatiseQuest: {
         itemId: 194698, // Draconic Treatise on Tailoring
         questId: 74115,
