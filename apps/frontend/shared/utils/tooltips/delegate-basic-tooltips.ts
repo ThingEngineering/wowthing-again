@@ -3,7 +3,7 @@ import { delegate } from 'tippy.js';
 import { defaultProps } from '@/shared/utils/tooltips/default-props';
 
 export const delegateBasicTooltips = () => {
-    const appNode = document.getElementById('app');
+    const appNode = document.getElementsByTagName('body')[0];
     return delegate(appNode, {
         target: '[data-tooltip]',
         ...defaultProps,
