@@ -21,7 +21,7 @@
         charTask &&
             Object.values(charTask.chores).every((charChore) => {
                 const oof = task.chores.find((chore) => chore?.key === charChore.key);
-                return oof?.noProgress === true || charChore?.status > 0;
+                return charChore.skipped || oof?.noProgress === true || charChore?.status > 0;
             })
     );
 </script>
@@ -50,7 +50,7 @@
         data-character-id={character.id}
         data-full-task-name={fullTaskName}
     >
-        {#if task.chores.length === 1}
+        {#if Object.values(charTask.chores).filter((chore) => !chore.skipped).length === 1}
             {#if charTask.status === QuestStatus.Completed}
                 <IconifyIcon icon={uiIcons.starFull} />
             {:else if charTask.countCompleted === charTask.countTotal}
