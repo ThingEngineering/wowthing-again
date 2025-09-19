@@ -69,6 +69,7 @@ export const twwChores11_1_0: Task = {
             key: 'twwRaidPull',
             name: '[Raid] Rune Dispenser',
             icon: iconLibrary.mdiSlotMachineOutline,
+            noProgress: true,
             questIds: [89350],
             questReset: DbResetType.Weekly,
         },
