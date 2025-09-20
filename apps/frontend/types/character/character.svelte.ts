@@ -472,7 +472,11 @@ export class Character implements ContainsItems, HasNameAndRealm {
         }
     }
 
-    hidden = $derived.by(() => settingsState.value.characters.hiddenCharacters?.includes(this.id));
+    hidden = $derived.by(
+        () =>
+            settingsState.value.characters.hiddenCharacters?.includes(this.id) ||
+            (settingsState.value.characters.hideDisabledAccounts && this.account?.enabled === false)
+    );
     ignored = $derived.by(
         () => this.hidden || settingsState.value.characters.ignoredCharacters?.includes(this.id)
     );
