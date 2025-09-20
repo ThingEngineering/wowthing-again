@@ -70,7 +70,7 @@ public class ItemSearchController : Controller
         var itemMap = items.ToDictionary(item => item.Id, item => item.String);
 
         var characterTemp = await _context.PlayerCharacter
-            .Where(pc => pc.Account.UserId == user.Id && pc.Account.Enabled == true)
+            .Where(pc => pc.Account.UserId == user.Id)
             .Select(pc => new { pc.Id, pc.GuildId })
             .ToArrayAsync();
 

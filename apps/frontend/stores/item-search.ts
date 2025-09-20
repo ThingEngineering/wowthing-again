@@ -9,6 +9,7 @@ import type {
     ItemSearchResponseItem,
 } from '@/types/items';
 import { userState } from '@/user-home/state/user';
+import { settingsState } from '@/shared/state/settings.svelte';
 
 type ItemSearchGroupBy = 'character' | 'item';
 
@@ -45,17 +46,22 @@ export class ItemSearchState {
             for (const item of result) {
                 // Combine character items into a single stack
                 const characterMap: Record<string, ItemSearchResponseCharacter[]> = {};
-                for (const character of item.characters || []) {
+                for (const responseChar of item.characters || []) {
+                    const character = userState.general.characterById[responseChar.characterId];
+                    if (character.hidden) {
+                        continue;
+                    }
+
                     const key = [
-                        character.characterId,
-                        character.location,
-                        character.quality,
-                        character.itemLevel,
-                        (character.bonusIds || []).join(':'),
+                        responseChar.characterId,
+                        responseChar.location,
+                        responseChar.quality,
+                        responseChar.itemLevel,
+                        (responseChar.bonusIds || []).join(':'),
                     ].join('|');
 
                     characterMap[key] ||= [];
-                    characterMap[key].push(character);
+                    characterMap[key].push(responseChar);
                 }
 
                 const newCharacters: ItemSearchResponseCharacter[] = [];
