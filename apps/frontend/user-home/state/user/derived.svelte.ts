@@ -505,7 +505,8 @@ export class DataUserDerived {
                 const questProgress = characterQuests?.progressQuestByKey?.get(`q${questId}`);
                 if (
                     questProgress &&
-                    (questProgress.expires > timeState.slowTime.toUnixInteger() ||
+                    (!resetForced ||
+                        questProgress.expires > timeState.slowTime.toUnixInteger() ||
                         expiresAt > timeState.slowTime)
                 ) {
                     charChore.quest = questProgress;
