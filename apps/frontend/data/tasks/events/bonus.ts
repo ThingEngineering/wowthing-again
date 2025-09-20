@@ -15,6 +15,7 @@ export const eventBonus: Task = {
             minimumLevel: 10,
             requiredHolidays: [Holiday.BonusDelve],
             questReset: DbResetType.Weekly,
+            questResetForced: true,
             questIds: [84776], // A Call to Delves
         },
         {
@@ -23,6 +24,7 @@ export const eventBonus: Task = {
             minimumLevel: 10,
             requiredHolidays: [Holiday.BonusDungeon],
             questReset: DbResetType.Weekly,
+            questResetForced: true,
             questIds: [83347], // Emissary of War
         },
         {
@@ -31,6 +33,7 @@ export const eventBonus: Task = {
             minimumLevel: 10,
             requiredHolidays: [Holiday.BonusWorldQuest],
             questReset: DbResetType.Weekly,
+            questResetForced: true,
             questIds: [83366], // The World Awaits
         },
         {
@@ -39,6 +42,7 @@ export const eventBonus: Task = {
             minimumLevel: 10,
             requiredHolidays: [Holiday.BonusArenaSkirmish],
             questReset: DbResetType.Weekly,
+            questResetForced: true,
             questIds: [83358], // The Arena Calls
         },
         {
@@ -47,6 +51,7 @@ export const eventBonus: Task = {
             minimumLevel: 10,
             requiredHolidays: [Holiday.BonusBattleground],
             questReset: DbResetType.Weekly,
+            questResetForced: true,
             questIds: [83345], // A Call to Battle
         },
         {
@@ -55,6 +60,7 @@ export const eventBonus: Task = {
             minimumLevel: 10,
             requiredHolidays: [Holiday.BonusPetBattle],
             questReset: DbResetType.Weekly,
+            questResetForced: true,
             questIds: [83357], // The Very Best
         },
     ],

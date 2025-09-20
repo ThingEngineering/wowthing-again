@@ -434,7 +434,7 @@ export class DataUserDerived {
             // Use chore progress if there's only one
             if (charTask.status === QuestStatus.InProgress) {
                 const charChores = Object.values(charTask.chores);
-                if (charChores.length === 1) {
+                if (charChores.filter((chore) => !chore.skipped).length === 1) {
                     charTask.countCompleted = charChores[0].progressCurrent;
                     charTask.countTotal = charChores[0].progressTotal;
                     charTask.countStarted = charTask.countTotal - charTask.countCompleted;
@@ -477,9 +477,25 @@ export class DataUserDerived {
         const charChore = new CharacterChore(chore.key, undefined);
         const charScanned = characterQuests.scannedTime;
         const choreReset = chore.questReset || parent?.questReset;
+        const resetForced = chore.questResetForced === true || parent?.questResetForced === true;
 
         // if (chore.questReset !== undefined) {
         if (chore.questIds) {
+            let expiresAt: DateTime;
+            if (choreReset === DbResetType.Weekly) {
+                expiresAt = getNextWeeklyResetFromTime(
+                    charScanned,
+                    character.realm?.region || Region.US
+                );
+            } else if (choreReset === DbResetType.Custom) {
+                expiresAt = chore.customExpiryFunc(character, charScanned);
+            } else if (choreReset !== DbResetType.Never) {
+                expiresAt = getNextDailyResetFromTime(
+                    charScanned,
+                    character.realm?.region || Region.US
+                );
+            }
+
             const questIds =
                 typeof chore.questIds === 'function'
                     ? chore.questIds(character, chore)
@@ -487,8 +503,13 @@ export class DataUserDerived {
             for (const questId of questIds) {
                 // is the quest in progress?
                 const questProgress = characterQuests?.progressQuestByKey?.get(`q${questId}`);
-                if (questProgress) {
+                if (
+                    questProgress &&
+                    (questProgress.expires > timeState.slowTime.toUnixInteger() ||
+                        expiresAt > timeState.slowTime)
+                ) {
                     charChore.quest = questProgress;
+                    charChore.quest.expires ||= expiresAt.toUnixInteger();
                     charChore.status = questProgress.status;
 
                     if (
@@ -496,12 +517,6 @@ export class DataUserDerived {
                         questProgress.objectives?.length > 0
                     ) {
                         charChore.statusTexts = this.getObjectivesText(questProgress.objectives);
-                    }
-
-                    if (choreReset === DbResetType.Custom) {
-                        charChore.quest.expires = chore
-                            .customExpiryFunc(character, charScanned)
-                            .toUnixInteger();
                     }
 
                     break;
@@ -524,7 +539,11 @@ export class DataUserDerived {
                         );
                     }
 
-                    if (choreReset === DbResetType.Never || expiresAt > timeState.slowTime) {
+                    if (
+                        choreReset === DbResetType.Never ||
+                        !resetForced ||
+                        expiresAt > timeState.slowTime
+                    ) {
                         charChore.progressCurrent = 1;
                         charChore.quest = {
                             expires: expiresAt?.toUnixInteger(),
@@ -614,7 +633,7 @@ export class DataUserDerived {
 
         if (
             !!charChore.quest &&
-            ((!chore.questResetForced && !parent?.questResetForced) ||
+            (!resetForced ||
                 DateTime.fromSeconds(charChore.quest.expires) > timeState.slowTime ||
                 (chore.key.startsWith('dmf') && charChore.quest.expires === 0))
         ) {

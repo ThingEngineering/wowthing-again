@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash/cloneDeep';
 import groupBy from 'lodash/groupBy';
 import sortBy from 'lodash/sortBy';
 import uniq from 'lodash/uniq';
@@ -71,7 +72,13 @@ export class DataUserGeneral {
     public process(userData: UserData): void {
         console.time('DataUserGeneral.process');
 
-        this.accountById = userData.accounts;
+        this.accountById = cloneDeep(userData.accounts);
+        for (const account of Object.values(this.accountById)) {
+            const isEnabled = settingsState.value.accounts[account.id]?.enabled;
+            if (isEnabled !== undefined) {
+                account.enabled = isEnabled;
+            }
+        }
 
         // Create or update Guild objects
         for (const guildArray of userData.guildsRaw) {
@@ -103,6 +110,7 @@ export class DataUserGeneral {
                 this.characterById[characterId] = character;
             }
 
+            character.account ||= this.accountById[character.accountId];
             character.guild ||= this.guildById[character.guildId];
             character.realm ||= wowthingData.static.realmById.get(character.realmId);
         }
