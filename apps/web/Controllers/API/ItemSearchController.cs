@@ -88,10 +88,11 @@ public class ItemSearchController : Controller
         PlayerGuildItem[] guildItems = [];
         PlayerWarbankItem[] warbankItems = [];
 
-        if (form.Location is ItemLocation.Any or ItemLocation.Bags or ItemLocation.Bank or ItemLocation.ReagentBank)
+        if (form.Location is ItemLocation.Any or ItemLocation.Bags or ItemLocation.Bank)
         {
             // Character items
             characterItems = await _context.PlayerCharacterItem
+                .Where(pci => pci.Location != ItemLocation.ReagentBank)
                 .Where(pci => characterIds.Contains(pci.CharacterId))
                 .Where(pci => itemIds.Contains(pci.ItemId))
                 .ToArrayAsync();
