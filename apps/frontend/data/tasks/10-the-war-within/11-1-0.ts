@@ -53,7 +53,7 @@ export const twwChores11_1_0: Task = {
         {
             key: 'twwUndermineSpecial',
             name: '[Um] Special Assignment',
-            noProgress: true,
+            alwaysStarted: true,
             questReset: DbResetType.Weekly,
             subChores: [
                 {
@@ -67,7 +67,7 @@ export const twwChores11_1_0: Task = {
                 {
                     key: 'assignment',
                     name: 'Assignment',
-                    noProgress: true,
+                    alwaysStarted: true,
                     questIds: [
                         85487, // Boom! Headshot!
                         85488, // Security Detail
@@ -87,7 +87,7 @@ export const twwChores11_1_0: Task = {
             key: 'twwRaidPull',
             name: '[Raid] Rune Dispenser',
             icon: iconLibrary.mdiSlotMachineOutline,
-            noProgress: true,
+            alwaysStarted: true,
             questReset: DbResetType.Weekly,
             questIds: [89350],
         },

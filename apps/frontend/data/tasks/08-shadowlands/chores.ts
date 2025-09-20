@@ -11,7 +11,7 @@ export const slChores: Task = {
         {
             key: 'dungeons',
             name: 'Dungeons',
-            noProgress: true,
+            alwaysStarted: true,
             subChoresAnyOrder: true,
             subChores: [
                 {

@@ -650,7 +650,7 @@ export class DataUserDerived {
 
                 charChore.statusTexts = this.getObjectivesText(charChore.quest.objectives);
             }
-        } else if (chore.noProgress && charChore.status === QuestStatus.NotStarted) {
+        } else if (chore.alwaysStarted && charChore.status === QuestStatus.NotStarted) {
             charChore.status = QuestStatus.InProgress;
         }
 

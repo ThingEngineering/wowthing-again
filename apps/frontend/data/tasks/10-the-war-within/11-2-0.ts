@@ -30,8 +30,9 @@ export const twwChores11_2_0: Task = {
             name: 'World Boss',
             accountWide: true,
             icon: iconLibrary.emojiZzz,
-            questIds: [87352],
             questReset: DbResetType.Weekly,
+            questResetForced: true,
+            questIds: [87352],
         },
         {
             key: 'twwMoreThanPhase',
@@ -48,10 +49,12 @@ export const twwChores11_2_0: Task = {
             icon: iconLibrary.gameScrollQuill,
             showQuestName: true,
             questReset: DbResetType.Weekly,
+            questResetForced: true,
             subChores: [
                 {
                     key: 'unlock',
                     name: 'World Quests',
+
                     questIds: [
                         91193, // Overshadowed Unlock
                         91203, // Aligned Views Unlock
@@ -60,7 +63,7 @@ export const twwChores11_2_0: Task = {
                 {
                     key: 'assignment',
                     name: 'Assignment',
-                    noProgress: true,
+                    alwaysStarted: true,
                     questIds: [
                         89293, // Overshadowed
                         89294, // Aligned Views

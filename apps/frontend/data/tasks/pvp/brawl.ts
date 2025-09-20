@@ -13,7 +13,7 @@ export const pvpBrawl: Task = {
             key: 'brawlFirstWin',
             name: 'First Win',
             noAlone: true,
-            noProgress: true,
+            alwaysStarted: true,
             questIds: [47144],
             questReset: DbResetType.Daily,
         },
