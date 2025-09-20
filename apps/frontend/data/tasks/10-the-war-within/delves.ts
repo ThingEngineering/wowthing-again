@@ -25,7 +25,7 @@ export const twwDelves: Task = {
         {
             key: 'gilded',
             name: 'Gilded Stash',
-            icon: iconComponents.EmojioneGemStone,
+            icon: iconComponents.GameCutDiamond,
             minimumLevel: 80,
             questReset: DbResetType.Weekly,
             questResetForced: true,
@@ -42,7 +42,7 @@ export const twwDelves: Task = {
         {
             key: 'map',
             name: 'Map Drop',
-            icon: iconComponents.EmojioneWorldMap,
+            icon: iconComponents.GameTreasureMap,
             minimumLevel: 80,
             noProgress: true,
             questReset: DbResetType.Weekly,
