@@ -21,7 +21,7 @@
         charTask &&
             Object.values(charTask.chores).every((charChore) => {
                 const oof = task.chores.find((chore) => chore?.key === charChore.key);
-                return charChore.skipped || oof?.noProgress === true || charChore?.status > 0;
+                return charChore.skipped || oof?.alwaysStarted === true || charChore?.status > 0;
             })
     );
 </script>

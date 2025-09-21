@@ -21,6 +21,10 @@
         border-left: 1px solid var(--border-color);
         text-align: right;
 
+        &.has-icon {
+            --width: calc(var(--width-progress) + 2.8rem);
+            --max-width: calc(var(--width-progress-max) + 2.8rem);
+        }
         &.status-fail {
             text-align: center;
         }

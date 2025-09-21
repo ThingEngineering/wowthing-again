@@ -47,7 +47,7 @@ export function buildProfessionChores(
             chores.push({
                 key: `${name}Drops`,
                 name: `${name}: Drops`,
-                noProgress: true,
+                alwaysStarted: true,
                 subChoresAnyOrder: true,
                 questReset: DbResetType.Weekly,
                 subChores: taskProfession.dropQuests.map((taskQuest, index) => ({
@@ -66,7 +66,7 @@ export function buildProfessionChores(
             chores.push({
                 key: `${name}Gather`,
                 name: `${name}: Gather`,
-                noProgress: true,
+                alwaysStarted: true,
                 questReset: DbResetType.Weekly,
                 subChores: taskProfession.gatherQuests.map((taskQuest, index) => ({
                     key: `gather${index}`,
@@ -90,7 +90,7 @@ export function buildProfessionChores(
                     {
                         key: 'treatise',
                         name: `{item:${taskProfession.treatiseQuest.itemId}}`,
-                        noProgress: true,
+                        alwaysStarted: true,
                         questIds: [taskProfession.treatiseQuest.questId],
                     },
                 ],

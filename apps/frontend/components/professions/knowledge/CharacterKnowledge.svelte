@@ -36,7 +36,7 @@
 
 <style lang="scss">
     td {
-        --width: 4.4rem;
+        --width: 5.5rem;
     }
     span {
         word-spacing: -0.2ch;

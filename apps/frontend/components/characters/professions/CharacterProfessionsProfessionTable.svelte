@@ -42,7 +42,7 @@
             let currentRank = 1;
             let totalRanks = 1;
 
-            if (ability.extraRanks) {
+            if (ability.extraRanks?.length > 0) {
                 totalRanks = 1 + ability.extraRanks.length;
                 for (let rankIndex = ability.extraRanks.length - 1; rankIndex >= 0; rankIndex--) {
                     const [rankAbilityId, rankSpellId] = ability.extraRanks[rankIndex];
@@ -68,10 +68,6 @@
                 }
             } else {
                 if (knownRecipes.has(ability.id)) {
-                    if (!$charactersState.professionsShowLearned) {
-                        continue;
-                    }
-
                     if (
                         ability.firstCraftQuestId &&
                         userState.quests.characterById
@@ -91,6 +87,14 @@
 
                     has = true;
                 }
+            }
+
+            if (
+                has &&
+                (!hasRanks || currentRank === totalRanks) &&
+                !$charactersState.professionsShowLearned
+            ) {
+                continue;
             }
 
             if (

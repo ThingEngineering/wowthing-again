@@ -25,8 +25,8 @@ export type Chore = {
     name: string;
     icon?: IconifyIcon | Component<SvelteHTMLElements['svg']>;
     accountWide?: boolean;
+    alwaysStarted?: boolean;
     noAlone?: boolean;
-    noProgress?: boolean;
     showQuestName?: boolean;
     minimumLevel?: number;
     maximumLevel?: number;
