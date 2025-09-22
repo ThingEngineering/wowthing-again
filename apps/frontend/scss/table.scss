@@ -164,3 +164,29 @@ $table-striped-hl-bg: lighten($table-hl-bg, 3%);
         text-align: center;
     }
 }
+
+// Grid reset
+.table-grid {
+    display: grid;
+    grid-template-columns: repeat(100, max-content);
+    break-inside: avoid;
+    overflow: hidden; /* Firefox fix */
+
+    thead,
+    tbody,
+    tr {
+        display: grid;
+        grid-column: 1 / -1;
+        grid-template-columns: subgrid;
+    }
+
+    th,
+    td {
+        display: block;
+        width: 100%;
+
+        &[colspan] {
+            grid-column: span attr(colspan type(<number>));
+        }
+    }
+}
