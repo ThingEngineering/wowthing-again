@@ -525,26 +525,7 @@ export class DataUserDerived {
 
                 // is the quest completed?
                 if (characterQuests?.hasQuestById?.has(questId)) {
-                    let expiresAt: DateTime;
-                    if (choreReset === DbResetType.Weekly) {
-                        expiresAt = getNextWeeklyResetFromTime(
-                            charScanned,
-                            character.realm?.region || Region.US
-                        );
-                    } else if (choreReset === DbResetType.Custom) {
-                        expiresAt = chore.customExpiryFunc(character, charScanned);
-                    } else if (choreReset !== DbResetType.Never) {
-                        expiresAt = getNextDailyResetFromTime(
-                            charScanned,
-                            character.realm?.region || Region.US
-                        );
-                    }
-
-                    if (
-                        choreReset === DbResetType.Never ||
-                        !resetForced ||
-                        expiresAt > timeState.slowTime
-                    ) {
+                    if (choreReset === DbResetType.Never || expiresAt > timeState.slowTime) {
                         charChore.progressCurrent = 1;
                         charChore.quest = {
                             expires: expiresAt?.toUnixInteger(),
@@ -658,6 +639,8 @@ export class DataUserDerived {
             chore.showQuestName || chore.subChores?.length > 0
                 ? charChore.quest?.name || chore.name
                 : chore.name;
+
+        if (character.name === 'Jouko') console.log(charChore);
 
         return charChore;
     }
