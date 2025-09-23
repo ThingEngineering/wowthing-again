@@ -5,6 +5,7 @@
 
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { browserState } from '@/shared/state/browser.svelte';
 
     type Props = {
         character: Character;
@@ -46,7 +47,7 @@
             }
         }
 
-        if (season.purchases?.length > 0) {
+        if (season.purchases?.length > 0 && browserState.current.convertible.includePurchases) {
             const purchaseCurrencies: [number?, number?][] = [];
             const seenCostIds = new Set<number>();
             for (const purchaseData of season.purchases) {
