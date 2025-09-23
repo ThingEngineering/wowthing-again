@@ -640,8 +640,6 @@ export class DataUserDerived {
                 ? charChore.quest?.name || chore.name
                 : chore.name;
 
-        if (character.name === 'Jouko') console.log(charChore);
-
         return charChore;
     }
 

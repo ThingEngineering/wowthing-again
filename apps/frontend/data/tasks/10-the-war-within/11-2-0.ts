@@ -15,6 +15,7 @@ export const twwChores11_2_0: Task = {
             key: 'twwWarrant',
             name: 'Warrant',
             accountWide: true,
+            questReset: DbResetType.Weekly,
             questIds: [
                 90122, // Eliminate Xy'vox the Twisted
                 90123, // Eliminate Hollowbane
@@ -23,7 +24,6 @@ export const twwChores11_2_0: Task = {
                 90126, // Eliminate Grubber
                 90127, // Eliminate Arcana-Monger So'zer
             ],
-            questReset: DbResetType.Weekly,
         },
         {
             key: 'twwReshanor',
@@ -37,10 +37,9 @@ export const twwChores11_2_0: Task = {
         {
             key: 'twwMoreThanPhase',
             name: 'More Than Just a Phase',
-            // accountWide: true,
             icon: iconLibrary.mdiSwimDive,
-            questIds: [91093],
             questReset: DbResetType.Weekly,
+            questIds: [91093],
             couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
         },
         {
@@ -49,12 +48,11 @@ export const twwChores11_2_0: Task = {
             icon: iconLibrary.gameScrollQuill,
             showQuestName: true,
             questReset: DbResetType.Weekly,
-            questResetForced: true,
             subChores: [
                 {
                     key: 'unlock',
                     name: 'World Quests',
-
+                    questResetForced: true,
                     questIds: [
                         91193, // Overshadowed Unlock
                         91203, // Aligned Views Unlock
@@ -64,6 +62,7 @@ export const twwChores11_2_0: Task = {
                     key: 'assignment',
                     name: 'Assignment',
                     alwaysStarted: true,
+                    questResetForced: true,
                     questIds: [
                         89293, // Overshadowed
                         89294, // Aligned Views

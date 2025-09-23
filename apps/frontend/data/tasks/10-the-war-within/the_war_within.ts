@@ -14,7 +14,7 @@
 //     ...[1, 2, 3, 4].map((i) => ({
 //         taskKey: `shard${i}`,
 //         taskName: `[Half] Shards ${i}`,
-//         noProgress: true,
+//         alwaysStarted: true,
 //         questIds: [84735 + i],
 //         questReset: DbResetType.Weekly,
 //     })),
