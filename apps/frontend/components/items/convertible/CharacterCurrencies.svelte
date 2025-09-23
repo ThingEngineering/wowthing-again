@@ -64,7 +64,7 @@
 
 <style lang="scss">
     td {
-        --width: 3.5rem;
+        --width: 4.8rem;
 
         border-left: 1px solid var(--border-color);
     }
