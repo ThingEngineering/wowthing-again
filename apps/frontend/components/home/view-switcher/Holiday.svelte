@@ -82,17 +82,21 @@
 
         gap: 0.4rem;
     }
+    .farms {
+        margin: 0 -0.3rem;
+    }
+    .remaining {
+        border-left: 1px solid oklch(from var(--border-color) calc(l - 0.3) c h);
+        font-size: 0.9rem;
+        padding-left: 0.4rem;
+    }
     .stats {
+        font-size: 0.9rem;
         word-spacing: -0.7ch;
     }
 </style>
 
 <div class="flex-wrapper">
-    <ParsedText text="[{toNiceDuration(remainingTime)}]" />
-    <span>{fancyHoliday.shortName}</span>
-
-    <code class="stats {getPercentClass(stats.percent)}">{stats.have} / {stats.total}</code>
-
     <span class="farms">
         {#each farms as { farm, status } (farm)}
             <ParsedText
@@ -101,4 +105,9 @@
             />
         {/each}
     </span>
+
+    <span>{fancyHoliday.shortName}</span>
+
+    <code class="stats {getPercentClass(stats.percent)}">{stats.have} / {stats.total}</code>
+    <code class="remaining">{toNiceDuration(remainingTime)}</code>
 </div>

@@ -33,12 +33,12 @@
     }
     .tab {
         --image-border-width: 1px;
+        --image-margin-top: -4px;
 
         border: 1px solid var(--border-color);
-        border-top-left-radius: var(--border-radius-large);
-        border-top-right-radius: var(--border-radius-large);
+        border-radius: var(--border-radius-large);
         cursor: pointer;
-        margin-bottom: -1px;
+        margin-bottom: 0.2rem;
         max-width: 10rem;
         padding: 0.2rem 0.5rem;
         z-index: 10;
