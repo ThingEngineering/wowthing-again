@@ -14,8 +14,6 @@
     };
     let { category, costs, statsSlug, title }: Props = $props();
 
-    console.log(category);
-
     let useV2 = $derived(
         category.groups.length > 3 &&
             category.groups.reduce((a, b) => a + b.sellsFiltered.length, 0) > 30
