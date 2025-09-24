@@ -12,11 +12,7 @@ export const taskMap: Record<string, Task> = Object.fromEntries(
 );
 
 export const taskChoreMap = Object.fromEntries(
-    taskList
-        .filter((task) => task.chores.length > 1)
-        .flatMap((task) =>
-            task.chores
-                .filter((chore) => !!chore)
-                .map((chore) => [`${task.key}_${chore.key}`, chore])
-        )
+    taskList.flatMap((task) =>
+        task.chores.filter((chore) => !!chore).map((chore) => [`${task.key}_${chore.key}`, chore])
+    )
 );
