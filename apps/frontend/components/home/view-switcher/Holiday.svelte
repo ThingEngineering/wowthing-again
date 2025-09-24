@@ -1,6 +1,6 @@
 <script lang="ts">
     import { wowthingData } from '@/shared/stores/data';
-    import type { FancyHoliday } from '@/data/holidays';
+    import { holidayIds, type FancyHoliday } from '@/data/holidays';
     import { DbResetType, DbThingType } from '@/shared/stores/db/enums';
     import { DbDataThing, thingContentTypeToRewardType } from '@/shared/stores/db/types';
     import { UserCount } from '@/types';
@@ -9,15 +9,20 @@
     import { userHasLookup } from '@/utils/rewards/user-has-lookup';
     import { snapshotStateForUserHasLookup } from '@/utils/rewards/snapshot-state-for-user-has-lookup.svelte';
     import getPercentClass from '@/utils/get-percent-class';
-    import type { ActiveHoliday } from '@/user-home/state/activeHolidays.svelte';
+    import { activeHolidays } from '@/user-home/state/activeHolidays.svelte';
     import { timeState } from '@/shared/state/time.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import { toNiceDuration } from '@/utils/formatting';
     import { userState } from '@/user-home/state/user';
 
-    type Props = { activeHoliday: ActiveHoliday; fancyHoliday: FancyHoliday };
-    let { activeHoliday, fancyHoliday }: Props = $props();
+    type Props = { fancyHoliday: FancyHoliday };
+    let { fancyHoliday }: Props = $props();
 
+    let activeHoliday = $derived(
+        holidayIds[fancyHoliday.holiday]
+            .map((id) => activeHolidays.value[`h${id}`])
+            .find((h) => !!h)
+    );
     let remainingTime = $derived.by(() =>
         activeHoliday.endDate.diff(timeState.slowTime).toMillis()
     );

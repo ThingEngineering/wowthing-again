@@ -119,7 +119,7 @@
 //             key: 'loveCrownAccount',
 //             name: 'Crown Chemical Co. [Account]',
 //             accountWide: true,
-//             noProgress: true,
+//             alwaysStarted: true,
 //             questIds: [
 //                 74957, // X-45 Heartbreaker
 //                 79104, // Renewed Proto-Drake: Love Armor
@@ -130,7 +130,7 @@
 //         {
 //             key: 'loveDonation',
 //             name: 'Donate',
-//             noProgress: true,
+//             alwaysStarted: true,
 //             questIds: [78683],
 //             questReset: DbResetType.Daily,
 //         },

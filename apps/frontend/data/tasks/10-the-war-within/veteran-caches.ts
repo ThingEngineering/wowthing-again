@@ -9,7 +9,7 @@ export const twwVeteranCaches: Task = {
     chores: [91179, 91180].map((questId, index) => ({
         key: `cache${index}`,
         name: `{item:244865} #${index + 1}`, // Pinnacle Cache
-        noProgress: true,
+        alwaysStarted: true,
         questIds: [questId],
         questReset: DbResetType.Weekly,
     })),

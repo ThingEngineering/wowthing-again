@@ -18,7 +18,7 @@ export const twwDelves: Task = {
             subChores: [91175, 91176, 91177, 91178].map((questId, index) => ({
                 key: `key${index}`,
                 name: '{currency:3028}', // Restored Coffer Key
-                noProgress: true,
+                alwaysStarted: true,
                 questIds: [questId],
             })),
         },
@@ -32,7 +32,7 @@ export const twwDelves: Task = {
             subChores: [1, 2, 3].map((index) => ({
                 key: `stash${index}`,
                 name: '{currency:3290}', // Gilded Ethereal Crest
-                noProgress: true,
+                alwaysStarted: true,
                 progressFunc: (char) => {
                     const have = char.weekly?.delveGilded || 0;
                     return { have: have >= index ? 1 : 0, need: 1 };
@@ -117,7 +117,7 @@ export const twwDelves: Task = {
         //     key: 'twwDelveKyveza',
         //     name: "Ky'veza Invasion",
         //     minimumLevel: 80,
-        //     noProgress: true,
+        //     alwaysStarted: true,
         //     questIds: [], // ??
         //     questReset: DbResetType.Weekly,
         // },

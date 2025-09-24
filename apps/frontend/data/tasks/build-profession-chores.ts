@@ -53,7 +53,7 @@ export function buildProfessionChores(
                 subChores: taskProfession.dropQuests.map((taskQuest, index) => ({
                     key: `drop${index}`,
                     name: `{item:${taskQuest.itemId}}`,
-                    noProgress: true,
+                    alwaysStarted: true,
                     questIds: [taskQuest.questId],
                 })),
                 couldGetFunc,
@@ -71,7 +71,7 @@ export function buildProfessionChores(
                 subChores: taskProfession.gatherQuests.map((taskQuest, index) => ({
                     key: `gather${index}`,
                     name: `{item:${taskQuest.itemId}}`,
-                    noProgress: true,
+                    alwaysStarted: true,
                     showQuestName: true,
                     questIds: [taskQuest.questId],
                 })),

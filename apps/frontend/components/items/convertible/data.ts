@@ -14,7 +14,7 @@ export const currentUpgrade1: ConvertibleCategoryUpgrade[] = [
     {
         upgradeId: 3284,
         upgradeCost: 15,
-        achievementId: 40942, // Weathered of the Undermine
+        achievementId: 41886, // Weathered of the Ethereal
         achievementUpgradeCost: 10,
     },
 ];
@@ -22,7 +22,7 @@ export const currentUpgrade2: ConvertibleCategoryUpgrade[] = [
     {
         upgradeId: 3286,
         upgradeCost: 15,
-        achievementId: 40943, // Carved of the Undermine
+        achievementId: 41887, // Carved of the Ethereal
         achievementUpgradeCost: 10,
     },
 ];
@@ -30,7 +30,7 @@ export const currentUpgrade3: ConvertibleCategoryUpgrade[] = [
     {
         upgradeId: 3288,
         upgradeCost: 15,
-        achievementId: 40944, // Runed of the Undermine
+        achievementId: 41888, // Runed of the Ethereal
         achievementUpgradeCost: 10,
     },
 ];
@@ -38,7 +38,7 @@ export const currentUpgrade4: ConvertibleCategoryUpgrade[] = [
     {
         upgradeId: 3290,
         upgradeCost: 15,
-        achievementId: 40945, // Gilded of the Undermine
+        achievementId: 41892, // Gilded of the Ethereal
         achievementUpgradeCost: 10,
     },
 ];

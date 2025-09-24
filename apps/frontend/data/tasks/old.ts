@@ -529,47 +529,47 @@
 // //         {
 // //             key: 'twwSpreadingTheLight',
 // //             name: 'Spreading the Light',
-// //             noProgress: true,
+// //             alwaysStarted: true,
 // //         },
 // //         {
 // //             key: 'twwSpreadingBleak',
 // //             name: 'Bleak Sand',
-// //             noProgress: true,
+// //             alwaysStarted: true,
 // //         },
 // //         {
 // //             key: 'twwSpreadingDuskrise',
 // //             name: 'Duskrise Acreage',
-// //             noProgress: true,
+// //             alwaysStarted: true,
 // //         },
 // //         {
 // //             key: 'twwSpreadingFaded',
 // //             name: 'Faded Shore',
-// //             noProgress: true,
+// //             alwaysStarted: true,
 // //         },
 // //         {
 // //             key: 'twwSpreadingFungal',
 // //             name: 'Fungal Field',
-// //             noProgress: true,
+// //             alwaysStarted: true,
 // //         },
 // //         {
 // //             key: 'twwSpreadingLights',
 // //             name: "Light's Blooming",
-// //             noProgress: true,
+// //             alwaysStarted: true,
 // //         },
 // //         {
 // //             key: 'twwSpreadingStillstone',
 // //             name: 'Stillstone Pond',
-// //             noProgress: true,
+// //             alwaysStarted: true,
 // //         },
 // //         {
 // //             key: 'twwSpreadingTorchlight',
 // //             name: 'Torchlight Mine',
-// //             noProgress: true,
+// //             alwaysStarted: true,
 // //         },
 // //         {
 // //             key: 'twwSpreadingWhirring',
 // //             name: 'Whirring Field',
-// //             noProgress: true,
+// //             alwaysStarted: true,
 // //         },
 // //         {
 // //             key: 'twwSpreadingAttica',
