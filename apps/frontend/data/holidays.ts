@@ -39,6 +39,7 @@ export const holidayMinimumLevel: Record<number, number> = {
 };
 
 export const holidayIds: Record<number, number[]> = {
+    [Holiday.Brewfest]: [372],
     [Holiday.DarkmoonFaire]: [479],
     [Holiday.MidsummerFireFestival]: [11],
 
@@ -78,10 +79,16 @@ export const holidayMap: Record<number, Holiday> = Object.fromEntries(
         .flat()
 );
 
-export type FancyHoliday = { holiday: string; shortName: string; tag: string; vendorsKey: string };
+export type FancyHoliday = { holiday: Holiday; shortName: string; tag: string; vendorsKey: string };
 export const fancyHolidays: FancyHoliday[] = [
     {
-        holiday: 'holidayMidsummerFireFestival',
+        holiday: Holiday.Brewfest,
+        shortName: 'Brewfest',
+        tag: 'event:brewfest',
+        vendorsKey: 'world-events--brewfest',
+    },
+    {
+        holiday: Holiday.MidsummerFireFestival,
         shortName: 'Midsummer',
         tag: 'event:midsummer-fire-festival',
         vendorsKey: 'world-events--midsummer-fire-festival',
