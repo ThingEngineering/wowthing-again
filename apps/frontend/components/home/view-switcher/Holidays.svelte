@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { fancyHolidays } from '@/data/holidays';
+    import { fancyHolidays, holidayIds } from '@/data/holidays';
     import { activeHolidays } from '@/user-home/state/activeHolidays.svelte';
     import Holiday from './Holiday.svelte';
 
@@ -7,8 +7,7 @@
 </script>
 
 {#each fancyHolidays as fancyHoliday (fancyHoliday)}
-    {@const activeHoliday = active[fancyHoliday.holiday]}
-    {#if activeHoliday}
-        <Holiday {activeHoliday} {fancyHoliday} />
+    {#if holidayIds[fancyHoliday.holiday].some((id) => active[`h${id}`])}
+        <Holiday {fancyHoliday} />
     {/if}
 {/each}
