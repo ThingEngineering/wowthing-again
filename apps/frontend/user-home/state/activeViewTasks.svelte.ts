@@ -15,9 +15,9 @@ class ActiveViewTasks {
         const activeTasks: string[] = [];
 
         for (const fullTaskName of settingsState.activeView.homeTasks) {
-            const [taskName, choreName] = fullTaskName.split('|', 2);
-            const task = taskMap[taskName] || customTaskMap[fullTaskName];
-            if (!task || (choreName && !task.chores.some((chore) => chore.key === choreName))) {
+            const [taskKey, choreKey] = fullTaskName.split('|', 2);
+            const task = taskMap[taskKey] || customTaskMap[fullTaskName];
+            if (!task || (choreKey && !task.chores.some((chore) => chore.key === choreKey))) {
                 continue;
             }
 
@@ -25,7 +25,7 @@ class ActiveViewTasks {
             if (
                 task.requiredHolidays?.length > 0 &&
                 !task.requiredHolidays.some((holiday) =>
-                    holidayIds[holiday].some((holidayId) => activeHolidays.value[`h${holidayId}`])
+                    holidayIds[holiday].some((holidayId) => !!activeHolidays.value[`h${holidayId}`])
                 )
             ) {
                 continue;
@@ -34,7 +34,11 @@ class ActiveViewTasks {
             const disabledChores = settingsState.activeView.disabledChores?.[fullTaskName] || [];
             const activeChores: Chore[] = [];
             for (const chore of task.chores) {
-                if (!chore || disabledChores.includes(chore.key)) {
+                if (
+                    !chore ||
+                    disabledChores.includes(chore.key) ||
+                    (choreKey && chore.key !== choreKey)
+                ) {
                     continue;
                 }
 
