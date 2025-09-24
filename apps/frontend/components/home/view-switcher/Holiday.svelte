@@ -109,5 +109,5 @@
     <span>{fancyHoliday.shortName}</span>
 
     <code class="stats {getPercentClass(stats.percent)}">{stats.have} / {stats.total}</code>
-    <code class="remaining">{toNiceDuration(remainingTime)}</code>
+    <code class="remaining">{toNiceDuration(remainingTime, false)}</code>
 </div>
