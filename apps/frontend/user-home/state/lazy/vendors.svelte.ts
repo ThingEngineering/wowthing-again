@@ -114,7 +114,7 @@ class LazyVendorsProcessor {
             const parentStats: UserCount[] = [];
             if (slugs.length > 1) {
                 let parentSlug: string = undefined;
-                for (const slug of slugs) {
+                for (const slug of slugs.slice(0, slugs.length - 1)) {
                     parentSlug = parentSlug ? `${parentSlug}--${slug}` : slug;
                     parentStats.push(stats[parentSlug]);
                 }
