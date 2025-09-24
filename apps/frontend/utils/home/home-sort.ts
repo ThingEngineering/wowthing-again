@@ -151,10 +151,10 @@ export function homeSort(char: Character, sortBy: string): string {
         let value = -1;
         const progressParts = sortBy.split(':')[1].split('|');
         const category = wowthingData.manual.progressSets.find(
-            (p) => p[0]?.slug === progressParts[0]
+            (p) => p?.[0]?.slug === progressParts[0]
         );
         if (category) {
-            const subCategory = category.find((cat) => cat.slug === progressParts[1]);
+            const subCategory = category.find((cat) => cat?.slug === progressParts[1]);
             if (subCategory) {
                 const charProgress = getProgress(
                     char,
