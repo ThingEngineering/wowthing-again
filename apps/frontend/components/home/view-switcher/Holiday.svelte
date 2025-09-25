@@ -14,6 +14,7 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import { toNiceDuration } from '@/utils/formatting';
     import { userState } from '@/user-home/state/user';
+    import { every } from 'lodash';
 
     type Props = { fancyHoliday: FancyHoliday };
     let { fancyHoliday }: Props = $props();
@@ -96,18 +97,28 @@
     }
 </style>
 
-<div class="flex-wrapper">
-    <span class="farms">
-        {#each farms as { farm, status } (farm)}
-            <ParsedText
-                cls={status ? 'status-success' : 'status-fail'}
-                text={status ? ':starFull:' : ':starEmpty:'}
-            />
-        {/each}
-    </span>
+{#snippet flexWrapper()}
+    <div class="flex-wrapper">
+        <span class="farms">
+            {#each farms as { farm, status } (farm)}
+                <ParsedText
+                    cls={status ? 'status-success' : 'status-fail'}
+                    text={status ? ':starFull:' : ':starEmpty:'}
+                />
+            {/each}
+        </span>
 
-    <span>{fancyHoliday.shortName}</span>
+        <span>{fancyHoliday.shortName}</span>
 
-    <code class="stats {getPercentClass(stats.percent)}">{stats.have} / {stats.total}</code>
-    <code class="remaining">{toNiceDuration(remainingTime, false)}</code>
-</div>
+        <code class="stats {getPercentClass(stats.percent)}">{stats.have} / {stats.total}</code>
+        <code class="remaining">{toNiceDuration(remainingTime, false)}</code>
+    </div>
+{/snippet}
+
+{#if fancyHoliday.everything}
+    <a href="#/everything/{fancyHoliday.everything}">
+        {@render flexWrapper()}
+    </a>
+{:else}
+    {@render flexWrapper()}
+{/if}

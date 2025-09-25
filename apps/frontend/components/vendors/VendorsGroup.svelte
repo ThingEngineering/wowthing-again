@@ -17,9 +17,10 @@
 
     type Props = {
         group: ManualDataVendorGroup;
+        showAll?: boolean;
         useV2: boolean;
     };
-    let { group, useV2 }: Props = $props();
+    let { group, showAll, useV2 }: Props = $props();
 
     let element = $state<HTMLElement>(null);
     let intersected = $state(false);
@@ -30,10 +31,11 @@
 
     let things = $derived.by(() => {
         const ret: ThingData[] = [];
-        for (const thing of group.sellsFiltered) {
+        for (const thing of showAll ? group.sells : group.sellsFiltered) {
             const thingKey = `${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`;
             const userHas = lazyState.vendors.userHas[thingKey] === true;
             if (
+                showAll ||
                 (browserState.current.vendors.showCollected && userHas) ||
                 (browserState.current.vendors.showUncollected && !userHas)
             ) {

@@ -14,6 +14,7 @@
     import Auctions from '@/components/auctions/Auctions.svelte';
     import Characters from '@/components/characters/Characters.svelte';
     import Collections from '@/user-home/components/collections/Collections.svelte';
+    import Everything from './components/everything/Everything.svelte';
     import Explore from '@/components/explore/Explore.svelte';
     import Heirlooms from '@/components/heirlooms/Heirlooms.svelte';
     import History from '@/user-home/components/history/History.svelte';
@@ -63,6 +64,7 @@
         '/achievements/:slug1?/:slug2?': Achievements,
         '/auctions/:slug1?/:slug2?/:slug3?': Auctions,
         '/currencies/:slug1?/:slug2?': Currencies,
+        '/everything/:slug1?': Everything,
         '/heirlooms': Heirlooms,
         '/illusions': Illusions,
         '/items/:slug1?/:slug2?/:slug3?': Items,
