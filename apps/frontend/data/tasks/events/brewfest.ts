@@ -7,14 +7,23 @@ export const eventBrewfest: Task = {
     name: '[Event] Brewfest',
     shortName: 'Brew',
     minimumLevel: 1,
+    showSeparate: true,
     requiredHolidays: [Holiday.Brewfest],
     chores: [
         {
             key: 'corenDirebrewFirst',
             name: 'Coren Direbrew First Kill',
             accountWide: true,
+            alwaysStarted: true,
             questReset: DbResetType.Daily,
             questIds: [77775],
+        },
+        {
+            key: 'banquet',
+            name: 'Brewfest Banquet',
+            alwaysStarted: true,
+            questReset: DbResetType.Daily,
+            questIds: [90118], // 91959?
         },
     ],
 };
