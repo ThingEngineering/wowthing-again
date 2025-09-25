@@ -9,10 +9,11 @@
     type Props = {
         category: ManualDataVendorCategory;
         costs: Record<number, number>;
+        showAll?: boolean;
         statsSlug: string;
         title: string;
     };
-    let { category, costs, statsSlug, title }: Props = $props();
+    let { category, costs, showAll, statsSlug, title }: Props = $props();
 
     let useV2 = $derived(
         category.groups.length > 3 &&
@@ -33,6 +34,6 @@
 
 <div class="collection{useV2 ? '-v2' : ''}-section">
     {#each category.groups as group}
-        <Group {group} {useV2} />
+        <Group {group} {showAll} {useV2} />
     {/each}
 </div>

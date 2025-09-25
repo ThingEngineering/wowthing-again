@@ -79,13 +79,20 @@ export const holidayMap: Record<number, Holiday> = Object.fromEntries(
         .flat()
 );
 
-export type FancyHoliday = { holiday: Holiday; shortName: string; tag: string; vendorsKey: string };
+export type FancyHoliday = {
+    everything?: string;
+    holiday: Holiday;
+    shortName: string;
+    tag: string;
+    vendorsKey: string;
+};
 export const fancyHolidays: FancyHoliday[] = [
     {
         holiday: Holiday.Brewfest,
         shortName: 'Brewfest',
         tag: 'event:brewfest',
         vendorsKey: 'world-events--brewfest',
+        everything: 'brewfest',
     },
     {
         holiday: Holiday.MidsummerFireFestival,

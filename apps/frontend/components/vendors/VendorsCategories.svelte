@@ -10,7 +10,12 @@
     import Options from './VendorsOptions.svelte';
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
 
-    let { params }: ParamsSlugsProps = $props();
+    type Props = ParamsSlugsProps & {
+        hideOptions?: boolean;
+        showAll?: boolean;
+        titleOverride?: string;
+    };
+    let { hideOptions, params, showAll, titleOverride }: Props = $props();
 
     let firstCategory = $derived.by(() =>
         wowthingData.manual.vendors.sets.find((cat) => cat?.slug === params.slug1)
@@ -97,7 +102,10 @@
 <svelte:window on:resize={debouncedResize} />
 
 <div class="resizer-view" bind:this={containerElement}>
-    <Options />
+    {#if !hideOptions}
+        <Options />
+    {/if}
+
     <div bind:this={resizeableElement}>
         {#if categories}
             <div class="collection thing-container" bind:this={resizeableElement}>
@@ -116,7 +124,8 @@
                         {category}
                         costs={totalCosts[category.slug]}
                         statsSlug={params.slug3 ? `${params.slug1}--${params.slug2}` : params.slug1}
-                        title={titles.concat(category.name).join(' &gt; ')}
+                        title={titleOverride || titles.concat(category.name).join(' &gt; ')}
+                        {showAll}
                     />
                 {/each}
             </div>
