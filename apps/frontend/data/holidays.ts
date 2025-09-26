@@ -95,21 +95,61 @@ export type FancyHoliday = {
     everything?: string;
     holiday: Holiday;
     shortName: string;
-    tag: string;
-    vendorsKey: string;
 };
 export const fancyHolidays: FancyHoliday[] = [
     {
         holiday: Holiday.Brewfest,
         shortName: 'Brewfest',
-        tag: 'event:brewfest',
-        vendorsKey: 'world-events--brewfest',
         everything: 'brewfest',
+    },
+    {
+        holiday: Holiday.ChildrensWeek,
+        shortName: 'Children',
+        everything: 'childrens-week',
+    },
+    {
+        holiday: Holiday.DarkmoonFaire,
+        shortName: 'Darkmoon',
+        everything: 'darkmoon-faire',
+    },
+    {
+        holiday: Holiday.HallowsEnd,
+        shortName: "Hallow's End",
+        everything: 'hallows-end',
+    },
+    {
+        holiday: Holiday.LoveIsInTheAir,
+        shortName: 'Love is in the Air',
+        everything: 'love-is-in-the-air',
+    },
+    {
+        holiday: Holiday.LunarFestival,
+        shortName: 'Lunar Festival',
+        everything: 'lunar-festival',
     },
     {
         holiday: Holiday.MidsummerFireFestival,
         shortName: 'Midsummer',
-        tag: 'event:midsummer-fire-festival',
-        vendorsKey: 'world-events--midsummer-fire-festival',
+        everything: 'midsummer-fire-festival',
+    },
+    {
+        holiday: Holiday.Noblegarden,
+        shortName: 'Noblegarden',
+        everything: 'noblegarden',
+    },
+    {
+        holiday: Holiday.PilgrimsBounty,
+        shortName: "Pilgrim's Bounty",
+        everything: 'pilgrims-bounty',
+    },
+    {
+        holiday: Holiday.TrialOfStyle,
+        shortName: 'Trial of Style',
+        everything: 'trial-of-style',
+    },
+    {
+        holiday: Holiday.WinterVeil,
+        shortName: 'Winter Veil',
+        everything: 'winter-veil',
     },
 ];
