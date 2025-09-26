@@ -2,17 +2,18 @@
     import { wowthingData } from '@/shared/stores/data';
     import { DbThingType } from '@/shared/stores/db/enums';
     import { thingContentTypeToRewardType } from '@/shared/stores/db/types';
+    import { UserCount } from '@/types';
+    import { lazyState } from '@/user-home/state/lazy';
     import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
     import { snapshotStateForUserHasLookup } from '@/utils/rewards/snapshot-state-for-user-has-lookup.svelte';
     import { userHasLookup } from '@/utils/rewards/user-has-lookup';
     import type { EverythingData } from './data';
     import { SomethingThing } from './types';
 
+    import AchievementCategory from '@/components/achievements/Category.svelte';
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
     import VendorsCategories from '@/components/vendors/VendorsCategories.svelte';
     import Thing from './Thing.svelte';
-    import { UserCount } from '@/types';
-    import { lazyState } from '@/user-home/state/lazy';
 
     let { thing }: { thing: EverythingData } = $props();
 
@@ -64,8 +65,8 @@
 </script>
 
 <style lang="scss">
-    .something {
-        width: 100%;
+    .achievements {
+        padding: 0.7rem 0.7rem 0.2rem 0.7rem;
     }
 </style>
 
@@ -87,11 +88,10 @@
     {#if thing.vendorsKey}
         <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
         {@const _ = lazyState.vendors}
-        {@const vendorParts = thing.vendorsKey.split('--')}
         {@const vendorParams = {
-            slug1: vendorParts[0],
-            slug2: vendorParts[1],
-            slug3: vendorParts[2],
+            slug1: thing.vendorsKey[0],
+            slug2: thing.vendorsKey[1],
+            slug3: thing.vendorsKey[2],
         }}
         <VendorsCategories
             params={vendorParams}
@@ -99,5 +99,20 @@
             showAll={true}
             titleOverride="Vendors"
         />
+    {/if}
+
+    {#if thing.achievementsKey}
+        <!-- {@const counts = } -->
+        <div class="collection thing-container">
+            <SectionTitle title="Achievements"></SectionTitle>
+
+            <div class="achievements">
+                <AchievementCategory
+                    hideOptions={true}
+                    slug1={thing.achievementsKey[0]}
+                    slug2={thing.achievementsKey[1]}
+                />
+            </div>
+        </div>
     {/if}
 </div>

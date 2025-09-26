@@ -14,6 +14,7 @@
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import ProgressBar from '@/components/common/ProgressBar.svelte';
 
+    export let hideOptions: boolean = false;
     export let slug1: string;
     export let slug2: string;
 
@@ -72,7 +73,7 @@
         gap: 1rem;
         width: 100%;
 
-        @media screen and (min-width: 1600px) {
+        @media screen and (min-width: 1400px) {
             align-items: flex-start;
             column-count: 2;
             //display: grid;
@@ -92,47 +93,52 @@
 </style>
 
 <div class="wrapper">
-    <div class="options-container">
-        <span>Show:</span>
+    {#if !hideOptions}
+        <div class="options-container">
+            <span>Show:</span>
 
-        <button>
-            <Checkbox name="show_completed" bind:value={$achievementState.showCompleted}
-                >Completed</Checkbox
-            >
-        </button>
+            <button>
+                <Checkbox name="show_completed" bind:value={$achievementState.showCompleted}
+                    >Completed</Checkbox
+                >
+            </button>
 
-        <button>
-            <Checkbox name="show_incomplete" bind:value={$achievementState.showIncomplete}
-                >Incomplete</Checkbox
-            >
-        </button>
+            <button>
+                <Checkbox name="show_incomplete" bind:value={$achievementState.showIncomplete}
+                    >Incomplete</Checkbox
+                >
+            </button>
 
-        <button class="faction0 new-group">
-            <Checkbox name="show_alliance" bind:value={$achievementState.showAlliance}
-                >Alliance</Checkbox
-            >
-        </button>
+            <button class="faction0 new-group">
+                <Checkbox name="show_alliance" bind:value={$achievementState.showAlliance}
+                    >Alliance</Checkbox
+                >
+            </button>
 
-        <button class="faction1">
-            <Checkbox name="show_horde" bind:value={$achievementState.showHorde}>Horde</Checkbox>
-        </button>
+            <button class="faction1">
+                <Checkbox name="show_horde" bind:value={$achievementState.showHorde}>Horde</Checkbox
+                >
+            </button>
 
-        <button class="new-group">
-            <Checkbox name="show_all_characters" bind:value={$achievementState.showAllCharacters}
-                >All character progress</Checkbox
-            >
-        </button>
+            <button class="new-group">
+                <Checkbox
+                    name="show_all_characters"
+                    bind:value={$achievementState.showAllCharacters}
+                    >All character progress</Checkbox
+                >
+            </button>
 
-        {#if category && userState.achievements.categories[category.id].totalPoints}
-            <div class="progress-bar new-group">
-                <ProgressBar
-                    title="Points"
-                    have={userState.achievements.categories[category.id].havePoints}
-                    total={userState.achievements.categories[category.id].totalPoints}
-                />
-            </div>
-        {/if}
-    </div>
+            {#if category && userState.achievements.categories[category.id].totalPoints}
+                <div class="progress-bar new-group">
+                    <ProgressBar
+                        title="Points"
+                        have={userState.achievements.categories[category.id].havePoints}
+                        total={userState.achievements.categories[category.id].totalPoints}
+                    />
+                </div>
+            {/if}
+        </div>
+    {/if}
 
     {#if category && achievementIds}
         <div class="achievements">
