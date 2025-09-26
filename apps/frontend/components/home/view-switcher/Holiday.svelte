@@ -78,6 +78,7 @@
 </script>
 
 <style lang="scss">
+    a,
     .flex-wrapper {
         --border-color: rgb(105, 245, 245);
 

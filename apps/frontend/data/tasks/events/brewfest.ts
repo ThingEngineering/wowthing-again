@@ -19,6 +19,16 @@ export const eventBrewfest: Task = {
             questIds: [77775],
         },
         {
+            key: 'corenDirebrew',
+            name: 'Coren Direbrew',
+            alwaysStarted: true,
+            questReset: DbResetType.Daily,
+            progressFunc: (char) => {
+                const lockout = char.lockouts?.['200287-1'];
+                return { have: lockout?.locked ? 1 : 0, need: 1 };
+            },
+        },
+        {
             key: 'banquet',
             name: 'Brewfest Banquet',
             alwaysStarted: true,

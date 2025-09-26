@@ -3,6 +3,7 @@ import type { DateTime } from 'luxon';
 import { resetTimes } from '@/data/region';
 import type { Region } from '@/enums/region';
 import parseApiTime from '@/utils/parse-api-time';
+import type { Character } from '@/types';
 
 export function getNextDailyReset(timeString: string, region: Region): DateTime {
     const time = parseApiTime(timeString);
@@ -13,7 +14,19 @@ export function getNextDailyReset(timeString: string, region: Region): DateTime 
     return getNextDailyResetFromTime(time, region);
 }
 
-export function getNextDailyResetFromTime(time: DateTime, region: Region): DateTime {
+export function getNextDailyResetFromTime(
+    time: DateTime,
+    region: Region,
+    character?: Character
+): DateTime {
+    if (character?.dailyReset) {
+        let reset = character.dailyReset;
+        while (reset < time) {
+            reset = reset.plus({ days: 1 });
+        }
+        return reset;
+    }
+
     const [resetHour, resetMin] = resetTimes[region].dailyResetTime;
 
     let reset: DateTime = time.set({
@@ -34,7 +47,7 @@ function getResetTime(
     time: DateTime,
     resetDay: number,
     resetHour: number,
-    resetMin: number,
+    resetMin: number
 ): DateTime {
     let reset: DateTime = time.set({
         hour: resetHour,
@@ -64,7 +77,19 @@ export function getNextWeeklyReset(timeString: string, region: Region): DateTime
     return getNextWeeklyResetFromTime(time, region);
 }
 
-export function getNextWeeklyResetFromTime(time: DateTime, region: Region): DateTime {
+export function getNextWeeklyResetFromTime(
+    time: DateTime,
+    region: Region,
+    character?: Character
+): DateTime {
+    if (character?.weeklyReset) {
+        let reset = character.weeklyReset;
+        while (reset < time) {
+            reset = reset.plus({ days: 7 });
+        }
+        return reset;
+    }
+
     const resetDay = resetTimes[region].weeklyResetDay;
     const [resetHour, resetMin] = resetTimes[region].weeklyResetTime;
 
