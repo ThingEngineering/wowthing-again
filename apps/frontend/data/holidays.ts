@@ -39,9 +39,21 @@ export const holidayMinimumLevel: Record<number, number> = {
 };
 
 export const holidayIds: Record<number, number[]> = {
+    [Holiday.Anniversary]: [
+        467, 484, 509, 514, 566, 589, 590, 693, 807, 808, 1181, 1225, 1262, 1397, 1500, 1501, 1509,
+        1587, 1588, 1589, 1590, 1592, 1593, 1594, 1595,
+    ],
     [Holiday.Brewfest]: [372],
+    [Holiday.ChildrensWeek]: [201],
     [Holiday.DarkmoonFaire]: [479],
+    [Holiday.HallowsEnd]: [324, 1405],
+    [Holiday.LoveIsInTheAir]: [335, 423],
+    [Holiday.LunarFestival]: [327],
     [Holiday.MidsummerFireFestival]: [11],
+    [Holiday.Noblegarden]: [181],
+    [Holiday.PilgrimsBounty]: [404],
+    [Holiday.TrialOfStyle]: [691],
+    [Holiday.WinterVeil]: [141],
 
     [Holiday.BonusArenaSkirmish]: [561, 610, 611, 612],
     [Holiday.BonusBattleground]: [563, 602, 603, 604],

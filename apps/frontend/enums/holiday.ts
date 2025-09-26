@@ -1,7 +1,16 @@
 export enum Holiday {
+    Anniversary,
     Brewfest,
+    ChildrensWeek,
     DarkmoonFaire,
+    HallowsEnd,
+    LoveIsInTheAir,
+    LunarFestival,
     MidsummerFireFestival,
+    Noblegarden,
+    PilgrimsBounty,
+    TrialOfStyle,
+    WinterVeil,
 
     BonusArenaSkirmish,
     BonusBattleground,
