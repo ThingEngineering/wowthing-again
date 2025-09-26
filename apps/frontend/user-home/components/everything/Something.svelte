@@ -1,7 +1,9 @@
 <script lang="ts">
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { DbThingType } from '@/shared/stores/db/enums';
     import { thingContentTypeToRewardType } from '@/shared/stores/db/types';
+    import { achievementStore } from '@/stores/achievements';
     import { UserCount } from '@/types';
     import { lazyState } from '@/user-home/state/lazy';
     import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
@@ -102,17 +104,18 @@
     {/if}
 
     {#if thing.achievementsKey}
-        <!-- {@const counts = } -->
-        <div class="collection thing-container">
-            <SectionTitle title="Achievements"></SectionTitle>
+        {#await achievementStore.fetch({ language: settingsState.value.general.language }) then}
+            <div class="collection thing-container">
+                <SectionTitle title="Achievements"></SectionTitle>
 
-            <div class="achievements">
-                <AchievementCategory
-                    hideOptions={true}
-                    slug1={thing.achievementsKey[0]}
-                    slug2={thing.achievementsKey[1]}
-                />
+                <div class="achievements">
+                    <AchievementCategory
+                        hideOptions={true}
+                        slug1={thing.achievementsKey[0]}
+                        slug2={thing.achievementsKey[1]}
+                    />
+                </div>
             </div>
-        </div>
+        {/await}
     {/if}
 </div>
