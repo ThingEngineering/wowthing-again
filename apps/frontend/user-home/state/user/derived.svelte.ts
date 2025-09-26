@@ -479,20 +479,23 @@ export class DataUserDerived {
         const choreReset = chore.questReset || parent?.questReset;
         const resetForced = chore.questResetForced === true || parent?.questResetForced === true;
 
-        // if (chore.questReset !== undefined) {
         if (chore.questIds) {
             let expiresAt: DateTime;
             if (choreReset === DbResetType.Weekly) {
                 expiresAt = getNextWeeklyResetFromTime(
                     charScanned,
-                    character.realm?.region || Region.US
+                    character.realm?.region || Region.US,
+                    character
                 );
             } else if (choreReset === DbResetType.Custom) {
                 expiresAt = chore.customExpiryFunc(character, charScanned);
-            } else if (choreReset !== DbResetType.Never) {
+            } else if (choreReset === DbResetType.Never) {
+                expiresAt = timeState.slowTime.plus({ days: 30 });
+            } else {
                 expiresAt = getNextDailyResetFromTime(
                     charScanned,
-                    character.realm?.region || Region.US
+                    character.realm?.region || Region.US,
+                    character
                 );
             }
 
