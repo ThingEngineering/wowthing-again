@@ -98,6 +98,7 @@
         <VendorsCategories
             params={vendorParams}
             hideOptions={true}
+            noV2={true}
             showAll={true}
             titleOverride="Vendors"
         />
