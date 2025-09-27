@@ -83,6 +83,8 @@ export const holidayIds: Record<number, number[]> = {
     [Holiday.BrawlSouthshoreVsTarrenMill]: [660, 662, 669, 676, 683],
     [Holiday.BrawlTempleOfHotmogu]: [1166, 1167, 1168, 1169, 1170],
     [Holiday.BrawlWarsongScramble]: [664, 671, 678, 685, 1221],
+
+    [Holiday.RemixLegion]: [1640, 1641, 1642, 1643, 1644, 1697],
 };
 
 export const holidayMap: Record<number, Holiday> = Object.fromEntries(
@@ -151,5 +153,11 @@ export const fancyHolidays: FancyHoliday[] = [
         holiday: Holiday.WinterVeil,
         shortName: 'Winter Veil',
         everything: 'winter-veil',
+    },
+    //
+    {
+        holiday: Holiday.RemixLegion,
+        shortName: 'Remix: Legion',
+        everything: 'remix-legion',
     },
 ];
