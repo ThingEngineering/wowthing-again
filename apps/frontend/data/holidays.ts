@@ -39,9 +39,21 @@ export const holidayMinimumLevel: Record<number, number> = {
 };
 
 export const holidayIds: Record<number, number[]> = {
+    [Holiday.Anniversary]: [
+        467, 484, 509, 514, 566, 589, 590, 693, 807, 808, 1181, 1225, 1262, 1397, 1500, 1501, 1509,
+        1587, 1588, 1589, 1590, 1592, 1593, 1594, 1595,
+    ],
     [Holiday.Brewfest]: [372],
+    [Holiday.ChildrensWeek]: [201],
     [Holiday.DarkmoonFaire]: [479],
+    [Holiday.HallowsEnd]: [324, 1405],
+    [Holiday.LoveIsInTheAir]: [335, 423],
+    [Holiday.LunarFestival]: [327],
     [Holiday.MidsummerFireFestival]: [11],
+    [Holiday.Noblegarden]: [181],
+    [Holiday.PilgrimsBounty]: [404],
+    [Holiday.TrialOfStyle]: [691],
+    [Holiday.WinterVeil]: [141],
 
     [Holiday.BonusArenaSkirmish]: [561, 610, 611, 612],
     [Holiday.BonusBattleground]: [563, 602, 603, 604],
@@ -71,6 +83,8 @@ export const holidayIds: Record<number, number[]> = {
     [Holiday.BrawlSouthshoreVsTarrenMill]: [660, 662, 669, 676, 683],
     [Holiday.BrawlTempleOfHotmogu]: [1166, 1167, 1168, 1169, 1170],
     [Holiday.BrawlWarsongScramble]: [664, 671, 678, 685, 1221],
+
+    [Holiday.RemixLegion]: [1640, 1641, 1642, 1643, 1644, 1697],
 };
 
 export const holidayMap: Record<number, Holiday> = Object.fromEntries(
@@ -83,21 +97,67 @@ export type FancyHoliday = {
     everything?: string;
     holiday: Holiday;
     shortName: string;
-    tag: string;
-    vendorsKey: string;
 };
 export const fancyHolidays: FancyHoliday[] = [
     {
         holiday: Holiday.Brewfest,
         shortName: 'Brewfest',
-        tag: 'event:brewfest',
-        vendorsKey: 'world-events--brewfest',
         everything: 'brewfest',
+    },
+    {
+        holiday: Holiday.ChildrensWeek,
+        shortName: 'Children',
+        everything: 'childrens-week',
+    },
+    {
+        holiday: Holiday.DarkmoonFaire,
+        shortName: 'Darkmoon',
+        everything: 'darkmoon-faire',
+    },
+    {
+        holiday: Holiday.HallowsEnd,
+        shortName: "Hallow's End",
+        everything: 'hallows-end',
+    },
+    {
+        holiday: Holiday.LoveIsInTheAir,
+        shortName: 'Love is in the Air',
+        everything: 'love-is-in-the-air',
+    },
+    {
+        holiday: Holiday.LunarFestival,
+        shortName: 'Lunar Festival',
+        everything: 'lunar-festival',
     },
     {
         holiday: Holiday.MidsummerFireFestival,
         shortName: 'Midsummer',
-        tag: 'event:midsummer-fire-festival',
-        vendorsKey: 'world-events--midsummer-fire-festival',
+        everything: 'midsummer-fire-festival',
+    },
+    {
+        holiday: Holiday.Noblegarden,
+        shortName: 'Noblegarden',
+        everything: 'noblegarden',
+    },
+    {
+        holiday: Holiday.PilgrimsBounty,
+        shortName: "Pilgrim's Bounty",
+        everything: 'pilgrims-bounty',
+    },
+    {
+        holiday: Holiday.TrialOfStyle,
+        shortName: 'Trial of Style',
+        everything: 'trial-of-style',
+    },
+    {
+        holiday: Holiday.WinterVeil,
+        shortName: 'Winter Veil',
+        everything: 'winter-veil',
+    },
+    //
+    {
+        holiday: Holiday.RemixLegion,
+        shortName: 'Remix: Legion',
+        everything: 'remix-legion',
     },
 ];

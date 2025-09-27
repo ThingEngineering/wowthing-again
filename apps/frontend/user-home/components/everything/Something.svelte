@@ -75,7 +75,7 @@
 <div class="wrapper-column">
     <h2>{thing.name}</h2>
 
-    {#if dbThings}
+    {#if dbThings.length > 0}
         <div class="collection thing-container">
             <SectionTitle title="Drops" count={totalStats}></SectionTitle>
 
@@ -98,6 +98,7 @@
         <VendorsCategories
             params={vendorParams}
             hideOptions={true}
+            noV2={true}
             showAll={true}
             titleOverride="Vendors"
         />

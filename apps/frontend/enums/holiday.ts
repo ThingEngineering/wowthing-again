@@ -1,7 +1,16 @@
 export enum Holiday {
+    Anniversary,
     Brewfest,
+    ChildrensWeek,
     DarkmoonFaire,
+    HallowsEnd,
+    LoveIsInTheAir,
+    LunarFestival,
     MidsummerFireFestival,
+    Noblegarden,
+    PilgrimsBounty,
+    TrialOfStyle,
+    WinterVeil,
 
     BonusArenaSkirmish,
     BonusBattleground,
@@ -19,7 +28,7 @@ export enum Holiday {
     TimewalkingLegion,
     TimewalkingBfa,
 
-    BrawlArathiBlizzard = 1000,
+    BrawlArathiBlizzard,
     BrawlClassicAshran,
     BrawlCompStomp,
     BrawlCookingImpossible,
@@ -31,6 +40,8 @@ export enum Holiday {
     BrawlSouthshoreVsTarrenMill,
     BrawlTempleOfHotmogu,
     BrawlWarsongScramble,
+
+    RemixLegion,
 }
 
 export const timewalkingHolidays = [

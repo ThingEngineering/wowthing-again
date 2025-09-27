@@ -12,10 +12,11 @@
 
     type Props = ParamsSlugsProps & {
         hideOptions?: boolean;
+        noV2?: boolean;
         showAll?: boolean;
         titleOverride?: string;
     };
-    let { hideOptions, params, showAll, titleOverride }: Props = $props();
+    let { hideOptions, noV2, params, showAll, titleOverride }: Props = $props();
 
     let firstCategory = $derived.by(() =>
         wowthingData.manual.vendors.sets.find((cat) => cat?.slug === params.slug1)
@@ -125,6 +126,7 @@
                         costs={totalCosts[category.slug]}
                         statsSlug={params.slug3 ? `${params.slug1}--${params.slug2}` : params.slug1}
                         title={titleOverride || titles.concat(category.name).join(' &gt; ')}
+                        {noV2}
                         {showAll}
                     />
                 {/each}

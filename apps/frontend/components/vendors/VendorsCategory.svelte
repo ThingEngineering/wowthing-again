@@ -9,14 +9,16 @@
     type Props = {
         category: ManualDataVendorCategory;
         costs: Record<number, number>;
+        noV2?: boolean;
         showAll?: boolean;
         statsSlug: string;
         title: string;
     };
-    let { category, costs, showAll, statsSlug, title }: Props = $props();
+    let { category, costs, noV2, showAll, statsSlug, title }: Props = $props();
 
     let useV2 = $derived(
-        category.groups.length > 3 &&
+        !noV2 &&
+            category.groups.length > 3 &&
             category.groups.reduce((a, b) => a + b.sellsFiltered.length, 0) > 30
     );
 </script>

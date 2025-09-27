@@ -159,7 +159,8 @@ public class ManualTool
                         Array.Empty<DumpTransmogSetItem>()
                     )
                     .Select(tsi => tsi.ItemModifiedAppearanceID)
-                    .Where(id => _itemModifiedAppearanceMap[id].SourceType != TransmogSourceType.NotValidForTransmog)
+                    .Where(id => _itemModifiedAppearanceMap.ContainsKey(id) &&
+                                 _itemModifiedAppearanceMap[id].SourceType != TransmogSourceType.NotValidForTransmog)
                     .ToArray()
             );
 

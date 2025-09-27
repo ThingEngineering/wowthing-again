@@ -14,7 +14,7 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import { toNiceDuration } from '@/utils/formatting';
     import { userState } from '@/user-home/state/user';
-    import { every } from 'lodash';
+    import { everythingData } from '@/user-home/components/everything/data';
 
     type Props = { fancyHoliday: FancyHoliday };
     let { fancyHoliday }: Props = $props();
@@ -27,20 +27,21 @@
     let remainingTime = $derived.by(() =>
         activeHoliday.endDate.diff(timeState.slowTime).toMillis()
     );
+    let everything = $derived(everythingData[fancyHoliday.everything]);
 
     let snapshot = $derived.by(() => snapshotStateForUserHasLookup());
     let { farms, stats } = $derived.by(() => {
         const farms: { farm: DbDataThing; status: boolean }[] = [];
         const stats = new UserCount();
 
-        const vendorStats = lazyState.vendors.stats[fancyHoliday.vendorsKey];
+        const vendorStats = lazyState.vendors.stats[everything.vendorsKey.join('--')];
         if (vendorStats) {
             stats.have += vendorStats.have;
             stats.total += vendorStats.total;
         }
 
         const results = wowthingData.db.search({
-            tags: [fancyHoliday.tag],
+            tags: [everything.tag],
         });
         for (const result of results) {
             // farmable things
