@@ -19,6 +19,7 @@ public class RedisItems
     public Dictionary<short, short> LimitCategories { get; set; }
     public Dictionary<short, int[]> LimitCategoryItems { get; set; }
     public Dictionary<int, int[]> SpecOverrides { get; set; }
+    public Dictionary<int, int[]> TeachesIllusion { get; set; }
     public Dictionary<int, int[]> TeachesSpell { get; set; }
     public Dictionary<int, int> TeachesTransmog { get; set; }
 
