@@ -88,8 +88,6 @@
     {/if}
 
     {#if thing.vendorsKey}
-        <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-        {@const _ = lazyState.vendors}
         {@const vendorParams = {
             slug1: thing.vendorsKey[0],
             slug2: thing.vendorsKey[1],
