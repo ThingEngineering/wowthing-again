@@ -20,7 +20,7 @@ export function userHasLookup(
     }
 ): boolean {
     if (type === LookupType.Illusion) {
-        return snapshot.hasIllusionByEnchantmentId.has(appearanceIds[0]);
+        return snapshot.hasIllusionByEnchantmentId.has(appearanceIds?.[0] || id);
     } else if (type === LookupType.Mount) {
         return snapshot.hasMountById.has(id);
     } else if (type === LookupType.Pet) {

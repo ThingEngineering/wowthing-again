@@ -28,6 +28,10 @@ export function rewardToLookup(
             ret = [LookupType.Pet, wowthingData.static.petByItemId.get(rewardId).id];
         } else if (wowthingData.static.toyByItemId.has(rewardId)) {
             ret = [LookupType.Toy, rewardId];
+        } else if (wowthingData.items.teachesIllusion[rewardId]) {
+            const illusionId = wowthingData.items.teachesIllusion[rewardId][0];
+            const enchantmentId = wowthingData.static.illusionById.get(illusionId).enchantmentId;
+            ret = [LookupType.Illusion, enchantmentId];
         } else if (wowthingData.items.teachesTransmog[rewardId]) {
             ret = [LookupType.TransmogSet, wowthingData.items.teachesTransmog[rewardId]];
         } else if (wowthingData.static.professionAbilityByItemId.has(rewardId)) {
