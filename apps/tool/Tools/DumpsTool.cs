@@ -27,6 +27,7 @@ public class DumpsTool
     private readonly Dictionary<int, List<int>> _completeQuestByItemId = new();
     private readonly Dictionary<int, List<int>> _teachSpellByItemId = new ();
     private readonly Dictionary<int, List<int>> _teachSpellBySpellId = new();
+    private readonly Dictionary<int, List<int>> _teachTransmogIllusionByItemId = new();
     private readonly Dictionary<int, List<int>> _teachTransmogSetByItemId = new();
     private readonly Dictionary<Language, Dictionary<string, string>> _globalStringMap = new();
 
@@ -925,6 +926,7 @@ public class DumpsTool
             dbItem.Sockets = itemSparse.SocketTypes.Where(socketType => socketType > 0).ToArray();
 
             dbItem.TeachesSpellIds = _teachSpellByItemId.GetValueOrDefault(item.ID, []).Order().ToArray();
+            dbItem.TeachesTransmogIllusionIds = _teachTransmogIllusionByItemId.GetValueOrDefault(item.ID, []).Order().ToArray();
             dbItem.TeachesTransmogSetIds = _teachTransmogSetByItemId.GetValueOrDefault(item.ID, []).Order().ToArray();
 
             var completesQuestIds = _completeQuestByItemId.GetValueOrDefault(item.ID, []);
@@ -1369,8 +1371,11 @@ public class DumpsTool
         {
             _completeQuestByItemId.GetOrNew(itemXItemEffect.ItemID).Add(effectValues[0]);
         }
-        else if (effectType == WowSpellEffectEffect.LearnTransmogSet &&
-                 effectValues[0] > 0)
+        else if (effectType == WowSpellEffectEffect.LearnTransmogIllusion && effectValues[0] > 0)
+        {
+            _teachTransmogIllusionByItemId.GetOrNew(itemXItemEffect.ItemID).Add(effectValues[0]);
+        }
+        else if (effectType == WowSpellEffectEffect.LearnTransmogSet && effectValues[0] > 0)
         {
             _teachTransmogSetByItemId.GetOrNew(itemXItemEffect.ItemID).Add(effectValues[0]);
         }
