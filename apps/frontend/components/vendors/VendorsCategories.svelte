@@ -27,17 +27,20 @@
             return [null, null, null];
         }
 
+        // lazyState.vendors also creates groups, take a snapshot now to trigger that
+        const userHas = $state.snapshot(lazyState.vendors.userHas);
+
         const retTitles: string[] = [];
         let retCategories = firstCategory.children.filter((cat) => cat?.groups?.length > 0);
         let retTotalCosts: Record<string, Record<number, number>> = { OVERALL: {} };
 
         if (params.slug2) {
             retTitles.push(firstCategory.name);
-            retCategories = retCategories.filter((cat) => cat.slug === params.slug2);
+            retCategories = retCategories.filter((cat) => cat?.slug === params.slug2);
         }
         if (params.slug3) {
             retTitles.push(retCategories[0].name);
-            retCategories = retCategories[0].children.filter((cat) => cat.slug === params.slug3);
+            retCategories = retCategories[0].children.filter((cat) => cat?.slug === params.slug3);
         }
 
         for (const category of retCategories) {
@@ -57,11 +60,7 @@
                         }
                     }
 
-                    if (
-                        !lazyState.vendors.userHas[
-                            `${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`
-                        ]
-                    ) {
+                    if (!userHas[`${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`]) {
                         for (const currency in thing.costs) {
                             retTotalCosts['OVERALL'][currency] =
                                 (retTotalCosts['OVERALL'][currency] || 0) + thing.costs[currency];

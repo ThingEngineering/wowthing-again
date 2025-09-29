@@ -25,6 +25,7 @@ export interface RawItems {
     limitCategories: Record<number, number>;
     limitCategoryItems: Record<number, number[]>;
     specOverrides: Record<number, number[]>;
+    teachesIllusion: Record<number, number[]>;
     teachesSpell: Record<number, number[]>;
     teachesTransmog: Record<number, number>;
 
@@ -41,6 +42,7 @@ export class DataItems {
     public limitCategories: RawItems['limitCategories'];
     public specOverrides: RawItems['specOverrides'];
     public teachesSpell: RawItems['teachesSpell'];
+    public teachesIllusion: RawItems['teachesIllusion'];
     public teachesTransmog: RawItems['teachesTransmog'];
 
     public appearanceToItems: Record<number, [number, number][]> = {};

@@ -139,7 +139,8 @@ public class ItemsTool
 
         var completesQuestMap = new Dictionary<int, int[]>(); // itemId -> [questIds]
         var teachesSpellMap = new Dictionary<int, int[]>(); // itemId -> [spellIds]
-        var teachesTransmogMap = new Dictionary<int, int>(); // itemId -> [transmogSetIds]
+        var teachesTransmogIllusionMap = new Dictionary<int, int[]>(); // itemId -> [transmogIllusionIds]
+        var teachesTransmogSetMap = new Dictionary<int, int>(); // itemId -> [transmogSetIds]
         foreach (var item in _itemMap.Values)
         {
             if (item.CompletesQuestIds.Length > 0)
@@ -152,13 +153,18 @@ public class ItemsTool
                 teachesSpellMap[item.Id] = item.TeachesSpellIds;
             }
 
+            if (item.TeachesTransmogIllusionIds.Length > 0)
+            {
+                teachesTransmogIllusionMap[item.Id] = item.TeachesTransmogIllusionIds;
+            }
+
             if (item.TeachesTransmogSetIds.Length > 0)
             {
                 if (item.TeachesTransmogSetIds.Length > 1)
                 {
                     ToolContext.Logger.Warning("Item teaches more than one transmog set?? {itemId}", item.Id);
                 }
-                teachesTransmogMap[item.Id] = item.TeachesTransmogSetIds[0];
+                teachesTransmogSetMap[item.Id] = item.TeachesTransmogSetIds[0];
             }
         }
 
@@ -224,8 +230,9 @@ public class ItemsTool
             ItemConversionEntries = await LoadItemConversionEntries(),
             LimitCategories = await LoadLimitCategories(),
             SpecOverrides = await LoadSpecOverrides(),
+            TeachesIllusion = teachesTransmogIllusionMap,
             TeachesSpell = teachesSpellMap,
-            TeachesTransmog = teachesTransmogMap,
+            TeachesTransmog = teachesTransmogSetMap,
 
             RawItemBonuses = _itemBonusMap.Values
                 .Where(itemBonus => itemBonus.Bonuses.Count > 0)

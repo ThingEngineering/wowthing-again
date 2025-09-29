@@ -17,6 +17,7 @@ export function processItemsData(rawData: RawItems): DataItems {
     data.limitCategories = rawData.limitCategories;
     data.specOverrides = rawData.specOverrides;
     data.teachesSpell = rawData.teachesSpell;
+    data.teachesIllusion = rawData.teachesIllusion;
     data.teachesTransmog = rawData.teachesTransmog;
 
     console.time('rawItems');

@@ -1,12 +1,6 @@
 <script lang="ts">
-    import { LookupType } from '@/enums/lookup-type';
     import { wowthingData } from '@/shared/stores/data';
-    import { thingContentTypeToRewardType } from '@/shared/stores/db/types';
-    import { UserCount } from '@/types';
     import getPercentClass from '@/utils/get-percent-class';
-    import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
-    import { snapshotStateForUserHasLookup } from '@/utils/rewards/snapshot-state-for-user-has-lookup.svelte';
-    import { userHasLookup } from '@/utils/rewards/user-has-lookup';
     import type { SomethingThing } from './types';
 
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';

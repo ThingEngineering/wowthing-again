@@ -40,6 +40,9 @@ public class WowItem
     public int[] TeachesSpellIds { get; set; } = [];
 
     [Required]
+    public int[] TeachesTransmogIllusionIds { get; set; } = [];
+
+    [Required]
     public int[] TeachesTransmogSetIds { get; set; } = [];
 
     public WowItem(int id)
