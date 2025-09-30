@@ -1,10 +1,8 @@
 <script lang="ts">
-    import { componentTooltip } from '@/shared/utils/tooltips';
     import { lazyState } from '@/user-home/state/lazy';
     import getPercentClass from '@/utils/get-percent-class';
     import type { ManualDataTransmogGroupData } from '@/types/data/manual';
 
-    import Tooltip from '@/user-home/components/transmog-sets/Tooltip.svelte';
     import WowheadTransmogSetLink from '@/shared/components/links/WowheadTransmogSetLink.svelte';
 
     type Props = {
@@ -39,8 +37,6 @@
 
         return [retHave, retPercent, retTotal];
     });
-
-    let spanElement = $state<HTMLElement>(null);
 </script>
 
 <style lang="scss">
@@ -57,37 +53,28 @@
     }
 </style>
 
+{#snippet setStats()}
+    <span class:blocky={span > 1}>
+        {have} / {total}
+    </span>
+{/snippet}
+
 {#if total > 0}
     <td
-        class={getPercentClass(percent)}
+        class="tooltip-transmog-set {getPercentClass(percent)}"
         colspan={span}
-        use:componentTooltip={{
-            component: Tooltip,
-            propsFunc: () => ({
-                have,
-                set,
-                setTitle,
-                slotHave,
-                subType,
-                total,
-            }),
-            tippyProps: {
-                allowHTML: true,
-                getReferenceClientRect: () => spanElement.getBoundingClientRect(),
-                placement: 'left-end',
-            },
-        }}
+        data-have={have}
+        data-set-key={setKey}
+        data-set-title={setTitle}
+        data-sub-type={subType}
+        data-total={total}
     >
         {#if set.wowheadSetId}
             <WowheadTransmogSetLink id={set.wowheadSetId} cls={getPercentClass(percent)}>
-                <span bind:this={spanElement} class:blocky={span > 1}>
-                    {have} / {total}
-                </span>
+                {@render setStats()}
             </WowheadTransmogSetLink>
         {:else}
-            <span bind:this={spanElement} class:blocky={span > 1}>
-                {have} / {total}
-            </span>
+            {@render setStats()}
         {/if}
     </td>
 {:else}
