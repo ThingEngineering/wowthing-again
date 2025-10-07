@@ -1,11 +1,11 @@
 <script lang="ts">
+    import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { DbThingType } from '@/shared/stores/db/enums';
     import { thingContentTypeToRewardType } from '@/shared/stores/db/types';
     import { achievementStore } from '@/stores/achievements';
     import { UserCount } from '@/types';
-    import { lazyState } from '@/user-home/state/lazy';
     import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
     import { snapshotStateForUserHasLookup } from '@/utils/rewards/snapshot-state-for-user-has-lookup.svelte';
     import { userHasLookup } from '@/utils/rewards/user-has-lookup';
@@ -13,6 +13,7 @@
     import { SomethingThing } from './types';
 
     import AchievementCategory from '@/components/achievements/Category.svelte';
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
     import VendorsCategories from '@/components/vendors/VendorsCategories.svelte';
     import Thing from './Thing.svelte';
@@ -39,15 +40,18 @@
 
                 const userHas = userHasLookup(snapshot, lookupType, lookupId, {});
 
-                resultData.contents.push({
-                    originalId: content.id,
-                    originalType: content.type,
-                    lookupType,
-                    lookupId,
-                    userHas,
-                });
                 if (userHas) {
                     resultData.stats.have++;
+                }
+
+                if (browserState.current.everything.showCollected || !userHas) {
+                    resultData.contents.push({
+                        originalId: content.id,
+                        originalType: content.type,
+                        lookupType,
+                        lookupId,
+                        userHas,
+                    });
                 }
             }
 
@@ -70,10 +74,31 @@
     .achievements {
         padding: 0.7rem 0.7rem 0.2rem 0.7rem;
     }
+    .title {
+        justify-content: flex-start;
+    }
+    .options-container {
+        margin-bottom: 0;
+        margin-left: 1rem;
+    }
 </style>
 
 <div class="wrapper-column">
-    <h2>{thing.name}</h2>
+    <div class="flex-wrapper title">
+        <h2>{thing.name}</h2>
+
+        <div class="options-container">
+            <span>Show:</span>
+
+            <button>
+                <CheckboxInput
+                    name="show_collected"
+                    bind:value={browserState.current.everything.showCollected}
+                    >Collected</CheckboxInput
+                >
+            </button>
+        </div>
+    </div>
 
     {#if dbThings.length > 0}
         <div class="collection thing-container">
@@ -97,7 +122,9 @@
             params={vendorParams}
             hideOptions={true}
             noV2={true}
-            showAll={true}
+            overrideShowCollected={browserState.current.everything.showCollected}
+            overrideShowUncollected={true}
+            showAll={browserState.current.everything.showCollected}
             titleOverride="Vendors"
         />
     {/if}
@@ -111,6 +138,8 @@
                     <AchievementCategory
                         everythingSort={true}
                         hideOptions={true}
+                        overrideShowCollected={browserState.current.everything.showCollected}
+                        overrideShowUncollected={true}
                         slug1={thing.achievementsKey[0]}
                         slug2={thing.achievementsKey[1]}
                     />

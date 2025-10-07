@@ -17,6 +17,9 @@ interface BrowserStateIdk {
     convertible: {
         includePurchases: boolean;
     };
+    everything: {
+        showCollected: boolean;
+    };
     explore: {
         achievementId: number;
         bonusIds: string;
@@ -160,6 +163,9 @@ const initialState: BrowserStateIdk = {
     },
     convertible: {
         includePurchases: true,
+    },
+    everything: {
+        showCollected: true,
     },
     explore: {
         achievementId: 0,

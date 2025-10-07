@@ -16,10 +16,19 @@
     type Props = {
         everythingSort?: boolean;
         hideOptions?: boolean;
+        overrideShowCollected?: boolean;
+        overrideShowUncollected?: boolean;
         slug1: string;
         slug2: string;
     };
-    let { everythingSort, hideOptions, slug1, slug2 }: Props = $props();
+    let {
+        everythingSort,
+        hideOptions,
+        overrideShowCollected,
+        overrideShowUncollected,
+        slug1,
+        slug2,
+    }: Props = $props();
 
     let category = $derived.by(() => {
         let cat = find($achievementStore.categories, (c) => c !== null && c.slug === slug1);
@@ -175,10 +184,17 @@
                             kindaAlwaysShow={category.id >= 200000}
                             achievementId={subAchievementId}
                             allAchievementIds={achievementId}
+                            {overrideShowCollected}
+                            {overrideShowUncollected}
                         />
                     {/each}
                 {:else}
-                    <Achievement kindaAlwaysShow={category.id >= 200000} {achievementId} />
+                    <Achievement
+                        kindaAlwaysShow={category.id >= 200000}
+                        {achievementId}
+                        {overrideShowCollected}
+                        {overrideShowUncollected}
+                    />
                 {/if}
             {/each}
         </div>

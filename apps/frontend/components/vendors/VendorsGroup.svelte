@@ -17,10 +17,12 @@
 
     type Props = {
         group: ManualDataVendorGroup;
+        overrideShowCollected?: boolean;
+        overrideShowUncollected?: boolean;
         showAll?: boolean;
         useV2: boolean;
     };
-    let { group, showAll, useV2 }: Props = $props();
+    let { group, overrideShowCollected, overrideShowUncollected, showAll, useV2 }: Props = $props();
 
     let element = $state<HTMLElement>(null);
     let intersected = $state(false);
@@ -29,16 +31,21 @@
         Math.floor(((group.stats?.have ?? 0) / (group.stats?.total ?? 1)) * 100)
     );
 
+    let useShowCollected =
+        overrideShowCollected !== undefined
+            ? overrideShowCollected
+            : browserState.current.vendors.showCollected;
+    let useShowUncollected =
+        overrideShowUncollected !== undefined
+            ? overrideShowUncollected
+            : browserState.current.vendors.showUncollected;
+
     let things = $derived.by(() => {
         const ret: ThingData[] = [];
         for (const thing of showAll ? group.sells : group.sellsFiltered) {
             const thingKey = `${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`;
             const userHas = lazyState.vendors.userHas[thingKey] === true;
-            if (
-                showAll ||
-                (browserState.current.vendors.showCollected && userHas) ||
-                (browserState.current.vendors.showUncollected && !userHas)
-            ) {
+            if (showAll || (useShowCollected && userHas) || (useShowUncollected && !userHas)) {
                 const thingData = new ThingData(thing, userHas);
 
                 thingData.quality =

@@ -3,6 +3,7 @@
     import { achievementStore } from '@/stores';
     import { achievementState } from '@/stores/local-storage';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { userState } from '@/user-home/state/user';
     import type { AchievementDataAchievement } from '@/types';
 
     import AchievementLink from '@/shared/components/links/AchievementLink.svelte';
@@ -10,12 +11,22 @@
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { userState } from '@/user-home/state/user';
 
     export let achievementId: number;
     export let allAchievementIds: number[] = undefined;
     export let alwaysShow = false;
     export let kindaAlwaysShow = false;
+    export let overrideShowCollected: boolean = undefined;
+    export let overrideShowUncollected: boolean = undefined;
+
+    $: useShowCollected =
+        overrideShowCollected !== undefined
+            ? overrideShowCollected
+            : $achievementState.showCompleted;
+    $: useShowUncollected =
+        overrideShowUncollected !== undefined
+            ? overrideShowUncollected
+            : $achievementState.showIncomplete;
 
     let achievement: AchievementDataAchievement;
     let earned: number;
@@ -100,10 +111,7 @@
         if (alwaysShow) {
             show = true;
         } else {
-            if (
-                (earned && !$achievementState.showCompleted) ||
-                (!earned && !$achievementState.showIncomplete)
-            ) {
+            if ((earned && !useShowCollected) || (!earned && !useShowUncollected)) {
                 show = false;
             } else if (!earned && $achievementStore.isHidden[achievementId]) {
                 show = false;
