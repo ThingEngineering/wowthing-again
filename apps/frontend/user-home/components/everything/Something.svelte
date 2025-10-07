@@ -5,7 +5,7 @@
     import { DbThingType } from '@/shared/stores/db/enums';
     import { thingContentTypeToRewardType } from '@/shared/stores/db/types';
     import { achievementStore } from '@/stores/achievements';
-    import { UserCount } from '@/types';
+    import { UserCount, type AchievementData } from '@/types';
     import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
     import { snapshotStateForUserHasLookup } from '@/utils/rewards/snapshot-state-for-user-has-lookup.svelte';
     import { userHasLookup } from '@/utils/rewards/user-has-lookup';
@@ -17,6 +17,7 @@
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
     import VendorsCategories from '@/components/vendors/VendorsCategories.svelte';
     import Thing from './Thing.svelte';
+    import { userState } from '@/user-home/state/user';
 
     let { thing }: { thing: EverythingData } = $props();
 
@@ -60,6 +61,7 @@
 
         return ret;
     });
+
     let totalStats = $derived.by(() => {
         const ret = new UserCount();
         for (const dbThing of dbThings) {
@@ -68,6 +70,14 @@
         }
         return ret;
     });
+
+    const getAchievementStats = (achievementData: AchievementData) => {
+        let cat = achievementData.categories.find((cat) => cat?.slug === thing.achievementsKey[0]);
+        for (let i = 1; i < thing.achievementsKey.length; i++) {
+            cat = cat.children.find((cat) => cat?.slug === thing.achievementsKey[i]);
+        }
+        return userState.achievements.categories[cat?.id];
+    };
 </script>
 
 <style lang="scss">
@@ -131,8 +141,9 @@
 
     {#if thing.achievementsKey}
         {#await achievementStore.fetch({ language: settingsState.value.general.language }) then}
+            {@const achievementStats = getAchievementStats($achievementStore)}
             <div class="collection thing-container">
-                <SectionTitle title="Achievements"></SectionTitle>
+                <SectionTitle title="Achievements" count={achievementStats}></SectionTitle>
 
                 <div class="achievements">
                     <AchievementCategory

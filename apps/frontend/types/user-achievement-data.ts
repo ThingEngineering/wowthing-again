@@ -19,6 +19,10 @@ export class UserAchievementDataCategory {
         public have: number,
         public total: number,
         public havePoints: number,
-        public totalPoints: number,
+        public totalPoints: number
     ) {}
+
+    get percent() {
+        return (this.have / this.total) * 100;
+    }
 }
