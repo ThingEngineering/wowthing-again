@@ -58,7 +58,7 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
         for (const extraCategory of extraCategories) {
             const reputations = data.categories.find((cat) => cat?.slug === 'reputation');
             const slugCat = reputations?.children.find(
-                (child) => child.slug === extraCategory.slug,
+                (child) => child.slug === extraCategory.slug
             );
             if (!slugCat) {
                 console.log('uh oh', extraCategory);
@@ -108,7 +108,7 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                         name: childName,
                         slug: childSlug,
                         achievementIds: (child.achievementIds || []).concat(
-                            childCat2.achievementIds,
+                            childCat2.achievementIds
                         ),
                         children: [],
                     });
@@ -697,6 +697,103 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 18150, // Zaralek Cavern Glyph Hunter
                 19306, // Emerald Dream Glyph Hunter
                 // END UGH
+            ],
+            children: [],
+        });
+
+        // TWW hack
+        data.categories.push({
+            id: categoryId++,
+            name: '[TWW] Worldsoul-Searching',
+            slug: 'worldsoul-searching',
+            achievementIds: [
+                19458, // Worldsoul-Searching
+
+                40244, // Nerub-ar Palace
+                41222, // Liberation of Undermine
+                41598, // Manaforge Omega
+
+                41555, // All That Khaz
+                40430, // All That Khaz > Khaz Algar Flight Master
+
+                40702, // All That Khaz > Khaz Algar Glyph Hunter
+                40166, // All That Khaz > Khaz Algar Glyph Hunter > Isle of Dorn Glyph Hunter
+                40703, // All That Khaz > Khaz Algar Glyph Hunter > The Ringing Deeps Glyph Hunter
+                40704, // All That Khaz > Khaz Algar Glyph Hunter > Hallowfall Glyph Hunter
+                40705, // All That Khaz > Khaz Algar Glyph Hunter > Azj-Kahet Glyph Hunter
+
+                20596, // All That Khaz > Loremaster of Khaz Algar
+                20118, // All That Khaz > Loremaster of Khaz Algar > The Isle of Dorn
+                19560, // All That Khaz > Loremaster of Khaz Algar > The Ringing Deeps
+                20598, // All That Khaz > Loremaster of Khaz Algar > Hallowfall
+                19559, // All That Khaz > Loremaster of Khaz Algar > Azj-Kahet
+                20595, // All That Khaz > Loremaster of Khaz Algar > Sojourner of Isle of Dorn
+                40799, // All That Khaz > Loremaster of Khaz Algar > Sojourner of The Ringing Deeps
+                40844, // All That Khaz > Loremaster of Khaz Algar > Sojourner of Hallowfall
+                40636, // All That Khaz > Loremaster of Khaz Algar > Sojourner of Azj-Kahet
+
+                40762, // All That Khaz > Khaz Algar Lore Hunter
+                41169, // All That Khaz > Khaz Algar Diplomat
+                40307, // All That Khaz > Allied Races: Earthen
+
+                41201, // You Xal Not Pass
+
+                41186, // You Xal Not Pass > Slate of the Union
+
+                41187, // You Xal Not Pass > Rage Aside the Machine
+
+                41188, // You Xal Not Pass > Crystal Chronicled
+
+                41189, // You Xal Not Pass > Azj the World Turns
+
+                41133, // You Xal Not Pass > Isle Remember You
+
+                40231, // The War Within Pathfinder
+                20118, // The War Within Pathfinder > The Isle of Dorn
+                19560, // The War Within Pathfinder > The Ringing Deeps
+                20598, // The War Within Pathfinder > Hallowfall
+                19559, // The War Within Pathfinder > Azj-Kahet
+                40790, // The War Within Pathfinder > Khaz Algar Explorer
+
+                // Glory of the Delver
+                40438, // Glory of the Delver
+
+                40537, // Glory of the Delver > Delve Loremaster: War Within
+                //???
+
+                40506, // Glory of the Delver > Leave No Treasure Unfound
+                // ???
+
+                40445, // Glory of the Delver > Sporesweeper
+                40453, // Glory of the Delver > Spider Senses
+                40454, // Glory of the Delver > Daystormer
+                40538, // Glory of the Delver > Brann Development
+                [
+                    40103, // Glory of the Delver > My First Nemesis
+                    41530, // Glory of the Delver > My New Nemesis
+                    42193, // Glory of the Delver > My Stab-Happy Nemesis
+                ],
+
+                // Going Goblin Mode
+                41586, // Going Goblin Mode
+                41216, // Going Goblin Mode > Adventurer of Undermine
+                41217, // Going Goblin Mode > Treasures of Undermine
+                40948, // Going Goblin Mode > Nine-Tenths of the Law
+                41588, // Going Goblin Mode > Read Between the Lines
+                41589, // Going Goblin Mode > That Can-Do Attitude
+                41708, // Going Goblin Mode > You're My Friend Now
+
+                41997, // Owner of a Radiant Heart
+
+                // Unraveled and Persevering
+                60889, // Unraveled and Persevering
+                42761, // Unraveled and Persevering > Remnants of a Shattered World
+                42741, // Unraveled and Persevering > Treasures of K'aresh
+                42740, // Unraveled and Persevering > Explore K'aresh
+                41979, // Unraveled and Persevering > Bounty Seeker
+                42729, // Unraveled and Persevering > Dangerous Prowlers of K'aresh
+                42742, // Unraveled and Persevering > Power of the Reshii
+                50890, // Unraveled and Persevering > Secrets of the K'areshi
             ],
             children: [],
         });

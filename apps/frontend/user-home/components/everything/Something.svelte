@@ -109,6 +109,7 @@
 
                 <div class="achievements">
                     <AchievementCategory
+                        everythingSort={true}
                         hideOptions={true}
                         slug1={thing.achievementsKey[0]}
                         slug2={thing.achievementsKey[1]}
