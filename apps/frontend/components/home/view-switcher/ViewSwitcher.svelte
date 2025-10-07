@@ -26,7 +26,13 @@
 </script>
 
 <style lang="scss">
-    div {
+    .view-switcher {
+        display: flex;
+        flex-wrap: wrap;
+        gap: calc(var(--padding-size) * 2) 3rem;
+        margin-bottom: calc(var(--padding-size) * 2);
+    }
+    .tabs {
         align-items: center;
         display: flex;
         gap: 0.3rem;
@@ -38,7 +44,6 @@
         border: 1px solid var(--border-color);
         border-radius: var(--border-radius-large);
         cursor: pointer;
-        margin-bottom: 0.2rem;
         max-width: 10rem;
         padding: 0.2rem 0.5rem;
         z-index: 10;
@@ -49,9 +54,8 @@
             color: #fff;
         }
     }
-    .flex-wrapper {
+    .extra-stuff {
         gap: 0.5rem;
-        margin-left: 3rem;
 
         :global(> *) {
             border: 1px solid var(--border-color);
@@ -66,30 +70,34 @@
     }
 </style>
 
-<div>
-    {#each settingsState.value.views as view (view.id)}
-        <button
-            class="tab border text-overflow"
-            class:active={browserState.current.home.activeView === view.id}
-            data-id={view.id}
-            onclick={() => setActiveView(view.id)}
-            data-tooltip={view.name}
-        >
-            <ParsedText text={view.name} />
-        </button>
-    {/each}
+<div class="view-switcher">
+    <div class="tabs">
+        {#each settingsState.value.views as view (view.id)}
+            <button
+                class="tab border text-overflow"
+                class:active={browserState.current.home.activeView === view.id}
+                data-id={view.id}
+                onclick={() => setActiveView(view.id)}
+                data-tooltip={view.name}
+            >
+                <ParsedText text={view.name} />
+            </button>
+        {/each}
 
-    {#if !sharedState.public}
-        <a
-            class="tab"
-            href="/settings/views/{browserState.current.home.activeView}"
-            data-tooltip="Settings"
-            use:link
-        >
-            <IconifyIcon icon={iconLibrary.mdiCogOutline} />
-        </a>
+        {#if !sharedState.public}
+            <a
+                class="tab"
+                href="/settings/views/{browserState.current.home.activeView}"
+                data-tooltip="Settings"
+                use:link
+            >
+                <IconifyIcon icon={iconLibrary.mdiCogOutline} />
+            </a>
+        {/if}
+    </div>
 
-        <div class="flex-wrapper">
+    <div class="flex-wrapper extra-stuff">
+        {#if !sharedState.public}
             <button
                 class="account-gold"
                 data-tooltip="Click to toggle between Warbank and Total gold"
@@ -103,10 +111,10 @@
                     Warbank: {warbankGold} g
                 {/if}
             </button>
+        {/if}
 
-            <ParagonQuests />
+        <ParagonQuests />
 
-            <Holidays />
-        </div>
-    {/if}
+        <Holidays />
+    </div>
 </div>

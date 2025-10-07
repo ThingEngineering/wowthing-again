@@ -10,11 +10,22 @@
         category: ManualDataVendorCategory;
         costs: Record<number, number>;
         noV2?: boolean;
+        overrideShowCollected?: boolean;
+        overrideShowUncollected?: boolean;
         showAll?: boolean;
         statsSlug: string;
         title: string;
     };
-    let { category, costs, noV2, showAll, statsSlug, title }: Props = $props();
+    let {
+        category,
+        costs,
+        noV2,
+        overrideShowCollected,
+        overrideShowUncollected,
+        showAll,
+        statsSlug,
+        title,
+    }: Props = $props();
 
     let useV2 = $derived(
         !noV2 &&
@@ -36,6 +47,6 @@
 
 <div class="collection{useV2 ? '-v2' : ''}-section">
     {#each category.groups as group}
-        <Group {group} {showAll} {useV2} />
+        <Group {group} {overrideShowCollected} {overrideShowUncollected} {showAll} {useV2} />
     {/each}
 </div>

@@ -3,9 +3,8 @@
     import { weaponSubclassOrder, weaponSubclassToString } from '@/data/weapons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
+    import { lazyState } from '@/user-home/state/lazy';
     import getPercentClass from '@/utils/get-percent-class';
-    import type { TransmogSlotData } from '@/user-home/state/lazy/transmog.svelte';
-    import type { ManualDataTransmogGroupData } from '@/types/data/manual';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import TooltipItems from './TooltipItems.svelte';
@@ -13,16 +12,25 @@
 
     type Props = {
         have: number;
-        set: ManualDataTransmogGroupData;
+        setKey: string;
         setTitle: string;
-        slotHave: TransmogSlotData;
         subType: string;
         total: number;
     };
 
-    let { have, set, setTitle, slotHave, subType, total }: Props = $props();
+    let { have, setKey, setTitle, subType, total }: Props = $props();
 
     let completionist = $derived(settingsState.value.transmog.completionistMode);
+
+    let set = $derived.by(() => {
+        const keyParts = setKey.split('--');
+        const categories = wowthingData.manual.transmog.sets.find(
+            (cats) => cats?.[0]?.slug === keyParts[0]
+        );
+        const category = categories.find((cat) => cat?.slug === keyParts[1]);
+        const group = category.groups[parseInt(keyParts[2])];
+        return group.data[keyParts[4]][parseInt(keyParts[3])];
+    });
 
     let setName = $derived.by(() => {
         let name = set.transmogSetId
@@ -34,6 +42,7 @@
         return name;
     });
 
+    let slotHave = $derived(lazyState.transmog.slots[setKey]);
     let slotKeys = $derived(Object.keys(slotHave).map((key) => parseInt(key)));
     let weapons = $derived(slotKeys.filter((key) => key >= 100));
     let actualSlotOrder = $derived(

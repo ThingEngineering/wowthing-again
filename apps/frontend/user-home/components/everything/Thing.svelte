@@ -1,5 +1,6 @@
 <script lang="ts">
     import { wowthingData } from '@/shared/stores/data';
+    import { DbThingType } from '@/shared/stores/db/enums';
     import getPercentClass from '@/utils/get-percent-class';
     import type { SomethingThing } from './types';
 
@@ -8,6 +9,16 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
     let { thingData }: { thingData: SomethingThing } = $props();
+
+    let name = $derived.by(() => {
+        if (thingData.thing.type === DbThingType.Item) {
+            return (
+                wowthingData.items.items[thingData.thing.id]?.name || `Item #${thingData.thing.id}`
+            );
+        } else {
+            return thingData.thing.name;
+        }
+    });
 </script>
 
 <style lang="scss">
@@ -25,7 +36,7 @@
 <div class="collection-group">
     <div class="title">
         <h4 class="drop-shadow text-overflow {getPercentClass(thingData.stats.percent)}">
-            <ParsedText text={wowthingData.items.items[thingData.thing.id]?.name} />
+            <ParsedText text={name} />
         </h4>
         <CollectibleCount counts={thingData.stats} />
     </div>

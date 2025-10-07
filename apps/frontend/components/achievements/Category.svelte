@@ -8,60 +8,95 @@
     import { achievementState } from '@/stores/local-storage';
     import { userState } from '@/user-home/state/user';
     import { leftPad } from '@/utils/formatting';
-    import type { AchievementDataCategory } from '@/types';
 
     import Achievement from './Achievement.svelte';
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import ProgressBar from '@/components/common/ProgressBar.svelte';
 
-    export let hideOptions: boolean = false;
-    export let slug1: string;
-    export let slug2: string;
+    type Props = {
+        everythingSort?: boolean;
+        hideOptions?: boolean;
+        overrideShowCollected?: boolean;
+        overrideShowUncollected?: boolean;
+        slug1: string;
+        slug2: string;
+    };
+    let {
+        everythingSort,
+        hideOptions,
+        overrideShowCollected,
+        overrideShowUncollected,
+        slug1,
+        slug2,
+    }: Props = $props();
 
-    let achievementIds: (number | number[])[];
-    let category: AchievementDataCategory;
-    $: {
-        category = find($achievementStore.categories, (c) => c !== null && c.slug === slug1);
-        if (!category) {
-            break $;
+    let category = $derived.by(() => {
+        let cat = find($achievementStore.categories, (c) => c !== null && c.slug === slug1);
+        if (!cat) {
+            return null;
         }
 
         if (slug2) {
-            category = find(category.children, (c) => c !== null && c.slug === slug2);
-            if (!category) {
-                break $;
-            }
-        } else if (category.achievementIds.length === 0 && category.children.length > 0) {
-            replace(`/achievements/${slug1}/${category.children[0].slug}`);
+            cat = find(cat.children, (c) => c !== null && c.slug === slug2);
+        } else if (cat.achievementIds.length === 0 && cat.children.length > 0) {
+            replace(`/achievements/${slug1}/${cat.children[0].slug}`);
         }
 
-        achievementIds = uniq(
-            category.id >= 200000
-                ? category.achievementIds
-                : sortBy(category.achievementIds as number[], (id) =>
-                      [
-                          userState.achievements.achievementEarnedById.has(id) ? '0' : '1',
-                          leftPad($achievementStore.achievement[id].categoryId, 5, '0'),
-                          leftPad($achievementStore.achievement[id].order, 4, '0'),
-                          leftPad(100000 - id, 6, '0'),
-                      ].join('|')
-                  ).filter((id) => {
-                      const cheev = $achievementStore.achievement[id as number];
+        return cat;
+    });
 
-                      // Don't show tracking achievements
-                      if ((cheev.flags & 0x100_000) > 0) {
-                          return false;
-                      }
+    let achievementIds = $derived.by(() => {
+        if (!category) {
+            return [];
+        }
 
-                      // Obey faction filters
-                      return (
-                          cheev.faction === -1 ||
-                          (cheev.faction === 1 && $achievementState.showAlliance) ||
-                          (cheev.faction === 0 && $achievementState.showHorde)
-                      );
-                  })
+        if (category.id >= 200000) {
+            return category.achievementIds;
+        }
+
+        let ids = category.achievementIds as number[];
+        if (everythingSort) {
+            ids = sortBy(ids, (id) =>
+                [
+                    userState.achievements.achievementEarnedById.has(id) ? '1' : '0',
+                    leftPad(
+                        2_100_000_000 - (userState.achievements.achievementEarnedById.get(id) || 0),
+                        10,
+                        '0'
+                    ),
+                    leftPad($achievementStore.achievement[id].categoryId, 5, '0'),
+                    leftPad($achievementStore.achievement[id].order, 4, '0'),
+                ].join('|')
+            );
+        } else {
+            ids = sortBy(category.achievementIds as number[], (id) =>
+                [
+                    userState.achievements.achievementEarnedById.has(id) ? '0' : '1',
+                    leftPad($achievementStore.achievement[id].categoryId, 5, '0'),
+                    leftPad($achievementStore.achievement[id].order, 4, '0'),
+                    leftPad(100000 - id, 6, '0'),
+                ].join('|')
+            );
+        }
+
+        return uniq(
+            ids.filter((id) => {
+                const cheev = $achievementStore.achievement[id];
+
+                // Don't show tracking achievements
+                if ((cheev.flags & 0x100_000) > 0) {
+                    return false;
+                }
+
+                // Obey faction filters
+                return (
+                    cheev.faction === -1 ||
+                    (cheev.faction === 1 && $achievementState.showAlliance) ||
+                    (cheev.faction === 0 && $achievementState.showHorde)
+                );
+            })
         );
-    }
+    });
 </script>
 
 <style lang="scss">
@@ -149,10 +184,17 @@
                             kindaAlwaysShow={category.id >= 200000}
                             achievementId={subAchievementId}
                             allAchievementIds={achievementId}
+                            {overrideShowCollected}
+                            {overrideShowUncollected}
                         />
                     {/each}
                 {:else}
-                    <Achievement kindaAlwaysShow={category.id >= 200000} {achievementId} />
+                    <Achievement
+                        kindaAlwaysShow={category.id >= 200000}
+                        {achievementId}
+                        {overrideShowCollected}
+                        {overrideShowUncollected}
+                    />
                 {/if}
             {/each}
         </div>

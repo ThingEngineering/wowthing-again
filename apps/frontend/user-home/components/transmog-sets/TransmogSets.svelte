@@ -1,6 +1,7 @@
 <script lang="ts">
     import getSavedRoute from '@/utils/get-saved-route';
     import type { ParamsSlugsProps } from '@/types/props';
+    import { delegatedTooltips } from './delegated-tooltips';
 
     import Sidebar from './Sidebar.svelte';
     import Table from './Table.svelte';
@@ -10,7 +11,7 @@
     $effect(() => getSavedRoute('sets', params.slug1, params.slug2));
 </script>
 
-<div class="view">
+<div class="view" use:delegatedTooltips>
     <Sidebar />
     <Table slug1={params.slug1} slug2={params.slug2} />
 </div>
