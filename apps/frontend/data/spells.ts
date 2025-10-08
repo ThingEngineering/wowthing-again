@@ -1,3 +1,5 @@
+import { Constants } from './constants';
+
 // spellId, spellName, expiresWhileOffline
 export const durationAuras: [number, string, boolean?][] = [
     [24705, 'Grim Visage'],
@@ -20,6 +22,8 @@ export const durationAuras: [number, string, boolean?][] = [
     [471544, 'Mastery of Timeways II'],
     [1229052, 'Knowledge of Timeways III'],
     [1229050, 'Mastery of Timeways III'],
+    [1229052, 'Knowledge of Timeways III'],
+    [1258528, 'Mastery of Timeways IV'],
     // flasks
     [431971, 'Flask of Tempered Aggression'],
     [431972, 'Flask of Tempered Swiftness'],
@@ -32,4 +36,7 @@ export const durationAuras: [number, string, boolean?][] = [
     [432473, 'Flask of Saving Graces'],
 ];
 
-export const staticAuras: [number, string][] = [[1246363, "Delver's Bounty"]];
+export const staticAuras: [number, string][] = [
+    [Constants.remixLegionSpellId, 'WoW Remix: Legion'],
+    [1246363, "Delver's Bounty"],
+];

@@ -10,6 +10,8 @@ export abstract class Constants {
 
     static readonly defaultUnixTime = 946684800;
 
+    static readonly remixLegionSpellId = 1213439;
+
     static readonly currencies = {
         catalyst: 3269, // Ethereal Voidsplinter
         conquest: 1602,
