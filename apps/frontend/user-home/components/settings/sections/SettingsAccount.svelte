@@ -10,6 +10,7 @@
     import Select from '@/shared/components/forms/Select.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
     import { userState } from '@/user-home/state/user';
+    import { Constants } from '@/data/constants';
 
     let apiKey = $state('');
 
@@ -219,11 +220,13 @@
                             <span class="class-{character.classId}">{character.name}</span>
                         {/each}
                         <code
-                            class:status-fail={accountCharacters.length == 65}
-                            class:status-shrug={accountCharacters.length > 45 &&
-                                accountCharacters.length < 65}
+                            class:status-fail={accountCharacters.length ===
+                                Constants.charactersPerAccount}
+                            class:status-shrug={accountCharacters.length >
+                                Constants.charactersPerAccount - 20 &&
+                                accountCharacters.length < Constants.charactersPerAccount}
                         >
-                            ({accountCharacters.length} / 65)</code
+                            ({accountCharacters.length} / {Constants.charactersPerAccount})</code
                         >
                     </td>
                 </tr>

@@ -1,5 +1,6 @@
 export abstract class Constants {
     static readonly characterMaxLevel: number = 80;
+    static readonly charactersPerAccount: number = 70;
     static readonly expansion: number = 10;
     static readonly guildBankTabItems = 98;
     static readonly maxRenown: number = 80;
@@ -8,6 +9,8 @@ export abstract class Constants {
     static readonly mythicPlusSeason: number = 15;
 
     static readonly defaultUnixTime = 946684800;
+
+    static readonly remixLegionSpellId = 1213439;
 
     static readonly currencies = {
         catalyst: 3269, // Ethereal Voidsplinter
