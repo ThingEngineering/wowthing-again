@@ -1,5 +1,6 @@
 export abstract class Constants {
     static readonly characterMaxLevel: number = 80;
+    static readonly charactersPerAccount: number = 70;
     static readonly expansion: number = 10;
     static readonly guildBankTabItems = 98;
     static readonly maxRenown: number = 80;
