@@ -1,6 +1,6 @@
 import { Duration } from 'luxon';
 
-export function toNiceDuration(milliseconds: number, useNbsp = true): string {
+export function toNiceDuration(milliseconds: number, useNbsp = true, maxDays = 999): string {
     const duration = Duration.fromObject({
         days: 0,
         hours: 0,
@@ -14,11 +14,13 @@ export function toNiceDuration(milliseconds: number, useNbsp = true): string {
     if (duration.days > 0) {
         parts.push(`${duration.days}d`);
     }
-    if (duration.hours > 0) {
-        parts.push(`${duration.hours < 10 ? space : ''}${duration.hours}h`);
-    }
-    if (duration.minutes > 0) {
-        parts.push(`${duration.minutes < 10 ? space : ''}${duration.minutes}m`);
+    if (duration.days < maxDays) {
+        if (duration.hours > 0) {
+            parts.push(`${duration.hours < 10 ? space : ''}${duration.hours}h`);
+        }
+        if (duration.minutes > 0) {
+            parts.push(`${duration.minutes < 10 ? space : ''}${duration.minutes}m`);
+        }
     }
 
     if (parts.length === 0) {
