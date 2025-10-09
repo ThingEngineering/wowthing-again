@@ -33,6 +33,11 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
             name: 'World Events',
             slug: 'world-events',
         },
+        {
+            id: 100103,
+            name: 'Timerunning',
+            slug: 'timerunning',
+        },
     ],
 
     // The War Within
@@ -191,6 +196,15 @@ export const currencyExtra: Record<number, number[]> = {
     // Miscellaneous > World Events
     100102: [
         3309, // Hellstone Shard
+    ],
+    // Miscellaneous > Timerunning
+    100103: [
+        3252, // Bronze
+        3268, // Infinite Power
+        3292, // Infinite Knowledge
+        null,
+        3293, // Epoch Memento
+        3251, // Felforged Bronze
     ],
 };
 
