@@ -62,11 +62,7 @@
             const [spellId, auraTooltip] = staticAuras[auraIndex];
             const aura = character.auras?.[spellId];
             if (aura) {
-                ret.push([
-                    `spell/${spellId}`,
-                    `<div class="center">${auraTooltip}</div>`,
-                    auraIndex <= 7 ? (auraIndex + 1).toString() : null,
-                ]);
+                ret.push([`spell/${spellId}`, `<div class="center">${auraTooltip}</div>`, '']);
             }
         }
 
