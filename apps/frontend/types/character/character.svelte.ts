@@ -509,22 +509,18 @@ export class Character implements ContainsItems, HasNameAndRealm {
         return calced || this.equippedItemLevel.toFixed(1);
     });
 
-    calculatedItemLevelQuality = $derived.by(() =>
+    public calculatedItemLevelQuality = $derived.by(() =>
         getItemLevelQuality(parseFloat(this.calculatedItemLevel))
     );
 
-    private _fancyLevel: string;
-    get fancyLevel(): string {
-        if (!this._fancyLevel) {
-            const levelData = getCharacterLevel(this);
-            if (levelData.level < Constants.characterMaxLevel) {
-                this._fancyLevel = `${leftPad(levelData.level, 2, '&nbsp;')}.${levelData.partial}`;
-            } else {
-                this._fancyLevel = `${leftPad(levelData.level, 2, '&nbsp;')}&nbsp;&nbsp;`;
-            }
+    public fancyLevel = $derived.by(() => {
+        const levelData = getCharacterLevel(this);
+        if (levelData.level < Constants.characterMaxLevel) {
+            return `${leftPad(levelData.level, 2, '&nbsp;')}.${levelData.partial}`;
+        } else {
+            return `${leftPad(levelData.level, 2, '&nbsp;')}&nbsp;&nbsp;`;
         }
-        return this._fancyLevel;
-    }
+    });
 
     get isMaxLevel(): boolean {
         return this.level === Constants.characterMaxLevel;
