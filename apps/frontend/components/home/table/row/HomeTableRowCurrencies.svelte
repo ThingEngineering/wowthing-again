@@ -17,8 +17,8 @@
         border-left: 1px solid var(--border-color);
         text-align: right;
     }
-    .faded {
-        color: #aaa;
+    .got-none {
+        color: #999;
     }
 </style>
 
@@ -38,7 +38,7 @@
             class:status-success={currency?.id === Constants.currencies.honor && amountRaw >= 2000}
             class:status-shrug={percent >= 50 && percent < 100}
             class:status-fail={percent >= 100}
-            class:faded={amount === '0' && percent === 0}
+            class:got-none={amount === '0' && percent === 0}
             data-tooltip={tooltip}
         >
             {amount}
