@@ -38,5 +38,6 @@ export const durationAuras: [number, string, boolean?][] = [
 
 export const staticAuras: [number, string][] = [
     [Constants.remixLegionSpellId, 'WoW Remix: Legion'],
+    [1238465, 'Heroic World Tier'],
     [1246363, "Delver's Bounty"],
 ];
