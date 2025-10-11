@@ -18,6 +18,7 @@
         hideOptions?: boolean;
         overrideShowCollected?: boolean;
         overrideShowUncollected?: boolean;
+        recursive?: boolean;
         slug1: string;
         slug2: string;
     };
@@ -26,6 +27,7 @@
         hideOptions,
         overrideShowCollected,
         overrideShowUncollected,
+        recursive,
         slug1,
         slug2,
     }: Props = $props();
@@ -55,6 +57,13 @@
         }
 
         let ids = category.achievementIds as number[];
+
+        if (recursive) {
+            for (const child of category.children) {
+                ids.push(...(child.achievementIds as number[]));
+            }
+        }
+
         if (everythingSort) {
             ids = sortBy(ids, (id) =>
                 [

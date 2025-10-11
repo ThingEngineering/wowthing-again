@@ -75,6 +75,7 @@ export const everythingData: Record<string, EverythingData> = {
     'remix-legion': {
         name: 'Remix: Legion',
         tag: 'event:remix-legion',
+        achievementsKey: ['legion-remix'],
         vendorsKey: ['remix', 'legion'],
     },
 };
