@@ -1,3 +1,4 @@
+import { Constants } from '@/data/constants';
 import { Holiday } from '@/enums/holiday';
 import { DbResetType } from '@/shared/stores/db/enums';
 import type { Task } from '@/types/tasks';
@@ -8,6 +9,7 @@ export const pvpBrawl: Task = {
     key: 'pvpBrawl',
     name: '[PvP] Brawl',
     shortName: 'Brawl',
+    minimumLevel: Constants.characterMaxLevel,
     chores: [
         {
             key: 'brawlFirstWin',
