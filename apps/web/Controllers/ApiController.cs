@@ -309,8 +309,6 @@ public class ApiController : Controller
 
         timer.AddPoint("Dailies");
 
-        var backgrounds = await _memoryCacheService.GetBackgroundImages();
-
         var images = await _context.Image
             .Where(image =>
                 (image.Type == ImageType.Character || image.Type == ImageType.CharacterFull) &&
@@ -503,7 +501,6 @@ public class ApiController : Controller
 
             LastApiCheck = apiResult.Public ? null : apiResult.User.LastApiCheck,
 
-            Backgrounds = backgrounds,
             CurrentPeriod = currentPeriods,
             GlobalDailies = globalDailies,
             GoldHistoryRealms = goldHistoryRealms,

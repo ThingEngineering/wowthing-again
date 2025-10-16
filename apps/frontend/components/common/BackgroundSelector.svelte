@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { userStore } from '@/stores';
+    import { backgrounds } from '@/data/backgrounds';
     import { settingsState } from '@/shared/state/settings.svelte';
     import backgroundThumbUrl from '@/utils/background-thumb-url';
 
@@ -49,7 +49,7 @@
 </style>
 
 <div class="backgrounds">
-    {#each $userStore.backgroundList as background}
+    {#each backgrounds as background (background.id)}
         <button
             class="background border"
             class:selected={selected === background.id}

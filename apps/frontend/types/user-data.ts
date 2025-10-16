@@ -3,7 +3,6 @@ import { DateTime } from 'luxon';
 import parseApiTime from '@/utils/parse-api-time';
 
 import type { Account } from './account';
-import type { BackgroundImage } from './background-image';
 import type { Character, CharacterArray, CharacterLockout } from './character';
 import type { InstanceDifficulty } from './dungeon';
 import type { Guild, GuildArray } from './guild';
@@ -32,7 +31,6 @@ export interface UserData {
     warbankGold: number;
     warbankScannedAt: string;
 
-    backgrounds: Record<number, BackgroundImage>;
     currentPeriod: Record<number, UserDataCurrentPeriod>;
     globalDailies: Record<string, DailyQuests>;
     images: Record<string, string>;
@@ -47,8 +45,6 @@ export interface UserData {
     rawWarbankItems: WarbankItemArray[];
 
     // Calculated
-    backgroundList: BackgroundImage[];
-
     apiUpdatedCharacters: Character[];
     characters: Character[];
     characterMap: Record<number, Character>;

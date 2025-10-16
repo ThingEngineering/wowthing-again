@@ -50,9 +50,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         userState.general.process(userData);
 
-        // Background images
-        userData.backgroundList = sortBy(Object.values(userData.backgrounds), (bg) => -bg.id);
-
         // Periods
         userData.currentPeriod = Object.fromEntries(
             Object.entries(userData.currentPeriod).map(([region, cp]) => [

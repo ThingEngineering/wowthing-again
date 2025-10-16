@@ -26,7 +26,6 @@ public class ApiUser
     public int WarbankGold { get; set; }
     public DateTimeOffset? WarbankScannedAt { get; set; }
 
-    public Dictionary<int, BackgroundImage> Backgrounds { get; set; }
     public Dictionary<int, WowPeriod> CurrentPeriod { get; init; }
     public Dictionary<string, GlobalDailies> GlobalDailies { get; set; }
     public Dictionary<int, int> Heirlooms { get; set; }
