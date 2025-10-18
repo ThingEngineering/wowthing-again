@@ -7,7 +7,12 @@ import { wowthingData } from '@/shared/stores/data';
 import { userState } from '@/user-home/state/user';
 import type { StaticDataHoliday } from '@/shared/stores/static/types';
 
-export type ActiveHoliday = { holiday: StaticDataHoliday; startDate: DateTime; endDate: DateTime };
+export type ActiveHoliday = {
+    holiday: StaticDataHoliday;
+    startDate: DateTime;
+    endDate: DateTime;
+    soon?: boolean;
+};
 export type ActiveHolidayMap = Record<string, ActiveHoliday>;
 
 class ActiveHolidays {
@@ -21,6 +26,7 @@ class ActiveHolidays {
         }
 
         const currentTime = timeState.slowTime;
+        const fakeStartTime = currentTime.plus({ days: 2 });
 
         const regionMask = allRegions.reduce((a, b) => a + (1 << (b - 1)), 0);
         if (this.cachedTime[regionMask] === currentTime) {
@@ -70,11 +76,12 @@ class ActiveHolidays {
                         hours: holiday.durations[holiday.durations.length - 1],
                     });
 
-                    if (actualStartDate < currentTime && endDate > currentTime) {
+                    if (actualStartDate < fakeStartTime && endDate > currentTime) {
                         activeHolidays[`h${holiday.id}`] = {
                             holiday,
                             startDate: actualStartDate,
                             endDate,
+                            soon: actualStartDate > currentTime,
                         };
                         break;
                     }
@@ -84,6 +91,8 @@ class ActiveHolidays {
 
         this.cachedActive[regionMask] = activeHolidays;
         this.cachedTime[regionMask] = currentTime;
+
+        console.log(activeHolidays);
 
         return activeHolidays;
     });
