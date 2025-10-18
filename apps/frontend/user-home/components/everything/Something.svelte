@@ -151,6 +151,7 @@
                         hideOptions={true}
                         overrideShowCollected={browserState.current.everything.showCollected}
                         overrideShowUncollected={true}
+                        recursive={true}
                         slug1={thing.achievementsKey[0]}
                         slug2={thing.achievementsKey[1]}
                     />

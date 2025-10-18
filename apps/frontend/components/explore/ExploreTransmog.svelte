@@ -16,6 +16,8 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import { iconLibrary } from '@/shared/icons';
 
     const slotOrder = bestTypeOrder.concat(weaponSubclassOrder.map((sub) => sub + 100));
 
@@ -30,7 +32,7 @@
     );
 
     let slots = $derived.by(() => {
-        const ret: Record<number, ItemDataItem[]> = {};
+        const ret: Record<number, [ItemDataItem, boolean?][]> = {};
         if (transmogSet) {
             for (const [itemId] of transmogSet.items) {
                 const isPrimary = itemId > 10_000_000;
@@ -49,9 +51,9 @@
 
                 const slotItems = (ret[actualSlot] ||= []);
                 if (isPrimary) {
-                    slotItems.unshift(item);
+                    slotItems.unshift([item, true]);
                 } else {
-                    slotItems.push(item);
+                    slotItems.push([item, false]);
                 }
             }
         }
@@ -90,9 +92,15 @@
         overflow: hidden; /* Firefox fix */
     }
     .item {
+        justify-content: space-between;
+    }
+    .item-link {
         :global(img:not(:first-child)) {
             margin-left: 2px;
         }
+    }
+    .primary-in-slot {
+        color: #ffff00;
     }
 </style>
 
@@ -143,17 +151,26 @@
                                 {InventoryType[slot]}
                             {/if}
                         </h4>
-                        {#each slots[slot] as item (item.id)}
+                        {#each slots[slot] as [item, isPrimary] (item.id)}
                             {@const itemClasses = getClassesFromMask(item.classMask)}
-                            <div class="item">
-                                <WowheadLink type="item" id={item.id}>
-                                    {#if itemClasses.length < 13}
-                                        {#each itemClasses as classId (classId)}
-                                            <ClassIcon {classId} />
-                                        {/each}
-                                    {/if}
-                                    <ParsedText text={`{item:${item.id}}`} />
-                                </WowheadLink>
+                            <div class="item flex-wrapper">
+                                <div class="item-link">
+                                    <WowheadLink type="item" id={item.id}>
+                                        {#if itemClasses.length < 13}
+                                            {#each itemClasses as classId (classId)}
+                                                <ClassIcon {classId} />
+                                            {/each}
+                                        {/if}
+
+                                        <ParsedText text={`{item:${item.id}}`} />
+                                    </WowheadLink>
+                                </div>
+
+                                {#if isPrimary}
+                                    <span class="primary-in-slot">
+                                        <IconifyIcon icon={iconLibrary.hisExclamationCircle} />
+                                    </span>
+                                {/if}
                             </div>
                         {/each}
                     </div>

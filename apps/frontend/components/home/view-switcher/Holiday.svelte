@@ -24,8 +24,11 @@
             .map((id) => activeHolidays.value[`h${id}`])
             .find((h) => !!h)
     );
+    // future => time until start, current => time until end
     let remainingTime = $derived.by(() =>
-        activeHoliday.endDate.diff(timeState.slowTime).toMillis()
+        activeHoliday.soon
+            ? activeHoliday.startDate.diff(timeState.slowTime).toMillis()
+            : activeHoliday.endDate.diff(timeState.slowTime).toMillis()
     );
     let everything = $derived(everythingData[fancyHoliday.everything]);
 
@@ -83,7 +86,17 @@
     .flex-wrapper {
         --border-color: rgb(105, 245, 245);
 
+        color: var(--color-body-text);
         gap: 0.4rem;
+
+        &.soon {
+            filter: grayscale(50%);
+            opacity: 0.9;
+        }
+    }
+    code {
+        vertical-align: 0;
+        word-spacing: -0.5ch;
     }
     .farms {
         margin: 0 -0.3rem;
@@ -94,13 +107,13 @@
         padding-left: 0.4rem;
     }
     .stats {
-        font-size: 0.9rem;
-        word-spacing: -0.7ch;
+        // font-size: 0.9rem;
+        // word-spacing: -0.7ch;
     }
 </style>
 
 {#snippet flexWrapper()}
-    <div class="flex-wrapper">
+    <div class="flex-wrapper" class:soon={activeHoliday.startDate > timeState.slowTime}>
         <span class="farms">
             {#each farms as { farm, status } (farm)}
                 <ParsedText
@@ -112,13 +125,19 @@
 
         <span>{fancyHoliday.shortName}</span>
 
-        <code class="stats {getPercentClass(stats.percent)}">{stats.have} / {stats.total}</code>
-        <code class="remaining">{toNiceDuration(remainingTime, false, 7)}</code>
+        <code class="stats {getPercentClass(stats.percent)}">{stats.have}/{stats.total}</code>
+        <span class="remaining">
+            {activeHoliday.soon ? 'starts ' : 'ends '}
+            <code>{toNiceDuration(remainingTime, false, 7)}</code>
+        </span>
     </div>
 {/snippet}
 
 {#if fancyHoliday.everything}
-    <a href="#/everything/{fancyHoliday.everything}">
+    <a
+        href="#/everything/{fancyHoliday.everything}"
+        class:soon={activeHoliday.startDate > timeState.slowTime}
+    >
         {@render flexWrapper()}
     </a>
 {:else}

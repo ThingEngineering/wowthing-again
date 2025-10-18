@@ -15,7 +15,7 @@ import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { userState } from '@/user-home/state/user';
 import { Constants } from '@/data/constants';
 
-const debugId = 41095;
+const debugId = 42315;
 
 const remixCategoryIds = new Set([15554, 15556, 15557, 15558, 15559, 15560, 15561]);
 
@@ -92,7 +92,14 @@ export function getAchievementStatus(
         }
 
         if (achievement.id === debugId) {
-            console.log('-', criteriaTree, criteriaTree.criteriaId, criteria, addStuff);
+            console.log(
+                '-',
+                achievement,
+                criteriaTree,
+                criteriaTree.criteriaId,
+                criteria,
+                addStuff
+            );
             // console.log('--', userAchievementData.criteria[criteriaTree.id] ?? []);
         }
 

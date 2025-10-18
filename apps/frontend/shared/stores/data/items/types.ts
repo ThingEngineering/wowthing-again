@@ -48,7 +48,9 @@ export class DataItems {
     public appearanceToItems: Record<number, [number, number][]> = {};
     public items: Record<number, ItemDataItem> = {};
     public itemBonuses: Record<number, DataItemBonus> = {};
+    public itemBonusAvoidance: Set<number> = new Set();
     public itemBonusCurrentSeason: Set<number> = new Set();
+    public itemBonusLeech: Set<number> = new Set();
     public itemBonusSocket: Set<number> = new Set();
     public itemBonusSpeed: Set<number> = new Set();
     public itemBonusToUpgrade: Record<number, [number, number, number]> = {};

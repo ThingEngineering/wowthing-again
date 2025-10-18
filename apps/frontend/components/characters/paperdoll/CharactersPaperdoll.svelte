@@ -8,6 +8,7 @@
     import Configure from './CharactersPaperdollConfigure.svelte';
     import Equipped from './CharactersPaperdollEquipped.svelte';
     import Stats from './CharactersPaperdollStats.svelte';
+    import { backgroundMap } from '@/data/backgrounds';
 
     export let character: Character;
 
@@ -18,7 +19,7 @@
     let filter: string;
     $: {
         backgroundImage =
-            $userStore.backgrounds[
+            backgroundMap[
                 selected === -1 ? settingsState.value.characters.defaultBackgroundId : selected
             ];
         characterImage = $userStore.images[`${character.id}-2`];

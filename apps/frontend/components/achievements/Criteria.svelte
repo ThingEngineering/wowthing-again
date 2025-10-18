@@ -26,7 +26,14 @@
     $: {
         oof = data.criteriaCharacters[data.criteriaTrees[0]?.[0]?.criteriaId];
         if (oof?.length === 0) {
-            oof = data.criteriaCharacters[rootCriteriaTree.criteriaId];
+            if (
+                data.criteriaTrees[0][0].operator === CriteriaTreeOperator.All &&
+                data.criteriaTrees[1]?.length > 0
+            ) {
+                oof = data.criteriaCharacters[data.criteriaTrees[1][0].criteriaId];
+            } else {
+                oof = data.criteriaCharacters[rootCriteriaTree.criteriaId];
+            }
         }
     }
 
@@ -43,6 +50,16 @@
             if (data.oneCriteria) {
                 if (rootCriteriaTree.operator === CriteriaTreeOperator.SumChildren) {
                     barAmount = rootCriteriaTree.amount;
+                } else if (rootCriteriaTree.operator === CriteriaTreeOperator.All) {
+                    // TODO: handle criteria tree operators better :(
+                    if (
+                        data.criteriaTrees[0].length === 1 &&
+                        data.criteriaTrees[0][0]?.operator === CriteriaTreeOperator.All
+                    ) {
+                        barAmount = data.criteriaTrees[1][0].amount;
+                    } else {
+                        barAmount = data.criteriaTrees[0][0].amount;
+                    }
                 } else {
                     barAmount = data.criteriaTrees[0][0].amount;
                 }
@@ -62,6 +79,8 @@
             //console.log({achievement, criteriaTree: rootCriteriaTree, data})
         }
     }
+
+    $: if (achievement.id === 42315) console.log({ oof, barAmount });
 </script>
 
 <style lang="scss">

@@ -5,27 +5,70 @@
     import { getEnchantmentText } from '@/utils/get-enchantment-text';
     import { getItemUrl } from '@/utils/get-item-url';
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { ItemBonusType } from '@/enums/item-bonus-type';
 
-    export let character: Character;
-    export let inventorySlot: InventorySlot;
-    export let leftSide = false;
+    type Props = CharacterProps & {
+        inventorySlot: InventorySlot;
+        leftSide?: boolean;
+    };
 
-    $: equippedItem = character.equippedItems[inventorySlot];
-    $: item = wowthingData.items.items[equippedItem?.itemId];
+    const { character, inventorySlot, leftSide }: Props = $props();
 
-    $: embellishments = (equippedItem?.bonusIds || [])
-        .map((bonusId) => wowthingData.items.bonusIdToModifiedCrafting[bonusId])
-        .filter((emb) => emb !== undefined);
+    let equippedItem = $derived(character.equippedItems[inventorySlot]);
+    let item = $derived(wowthingData.items.items[equippedItem?.itemId]);
 
-    $: hasSpeed = (equippedItem?.bonusIds || []).some((bonusId) =>
-        wowthingData.items.itemBonusSpeed.has(bonusId)
+    let embellishments = $derived(
+        (equippedItem?.bonusIds || [])
+            .map((bonusId) => wowthingData.items.bonusIdToModifiedCrafting[bonusId])
+            .filter((emb) => emb !== undefined)
     );
+
+    let tertiary = $derived.by(() => {
+        for (const bonusId of equippedItem?.bonusIds || []) {
+            if (wowthingData.items.itemBonusAvoidance.has(bonusId)) {
+                return 'Avoidance';
+            } else if (wowthingData.items.itemBonusLeech.has(bonusId)) {
+                return 'Leech';
+            } else if (wowthingData.items.itemBonusSpeed.has(bonusId)) {
+                return 'Movement Speed';
+            }
+        }
+    });
+
+    const effectSpells: Record<number, string> = {
+        212292: '+1 Highmountain Fortitude',
+        212295: '+1 Volatile Magics',
+        212366: '+3 Terror From Below',
+        212368: '+3 Souls of the Caw',
+        212369: '+3 Arcane Aegis',
+        212371: '+2 Volatile Magics',
+        212708: '+3 Arcane Ward',
+        215506: '+2 I Am My Scars!',
+        215507: '+3 I Am My Scars!',
+        215530: "+2 Light's Vengeance",
+        215531: "+3 Light's Vengeance",
+    };
+    let effectSpell = $derived.by(() => {
+        for (const bonusId of equippedItem?.bonusIds || []) {
+            const bonus = wowthingData.items.itemBonuses[bonusId];
+            for (const bonusData of bonus?.bonuses || []) {
+                if (bonusData[0] === ItemBonusType.ItemEffectId) {
+                    if (effectSpells[bonusData[1]]) {
+                        return effectSpells[bonusData[1]];
+                    } else {
+                        console.log(bonusId, bonusData);
+                    }
+                }
+            }
+        }
+        return '';
+    });
 
     const getCraftedData = () => {
         for (const [craftedBonusId, levelIds] of getNumberKeyedEntries(craftedTiers)) {
@@ -166,8 +209,12 @@
                 </span>
             {/each}
 
-            {#if hasSpeed}
-                <span class="embellishment status-shrug">Movement Speed</span>
+            {#if effectSpell}
+                <span class="embellishment">{effectSpell}</span>
+            {/if}
+
+            {#if tertiary}
+                <span class="embellishment status-shrug">{tertiary}</span>
             {/if}
 
             {#if enchantmentIds.length > 0 || gemIds.length > 0}
