@@ -100,11 +100,14 @@ export function processItemsData(rawData: RawItems): DataItems {
 
         if (obj.bonuses[0][0] === ItemBonusType.AddSockets && obj.bonuses[0][2] === 7) {
             data.itemBonusSocket.add(obj.id);
-        } else if (
-            obj.bonuses[0][0] === ItemBonusType.IncreaseBonusStat &&
-            obj.bonuses[0][1] === StatType.SpeedRating
-        ) {
-            data.itemBonusSpeed.add(obj.id);
+        } else if (obj.bonuses[0][0] === ItemBonusType.IncreaseBonusStat) {
+            if (obj.bonuses[0][1] === StatType.AvoidanceRating) {
+                data.itemBonusAvoidance.add(obj.id);
+            } else if (obj.bonuses[0][1] === StatType.LifestealRating) {
+                data.itemBonusLeech.add(obj.id);
+            } else if (obj.bonuses[0][1] === StatType.SpeedRating) {
+                data.itemBonusSpeed.add(obj.id);
+            }
         } else if (
             obj.bonuses[0][0] === ItemBonusType.ItemBonusListGroupId &&
             Constants.seasonItemBonusListGroups.indexOf(obj.bonuses[0][1]) >= 0
