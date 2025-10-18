@@ -1,64 +1,101 @@
 import { BackgroundImage } from '@/types';
 
-const spaceBackground =
+// DON'T REMOVE OR REUSE ID
+enum backgroundId {
+    artbyphilomenaRainbowWithClouds = 1,
+    ticklishpanda123BeautifulNorthernLights = 2,
+    vectorboxStudioBlueLandscape = 3,
+    kirstyPargeterTreeLandscape = 4,
+    commercialartOcean = 5,
+    nasikLababanCalmingPurpleTropical = 6,
+    alexander7davidColorfulFireworks = 7,
+    pramoteLertnitivaAbstractNeon = 8,
+    f13autoWrapHappyHalloween = 9,
+    nganLeQuynhHearts = 10,
+    takeshiIshikawaFreshGreen = 11,
+    bubundesignGoldenBox = 12,
+}
+
+const attributionBackground =
+    '<a href="https://www.vecteezy.com/free-vector/background">Background Vectors by Vecteezy</a>';
+const attributionSpaceBackground =
     '<a href="https://www.vecteezy.com/free-vector/space-background">Space Background Vectors by Vecteezy</a>';
 
 export const backgrounds: BackgroundImage[] = [
     new BackgroundImage(
-        1,
+        backgroundId.artbyphilomenaRainbowWithClouds,
         'vecteezy/2496764.jpg',
         'artbyphilomena - Rainbow with Clouds',
-        spaceBackground,
+        attributionSpaceBackground,
         9,
         10
     ),
     new BackgroundImage(
-        2,
+        backgroundId.ticklishpanda123BeautifulNorthernLights,
         'vecteezy/180838.jpg',
         'ticklishpanda123 - Beautiful Northern Lights',
-        spaceBackground
+        attributionSpaceBackground
     ),
     new BackgroundImage(
-        3,
+        backgroundId.vectorboxStudioBlueLandscape,
         'vecteezy/201488.jpg',
         'Vectorbox Studio - Blue Landscape',
-        spaceBackground
+        attributionSpaceBackground
     ),
     new BackgroundImage(
-        4,
+        backgroundId.kirstyPargeterTreeLandscape,
         'vecteezy/210492.jpg',
         'Kirsty Pargeter - Tree Landscape',
-        spaceBackground
+        attributionSpaceBackground
     ),
     new BackgroundImage(
-        5,
+        backgroundId.commercialartOcean,
         'vecteezy/273915.jpg',
         'commercialart - Ocean',
         '<a href="https://www.vecteezy.com/free-vector/nature">Nature Vectors by Vecteezy</a>'
     ),
     new BackgroundImage(
-        6,
+        backgroundId.nasikLababanCalmingPurpleTropical,
         'vecteezy/2773418.jpg',
         'Nasik Lababan - Calming Purple Tropical Background',
         '<a href="https://www.vecteezy.com/free-vector/background">Background Vectors by Vecteezy</a>'
     ),
     new BackgroundImage(
-        7,
+        backgroundId.alexander7davidColorfulFireworks,
         'vecteezy/2852371.jpg',
         'alexander7david - Colorful Fireworks Background',
-        spaceBackground
+        attributionSpaceBackground
     ),
     new BackgroundImage(
-        8,
+        backgroundId.pramoteLertnitivaAbstractNeon,
         'vecteezy/13681213.jpg',
         'PRAMOTE LERTNITIVA - Abstract Neon Background',
         '<a href="https://www.vecteezy.com/free-vector/pink">Pink Vectors by Vecteezy</a>'
     ),
     new BackgroundImage(
-        9,
+        backgroundId.f13autoWrapHappyHalloween,
         'vecteezy/13419001.jpg',
         'F13Auto Wrap - Happy Halloween Background',
         '<a href="https://www.vecteezy.com/free-vector/grunge">Grunge Vectors by Vecteezy</a>'
+    ),
+    new BackgroundImage(
+        backgroundId.nganLeQuynhHearts,
+        'vecteezy/36250742.jpg',
+        'Ngan Le Quynh - Hearts in Red Sky Background',
+        attributionBackground
+    ),
+    new BackgroundImage(
+        backgroundId.takeshiIshikawaFreshGreen,
+        'vecteezy/1988909.jpg',
+        'Takeshi Ishikawa - Fresh Green Background',
+        attributionBackground
+    ),
+    new BackgroundImage(
+        backgroundId.bubundesignGoldenBox,
+        'vecteezy/834558.jpg',
+        'bubundesign - 3D Cube Golden Box Abstract Background',
+        '<a href="https://www.vecteezy.com/free-vector/3d-background">3d Background Vectors by Vecteezy</a>',
+        5
     ),
 ];
 
