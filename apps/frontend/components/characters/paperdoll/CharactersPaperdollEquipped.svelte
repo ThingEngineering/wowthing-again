@@ -44,15 +44,25 @@
     const effectSpells: Record<number, string> = {
         212292: '+1 Highmountain Fortitude',
         212295: '+1 Volatile Magics',
+        212364: '+3 Volatile Magics',
+        212365: '+3 Touch of Malice',
         212366: '+3 Terror From Below',
         212368: '+3 Souls of the Caw',
         212369: '+3 Arcane Aegis',
         212371: '+2 Volatile Magics',
+        212373: '+2 Terror From Below',
+        212375: '+2 Souls of the Caw',
+        212704: '+3 Storm Surger',
+        212705: '+1 Storm Surger',
+        212707: '+2 Storm Surger',
         212708: '+3 Arcane Ward',
         215506: '+2 I Am My Scars!',
         215507: '+3 I Am My Scars!',
+        215529: "+1 Light's Vengeance",
         215530: "+2 Light's Vengeance",
         215531: "+3 Light's Vengeance",
+        224299: '+2 Brewing Storm',
+        224300: '+3 Brewing Storm',
     };
     let effectSpell = $derived.by(() => {
         for (const bonusId of equippedItem?.bonusIds || []) {
@@ -61,7 +71,7 @@
                 if (bonusData[0] === ItemBonusType.ItemEffectId) {
                     if (effectSpells[bonusData[1]]) {
                         return effectSpells[bonusData[1]];
-                    } else {
+                    } else if (bonusData[1] < 214327 || bonusData[1] > 214333) {
                         console.log(bonusId, bonusData);
                     }
                 }
