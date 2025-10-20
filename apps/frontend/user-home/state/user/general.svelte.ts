@@ -96,9 +96,11 @@ export class DataUserGeneral {
             if (existed) {
                 const lastApiUpdateUnix = characterArray[21];
                 const lastSeenAddonUnix = characterArray[22];
+                const lastScannedCurrencies = characterArray[25];
                 if (
                     lastApiUpdateUnix > character.lastApiUpdateUnix ||
-                    lastSeenAddonUnix > character.lastSeenAddonUnix
+                    lastSeenAddonUnix > character.lastSeenAddonUnix ||
+                    lastScannedCurrencies > character.scannedCurrenciesUnix
                 ) {
                     character.init(...characterArray);
                     console.log('general', character.id, character.name);

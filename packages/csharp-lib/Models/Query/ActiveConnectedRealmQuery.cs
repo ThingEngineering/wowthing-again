@@ -39,5 +39,6 @@ WITH yikes AS (
 SELECT DISTINCT ON (wr.connected_realm_id) wr.connected_realm_id, wr.region
 FROM yikes
 INNER JOIN wow_realm wr ON yikes.realm_id = wr.id
+WHERE wr.connected_realm_id > 0
 ";
 }
