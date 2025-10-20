@@ -35,11 +35,11 @@ public class ApiUserCharacterConverter : JsonConverter<ApiUserCharacter>
         writer.WriteNumberValue(character.Gold);
         writer.WriteStringValue(character.CurrentLocation);
         writer.WriteStringValue(character.HearthLocation);
-        writer.WriteNumberValue(character.LastApiModified.ToUnixTimeSeconds());
-        writer.WriteNumberValue(character.LastSeenAddon.ToUnixTimeSeconds());
-        writer.WriteNumberValue(character.DailyReset?.ToUnixTimeSeconds() ?? 0);
-        writer.WriteNumberValue(character.WeeklyReset?.ToUnixTimeSeconds() ?? 0);
-        writer.WriteNumberValue(character.ScannedCurrencies?.ToUnixTimeSeconds() ?? 0);
+        writer.WriteNumberValue(character.LastApiModified.ToUnixTimeSeconds()); // 21
+        writer.WriteNumberValue(character.LastSeenAddon.ToUnixTimeSeconds()); // 22
+        writer.WriteNumberValue(character.DailyReset?.ToUnixTimeSeconds() ?? 0); // 23
+        writer.WriteNumberValue(character.WeeklyReset?.ToUnixTimeSeconds() ?? 0); // 24
+        writer.WriteNumberValue(character.ScannedCurrencies?.ToUnixTimeSeconds() ?? 0); // 25
 
         JsonSerializer.Serialize(writer, character.Configuration, options); // 26
 

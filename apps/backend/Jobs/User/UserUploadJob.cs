@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
 using Wowthing.Backend.Models.Uploads;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
@@ -348,6 +349,19 @@ public class UserUploadJob : JobBase
         }
 
         _timer.AddPoint("Characters");
+
+        // Transferred currencies
+        if (parsed.TransferCurrencies != null)
+        {
+            try
+            {
+                await HandleTransferCurrencies(Context, parsed.ScanTimes.EmptyIfNull(), parsed.TransferCurrencies);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "HandleTransferCurrencies failed!");
+            }
+        }
 
         // Deal with account data
         if (accountId > 0)
@@ -730,6 +744,129 @@ public class UserUploadJob : JobBase
             await localContext.PlayerGuildItem
                 .Where(pgi => deleteMe.Contains(pgi.Id))
                 .ExecuteDeleteAsync();
+        }
+    }
+
+    private async Task HandleTransferCurrencies(
+        WowDbContext localContext,
+        Dictionary<string, int> globalScanTimes,
+        Dictionary<short, List<string>> transferCurrencies
+    ) {
+        if (!globalScanTimes.TryGetValue("transferCurrencies", out int transferTimestamp))
+        {
+            return;
+        }
+
+        var transferredAt = transferTimestamp.AsUtcDateTime();
+        var characterIdToAddonData = await localContext.PlayerCharacterAddonData
+            .Where(pcad => pcad.Character.Account.UserId == _userId)
+            .Select(pcad => new { AddonData = pcad, CharacterId = pcad.Character.CharacterId })
+            .ToDictionaryAsync(
+                oof => oof.CharacterId,
+                oof => oof.AddonData
+            );
+
+        // hex_character_id:value
+        // 777 => [ "0A50BEBC:28954", "0B742844:17996" ]
+        foreach (var (currencyId, valueStrings) in transferCurrencies)
+        {
+            var seenCharacterIds = new HashSet<long>();
+            foreach (string valueString in valueStrings)
+            {
+                var valueParts = valueString.Split(":");
+                if (valueParts.Length != 2)
+                {
+                    Logger.Debug("not enough parts: {0}", valueString);
+                    continue;
+                }
+
+                if (!long.TryParse(valueParts[0], NumberStyles.HexNumber, CultureInfo.InvariantCulture,
+                        out long characterId) ||
+                    !int.TryParse(valueParts[1], out int value))
+                {
+                    Logger.Debug("something failed to parse");
+                    continue;
+                }
+
+                Logger.Debug("{0} => {1}, {2}", valueString, characterId, value);
+
+                seenCharacterIds.Add(characterId);
+
+                if (!characterIdToAddonData.TryGetValue(characterId, out var characterAddonData) ||
+                    characterAddonData.CurrenciesScannedAt >= transferredAt ||
+                    characterAddonData.Currencies == null)
+                {
+                    continue;
+                }
+
+                bool changed = false;
+                if (!characterAddonData.Currencies.TryGetValue(currencyId, out var playerCurrency))
+                {
+                    characterAddonData.Currencies[currencyId] = new PlayerCharacterAddonDataCurrency
+                    {
+                        CurrencyId = currencyId,
+                        Quantity = value,
+                    };
+                    changed = true;
+                    Logger.Debug("new currency: {0} {1}", characterId, value);
+                }
+                else if (playerCurrency.Quantity != value)
+                {
+                    playerCurrency.Quantity = value;
+                    changed = true;
+                    Logger.Debug("updated currency: {0} {1}", characterId, value);
+                }
+
+                // Change detection for this is obnoxious, just update it
+                if (changed)
+                {
+                    characterAddonData.CurrenciesScannedAt = transferredAt;
+                    Context.Entry(characterAddonData)
+                        .Property(pcad => pcad.Currencies)
+                        .IsModified = true;
+                }
+            }
+
+            foreach (var (characterId, characterAddonData) in characterIdToAddonData)
+            {
+                if (seenCharacterIds.Contains(characterId))
+                {
+                    continue;
+                }
+
+                if (characterAddonData.CurrenciesScannedAt >= transferredAt ||
+                    characterAddonData.Currencies == null)
+                {
+                    continue;
+                }
+
+                bool changed = false;
+                if (!characterAddonData.Currencies.TryGetValue(currencyId, out var playerCurrency))
+                {
+                    characterAddonData.Currencies[currencyId] = new PlayerCharacterAddonDataCurrency
+                    {
+                        CurrencyId = currencyId,
+                        Quantity = 0,
+                    };
+                    changed = true;
+                    Logger.Debug("new currency: {0} {1}", characterId, 0);
+                }
+                else if (playerCurrency.Quantity > 0)
+                {
+                    playerCurrency.Quantity = 0;
+                    changed = true;
+                    Logger.Debug("updated currency: {0} {1}", characterId, 0);
+                }
+
+                // Change detection for this is obnoxious, just update it
+                if (changed)
+                {
+                    characterAddonData.CurrenciesScannedAt = transferredAt;
+                    Context.Entry(characterAddonData)
+                        .Property(pcad => pcad.Currencies)
+                        .IsModified = true;
+                }
+            }
         }
     }
 

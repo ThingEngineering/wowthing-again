@@ -116,6 +116,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public lastSeenAddon: DateTime = $state<DateTime>(undefined);
     public lastSeenAddonUnix = $state(0);
     public scannedCurrencies: DateTime = $state<DateTime>(undefined);
+    public scannedCurrenciesUnix = $state(0);
 
     // Calculated
     public bags: Record<number, number> = $state({});
@@ -239,6 +240,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         this.hearthLocation = hearthLocation;
         this.lastApiUpdateUnix = lastApiUpdateUnix;
         this.lastSeenAddonUnix = lastSeenAddonUnix;
+        this.scannedCurrenciesUnix = scannedCurrenciesUnix;
 
         this.configuration = configuration;
         this.auras = auras;
