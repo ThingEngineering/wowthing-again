@@ -200,6 +200,7 @@ img.quality3 {
 }
 .quality4-border {
     --bar-border-color: var(--color-quality4-border);
+    --image-border-color: var(--color-quality4-border);
 
     border-color: var(--color-quality4-border);
 }
@@ -223,6 +224,7 @@ img.quality4 {
 }
 .quality5-border {
     --bar-border-color: var(--color-quality5-border);
+    --image-border-color: var(--color-quality5-border);
 
     border-color: var(--color-quality5-border);
 }
@@ -243,6 +245,7 @@ img.quality5 {
 }
 .quality6-border {
     --bar-border-color: var(--color-quality6-border);
+    --image-border-color: var(--color-quality6-border);
 
     border-color: var(--color-quality6-border);
 }
