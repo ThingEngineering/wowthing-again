@@ -231,7 +231,7 @@ export function useCharacterFilter(
 
                             // Remix
                             if (part === 'remix') {
-                                return !!char.auras?.[Constants.remixLegionSpellId];
+                                return char.isRemix;
                             }
 
                             // Work orders available?
