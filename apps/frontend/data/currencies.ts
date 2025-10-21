@@ -1,6 +1,7 @@
 import { imageStrings } from './icons';
 import { Profession } from '@/enums/profession';
 import type { StaticDataCurrencyCategory } from '@/shared/stores/static/types';
+import { Constants } from './constants';
 
 export const categoryOrder: number[] = [
     260, // War Within
@@ -557,3 +558,9 @@ export const pvpCurrencies = new Set<number>([
     2123, // Bloody Tokens
     1137642, // Mark of Honor
 ]);
+
+export const currencyGood: Record<number, number> = {
+    [Constants.currencies.honor]: 2000,
+    1253224: 10, // Mote of a Broken Time
+    1254267: 100, // Fragmented Memento of Epoch Challenges
+};
