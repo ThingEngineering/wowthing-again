@@ -12,6 +12,9 @@
 
 <style lang="scss">
     td {
+        --image-border-width: 2px;
+        --padding-left: 0;
+        --padding-right: 0;
         --width: 2rem;
 
         word-spacing: -0.2ch;
@@ -32,9 +35,16 @@
         }}
     >
         {#if currencyId > 1000000}
-            <WowthingImage name="item/{currencyId - 1000000}" size={16} border={1} />
+            {@const itemId = currencyId - 1000000}
+            {@const item = wowthingData.items.items[itemId]}
+            <WowthingImage
+                name="item/{itemId}"
+                size={16}
+                border={2}
+                cls="quality{item?.quality || 1}-border"
+            />
         {:else}
-            <WowthingImage name="currency/{currencyId}" size={16} border={1} />
+            <WowthingImage name="currency/{currencyId}" size={16} border={2} />
         {/if}
     </td>
 {/each}
