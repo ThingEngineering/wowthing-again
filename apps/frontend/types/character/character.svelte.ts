@@ -349,6 +349,12 @@ export class Character implements ContainsItems, HasNameAndRealm {
             this.equippedItems[slot] = obj;
         }
 
+        // Remix: Legion hack - fix warglaive off-hand item level
+        if (this.equippedItems[InventorySlot.OffHand]?.itemId === 242557) {
+            this.equippedItems[InventorySlot.OffHand].itemLevel =
+                this.equippedItems[InventorySlot.MainHand].itemLevel;
+        }
+
         const items: CharacterItem[] = [];
         for (const rawItem of rawItems || []) {
             const obj = new CharacterItem(...rawItem);
