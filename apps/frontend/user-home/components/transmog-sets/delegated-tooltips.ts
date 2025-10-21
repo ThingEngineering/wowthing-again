@@ -11,6 +11,7 @@ export const delegatedTooltips = (node: HTMLElement): ActionReturn => {
         target: '.tooltip-transmog-set',
         ...defaultProps,
         allowHTML: true,
+        placement: 'left-start',
         content: '',
         onCreate: (instance) => {
             if (instance.reference === node) {

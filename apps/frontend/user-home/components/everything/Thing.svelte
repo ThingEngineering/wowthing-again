@@ -7,6 +7,8 @@
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
     import LookupThing from './LookupThing.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
     let { thingData }: { thingData: SomethingThing } = $props();
 
@@ -36,7 +38,14 @@
 <div class="collection-group">
     <div class="title">
         <h4 class="drop-shadow text-overflow {getPercentClass(thingData.stats.percent)}">
-            <ParsedText text={name} />
+            {#if thingData.thing.type === DbThingType.Item}
+                <WowheadLink type="item" id={thingData.thing.id}>
+                    <WowthingImage name="item/{thingData.thing.id}" size={20} border={1} />
+                    <ParsedText text={name} />
+                </WowheadLink>
+            {:else}
+                <ParsedText text={name} />
+            {/if}
         </h4>
         <CollectibleCount counts={thingData.stats} />
     </div>

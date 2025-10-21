@@ -5,6 +5,7 @@
     import { timeStore } from '@/shared/stores/time';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import type { CharacterProps } from '@/types/props';
+    import { currencyGood } from '@/data/currencies';
 
     let { character }: CharacterProps = $props();
 </script>
@@ -33,9 +34,10 @@
         itemId
     )}
     {#if amount}
+        {@const good = currencyGood[currencyId]}
         <td
             class="max-width"
-            class:status-success={currency?.id === Constants.currencies.honor && amountRaw >= 2000}
+            class:status-success={good && amountRaw >= good}
             class:status-shrug={percent >= 50 && percent < 100}
             class:status-fail={percent >= 100}
             class:got-none={amount === '0' && percent === 0}
