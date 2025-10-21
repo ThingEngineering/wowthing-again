@@ -528,6 +528,8 @@ export class Character implements ContainsItems, HasNameAndRealm {
         return this.level === Constants.characterMaxLevel;
     }
 
+    public isRemix = $derived(!!this.auras?.[Constants.remixLegionSpellId]);
+
     public lockoutKeys = $derived(Object.keys(this.lockouts || {}));
 
     private _bagSlots = $derived.by(() => {
