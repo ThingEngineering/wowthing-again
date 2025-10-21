@@ -70,6 +70,7 @@ import type { CharacterMovementSpeed } from './movement-speed';
 import { seasonMap } from '@/data/mythic-plus';
 import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
 import { getDungeonScores } from '@/utils/mythic-plus';
+import { ItemQuality } from '@/enums/item-quality';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Static
@@ -349,10 +350,15 @@ export class Character implements ContainsItems, HasNameAndRealm {
             this.equippedItems[slot] = obj;
         }
 
-        // Remix: Legion hack - fix warglaive off-hand item level
-        if (this.equippedItems[InventorySlot.OffHand]?.itemId === 242557) {
-            this.equippedItems[InventorySlot.OffHand].itemLevel =
-                this.equippedItems[InventorySlot.MainHand].itemLevel;
+        // Remix: Legion hack - fix artifact off-hand item level
+        const mainHand = this.equippedItems[InventorySlot.MainHand];
+        const offHand = this.equippedItems[InventorySlot.OffHand];
+        if (
+            mainHand?.quality === ItemQuality.Artifact &&
+            offHand?.quality === ItemQuality.Artifact &&
+            offHand.itemLevel < mainHand.itemLevel
+        ) {
+            offHand.itemLevel = mainHand.itemLevel;
         }
 
         const items: CharacterItem[] = [];
