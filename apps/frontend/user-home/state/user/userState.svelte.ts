@@ -1,3 +1,5 @@
+import sortBy from 'lodash/sortBy';
+
 import { UserCount } from '@/types';
 import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
@@ -59,6 +61,18 @@ class UserState {
         // TODO: fetch user/achievements/quests
         // TODO: process
         // this.general.process(userData);
+    }
+
+    public accountCurrency(currencyId: number) {
+        const ret = $derived(
+            sortBy(
+                this.general.activeCharacters.filter(
+                    (char) => (char.scannedCurrenciesUnix || 0) > 0
+                ),
+                (char) => -char.scannedCurrenciesUnix
+            ).find((char) => !!char.currencies[currencyId])?.currencies?.[currencyId]
+        );
+        return ret;
     }
 
     public activeViewTasks = $derived.by(() => logErrors(this._activeViewTasks));

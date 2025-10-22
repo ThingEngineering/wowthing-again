@@ -19,16 +19,16 @@
     };
     let { currency, item, itemId }: Props = $props();
 
-    let [currencyName, iconName] = $derived.by(() => {
+    let [currencyName, iconName, quality] = $derived.by(() => {
         if (currency) {
-            return [currency.name, currency.imageName];
+            return [currency.name, currency.imageName, 1];
         } else if (item) {
-            return [item.name, item.imageName];
+            return [item.name, item.imageName, item.quality];
         } else if (itemId) {
             const itemFromId = wowthingData.items.items[itemId];
-            return [itemFromId?.name || `Item #${itemId}`, item?.imageName];
+            return [itemFromId?.name || `Item #${itemId}`, item?.imageName, item?.quality || 1];
         } else {
-            return ['Gold', 'currency/0'];
+            return ['Gold', 'currency/0', 1];
         }
     });
 
@@ -40,20 +40,25 @@
 
     let currencies = $derived.by(() => {
         let ret: [Character, number][] = [];
-        for (const character of userState.general.activeCharacters) {
-            let quantity = 0;
-            if (currency) {
-                quantity = character.currencies?.[currency.id]?.quantity || 0;
-            } else if (item) {
-                quantity = character.getItemCount(item.id);
-            } else if (itemId) {
-                quantity = character.getItemCount(itemId);
-            } else {
-                quantity = character.gold || 0;
-            }
 
-            if (quantity > 0) {
-                ret.push([character, quantity]);
+        if (currency?.isAccountWide) {
+            ret.push([null, userState.accountCurrency(currency.id)?.quantity || 0]);
+        } else {
+            for (const character of userState.general.activeCharacters) {
+                let quantity = 0;
+                if (currency) {
+                    quantity = character.currencies?.[currency.id]?.quantity || 0;
+                } else if (item) {
+                    quantity = character.getItemCount(item.id);
+                } else if (itemId) {
+                    quantity = character.getItemCount(itemId);
+                } else {
+                    quantity = character.gold || 0;
+                }
+
+                if (quantity > 0) {
+                    ret.push([character, quantity]);
+                }
             }
         }
 
@@ -105,7 +110,7 @@
 </style>
 
 <div class="wowthing-tooltip">
-    <h4>
+    <h4 class="quality{quality}">
         <WowthingImage name={iconName} size={20} border={1} />
         {currencyName}
     </h4>
@@ -119,10 +124,15 @@
             {#if currencies.length > 0}
                 {#each currencies.slice(0, 10) as [character, amount] (character)}
                     <tr>
-                        <CharacterTag {character} />
+                        {#if !currency?.isAccountWide}
+                            <CharacterTag {character} />
+                        {/if}
+
                         <td class="name text-overflow">
                             {#if character}
                                 {getCharacterNameRealm(character.id)}
+                            {:else if currency?.isAccountWide}
+                                Account wide!
                             {:else}
                                 Account Bank
                             {/if}

@@ -32,7 +32,9 @@ export function getCurrencyData(
 
     if (currency) {
         let characterCurrency: CharacterCurrency;
-        if (
+        if (currency.isAccountWide) {
+            characterCurrency = userState.accountCurrency(currency.id);
+        } else if (
             currencyProfession[currency.id] &&
             !character.professions?.[currencyProfession[currency.id]]
         ) {
