@@ -1,6 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
 
 using CsvHelper.Configuration.Attributes;
+using Wowthing.Tool.Enums;
 
 namespace Wowthing.Tool.Models;
 
@@ -16,10 +17,10 @@ public class DumpCurrencyTypes
     public long RechargingCycleDurationMS { get; set; }
 
     [Name("Flags[0]")]
-    public int Flags0 { get; set; }
+    public WowCurrencyFlags1 Flags1 { get; set; }
 
     [Name("Flags[1]")]
-    public int Flags1 { get; set; }
+    public int Flags2 { get; set; }
 
     [Name("Name_lang")]
     public string Name { get; set; } = string.Empty;

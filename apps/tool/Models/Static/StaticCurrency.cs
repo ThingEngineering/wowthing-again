@@ -8,6 +8,7 @@ public class StaticCurrency
 {
     public int Id { get; set; }
     public short CategoryId { get; set; }
+    public short Flags { get; set; }
     public short RechargeAmount { get; set; }
     public short TransferPercent { get; set; }
     public int MaxPerWeek { get; set; }
@@ -19,6 +20,7 @@ public class StaticCurrency
     public StaticCurrency(WowCurrency currency)
     {
         Id = currency.Id;
+        Flags = (short)currency.Flags;
         CategoryId = currency.CategoryId;
         MaxPerWeek = currency.MaxPerWeek;
         MaxTotal = currency.MaxTotal;
