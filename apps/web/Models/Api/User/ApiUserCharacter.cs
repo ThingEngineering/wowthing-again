@@ -12,6 +12,8 @@ public class ApiUserCharacter
 
     public bool IsResting { get; set; }
     public bool IsWarMode { get; set; }
+    public short RemixResearchHave { get; set; }
+    public short RemixResearchTotal { get; set; }
     public int AccountId { get; set; }
     public int ActiveSpecId { get; }
     public int LevelXp { get; set; }
@@ -86,6 +88,8 @@ public class ApiUserCharacter
         Level = Math.Max(character.Level, character.AddonData?.Level ?? 0);
         LevelXp = character.AddonData?.LevelXp ?? 0;
         RaceId = character.RaceId;
+        RemixResearchHave = character.AddonData?.RemixResearchHave ?? 0;
+        RemixResearchTotal = character.AddonData?.RemixResearchTotal ?? 0;
 
         DailyReset = character.AddonData?.DailyReset;
         WeeklyReset = character.AddonData?.WeeklyReset;

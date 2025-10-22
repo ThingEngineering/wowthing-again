@@ -70,6 +70,9 @@ public class ApiUserCharacterConverter : JsonConverter<ApiUserCharacter>
         JsonSerializer.Serialize(writer, character.RawSpecializations, options); // 50
         JsonSerializer.Serialize(writer, character.RawStatistics, options); // 51
 
+        writer.WriteNumberValue(character.RemixResearchHave);
+        writer.WriteNumberValue(character.RemixResearchTotal);
+
         writer.WriteEndArray();
     }
 }
