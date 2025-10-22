@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Constants } from '@/data/constants';
+    import { currencyGood } from '@/data/currencies';
     import { timeStore } from '@/shared/stores/time';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import type { StaticDataCurrency } from '@/shared/stores/static/types';
@@ -32,9 +32,10 @@
 </style>
 
 {#if amount}
+    {@const good = currencyGood[currency?.id]}
     <td
         class:alt={sortingBy}
-        class:status-success={currency?.id === Constants.currencies.honor && amountRaw >= 2000}
+        class:status-success={good && amountRaw >= good}
         class:status-shrug={percent > 50}
         class:status-warn={percent >= 90}
         class:status-fail={percent >= 100}

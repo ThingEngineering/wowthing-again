@@ -560,6 +560,32 @@ public class DumpsTool
             dbCurrency.RechargeAmount = currency.RechargingAmountPerCycle;
             dbCurrency.RechargeInterval = currency.RechargingCycleDurationMS;
             dbCurrency.TransferPercent = (short)currency.WarbondTransferPercentage;
+
+            // Flags
+            if (currency.Flags1.HasFlag(WowCurrencyFlags1.Tradable))
+            {
+                dbCurrency.Flags |= WowCurrencyFlags.Tradable;
+            }
+            if (currency.Flags1.HasFlag(WowCurrencyFlags1.ComputedWeeklyMaximum))
+            {
+                dbCurrency.Flags |= WowCurrencyFlags.ComputedWeeklyMaximum;
+            }
+            if (currency.Flags1.HasFlag(WowCurrencyFlags1.ScaledBy100))
+            {
+                dbCurrency.Flags |= WowCurrencyFlags.ScaledBy100;
+            }
+            if (currency.Flags1.HasFlag(WowCurrencyFlags1.AccountWide))
+            {
+                dbCurrency.Flags |= WowCurrencyFlags.AccountWide;
+            }
+            if (currency.Flags1.HasFlag(WowCurrencyFlags1.AllianceOnly))
+            {
+                dbCurrency.Flags |= WowCurrencyFlags.AllianceOnly;
+            }
+            if (currency.Flags1.HasFlag(WowCurrencyFlags1.HordeOnly))
+            {
+                dbCurrency.Flags |= WowCurrencyFlags.HordeOnly;
+            }
         }
 
         _timer.AddPoint("Currency");

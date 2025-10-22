@@ -1,11 +1,10 @@
 <script lang="ts">
-    import { Constants } from '@/data/constants';
+    import { currencyGood } from '@/data/currencies';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { timeStore } from '@/shared/stores/time';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import type { CharacterProps } from '@/types/props';
-    import { currencyGood } from '@/data/currencies';
 
     let { character }: CharacterProps = $props();
 </script>

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models.Wow;
 
@@ -13,6 +14,7 @@ public class WowCurrency
     public int MaxPerWeek { get; set; }
     public int MaxTotal { get; set; }
     public long RechargeInterval { get; set; }
+    public WowCurrencyFlags Flags { get; set; }
 
     public WowCurrency(short id)
     {
