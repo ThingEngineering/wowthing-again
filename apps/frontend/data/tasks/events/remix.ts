@@ -23,5 +23,17 @@ export const eventRemixLegion: Task = {
             questIds: [92855],
             couldGetFunc,
         },
+        {
+            key: 'research',
+            name: 'Research',
+            alwaysStarted: true,
+            icon: iconLibrary.gameNotebook,
+            // TODO: this regens at N/day based on what exactly?
+            progressFunc: (char) => ({
+                have: char.remixResearchHave,
+                need: char.remixResearchTotal,
+            }),
+            couldGetFunc,
+        },
     ],
 };

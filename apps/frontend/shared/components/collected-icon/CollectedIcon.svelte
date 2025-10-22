@@ -16,5 +16,5 @@
 </style>
 
 <div class="collected-icon drop-shadow2" class:status-success={!soon} class:status-shrug={soon}>
-    <IconifyIcon icon={soon ? iconLibrary.gameClockwork : iconLibrary.mdiCheckboxOutline} />
+    <IconifyIcon icon={soon ? iconLibrary.gameStopwatch : iconLibrary.mdiCheckboxOutline} />
 </div>
