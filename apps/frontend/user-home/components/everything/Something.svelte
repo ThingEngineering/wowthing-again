@@ -39,7 +39,9 @@
                     content.id
                 );
 
-                const userHas = userHasLookup(snapshot, lookupType, lookupId, {});
+                const userHas = userHasLookup(snapshot, lookupType, lookupId, {
+                    completionist: settingsState.value.transmog.completionistMode,
+                });
 
                 if (userHas) {
                     resultData.stats.have++;
