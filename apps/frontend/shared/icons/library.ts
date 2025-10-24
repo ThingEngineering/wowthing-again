@@ -34,6 +34,7 @@ export { default as gameCrossedSwords } from '@iconify/icons-game-icons/crossed-
 export { default as gameCrownedSkull } from '@iconify/icons-game-icons/crowned-skull';
 export { default as gameCurvyKnife } from '@iconify/icons-game-icons/curvy-knife';
 export { default as gameDeathSkull } from '@iconify/icons-game-icons/death-skull';
+export { default as gameDiceRandom } from '@iconify/icons-game-icons/perspective-dice-six-faces-random';
 export { default as gameDigDug } from '@iconify/icons-game-icons/dig-dug';
 export { default as gameDorsalScales } from '@iconify/icons-game-icons/dorsal-scales';
 export { default as gameEmerald } from '@iconify/icons-game-icons/emerald';

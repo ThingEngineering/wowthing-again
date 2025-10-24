@@ -1,6 +1,7 @@
 import type { ManualDataVendorItem } from '@/types/data/manual';
 
 export class ThingData {
+    public bonusIds?: number[];
     public classId: number;
     public difficulty: string;
     public extraParams: Record<string, string>;
