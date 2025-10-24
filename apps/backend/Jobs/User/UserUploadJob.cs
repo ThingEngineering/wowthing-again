@@ -793,7 +793,7 @@ public class UserUploadJob : JobBase
                 seenCharacterIds.Add(characterId);
 
                 if (!characterIdToAddonData.TryGetValue(characterId, out var characterAddonData) ||
-                    characterAddonData.CurrenciesScannedAt >= transferredAt ||
+                    characterAddonData.CurrenciesScannedAt > transferredAt ||
                     characterAddonData.Currencies == null)
                 {
                     continue;
@@ -816,12 +816,16 @@ public class UserUploadJob : JobBase
                     changed = true;
                     Logger.Debug("updated currency: {0} {1}", characterId, value);
                 }
+                else
+                {
+                    Logger.Debug("nothing to do! {0}", playerCurrency.Quantity);
+                }
 
                 // Change detection for this is obnoxious, just update it
                 if (changed)
                 {
                     characterAddonData.CurrenciesScannedAt = transferredAt;
-                    Context.Entry(characterAddonData)
+                    localContext.Entry(characterAddonData)
                         .Property(pcad => pcad.Currencies)
                         .IsModified = true;
                 }
@@ -834,7 +838,7 @@ public class UserUploadJob : JobBase
                     continue;
                 }
 
-                if (characterAddonData.CurrenciesScannedAt >= transferredAt ||
+                if (characterAddonData.CurrenciesScannedAt > transferredAt ||
                     characterAddonData.Currencies == null)
                 {
                     continue;
@@ -862,7 +866,7 @@ public class UserUploadJob : JobBase
                 if (changed)
                 {
                     characterAddonData.CurrenciesScannedAt = transferredAt;
-                    Context.Entry(characterAddonData)
+                    localContext.Entry(characterAddonData)
                         .Property(pcad => pcad.Currencies)
                         .IsModified = true;
                 }
