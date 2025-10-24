@@ -12,6 +12,7 @@ public class ApiUserCharacter
 
     public bool IsResting { get; set; }
     public bool IsWarMode { get; set; }
+    public short RemixArtifactTrait { get; set; }
     public short RemixResearchHave { get; set; }
     public short RemixResearchTotal { get; set; }
     public int AccountId { get; set; }
@@ -88,6 +89,7 @@ public class ApiUserCharacter
         Level = Math.Max(character.Level, character.AddonData?.Level ?? 0);
         LevelXp = character.AddonData?.LevelXp ?? 0;
         RaceId = character.RaceId;
+        RemixArtifactTrait = character.AddonData?.RemixArtifactTrait ?? 0;
         RemixResearchHave = character.AddonData?.RemixResearchHave ?? 0;
         RemixResearchTotal = character.AddonData?.RemixResearchTotal ?? 0;
 

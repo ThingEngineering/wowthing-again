@@ -175,6 +175,7 @@ public class UserUploadCharacterProcessor
     {
         _character.AddonData.Level = _characterData.Level;
         _character.AddonData.LevelXp = _characterData.LevelXp;
+        _character.AddonData.RemixArtifactTrait = _characterData.RemixArtifactRank;
         _character.AddonData.RemixResearchHave = _characterData.RemixResearchHave;
         _character.AddonData.RemixResearchTotal = _characterData.RemixResearchTotal;
 
