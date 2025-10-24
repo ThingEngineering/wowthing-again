@@ -101,6 +101,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public level = $state(0);
     public levelXp = $state(0);
     public playedTotal = $state(0);
+    public remixArtifactRank = $state(0);
     public remixResearchHave = $state(0);
     public remixResearchTotal = $state(0);
     public restedExperience = $state(0);
@@ -220,6 +221,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
             CharacterStatisticRatingArray[],
         ],
 
+        remixArtifactRank: number,
         remixResearchHave: number,
         remixResearchTotal: number
     ) {
@@ -247,6 +249,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         this.lastApiUpdateUnix = lastApiUpdateUnix;
         this.lastSeenAddonUnix = lastSeenAddonUnix;
         this.scannedCurrenciesUnix = scannedCurrenciesUnix;
+        this.remixArtifactRank = remixArtifactRank;
         this.remixResearchHave = remixResearchHave;
         this.remixResearchTotal = remixResearchTotal;
 

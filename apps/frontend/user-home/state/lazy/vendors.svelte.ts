@@ -508,7 +508,9 @@ class LazyVendorsProcessor {
                     let groupKey: string;
                     let groupName: string;
 
-                    if (item.type === RewardType.Illusion) {
+                    if (coveredBySets.has(itemIndex)) {
+                        // pass
+                    } else if (item.type === RewardType.Illusion) {
                         [groupKey, groupName] = ['00illusions', 'Illusions'];
                     } else if (item.type === RewardType.Mount) {
                         [groupKey, groupName] = ['00mounts', 'Mounts'];

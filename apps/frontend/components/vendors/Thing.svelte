@@ -1,6 +1,7 @@
 <script lang="ts">
     import { Faction } from '@/enums/faction';
     import { RewardType } from '@/enums/reward-type';
+    import { iconLibrary } from '@/shared/icons';
     import { rewardTypeIcons } from '@/shared/icons/mappings';
     import { browserState } from '@/shared/state/browser.svelte';
     import { wowthingData } from '@/shared/stores/data';
@@ -186,6 +187,10 @@
         {:else if professionAbility}
             <div class="icon icon-class drop-shadow">
                 <ProfessionIcon border={2} size={20} id={professionAbility.professionId} />
+            </div>
+        {:else if (thing.bonusIds || []).includes(999999)}
+            <div class="icon icon-class status-shrug drop-shadow">
+                <IconifyIcon icon={iconLibrary.gameDiceRandom} />
             </div>
         {/if}
 

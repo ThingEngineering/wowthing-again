@@ -44,7 +44,12 @@
                 cls="quality{item?.quality || 1}-border"
             />
         {:else}
-            <WowthingImage name="currency/{currencyId}" size={16} border={2} />
+            <WowthingImage
+                name="currency/{currencyId}"
+                size={16}
+                border={2}
+                cls="quality1-border"
+            />
         {/if}
     </td>
 {/each}

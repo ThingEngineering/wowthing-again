@@ -43,11 +43,13 @@
     let things = $derived.by(() => {
         const ret: ThingData[] = [];
         for (const thing of showAll ? group.sells : group.sellsFiltered) {
-            const thingKey = `${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`;
+            const bonusIds = thing.bonusIds || [];
+            const thingKey = `${thing.type}|${thing.id}|${bonusIds.join(',')}`;
             const userHas = lazyState.vendors.userHas[thingKey] === true;
             if (showAll || (useShowCollected && userHas) || (useShowUncollected && !userHas)) {
                 const thingData = new ThingData(thing, userHas);
 
+                thingData.bonusIds = thing.bonusIds;
                 thingData.quality =
                     thing.quality || wowthingData.items.items[thing.id]?.quality || 0;
 
@@ -61,8 +63,9 @@
                     thingData.linkType = 'item';
                     thingData.linkId = thing.id;
 
-                    if (thing.bonusIds) {
-                        thingData.extraParams['bonus'] = thing.bonusIds
+                    if (bonusIds.length > 0) {
+                        thingData.extraParams['bonus'] = bonusIds
+                            .filter((bonusId) => bonusId < 999999)
                             .map((bonusId) => bonusId.toString())
                             .join(':');
                     }

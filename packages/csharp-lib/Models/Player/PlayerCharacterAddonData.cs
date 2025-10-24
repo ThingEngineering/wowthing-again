@@ -15,6 +15,7 @@ public class PlayerCharacterAddonData(int characterId)
     public short Level { get; set; }
     public int LevelXp { get; set; }
 
+    public short RemixArtifactTrait { get; set; }
     public short RemixResearchHave { get; set; }
     public short RemixResearchTotal { get; set; }
 
