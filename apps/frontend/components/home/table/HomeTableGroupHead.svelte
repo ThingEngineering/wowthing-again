@@ -103,6 +103,10 @@
         }
     }
     td {
+        --image-border-width: 2px;
+
+        padding-left: 0;
+        padding-right: 0;
         text-align: center;
     }
     .mythic-plus-score {
@@ -239,6 +243,14 @@
             <td class="sortable sorted-{getSortState()}" onclick={() => setSortState()}
                 >World Vault</td
             >
+        {:else if field === 'remixArtifact'}
+            <td
+                class="sortable sorted-{getSortState()}"
+                onclick={() => setSortState()}
+                data-tooltip="Artifact Trait"
+            >
+                <WowthingImage name="spell/1245947" size={16} border={2} cls="quality6-border" />
+            </td>
         {:else}
             <td>&nbsp;</td>
         {/if}

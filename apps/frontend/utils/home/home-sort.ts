@@ -126,6 +126,8 @@ export function homeSort(char: Character, sortBy: string): string {
             leftPad(900 - levels[1], 3, '0'),
             leftPad(900 - levels[2], 3, '0'),
         ].join('|');
+    } else if (sortBy === 'remixArtifact') {
+        return [char.isRemix ? 0 : 1, leftPad(999 - char.remixArtifactRank, 3, '0')].join('|');
     } else if (sortBy.startsWith('currencies:')) {
         const currencyId = parseInt(sortBy.split(':')[1]);
         const value =
