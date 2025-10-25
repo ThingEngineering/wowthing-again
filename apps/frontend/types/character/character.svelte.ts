@@ -583,11 +583,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         return this._bagSlots.total;
     }
 
-    public bestItemLevels: Record<number, [string, InventoryType[]]>;
-    getBestItemLevels(): Record<number, [string, InventoryType[]]> {
-        this.bestItemLevels ||= getBestItemLevels(this);
-        return this.bestItemLevels;
-    }
+    public bestItemLevels = $derived.by(() => getBestItemLevels(this));
 
     private _itemCounts: Record<number, number>;
     getItemCount(itemId: number): number {
