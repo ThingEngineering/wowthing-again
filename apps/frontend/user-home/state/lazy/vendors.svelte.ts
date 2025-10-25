@@ -491,7 +491,17 @@ class LazyVendorsProcessor {
                         }
 
                         // BonusIDs, whee
+                        const appearanceKeys = Object.keys(
+                            wowthingData.items.items[item.id]?.appearances || {}
+                        ).map((n) => parseInt(n));
+
                         item.appearanceModifier = getBonusIdModifier(item.bonusIds || []);
+                        if (
+                            appearanceKeys.length > 0 &&
+                            !appearanceKeys.includes(item.appearanceModifier)
+                        ) {
+                            item.appearanceModifier = appearanceKeys[0];
+                        }
 
                         for (const [currencyId] of getNumberKeyedEntries(item.costs || {})) {
                             this._allCurrencies.add(currencyId);

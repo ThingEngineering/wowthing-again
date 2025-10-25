@@ -7,7 +7,7 @@
 
     let { character }: CharacterProps = $props();
 
-    let bestItemLevels = $derived.by(() => character.getBestItemLevels());
+    let bestItemLevels = $derived.by(() => character.bestItemLevels);
     let itemLevel = $derived(bestItemLevels?.[character.activeSpecId]?.[0]);
 </script>
 

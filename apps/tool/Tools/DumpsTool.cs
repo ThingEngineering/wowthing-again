@@ -115,6 +115,7 @@ public class DumpsTool
         Func<WowDbContext, Task>[] actions =
         {
             ImportCampaigns,
+            ImportChallengeDungeons,
             ImportCharacterClasses,
             ImportCharacterRaces,
             ImportCharacterSpecializations,
@@ -420,6 +421,43 @@ public class DumpsTool
         }
 
         _timer.AddPoint("Campaigns");
+    }
+
+    private async Task ImportChallengeDungeons(WowDbContext context)
+    {
+        var dungeons = await DataUtilities.LoadDumpCsvAsync<DumpMapChallengeMode>("mapchallengemode");
+
+        var dbDungeonMap = await context.WowChallengeDungeon
+            .ToDictionaryAsync(dungeon => dungeon.Id);
+
+        foreach (var dungeon in dungeons)
+        {
+            if (!dbDungeonMap.TryGetValue(dungeon.ID, out var dbDungeon))
+            {
+                dbDungeon = new WowChallengeDungeon(dungeon.ID);
+                context.WowChallengeDungeon.Add(dbDungeon);
+            }
+
+            dbDungeon.Expansion = dungeon.ExpansionLevel;
+            dbDungeon.MapId = dungeon.MapID;
+
+            dbDungeon.TimerBreakpoints =
+            [
+                dungeon.CriteriaCount1,
+                dungeon.CriteriaCount2,
+                dungeon.CriteriaCount3,
+            ];
+        }
+
+        _timer.AddPoint("ChallengeDungeons");
+
+        await ImportStrings<DumpMapChallengeMode>(
+            context,
+            StringType.WowChallengeDungeonName,
+            "mapchallengemode",
+            dungeon => dungeon.ID,
+            dungeon => dungeon.Name
+        );
     }
 
     private async Task ImportCharacterClasses(WowDbContext context)

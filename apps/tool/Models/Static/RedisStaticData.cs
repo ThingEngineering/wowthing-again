@@ -36,6 +36,7 @@ public class RedisStaticData
     public Dictionary<string, List<int>> HolidayIds { get; set; }
 
     public StaticCampaign[] RawCampaigns { get; set; }
+    public StaticChallengeDungeon[] RawChallengeDungeons { get; set; }
     public StaticCurrency[] RawCurrencies { get; set; }
     public StaticCurrencyCategory[] RawCurrencyCategories { get; set; }
     public StaticHoliday[] RawHolidays { get; set; }

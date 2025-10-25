@@ -768,7 +768,7 @@ public class UserUploadJob : JobBase
 
         // hex_character_id:value
         // 777 => [ "0A50BEBC:28954", "0B742844:17996" ]
-        foreach (var (currencyId, valueStrings) in transferCurrencies)
+        foreach (var (currencyId, valueStrings) in transferCurrencies.OrderBy(kvp => kvp.Key))
         {
             var seenCharacterIds = new HashSet<long>();
             foreach (string valueString in valueStrings)
@@ -788,7 +788,7 @@ public class UserUploadJob : JobBase
                     continue;
                 }
 
-                Logger.Debug("{0} => {1}, {2}", valueString, characterId, value);
+                Logger.Debug("[{c}] {s} => {char}, {value}", currencyId, valueString, characterId, value);
 
                 seenCharacterIds.Add(characterId);
 
@@ -824,7 +824,6 @@ public class UserUploadJob : JobBase
                 // Change detection for this is obnoxious, just update it
                 if (changed)
                 {
-                    characterAddonData.CurrenciesScannedAt = transferredAt;
                     localContext.Entry(characterAddonData)
                         .Property(pcad => pcad.Currencies)
                         .IsModified = true;
@@ -865,7 +864,6 @@ public class UserUploadJob : JobBase
                 // Change detection for this is obnoxious, just update it
                 if (changed)
                 {
-                    characterAddonData.CurrenciesScannedAt = transferredAt;
                     localContext.Entry(characterAddonData)
                         .Property(pcad => pcad.Currencies)
                         .IsModified = true;

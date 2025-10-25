@@ -6,6 +6,7 @@ import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import {
     StaticDataBag,
     StaticDataCampaign,
+    StaticDataChallengeDungeon,
     StaticDataConnectedRealm,
     StaticDataCurrency,
     StaticDataCurrencyCategory,
@@ -55,6 +56,10 @@ export function processStaticData(rawData: RawStatic): DataStatic {
 
     data.bagById = createObjects(rawData.rawBags, StaticDataBag);
     data.campaignById = createObjects(rawData.rawCampaigns, StaticDataCampaign);
+    data.challengeDungeonById = createObjects(
+        rawData.rawChallengeDungeons,
+        StaticDataChallengeDungeon
+    );
     data.currencyById = createObjects(rawData.rawCurrencies, StaticDataCurrency);
     data.currencyCategoryById = createObjects(
         rawData.rawCurrencyCategories,

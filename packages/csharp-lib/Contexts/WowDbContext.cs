@@ -29,6 +29,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<WowAuctionCommodityDaily> WowAuctionCommodityDaily { get; set; }
     public DbSet<WowAuctionCommodityHourly> WowAuctionCommodityHourly { get; set; }
     public DbSet<WowCampaign> WowCampaign { get; set; }
+    public DbSet<WowChallengeDungeon> WowChallengeDungeon { get; set; }
     public DbSet<WowCharacterClass> WowCharacterClass { get; set; }
     public DbSet<WowCharacterRace> WowCharacterRace { get; set; }
     public DbSet<WowCharacterSpecialization> WowCharacterSpecialization { get; set; }

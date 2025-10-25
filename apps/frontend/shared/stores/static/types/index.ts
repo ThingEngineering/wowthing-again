@@ -1,5 +1,6 @@
 export * from './bag';
 export * from './campaign';
+export * from './challenge-dungeon';
 export * from './character';
 export * from './currency';
 export * from './heirloom';
