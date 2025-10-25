@@ -34,6 +34,7 @@ public enum StringType : short
     WowCampaignName = 30,
     WowQuestLineName = 31,
     WowCurrencyDescription = 32,
+    WowChallengeDungeonName = 33,
 
     // Hacky garbage
     WowJournalInstanceMapName = 1000,

@@ -25,6 +25,7 @@ public class StaticTool
 
     private static readonly StringType[] StringTypes = [
         StringType.WowCampaignName,
+        StringType.WowChallengeDungeonName,
         StringType.WowCharacterClassName,
         StringType.WowCharacterRaceName,
         StringType.WowCharacterSpecializationName,
@@ -161,6 +162,14 @@ public class StaticTool
             );
 
         _timer.AddPoint("Character");
+
+        // Challenge Dungeons
+
+        cacheData.RawChallengeDungeons = await context.WowChallengeDungeon
+            .AsNoTracking()
+            .OrderBy(dungeon => dungeon.Id)
+            .Select(dungeon => new StaticChallengeDungeon(dungeon))
+            .ToArrayAsync();
 
         // Currencies
         cacheData.RawCurrencies = await context.WowCurrency
@@ -456,6 +465,11 @@ public class StaticTool
             foreach (var campaign in cacheData.RawCampaigns)
             {
                 campaign.Name = GetString(StringType.WowCampaignName, language, campaign.Id);
+            }
+
+            foreach (var dungeon in cacheData.RawChallengeDungeons)
+            {
+                dungeon.Name = GetString(StringType.WowChallengeDungeonName, language, dungeon.Id);
             }
 
             foreach (var currency in cacheData.RawCurrencies)

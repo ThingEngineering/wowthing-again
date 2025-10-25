@@ -5,6 +5,8 @@ import {
     type StaticDataBagArray,
     type StaticDataCampaign,
     type StaticDataCampaignArray,
+    type StaticDataChallengeDungeon,
+    type StaticDataChallengeDungeonArray,
     type StaticDataCharacterClass,
     type StaticDataCharacterRace,
     type StaticDataCharacterSpecialization,
@@ -69,6 +71,7 @@ export interface RawStatic {
 
     rawBags: StaticDataBagArray[];
     rawCampaigns: StaticDataCampaignArray[];
+    rawChallengeDungeons: StaticDataChallengeDungeonArray[];
     rawCurrencies: StaticDataCurrencyArray[];
     rawCurrencyCategories: StaticDataCurrencyCategoryArray[];
     rawHolidays: StaticDataHolidayArray[];
@@ -108,6 +111,7 @@ export class DataStatic {
     // Raw
     public bagById: Map<number, StaticDataBag>;
     public campaignById: Map<number, StaticDataCampaign>;
+    public challengeDungeonById: Map<number, StaticDataChallengeDungeon>;
     public currencyById: Map<number, StaticDataCurrency>;
     public currencyCategoryById: Map<number, StaticDataCurrencyCategory>;
     public holidayById: Map<number, StaticDataHoliday>;
