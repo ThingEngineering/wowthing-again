@@ -14,6 +14,7 @@
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import Thing from './Thing.svelte';
+    import { applyBonusIds } from '@/utils/items/apply-bonus-ids';
 
     type Props = {
         group: ManualDataVendorGroup;
@@ -49,7 +50,7 @@
             if (showAll || (useShowCollected && userHas) || (useShowUncollected && !userHas)) {
                 const thingData = new ThingData(thing, userHas);
 
-                thingData.bonusIds = thing.bonusIds;
+                thingData.bonusIds = bonusIds;
                 thingData.quality =
                     thing.quality || wowthingData.items.items[thing.id]?.quality || 0;
 
@@ -80,6 +81,13 @@
                     }
 
                     const item = wowthingData.items.items[thingData.linkId];
+
+                    const withBonusIds = applyBonusIds(bonusIds, {
+                        itemLevel: item.itemLevel,
+                        quality: thingData.quality,
+                    });
+                    thingData.quality = withBonusIds.quality;
+
                     const appearanceKeys = Object.keys(item?.appearances || {}).map((n) =>
                         parseInt(n)
                     );
