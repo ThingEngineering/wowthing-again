@@ -794,6 +794,7 @@ public class UserUploadJob : JobBase
 
                 if (!characterIdToAddonData.TryGetValue(characterId, out var characterAddonData) ||
                     characterAddonData.CurrenciesScannedAt > transferredAt ||
+                    characterAddonData.CurrenciesTransferredAt > transferredAt ||
                     characterAddonData.Currencies == null)
                 {
                     continue;
@@ -824,6 +825,7 @@ public class UserUploadJob : JobBase
                 // Change detection for this is obnoxious, just update it
                 if (changed)
                 {
+                    characterAddonData.CurrenciesTransferredAt = transferredAt;
                     localContext.Entry(characterAddonData)
                         .Property(pcad => pcad.Currencies)
                         .IsModified = true;
@@ -838,6 +840,7 @@ public class UserUploadJob : JobBase
                 }
 
                 if (characterAddonData.CurrenciesScannedAt > transferredAt ||
+                    characterAddonData.CurrenciesTransferredAt > transferredAt ||
                     characterAddonData.Currencies == null)
                 {
                     continue;
@@ -864,6 +867,7 @@ public class UserUploadJob : JobBase
                 // Change detection for this is obnoxious, just update it
                 if (changed)
                 {
+                    characterAddonData.CurrenciesTransferredAt = transferredAt;
                     localContext.Entry(characterAddonData)
                         .Property(pcad => pcad.Currencies)
                         .IsModified = true;

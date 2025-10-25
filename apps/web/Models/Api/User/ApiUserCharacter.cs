@@ -133,7 +133,16 @@ public class ApiUserCharacter
         PatronOrders = character.AddonData?.PatronOrders;
         ProfessionCooldowns = character.AddonData?.ProfessionCooldowns;
         ProfessionTraits = character.AddonData?.ProfessionTraits;
-        ScannedCurrencies = character.AddonData?.CurrenciesScannedAt;
+
+        var currenciesScanned = character.AddonData?.CurrenciesScannedAt;
+        if (currenciesScanned == null ||
+            (character.AddonData?.CurrenciesTransferredAt != null &&
+             character.AddonData?.CurrenciesTransferredAt > currenciesScanned)
+        )
+        {
+            currenciesScanned = character.AddonData?.CurrenciesTransferredAt;
+        }
+        ScannedCurrencies = currenciesScanned;
 
         Professions = character.Professions?.Professions;
         ProfessionSpecializations = character.Professions?.ProfessionSpecializations ?? new();
