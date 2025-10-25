@@ -92,8 +92,12 @@
                         parseInt(n)
                     );
                     let modifier = thing.appearanceModifier;
-                    if (appearanceKeys.length === 1) {
+                    if (appearanceKeys.length === 1 || !appearanceKeys.includes(modifier)) {
                         modifier = appearanceKeys[0];
+                    }
+
+                    if (item.id === 242368) {
+                        console.log({ item, withBonusIds, appearanceKeys, modifier, thingData });
                     }
 
                     if (group.overrideDifficulty === 14) {
