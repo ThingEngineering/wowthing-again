@@ -333,9 +333,9 @@
                 display: block;
                 margin-top: 0.1rem;
             }
-            /*:global(img) {
-                transform: scale(1.2);
-            }*/
+            :global(img) {
+                transform: scale(1.25);
+            }
         }
     }
     .empty {
