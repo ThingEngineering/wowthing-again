@@ -7,3 +7,11 @@ export const itemLevelQuality: number[][] = [
     [convertibleCategories[0].tiers[3].itemLevel, 2], // LFR raid    = 623-632,   H vault = 632
     [convertibleCategories[0].tiers[3].itemLevel - 13, 1], //
 ];
+
+export const remixItemLevelQuality: number[][] = [
+    [740, 5],
+    [701, 4],
+    [662, 3],
+    [623, 2],
+    [584, 1],
+];

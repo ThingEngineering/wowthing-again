@@ -534,7 +534,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     });
 
     public calculatedItemLevelQuality = $derived.by(() =>
-        getItemLevelQuality(parseFloat(this.calculatedItemLevel))
+        getItemLevelQuality(parseFloat(this.calculatedItemLevel), this.isRemix)
     );
 
     public fancyLevel = $derived.by(() => {

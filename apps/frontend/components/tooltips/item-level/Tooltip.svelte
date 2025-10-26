@@ -1,5 +1,9 @@
 <script lang="ts">
-    import { itemLevelQuality } from '@/data/item-level-quality';
+    import { itemLevelQuality, remixItemLevelQuality } from '@/data/item-level-quality';
+
+    let { remix }: { remix?: boolean } = $props();
+
+    let qualities = $derived(remix ? remixItemLevelQuality : itemLevelQuality);
 </script>
 
 <style lang="scss">
@@ -12,7 +16,7 @@
     <h4>Item Levels</h4>
     <table class="table table-striped">
         <tbody>
-            {#each itemLevelQuality as [itemLevel, quality] (quality)}
+            {#each qualities as [itemLevel, quality] (quality)}
                 <tr>
                     <td class="quality{quality}">{itemLevel}</td>
                 </tr>

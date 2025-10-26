@@ -59,7 +59,9 @@ public class MemoryCacheService
                     var region = Enum.Parse<WowRegion>(regionString);
                     var regionRealms = await contextWrapper.Context
                         .WowRealm
-                        .Where(realm => realm.Region == region)
+                        .Where(realm => realm.Region == region &&
+                                        realm.ConnectedRealmId > 0 &&
+                                        realm.ConnectedRealmId != 5909)
                         .ToArrayAsync();
 
                     byRegion[region] = regionRealms

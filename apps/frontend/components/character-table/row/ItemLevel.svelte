@@ -19,7 +19,9 @@
     class="border-left quality{character.calculatedItemLevelQuality}"
     use:componentTooltip={{
         component: Tooltip,
-        props: {},
+        props: {
+            remix: character.isRemix,
+        },
     }}
 >
     {character.calculatedItemLevel}
