@@ -140,7 +140,7 @@ export function useCharacterFilter(
                             }
 
                             // Race slug
-                            const raceSlug = ['dracthyr', 'pandaren'].includes(part)
+                            const raceSlug = ['dracthyr', 'earthen', 'pandaren'].includes(part)
                                 ? `${part}${char.faction}`
                                 : part;
                             const maybeRace = wowthingData.static.characterRaceBySlug.get(raceSlug);
@@ -163,15 +163,13 @@ export function useCharacterFilter(
 
                             // Armor type
                             if (part === 'cloth') {
-                                return classByArmorType[ArmorType.Cloth].indexOf(char.classId) >= 0;
+                                return classByArmorType[ArmorType.Cloth].includes(char.classId);
                             } else if (part === 'leather') {
-                                return (
-                                    classByArmorType[ArmorType.Leather].indexOf(char.classId) >= 0
-                                );
+                                return classByArmorType[ArmorType.Leather].includes(char.classId);
                             } else if (part === 'mail') {
-                                return classByArmorType[ArmorType.Mail].indexOf(char.classId) >= 0;
+                                return classByArmorType[ArmorType.Mail].includes(char.classId);
                             } else if (part === 'plate') {
-                                return classByArmorType[ArmorType.Plate].indexOf(char.classId) >= 0;
+                                return classByArmorType[ArmorType.Plate].includes(char.classId);
                             }
 
                             // Specializations

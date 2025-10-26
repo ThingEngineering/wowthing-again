@@ -15,11 +15,12 @@
         lookupType: LookupType;
         originalId: number;
         userHas: boolean;
+        quality?: number;
     };
-    let { lookupId, lookupType, originalId, userHas }: Props = $props();
+    let { lookupId, lookupType, originalId, quality, userHas }: Props = $props();
 
-    let { linkId, linkType, quality } = $derived.by(() => {
-        const ret = { linkId: 0, linkType: 'item', quality: ItemQuality.Poor };
+    let { linkId, linkType, linkQuality } = $derived.by(() => {
+        const ret = { linkId: 0, linkType: 'item', linkQuality: ItemQuality.Poor };
 
         if (lookupType === LookupType.Mount) {
             const mount = wowthingData.static.mountById.get(lookupId);
@@ -45,7 +46,8 @@
         }
 
         if (ret.linkType === 'item') {
-            ret.quality = wowthingData.items.items[ret.linkId]?.quality || ItemQuality.Poor;
+            ret.linkQuality =
+                quality || wowthingData.items.items[ret.linkId]?.quality || ItemQuality.Poor;
         }
 
         return ret;
@@ -70,7 +72,7 @@
     }
 </style>
 
-<div class="collection-object quality{quality}" class:missing={userHas}>
+<div class="collection-object quality{linkQuality}" class:missing={userHas}>
     <WowheadLink id={linkId} type={linkType}>
         <WowthingImage name="{linkType}/{linkId}" size={48} border={2} />
     </WowheadLink>

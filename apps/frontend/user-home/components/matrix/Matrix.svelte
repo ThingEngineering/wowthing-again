@@ -1,6 +1,7 @@
 <script lang="ts">
     import groupBy from 'lodash/groupBy';
     import sortBy from 'lodash/sortBy';
+    import uniqBy from 'lodash/uniqBy';
     import xor from 'lodash/xor';
 
     import { classOrder } from '@/data/character-class';
@@ -22,7 +23,6 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte';
     import Row from './Row.svelte';
-    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
 
     let matrix: Record<string, Character[]>;
     let xCounts: Record<string, number>;
@@ -76,7 +76,11 @@
 
                         parts.push(allAxis.indexOf('faction') >= 0 ? char.faction : null);
                         parts.push(allAxis.indexOf('gender') >= 0 ? char.gender : null);
-                        parts.push(allAxis.indexOf('race') >= 0 ? char.raceId : null);
+                        parts.push(
+                            allAxis.indexOf('race') >= 0
+                                ? wowthingData.static.characterRaceById.get(char.raceId).slug
+                                : null
+                        );
                         parts.push(allAxis.indexOf('class') >= 0 ? char.classId : null);
 
                         const professionIds = Object.keys(char.professions || {})
@@ -148,11 +152,11 @@
             }
 
             if (axis.indexOf('race') >= 0) {
-                combos.push(
-                    [...wowthingData.static.characterRaceById.keys()].map(
-                        (raceId) => `${raceId}|:race-${raceId}:`
-                    )
+                const races = uniqBy(
+                    Array.from(wowthingData.static.characterRaceById.values()),
+                    (race) => race.slug
                 );
+                combos.push(races.map((race) => `${race.slug}|:race-${race.id}:`));
             } else {
                 combos.push(['']);
             }
@@ -329,9 +333,9 @@
                 display: block;
                 margin-top: 0.1rem;
             }
-            /*:global(img) {
-                transform: scale(1.2);
-            }*/
+            :global(img) {
+                transform: scale(1.25);
+            }
         }
     }
     .empty {
@@ -345,8 +349,6 @@
 </style>
 
 <div class="wrapper">
-    <UnderConstruction />
-
     <div class="options-wrapper">
         <div class="options-container background-box">
             <span>X axis:</span>

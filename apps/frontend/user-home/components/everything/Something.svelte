@@ -18,6 +18,8 @@
     import VendorsCategories from '@/components/vendors/VendorsCategories.svelte';
     import Thing from './Thing.svelte';
     import { userState } from '@/user-home/state/user';
+    import { AppearanceModifier } from '@/enums/appearance-modifier';
+    import { applyBonusIds } from '@/utils/items/apply-bonus-ids';
 
     let { thing }: { thing: EverythingData } = $props();
 
@@ -39,8 +41,27 @@
                     content.id
                 );
 
+                // TODO: fix this to handle groups properly, ugh
+                let modifier = AppearanceModifier.Normal;
+                let quality = -1;
+                if (result.groups.length === 1) {
+                    if (result.groups[0].overrideDifficulty === 15) {
+                        modifier = AppearanceModifier.Heroic;
+                    } else if (result.groups[0].overrideDifficulty === 16) {
+                        modifier = AppearanceModifier.Mythic;
+                    } else if (result.groups[0].overrideDifficulty === 17) {
+                        modifier = AppearanceModifier.LookingForRaid;
+                    }
+
+                    if (result.groups[0].bonusIds?.length > 0) {
+                        const withBonusIds = applyBonusIds(result.groups[0].bonusIds, {});
+                        quality = withBonusIds.quality;
+                    }
+                }
+
                 const userHas = userHasLookup(snapshot, lookupType, lookupId, {
                     completionist: settingsState.value.transmog.completionistMode,
+                    modifier,
                 });
 
                 if (userHas) {
@@ -54,6 +75,7 @@
                         lookupType,
                         lookupId,
                         userHas,
+                        quality,
                     });
                 }
             }
