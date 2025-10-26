@@ -23,7 +23,6 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte';
     import Row from './Row.svelte';
-    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
 
     let matrix: Record<string, Character[]>;
     let xCounts: Record<string, number>;
@@ -350,8 +349,6 @@
 </style>
 
 <div class="wrapper">
-    <UnderConstruction />
-
     <div class="options-wrapper">
         <div class="options-container background-box">
             <span>X axis:</span>
