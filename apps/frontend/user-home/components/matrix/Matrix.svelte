@@ -1,6 +1,7 @@
 <script lang="ts">
     import groupBy from 'lodash/groupBy';
     import sortBy from 'lodash/sortBy';
+    import uniqBy from 'lodash/uniqBy';
     import xor from 'lodash/xor';
 
     import { classOrder } from '@/data/character-class';
@@ -76,7 +77,11 @@
 
                         parts.push(allAxis.indexOf('faction') >= 0 ? char.faction : null);
                         parts.push(allAxis.indexOf('gender') >= 0 ? char.gender : null);
-                        parts.push(allAxis.indexOf('race') >= 0 ? char.raceId : null);
+                        parts.push(
+                            allAxis.indexOf('race') >= 0
+                                ? wowthingData.static.characterRaceById.get(char.raceId).slug
+                                : null
+                        );
                         parts.push(allAxis.indexOf('class') >= 0 ? char.classId : null);
 
                         const professionIds = Object.keys(char.professions || {})
@@ -148,11 +153,11 @@
             }
 
             if (axis.indexOf('race') >= 0) {
-                combos.push(
-                    [...wowthingData.static.characterRaceById.keys()].map(
-                        (raceId) => `${raceId}|:race-${raceId}:`
-                    )
+                const races = uniqBy(
+                    Array.from(wowthingData.static.characterRaceById.values()),
+                    (race) => race.slug
                 );
+                combos.push(races.map((race) => `${race.slug}|:race-${race.id}:`));
             } else {
                 combos.push(['']);
             }
