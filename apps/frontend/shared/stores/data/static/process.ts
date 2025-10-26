@@ -113,7 +113,10 @@ export function processStaticData(rawData: RawStatic): DataStatic {
     }
 
     for (const characterRace of data.characterRaceById.values()) {
-        data.characterRaceBySlug.set(characterRace.slug, characterRace);
+        const raceSlug = ['dracthyr', 'earthen', 'pandaren'].includes(characterRace.slug)
+            ? `${characterRace.slug}${characterRace.faction}`
+            : characterRace.slug;
+        data.characterRaceBySlug.set(raceSlug, characterRace);
     }
 
     for (const characterSpecialization of data.characterSpecializationById.values()) {
