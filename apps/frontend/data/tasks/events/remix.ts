@@ -46,7 +46,6 @@ export const eventRemixLegion: Task = {
                         char
                     );
                     if (nextDailyReset < timeState.slowTime) {
-                        ret.have = Math.max(ret.have - 3, 0);
                         while (nextDailyReset < timeState.slowTime) {
                             ret.have = Math.max(ret.have - 3, 0);
                             nextDailyReset = nextDailyReset.plus({ days: 1 });
