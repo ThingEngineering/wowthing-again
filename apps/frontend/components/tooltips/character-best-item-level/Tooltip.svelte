@@ -59,7 +59,12 @@
                     <td class="name">
                         {getGenderedName(specialization.name, character.gender)}
                     </td>
-                    <td class="quality{getItemLevelQuality(parseFloat(itemLevel))}">
+                    <td
+                        class="quality{getItemLevelQuality(
+                            parseFloat(itemLevel),
+                            character.isRemix
+                        )}"
+                    >
                         {itemLevel}
                     </td>
                     <td class="slots status-warn">
