@@ -11,10 +11,12 @@
     const initialChoices: SettingsChoice[] = [
         { id: 'account', name: 'Account ID' },
         { id: 'enabled', name: 'Account status' },
+        { id: 'race', name: 'Race' },
+        { id: 'class', name: 'Class' },
         { id: 'faction', name: 'Faction' },
         { id: 'guild', name: 'Guild' },
-        { id: 'maxlevel', name: 'Max level' },
-        { id: 'pinned', name: 'Pinned' },
+        { id: 'maxlevel', name: 'Max level?' },
+        { id: 'pinned', name: 'Pinned?' },
         { id: 'realm', name: 'Connected realm' },
     ];
 
