@@ -31,6 +31,8 @@ export function getCharacterGroupContext(
                     out.push(
                         settingsData.accounts?.[char.accountId]?.tag ?? `account${char.accountId}`
                     );
+                } else if (thing === 'class') {
+                    out.push(wowthingData.static.characterClassById.get(char.classId)?.slug);
                 } else if (thing === 'enabled') {
                     const enabled = settingsData.accounts?.[char.accountId]?.enabled ?? true;
                     out.push(enabled ? 'a' : 'z');
@@ -49,6 +51,8 @@ export function getCharacterGroupContext(
                     out.push(
                         settingsData.characters.pinnedCharacters.indexOf(char.id) >= 0 ? 'a' : 'z'
                     );
+                } else if (thing === 'race') {
+                    out.push(wowthingData.static.characterRaceById.get(char.raceId)?.slug);
                 } else if (thing === 'realm') {
                     out.push(
                         wowthingData.static.connectedRealmById.get(char.realm.connectedRealmId)

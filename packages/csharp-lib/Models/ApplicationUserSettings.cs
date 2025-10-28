@@ -34,11 +34,13 @@ public class ApplicationUserSettings
     private readonly HashSet<string> _validGroupBy = new()
     {
         "account",
+        "class",
         "enabled",
         "faction",
         "guild",
         "maxlevel",
         "pinned",
+        "race",
         "realm",
     };
     private readonly HashSet<string> _validSortBy = new()
