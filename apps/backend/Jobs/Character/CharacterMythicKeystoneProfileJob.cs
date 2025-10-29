@@ -94,7 +94,7 @@ public class CharacterMythicKeystoneProfileJob : JobBase
             .EmptyIfNull()
             .Select(s => s.Id)
             .OrderByDescending(id => id)
-            .ToArray();
+            .ToList();
 
         var existingSeasonIds = await Context.PlayerCharacterMythicPlusSeason
             .Where(mps => mps.CharacterId == _query.CharacterId)
@@ -103,23 +103,28 @@ public class CharacterMythicKeystoneProfileJob : JobBase
             .ToArrayAsync(CancellationToken);
 
         // If we've already visited every season for this character, just grab the latest
-        if (apiSeasons.Length > 0 && Enumerable.SequenceEqual(apiSeasons, existingSeasonIds))
+        if (apiSeasons.Count > 0 && Enumerable.SequenceEqual(apiSeasons, existingSeasonIds))
         {
-            apiSeasons = new[] { apiSeasons[0] };
+            apiSeasons = [apiSeasons[0]];
         }
 
-        if (apiSeasons.Length > 0)
+        if (apiSeasons.Count > 0)
         {
             var db = Redis.GetDatabase();
             await db.StringIncrementAsync(string.Format(RedisKeys.CharacterJobCounter, _query.CharacterId),
-                apiSeasons.Length + 1);
+                apiSeasons.Count + 1);
 
-            await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterRaiderIo, data[0], JsonSerializer.Serialize(apiSeasons));
-
-            foreach (int apiSeason in apiSeasons)
+            foreach (int apiSeason in apiSeasons.Where(seasonId => seasonId != 1001))
             {
                 await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMythicKeystoneProfileSeason, data[0], apiSeason.ToString());
             }
+
+            // HACK for RaiderIO + Remix: Legion
+            if (apiSeasons.Contains(15))
+            {
+                apiSeasons.Insert(0, 1001);
+            }
+            await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterRaiderIo, data[0], JsonSerializer.Serialize(apiSeasons));
         }
     }
 

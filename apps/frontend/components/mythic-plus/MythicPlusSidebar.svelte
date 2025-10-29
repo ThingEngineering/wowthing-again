@@ -14,7 +14,8 @@
             slug: 'this-week',
         },
         null,
-    ].concat(seasons);
+        ...seasons,
+    ];
 </script>
 
 <Sidebar baseUrl="/mythic-plus" items={categories} width="9rem" />

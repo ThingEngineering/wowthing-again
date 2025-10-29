@@ -35,59 +35,68 @@
     let isCurrentSeason = $derived(season.id === Constants.mythicPlusSeason);
     let affixes = $derived(isCurrentSeason ? getWeeklyAffixes() : []);
 
-    let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[] = $derived(
-        isThisWeek
-            ? (char, dungeonId) => {
-                  const currentPeriod = userStore.getCurrentPeriodForCharacter($timeStore, char);
-                  const startStamp = currentPeriod.startTime.toUnixInteger();
-                  const endStamp = currentPeriod.endTime.toUnixInteger();
+    let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[] = $derived.by(
+        () => {
+            if (isThisWeek) {
+                return (char, dungeonId) => {
+                    const currentPeriod = userStore.getCurrentPeriodForCharacter($timeStore, char);
+                    const startStamp = currentPeriod.startTime.toUnixInteger();
+                    const endStamp = currentPeriod.endTime.toUnixInteger();
 
-                  for (const [timestamp, runs] of Object.entries(char.mythicPlusWeeks || {})) {
-                      const weekStamp = parseInt(timestamp);
-                      if (weekStamp > startStamp && weekStamp <= endStamp) {
-                          return runs
-                              .filter((run) => run.mapId === dungeonId)
-                              .map(
-                                  (run) =>
-                                      ({
-                                          completed: '???',
-                                          dungeonId: run.mapId,
-                                          keystoneLevel: run.level,
+                    for (const [timestamp, runs] of Object.entries(char.mythicPlusWeeks || {})) {
+                        const weekStamp = parseInt(timestamp);
+                        if (weekStamp > startStamp && weekStamp <= endStamp) {
+                            return runs
+                                .filter((run) => run.mapId === dungeonId)
+                                .map(
+                                    (run) =>
+                                        ({
+                                            completed: '???',
+                                            dungeonId: run.mapId,
+                                            keystoneLevel: run.level,
 
-                                          affixes: [],
-                                          duration: 0,
-                                          members: [],
-                                          memberObjects: [],
-                                          timed: true,
-                                      }) as CharacterMythicPlusRun
-                              );
-                      }
-                  }
-                  return [];
-              }
-            : (char, dungeonId) => char.mythicPlus?.seasons?.[season.id]?.[dungeonId]
+                                            affixes: [],
+                                            duration: 0,
+                                            members: [],
+                                            memberObjects: [],
+                                            timed: true,
+                                        }) as CharacterMythicPlusRun
+                                );
+                        }
+                    }
+                    return [];
+                };
+            } else {
+                const seasonId = season?.id === 1001 ? 15 : season?.id;
+                return (char, dungeonId) => char.mythicPlus?.seasons?.[seasonId]?.[dungeonId];
+            }
+        }
     );
 
     let sortFunc = $derived(
-        getCharacterSortFunc((char) =>
-            leftPad(
+        getCharacterSortFunc((char) => {
+            return leftPad(
                 100000 -
                     Math.floor(
-                        (char.mythicPlusSeasonScores[season.id] ||
-                            char.raiderIo?.[season.id]?.all ||
+                        (char.mythicPlusSeasonScores[season?.id] ||
+                            char.raiderIo?.[season?.id]?.all ||
                             0) * 10
                     ),
                 6,
                 '0'
-            )
-        )
+            );
+        })
     );
 
     let filterFunc = $derived((char: Character) => {
         const meetsLevelReq = char.level >= season.minLevel;
-        const score =
-            char.mythicPlusSeasonScores?.[season.id] || char.raiderIo?.[season.id]?.all || 0;
-        return meetsLevelReq && score > 0;
+        if (char.isRemix) {
+            return meetsLevelReq && season.id === 1001;
+        } else {
+            const score =
+                char.mythicPlusSeasonScores?.[season.id] || char.raiderIo?.[season.id]?.all || 0;
+            return meetsLevelReq && score > 0;
+        }
     });
 </script>
 

@@ -125,8 +125,34 @@ const orderWarWithinS3: number[] = [
     391, // Tazavesh: Streets of Wonder [SL]
 ];
 
+const orderRemixLegion: number[] = [
+    209, // The Arcway
+    199, // Black Rook Hold
+    210, // Court of Stars
+    198, // Darkheart Thicket
+    197, // Eye of Azshara
+    200, // Halls of Valor
+    208, // Maw of Souls
+    206, // Neltharion's Lair
+    207, // Vault of the Wardens
+    227, // Kara Lower
+    234, // Kara Upper
+    233, // Cathedral
+    239, // Seat
+];
+
 export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
     [
+        new MythicPlusSeason({
+            id: 1001,
+            name: '[Legion] Remix',
+            slug: 'remix-legion',
+            minLevel: 80,
+            orders: [orderRemixLegion],
+            portalLevel: 20,
+            scoreType: MythicPlusScoreType.WarWithin,
+            startPeriod: 1030,
+        }),
         new MythicPlusSeason({
             id: 15,
             name: '[TWW] Season 3',
