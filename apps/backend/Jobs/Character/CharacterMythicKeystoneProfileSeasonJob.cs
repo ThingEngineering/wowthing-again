@@ -63,7 +63,6 @@ public class CharacterMythicKeystoneProfileSeasonJob : JobBase
 
         if (resultData.BestRuns != null)
         {
-
             season.Runs = resultData.BestRuns
                 .EmptyIfNull()
                 .Select(run => new PlayerCharacterMythicPlusRun()

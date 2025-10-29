@@ -776,7 +776,6 @@ public class UserUploadJob : JobBase
                 var valueParts = valueString.Split(":");
                 if (valueParts.Length != 2)
                 {
-                    Logger.Debug("not enough parts: {0}", valueString);
                     continue;
                 }
 
@@ -787,8 +786,6 @@ public class UserUploadJob : JobBase
                     Logger.Debug("something failed to parse");
                     continue;
                 }
-
-                Logger.Debug("[{c}] {s} => {char}, {value}", currencyId, valueString, characterId, value);
 
                 seenCharacterIds.Add(characterId);
 
@@ -809,17 +806,13 @@ public class UserUploadJob : JobBase
                         Quantity = value,
                     };
                     changed = true;
-                    Logger.Debug("new currency: {0} {1}", characterId, value);
+                    Logger.Debug("new currency: {0} => {1}", characterAddonData.CharacterId, value);
                 }
                 else if (playerCurrency.Quantity != value)
                 {
+                    Logger.Debug("updated currency: {0} {q} => {v}", characterAddonData.CharacterId, playerCurrency.Quantity, value);
                     playerCurrency.Quantity = value;
                     changed = true;
-                    Logger.Debug("updated currency: {0} {1}", characterId, value);
-                }
-                else
-                {
-                    Logger.Debug("nothing to do! {0}", playerCurrency.Quantity);
                 }
 
                 // Change detection for this is obnoxious, just update it
@@ -855,13 +848,13 @@ public class UserUploadJob : JobBase
                         Quantity = 0,
                     };
                     changed = true;
-                    Logger.Debug("new currency: {0} {1}", characterId, 0);
+                    Logger.Debug("new currency: {0} => {1}", characterAddonData.CharacterId, 0);
                 }
                 else if (playerCurrency.Quantity > 0)
                 {
+                    Logger.Debug("updated currency: {0} {q} => {v}", characterAddonData.CharacterId, playerCurrency.Quantity, 0);
                     playerCurrency.Quantity = 0;
                     changed = true;
-                    Logger.Debug("updated currency: {0} {1}", characterId, 0);
                 }
 
                 // Change detection for this is obnoxious, just update it

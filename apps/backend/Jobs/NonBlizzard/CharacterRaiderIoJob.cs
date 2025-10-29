@@ -36,6 +36,10 @@ public class CharacterRaiderIoJob : JobBase
             {
                 oofParts.Add(rioSeasons[0].Key);
             }
+            else
+            {
+                Logger.Warning("Invalid season id: {n}", seasonId);
+            }
         }
 
         if (oofParts.Count == 0)
@@ -45,6 +49,7 @@ public class CharacterRaiderIoJob : JobBase
         }
 
         var oof = string.Join(":", oofParts);
+        Logger.Debug("oof: {oof}", oof);
 
         // Fetch API data
         var uri = new Uri(string.Format(ApiUrl, _query.Region.ToString().ToLowerInvariant(), _query.RealmSlug, _query.CharacterName, oof));

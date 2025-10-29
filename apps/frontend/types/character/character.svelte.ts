@@ -441,9 +441,9 @@ export class Character implements ContainsItems, HasNameAndRealm {
                 }
             }
 
-            const rioScore = this.raiderIo?.[seasonId]?.['all'] || 0;
-            this.mythicPlusSeasonScores[seasonId] =
-                Math.abs(total - rioScore) > 10 ? total : rioScore;
+            const rioId = this.isRemix ? 1001 : seasonId;
+            const rioScore = this.raiderIo?.[rioId]?.['all'] || 0;
+            this.mythicPlusSeasonScores[rioId] = Math.abs(total - rioScore) > 10 ? total : rioScore;
         }
 
         for (const [week, runsArray] of Object.entries(rawMythicPlusWeeks || {})) {

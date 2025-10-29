@@ -20,14 +20,14 @@ export const dungeons: Dungeon[] = [
     new Dungeon(169, 'Iron Docks', 'ID', 'achievement/9038', 32),
 
     // Legion
-    new Dungeon(197, 'Eye of Azshara', 'EoA', '', 2100 / 60),
+    new Dungeon(197, 'Eye of Azshara', 'EoA', 'achievement/10782', 2100 / 60),
     new Dungeon(198, 'Darkheart Thicket', 'DHT', 'achievement/10783', 1800 / 60),
     new Dungeon(199, 'Black Rook Hold', 'BRH', 'achievement/10804', 2160 / 60),
     new Dungeon(200, 'Halls of Valor', 'HoV', 'achievement/10786', 38),
     new Dungeon(206, "Neltharion's Lair", 'NL', 'achievement/10795', 33),
-    new Dungeon(207, 'Vault of the Wardens', 'VoW', '', 1980 / 60),
-    new Dungeon(208, 'Maw of Souls', 'MoS', '', 1440 / 60),
-    new Dungeon(209, 'The Arcway', 'Arc', '', 2700 / 60),
+    new Dungeon(207, 'Vault of the Wardens', 'VoW', 'achievement/10803', 1980 / 60),
+    new Dungeon(208, 'Maw of Souls', 'MoS', 'achievement/10809', 1440 / 60),
+    new Dungeon(209, 'The Arcway', 'Arc', 'achievement/10813', 2700 / 60),
     new Dungeon(210, 'Court of Stars', 'CoS', 'achievement/10816', 30),
     new Dungeon(
         227,
@@ -36,9 +36,9 @@ export const dungeons: Dungeon[] = [
         'achievement/11338', // Dine and Dash
         42
     ),
-    new Dungeon(233, 'Cathedral of Eternal Night', 'CEN', '', 2100 / 60),
+    new Dungeon(233, 'Cathedral of Eternal Night', 'CEN', 'achievement/11702', 2100 / 60),
     new Dungeon(234, 'Return to Karazhan: Upper', 'UPPR', 'achievement/11429', 35),
-    new Dungeon(239, 'Seat of the Triumvirate', 'SoT', '', 2100 / 60),
+    new Dungeon(239, 'Seat of the Triumvirate', 'SoT', 'achievement/12008', 2100 / 60),
 
     // Battle for Azeroth
     new Dungeon(244, "Atal'Dazar", 'AD', 'achievement/12824', 1800 / 60),
