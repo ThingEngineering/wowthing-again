@@ -67,7 +67,10 @@
                     return [];
                 };
             } else {
-                const seasonId = season?.id === 1001 ? 15 : season?.id;
+                const seasonId =
+                    season?.id === Constants.remixMythicPlusSeason
+                        ? Constants.mythicPlusSeason
+                        : season?.id;
                 return (char, dungeonId) => char.mythicPlus?.seasons?.[seasonId]?.[dungeonId];
             }
         }
@@ -91,7 +94,7 @@
     let filterFunc = $derived((char: Character) => {
         const meetsLevelReq = char.level >= season.minLevel;
         if (char.isRemix) {
-            return meetsLevelReq && season.id === 1001;
+            return meetsLevelReq && season.id === Constants.remixMythicPlusSeason;
         } else {
             const score =
                 char.mythicPlusSeasonScores?.[season.id] || char.raiderIo?.[season.id]?.all || 0;

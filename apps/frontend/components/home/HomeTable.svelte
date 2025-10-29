@@ -111,7 +111,9 @@
                     {/if}
                 {:else if field === 'mythicPlusScore'}
                     <RowMythicPlusScore
-                        seasonId={character.isRemix ? 1001 : Constants.mythicPlusSeason}
+                        seasonId={character.isRemix
+                            ? Constants.remixMythicPlusSeason
+                            : Constants.mythicPlusSeason}
                         {character}
                     />
                 {:else if field === 'playedTime'}
