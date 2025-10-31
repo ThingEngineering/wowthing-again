@@ -1,8 +1,10 @@
 <script lang="ts">
     import { lockoutOverride } from '@/data/dungeon';
     import { uiIcons } from '@/shared/icons';
-    import { componentTooltip } from '@/shared/utils/tooltips';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { timeState } from '@/shared/state/time.svelte';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import parseApiTime from '@/utils/parse-api-time';
     import type { CharacterLockout, InstanceDifficulty } from '@/types';
     import type { CharacterProps } from '@/types/props';
 
@@ -30,6 +32,7 @@
             return null;
         }
     });
+    let resetTime = $derived(lockout ? parseApiTime(lockout.resetTime) : null);
     let maxBosses = $derived(
         lockout ? lockoutOverride[instanceDifficulty.instanceId] || lockout.maxBosses : 0
     );
@@ -48,7 +51,7 @@
     }
 </style>
 
-{#if lockout}
+{#if lockout && (!resetTime || resetTime > timeState.slowTime)}
     <td
         class:alt={!showNumbers && striped}
         class:status-success={lockout.defeatedBosses >= maxBosses}
