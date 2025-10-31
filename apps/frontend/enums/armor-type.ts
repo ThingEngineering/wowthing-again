@@ -5,4 +5,5 @@ export enum ArmorType {
     Mail = 3,
     Plate = 4,
     Tabard = 21,
+    None = 1000,
 }

@@ -1,6 +1,25 @@
-import type { CharacterMythicPlusAddonMapAffix, CharacterMythicPlusRun } from '@/types';
+import type { Character, CharacterMythicPlusAddonMapAffix, CharacterMythicPlusRun } from '@/types';
+import getFirstMatch from '../get-first-match';
 
-export function getRunQuality(run: CharacterMythicPlusRun | number): string {
+const qualityBreakpoints: number[][] = [
+    [26, 6],
+    [21, 5],
+    [16, 4],
+    [11, 3],
+    [6, 2],
+    [1, 1],
+];
+
+const remixBreakpoints: number[][] = [
+    [51, 6],
+    [41, 5],
+    [31, 4],
+    [21, 3],
+    [11, 2],
+    [1, 1],
+];
+
+export function getRunQuality(run: CharacterMythicPlusRun | number, character?: Character): string {
     let level = 0;
     if (typeof run !== 'number') {
         if (!run.timed) {
@@ -11,14 +30,14 @@ export function getRunQuality(run: CharacterMythicPlusRun | number): string {
         level = run;
     }
 
-    return getQuality(level);
+    return `quality${getFirstMatch(character?.isRemix ? remixBreakpoints : qualityBreakpoints, level)}`;
 }
 
 export function getRunQualityAffix(run: CharacterMythicPlusAddonMapAffix): string {
     return run.overTime ? 'quality0' : getQuality(run.level);
 }
 
-function getQuality(level: number): string {
+function getQuality(level: number, character?: Character): string {
     if (level >= 26) {
         return 'quality6';
     } else if (level >= 21) {

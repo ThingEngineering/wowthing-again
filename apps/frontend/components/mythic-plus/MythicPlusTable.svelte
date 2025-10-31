@@ -17,12 +17,14 @@
     import HeadKeystone from '@/components/character-table/head/Keystone.svelte';
     import HeadRaiderIo from '@/components/character-table/head/RaiderIo.svelte';
     import HeadVault from '@/components/character-table/head/Vault.svelte';
+    import RemixArtifact from '../character-table/row/RemixArtifact.svelte';
     import RowDungeon from './MythicPlusTableRowDungeon.svelte';
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte';
     import RowKeystone from '@/components/character-table/row/Keystone.svelte';
     import RowRaiderIo from '@/components/character-table/row/RaiderIo.svelte';
     import RowVaultDungeon from '@/components/character-table/row/VaultDungeon.svelte';
     import TableFoot from './TableFoot.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
     let { slug }: { slug: string } = $props();
 
@@ -32,7 +34,9 @@
             ? seasonMap[Constants.mythicPlusSeason]
             : find(seasonMap, (season) => season.slug === slug)
     );
-    let isCurrentSeason = $derived(season.id === Constants.mythicPlusSeason);
+    let isCurrentSeason = $derived(
+        season.id === Constants.mythicPlusSeason || season.id === Constants.remixMythicPlusSeason
+    );
     let affixes = $derived(isCurrentSeason ? getWeeklyAffixes() : []);
 
     let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[] = $derived.by(
@@ -67,7 +71,10 @@
                     return [];
                 };
             } else {
-                const seasonId = season?.id === 1001 ? 15 : season?.id;
+                const seasonId =
+                    season?.id === Constants.remixMythicPlusSeason
+                        ? Constants.mythicPlusSeason
+                        : season?.id;
                 return (char, dungeonId) => char.mythicPlus?.seasons?.[seasonId]?.[dungeonId];
             }
         }
@@ -91,7 +98,7 @@
     let filterFunc = $derived((char: Character) => {
         const meetsLevelReq = char.level >= season.minLevel;
         if (char.isRemix) {
-            return meetsLevelReq && season.id === 1001;
+            return meetsLevelReq && season.id === Constants.remixMythicPlusSeason;
         } else {
             const score =
                 char.mythicPlusSeasonScores?.[season.id] || char.raiderIo?.[season.id]?.all || 0;
@@ -101,6 +108,11 @@
 </script>
 
 <style lang="scss">
+    th {
+        --image-margin-top: -4px;
+
+        vertical-align: bottom;
+    }
     .no-characters {
         padding: 0.3rem 0.5rem;
         white-space: normal;
@@ -111,6 +123,12 @@
     <CharacterTableHead slot="head">
         {#if isCurrentSeason}
             <HeadItemLevel />
+        {/if}
+
+        {#if season.id === Constants.remixMythicPlusSeason}
+            <th>
+                <WowthingImage name="spell/1245947" size={16} border={2} cls="quality6-border" />
+            </th>
         {/if}
 
         <HeadRaiderIo />
@@ -136,6 +154,10 @@
         {#key slug}
             {#if isCurrentSeason}
                 <RowItemLevel {character} />
+            {/if}
+
+            {#if season.id === Constants.remixMythicPlusSeason}
+                <RemixArtifact {character} />
             {/if}
 
             <RowRaiderIo {character} {season} />

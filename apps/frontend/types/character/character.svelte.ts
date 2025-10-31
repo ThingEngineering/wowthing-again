@@ -5,10 +5,13 @@ import { Constants } from '@/data/constants';
 import { characterBagSlots, slotOrder } from '@/data/inventory-slot';
 import { gemData } from '@/data/gems';
 import { professionSpecializationToSpell } from '@/data/professions';
+import { seasonMap } from '@/data/mythic-plus';
 import { moveSpeedTalents } from '@/data/talents';
 import { Faction } from '@/enums/faction';
 import { InventorySlot } from '@/enums/inventory-slot';
 import { ItemLocation } from '@/enums/item-location';
+import { ItemQuality } from '@/enums/item-quality';
+import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
 import { PlayableClass } from '@/enums/playable-class';
 import { Profession } from '@/enums/profession';
 import { StatType } from '@/enums/stat-type';
@@ -22,7 +25,7 @@ import { getGenderedName } from '@/utils/get-gendered-name';
 import getItemLevelQuality from '@/utils/get-item-level-quality';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { initializeContainsItems } from '@/utils/items/initialize-contains-items';
-import type { InventoryType } from '@/enums/inventory-type';
+import { getDungeonScores } from '@/utils/mythic-plus';
 import type { Region } from '@/enums/region';
 import type { StaticDataRealm } from '@/shared/stores/static/types';
 import type { Guild } from '@/types/guild';
@@ -67,10 +70,6 @@ import type { Account } from '../account';
 import type { CharacterAura } from './aura';
 import type { CharacterPatronOrder } from './patron-order';
 import type { CharacterMovementSpeed } from './movement-speed';
-import { seasonMap } from '@/data/mythic-plus';
-import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
-import { getDungeonScores } from '@/utils/mythic-plus';
-import { ItemQuality } from '@/enums/item-quality';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Static
@@ -441,7 +440,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
                 }
             }
 
-            const rioId = this.isRemix ? 1001 : seasonId;
+            const rioId = this.isRemix ? Constants.remixMythicPlusSeason : seasonId;
             const rioScore = this.raiderIo?.[rioId]?.['all'] || 0;
             this.mythicPlusSeasonScores[rioId] = Math.abs(total - rioScore) > 10 ? total : rioScore;
         }

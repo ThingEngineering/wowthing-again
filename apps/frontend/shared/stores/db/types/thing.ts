@@ -270,4 +270,5 @@ const dbResetTypeToFarmResetType: Record<number, FarmResetType> = {
 
 export const thingContentTypeToRewardType: Record<number, RewardType> = {
     [DbThingContentType.Item]: RewardType.Item,
+    [DbThingContentType.Pet]: RewardType.Pet,
 };

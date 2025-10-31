@@ -97,7 +97,7 @@
                 <tr>
                     <td colspan="2">
                         {dungeon.name}
-                        <span class={getRunQuality(character.weekly.keystoneLevel)}>
+                        <span class={getRunQuality(character.weekly.keystoneLevel, character)}>
                             {character.weekly.keystoneLevel}
                         </span>
                     </td>
