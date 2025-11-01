@@ -109,6 +109,10 @@
         padding-right: 0;
         text-align: center;
     }
+    .only-weekly {
+        padding-left: calc(var(--padding-size) * 2);
+        padding-right: calc(var(--padding-size) * 2);
+    }
     .mythic-plus-score {
         --width: var(--width-raider-io);
     }
