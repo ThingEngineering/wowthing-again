@@ -40,7 +40,7 @@ export function homeSort(char: Character, sortBy: string): string {
     } else if (sortBy === 'locationHearth') {
         // adding two spaces makes it sort before " > blah"
         return char.hearthLocation + '  ' || 'ZZZZZ';
-    } else if (sortBy === 'mythicPlusKeystone') {
+    } else if (sortBy === 'keystone') {
         if (char.level === Constants.characterMaxLevel && char.weekly?.keystoneScannedAt) {
             const resetTime = getNextWeeklyReset(char.weekly.keystoneScannedAt, char.realm.region);
             if (resetTime > timeState.slowTime) {
@@ -53,10 +53,8 @@ export function homeSort(char: Character, sortBy: string): string {
 
         return '100|ZZ';
     } else if (sortBy === 'mythicPlusScore') {
-        const rating =
-            char.mythicPlusSeasonScores?.[Constants.mythicPlusSeason] ||
-            char.raiderIo?.[Constants.mythicPlusSeason]?.all ||
-            0;
+        const season = char.isRemix ? Constants.remixMythicPlusSeason : Constants.mythicPlusSeason;
+        const rating = char.mythicPlusSeasonScores?.[season] || char.raiderIo?.[season]?.all || 0;
         return leftPad(Math.floor(100000 - rating * 10), 6, '0');
         // } else if (sortBy === 'professionCooldowns') {
         //     const cooldownData = lazyStore.characters[char.id].professionCooldowns;
