@@ -34,6 +34,7 @@ export const homeChoices: SettingsChoice[] = [
     { id: 'professions', name: 'Professions - Primary' },
     { id: 'professionsSecondary', name: 'Professions - Secondary' },
     { id: 'professionConcentration', name: 'Profession Concentration' },
+    { id: 'professionConcentrationDF', name: 'Profession Concentration [DF]' },
     { id: 'professionCooldowns', name: 'Profession Cooldowns' },
     { id: 'professionWorkOrders', name: 'Profession Work Orders' },
     { id: 'progress', name: 'Progress' },

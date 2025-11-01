@@ -202,7 +202,9 @@
                 <RowPlayedTime {playedTotal} />
             {/if}
         {:else if field === 'professionConcentration'}
-            <td>Concentration</td>
+            <td><code>[TWW]</code> Conc</td>
+        {:else if field === 'professionConcentrationDF'}
+            <td><code>[DF] Conc</code></td>
         {:else if field === 'professionCooldowns'}
             <td
                 class="sortable sorted-{getSortState()}"
