@@ -46,6 +46,7 @@ export const holidayIds: Record<number, number[]> = {
     [Holiday.Brewfest]: [372],
     [Holiday.ChildrensWeek]: [201],
     [Holiday.DarkmoonFaire]: [479],
+    [Holiday.DayOfTheDead]: [409],
     [Holiday.HallowsEnd]: [324, 1405],
     [Holiday.LoveIsInTheAir]: [335, 423],
     [Holiday.LunarFestival]: [327],
@@ -111,17 +112,22 @@ export const fancyHolidays: FancyHoliday[] = [
     },
     {
         holiday: Holiday.DarkmoonFaire,
-        shortName: 'Darkmoon',
+        shortName: 'DMF',
         everything: 'darkmoon-faire',
     },
     {
+        holiday: Holiday.DayOfTheDead,
+        shortName: '💀',
+        everything: 'day-of-the-dead',
+    },
+    {
         holiday: Holiday.HallowsEnd,
-        shortName: "Hallow's End",
+        shortName: '🎃',
         everything: 'hallows-end',
     },
     {
         holiday: Holiday.LoveIsInTheAir,
-        shortName: 'Love is in the Air',
+        shortName: '💘',
         everything: 'love-is-in-the-air',
     },
     {
@@ -141,7 +147,7 @@ export const fancyHolidays: FancyHoliday[] = [
     },
     {
         holiday: Holiday.PilgrimsBounty,
-        shortName: "Pilgrim's Bounty",
+        shortName: '🦃',
         everything: 'pilgrims-bounty',
     },
     {
@@ -157,7 +163,7 @@ export const fancyHolidays: FancyHoliday[] = [
     //
     {
         holiday: Holiday.RemixLegion,
-        shortName: 'Remix: Legion',
+        shortName: 'Lemix',
         everything: 'remix-legion',
     },
 ];

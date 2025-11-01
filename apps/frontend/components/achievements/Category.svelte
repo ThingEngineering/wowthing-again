@@ -38,7 +38,7 @@
             return null;
         }
 
-        if (slug2) {
+        if (slug2 && slug2 !== 'day-of-the-dead') {
             cat = find(cat.children, (c) => c !== null && c.slug === slug2);
         } else if (cat.achievementIds.length === 0 && cat.children.length > 0) {
             replace(`/achievements/${slug1}/${cat.children[0].slug}`);
@@ -54,6 +54,10 @@
 
         if (category.id >= 200000) {
             return category.achievementIds;
+        }
+
+        if (slug2 === 'day-of-the-dead') {
+            return [3456, 9426, 9427, 9428];
         }
 
         let ids = category.achievementIds as number[];

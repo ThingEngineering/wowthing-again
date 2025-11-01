@@ -145,7 +145,9 @@ public class ItemsTool
         {
             if (item.CompletesQuestIds.Length > 0)
             {
-                completesQuestMap[item.Id] = item.CompletesQuestIds;
+                completesQuestMap[item.Id] = item.CompletesQuestIds
+                    .Where(id => id != 39609 && id != 39610) // Hallow's End/Winter Veil HQTs?
+                    .ToArray();
             }
 
             if (item.TeachesSpellIds.Length > 0)
