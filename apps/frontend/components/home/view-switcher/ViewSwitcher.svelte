@@ -55,7 +55,9 @@
         }
     }
     .extra-stuff {
+        flex-wrap: wrap;
         gap: 0.5rem;
+        justify-content: flex-start;
 
         :global(> *) {
             border: 1px solid var(--border-color);
