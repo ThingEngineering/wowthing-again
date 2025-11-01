@@ -134,7 +134,7 @@ export function homeSort(char: Character, sortBy: string): string {
             currencyId > 1_000_000
                 ? char.getItemCount(currencyId - 1_000_000)
                 : char.currencies?.[currencyId]?.quantity || 0;
-        return leftPad(1000000 - value, 7, '0');
+        return leftPad(100_000_000 - value, 9, '0');
     } else if (sortBy.startsWith('items:')) {
         const itemId = parseInt(sortBy.split(':')[1]);
         return leftPad(1000000 - char.getItemCount(itemId), 7, '0');
