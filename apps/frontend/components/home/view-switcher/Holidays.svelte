@@ -27,6 +27,8 @@
                 return -1;
             } else if (aSoon && bSoon) {
                 return a[1][0].startDate.diff(b[1][0].startDate).toMillis();
+            } else if (!aSoon && !bSoon) {
+                return a[1][0].endDate.diff(b[1][0].endDate).toMillis();
             }
             return 0;
         });
