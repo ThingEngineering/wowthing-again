@@ -1,8 +1,12 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
+    import { Constants } from '@/data/constants';
     import { imageStrings } from '@/data/icons';
-    import { professionConcentration } from '@/data/professions/cooldowns';
+    import {
+        professionConcentrationTWW,
+        professionConcentrationDF,
+    } from '@/data/professions/cooldowns';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { timeStore } from '@/shared/stores/time';
@@ -11,13 +15,16 @@
     import type { CharacterProps } from '@/types/props';
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { Constants } from '@/data/constants';
 
-    let { character }: CharacterProps = $props();
+    type Props = CharacterProps & { expansion?: number };
+    let { character, expansion }: Props = $props();
 
+    let concentrationData = $derived(
+        expansion === 9 ? professionConcentrationDF : professionConcentrationTWW
+    );
     let professions = $derived.by(() =>
         sortBy(
-            Object.keys(professionConcentration)
+            Object.keys(concentrationData)
                 .filter((professionIdString) => {
                     const professionId = parseInt(professionIdString);
                     const profession = wowthingData.static.professionById.get(professionId);
@@ -78,7 +85,7 @@
             {@const { amount, percent, tooltip } = getCurrencyData(
                 $timeStore,
                 character,
-                wowthingData.static.currencyById.get(professionConcentration[profession.id])
+                wowthingData.static.currencyById.get(concentrationData[profession.id])
             )}
             <div
                 class="concentration {statusClass(

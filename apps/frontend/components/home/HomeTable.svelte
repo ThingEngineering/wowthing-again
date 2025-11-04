@@ -122,6 +122,8 @@
                     {/if}
                 {:else if field === 'professionConcentration'}
                     <RowProfessionConcentration {character} />
+                {:else if field === 'professionConcentrationDF'}
+                    <RowProfessionConcentration {character} expansion={9} />
                 {:else if field === 'professionCooldowns'}
                     <RowProfessionCooldowns {character} />
                 {:else if field === 'professionWorkOrders'}

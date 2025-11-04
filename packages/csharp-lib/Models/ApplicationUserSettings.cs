@@ -105,6 +105,7 @@ public class ApplicationUserSettings
         "mythicPlusScore",
         "playedTime",
         "professionConcentration",
+        "professionConcentrationDF",
         "professionCooldowns",
         "professionWorkOrders",
         "professions",

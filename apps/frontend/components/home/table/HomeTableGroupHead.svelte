@@ -109,6 +109,10 @@
         padding-right: 0;
         text-align: center;
     }
+    .only-weekly {
+        padding-left: calc(var(--padding-size) * 2);
+        padding-right: calc(var(--padding-size) * 2);
+    }
     .mythic-plus-score {
         --width: var(--width-raider-io);
     }
@@ -202,7 +206,9 @@
                 <RowPlayedTime {playedTotal} />
             {/if}
         {:else if field === 'professionConcentration'}
-            <td>Concentration</td>
+            <td><code>[TWW]</code> Conc</td>
+        {:else if field === 'professionConcentrationDF'}
+            <td><code>[DF] Conc</code></td>
         {:else if field === 'professionCooldowns'}
             <td
                 class="sortable sorted-{getSortState()}"
