@@ -115,6 +115,11 @@
         margin-bottom: 0;
         margin-left: 1rem;
     }
+    .drops {
+        display: grid;
+        gap: 1rem 0.3rem;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 </style>
 
 <div class="wrapper-column">
@@ -138,7 +143,7 @@
         <div class="collection thing-container">
             <SectionTitle title="Drops" count={totalStats}></SectionTitle>
 
-            <div class="collection-section">
+            <div class="collection-section drops">
                 {#each dbThings as dbThing}
                     <Thing thingData={dbThing} />
                 {/each}
