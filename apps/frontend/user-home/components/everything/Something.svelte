@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { AppearanceModifier } from '@/enums/appearance-modifier';
     import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
@@ -6,6 +7,8 @@
     import { thingContentTypeToRewardType } from '@/shared/stores/db/types';
     import { achievementStore } from '@/stores/achievements';
     import { UserCount, type AchievementData } from '@/types';
+    import { userState } from '@/user-home/state/user';
+    import { applyBonusIds } from '@/utils/items/apply-bonus-ids';
     import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
     import { snapshotStateForUserHasLookup } from '@/utils/rewards/snapshot-state-for-user-has-lookup.svelte';
     import { userHasLookup } from '@/utils/rewards/user-has-lookup';
@@ -14,12 +17,10 @@
 
     import AchievementCategory from '@/components/achievements/Category.svelte';
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
+    import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
     import VendorsCategories from '@/components/vendors/VendorsCategories.svelte';
     import Thing from './Thing.svelte';
-    import { userState } from '@/user-home/state/user';
-    import { AppearanceModifier } from '@/enums/appearance-modifier';
-    import { applyBonusIds } from '@/utils/items/apply-bonus-ids';
 
     let { thing }: { thing: EverythingData } = $props();
 
@@ -86,12 +87,33 @@
         return ret;
     });
 
-    let totalStats = $derived.by(() => {
-        const ret = new UserCount();
+    let stats = $derived.by(() => {
+        const ret = {
+            overall: new UserCount(),
+            lfr: new UserCount(),
+            normal: new UserCount(),
+            heroic: new UserCount(),
+            mythic: new UserCount(),
+        };
         for (const dbThing of dbThings) {
-            ret.have += dbThing.stats.have;
-            ret.total += dbThing.stats.total;
+            ret.overall.have += dbThing.stats.have;
+            ret.overall.total += dbThing.stats.total;
+
+            if (dbThing.thing.name.endsWith('- LFR')) {
+                ret.lfr.have += dbThing.stats.have;
+                ret.lfr.total += dbThing.stats.total;
+            } else if (dbThing.thing.name.endsWith('- Normal')) {
+                ret.normal.have += dbThing.stats.have;
+                ret.normal.total += dbThing.stats.total;
+            } else if (dbThing.thing.name.endsWith('- Heroic')) {
+                ret.heroic.have += dbThing.stats.have;
+                ret.heroic.total += dbThing.stats.total;
+            } else if (dbThing.thing.name.endsWith('- Mythic')) {
+                ret.mythic.have += dbThing.stats.have;
+                ret.mythic.total += dbThing.stats.total;
+            }
         }
+
         return ret;
     });
 
@@ -120,6 +142,17 @@
         gap: 1rem 0.3rem;
         grid-template-columns: 1fr 1fr 1fr;
     }
+    .stats {
+        gap: 1rem;
+        margin-left: 1rem;
+
+        .difficulty {
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            margin-right: -0.3rem;
+            padding: 0 calc(var(--padding-size) * 2);
+        }
+    }
 </style>
 
 <div class="wrapper-column">
@@ -141,7 +174,34 @@
 
     {#if dbThings.length > 0}
         <div class="collection thing-container">
-            <SectionTitle title="Drops" count={totalStats}></SectionTitle>
+            <SectionTitle title="Drops" count={stats.overall}>
+                <div class="stats flex-wrapper">
+                    {#if stats.lfr.total > 0}
+                        <div>
+                            <span class="difficulty">LFR</span>
+                            <CollectibleCount counts={stats.lfr} />
+                        </div>
+                    {/if}
+                    {#if stats.normal.total > 0}
+                        <div>
+                            <span class="difficulty">Normal</span>
+                            <CollectibleCount counts={stats.normal} />
+                        </div>
+                    {/if}
+                    {#if stats.heroic.total > 0}
+                        <div>
+                            <span class="difficulty">Heroic</span>
+                            <CollectibleCount counts={stats.heroic} />
+                        </div>
+                    {/if}
+                    {#if stats.mythic.total > 0}
+                        <div>
+                            <span class="difficulty">Mythic</span>
+                            <CollectibleCount counts={stats.mythic} />
+                        </div>
+                    {/if}
+                </div>
+            </SectionTitle>
 
             <div class="collection-section drops">
                 {#each dbThings as dbThing}
