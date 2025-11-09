@@ -89,7 +89,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public specializationName: string;
 
     public account: Account;
-    public guild: Guild;
+    public guild = $state<Guild>(undefined);
     public realm: StaticDataRealm;
     public region: Region;
 
