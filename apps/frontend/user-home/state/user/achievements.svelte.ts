@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash/cloneDeep';
 import { SvelteMap } from 'svelte/reactivity';
 import { get } from 'svelte/store';
 
@@ -14,6 +15,8 @@ export class DataUserAchievements {
     public categories = $derived.by(() => this._derivedStats.categories);
     public recent = $derived.by(() => this._derivedStats.recent);
 
+    public addonAchievements: UserAchievementData['addonAchievements'] = $state({});
+
     public process(userAchievementData: UserAchievementData): void {
         console.time('DataUserAchievements.process');
 
@@ -23,7 +26,7 @@ export class DataUserAchievements {
             this.achievementEarnedById.set(achievementId, earnedAt);
         }
 
-        // addonAchievements?
+        this.addonAchievements = cloneDeep(userAchievementData.addonAchievements);
 
         // [criteriaId, ...[value, ...characterIds]]
         // TODO: squish this data on the backend, it's huge
