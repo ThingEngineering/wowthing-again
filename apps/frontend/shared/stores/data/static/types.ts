@@ -47,8 +47,10 @@ import {
 } from '../../static/types';
 import { wowthingData } from '../store.svelte';
 import type { StaticDataEnchantment } from '../../static/types/enchantment';
+import type { StaticDataArtifact } from '../../static/types/artifact';
 
 export interface RawStatic {
+    artifacts: StaticDataArtifact[];
     characterClasses: Record<number, StaticDataCharacterClass>;
     characterRaces: Record<number, StaticDataCharacterRace>;
     characterSpecializations: Record<number, StaticDataCharacterSpecialization>;
@@ -90,6 +92,7 @@ export interface RawStatic {
 
 export class DataStatic {
     // Copy
+    public artifactBySpecializationId: Map<number, StaticDataArtifact>;
     public characterClassById: Map<number, StaticDataCharacterClass>;
     public characterRaceById: Map<number, StaticDataCharacterRace>;
     public characterSpecializationById: Map<number, StaticDataCharacterSpecialization>;

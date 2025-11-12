@@ -366,4 +366,16 @@ public static class DataUtilities
 
         return ret;
     }
+
+    public static string ToHex(int blizzardColor)
+    {
+        if (blizzardColor == 0)
+        {
+            return "";
+        }
+
+        string hex = (blizzardColor >>> 0).ToString("X8");
+        // ARGB, swap to RGBA for HTML
+        return $"{hex[2..]}{hex[..2]}";
+    }
 }

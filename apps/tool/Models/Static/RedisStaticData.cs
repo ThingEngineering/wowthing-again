@@ -48,4 +48,5 @@ public class RedisStaticData
     public StaticToy[] RawToys { get; set; }
     public StaticTransmogSet[] RawTransmogSets { get; set; }
     public StaticWorldQuest[] RawWorldQuests { get; set; }
+    public List<StaticArtifact> Artifacts { get; set; }
 }

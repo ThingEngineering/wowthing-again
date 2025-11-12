@@ -1,8 +1,9 @@
-﻿using Serilog.Context;
+using Serilog.Context;
 using Serilog.Core;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Enums;
 using Wowthing.Tool.Models;
+using Wowthing.Tool.Models.Artifacts;
 using Wowthing.Tool.Models.Covenants;
 using Wowthing.Tool.Models.Heirlooms;
 using Wowthing.Tool.Models.Journal;
@@ -398,6 +399,7 @@ public class StaticTool
         {
             ToolContext.Logger.Information("Generating {lang}...", language);
 
+            cacheData.Artifacts = await LoadArtifacts(Language.enUS);
             cacheData.RawQuestInfo = await LoadQuestInfo(language);
 
             cacheData.RawProfessions = professions[language];
@@ -551,6 +553,68 @@ public class StaticTool
         }
 
         return languageName;
+    }
+
+    private async Task<List<StaticArtifact>> LoadArtifacts(Language language)
+    {
+        var ret = new List<StaticArtifact>();
+
+        var artifacts = await DataUtilities.LoadDumpCsvAsync<DumpArtifact>("artifact", language, da => da.ChrSpecializationID > 0);
+        var artifactAppearancesBySet =
+            (await DataUtilities.LoadDumpCsvAsync<DumpArtifactAppearance>("artifactappearance", language))
+            .ToGroupedDictionary(aa => aa.ArtifactAppearanceSetID);
+        var artifactAppearanceSetsByArtifact =
+            (await DataUtilities.LoadDumpCsvAsync<DumpArtifactAppearanceSet>("artifactappearanceset", language))
+            .ToGroupedDictionary(aas => aas.ArtifactID);
+
+        // skipping weird test artifacts
+        foreach (var artifact in artifacts.Where(artifact => artifact.ID is not (74 or 80 or 81 or 82)))
+        {
+            ToolContext.Logger.Information("artifact {id} {name}", artifact.ID, artifact.Name);
+            if (!artifactAppearanceSetsByArtifact.TryGetValue(artifact.ID, out var appearanceSets))
+            {
+                ToolContext.Logger.Warning("- no appearance sets!");
+                continue;
+            }
+
+            var staticArtifact = new StaticArtifact(artifact.ID, artifact.ChrSpecializationID, artifact.Name);
+
+            foreach (var appearanceSet in appearanceSets.OrderBy(appearanceSet => appearanceSet.DisplayIndex))
+            {
+                ToolContext.Logger.Information("- set {id} {name}", appearanceSet.ID, appearanceSet.Name);
+                if (!artifactAppearancesBySet.TryGetValue(appearanceSet.ID, out var appearances))
+                {
+                    ToolContext.Logger.Warning("- - no appearances!");
+                    continue;
+                }
+
+                var staticAppearanceSet = new StaticArtifactAppearanceSet(appearanceSet.Name);
+
+                var seenModifiers = new HashSet<int>();
+                foreach (var appearance in appearances.OrderBy(appearance => appearance.DisplayIndex))
+                {
+                    ToolContext.Logger.Information("- - appearance {id} {name} => modifier {mod}", appearance.ID, appearance.Name, appearance.ItemAppearanceModifierID);
+
+                    if (!seenModifiers.Add(appearance.ItemAppearanceModifierID))
+                    {
+                        continue;
+                    }
+
+                    staticAppearanceSet.Appearances.Add(new StaticArtifactAppearance(
+                        appearance.ID,
+                        appearance.ItemAppearanceModifierID,
+                        appearance.UiSwatchColor,
+                        appearance.Name
+                    ));
+                }
+
+                staticArtifact.AppearanceSets.Add(staticAppearanceSet);
+            }
+
+            ret.Add(staticArtifact);
+        }
+
+        return ret;
     }
 
     private async Task<Dictionary<Language, List<OutProfession>>> LoadProfessions(
