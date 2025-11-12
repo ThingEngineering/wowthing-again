@@ -12,7 +12,6 @@ import type {
     Character,
     CharacterShadowlandsCovenant,
     CharacterShadowlandsCovenantFeature,
-    UserAchievementDataAddonAchievement,
 } from '@/types';
 import type {
     ManualDataProgressCategory,
@@ -229,7 +228,7 @@ export default function getProgress(
                         }
 
                         case ProgressDataType.AddonAchievement: {
-                            const cheev: UserAchievementDataAddonAchievement =
+                            const cheev =
                                 userState.achievements.addonAchievements?.[character.id]?.[
                                     data.ids[0]
                                 ];

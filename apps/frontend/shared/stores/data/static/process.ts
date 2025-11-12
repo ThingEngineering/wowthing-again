@@ -32,6 +32,9 @@ export function processStaticData(rawData: RawStatic): DataStatic {
 
     const data = new DataStatic();
 
+    data.artifactBySpecializationId = new Map(
+        cloneDeep(rawData.artifacts).map((artifact) => [artifact.chrSpecializationId, artifact])
+    );
     data.characterClassById = new Map(getNumberKeyedEntries(cloneDeep(rawData.characterClasses)));
     data.characterRaceById = new Map(getNumberKeyedEntries(cloneDeep(rawData.characterRaces)));
     data.characterSpecializationById = new Map(

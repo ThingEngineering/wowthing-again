@@ -29,6 +29,11 @@
             <Percent percent={lazyState.appearances.stats.OVERALL.percent} />
         </a>
 
+        <a href="#/collections/artifacts" use:active>
+            Artifacts
+            <!-- <Percent percent={lazyState.customizations.OVERALL.percent} /> -->
+        </a>
+
         <a href="#/collections/customizations" use:active={'/collections/customizations/*'}>
             Customizations
             <Percent percent={lazyState.customizations.OVERALL.percent} />

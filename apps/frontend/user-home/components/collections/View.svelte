@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { MultiSlugParams } from '@/types';
+    import type { ParamsSlugsProps } from '@/types/props';
 
     import Appearances from '@/components/appearances/Appearances.svelte';
     import Customizations from '@/user-home/components/customizations/Customizations.svelte';
@@ -9,7 +10,7 @@
     import Pets from '@/components/collectible/Pets.svelte';
     import Recipes from './recipes/Recipes.svelte';
     import Toys from '@/components/collectible/Toys.svelte';
-    import type { ParamsSlugsProps } from '@/types/props';
+    import Artifacts from './artifacts/Artifacts.svelte';
 
     let { params }: ParamsSlugsProps = $props();
 
@@ -24,6 +25,8 @@
 <div>
     {#if params.slug1 === 'appearances'}
         <Appearances basePath="collections" params={shiftedParams} />
+    {:else if params.slug1 === 'artifacts'}
+        <Artifacts />
     {:else if params.slug1 === 'customizations'}
         <Customizations basePath="collections" params={shiftedParams} />
     {:else if params.slug1 === 'heirlooms'}

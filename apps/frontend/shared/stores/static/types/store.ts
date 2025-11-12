@@ -1,3 +1,4 @@
+import type { StaticDataArtifact } from './artifact';
 import type { StaticDataBag, StaticDataBagArray } from './bag';
 import type { StaticDataCampaign, StaticDataCampaignArray } from './campaign';
 import type {
@@ -33,6 +34,7 @@ import type { StaticDataTransmogSet, StaticDataTransmogSetArray } from './transm
 import type { StaticDataWorldQuest, StaticDataWorldQuestArray } from './world-quest';
 
 export interface StaticData {
+    artifacts: StaticDataArtifact[];
     connectedRealms: Record<number, StaticDataConnectedRealm>;
     illusions: Record<number, StaticDataIllusion>;
     inventorySlots: Record<number, string>;
