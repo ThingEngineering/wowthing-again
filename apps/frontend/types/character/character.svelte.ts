@@ -359,15 +359,20 @@ export class Character implements ContainsItems, HasNameAndRealm {
             this.equippedItems[slot] = obj;
         }
 
-        // Remix: Legion hack - fix artifact off-hand item level
-        const mainHand = this.equippedItems[InventorySlot.MainHand];
-        const offHand = this.equippedItems[InventorySlot.OffHand];
-        if (
-            mainHand?.quality === ItemQuality.Artifact &&
-            offHand?.quality === ItemQuality.Artifact &&
-            offHand.itemLevel < mainHand.itemLevel
-        ) {
-            offHand.itemLevel = mainHand.itemLevel;
+        // Remix: Legion hack - fix non-primary artifact weapon slot has an item level of 13
+        if (this.isRemix) {
+            const mainHand = this.equippedItems[InventorySlot.MainHand];
+            const offHand = this.equippedItems[InventorySlot.OffHand];
+            if (
+                mainHand?.quality === ItemQuality.Artifact &&
+                offHand?.quality === ItemQuality.Artifact
+            ) {
+                if (mainHand.itemLevel < offHand.itemLevel) {
+                    mainHand.itemLevel = offHand.itemLevel;
+                } else {
+                    offHand.itemLevel = mainHand.itemLevel;
+                }
+            }
         }
 
         const items: CharacterItem[] = [];
