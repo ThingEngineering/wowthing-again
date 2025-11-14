@@ -359,7 +359,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
             this.equippedItems[slot] = obj;
         }
 
-        // Remix: Legion hack - fix non-primary artifact weapon slot has an item level of 13
+        // Remix: Legion hack - fix non-primary artifact weapon slot
         if (this.isRemix) {
             const mainHand = this.equippedItems[InventorySlot.MainHand];
             const offHand = this.equippedItems[InventorySlot.OffHand];
@@ -369,8 +369,10 @@ export class Character implements ContainsItems, HasNameAndRealm {
             ) {
                 if (mainHand.itemLevel < offHand.itemLevel) {
                     mainHand.itemLevel = offHand.itemLevel;
+                    mainHand.bonusIds = offHand.bonusIds;
                 } else {
                     offHand.itemLevel = mainHand.itemLevel;
+                    offHand.bonusIds = mainHand.bonusIds;
                 }
             }
         }
