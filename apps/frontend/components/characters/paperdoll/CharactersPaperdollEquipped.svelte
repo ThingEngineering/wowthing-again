@@ -42,17 +42,17 @@
     });
 
     const effectSpells: Record<number, string> = {
-        // +1 Arcane Aegis
+        212387: '+1 Arcane Aegis',
         212376: '+2 Arcane Aegis',
         212369: '+3 Arcane Aegis',
-        // +1 Arcane Ward
+        // +1 Arcane Ward,
         212711: '+2 Arcane Ward',
         212708: '+3 Arcane Ward',
-        // +1 Brewing Storm
+        // +1 Brewing Storm,
         224299: '+2 Brewing Storm',
         224300: '+3 Brewing Storm',
         212292: '+1 Highmountain Fortitude',
-        // +2 Highmountain Fortitude
+        // +2 Highmountain Fortitude,
         212367: '+3 Highmountain Fortitude',
         215505: '+1 I Am My Scars!',
         215506: '+2 I Am My Scars!',
@@ -66,13 +66,13 @@
         212705: '+1 Storm Surger',
         212707: '+2 Storm Surger',
         212704: '+3 Storm Surger',
-        // +1 Temporal Retaliation
-        // +2 Temporal Retaliation
+        // +1 Temporal Retaliation,
+        // +2 Temporal Retaliation,
         212370: '+3 Temporal Retaliation',
         212293: '+1 Terror From Below',
         212373: '+2 Terror From Below',
         212366: '+3 Terror From Below',
-        // +1 Touch of Malice
+        212294: '+1 Touch of Malice',
         212372: '+2 Touch of Malice',
         212365: '+3 Touch of Malice',
         212295: '+1 Volatile Magics',
