@@ -162,6 +162,11 @@ export const fancyHolidays: FancyHoliday[] = [
     },
     //
     {
+        holiday: Holiday.Anniversary,
+        shortName: 'Anni',
+        everything: 'anniversary',
+    },
+    {
         holiday: Holiday.RemixLegion,
         shortName: 'Lemix',
         everything: 'remix-legion',

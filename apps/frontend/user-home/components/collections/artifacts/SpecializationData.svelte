@@ -4,7 +4,7 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
-    import { appearanceSetPrefix, progressAchievements } from './data';
+    import { appearanceSetPrefix, progressAchievements, unlockText } from './data';
     import type { Character } from '@/types';
 
     type Props = {
@@ -128,7 +128,13 @@
                                     {((have / need) * 100).toFixed(0)}%
                                 </div>
                             {:else}
-                                <YesNoIcon extraClass="drop-shadow" state={userHas} />
+                                <div
+                                    data-tooltip={userHas
+                                        ? undefined
+                                        : unlockText[`${setIndex}-${appearanceIndex}`]}
+                                >
+                                    <YesNoIcon extraClass="drop-shadow" state={userHas} />
+                                </div>
                             {/if}
                         </td>
                     {/each}

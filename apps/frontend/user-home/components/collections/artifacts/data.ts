@@ -66,10 +66,26 @@ export const artifactsByClass: Record<number, number[]> = {
 export const appearanceSetPrefix = ['Base', 'Upgr', 'BoP ', 'PvP ', 'Mage', 'Hide'];
 
 export const progressAchievements: Record<string, [number, number, string?, number?]> = {
-    '4-1': [11657, 1, "Defeat Kil'jaeden"],
+    '4-1': [11657, 1, "defeat Kil'jaeden"],
     '4-2': [11661, 10, 'RBGs won'],
-    '4-3': [11665, 10, 'Different Legion dungeons'],
+    '4-3': [11665, 10, 'different Legion dungeons'],
     '5-1': [11152, 30, 'Legion dungeons'],
-    '5-2': [11153, 200, 'World quests'],
+    '5-2': [11153, 200, 'world quests'],
     '5-3': [11154, 1000, 'PvP kills'],
+};
+export const unlockText: Record<string, string> = {
+    '0-1': "Recover Light's Heart",
+    '0-2': 'Recover a Pillar of Creation',
+    '0-3': 'Complete your first order campaign',
+    '1-3': 'This Side Up achievement, hope you like archaeology',
+    '2-0': 'Balance of Power quest line',
+    '2-1': 'Unleashed Monstrosities achievement',
+    '2-2': 'Mythic +5 timed?',
+    '2-3': 'Glory of the Legion Hero achievement',
+    '3-0': 'Honor level 10',
+    '3-1': 'Honor level 30',
+    '3-2': 'Honor level 50',
+    '3-3': 'Honor level 80',
+    '4-0': 'UNAVAILABLE! Mage Tower',
+    '5-0': 'Hidden appearance, look it up on Wowhead',
 };
