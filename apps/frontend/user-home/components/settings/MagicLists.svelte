@@ -21,7 +21,7 @@
         choices,
         filter,
         key,
-        maxItems = 100,
+        maxItems = 500,
         saveInactive = false,
         title = undefined,
     }: Props = $props();
