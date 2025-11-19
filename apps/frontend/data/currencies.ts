@@ -561,6 +561,7 @@ export const pvpCurrencies = new Set<number>([
 
 export const currencyGood: Record<number, number> = {
     [Constants.currencies.honor]: 2000,
+    3292: 36, // [Remix] Infinite Knowledge
     1253224: 10, // Mote of a Broken Time
     1254267: 100, // Fragmented Memento of Epoch Challenges
 };
