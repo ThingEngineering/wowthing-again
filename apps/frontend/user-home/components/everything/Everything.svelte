@@ -8,7 +8,7 @@
 </script>
 
 {#if everythingData[params.slug1]}
-    <Something thing={everythingData[params.slug1]} />
+    <Something slug={params.slug1} thing={everythingData[params.slug1]} />
 {:else}
     <p>uh-oh</p>
 {/if}
