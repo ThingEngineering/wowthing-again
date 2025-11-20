@@ -3,10 +3,11 @@
 
     import { iconStrings, imageStrings } from '@/data/icons';
     import { Faction } from '@/enums/faction';
+    import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
     import { RewardReputation } from '@/enums/reward-reputation';
     import { iconLibrary, aliasedIcons, uiIcons } from '@/shared/icons';
     import { wowthingData } from '@/shared/stores/data';
-    import { parsedTextStore } from '@/stores';
+    import { getGenderedName } from '@/utils/get-gendered-name';
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
@@ -15,8 +16,6 @@
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     import RaceIcon from '@/shared/components/images/RaceIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
-    import { getGenderedName } from '@/utils/get-gendered-name';
 
     export let cls: string = undefined;
     export let dropShadow = false;
@@ -25,11 +24,6 @@
     let element: HTMLElement;
     let html: string;
     $: {
-        if (text && $parsedTextStore[text]) {
-            html = $parsedTextStore[text];
-            break $;
-        }
-
         html = text || '';
 
         html = html.replace(
@@ -221,16 +215,13 @@
 
         // Square brackets => code
         html = html.replaceAll(/(\[(.*?)\])/g, '<code>$1</code>');
-
-        if (text) {
-            $parsedTextStore[text] = html;
-        }
     }
 
     afterUpdate(() => {
         if (!element) {
             return;
         }
+
         for (const span of element.querySelectorAll('span')) {
             if (span.hasAttribute('data-string')) {
                 span.replaceChildren();

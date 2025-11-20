@@ -22,7 +22,7 @@
     import VendorsCategories from '@/components/vendors/VendorsCategories.svelte';
     import Thing from './Thing.svelte';
 
-    let { thing }: { thing: EverythingData } = $props();
+    let { slug, thing }: { slug: string; thing: EverythingData } = $props();
 
     let snapshot = $derived.by(() => snapshotStateForUserHasLookup());
     let dbThings = $derived.by(() => {
@@ -138,8 +138,10 @@
         margin-left: 1rem;
     }
     .drops {
-        display: grid;
         gap: 1rem 0.3rem;
+    }
+    .drops-grid {
+        display: grid;
         grid-template-columns: 1fr 1fr 1fr;
     }
     .stats {
@@ -203,7 +205,7 @@
                 </div>
             </SectionTitle>
 
-            <div class="collection-section drops">
+            <div class="collection-section drops" class:drops-grid={slug === 'remix-legion'}>
                 {#each dbThings as dbThing}
                     <Thing thingData={dbThing} />
                 {/each}
