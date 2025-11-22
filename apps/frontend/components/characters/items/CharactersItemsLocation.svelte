@@ -87,7 +87,7 @@
 
 <div class="collection-v2-section">
     <div class="collection-v2-group">
-        {#each containers as container}
+        {#each containers as container (container)}
             <h4>
                 {container.name}
                 <span class="slot-count">

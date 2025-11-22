@@ -15,6 +15,7 @@
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import type { ConvertibleCategoryUpgrade } from './convertible/types';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
 
     export let character: Character = undefined;
     export let forceCrafted = false;
@@ -174,77 +175,88 @@
 
 <td class="gear" class:no-problem={useHighlighting && !gear.highlight}>
     {#if gear.equipped !== undefined}
-        {@const item = wowthingData.items.items[gear.equipped.itemId]}
-        <a
-            class="quality{gear.equipped.quality}"
-            href={getItemUrl(gear.equipped, character, tierPieces)}
-        >
-            <WowthingImage name="item/{gear.equipped.itemId}" size={40} border={2} />
-
-            {#if useItemCount}
-                {#if item?.equippable}
-                    <span class="item-level right">{gear.equipped.itemLevel}</span>
-                {:else if (gear.equipped.count || 0) > 1}
-                    <span class="item-level left">x{gear.equipped.count}</span>
-                {/if}
-            {:else}
+        {#if gear.equipped.itemId === Constants.items.petCage}
+            {@const pet = wowthingData.static.petById.get(gear.equipped.context)}
+            <!-- this component does way too much-->
+            <WowheadLink id={pet.creatureId} type="npc" extraClass="quality{gear.equipped.quality}">
+                <WowthingImage name="spell/{pet.spellId}" size={40} border={2} />
                 <span class="item-level">{gear.equipped.itemLevel}</span>
-            {/if}
-        </a>
-
-        {#if gear.highlight}
-            <div class="problems">
-                {#if gear.missingEnchant}
-                    <WowthingImage name={Constants.icons.enchant} size={20} border={2} />
-                {/if}
-
-                {#if gear.missingGem}
-                    <WowthingImage name={Constants.icons.gem} size={20} border={2} />
-                {/if}
-
-                {#if gear.missingHeirloom}
-                    <WowthingImage name={Constants.icons.heirloom} size={20} border={2} />
-                {/if}
-
-                {#if gear.missingUpgrade}
-                    {@const [iconName, crestCount] = getIconName()}
-                    <div
-                        class="icon"
-                        style:--image-margin-top={iconName ? '0' : '-2px'}
-                        class:border-success={iconName && crestCount > 0}
-                        class:faded={iconName && crestCount === 0}
-                    >
-                        {#if iconName}
-                            <WowthingImage border={0} name={iconName} size={20} />
-                        {:else}
-                            <IconifyIcon icon={iconStrings['plus']} />
-                        {/if}
-                    </div>
-                {/if}
-            </div>
-        {:else if gear.equipped.craftedQuality > 0 || forceCrafted || item?.craftingQuality}
-            <div class="crafted-quality">
-                <CraftedQualityIcon
-                    quality={Math.max(
-                        1,
-                        gear.equipped.craftedQuality || item?.craftingQuality || 0
-                    )}
-                />
-            </div>
+            </WowheadLink>
         {:else}
-            {@const upgradeData = getUpgradeData()}
-            {#if upgradeData?.[0] > 0}
-                {@const upgradeString = wowthingData.static.sharedStringById.get(upgradeData[0])}
-                {@const percent = (upgradeData[1] / upgradeData[2]) * 100}
-                <span
-                    class="upgrade-level pill abs-center"
-                    class:status-fail={percent === 0}
-                    class:status-shrug={percent > 0 && percent < 100}
-                    class:status-success={percent === 100}
-                >
-                    {upgradeString.charAt(0)}
-                    {upgradeData[1]}/{upgradeData[2]}
-                </span>
+            {@const item = wowthingData.items.items[gear.equipped.itemId]}
+            <a
+                class="quality{gear.equipped.quality}"
+                href={getItemUrl(gear.equipped, character, tierPieces)}
+            >
+                <WowthingImage name="item/{gear.equipped.itemId}" size={40} border={2} />
+
+                {#if useItemCount}
+                    {#if item?.equippable}
+                        <span class="item-level right">{gear.equipped.itemLevel}</span>
+                    {:else if (gear.equipped.count || 0) > 1}
+                        <span class="item-level left">x{gear.equipped.count}</span>
+                    {/if}
+                {:else}
+                    <span class="item-level">{gear.equipped.itemLevel}</span>
+                {/if}
+            </a>
+
+            {#if gear.highlight}
+                <div class="problems">
+                    {#if gear.missingEnchant}
+                        <WowthingImage name={Constants.icons.enchant} size={20} border={2} />
+                    {/if}
+
+                    {#if gear.missingGem}
+                        <WowthingImage name={Constants.icons.gem} size={20} border={2} />
+                    {/if}
+
+                    {#if gear.missingHeirloom}
+                        <WowthingImage name={Constants.icons.heirloom} size={20} border={2} />
+                    {/if}
+
+                    {#if gear.missingUpgrade}
+                        {@const [iconName, crestCount] = getIconName()}
+                        <div
+                            class="icon"
+                            style:--image-margin-top={iconName ? '0' : '-2px'}
+                            class:border-success={iconName && crestCount > 0}
+                            class:faded={iconName && crestCount === 0}
+                        >
+                            {#if iconName}
+                                <WowthingImage border={0} name={iconName} size={20} />
+                            {:else}
+                                <IconifyIcon icon={iconStrings['plus']} />
+                            {/if}
+                        </div>
+                    {/if}
+                </div>
+            {:else if gear.equipped.craftedQuality > 0 || forceCrafted || item?.craftingQuality}
+                <div class="crafted-quality">
+                    <CraftedQualityIcon
+                        quality={Math.max(
+                            1,
+                            gear.equipped.craftedQuality || item?.craftingQuality || 0
+                        )}
+                    />
+                </div>
+            {:else}
+                {@const upgradeData = getUpgradeData()}
+                {#if upgradeData?.[0] > 0}
+                    {@const upgradeString = wowthingData.static.sharedStringById.get(
+                        upgradeData[0]
+                    )}
+                    {@const percent = (upgradeData[1] / upgradeData[2]) * 100}
+                    <span
+                        class="upgrade-level pill abs-center"
+                        class:status-fail={percent === 0}
+                        class:status-shrug={percent > 0 && percent < 100}
+                        class:status-success={percent === 100}
+                    >
+                        {upgradeString.charAt(0)}
+                        {upgradeData[1]}/{upgradeData[2]}
+                    </span>
+                {/if}
             {/if}
         {/if}
     {/if}
