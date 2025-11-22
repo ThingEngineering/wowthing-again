@@ -142,7 +142,9 @@
     }
     .drops-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-auto-flow: column;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(3, auto);
     }
     .stats {
         gap: 1rem;
