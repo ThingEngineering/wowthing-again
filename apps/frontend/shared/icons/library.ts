@@ -105,6 +105,7 @@ export { default as mdiCart } from '@iconify/icons-mdi/cart';
 export { default as mdiCartOutline } from '@iconify/icons-mdi/cart-outline';
 export { default as mdiCashMultiple } from '@iconify/icons-mdi/cash-multiple';
 export { default as mdiChartLine } from '@iconify/icons-mdi/chart-line';
+export { default as mdiChatQuestionOutline } from '@iconify/icons-mdi/chat-question-outline';
 export { default as mdiCheck } from '@iconify/icons-mdi/check';
 export { default as mdiCheckboxBlankOutline } from '@iconify/icons-mdi/checkbox-blank-outline';
 export { default as mdiCheckboxOutline } from '@iconify/icons-mdi/checkbox-outline';
