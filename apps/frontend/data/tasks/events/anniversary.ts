@@ -1,4 +1,5 @@
 import { Holiday } from '@/enums/holiday';
+import { iconLibrary } from '@/shared/icons';
 import { DbResetType } from '@/shared/stores/db/enums';
 import type { Task } from '@/types/tasks';
 
@@ -14,6 +15,7 @@ export const eventAnniversary: Task = {
             key: 'trivia',
             name: 'Trivia',
             minimumLevel: 10,
+            icon: iconLibrary.mdiChatQuestionOutline,
             questReset: DbResetType.Daily,
             questResetForced: true,
             questIds: [
