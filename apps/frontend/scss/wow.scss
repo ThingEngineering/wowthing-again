@@ -136,6 +136,7 @@ img.quality0 {
     }
 }
 .quality1-border {
+    --border-color: var(--color-quality1-border);
     --bar-border-color: var(--color-quality1-border);
     --image-border-color: var(--color-quality1-border);
 
@@ -157,6 +158,7 @@ img.quality0 {
     }
 }
 .quality2-border {
+    --border-color: var(--color-quality2-border);
     --bar-border-color: var(--color-quality2-border);
     --image-border-color: var(--color-quality2-border);
 
@@ -262,6 +264,7 @@ img.quality5 {
     }
 }
 .quality7-border {
+    --border-color: var(--color-quality7-border);
     --bar-border-color: var(--color-quality7-border);
 
     border-color: var(--color-quality7-border);

@@ -51,8 +51,15 @@
     </div>
 
     <div class="collection-objects">
-        {#each thingData.contents as { originalId, lookupType, lookupId, quality, userHas }}
-            <LookupThing {lookupId} {lookupType} {originalId} {quality} {userHas} />
+        {#each thingData.contents as { originalId, lookupType, lookupId, quality, userHas, hasOnCharacterIds }}
+            <LookupThing
+                {lookupId}
+                {lookupType}
+                {originalId}
+                {quality}
+                {userHas}
+                {hasOnCharacterIds}
+            />
         {/each}
     </div>
 </div>

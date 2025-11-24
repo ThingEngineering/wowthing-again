@@ -14,5 +14,6 @@ export class SomethingThing {
         originalType: DbThingContentType;
         userHas: boolean;
         quality: number;
+        hasOnCharacterIds: number[];
     }[] = [];
 }

@@ -218,7 +218,7 @@ div.content {
 }
 
 .border {
-    border: 1px solid var(--border-color);
+    border: var(--border-width, 1px) solid var(--border-color);
 }
 .b-b,
 .border-bottom {
