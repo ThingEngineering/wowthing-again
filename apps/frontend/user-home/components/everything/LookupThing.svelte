@@ -1,16 +1,17 @@
 <script lang="ts">
+    import { ArmorType } from '@/enums/armor-type';
+    import { ItemClass } from '@/enums/item-class';
     import { ItemQuality } from '@/enums/item-quality';
     import { LookupType } from '@/enums/lookup-type';
     import { RewardType } from '@/enums/reward-type';
-    import { armorTypeComponents, armorTypeIcons, rewardTypeIcons } from '@/shared/icons/mappings';
+    import { armorTypeComponents, rewardTypeIcons } from '@/shared/icons/mappings';
     import { wowthingData } from '@/shared/stores/data';
+    import { characterNamesFromIds } from '@/utils/characters/character-names-from-ids';
 
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { ArmorType } from '@/enums/armor-type';
-    import { ItemClass } from '@/enums/item-class';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     type Props = {
@@ -19,8 +20,9 @@
         originalId: number;
         userHas: boolean;
         quality?: number;
+        hasOnCharacterIds: number[];
     };
-    let { lookupId, lookupType, originalId, quality, userHas }: Props = $props();
+    let { lookupId, lookupType, originalId, quality, userHas, hasOnCharacterIds }: Props = $props();
 
     let { armorType, linkId, linkType, linkQuality } = $derived.by(() => {
         const ret = {
@@ -86,14 +88,23 @@
         --image-margin-top: -4px;
         --shadow-color: rgba(0, 0, 0, 0.8);
 
-        border: none;
         height: 24px;
         width: 24px;
         pointer-events: none;
         position: absolute;
     }
     .icon-class {
-        left: -2px;
+        border: none;
+        left: -1px;
+        top: -1px;
+    }
+    .icon-count {
+        --border-width: 2px;
+
+        border-color: var(--border-color) !important;
+        padding-top: 2px;
+        pointer-events: auto;
+        right: -1px;
         top: -1px;
     }
 </style>
@@ -120,6 +131,15 @@
     {:else if armorType !== ArmorType.None}
         <div class="icon icon-class quality1 drop-shadow">
             <IconifyWrapper Icon={armorTypeComponents[armorType]} scale="1.3" />
+        </div>
+    {/if}
+
+    {#if hasOnCharacterIds.length > 0}
+        <div
+            class="icon icon-count pill border border-radius quality1 quality7-border"
+            data-tooltip={`Available via transfer:<br>${characterNamesFromIds(hasOnCharacterIds).join('<br>')}`}
+        >
+            {hasOnCharacterIds.length}
         </div>
     {/if}
 </div>
