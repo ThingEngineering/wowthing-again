@@ -1,5 +1,6 @@
 ﻿using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Models.Covenants;
+using Wowthing.Tool.Models.Housing;
 using Wowthing.Tool.Models.Professions;
 
 namespace Wowthing.Tool.Models.Static;
@@ -39,6 +40,7 @@ public class RedisStaticData
     public StaticChallengeDungeon[] RawChallengeDungeons { get; set; }
     public StaticCurrency[] RawCurrencies { get; set; }
     public StaticCurrencyCategory[] RawCurrencyCategories { get; set; }
+    public List<StaticDecorCategory> RawDecor { get; set; }
     public StaticHoliday[] RawHolidays { get; set; }
     public StaticMount[] RawMounts { get; set; }
     public StaticPet[] RawPets { get; set; }
