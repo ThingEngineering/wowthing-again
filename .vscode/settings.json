@@ -1,12 +1,12 @@
 {
-    "eslint.validate": [
-        "javascript",
-        "svelte"
-    ],
-    "eslint.workingDirectories": [
-        "./apps/frontend"
-    ],
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "eslint.validate": ["javascript", "svelte"],
+    "eslint.workingDirectories": ["./apps/frontend"],
     "typescript.preferences.organizeImports": {
         "typeOrder": "last"
+    },
+    "[svelte]": {
+        "editor.defaultFormatter": "svelte.svelte-vscode"
     }
 }
