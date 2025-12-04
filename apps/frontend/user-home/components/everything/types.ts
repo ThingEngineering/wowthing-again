@@ -6,7 +6,8 @@ import type { DbDataThing } from '@/shared/stores/db/types';
 export class SomethingThing {
     constructor(public thing: DbDataThing) {}
 
-    public stats: UserCount = new UserCount();
+    public stats = new UserCount();
+    public remixHave = 0;
     public contents: {
         lookupId: number;
         lookupType: LookupType;

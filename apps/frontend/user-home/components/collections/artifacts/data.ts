@@ -63,7 +63,7 @@ export const artifactsByClass: Record<number, number[]> = {
     ],
 };
 
-export const appearanceSetPrefix = ['Base', 'Upgr', 'BoP ', 'PvP ', 'Mage', 'Hide'];
+export const appearanceSetPrefix = ['Base', 'Upgr', ' BoP', ' PvP', 'Mage', 'Hide'];
 
 export const progressAchievements: Record<string, [number, number, string?, number?]> = {
     '4-1': [11657, 1, "defeat Kil'jaeden"],

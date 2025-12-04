@@ -9,6 +9,7 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { UserCount } from '@/types';
 
     let { thingData }: { thingData: SomethingThing } = $props();
 
@@ -33,6 +34,15 @@
         display: flex;
         padding-right: 0.5rem;
     }
+    .oof {
+        margin-left: 0.2rem;
+        padding: 0 0.3rem;
+
+        :global(> span) {
+            font-size: inherit;
+            margin-left: 0;
+        }
+    }
 </style>
 
 <div class="collection-group">
@@ -47,7 +57,21 @@
                 <ParsedText text={name} />
             {/if}
         </h4>
-        <CollectibleCount counts={thingData.stats} />
+
+        <CollectibleCount counts={thingData.stats}>
+            {#if thingData.remixHave > 0}
+                <span class="oof"
+                    >(
+                    <CollectibleCount
+                        counts={new UserCount(
+                            thingData.stats.have + thingData.remixHave,
+                            thingData.stats.total
+                        )}
+                    />
+                    )</span
+                >
+            {/if}
+        </CollectibleCount>
     </div>
 
     <div class="collection-objects">
