@@ -1,27 +1,57 @@
 <script lang="ts">
+    import { browserState } from '@/shared/state/browser.svelte';
     import type { StaticDataDecorCategory } from '@/shared/stores/static/types';
 
-    let { category }: { category: StaticDataDecorCategory } = $props();
-
-    import DecorObject from './DecorObject.svelte';
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
+    import DecorObject from './DecorObject.svelte';
+
+    let { category }: { category: StaticDataDecorCategory } = $props();
 </script>
 
-<div class="collection thing-container">
-    <SectionTitle title={category.name} />
+<div>
+    <div class="options-container">
+        <button>
+            <CheckboxInput
+                name="highlight_missing"
+                bind:value={browserState.current.decor.highlightMissing}
+                >Highlight missing</CheckboxInput
+            >
+        </button>
 
-    <div class="collection-v2-section">
-        {#each category.subCategories as subCategory}
-            <div class="collection-v2-group">
-                <h4 class="drop-shadow">
-                    {subCategory.name}
-                </h4>
-                <div class="collection-objects">
-                    {#each subCategory.objects as decorObject}
-                        <DecorObject {decorObject} />
-                    {/each}
+        <span>Show:</span>
+
+        <button>
+            <CheckboxInput
+                name="show_collected"
+                bind:value={browserState.current.decor.showCollected}>Collected</CheckboxInput
+            >
+        </button>
+
+        <button>
+            <CheckboxInput
+                name="show_uncollected"
+                bind:value={browserState.current.decor.showUncollected}>Missing</CheckboxInput
+            >
+        </button>
+    </div>
+
+    <div class="collection thing-container">
+        <SectionTitle title={category.name} />
+
+        <div class="collection-v2-section">
+            {#each category.subCategories as subCategory (subCategory.id)}
+                <div class="collection-v2-group">
+                    <h4 class="drop-shadow">
+                        {subCategory.name}
+                    </h4>
+                    <div class="collection-objects">
+                        {#each subCategory.objects as decorObject (decorObject.id)}
+                            <DecorObject {decorObject} />
+                        {/each}
+                    </div>
                 </div>
-            </div>
-        {/each}
+            {/each}
+        </div>
     </div>
 </div>

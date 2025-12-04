@@ -2,7 +2,7 @@
     import type { ParamsSlugsProps } from '@/types/props';
     import Sidebar from './Sidebar.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import SubCategory from './Category.svelte';
+    import Category from './Category.svelte';
 
     let { params }: ParamsSlugsProps = $props();
 
@@ -14,6 +14,6 @@
 <div class="view">
     <Sidebar />
     {#if category}
-        <SubCategory {category} />
+        <Category {category} />
     {/if}
 </div>

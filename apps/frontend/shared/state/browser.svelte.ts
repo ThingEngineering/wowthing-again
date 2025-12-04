@@ -17,6 +17,11 @@ interface BrowserStateIdk {
     convertible: {
         includePurchases: boolean;
     };
+    decor: {
+        highlightMissing: boolean;
+        showCollected: boolean;
+        showUncollected: boolean;
+    };
     everything: {
         showCollected: boolean;
     };
@@ -163,6 +168,11 @@ const initialState: BrowserStateIdk = {
     },
     convertible: {
         includePurchases: true,
+    },
+    decor: {
+        highlightMissing: true,
+        showCollected: true,
+        showUncollected: true,
     },
     everything: {
         showCollected: true,
