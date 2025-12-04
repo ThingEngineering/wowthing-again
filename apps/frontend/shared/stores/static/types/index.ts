@@ -3,6 +3,7 @@ export * from './campaign';
 export * from './challenge-dungeon';
 export * from './character';
 export * from './currency';
+export * from './decor';
 export * from './heirloom';
 export * from './holiday';
 export * from './illusion';

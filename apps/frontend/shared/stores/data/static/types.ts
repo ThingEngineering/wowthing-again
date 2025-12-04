@@ -1,5 +1,6 @@
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import {
+    StaticDataDecorCategory,
     StaticDataProfessionAbilityInfo,
     type StaticDataBag,
     type StaticDataBagArray,
@@ -15,6 +16,7 @@ import {
     type StaticDataCurrencyArray,
     type StaticDataCurrencyCategory,
     type StaticDataCurrencyCategoryArray,
+    type StaticDataDecorCategoryArray,
     type StaticDataHeirloom,
     type StaticDataHoliday,
     type StaticDataHolidayArray,
@@ -76,6 +78,7 @@ export interface RawStatic {
     rawChallengeDungeons: StaticDataChallengeDungeonArray[];
     rawCurrencies: StaticDataCurrencyArray[];
     rawCurrencyCategories: StaticDataCurrencyCategoryArray[];
+    rawDecor: StaticDataDecorCategoryArray[];
     rawHolidays: StaticDataHolidayArray[];
     instancesRaw: StaticDataInstanceArray[];
     rawMounts: StaticDataMountArray[];
@@ -112,6 +115,8 @@ export class DataStatic {
     public skillLineAbilityItems: Record<number, number[]>; // skillLineId -> [itemIds]
 
     // Raw
+    public decorCategories: StaticDataDecorCategory[];
+
     public bagById: Map<number, StaticDataBag>;
     public campaignById: Map<number, StaticDataCampaign>;
     public challengeDungeonById: Map<number, StaticDataChallengeDungeon>;
