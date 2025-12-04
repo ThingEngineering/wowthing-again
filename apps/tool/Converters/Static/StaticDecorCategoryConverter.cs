@@ -14,6 +14,7 @@ public class StaticDecorCategoryConverter : JsonConverter<StaticDecorCategory>
         writer.WriteStartArray();
 
         writer.WriteNumberValue(category.Id);
+        writer.WriteStringValue(category.Slug);
         writer.WriteStringValue(category.Name);
 
         writer.WriteStartArray();
@@ -31,6 +32,7 @@ public class StaticDecorCategoryConverter : JsonConverter<StaticDecorCategory>
         writer.WriteStartArray();
 
         writer.WriteNumberValue(subCategory.Id);
+        writer.WriteStringValue(subCategory.Slug);
         writer.WriteStringValue(subCategory.Name);
 
         writer.WriteStartArray();
