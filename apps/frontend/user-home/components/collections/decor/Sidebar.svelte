@@ -7,10 +7,4 @@
     );
 </script>
 
-<SubSidebar
-    baseUrl="/collections/decor"
-    id="collections-decor"
-    items={sidebarItems}
-    width="10rem"
-    scrollable={false}
-></SubSidebar>
+<SubSidebar baseUrl="/collections/decor" items={sidebarItems} width="10rem" scrollable={false} />

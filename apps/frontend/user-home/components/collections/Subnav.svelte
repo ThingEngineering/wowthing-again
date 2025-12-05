@@ -29,11 +29,6 @@
             <Percent percent={lazyState.appearances.stats.OVERALL.percent} />
         </a>
 
-        <a href="#/collections/artifacts" use:active>
-            Artifacts
-            <!-- <Percent percent={lazyState.customizations.OVERALL.percent} /> -->
-        </a>
-
         <a href="#/collections/customizations" use:active={'/collections/customizations/*'}>
             Customizations
             <Percent percent={lazyState.customizations.OVERALL.percent} />
@@ -67,6 +62,16 @@
         <a href="#/collections/toys" use:active={'/collections/toys/*'}>
             Toys
             <Percent percent={userState.toys.stats.OVERALL.percent} />
+        </a>
+
+        <a href="#/collections/artifacts" use:active>
+            Artifacts
+            <!-- <Percent percent={lazyState.customizations.OVERALL.percent} /> -->
+        </a>
+
+        <a href="#/collections/decor" use:active={'/collections/decor/*'}>
+            Decor
+            <!-- <Percent percent={lazyState.customizations.OVERALL.percent} /> -->
         </a>
     </nav>
 </div>
