@@ -9,7 +9,13 @@
     let { category }: { category: StaticDataDecorCategory } = $props();
 </script>
 
-<div>
+<style lang="scss">
+    .decor-category {
+        width: 100%;
+    }
+</style>
+
+<div class="decor-category">
     <div class="options-container">
         <button>
             <CheckboxInput
@@ -39,9 +45,9 @@
     <div class="collection thing-container">
         <SectionTitle title={category.name} />
 
-        <div class="collection-v2-section">
+        <div class="collection-section">
             {#each category.subCategories as subCategory (subCategory.id)}
-                <div class="collection-v2-group">
+                <div class="collection-group">
                     <h4 class="drop-shadow">
                         {subCategory.name}
                     </h4>
