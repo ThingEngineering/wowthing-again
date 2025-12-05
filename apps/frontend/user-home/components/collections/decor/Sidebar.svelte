@@ -3,7 +3,9 @@
     import { wowthingData } from '@/shared/stores/data';
 
     let sidebarItems = $derived(
-        wowthingData.static.decorCategories.filter((cat) => cat.subCategories.length > 0)
+        wowthingData.static.decorCategories.filter(
+            (cat) => cat.subCategories.reduce((a, b) => a + b.objects.length, 0) > 0
+        )
     );
 </script>
 
