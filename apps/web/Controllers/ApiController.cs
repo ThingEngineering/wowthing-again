@@ -335,6 +335,9 @@ public class ApiController : Controller
         // Addon data
         var addonData = await _context.UserAddonData.FindAsync(apiResult.User.Id);
 
+        // Decor
+        var decorAccount = tempAccounts.MaxBy(pa => pa.AddonData?.DecorScannedAt);
+
         // Heirlooms
         var heirlooms = new Dictionary<int, int>();
         foreach (var account in tempAccounts.Where(pa => pa.Heirlooms != null))
@@ -502,6 +505,7 @@ public class ApiController : Controller
             LastApiCheck = apiResult.Public ? null : apiResult.User.LastApiCheck,
 
             CurrentPeriod = currentPeriods,
+            Decor = decorAccount?.AddonData?.Decor,
             GlobalDailies = globalDailies,
             GoldHistoryRealms = goldHistoryRealms,
             Heirlooms = heirlooms,

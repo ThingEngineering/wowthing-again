@@ -11,6 +11,7 @@
     import Recipes from './recipes/Recipes.svelte';
     import Toys from '@/components/collectible/Toys.svelte';
     import Artifacts from './artifacts/Artifacts.svelte';
+    import Decor from './decor/Decor.svelte';
 
     let { params }: ParamsSlugsProps = $props();
 
@@ -29,6 +30,8 @@
         <Artifacts />
     {:else if params.slug1 === 'customizations'}
         <Customizations basePath="collections" params={shiftedParams} />
+    {:else if params.slug1 === 'decor'}
+        <Decor params={shiftedParams} />
     {:else if params.slug1 === 'heirlooms'}
         <Heirlooms />
     {:else if params.slug1 === 'illusions'}

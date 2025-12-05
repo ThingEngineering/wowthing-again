@@ -6,6 +6,7 @@ using Wowthing.Tool.Models;
 using Wowthing.Tool.Models.Artifacts;
 using Wowthing.Tool.Models.Covenants;
 using Wowthing.Tool.Models.Heirlooms;
+using Wowthing.Tool.Models.Housing;
 using Wowthing.Tool.Models.Journal;
 using Wowthing.Tool.Models.Professions;
 using Wowthing.Tool.Models.Quests;
@@ -35,6 +36,9 @@ public class StaticTool
         StringType.WowCurrencyCategoryName,
         StringType.WowCurrencyDescription,
         StringType.WowCurrencyName,
+        StringType.WowDecorCategoryName,
+        StringType.WowDecorObjectName,
+        StringType.WowDecorSubcategoryName,
         StringType.WowHolidayName,
         StringType.WowInventorySlot,
         StringType.WowInventoryType,
@@ -192,6 +196,18 @@ public class StaticTool
         }
 
         _timer.AddPoint("Currencies");
+
+        // Decor
+        cacheData.RawDecor = await LoadDecor();
+
+        foreach (var category in cacheData.RawDecor)
+        {
+            category.Slug = GetString(StringType.WowDecorCategoryName, Language.enUS, category.Id).Slugify();
+            foreach (var subCategory in category.Subcategories)
+            {
+                subCategory.Slug = GetString(StringType.WowDecorSubcategoryName, Language.enUS, subCategory.Id).Slugify();
+            }
+        }
 
         // Enchantments
         cacheData.EnchantmentValues = await LoadEnchantmentValues();
@@ -399,7 +415,7 @@ public class StaticTool
         {
             ToolContext.Logger.Information("Generating {lang}...", language);
 
-            cacheData.Artifacts = await LoadArtifacts(Language.enUS);
+            cacheData.Artifacts = await LoadArtifacts(language);
             cacheData.RawQuestInfo = await LoadQuestInfo(language);
 
             cacheData.RawProfessions = professions[language];
@@ -483,6 +499,15 @@ public class StaticTool
             foreach (var currencyCategory in cacheData.RawCurrencyCategories)
             {
                 currencyCategory.Name = GetString(StringType.WowCurrencyCategoryName, language, currencyCategory.Id);
+            }
+
+            foreach (var decorCategory in cacheData.RawDecor)
+            {
+                decorCategory.Name = GetString(StringType.WowDecorCategoryName, language, decorCategory.Id);
+                foreach (var decorSubcategory in decorCategory.Subcategories)
+                {
+                    decorSubcategory.Name = GetString(StringType.WowDecorSubcategoryName, language, decorSubcategory.Id);
+                }
             }
 
             foreach (var holiday in cacheData.RawHolidays)
@@ -612,6 +637,75 @@ public class StaticTool
             }
 
             ret.Add(staticArtifact);
+        }
+
+        return ret;
+    }
+
+    private async Task<List<StaticDecorCategory>> LoadDecor()
+    {
+        var decorCategories = await DataUtilities.LoadDumpCsvAsync<DumpDecorCategory>("decorcategory");
+        var decorSubcategories = await DataUtilities.LoadDumpCsvAsync<DumpDecorSubcategory>("decorsubcategory");
+        var decorIdToSubcategoryId = (await DataUtilities.LoadDumpCsvAsync<DumpDecorXDecorSubcategory>("decorxdecorsubcategory"))
+            .ToGroupedDictionary(x => x.HouseDecorID, x => x.DecorSubcategoryID);
+        var houseDecors = await DataUtilities.LoadDumpCsvAsync<DumpHouseDecor>("housedecor");
+
+        var ret = new List<StaticDecorCategory>();
+        var outCategoryMap = new Dictionary<short, StaticDecorCategory>();
+        var outSubcategoryMap = new Dictionary<short, StaticDecorSubcategory>();
+
+        foreach (var decorCategory in decorCategories.OrderBy(decorCategory => decorCategory.OrderIndex))
+        {
+            var outCategory = new StaticDecorCategory
+            {
+                Id = decorCategory.ID,
+            };
+            outCategoryMap.Add(outCategory.Id, outCategory);
+            ret.Add(outCategory);
+        }
+
+        var subCategories = decorSubcategories
+            .OrderBy(decorSubcategory => decorSubcategory.DecorCategoryID)
+            .ThenBy(decorSubcategory => decorSubcategory.OrderIndex);
+        foreach (var decorSubcategory in subCategories)
+        {
+            if (!outCategoryMap.TryGetValue(decorSubcategory.DecorCategoryID, out var outCategory))
+            {
+                ToolContext.Logger.Warning("Decor sub-category {s} has no category {c}!",  decorSubcategory.ID, decorSubcategory.DecorCategoryID);
+                continue;
+            }
+
+            var outSubcategory = new StaticDecorSubcategory
+            {
+                Id = decorSubcategory.ID,
+            };
+            outSubcategoryMap.Add(outSubcategory.Id, outSubcategory);
+            outCategory.Subcategories.Add(outSubcategory);
+        }
+
+        foreach (var houseDecor in houseDecors.OrderBy(houseDecor => houseDecor.OrderIndex))
+        {
+            if (!decorIdToSubcategoryId.TryGetValue(houseDecor.ID, out var outSubcategoryIds))
+            {
+                ToolContext.Logger.Warning("Decor {d} has no sub-category ids!", houseDecor.ID);
+                continue;
+            }
+
+            foreach (var outSubcategoryId in outSubcategoryIds)
+            {
+                if (!outSubcategoryMap.TryGetValue(outSubcategoryId, out var outSubcategory))
+                {
+                    ToolContext.Logger.Warning("Decor {d} has no sub-category!", houseDecor.ID);
+                    continue;
+                }
+
+                outSubcategory.Decors.Add(new StaticDecorObject
+                {
+                    Id = houseDecor.ID,
+                    Type = houseDecor.Type,
+                    ItemId = houseDecor.ItemID,
+                });
+            }
         }
 
         return ret;

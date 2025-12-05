@@ -39,6 +39,7 @@ export class DataUserGeneral {
     public characters: Character[] = $state([]);
     public characterById: Record<number, Character> = $state({});
     public currentPeriod: Record<number, UserDataCurrentPeriod> = $state({});
+    public decor: Record<number, [number, number]> = $state({});
     public guildById: Record<number, Guild> = $state({});
     public petsById: Record<number, UserDataPet[]> = $state({});
     public warbankItems: WarbankItem[] = $state([]);
@@ -185,6 +186,8 @@ export class DataUserGeneral {
         }
 
         // Misc
+        this.decor = cloneDeep(userData.decor);
+
         this.honorCurrent = userData.honorCurrent;
         this.honorLevel = userData.honorLevel;
         this.honorMax = userData.honorMax;

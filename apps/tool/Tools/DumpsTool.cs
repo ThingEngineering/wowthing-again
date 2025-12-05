@@ -9,6 +9,7 @@ using Wowthing.Tool.Models;
 using Wowthing.Tool.Models.Achievements;
 using Wowthing.Tool.Models.Covenants;
 using Wowthing.Tool.Models.Holidays;
+using Wowthing.Tool.Models.Housing;
 using Wowthing.Tool.Models.Items;
 using Wowthing.Tool.Models.Journal;
 using Wowthing.Tool.Models.Professions;
@@ -143,6 +144,7 @@ public class DumpsTool
             ImportCampaignStrings,
             ImportCharacterTitleStrings,
             ImportCreatureStrings,
+            ImportDecorStrings,
             ImportJournalEncounterStrings,
             ImportJournalTierStrings,
             ImportKeystoneAffixStrings,
@@ -279,6 +281,31 @@ public class DumpsTool
             creature => creature.ID,
             creature => creature.Name
         );
+
+    private async Task ImportDecorStrings(WowDbContext context)
+    {
+        await ImportStrings<DumpDecorCategory>(
+            context,
+            StringType.WowDecorCategoryName,
+            "decorcategory",
+            category => category.ID,
+            category => category.Name
+        );
+        await ImportStrings<DumpDecorSubcategory>(
+            context,
+            StringType.WowDecorSubcategoryName,
+            "decorsubcategory",
+            subCategory => subCategory.ID,
+            subCategory => subCategory.Name
+        );
+        await ImportStrings<DumpHouseDecor>(
+            context,
+            StringType.WowDecorObjectName,
+            "housedecor",
+            houseDecor => houseDecor.ID,
+            houseDecor => houseDecor.Name
+        );
+    }
 
     private async Task ImportJournalEncounterStrings(WowDbContext context) =>
         await ImportStrings<DumpJournalEncounter>(

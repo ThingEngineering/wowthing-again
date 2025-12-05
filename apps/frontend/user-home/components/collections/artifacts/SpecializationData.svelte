@@ -16,7 +16,6 @@
 
     let artifact = $derived(wowthingData.static.artifactBySpecializationId.get(specializationId));
     let item = $derived(wowthingData.items.items[artifactItemId]);
-    $inspect({ artifact, artifactItemId, item });
 
     function unlockProgress(
         setIndex: number,
@@ -35,7 +34,6 @@
             let characterHave = 0;
             const cheev = userState.achievements.addonAchievements?.[character.id]?.[achievementId];
             if (cheev) {
-                console.log($state.snapshot(cheev));
                 if (criteriaIndex !== undefined) {
                     characterHave = cheev.criteria[criteriaIndex];
                 } else {
@@ -48,7 +46,6 @@
                 bestHave = characterHave;
             }
         }
-        console.log({ setIndex, appearanceIndex, achievementId, need, bestHave, bestCharacter });
 
         return [need, bestHave, text, bestCharacter];
     }

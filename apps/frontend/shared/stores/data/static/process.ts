@@ -10,6 +10,7 @@ import {
     StaticDataConnectedRealm,
     StaticDataCurrency,
     StaticDataCurrencyCategory,
+    StaticDataDecorCategory,
     StaticDataHoliday,
     StaticDataInstance,
     StaticDataMount,
@@ -31,6 +32,8 @@ export function processStaticData(rawData: RawStatic): DataStatic {
     console.time('processStaticData');
 
     const data = new DataStatic();
+
+    data.decorCategories = rawData.rawDecor.map((arr) => new StaticDataDecorCategory(...arr));
 
     data.artifactBySpecializationId = new Map(
         cloneDeep(rawData.artifacts).map((artifact) => [artifact.chrSpecializationId, artifact])

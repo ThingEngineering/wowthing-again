@@ -409,6 +409,16 @@ public class UserUploadJob : JobBase
             //         .IsModified = true;
             // }
 
+            // Decor
+            try
+            {
+                await HandleDecor(accountAddonData, parsed.ScanTimes.EmptyIfNull(), parsed.Decor);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "HandleDecor failed!");
+            }
+
             // Illusions
             var newIllusions = parsed.Illusions.EmptyIfNull().Order().ToList();
             if (accountAddonData.Illusions == null || !newIllusions.SequenceEqual(accountAddonData.Illusions))
@@ -683,6 +693,42 @@ public class UserUploadJob : JobBase
 
         await JobRepository.ReleaseLockAsync(lockKey, lockValue);
     }
+
+    private async Task HandleDecor(PlayerAccountAddonData accountAddonData, Dictionary<string, int> globalScanTimes, Dictionary<int, string> decorData)
+    {
+        var localContext = Context;
+
+        if (globalScanTimes.TryGetValue("decor", out int decorTimestamp))
+        {
+            var decorScannedAt = decorTimestamp.AsUtcDateTime();
+            if (decorScannedAt > accountAddonData.DecorScannedAt)
+            {
+                accountAddonData.DecorScannedAt = decorScannedAt;
+                accountAddonData.Decor ??= new();
+
+                foreach ((int decorId, string values) in decorData)
+                {
+                    var valueParts = values.Split(';');
+                    if (valueParts.Length == 2)
+                    {
+                        accountAddonData.Decor[decorId] =
+                        [
+                            int.Parse(valueParts[0]),
+                            int.Parse(valueParts[1])
+                        ];
+                    }
+                }
+
+                // Change detection for this is obnoxious, just update it
+                localContext.Entry(accountAddonData)
+                    .Property(aad => aad.Decor)
+                    .IsModified = true;
+
+                await localContext.SaveChangesAsync(CancellationToken);
+            }
+        }
+    }
+
 
     private async Task HandleGuildItems(WowDbContext localContext, PlayerGuild guild, UploadGuild guildData)
     {

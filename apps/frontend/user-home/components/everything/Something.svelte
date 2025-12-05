@@ -73,6 +73,8 @@
                 if (userHas) {
                     resultData.stats.have++;
                 } else {
+                    let anyHave = false;
+
                     for (const character of checkCharacters) {
                         if (
                             Object.values(character.equippedItems).some(
@@ -85,8 +87,13 @@
                                 (item) => item.itemId === content.id
                             )
                         ) {
+                            anyHave = true;
                             hasOnCharacterIds.push(character.id);
                         }
+                    }
+
+                    if (anyHave) {
+                        resultData.remixHave++;
                     }
                 }
 

@@ -1,5 +1,5 @@
 const config = {
-    plugins: ['prettier-plugin-svelte'],
+    // plugins: ['prettier-plugin-svelte'],
     singleQuote: true,
     tabWidth: 4,
     trailingComma: 'es5',
