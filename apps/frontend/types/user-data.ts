@@ -18,6 +18,7 @@ export interface UserData {
 
     accounts: Record<number, Account>;
     charactersRaw: CharacterArray[];
+    decor: Record<number, [number, number]>;
     goldHistoryRealms: number[];
     guildsRaw: GuildArray[];
     heirlooms: Record<number, number>;

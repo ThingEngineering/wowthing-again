@@ -694,7 +694,6 @@ public class UserUploadJob : JobBase
         await JobRepository.ReleaseLockAsync(lockKey, lockValue);
     }
 
-
     private async Task HandleDecor(PlayerAccountAddonData accountAddonData, Dictionary<string, int> globalScanTimes, Dictionary<int, string> decorData)
     {
         var localContext = Context;
