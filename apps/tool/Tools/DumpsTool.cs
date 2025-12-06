@@ -639,7 +639,8 @@ public class DumpsTool
             {
                 dbCurrency.Flags |= WowCurrencyFlags.ScaledBy100;
             }
-            if (currency.Flags1.HasFlag(WowCurrencyFlags1.AccountWide))
+            if (currency.Flags1.HasFlag(WowCurrencyFlags1.AccountWide) ||
+                currency.Flags2.HasFlag(WowCurrencyFlags2.BattleNetVirtualCurrency))
             {
                 dbCurrency.Flags |= WowCurrencyFlags.AccountWide;
             }
