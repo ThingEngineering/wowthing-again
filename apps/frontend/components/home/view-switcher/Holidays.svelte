@@ -32,7 +32,6 @@
             }
             return 0;
         });
-        console.log(ret);
 
         return ret;
     });
