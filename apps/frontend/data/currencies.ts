@@ -25,6 +25,11 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
     // Miscellaneous
     1: [
         {
+            id: 100104,
+            name: 'Decor',
+            slug: 'decor',
+        },
+        {
             id: 100101,
             name: 'Pet Battles',
             slug: 'pet-battles',
@@ -420,6 +425,21 @@ export const currencyItems: Record<number, number[]> = {
         253224, // Mote of a Broken Time
         245925, // Artifactium Sand
         249891, // Mound of Artifactium Sand
+    ],
+    // Miscellaneous > Decor
+    100104: [
+        245586, // Ironwood Lumber [Classic]
+        242691, // Olemba Lumber [TBC]
+        251762, // Coldwind Lumber [WotLK]
+        251764, // Ashwood Lumber [Cata]
+        251763, // Bamboo Lumber [MoP]
+        251766, // Shadowmoon Lumber [WoD]
+        251767, // Fel-Touched Lumber [Legion]
+        251768, // Darkpine Lumber [BfA]
+        251772, // Arden Lumber [SL]
+        251773, // Dragonpine Lumber [DF]
+        248012, // Dornic Fir Lumber [TWW]
+        256963, // Thalssian Lumber [MN]
     ],
 };
 

@@ -491,11 +491,17 @@ WITH transmog_cache (appearance_id) AS (
     SELECT  UNNEST(appearance_ids) AS appearance_id
     FROM    user_cache
     WHERE   user_id = {user.Id}
+),
+valid_appearances (appearance_id) AS (
+    SELECT  wima.appearance_id
+    FROM    wow_item_modified_appearance wima
+    WHERE   wima.source_type != 6
+            AND wima.source_type != 9
 )
-SELECT  DISTINCT wima.appearance_id
-FROM    wow_item_modified_appearance wima
+SELECT  DISTINCT va.appearance_id
+FROM    valid_appearances va
 LEFT OUTER JOIN transmog_cache tc
-    ON wima.appearance_id = tc.appearance_id
+    ON va.appearance_id = tc.appearance_id
 WHERE   tc.appearance_id IS NULL
 ").ToArrayAsync();
 
@@ -619,6 +625,8 @@ SELECT  data.source
 FROM (
     SELECT  DISTINCT wima.item_id || '_' || wima.modifier AS source
     FROM    wow_item_modified_appearance wima
+    WHERE   wima.source_type != 6
+            AND wima.source_type != 9
 ) data
 LEFT OUTER JOIN transmog_cache tc
     ON data.source = tc.appearance_source

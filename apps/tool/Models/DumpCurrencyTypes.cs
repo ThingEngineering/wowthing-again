@@ -20,7 +20,7 @@ public class DumpCurrencyTypes
     public WowCurrencyFlags1 Flags1 { get; set; }
 
     [Name("Flags[1]")]
-    public int Flags2 { get; set; }
+    public WowCurrencyFlags2 Flags2 { get; set; }
 
     [Name("Name_lang")]
     public string Name { get; set; } = string.Empty;

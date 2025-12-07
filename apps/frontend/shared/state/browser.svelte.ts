@@ -348,8 +348,6 @@ class BrowserState {
                 }
             }
         }
-
-        console.log($state.snapshot(this._state));
     }
 
     get current() {
