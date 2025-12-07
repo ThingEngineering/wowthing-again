@@ -4,6 +4,7 @@ import { doAchievements } from './achievements.svelte';
 import { doAppearances } from './appearances.svelte';
 import { doConvertible } from './convertible.svelte';
 import { doCustomizations } from './customizations.svelte';
+import { doDecor } from './decor.svelte';
 import { doJournal } from './journal.svelte';
 import { doTransmog } from './transmog.svelte';
 import { doVendors } from './vendors.svelte';
@@ -14,6 +15,7 @@ class LazyState {
     public appearances = $derived.by(() => logErrors(doAppearances));
     public convertible = $derived.by(() => logErrors(doConvertible));
     public customizations = $derived.by(() => logErrors(doCustomizations));
+    public decor = $derived.by(() => logErrors(doDecor));
     public journal = $derived.by(() => logErrors(doJournal));
     public transmog = $derived.by(() => logErrors(doTransmog));
     public vendors = $derived.by(() => logErrors(doVendors));

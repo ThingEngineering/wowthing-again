@@ -1,8 +1,11 @@
 <script lang="ts">
     import { browserState } from '@/shared/state/browser.svelte';
+    import { lazyState } from '@/user-home/state/lazy';
+    import getPercentClass from '@/utils/get-percent-class';
     import type { StaticDataDecorCategory } from '@/shared/stores/static/types';
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
+    import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
     import DecorObject from './DecorObject.svelte';
 
@@ -43,13 +46,15 @@
     </div>
 
     <div class="collection thing-container">
-        <SectionTitle title={category.name} />
+        <SectionTitle title={category.name} count={lazyState.decor[category.slug]} />
 
         <div class="collection-section">
             {#each category.subCategories as subCategory (subCategory.id)}
-                <div class="collection-group">
+                {@const subCount = lazyState.decor[`${category.slug}--${subCategory.slug}`]}
+                <div class="collection-group {getPercentClass(subCount.percent)}">
                     <h4 class="drop-shadow">
                         {subCategory.name}
+                        <CollectibleCount counts={subCount} />
                     </h4>
                     <div class="collection-objects">
                         {#each subCategory.objects as decorObject (decorObject.id)}
