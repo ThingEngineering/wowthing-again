@@ -223,7 +223,15 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
             .HasDefaultValue(Array.Empty<int>());
 
         builder.Entity<WowItem>()
+            .Property(wowItem => wowItem.TeachesDecorIds)
+            .HasDefaultValue(Array.Empty<int>());
+
+        builder.Entity<WowItem>()
             .Property(wowItem => wowItem.TeachesSpellIds)
+            .HasDefaultValue(Array.Empty<int>());
+
+        builder.Entity<WowItem>()
+            .Property(wowItem => wowItem.TeachesTransmogIllusionIds)
             .HasDefaultValue(Array.Empty<int>());
 
         builder.Entity<WowItem>()

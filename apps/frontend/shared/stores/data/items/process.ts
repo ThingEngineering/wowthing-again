@@ -1,9 +1,9 @@
 import { Constants } from '@/data/constants';
 import { currentTier, previousTier } from '@/data/gear';
 import { ItemBonusType } from '@/enums/item-bonus-type';
+import { StatType } from '@/enums/stat-type';
 import { ItemDataItem, DataItemBonus, DataItemSet } from '@/types/data/item';
 import { DataItems, type RawItems } from './types';
-import { StatType } from '@/enums/stat-type';
 
 export function processItemsData(rawData: RawItems): DataItems {
     console.time('processItemsData');
@@ -16,6 +16,7 @@ export function processItemsData(rawData: RawItems): DataItems {
     data.itemConversionEntries = rawData.itemConversionEntries;
     data.limitCategories = rawData.limitCategories;
     data.specOverrides = rawData.specOverrides;
+    data.teachesDecor = rawData.teachesDecor;
     data.teachesSpell = rawData.teachesSpell;
     data.teachesIllusion = rawData.teachesIllusion;
     data.teachesTransmog = rawData.teachesTransmog;

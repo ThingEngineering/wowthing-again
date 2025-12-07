@@ -7,4 +7,5 @@ public enum WowSpellEffectEffect
     TriggerSpell = 64,
     LearnTransmogSet = 255,
     LearnTransmogIllusion = 276,
+    LearnDecor = 324,
 }

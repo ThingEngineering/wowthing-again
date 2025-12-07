@@ -111,17 +111,24 @@
         top: 31px;
         right: 1px;
     }
-    .buyable {
-        --scale: 0.9;
+    .iconify-icon {
+        --scale: 0.8;
         background-color: var(--color-highlight-background);
-        border: 2px solid;
         border-radius: var(--border-radius-small);
-        color: var(--color-shrug);
+        border: 2px solid;
         line-height: 1;
         position: absolute;
+    }
+    .decor {
+        :global(svg) {
+            --image-margin-top: -3px;
+            margin-left: -1px;
+        }
+    }
+    .buyable {
+        color: var(--color-shrug);
         right: -2px;
         top: -4px;
-        transform: scale(0.7);
     }
     .difficulties {
         background-color: var(--color-highlight-background);
@@ -181,6 +188,12 @@
                         <ProfessionIcon border={2} size={20} id={ability.professionId} />
                     </div>
                 {/if}
+            {:else if item.type === RewardType.Decor}
+                <div
+                    class="overlay player-class decor iconify-icon drop-shadow quality1 quality2-border"
+                >
+                    <IconifyIcon icon={iconLibrary.gameHouse} />
+                </div>
             {/if}
 
             {#if item.extraAppearances > 0}
@@ -190,7 +203,10 @@
             {/if}
 
             {#if [BindType.NotBound, BindType.OnEquip].includes(dataItem.bindType)}
-                <div class="overlay buyable drop-shadow" class:status-success={appearance.userHas}>
+                <div
+                    class="overlay buyable iconify-icon drop-shadow"
+                    class:status-success={appearance.userHas}
+                >
                     <IconifyIcon icon={iconLibrary.mdiBank} />
                 </div>
             {:else if appearance.userHas}

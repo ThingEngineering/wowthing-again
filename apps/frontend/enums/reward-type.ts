@@ -14,6 +14,7 @@ export enum RewardType {
     XpQuest = 13,
     Recipe = 14,
     Spell = 15,
+    Decor = 16,
     Transmog = 100,
     AccountQuest = 101,
     CharacterTrackingQuest = 102,

@@ -244,6 +244,14 @@ export function doJournal(): LazyJournal {
                                     appearance.userHas = (teachesSpells || []).some((spellId) =>
                                         userState.general.anyCharacterKnowsSpellById.has(spellId)
                                     );
+                                } else if (item.type === RewardType.Decor) {
+                                    const teachesDecors = wowthingData.items.teachesDecor[item.id];
+                                    appearance.userHas = (teachesDecors || []).some(
+                                        (decorId) =>
+                                            (userState.general.decor[decorId] || [0, 0]).reduce(
+                                                (a, b) => a + b
+                                            ) > 0
+                                    );
                                 }
                             }
 

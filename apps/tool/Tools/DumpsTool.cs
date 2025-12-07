@@ -26,6 +26,7 @@ public class DumpsTool
     private readonly JankTimer _timer = new();
 
     private readonly Dictionary<int, List<int>> _completeQuestByItemId = new();
+    private readonly Dictionary<int, List<int>> _teachDecorByItemId = new();
     private readonly Dictionary<int, List<int>> _teachSpellByItemId = new ();
     private readonly Dictionary<int, List<int>> _teachSpellBySpellId = new();
     private readonly Dictionary<int, List<int>> _teachTransmogIllusionByItemId = new();
@@ -1017,6 +1018,7 @@ public class DumpsTool
 
             dbItem.Sockets = itemSparse.SocketTypes.Where(socketType => socketType > 0).ToArray();
 
+            dbItem.TeachesDecorIds = _teachDecorByItemId.GetValueOrDefault(item.ID, []).Order().ToArray();
             dbItem.TeachesSpellIds = _teachSpellByItemId.GetValueOrDefault(item.ID, []).Order().ToArray();
             dbItem.TeachesTransmogIllusionIds = _teachTransmogIllusionByItemId.GetValueOrDefault(item.ID, []).Order().ToArray();
             dbItem.TeachesTransmogSetIds = _teachTransmogSetByItemId.GetValueOrDefault(item.ID, []).Order().ToArray();
@@ -1462,6 +1464,10 @@ public class DumpsTool
         else if (effectType == WowSpellEffectEffect.CompleteQuest && effectValues[0] > 0)
         {
             _completeQuestByItemId.GetOrNew(itemXItemEffect.ItemID).Add(effectValues[0]);
+        }
+        else if (effectType == WowSpellEffectEffect.LearnDecor && effectValues[0] > 0)
+        {
+            _teachDecorByItemId.GetOrNew(itemXItemEffect.ItemID).Add(effectValues[0]);
         }
         else if (effectType == WowSpellEffectEffect.LearnTransmogIllusion && effectValues[0] > 0)
         {
