@@ -122,6 +122,8 @@ public class MemoryCacheService
 
                 var itemModifiedAppearances = await contextWrapper.Context.WowItemModifiedAppearance
                     .AsNoTracking()
+                    .Where(wima => wima.SourceType != TransmogSourceType.CantCollect &&
+                                   wima.SourceType != TransmogSourceType.NotValidForTransmog)
                     .ToArrayAsync();
 
                 return new ItemModifiedAppearanceCache(itemModifiedAppearances);
