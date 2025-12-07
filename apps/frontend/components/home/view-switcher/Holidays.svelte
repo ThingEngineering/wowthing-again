@@ -1,8 +1,9 @@
 <script lang="ts">
     import { fancyHolidays, holidayIds, type FancyHoliday } from '@/data/holidays';
-    import { activeHolidays, type ActiveHoliday } from '@/user-home/state/activeHolidays.svelte';
-    import Holiday from './Holiday.svelte';
     import { timeState } from '@/shared/state/time.svelte';
+    import { activeHolidays, type ActiveHoliday } from '@/user-home/state/activeHolidays.svelte';
+
+    import Holiday from './Holiday.svelte';
 
     let active = $derived(activeHolidays.value);
     let activeFancyHolidays = $derived.by(() => {

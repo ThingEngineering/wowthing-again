@@ -27,6 +27,7 @@ export const eventTimewalking: Task = {
                         86563, // A Savage Journey Through Time [WoD not max]
                         86564, // A Fel Journey Through Time [Legion not max]
                         88808, // A Scarred Journey Through Time [BfA not max]
+                        92647, // A Shadowed Journey Through Time [SL not max]
                     ];
                 } else {
                     return [
@@ -38,6 +39,7 @@ export const eventTimewalking: Task = {
                         83364, // A Savage Path Through Time [WoD max]
                         83360, // A Fel Path Through Time [Legion max]
                         88805, // A Scarred Path Through Time [BfA max]
+                        92649, // A Shadowed Path Through Time [SL max]
                     ];
                 }
             },
@@ -59,6 +61,7 @@ export const eventTimewalking: Task = {
                 64710, // Legion
                 89222, // BfA [A]
                 89223, // BfA [H]
+                92650, // SL
             ],
         },
         {
