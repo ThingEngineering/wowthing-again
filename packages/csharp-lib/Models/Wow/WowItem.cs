@@ -37,6 +37,9 @@ public class WowItem
     public int[] CompletesQuestIds { get; set; } = [];
 
     [Required]
+    public int[] TeachesDecorIds { get; set; } = [];
+
+    [Required]
     public int[] TeachesSpellIds { get; set; } = [];
 
     [Required]

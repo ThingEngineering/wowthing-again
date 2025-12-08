@@ -23,7 +23,8 @@ public class JournalTool
     private Dictionary<(StringType Type, Language language, int Id), string> _stringMap;
     private HashSet<int> _recipeItemIds = [];
     private readonly HashSet<int> _completeQuestItemIds = [];
-    private readonly HashSet<int> _teachesSpellItemids = [];
+    private readonly HashSet<int> _teachesDecorItemIds = [];
+    private readonly HashSet<int> _teachesSpellItemIds = [];
     private readonly HashSet<int> _transmogSetItemIds = [];
 
     private readonly int[] _raidNormals = [3, 4, 14];
@@ -283,9 +284,14 @@ public class JournalTool
                 _completeQuestItemIds.Add(item.Id);
             }
 
+            if (item.TeachesDecorIds.Length > 0)
+            {
+                _teachesDecorItemIds.Add(item.Id);
+            }
+
             if (item.TeachesSpellIds.Length > 0)
             {
-                _teachesSpellItemids.Add(item.Id);
+                _teachesSpellItemIds.Add(item.Id);
             }
 
             if (item.TeachesTransmogSetIds.Length > 0)
@@ -879,9 +885,13 @@ public class JournalTool
                                 {
                                     AddGroupSpecial(itemGroups, RewardType.Quest, item, difficulties);
                                 }
-                                else if (_teachesSpellItemids.Contains(item.Id))
+                                else if (_teachesSpellItemIds.Contains(item.Id))
                                 {
                                     AddGroupSpecial(itemGroups, RewardType.Spell, item, difficulties);
+                                }
+                                else if (_teachesDecorItemIds.Contains(item.Id))
+                                {
+                                    AddGroupSpecial(itemGroups, RewardType.Decor, item, difficulties);
                                 }
                                 else
                                 {
@@ -1223,6 +1233,7 @@ public class JournalTool
                 order = 3;
                 break;
 
+            case RewardType.Decor:
             case RewardType.Quest:
             case RewardType.Spell:
             case RewardType.Transmog:

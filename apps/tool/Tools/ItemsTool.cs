@@ -138,6 +138,7 @@ public class ItemsTool
             .ToDictionaryAsync(wib => wib.Id);
 
         var completesQuestMap = new Dictionary<int, int[]>(); // itemId -> [questIds]
+        var teachesDecorMap = new Dictionary<int, int[]>(); // itemId -> [decorIds]
         var teachesSpellMap = new Dictionary<int, int[]>(); // itemId -> [spellIds]
         var teachesTransmogIllusionMap = new Dictionary<int, int[]>(); // itemId -> [transmogIllusionIds]
         var teachesTransmogSetMap = new Dictionary<int, int>(); // itemId -> [transmogSetIds]
@@ -148,6 +149,11 @@ public class ItemsTool
                 completesQuestMap[item.Id] = item.CompletesQuestIds
                     .Where(id => id != 39609 && id != 39610) // Hallow's End/Winter Veil HQTs?
                     .ToArray();
+            }
+
+            if (item.TeachesDecorIds.Length > 0)
+            {
+                teachesDecorMap[item.Id] = item.TeachesDecorIds;
             }
 
             if (item.TeachesSpellIds.Length > 0)
@@ -232,6 +238,7 @@ public class ItemsTool
             ItemConversionEntries = await LoadItemConversionEntries(),
             LimitCategories = await LoadLimitCategories(),
             SpecOverrides = await LoadSpecOverrides(),
+            TeachesDecor = teachesDecorMap,
             TeachesIllusion = teachesTransmogIllusionMap,
             TeachesSpell = teachesSpellMap,
             TeachesTransmog = teachesTransmogSetMap,
