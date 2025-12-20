@@ -173,7 +173,7 @@
         display: grid;
         grid-auto-flow: column;
         grid-template-columns: repeat(5, 1fr);
-        grid-template-rows: repeat(3, auto);
+        grid-template-rows: repeat(4, auto);
     }
     .stats {
         gap: 1rem;
