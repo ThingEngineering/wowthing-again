@@ -74,8 +74,8 @@ export const progressAchievements: Record<string, [number, number, string?, numb
     '5-3': [11154, 1000, 'PvP kills'],
 };
 export const unlockText: Record<string, string> = {
-    '0-1': "Recover Light's Heart",
-    '0-2': 'Recover a Pillar of Creation',
+    '0-1': 'Recover a Pillar of Creation',
+    '0-2': "Recover Light's Heart",
     '0-3': 'Complete your first order campaign',
     '1-3': 'This Side Up achievement, hope you like archaeology',
     '2-0': 'Balance of Power quest line',
