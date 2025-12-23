@@ -20,6 +20,7 @@ public sealed class SchedulerService : TimerService
     private readonly List<ScheduledJob> _scheduledJobs = new();
 
     private const int LowQueueLimit = 10000;
+    private const int MinimumCheckHours = 24 * 7;
 
     public SchedulerService(
         IServiceScopeFactory serviceScopeFactory,
@@ -111,7 +112,7 @@ public sealed class SchedulerService : TimerService
                 // }
 
                 // Execute some sort of nasty database query to get characters that need an API check
-                var minimumCheckTime = DateTime.UtcNow.AddHours(-24);
+                var minimumCheckTime = DateTime.UtcNow.AddHours(-MinimumCheckHours);
                 var characterResults = await context.SchedulerCharacterQuery
                     .FromSqlRaw(SchedulerCharacterQuery.SqlQuery, minimumCheckTime)
                     .ToArrayAsync();

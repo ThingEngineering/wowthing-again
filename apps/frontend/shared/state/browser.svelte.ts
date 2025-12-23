@@ -24,6 +24,7 @@ interface BrowserStateIdk {
     };
     everything: {
         showCollected: boolean;
+        showTransfers: boolean;
     };
     explore: {
         achievementId: number;
@@ -176,6 +177,7 @@ const initialState: BrowserStateIdk = {
     },
     everything: {
         showCollected: true,
+        showTransfers: true,
     },
     explore: {
         achievementId: 0,

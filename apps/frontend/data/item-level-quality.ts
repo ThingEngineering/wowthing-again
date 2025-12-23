@@ -9,7 +9,8 @@ export const itemLevelQuality: number[][] = [
 ];
 
 export const remixItemLevelQuality: number[][] = [
-    [740, 5],
+    [779, 6], // new cap
+    [740, 5], // original cap
     [701, 4],
     [662, 3],
     [623, 2],

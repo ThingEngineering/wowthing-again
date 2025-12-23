@@ -97,7 +97,12 @@
                     }
                 }
 
-                if (browserState.current.everything.showCollected || !userHas) {
+                const show =
+                    (userHas && browserState.current.everything.showCollected) ||
+                    (!userHas &&
+                        (hasOnCharacterIds.length === 0 ||
+                            browserState.current.everything.showTransfers));
+                if (show) {
                     resultData.contents.push({
                         originalId: content.id,
                         originalType: content.type,
@@ -173,7 +178,7 @@
         display: grid;
         grid-auto-flow: column;
         grid-template-columns: repeat(5, 1fr);
-        grid-template-rows: repeat(3, auto);
+        grid-template-rows: repeat(4, auto);
     }
     .stats {
         gap: 1rem;
@@ -202,6 +207,16 @@
                     >Collected</CheckboxInput
                 >
             </button>
+
+            {#if slug === 'remix-legion'}
+                <button>
+                    <CheckboxInput
+                        name="show_transfers"
+                        bind:value={browserState.current.everything.showTransfers}
+                        >Transferrable</CheckboxInput
+                    >
+                </button>
+            {/if}
         </div>
     </div>
 
