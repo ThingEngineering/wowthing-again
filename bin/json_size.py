@@ -9,7 +9,7 @@ parsed = r.json()
 sizes = []
 for key, value in parsed.items():
     sizes.append([
-        len(json.dumps(value)),
+        len(json.dumps(value, separators=[',', ':'])),
         key,
     ])
     
@@ -17,7 +17,7 @@ for key, value in parsed.items():
         sub_keys = []
         for v_key, v_value in value.items():
             sub_keys.append([
-                len(json.dumps(v_value)),
+                len(json.dumps(v_value, separators=[',', ':'])),
                 v_key
             ])
         
