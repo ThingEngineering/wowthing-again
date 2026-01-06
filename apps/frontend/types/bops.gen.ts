@@ -14,358 +14,406 @@
 //     Changes to this file may cause incorrect behavior and will be lost if
 //     the code is regenerated.
 // </auto-generated>
-import { BebopView, BebopRuntimeError, BebopRecord } from "bebop";
+import { BebopView, BebopRuntimeError, type BebopRecord } from 'bebop';
 
-export const BEBOP_SCHEMA = new Uint8Array ([
-3, 1, 0, 0, 0, 66, 101, 98, 111, 112, 73, 116, 101, 109,
-0, 2, 0, 5, 0, 0, 0, 19, 105, 100, 67, 108, 97, 115, 115,
-73, 100, 83, 117, 98, 99, 108, 97, 115, 115, 73, 100, 0,
-251, 255, 255, 255, 0, 1, 110, 97, 109, 101, 0, 245, 255,
-255, 255, 0, 2, 98, 105, 110, 100, 84, 121, 112, 101, 69,
-120, 112, 97, 110, 115, 105, 111, 110, 0, 254, 255, 255,
-255, 0, 3, 112, 114, 105, 109, 97, 114, 121, 83, 116, 97,
-116, 81, 117, 97, 108, 105, 116, 121, 0, 254, 255, 255,
-255, 0, 4, 114, 97, 99, 101, 77, 97, 115, 107, 0, 248,
-255, 255, 255, 0, 5, 99, 108, 97, 115, 115, 77, 97, 115,
-107, 0, 250, 255, 255, 255, 0, 6, 102, 108, 97, 103, 115,
-0, 254, 255, 255, 255, 0, 7, 105, 110, 118, 101, 110, 116,
-111, 114, 121, 84, 121, 112, 101, 0, 254, 255, 255, 255,
-0, 8, 105, 116, 101, 109, 76, 101, 118, 101, 108, 0, 252,
-255, 255, 255, 0, 9, 117, 110, 105, 113, 117, 101, 0, 252,
-255, 255, 255, 0, 10, 114, 101, 113, 117, 105, 114, 101,
-100, 83, 107, 105, 108, 108, 0, 252, 255, 255, 255, 0, 11,
-114, 101, 113, 117, 105, 114, 101, 100, 83, 107, 105, 108,
-108, 82, 97, 110, 107, 0, 252, 255, 255, 255, 0, 12, 97,
-112, 112, 101, 97, 114, 97, 110, 99, 101, 115, 0, 242,
-255, 255, 255, 0, 251, 255, 255, 255, 0, 13, 99, 111, 109,
-112, 108, 101, 116, 101, 115, 81, 117, 101, 115, 116, 73,
-100, 115, 0, 242, 255, 255, 255, 0, 250, 255, 255, 255, 0,
-14, 115, 111, 99, 107, 101, 116, 115, 0, 242, 255, 255,
-255, 0, 254, 255, 255, 255, 0, 15, 116, 101, 97, 99, 104,
-101, 115, 68, 101, 99, 111, 114, 73, 100, 115, 0, 242,
-255, 255, 255, 0, 253, 255, 255, 255, 0, 16, 116, 101, 97,
-99, 104, 101, 115, 83, 112, 101, 108, 108, 73, 100, 115,
-0, 242, 255, 255, 255, 0, 250, 255, 255, 255, 0, 17, 116,
-101, 97, 99, 104, 101, 115, 84, 114, 97, 110, 115, 109,
-111, 103, 73, 108, 108, 117, 115, 105, 111, 110, 73, 100,
-115, 0, 242, 255, 255, 255, 0, 254, 255, 255, 255, 0, 18,
-116, 101, 97, 99, 104, 101, 115, 84, 114, 97, 110, 115,
-109, 111, 103, 83, 101, 116, 73, 100, 115, 0, 242, 255,
-255, 255, 0, 253, 255, 255, 255, 0, 19, 0, 0, 0, 0
+export const BEBOP_SCHEMA = new Uint8Array([
+    3, 2, 0, 0, 0, 66, 101, 98, 111, 112, 73, 116, 101, 109, 0, 2, 0, 5, 0, 0, 0, 19, 105, 100, 67,
+    108, 97, 115, 115, 73, 100, 83, 117, 98, 99, 108, 97, 115, 115, 73, 100, 0, 251, 255, 255, 255,
+    0, 1, 110, 97, 109, 101, 0, 245, 255, 255, 255, 0, 2, 98, 105, 110, 100, 84, 121, 112, 101, 69,
+    120, 112, 97, 110, 115, 105, 111, 110, 0, 254, 255, 255, 255, 0, 3, 112, 114, 105, 109, 97, 114,
+    121, 83, 116, 97, 116, 81, 117, 97, 108, 105, 116, 121, 0, 254, 255, 255, 255, 0, 4, 114, 97,
+    99, 101, 77, 97, 115, 107, 0, 248, 255, 255, 255, 0, 5, 99, 108, 97, 115, 115, 77, 97, 115, 107,
+    0, 250, 255, 255, 255, 0, 6, 102, 108, 97, 103, 115, 0, 254, 255, 255, 255, 0, 7, 105, 110, 118,
+    101, 110, 116, 111, 114, 121, 84, 121, 112, 101, 0, 254, 255, 255, 255, 0, 8, 105, 116, 101,
+    109, 76, 101, 118, 101, 108, 0, 252, 255, 255, 255, 0, 9, 117, 110, 105, 113, 117, 101, 0, 252,
+    255, 255, 255, 0, 10, 114, 101, 113, 117, 105, 114, 101, 100, 83, 107, 105, 108, 108, 0, 252,
+    255, 255, 255, 0, 11, 114, 101, 113, 117, 105, 114, 101, 100, 83, 107, 105, 108, 108, 82, 97,
+    110, 107, 0, 252, 255, 255, 255, 0, 12, 97, 112, 112, 101, 97, 114, 97, 110, 99, 101, 115, 0,
+    242, 255, 255, 255, 0, 251, 255, 255, 255, 0, 13, 99, 111, 109, 112, 108, 101, 116, 101, 115,
+    81, 117, 101, 115, 116, 73, 100, 115, 0, 242, 255, 255, 255, 0, 250, 255, 255, 255, 0, 14, 115,
+    111, 99, 107, 101, 116, 115, 0, 242, 255, 255, 255, 0, 254, 255, 255, 255, 0, 15, 116, 101, 97,
+    99, 104, 101, 115, 68, 101, 99, 111, 114, 73, 100, 115, 0, 242, 255, 255, 255, 0, 253, 255, 255,
+    255, 0, 16, 116, 101, 97, 99, 104, 101, 115, 83, 112, 101, 108, 108, 73, 100, 115, 0, 242, 255,
+    255, 255, 0, 250, 255, 255, 255, 0, 17, 116, 101, 97, 99, 104, 101, 115, 84, 114, 97, 110, 115,
+    109, 111, 103, 73, 108, 108, 117, 115, 105, 111, 110, 73, 100, 115, 0, 242, 255, 255, 255, 0,
+    254, 255, 255, 255, 0, 18, 116, 101, 97, 99, 104, 101, 115, 84, 114, 97, 110, 115, 109, 111,
+    103, 83, 101, 116, 73, 100, 115, 0, 242, 255, 255, 255, 0, 253, 255, 255, 255, 0, 19, 66, 101,
+    98, 111, 112, 73, 116, 101, 109, 115, 0, 1, 0, 0, 4, 0, 0, 0, 0, 1, 105, 116, 101, 109, 115, 0,
+    242, 255, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]);
 
 export interface BebopItem {
+    idClassIdSubclassId?: number;
 
-  idClassIdSubclassId?: number;
+    name?: string;
 
-  name?: string;
+    bindTypeExpansion?: number;
 
-  bindTypeExpansion?: number;
+    primaryStatQuality?: number;
 
-  primaryStatQuality?: number;
+    raceMask?: bigint;
 
-  raceMask?: bigint;
+    classMask?: number;
 
-  classMask?: number;
+    flags?: number;
 
-  flags?: number;
+    inventoryType?: number;
 
-  inventoryType?: number;
+    itemLevel?: number;
 
-  itemLevel?: number;
+    unique?: number;
 
-  unique?: number;
+    requiredSkill?: number;
 
-  requiredSkill?: number;
+    requiredSkillRank?: number;
 
-  requiredSkillRank?: number;
+    appearances?: number[];
 
-  appearances?: number[];
+    completesQuestIds?: number[];
 
-  completesQuestIds?: number[];
+    sockets?: Uint8Array;
 
-  sockets?: Uint8Array;
+    teachesDecorIds?: number[];
 
-  teachesDecorIds?: number[];
+    teachesSpellIds?: number[];
 
-  teachesSpellIds?: number[];
+    teachesTransmogIllusionIds?: Uint8Array;
 
-  teachesTransmogIllusionIds?: Uint8Array;
-
-  teachesTransmogSetIds?: number[];
+    teachesTransmogSetIds?: number[];
 }
 
-export const BebopItem = /*#__PURE__*/ Object.freeze(/*#__PURE__*/ Object.assign(
-  // Factory function
-  (data: BebopItem): BebopItem & BebopRecord => {
-    return {
-      ...data,
-      encode(): Uint8Array {
-        return BebopItem.encode(this);
-      }
-    };
-  },
-  // Static methods
-  {
-    encode(record: BebopItem): Uint8Array {
-      const view = BebopView.getInstance();
-      view.startWriting();
-      BebopItem.encodeInto(record, view);
-      return view.toArray();
-    },
-
-    encodeInto(record: BebopItem, view: BebopView): void {
-      const pos = view.reserveMessageLength();
-      const start = view.length;
-      if (record.idClassIdSubclassId !== undefined) {
-        view.writeByte(1);
-        view.writeUint32(record.idClassIdSubclassId);
-      }
-      if (record.name !== undefined) {
-        view.writeByte(2);
-        view.writeString(record.name);
-      }
-      if (record.bindTypeExpansion !== undefined) {
-        view.writeByte(3);
-        view.writeByte(record.bindTypeExpansion);
-      }
-      if (record.primaryStatQuality !== undefined) {
-        view.writeByte(4);
-        view.writeByte(record.primaryStatQuality);
-      }
-      if (record.raceMask !== undefined) {
-        view.writeByte(5);
-        view.writeInt64(record.raceMask);
-      }
-      if (record.classMask !== undefined) {
-        view.writeByte(6);
-        view.writeInt32(record.classMask);
-      }
-      if (record.flags !== undefined) {
-        view.writeByte(7);
-        view.writeByte(record.flags);
-      }
-      if (record.inventoryType !== undefined) {
-        view.writeByte(8);
-        view.writeByte(record.inventoryType);
-      }
-      if (record.itemLevel !== undefined) {
-        view.writeByte(9);
-        view.writeInt16(record.itemLevel);
-      }
-      if (record.unique !== undefined) {
-        view.writeByte(10);
-        view.writeInt16(record.unique);
-      }
-      if (record.requiredSkill !== undefined) {
-        view.writeByte(11);
-        view.writeInt16(record.requiredSkill);
-      }
-      if (record.requiredSkillRank !== undefined) {
-        view.writeByte(12);
-        view.writeInt16(record.requiredSkillRank);
-      }
-      if (record.appearances !== undefined) {
-        view.writeByte(13);
+export const BebopItem = /*#__PURE__*/ Object.freeze(
+    /*#__PURE__*/ Object.assign(
+        // Factory function
+        (data: BebopItem): BebopItem & BebopRecord => {
+            return {
+                ...data,
+                encode(): Uint8Array {
+                    return BebopItem.encode(this);
+                },
+            };
+        },
+        // Static methods
         {
-        const length0 = record.appearances.length;
-        view.writeUint32(length0);
-        for (let i0 = 0; i0 < length0; i0++) {
-          view.writeUint32(record.appearances[i0]);
+            encode(record: BebopItem): Uint8Array {
+                const view = BebopView.getInstance();
+                view.startWriting();
+                BebopItem.encodeInto(record, view);
+                return view.toArray();
+            },
+
+            encodeInto(record: BebopItem, view: BebopView): void {
+                const pos = view.reserveMessageLength();
+                const start = view.length;
+                if (record.idClassIdSubclassId !== undefined) {
+                    view.writeByte(1);
+                    view.writeUint32(record.idClassIdSubclassId);
+                }
+                if (record.name !== undefined) {
+                    view.writeByte(2);
+                    view.writeString(record.name);
+                }
+                if (record.bindTypeExpansion !== undefined) {
+                    view.writeByte(3);
+                    view.writeByte(record.bindTypeExpansion);
+                }
+                if (record.primaryStatQuality !== undefined) {
+                    view.writeByte(4);
+                    view.writeByte(record.primaryStatQuality);
+                }
+                if (record.raceMask !== undefined) {
+                    view.writeByte(5);
+                    view.writeInt64(record.raceMask);
+                }
+                if (record.classMask !== undefined) {
+                    view.writeByte(6);
+                    view.writeInt32(record.classMask);
+                }
+                if (record.flags !== undefined) {
+                    view.writeByte(7);
+                    view.writeByte(record.flags);
+                }
+                if (record.inventoryType !== undefined) {
+                    view.writeByte(8);
+                    view.writeByte(record.inventoryType);
+                }
+                if (record.itemLevel !== undefined) {
+                    view.writeByte(9);
+                    view.writeInt16(record.itemLevel);
+                }
+                if (record.unique !== undefined) {
+                    view.writeByte(10);
+                    view.writeInt16(record.unique);
+                }
+                if (record.requiredSkill !== undefined) {
+                    view.writeByte(11);
+                    view.writeInt16(record.requiredSkill);
+                }
+                if (record.requiredSkillRank !== undefined) {
+                    view.writeByte(12);
+                    view.writeInt16(record.requiredSkillRank);
+                }
+                if (record.appearances !== undefined) {
+                    view.writeByte(13);
+                    {
+                        const length0 = record.appearances.length;
+                        view.writeUint32(length0);
+                        for (let i0 = 0; i0 < length0; i0++) {
+                            view.writeUint32(record.appearances[i0]);
+                        }
+                    }
+                }
+                if (record.completesQuestIds !== undefined) {
+                    view.writeByte(14);
+                    {
+                        const length0 = record.completesQuestIds.length;
+                        view.writeUint32(length0);
+                        for (let i0 = 0; i0 < length0; i0++) {
+                            view.writeInt32(record.completesQuestIds[i0]);
+                        }
+                    }
+                }
+                if (record.sockets !== undefined) {
+                    view.writeByte(15);
+                    view.writeBytes(record.sockets);
+                }
+                if (record.teachesDecorIds !== undefined) {
+                    view.writeByte(16);
+                    {
+                        const length0 = record.teachesDecorIds.length;
+                        view.writeUint32(length0);
+                        for (let i0 = 0; i0 < length0; i0++) {
+                            view.writeUint16(record.teachesDecorIds[i0]);
+                        }
+                    }
+                }
+                if (record.teachesSpellIds !== undefined) {
+                    view.writeByte(17);
+                    {
+                        const length0 = record.teachesSpellIds.length;
+                        view.writeUint32(length0);
+                        for (let i0 = 0; i0 < length0; i0++) {
+                            view.writeInt32(record.teachesSpellIds[i0]);
+                        }
+                    }
+                }
+                if (record.teachesTransmogIllusionIds !== undefined) {
+                    view.writeByte(18);
+                    view.writeBytes(record.teachesTransmogIllusionIds);
+                }
+                if (record.teachesTransmogSetIds !== undefined) {
+                    view.writeByte(19);
+                    {
+                        const length0 = record.teachesTransmogSetIds.length;
+                        view.writeUint32(length0);
+                        for (let i0 = 0; i0 < length0; i0++) {
+                            view.writeUint16(record.teachesTransmogSetIds[i0]);
+                        }
+                    }
+                }
+                view.writeByte(0);
+                const end = view.length;
+                view.fillMessageLength(pos, end - start);
+            },
+
+            decode(buffer: Uint8Array): BebopItem & BebopRecord {
+                const view = BebopView.getInstance();
+                view.startReading(buffer);
+                const decoded = BebopItem.readFrom(view);
+                return BebopItem(decoded);
+            },
+
+            readFrom(view: BebopView): BebopItem {
+                const message: BebopItem = {};
+                const length = view.readMessageLength();
+                const end = view.index + length;
+                while (true) {
+                    switch (view.readByte()) {
+                        case 0:
+                            return message;
+
+                        case 1:
+                            message.idClassIdSubclassId = view.readUint32();
+                            break;
+
+                        case 2:
+                            message.name = view.readString();
+                            break;
+
+                        case 3:
+                            message.bindTypeExpansion = view.readByte();
+                            break;
+
+                        case 4:
+                            message.primaryStatQuality = view.readByte();
+                            break;
+
+                        case 5:
+                            message.raceMask = view.readInt64();
+                            break;
+
+                        case 6:
+                            message.classMask = view.readInt32();
+                            break;
+
+                        case 7:
+                            message.flags = view.readByte();
+                            break;
+
+                        case 8:
+                            message.inventoryType = view.readByte();
+                            break;
+
+                        case 9:
+                            message.itemLevel = view.readInt16();
+                            break;
+
+                        case 10:
+                            message.unique = view.readInt16();
+                            break;
+
+                        case 11:
+                            message.requiredSkill = view.readInt16();
+                            break;
+
+                        case 12:
+                            message.requiredSkillRank = view.readInt16();
+                            break;
+
+                        case 13:
+                            {
+                                const length0 = view.readUint32();
+                                message.appearances = [];
+                                for (let i0 = 0; i0 < length0; i0++) {
+                                    let x0: number;
+                                    x0 = view.readUint32();
+                                    message.appearances[i0] = x0;
+                                }
+                            }
+                            break;
+
+                        case 14:
+                            {
+                                const length0 = view.readUint32();
+                                message.completesQuestIds = [];
+                                for (let i0 = 0; i0 < length0; i0++) {
+                                    let x0: number;
+                                    x0 = view.readInt32();
+                                    message.completesQuestIds[i0] = x0;
+                                }
+                            }
+                            break;
+
+                        case 15:
+                            message.sockets = view.readBytes();
+                            break;
+
+                        case 16:
+                            {
+                                const length0 = view.readUint32();
+                                message.teachesDecorIds = [];
+                                for (let i0 = 0; i0 < length0; i0++) {
+                                    let x0: number;
+                                    x0 = view.readUint16();
+                                    message.teachesDecorIds[i0] = x0;
+                                }
+                            }
+                            break;
+
+                        case 17:
+                            {
+                                const length0 = view.readUint32();
+                                message.teachesSpellIds = [];
+                                for (let i0 = 0; i0 < length0; i0++) {
+                                    let x0: number;
+                                    x0 = view.readInt32();
+                                    message.teachesSpellIds[i0] = x0;
+                                }
+                            }
+                            break;
+
+                        case 18:
+                            message.teachesTransmogIllusionIds = view.readBytes();
+                            break;
+
+                        case 19:
+                            {
+                                const length0 = view.readUint32();
+                                message.teachesTransmogSetIds = [];
+                                for (let i0 = 0; i0 < length0; i0++) {
+                                    let x0: number;
+                                    x0 = view.readUint16();
+                                    message.teachesTransmogSetIds[i0] = x0;
+                                }
+                            }
+                            break;
+
+                        default:
+                            view.index = end;
+                            return message;
+                    }
+                }
+            },
         }
-      }
-      }
-      if (record.completesQuestIds !== undefined) {
-        view.writeByte(14);
+    )
+);
+
+export interface BebopItems {
+    readonly items: BebopItem[];
+}
+
+export const BebopItems = /*#__PURE__*/ Object.freeze(
+    /*#__PURE__*/ Object.assign(
+        // Factory function
+        (data: BebopItems): BebopItems & BebopRecord => {
+            return Object.freeze({
+                ...data,
+                encode(): Uint8Array {
+                    return BebopItems.encode(this);
+                },
+            });
+        },
+        // Static methods
         {
-        const length0 = record.completesQuestIds.length;
-        view.writeUint32(length0);
-        for (let i0 = 0; i0 < length0; i0++) {
-          view.writeInt32(record.completesQuestIds[i0]);
+            encode(record: BebopItems): Uint8Array {
+                const view = BebopView.getInstance();
+                view.startWriting();
+                BebopItems.encodeInto(record, view);
+                return view.toArray();
+            },
+
+            encodeInto(record: BebopItems, view: BebopView): void {
+                {
+                    const length0 = record.items.length;
+                    view.writeUint32(length0);
+                    for (let i0 = 0; i0 < length0; i0++) {
+                        BebopItem.encodeInto(record.items[i0], view);
+                    }
+                }
+            },
+
+            decode(buffer: Uint8Array): BebopItems & BebopRecord {
+                const view = BebopView.getInstance();
+                view.startReading(buffer);
+                const decoded = BebopItems.readFrom(view);
+                return BebopItems(decoded);
+            },
+
+            readFrom(view: BebopView): BebopItems {
+                let field0: BebopItem[];
+                {
+                    const length0 = view.readUint32();
+                    field0 = [];
+                    for (let i0 = 0; i0 < length0; i0++) {
+                        let x0: BebopItem;
+                        x0 = BebopItem.readFrom(view);
+                        field0[i0] = x0;
+                    }
+                }
+                return {
+                    items: field0,
+                };
+            },
         }
-      }
-      }
-      if (record.sockets !== undefined) {
-        view.writeByte(15);
-        view.writeBytes(record.sockets);
-      }
-      if (record.teachesDecorIds !== undefined) {
-        view.writeByte(16);
-        {
-        const length0 = record.teachesDecorIds.length;
-        view.writeUint32(length0);
-        for (let i0 = 0; i0 < length0; i0++) {
-          view.writeUint16(record.teachesDecorIds[i0]);
-        }
-      }
-      }
-      if (record.teachesSpellIds !== undefined) {
-        view.writeByte(17);
-        {
-        const length0 = record.teachesSpellIds.length;
-        view.writeUint32(length0);
-        for (let i0 = 0; i0 < length0; i0++) {
-          view.writeInt32(record.teachesSpellIds[i0]);
-        }
-      }
-      }
-      if (record.teachesTransmogIllusionIds !== undefined) {
-        view.writeByte(18);
-        view.writeBytes(record.teachesTransmogIllusionIds);
-      }
-      if (record.teachesTransmogSetIds !== undefined) {
-        view.writeByte(19);
-        {
-        const length0 = record.teachesTransmogSetIds.length;
-        view.writeUint32(length0);
-        for (let i0 = 0; i0 < length0; i0++) {
-          view.writeUint16(record.teachesTransmogSetIds[i0]);
-        }
-      }
-      }
-      view.writeByte(0);
-      const end = view.length;
-      view.fillMessageLength(pos, end - start);
-    },
-
-    decode(buffer: Uint8Array): BebopItem & BebopRecord {
-      const view = BebopView.getInstance();
-      view.startReading(buffer);
-      const decoded = BebopItem.readFrom(view);
-      return BebopItem(decoded);
-    },
-
-    readFrom(view: BebopView): BebopItem {
-      const message: BebopItem = {};
-      const length = view.readMessageLength();
-      const end = view.index + length;
-      while (true) {
-        switch (view.readByte()) {
-          case 0:
-            return message;
-
-          case 1:
-            message.idClassIdSubclassId = view.readUint32();
-            break;
-
-          case 2:
-            message.name = view.readString();
-            break;
-
-          case 3:
-            message.bindTypeExpansion = view.readByte();
-            break;
-
-          case 4:
-            message.primaryStatQuality = view.readByte();
-            break;
-
-          case 5:
-            message.raceMask = view.readInt64();
-            break;
-
-          case 6:
-            message.classMask = view.readInt32();
-            break;
-
-          case 7:
-            message.flags = view.readByte();
-            break;
-
-          case 8:
-            message.inventoryType = view.readByte();
-            break;
-
-          case 9:
-            message.itemLevel = view.readInt16();
-            break;
-
-          case 10:
-            message.unique = view.readInt16();
-            break;
-
-          case 11:
-            message.requiredSkill = view.readInt16();
-            break;
-
-          case 12:
-            message.requiredSkillRank = view.readInt16();
-            break;
-
-          case 13:
-            {
-          const length0 = view.readUint32();
-          message.appearances = [];
-          for (let i0 = 0; i0 < length0; i0++) {
-            let x0: number;
-            x0 = view.readUint32();
-            message.appearances[i0] = x0;
-          }
-        }
-            break;
-
-          case 14:
-            {
-          const length0 = view.readUint32();
-          message.completesQuestIds = [];
-          for (let i0 = 0; i0 < length0; i0++) {
-            let x0: number;
-            x0 = view.readInt32();
-            message.completesQuestIds[i0] = x0;
-          }
-        }
-            break;
-
-          case 15:
-            message.sockets = view.readBytes();
-            break;
-
-          case 16:
-            {
-          const length0 = view.readUint32();
-          message.teachesDecorIds = [];
-          for (let i0 = 0; i0 < length0; i0++) {
-            let x0: number;
-            x0 = view.readUint16();
-            message.teachesDecorIds[i0] = x0;
-          }
-        }
-            break;
-
-          case 17:
-            {
-          const length0 = view.readUint32();
-          message.teachesSpellIds = [];
-          for (let i0 = 0; i0 < length0; i0++) {
-            let x0: number;
-            x0 = view.readInt32();
-            message.teachesSpellIds[i0] = x0;
-          }
-        }
-            break;
-
-          case 18:
-            message.teachesTransmogIllusionIds = view.readBytes();
-            break;
-
-          case 19:
-            {
-          const length0 = view.readUint32();
-          message.teachesTransmogSetIds = [];
-          for (let i0 = 0; i0 < length0; i0++) {
-            let x0: number;
-            x0 = view.readUint16();
-            message.teachesTransmogSetIds[i0] = x0;
-          }
-        }
-            break;
-
-          default:
-            view.index = end;
-            return message;
-        }
-      }
-    },
-  }
-));
-
+    )
+);

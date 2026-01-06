@@ -74,6 +74,6 @@ public class CachedDataController : Controller
             return RedirectToAction("CachedBebop", new { type, languageCode = language.ToString(), hash = redisHash });
         }
 
-        return Content(await db.StringGetAsync($"cache:{key}:data"), "application/octet-stream");
+        return new FileContentResult(await db.StringGetAsync($"cache:{key}:data"), "application/octet-stream");
     }
 }

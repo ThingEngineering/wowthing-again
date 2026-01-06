@@ -375,8 +375,9 @@ public class ItemsTool
             await db.SetCacheDataAndHash($"item-{language.ToString()}", cacheJson, jsonHash);
 
 
-            var bebopBuffer = new byte[1000];
-            using var bebopStream = new MemoryStream();
+            // var bebopBuffer = new byte[1000];
+            // using var bebopStream = new MemoryStream();
+            var bebopItems = new List<BebopItem>(items.Length);
             foreach (var item in items)
             {
                 // s6_c6_i20
@@ -459,20 +460,29 @@ public class ItemsTool
                     bebopItem.Appearances = appearances;
                 }
 
-                int bytesWritten = BebopSerializer.EncodeIntoBuffer(bebopItem, bebopBuffer);
-                bebopStream.Write(bebopBuffer, 0, bytesWritten);
+                bebopItems.Add(bebopItem);
+                // int bytesWritten = BebopSerializer.EncodeIntoBuffer(bebopItem, bebopBuffer);
+                // bebopStream.Write(bebopBuffer, 0, bytesWritten);
             }
 
-            ToolContext.Logger.Warning("Bebop stream is {n} bytes", bebopStream.Length);
+            //
+            // bebopStream.Seek(0, SeekOrigin.Begin);
+            // byte[] bebopData = new  byte[bebopStream.Length];
+            // await bebopStream.ReadExactlyAsync(bebopData, 0, bebopData.Length);
 
-            bebopStream.Seek(0, SeekOrigin.Begin);
-            byte[] bebopData = new  byte[bebopStream.Length];
-            await bebopStream.ReadExactlyAsync(bebopData, 0, bebopData.Length);
+            var ugh = new BebopItems
+            {
+                Items = bebopItems.ToArray()
+            };
+            byte[] bebopData = BebopSerializer.Encode(ugh);
 
             // This ends up being the MD5 of enUS, close enough
             bebopHash ??= bebopData.Md5();
 
             await db.SetCacheDataAndHash($"item-bebop-{language.ToString()}", bebopData, bebopHash);
+
+            ToolContext.Logger.Warning("Bebop stream is {len} bytes for {count} records", bebopData.Length, bebopItems.Count);
+            break;
         }
 
         _timer.AddPoint("Generate", true);

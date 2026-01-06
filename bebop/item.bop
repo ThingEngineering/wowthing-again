@@ -19,3 +19,7 @@ message BebopItem {
     18 -> byte[] teachesTransmogIllusionIds;
     19 -> uint16[] teachesTransmogSetIds;
 }
+
+struct BebopItems {
+    BebopItem[] items;
+}

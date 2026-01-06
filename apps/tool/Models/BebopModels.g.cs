@@ -23,7 +23,7 @@ namespace Wowthing.Tool.Models {
   [global::System.CodeDom.Compiler.GeneratedCode("bebopc", "3.1.3")]
   public static class BopConstants {
     public static readonly byte[] BEBOP_SCHEMA = new byte[] {
-    3, 1, 0, 0, 0, 66, 101, 98, 111, 112, 73, 116, 101, 109,
+    3, 2, 0, 0, 0, 66, 101, 98, 111, 112, 73, 116, 101, 109,
     0, 2, 0, 5, 0, 0, 0, 19, 105, 100, 67, 108, 97, 115, 115,
     73, 100, 83, 117, 98, 99, 108, 97, 115, 115, 73, 100, 0,
     251, 255, 255, 255, 0, 1, 110, 97, 109, 101, 0, 245, 255,
@@ -57,7 +57,10 @@ namespace Wowthing.Tool.Models {
     115, 0, 242, 255, 255, 255, 0, 254, 255, 255, 255, 0, 18,
     116, 101, 97, 99, 104, 101, 115, 84, 114, 97, 110, 115,
     109, 111, 103, 83, 101, 116, 73, 100, 115, 0, 242, 255,
-    255, 255, 0, 253, 255, 255, 255, 0, 19, 0, 0, 0, 0
+    255, 255, 0, 253, 255, 255, 255, 0, 19, 66, 101, 98, 111,
+    112, 73, 116, 101, 109, 115, 0, 1, 0, 0, 4, 0, 0, 0, 0, 1,
+    105, 116, 101, 109, 115, 0, 242, 255, 255, 255, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0
     };
   }
 
@@ -731,6 +734,228 @@ namespace Wowthing.Tool.Models {
 
     public static bool operator ==(global::Wowthing.Tool.Models.BebopItem left, global::Wowthing.Tool.Models.BebopItem right) => Equals(left, right);
     public static bool operator !=(global::Wowthing.Tool.Models.BebopItem left, global::Wowthing.Tool.Models.BebopItem  right) => !Equals(left, right);
+    #endregion
+
+  }
+
+  [global::System.CodeDom.Compiler.GeneratedCode("bebopc", "3.1.3")]
+  [global::Bebop.Attributes.BebopRecord(global::Bebop.Runtime.BebopKind.Struct)]
+  public partial class BebopItems : global::Bebop.Runtime.BaseBebopRecord, global::Bebop.Runtime.IDecodable<BebopItems>, global::System.IEquatable<BebopItems> {
+    /// <inheritdoc />
+    public sealed override int MaxByteCount => GetMaxByteCount();
+    /// <inheritdoc />
+    public sealed override int ByteCount => GetByteCount();
+    [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull]
+    public global::Wowthing.Tool.Models.BebopItem[] Items { get; init; }
+
+    /// <summary>
+    /// </summary>
+    public BebopItems() : base() { }
+    /// <summary>
+    /// </summary>
+    /// <param name="items">
+    /// </param>
+    public BebopItems([global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] global::Wowthing.Tool.Models.BebopItem[] items) => (Items) = (items);
+    public BebopItems([global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] BebopItems original) => (Items) = (original.Items);
+    public void Deconstruct([global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] out global::Wowthing.Tool.Models.BebopItem[] items) => (items) = (Items);
+
+    /// <summary>Calculates the maximum number of bytes produced by encoding the current record.</summary>
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    private protected int GetMaxByteCount() {
+      int byteCount = 0;
+      {
+        var length0 = unchecked((uint)Items.Length);
+        byteCount += sizeof(uint);
+        for (var i0 = 0; i0 < length0; i0++) {
+          byteCount += Items[i0].MaxByteCount;
+        }
+      }
+      return byteCount;
+    }
+
+
+    /// <summary>Calculates the number of bytes produced by encoding the current record.</summary>
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    private protected int GetByteCount() {
+      int byteCount = 0;
+      {
+        var length0 = unchecked((uint)Items.Length);
+        byteCount += sizeof(uint);
+        for (var i0 = 0; i0 < length0; i0++) {
+          byteCount += Items[i0].ByteCount;
+        }
+      }
+      return byteCount;
+    }
+
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    public sealed override byte[] Encode() {
+      var writer = global::Bebop.Runtime.BebopWriter.Create();
+      __EncodeInto(this, ref writer);
+      return writer.ToArray();
+    }
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    public static byte[] Encode(global::Wowthing.Tool.Models.BebopItems record) {
+      var writer = global::Bebop.Runtime.BebopWriter.Create();
+      __EncodeInto(record, ref writer);
+      return writer.ToArray();
+    }
+
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    public sealed override byte[] Encode(int initialCapacity) {
+      var writer = global::Bebop.Runtime.BebopWriter.Create(initialCapacity);
+      __EncodeInto(this, ref writer);
+      return writer.ToArray();
+    }
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    public static byte[] Encode(global::Wowthing.Tool.Models.BebopItems record, int initialCapacity) {
+      var writer = global::Bebop.Runtime.BebopWriter.Create(initialCapacity);
+      __EncodeInto(record, ref writer);
+      return writer.ToArray();
+    }
+
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    public sealed override global::System.Collections.Immutable.ImmutableArray<byte> EncodeImmutably() {
+      var writer = global::Bebop.Runtime.BebopWriter.Create();
+      __EncodeInto(this, ref writer);
+      return writer.ToImmutableArray();
+    }
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    public static global::System.Collections.Immutable.ImmutableArray<byte> EncodeImmutably(global::Wowthing.Tool.Models.BebopItems record) {
+      var writer = global::Bebop.Runtime.BebopWriter.Create();
+      __EncodeInto(record, ref writer);
+      return writer.ToImmutableArray();
+    }
+
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    public sealed override global::System.Collections.Immutable.ImmutableArray<byte> EncodeImmutably(int initialCapacity) {
+      var writer = global::Bebop.Runtime.BebopWriter.Create(initialCapacity);
+      __EncodeInto(this, ref writer);
+      return writer.ToImmutableArray();
+    }
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    public static global::System.Collections.Immutable.ImmutableArray<byte> EncodeImmutably(global::Wowthing.Tool.Models.BebopItems record, int initialCapacity) {
+      var writer = global::Bebop.Runtime.BebopWriter.Create(initialCapacity);
+      __EncodeInto(record, ref writer);
+      return writer.ToImmutableArray();
+    }
+
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    public sealed override int EncodeIntoBuffer(byte[] outBuffer) {
+      var writer = global::Bebop.Runtime.BebopWriter.Create(outBuffer);
+      return __EncodeInto(this, ref writer);
+    }
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    public static int EncodeIntoBuffer(global::Wowthing.Tool.Models.BebopItems record, byte[] outBuffer) {
+      var writer = global::Bebop.Runtime.BebopWriter.Create(outBuffer);
+      return __EncodeInto(record, ref writer);
+    }
+
+    #region Static Decode Methods
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    public static global::Wowthing.Tool.Models.BebopItems Decode(byte[] record) {
+      var reader = global::Bebop.Runtime.BebopReader.From(record);
+      return __DecodeFrom(ref reader);
+    }
+
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    public static global::Wowthing.Tool.Models.BebopItems Decode(global::System.ReadOnlySpan<byte> record) {
+      var reader = global::Bebop.Runtime.BebopReader.From(record);
+      return __DecodeFrom(ref reader);
+    }
+
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    public static global::Wowthing.Tool.Models.BebopItems Decode(global::System.ReadOnlyMemory<byte> record) {
+      var reader = global::Bebop.Runtime.BebopReader.From(record);
+      return __DecodeFrom(ref reader);
+    }
+
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    public static global::Wowthing.Tool.Models.BebopItems Decode(global::System.ArraySegment<byte> record) {
+      var reader = global::Bebop.Runtime.BebopReader.From(record);
+      return __DecodeFrom(ref reader);
+    }
+
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    public static global::Wowthing.Tool.Models.BebopItems Decode(global::System.Collections.Immutable.ImmutableArray<byte> record) {
+      var reader = global::Bebop.Runtime.BebopReader.From(record);
+      return __DecodeFrom(ref reader);
+    }
+
+    #endregion
+    #region Internal Use
+    /// <summary>DO NOT CALL THIS METHOD DIRECTLY!</summary>
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    [global::System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    internal static int __EncodeInto(global::Wowthing.Tool.Models.BebopItems record, ref global::Bebop.Runtime.BebopWriter writer) {
+      var before = writer.Length;
+      {
+        var length0 = unchecked((uint)record.Items.Length);
+        writer.WriteUInt32(length0);
+        for (var i0 = 0; i0 < length0; i0++) {
+          global::Wowthing.Tool.Models.BebopItem.__EncodeInto(record.Items[i0], ref writer);
+        }
+      }
+      var after = writer.Length;
+      return after - before;
+    }
+
+
+    /// <summary>DO NOT CALL THIS METHOD DIRECTLY!</summary>
+    [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    [global::System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    internal static global::Wowthing.Tool.Models.BebopItems __DecodeFrom(ref global::Bebop.Runtime.BebopReader reader) {
+
+      global::Wowthing.Tool.Models.BebopItem[] field0;
+      {
+        var length0 = unchecked((int)reader.ReadUInt32());
+        field0 = new global::Wowthing.Tool.Models.BebopItem[length0];
+        for (var i0 = 0; i0 < length0; i0++) {
+          global::Wowthing.Tool.Models.BebopItem x0;
+          x0 = global::Wowthing.Tool.Models.BebopItem.__DecodeFrom(ref reader);
+          field0[i0] = x0;
+        }
+      }
+      return new global::Wowthing.Tool.Models.BebopItems {
+        Items = field0,
+      };
+    }
+
+    #endregion
+    #region Equality
+    public bool Equals(global::Wowthing.Tool.Models.BebopItems other) {
+      if (ReferenceEquals(null, other)) {
+        return false;
+      }
+      if (ReferenceEquals(this, other)) {
+        return true;
+      }
+      return (Items is null ? other.Items is null : other.Items is not null && global::System.Linq.Enumerable.SequenceEqual(Items, other.Items));
+    }
+
+    public override bool Equals(object obj) {
+      if (ReferenceEquals(null, obj)) {
+        return false;
+      }
+      if (ReferenceEquals(this, obj)) {
+        return true;
+      }
+      if (obj is not global::Wowthing.Tool.Models.BebopItems baseType) {
+        return false;
+      }
+      return Equals(baseType);
+    }
+
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= Items.GetHashCode();
+      return hash;
+    }
+
+    public static bool operator ==(global::Wowthing.Tool.Models.BebopItems left, global::Wowthing.Tool.Models.BebopItems right) => Equals(left, right);
+    public static bool operator !=(global::Wowthing.Tool.Models.BebopItems left, global::Wowthing.Tool.Models.BebopItems  right) => !Equals(left, right);
     #endregion
 
   }
