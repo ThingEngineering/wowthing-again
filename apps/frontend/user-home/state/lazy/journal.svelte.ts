@@ -246,11 +246,8 @@ export function doJournal(): LazyJournal {
                                     );
                                 } else if (item.type === RewardType.Decor) {
                                     const teachesDecors = wowthingData.items.teachesDecor[item.id];
-                                    appearance.userHas = (teachesDecors || []).some(
-                                        (decorId) =>
-                                            (userState.general.decor[decorId] || [0, 0]).reduce(
-                                                (a, b) => a + b
-                                            ) > 0
+                                    appearance.userHas = (teachesDecors || []).some((decorId) =>
+                                        userState.general.hasDecorById.has(decorId)
                                     );
                                 }
                             }

@@ -52,6 +52,7 @@ export class DataUserGeneral {
 
     public hasAppearanceById = new SvelteSet<number>();
     public hasAppearanceBySource = new SvelteSet<number>();
+    public hasDecorById = new SvelteSet<number>();
     public hasIllusionByEnchantmentId = new SvelteSet<number>();
     public hasMountById = new SvelteSet<number>();
     public hasPetById = new SvelteSet<number>();
@@ -186,7 +187,12 @@ export class DataUserGeneral {
         }
 
         // Misc
-        this.decor = cloneDeep(userData.decor);
+        this.decor = cloneDeep(userData.decor || {});
+        this.hasDecorById = new SvelteSet(
+            getNumberKeyedEntries(this.decor)
+                .filter(([, [a, b]]) => a + b > 0)
+                .map(([decorId]) => decorId)
+        );
 
         this.honorCurrent = userData.honorCurrent;
         this.honorLevel = userData.honorLevel;

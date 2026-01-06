@@ -1,3 +1,4 @@
+import type { LookupType } from '@/enums/lookup-type';
 import type { ManualDataVendorItem } from '@/types/data/manual';
 
 export class ThingData {
@@ -12,7 +13,9 @@ export class ThingData {
 
     constructor(
         public item: ManualDataVendorItem,
-        public userHas: boolean
+        public userHas: boolean,
+        public lookupId: number,
+        public lookupType: LookupType
     ) {
         this.extraParams = {};
     }

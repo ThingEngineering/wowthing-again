@@ -16,6 +16,7 @@ public class RedisItems
     public Dictionary<short, int[]> CraftingQualities { get; set; }
     public Dictionary<int, Dictionary<int, List<int>>> ItemBonusListGroups { get; set; }
     public Dictionary<short, int[]> ItemConversionEntries { get; set; }
+    public Dictionary<int, int[]> ItemRequiredSkills { get; set; }
     public Dictionary<short, short> LimitCategories { get; set; }
     public Dictionary<short, int[]> LimitCategoryItems { get; set; }
     public Dictionary<int, int[]> SpecOverrides { get; set; }

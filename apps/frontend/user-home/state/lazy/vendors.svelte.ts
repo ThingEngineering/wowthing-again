@@ -36,7 +36,7 @@ export interface LazyVendors {
     allCurrencies: Set<number>;
     byNpcId: Record<number, ManualDataSharedVendor>;
     stats: Record<string, UserCount>;
-    userHas: Record<string, boolean>;
+    userHas: Record<string, [boolean, LookupType, number]>;
 }
 
 class LazyVendorsProcessor {
@@ -88,7 +88,7 @@ class LazyVendorsProcessor {
 
         const seen: Record<string, boolean> = {};
         const stats: Record<string, UserCount> = {};
-        const userHas: Record<string, boolean> = {};
+        const userHas: LazyVendors['userHas'] = {};
 
         const overallStats = (stats['OVERALL'] = new UserCount());
 
@@ -294,6 +294,7 @@ class LazyVendorsProcessor {
                     }
 
                     const thingKey = `${item.type}|${item.id}|${(item.bonusIds || []).join(',')}`;
+                    userHas[thingKey] = [hasDrop, lookupType, lookupId];
 
                     if (!seen[thingKey]) {
                         overallStats.total++;
@@ -317,8 +318,6 @@ class LazyVendorsProcessor {
 
                         catStats.have++;
                         groupStats.have++;
-
-                        userHas[thingKey] = true;
                     }
 
                     seen[thingKey] = true;

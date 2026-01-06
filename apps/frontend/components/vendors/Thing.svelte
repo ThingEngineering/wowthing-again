@@ -1,8 +1,7 @@
 <script lang="ts">
     import { Faction } from '@/enums/faction';
-    import { RewardType } from '@/enums/reward-type';
     import { iconLibrary } from '@/shared/icons';
-    import { rewardTypeIcons } from '@/shared/icons/mappings';
+    import { lookupTypeIcons } from '@/shared/icons/mappings';
     import { browserState } from '@/shared/state/browser.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { lazyState } from '@/user-home/state/lazy';
@@ -21,6 +20,11 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
     let { intersected, thing }: { intersected: boolean; thing: ThingData } = $props();
+
+    let missing = $derived(
+        (!browserState.current.vendors.highlightMissing && !thing.userHas) ||
+            (browserState.current.vendors.highlightMissing && thing.userHas)
+    );
 </script>
 
 <style lang="scss">
@@ -102,20 +106,22 @@
     }
 </style>
 
+{#snippet hoverIcon(icon)}
+    <div class="icon icon-class quality1 drop-shadow">
+        <IconifyIcon {icon} />
+    </div>
+{/snippet}
+
 <div
     class="collection-object quality{thing.quality}"
-    class:missing={(!browserState.current.vendors.highlightMissing && !thing.userHas) ||
-        (browserState.current.vendors.highlightMissing && thing.userHas)}
+    class:missing
     style:height={!thing.userHas ? 52 + 20 * thing.item.sortedCosts.length + 'px' : null}
 >
     {#if intersected}
-        {@const isMount = wowthingData.static.mountByItemId.has(thing.item.id)}
-        {@const isPet = wowthingData.static.petByItemId.has(thing.item.id)}
-        {@const isToy = wowthingData.static.toyByItemId.has(thing.item.id)}
         {@const teachesTransmog = wowthingData.items.teachesTransmog[thing.item.id]}
         {@const item = wowthingData.items.items[thing.item.id]}
         {@const classes = getClassesFromMask(item?.classMask || 0)}
-        {@const professionAbility = wowthingData.static.professionAbilityByItemId.get(
+        {@const requiredProfession = wowthingData.static.requiredProfessionByItemId.get(
             thing.item.id
         )}
         {@const specIds = wowthingData.items.specOverrides[thing.item.id]}
@@ -174,19 +180,11 @@
             </div>
         {/if}
 
-        {#if isMount || isPet || isToy}
-            <div class="icon icon-class quality1 drop-shadow">
-                <IconifyIcon
-                    icon={isMount
-                        ? rewardTypeIcons[RewardType.Mount]
-                        : isPet
-                          ? rewardTypeIcons[RewardType.Pet]
-                          : rewardTypeIcons[RewardType.Toy]}
-                />
-            </div>
-        {:else if professionAbility}
+        {#if lookupTypeIcons[thing.lookupType]}
+            {@render hoverIcon(lookupTypeIcons[thing.lookupType])}
+        {:else if requiredProfession}
             <div class="icon icon-class drop-shadow">
-                <ProfessionIcon border={2} size={20} id={professionAbility.professionId} />
+                <ProfessionIcon border={2} size={20} id={requiredProfession} />
             </div>
         {:else if (thing.bonusIds || []).includes(999999)}
             <div class="icon icon-class status-shrug drop-shadow">

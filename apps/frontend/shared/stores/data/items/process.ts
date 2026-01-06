@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash/cloneDeep';
+
 import { Constants } from '@/data/constants';
 import { currentTier, previousTier } from '@/data/gear';
 import { ItemBonusType } from '@/enums/item-bonus-type';
@@ -10,16 +12,17 @@ export function processItemsData(rawData: RawItems): DataItems {
 
     const data = new DataItems();
 
-    data.appearanceMap = rawData.appearanceMap;
-    data.bonusIdToModifiedCrafting = rawData.bonusIdToModifiedCrafting;
-    data.completesQuest = rawData.completesQuest;
-    data.itemConversionEntries = rawData.itemConversionEntries;
-    data.limitCategories = rawData.limitCategories;
-    data.specOverrides = rawData.specOverrides;
-    data.teachesDecor = rawData.teachesDecor;
-    data.teachesSpell = rawData.teachesSpell;
-    data.teachesIllusion = rawData.teachesIllusion;
-    data.teachesTransmog = rawData.teachesTransmog;
+    data.appearanceMap = cloneDeep(rawData.appearanceMap);
+    data.bonusIdToModifiedCrafting = cloneDeep(rawData.bonusIdToModifiedCrafting);
+    data.completesQuest = cloneDeep(rawData.completesQuest);
+    data.itemConversionEntries = cloneDeep(rawData.itemConversionEntries);
+    data.itemRequiredSkills = cloneDeep(rawData.itemRequiredSkills);
+    data.limitCategories = cloneDeep(rawData.limitCategories);
+    data.specOverrides = cloneDeep(rawData.specOverrides);
+    data.teachesDecor = cloneDeep(rawData.teachesDecor);
+    data.teachesSpell = cloneDeep(rawData.teachesSpell);
+    data.teachesIllusion = cloneDeep(rawData.teachesIllusion);
+    data.teachesTransmog = cloneDeep(rawData.teachesTransmog);
 
     console.time('rawItems');
     let itemId = 0;

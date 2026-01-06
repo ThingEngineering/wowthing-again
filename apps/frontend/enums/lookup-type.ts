@@ -2,6 +2,7 @@ export enum LookupType {
     None,
     Achievement,
     Currency,
+    Decor,
     Illusion,
     Mount,
     Pet,

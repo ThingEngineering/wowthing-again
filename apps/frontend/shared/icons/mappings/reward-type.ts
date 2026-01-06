@@ -9,6 +9,7 @@ export const rewardTypeIcons: Record<number, IconifyIcon> = {
     [RewardType.Armor]: iconLibrary.mdiTshirtCrew,
     [RewardType.Cosmetic]: iconLibrary.mdiWizardHat,
     [RewardType.Currency]: iconLibrary.gameTwoCoins,
+    [RewardType.Decor]: iconLibrary.gameHouse,
     [RewardType.Illusion]: iconLibrary.mdiAutoFix,
     [RewardType.Item]: iconLibrary.mdiGiftOutline,
     [RewardType.Mount]: iconLibrary.mdiUnicorn,

@@ -15,6 +15,7 @@ export interface ItemData {
     itemBonusToUpgrade: Record<number, [number, number, number]>;
     itemConversionBonus: Record<number, number>;
     itemConversionEntries: Record<number, number[]>;
+    itemRequiredSkills: Record<number, [number, number]>;
     limitCategories: Record<number, number>;
     limitCategoryItems: Record<number, number[]>;
     oppositeFactionAppearance: Record<number, number[]>;

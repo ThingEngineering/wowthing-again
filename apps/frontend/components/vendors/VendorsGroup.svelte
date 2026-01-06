@@ -46,9 +46,9 @@
         for (const thing of showAll ? group.sells : group.sellsFiltered) {
             const bonusIds = thing.bonusIds || [];
             const thingKey = `${thing.type}|${thing.id}|${bonusIds.join(',')}`;
-            const userHas = lazyState.vendors.userHas[thingKey] === true;
+            const [userHas, lookupType, lookupId] = lazyState.vendors.userHas[thingKey] || [];
             if (showAll || (useShowCollected && userHas) || (useShowUncollected && !userHas)) {
-                const thingData = new ThingData(thing, userHas);
+                const thingData = new ThingData(thing, userHas, lookupId, lookupType);
 
                 thingData.bonusIds = bonusIds;
                 thingData.quality =

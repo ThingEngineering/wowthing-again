@@ -15,6 +15,7 @@ export function snapshotStateForUserHasLookup() {
         ),
         hasAppearanceById: $state.snapshot(userState.general.hasAppearanceById),
         hasAppearanceBySource: $state.snapshot(userState.general.hasAppearanceBySource),
+        hasDecorById: $state.snapshot(userState.general.hasDecorById),
         hasIllusionByEnchantmentId: $state.snapshot(userState.general.hasIllusionByEnchantmentId),
         hasMountById: $state.snapshot(userState.general.hasMountById),
         hasPetById: $state.snapshot(userState.general.hasPetById),
