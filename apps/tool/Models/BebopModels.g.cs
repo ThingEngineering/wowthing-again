@@ -24,58 +24,89 @@ namespace Wowthing.Tool.Models {
   public static class BopConstants {
     public static readonly byte[] BEBOP_SCHEMA = new byte[] {
     3, 1, 0, 0, 0, 66, 101, 98, 111, 112, 73, 116, 101, 109,
-    0, 1, 0, 0, 36, 0, 0, 0, 0, 12, 105, 100, 67, 108, 97,
-    115, 115, 73, 100, 83, 117, 98, 99, 108, 97, 115, 115, 73,
-    100, 0, 251, 255, 255, 255, 0, 98, 105, 110, 100, 84, 121,
-    112, 101, 69, 120, 112, 97, 110, 115, 105, 111, 110, 0,
-    254, 255, 255, 255, 0, 112, 114, 105, 109, 97, 114, 121,
-    83, 116, 97, 116, 81, 117, 97, 108, 105, 116, 121, 0, 254,
-    255, 255, 255, 0, 114, 97, 99, 101, 77, 97, 115, 107, 0,
-    248, 255, 255, 255, 0, 99, 108, 97, 115, 115, 77, 97, 115,
-    107, 0, 250, 255, 255, 255, 0, 102, 108, 97, 103, 115, 0,
-    254, 255, 255, 255, 0, 105, 110, 118, 101, 110, 116, 111,
-    114, 121, 84, 121, 112, 101, 0, 254, 255, 255, 255, 0,
-    105, 116, 101, 109, 76, 101, 118, 101, 108, 0, 252, 255,
-    255, 255, 0, 117, 110, 105, 113, 117, 101, 0, 252, 255,
-    255, 255, 0, 110, 97, 109, 101, 0, 245, 255, 255, 255, 0,
-    115, 111, 99, 107, 101, 116, 115, 0, 242, 255, 255, 255,
-    0, 254, 255, 255, 255, 0, 97, 112, 112, 101, 97, 114, 97,
-    110, 99, 101, 115, 0, 242, 255, 255, 255, 0, 251, 255,
-    255, 255, 0, 0, 0, 0, 0
+    0, 2, 0, 5, 0, 0, 0, 19, 105, 100, 67, 108, 97, 115, 115,
+    73, 100, 83, 117, 98, 99, 108, 97, 115, 115, 73, 100, 0,
+    251, 255, 255, 255, 0, 1, 110, 97, 109, 101, 0, 245, 255,
+    255, 255, 0, 2, 98, 105, 110, 100, 84, 121, 112, 101, 69,
+    120, 112, 97, 110, 115, 105, 111, 110, 0, 254, 255, 255,
+    255, 0, 3, 112, 114, 105, 109, 97, 114, 121, 83, 116, 97,
+    116, 81, 117, 97, 108, 105, 116, 121, 0, 254, 255, 255,
+    255, 0, 4, 114, 97, 99, 101, 77, 97, 115, 107, 0, 248,
+    255, 255, 255, 0, 5, 99, 108, 97, 115, 115, 77, 97, 115,
+    107, 0, 250, 255, 255, 255, 0, 6, 102, 108, 97, 103, 115,
+    0, 254, 255, 255, 255, 0, 7, 105, 110, 118, 101, 110, 116,
+    111, 114, 121, 84, 121, 112, 101, 0, 254, 255, 255, 255,
+    0, 8, 105, 116, 101, 109, 76, 101, 118, 101, 108, 0, 252,
+    255, 255, 255, 0, 9, 117, 110, 105, 113, 117, 101, 0, 252,
+    255, 255, 255, 0, 10, 114, 101, 113, 117, 105, 114, 101,
+    100, 83, 107, 105, 108, 108, 0, 252, 255, 255, 255, 0, 11,
+    114, 101, 113, 117, 105, 114, 101, 100, 83, 107, 105, 108,
+    108, 82, 97, 110, 107, 0, 252, 255, 255, 255, 0, 12, 97,
+    112, 112, 101, 97, 114, 97, 110, 99, 101, 115, 0, 242,
+    255, 255, 255, 0, 251, 255, 255, 255, 0, 13, 99, 111, 109,
+    112, 108, 101, 116, 101, 115, 81, 117, 101, 115, 116, 73,
+    100, 115, 0, 242, 255, 255, 255, 0, 250, 255, 255, 255, 0,
+    14, 115, 111, 99, 107, 101, 116, 115, 0, 242, 255, 255,
+    255, 0, 254, 255, 255, 255, 0, 15, 116, 101, 97, 99, 104,
+    101, 115, 68, 101, 99, 111, 114, 73, 100, 115, 0, 242,
+    255, 255, 255, 0, 253, 255, 255, 255, 0, 16, 116, 101, 97,
+    99, 104, 101, 115, 83, 112, 101, 108, 108, 73, 100, 115,
+    0, 242, 255, 255, 255, 0, 250, 255, 255, 255, 0, 17, 116,
+    101, 97, 99, 104, 101, 115, 84, 114, 97, 110, 115, 109,
+    111, 103, 73, 108, 108, 117, 115, 105, 111, 110, 73, 100,
+    115, 0, 242, 255, 255, 255, 0, 254, 255, 255, 255, 0, 18,
+    116, 101, 97, 99, 104, 101, 115, 84, 114, 97, 110, 115,
+    109, 111, 103, 83, 101, 116, 73, 100, 115, 0, 242, 255,
+    255, 255, 0, 253, 255, 255, 255, 0, 19, 0, 0, 0, 0
     };
   }
 
   [global::System.CodeDom.Compiler.GeneratedCode("bebopc", "3.1.3")]
-  [global::Bebop.Attributes.BebopRecord(global::Bebop.Runtime.BebopKind.Struct)]
+  [global::Bebop.Attributes.BebopRecord(global::Bebop.Runtime.BebopKind.Message)]
   public partial class BebopItem : global::Bebop.Runtime.BaseBebopRecord, global::Bebop.Runtime.IDecodable<BebopItem>, global::System.IEquatable<BebopItem> {
+    #nullable enable
     /// <inheritdoc />
     public sealed override int MaxByteCount => GetMaxByteCount();
     /// <inheritdoc />
     public sealed override int ByteCount => GetByteCount();
-    [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull]
-    public uint IdClassIdSubclassId { get; init; }
-    [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull]
-    public byte BindTypeExpansion { get; init; }
-    [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull]
-    public byte PrimaryStatQuality { get; init; }
-    [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull]
-    public long RaceMask { get; init; }
-    [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull]
-    public int ClassMask { get; init; }
-    [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull]
-    public byte Flags { get; init; }
-    [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull]
-    public byte InventoryType { get; init; }
-    [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull]
-    public short ItemLevel { get; init; }
-    [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull]
-    public short Unique { get; init; }
-    [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull]
-    public string Name { get; init; }
-    [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull]
-    public global::System.Collections.Immutable.ImmutableArray<byte> Sockets { get; init; }
-    [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull]
-    public uint[] Appearances { get; init; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public uint? IdClassIdSubclassId { get; set; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public string? Name { get; set; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public byte? BindTypeExpansion { get; set; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public byte? PrimaryStatQuality { get; set; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public long? RaceMask { get; set; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public int? ClassMask { get; set; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public byte? Flags { get; set; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public byte? InventoryType { get; set; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public short? ItemLevel { get; set; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public short? Unique { get; set; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public short? RequiredSkill { get; set; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public short? RequiredSkillRank { get; set; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public uint[]? Appearances { get; set; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public int[]? CompletesQuestIds { get; set; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public global::System.Collections.Immutable.ImmutableArray<byte> Sockets { get; set; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public ushort[]? TeachesDecorIds { get; set; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public int[]? TeachesSpellIds { get; set; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public global::System.Collections.Immutable.ImmutableArray<byte> TeachesTransmogIllusionIds { get; set; }
+    [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull]
+    public ushort[]? TeachesTransmogSetIds { get; set; }
 
     /// <summary>
     /// </summary>
@@ -83,6 +114,8 @@ namespace Wowthing.Tool.Models {
     /// <summary>
     /// </summary>
     /// <param name="idClassIdSubclassId">
+    /// </param>
+    /// <param name="name">
     /// </param>
     /// <param name="bindTypeExpansion">
     /// </param>
@@ -100,32 +133,109 @@ namespace Wowthing.Tool.Models {
     /// </param>
     /// <param name="unique">
     /// </param>
-    /// <param name="name">
+    /// <param name="requiredSkill">
     /// </param>
-    /// <param name="sockets">
+    /// <param name="requiredSkillRank">
     /// </param>
     /// <param name="appearances">
     /// </param>
-    public BebopItem([global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] uint idClassIdSubclassId, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] byte bindTypeExpansion, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] byte primaryStatQuality, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] long raceMask, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] int classMask, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] byte flags, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] byte inventoryType, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] short itemLevel, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] short unique, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] string name, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] global::System.Collections.Immutable.ImmutableArray<byte> sockets, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] uint[] appearances) => (IdClassIdSubclassId, BindTypeExpansion, PrimaryStatQuality, RaceMask, ClassMask, Flags, InventoryType, ItemLevel, Unique, Name, Sockets, Appearances) = (idClassIdSubclassId, bindTypeExpansion, primaryStatQuality, raceMask, classMask, flags, inventoryType, itemLevel, unique, name, sockets, appearances);
-    public BebopItem([global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] BebopItem original) => (IdClassIdSubclassId, BindTypeExpansion, PrimaryStatQuality, RaceMask, ClassMask, Flags, InventoryType, ItemLevel, Unique, Name, Sockets, Appearances) = (original.IdClassIdSubclassId, original.BindTypeExpansion, original.PrimaryStatQuality, original.RaceMask, original.ClassMask, original.Flags, original.InventoryType, original.ItemLevel, original.Unique, original.Name, original.Sockets, original.Appearances);
-    public void Deconstruct([global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] out uint idClassIdSubclassId, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] out byte bindTypeExpansion, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] out byte primaryStatQuality, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] out long raceMask, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] out int classMask, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] out byte flags, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] out byte inventoryType, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] out short itemLevel, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] out short unique, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] out string name, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] out global::System.Collections.Immutable.ImmutableArray<byte> sockets, [global::System.Diagnostics.CodeAnalysis.NotNull, global::System.Diagnostics.CodeAnalysis.DisallowNull] out uint[] appearances) => (idClassIdSubclassId, bindTypeExpansion, primaryStatQuality, raceMask, classMask, flags, inventoryType, itemLevel, unique, name, sockets, appearances) = (IdClassIdSubclassId, BindTypeExpansion, PrimaryStatQuality, RaceMask, ClassMask, Flags, InventoryType, ItemLevel, Unique, Name, Sockets, Appearances);
+    /// <param name="completesQuestIds">
+    /// </param>
+    /// <param name="sockets">
+    /// </param>
+    /// <param name="teachesDecorIds">
+    /// </param>
+    /// <param name="teachesSpellIds">
+    /// </param>
+    /// <param name="teachesTransmogIllusionIds">
+    /// </param>
+    /// <param name="teachesTransmogSetIds">
+    /// </param>
+    public BebopItem([global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] uint? idClassIdSubclassId, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] string? name, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] byte? bindTypeExpansion, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] byte? primaryStatQuality, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] long? raceMask, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] int? classMask, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] byte? flags, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] byte? inventoryType, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] short? itemLevel, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] short? unique, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] short? requiredSkill, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] short? requiredSkillRank, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] uint[]? appearances, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] int[]? completesQuestIds, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] global::System.Collections.Immutable.ImmutableArray<byte> sockets, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] ushort[]? teachesDecorIds, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] int[]? teachesSpellIds, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] global::System.Collections.Immutable.ImmutableArray<byte> teachesTransmogIllusionIds, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] ushort[]? teachesTransmogSetIds) => (IdClassIdSubclassId, Name, BindTypeExpansion, PrimaryStatQuality, RaceMask, ClassMask, Flags, InventoryType, ItemLevel, Unique, RequiredSkill, RequiredSkillRank, Appearances, CompletesQuestIds, Sockets, TeachesDecorIds, TeachesSpellIds, TeachesTransmogIllusionIds, TeachesTransmogSetIds) = (idClassIdSubclassId, name, bindTypeExpansion, primaryStatQuality, raceMask, classMask, flags, inventoryType, itemLevel, unique, requiredSkill, requiredSkillRank, appearances, completesQuestIds, sockets, teachesDecorIds, teachesSpellIds, teachesTransmogIllusionIds, teachesTransmogSetIds);
+    public BebopItem([global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] BebopItem? original) => (IdClassIdSubclassId, Name, BindTypeExpansion, PrimaryStatQuality, RaceMask, ClassMask, Flags, InventoryType, ItemLevel, Unique, RequiredSkill, RequiredSkillRank, Appearances, CompletesQuestIds, Sockets, TeachesDecorIds, TeachesSpellIds, TeachesTransmogIllusionIds, TeachesTransmogSetIds) = (original?.IdClassIdSubclassId, original?.Name, original?.BindTypeExpansion, original?.PrimaryStatQuality, original?.RaceMask, original?.ClassMask, original?.Flags, original?.InventoryType, original?.ItemLevel, original?.Unique, original?.RequiredSkill, original?.RequiredSkillRank, original?.Appearances, original?.CompletesQuestIds, original.Sockets, original?.TeachesDecorIds, original?.TeachesSpellIds, original.TeachesTransmogIllusionIds, original?.TeachesTransmogSetIds);
+    public void Deconstruct([global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out uint? idClassIdSubclassId, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out string? name, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out byte? bindTypeExpansion, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out byte? primaryStatQuality, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out long? raceMask, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out int? classMask, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out byte? flags, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out byte? inventoryType, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out short? itemLevel, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out short? unique, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out short? requiredSkill, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out short? requiredSkillRank, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out uint[]? appearances, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out int[]? completesQuestIds, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out global::System.Collections.Immutable.ImmutableArray<byte> sockets, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out ushort[]? teachesDecorIds, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out int[]? teachesSpellIds, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out global::System.Collections.Immutable.ImmutableArray<byte> teachesTransmogIllusionIds, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.AllowNull] out ushort[]? teachesTransmogSetIds) => (idClassIdSubclassId, name, bindTypeExpansion, primaryStatQuality, raceMask, classMask, flags, inventoryType, itemLevel, unique, requiredSkill, requiredSkillRank, appearances, completesQuestIds, sockets, teachesDecorIds, teachesSpellIds, teachesTransmogIllusionIds, teachesTransmogSetIds) = (IdClassIdSubclassId, Name, BindTypeExpansion, PrimaryStatQuality, RaceMask, ClassMask, Flags, InventoryType, ItemLevel, Unique, RequiredSkill, RequiredSkillRank, Appearances, CompletesQuestIds, Sockets, TeachesDecorIds, TeachesSpellIds, TeachesTransmogIllusionIds, TeachesTransmogSetIds);
 
     /// <summary>Calculates the maximum number of bytes produced by encoding the current record.</summary>
     [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
     private protected int GetMaxByteCount() {
       int byteCount = 0;
-      byteCount += sizeof(uint);
-      byteCount += sizeof(byte);
-      byteCount += sizeof(byte);
-      byteCount += sizeof(long);
-      byteCount += sizeof(int);
-      byteCount += sizeof(byte);
-      byteCount += sizeof(byte);
-      byteCount += sizeof(short);
-      byteCount += sizeof(short);
-      byteCount += sizeof(uint) + global::System.Text.Encoding.UTF8.GetMaxByteCount(Name.Length);
-      byteCount += sizeof(uint) + Sockets.Length * 1;
-      byteCount += sizeof(uint) + Appearances.Length * 4;
+      byteCount += 5;
+      if (IdClassIdSubclassId is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(uint);
+      }
+      if (Name is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(uint) + global::System.Text.Encoding.UTF8.GetMaxByteCount(Name.Length);
+      }
+      if (BindTypeExpansion is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(byte);
+      }
+      if (PrimaryStatQuality is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(byte);
+      }
+      if (RaceMask is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(long);
+      }
+      if (ClassMask is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(int);
+      }
+      if (Flags is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(byte);
+      }
+      if (InventoryType is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(byte);
+      }
+      if (ItemLevel is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(short);
+      }
+      if (Unique is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(short);
+      }
+      if (RequiredSkill is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(short);
+      }
+      if (RequiredSkillRank is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(short);
+      }
+      if (Appearances is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(uint) + Appearances.Length * 4;
+      }
+      if (CompletesQuestIds is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(uint) + CompletesQuestIds.Length * 4;
+      }
+      if (Sockets != null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(uint) + Sockets.Length * 1;
+      }
+      if (TeachesDecorIds is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(uint) + TeachesDecorIds.Length * 2;
+      }
+      if (TeachesSpellIds is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(uint) + TeachesSpellIds.Length * 4;
+      }
+      if (TeachesTransmogIllusionIds != null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(uint) + TeachesTransmogIllusionIds.Length * 1;
+      }
+      if (TeachesTransmogSetIds is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(uint) + TeachesTransmogSetIds.Length * 2;
+      }
       return byteCount;
     }
 
@@ -134,20 +244,87 @@ namespace Wowthing.Tool.Models {
     [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
     private protected int GetByteCount() {
       int byteCount = 0;
-      byteCount += sizeof(uint);
-      byteCount += sizeof(byte);
-      byteCount += sizeof(byte);
-      byteCount += sizeof(long);
-      byteCount += sizeof(int);
-      byteCount += sizeof(byte);
-      byteCount += sizeof(byte);
-      byteCount += sizeof(short);
-      byteCount += sizeof(short);
-      byteCount += sizeof(uint) + global::System.Text.Encoding.UTF8.GetByteCount(Name);
-      byteCount += sizeof(uint) + Sockets.Length * 1;
-      byteCount += sizeof(uint) + Appearances.Length * 4;
+      byteCount += 5;
+      if (IdClassIdSubclassId is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(uint);
+      }
+      if (Name is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(uint) + global::System.Text.Encoding.UTF8.GetByteCount(Name);
+      }
+      if (BindTypeExpansion is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(byte);
+      }
+      if (PrimaryStatQuality is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(byte);
+      }
+      if (RaceMask is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(long);
+      }
+      if (ClassMask is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(int);
+      }
+      if (Flags is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(byte);
+      }
+      if (InventoryType is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(byte);
+      }
+      if (ItemLevel is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(short);
+      }
+      if (Unique is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(short);
+      }
+      if (RequiredSkill is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(short);
+      }
+      if (RequiredSkillRank is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(short);
+      }
+      if (Appearances is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(uint) + Appearances.Length * 4;
+      }
+      if (CompletesQuestIds is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(uint) + CompletesQuestIds.Length * 4;
+      }
+      if (Sockets != null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(uint) + Sockets.Length * 1;
+      }
+      if (TeachesDecorIds is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(uint) + TeachesDecorIds.Length * 2;
+      }
+      if (TeachesSpellIds is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(uint) + TeachesSpellIds.Length * 4;
+      }
+      if (TeachesTransmogIllusionIds != null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(uint) + TeachesTransmogIllusionIds.Length * 1;
+      }
+      if (TeachesTransmogSetIds is not null) {
+        byteCount += sizeof(byte);
+        byteCount += sizeof(uint) + TeachesTransmogSetIds.Length * 2;
+      }
       return byteCount;
     }
+
+    #nullable disable
 
     [global::System.Runtime.CompilerServices.MethodImpl(global::Bebop.Runtime.BebopConstants.HotPath)]
     public sealed override byte[] Encode() {
@@ -251,24 +428,136 @@ namespace Wowthing.Tool.Models {
     [global::System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     internal static int __EncodeInto(global::Wowthing.Tool.Models.BebopItem record, ref global::Bebop.Runtime.BebopWriter writer) {
       var before = writer.Length;
-      writer.WriteUInt32(record.IdClassIdSubclassId);
-      writer.WriteByte(record.BindTypeExpansion);
-      writer.WriteByte(record.PrimaryStatQuality);
-      writer.WriteInt64(record.RaceMask);
-      writer.WriteInt32(record.ClassMask);
-      writer.WriteByte(record.Flags);
-      writer.WriteByte(record.InventoryType);
-      writer.WriteInt16(record.ItemLevel);
-      writer.WriteInt16(record.Unique);
-      writer.WriteString(record.Name);
-      writer.WriteBytes(record.Sockets);
-      {
-        var length0 = unchecked((uint)record.Appearances.Length);
-        writer.WriteUInt32(length0);
-        for (var i0 = 0; i0 < length0; i0++) {
-          writer.WriteUInt32(record.Appearances[i0]);
+      var pos = writer.ReserveRecordLength();
+      var start = writer.Length;
+
+      if (record.IdClassIdSubclassId is not null) {
+        writer.WriteByte(1);
+        writer.WriteUInt32(record.IdClassIdSubclassId.Value);
+      }
+
+      if (record.Name is not null) {
+        writer.WriteByte(2);
+        writer.WriteString(record.Name);
+      }
+
+      if (record.BindTypeExpansion is not null) {
+        writer.WriteByte(3);
+        writer.WriteByte(record.BindTypeExpansion.Value);
+      }
+
+      if (record.PrimaryStatQuality is not null) {
+        writer.WriteByte(4);
+        writer.WriteByte(record.PrimaryStatQuality.Value);
+      }
+
+      if (record.RaceMask is not null) {
+        writer.WriteByte(5);
+        writer.WriteInt64(record.RaceMask.Value);
+      }
+
+      if (record.ClassMask is not null) {
+        writer.WriteByte(6);
+        writer.WriteInt32(record.ClassMask.Value);
+      }
+
+      if (record.Flags is not null) {
+        writer.WriteByte(7);
+        writer.WriteByte(record.Flags.Value);
+      }
+
+      if (record.InventoryType is not null) {
+        writer.WriteByte(8);
+        writer.WriteByte(record.InventoryType.Value);
+      }
+
+      if (record.ItemLevel is not null) {
+        writer.WriteByte(9);
+        writer.WriteInt16(record.ItemLevel.Value);
+      }
+
+      if (record.Unique is not null) {
+        writer.WriteByte(10);
+        writer.WriteInt16(record.Unique.Value);
+      }
+
+      if (record.RequiredSkill is not null) {
+        writer.WriteByte(11);
+        writer.WriteInt16(record.RequiredSkill.Value);
+      }
+
+      if (record.RequiredSkillRank is not null) {
+        writer.WriteByte(12);
+        writer.WriteInt16(record.RequiredSkillRank.Value);
+      }
+
+      if (record.Appearances is not null) {
+        writer.WriteByte(13);
+        {
+          var length0 = unchecked((uint)record.Appearances.Length);
+          writer.WriteUInt32(length0);
+          for (var i0 = 0; i0 < length0; i0++) {
+            writer.WriteUInt32(record.Appearances[i0]);
+          }
         }
       }
+
+      if (record.CompletesQuestIds is not null) {
+        writer.WriteByte(14);
+        {
+          var length0 = unchecked((uint)record.CompletesQuestIds.Length);
+          writer.WriteUInt32(length0);
+          for (var i0 = 0; i0 < length0; i0++) {
+            writer.WriteInt32(record.CompletesQuestIds[i0]);
+          }
+        }
+      }
+
+      if (record.Sockets != null) {
+        writer.WriteByte(15);
+        writer.WriteBytes(record.Sockets);
+      }
+
+      if (record.TeachesDecorIds is not null) {
+        writer.WriteByte(16);
+        {
+          var length0 = unchecked((uint)record.TeachesDecorIds.Length);
+          writer.WriteUInt32(length0);
+          for (var i0 = 0; i0 < length0; i0++) {
+            writer.WriteUInt16(record.TeachesDecorIds[i0]);
+          }
+        }
+      }
+
+      if (record.TeachesSpellIds is not null) {
+        writer.WriteByte(17);
+        {
+          var length0 = unchecked((uint)record.TeachesSpellIds.Length);
+          writer.WriteUInt32(length0);
+          for (var i0 = 0; i0 < length0; i0++) {
+            writer.WriteInt32(record.TeachesSpellIds[i0]);
+          }
+        }
+      }
+
+      if (record.TeachesTransmogIllusionIds != null) {
+        writer.WriteByte(18);
+        writer.WriteBytes(record.TeachesTransmogIllusionIds);
+      }
+
+      if (record.TeachesTransmogSetIds is not null) {
+        writer.WriteByte(19);
+        {
+          var length0 = unchecked((uint)record.TeachesTransmogSetIds.Length);
+          writer.WriteUInt32(length0);
+          for (var i0 = 0; i0 < length0; i0++) {
+            writer.WriteUInt16(record.TeachesTransmogSetIds[i0]);
+          }
+        }
+      }
+      writer.WriteByte(0);
+      var end = writer.Length;
+      writer.FillRecordLength(pos, unchecked((uint) unchecked(end - start)));
       var after = writer.Length;
       return after - before;
     }
@@ -280,52 +569,115 @@ namespace Wowthing.Tool.Models {
     [global::System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     internal static global::Wowthing.Tool.Models.BebopItem __DecodeFrom(ref global::Bebop.Runtime.BebopReader reader) {
 
-      uint field0;
-      field0 = reader.ReadUInt32();
-      byte field1;
-      field1 = reader.ReadByte();
-      byte field2;
-      field2 = reader.ReadByte();
-      long field3;
-      field3 = reader.ReadInt64();
-      int field4;
-      field4 = reader.ReadInt32();
-      byte field5;
-      field5 = reader.ReadByte();
-      byte field6;
-      field6 = reader.ReadByte();
-      short field7;
-      field7 = reader.ReadInt16();
-      short field8;
-      field8 = reader.ReadInt16();
-      string field9;
-      field9 = reader.ReadString();
-      global::System.Collections.Immutable.ImmutableArray<byte> field10;
-      field10 = reader.ReadBytes();
-      uint[] field11;
-      {
-        var length0 = unchecked((int)reader.ReadUInt32());
-        field11 = new uint[length0];
-        for (var i0 = 0; i0 < length0; i0++) {
-          uint x0;
-          x0 = reader.ReadUInt32();
-          field11[i0] = x0;
+      var record = new global::Wowthing.Tool.Models.BebopItem();
+      var length = reader.ReadRecordLength();
+      var end = unchecked((int) (reader.Position + length));
+      while (true) {
+        switch (reader.ReadByte()) {
+          case 0:
+            return record;
+          case 1:
+            record.IdClassIdSubclassId = reader.ReadUInt32();
+            break;
+          case 2:
+            record.Name = reader.ReadString();
+            break;
+          case 3:
+            record.BindTypeExpansion = reader.ReadByte();
+            break;
+          case 4:
+            record.PrimaryStatQuality = reader.ReadByte();
+            break;
+          case 5:
+            record.RaceMask = reader.ReadInt64();
+            break;
+          case 6:
+            record.ClassMask = reader.ReadInt32();
+            break;
+          case 7:
+            record.Flags = reader.ReadByte();
+            break;
+          case 8:
+            record.InventoryType = reader.ReadByte();
+            break;
+          case 9:
+            record.ItemLevel = reader.ReadInt16();
+            break;
+          case 10:
+            record.Unique = reader.ReadInt16();
+            break;
+          case 11:
+            record.RequiredSkill = reader.ReadInt16();
+            break;
+          case 12:
+            record.RequiredSkillRank = reader.ReadInt16();
+            break;
+          case 13:
+            {
+              var length0 = unchecked((int)reader.ReadUInt32());
+              record.Appearances = new uint[length0];
+              for (var i0 = 0; i0 < length0; i0++) {
+                uint x0;
+                x0 = reader.ReadUInt32();
+                record.Appearances[i0] = x0;
+              }
+            }
+            break;
+          case 14:
+            {
+              var length0 = unchecked((int)reader.ReadUInt32());
+              record.CompletesQuestIds = new int[length0];
+              for (var i0 = 0; i0 < length0; i0++) {
+                int x0;
+                x0 = reader.ReadInt32();
+                record.CompletesQuestIds[i0] = x0;
+              }
+            }
+            break;
+          case 15:
+            record.Sockets = reader.ReadBytes();
+            break;
+          case 16:
+            {
+              var length0 = unchecked((int)reader.ReadUInt32());
+              record.TeachesDecorIds = new ushort[length0];
+              for (var i0 = 0; i0 < length0; i0++) {
+                ushort x0;
+                x0 = reader.ReadUInt16();
+                record.TeachesDecorIds[i0] = x0;
+              }
+            }
+            break;
+          case 17:
+            {
+              var length0 = unchecked((int)reader.ReadUInt32());
+              record.TeachesSpellIds = new int[length0];
+              for (var i0 = 0; i0 < length0; i0++) {
+                int x0;
+                x0 = reader.ReadInt32();
+                record.TeachesSpellIds[i0] = x0;
+              }
+            }
+            break;
+          case 18:
+            record.TeachesTransmogIllusionIds = reader.ReadBytes();
+            break;
+          case 19:
+            {
+              var length0 = unchecked((int)reader.ReadUInt32());
+              record.TeachesTransmogSetIds = new ushort[length0];
+              for (var i0 = 0; i0 < length0; i0++) {
+                ushort x0;
+                x0 = reader.ReadUInt16();
+                record.TeachesTransmogSetIds[i0] = x0;
+              }
+            }
+            break;
+          default:
+            reader.Position = end;
+            return record;
         }
       }
-      return new global::Wowthing.Tool.Models.BebopItem {
-        IdClassIdSubclassId = field0,
-        BindTypeExpansion = field1,
-        PrimaryStatQuality = field2,
-        RaceMask = field3,
-        ClassMask = field4,
-        Flags = field5,
-        InventoryType = field6,
-        ItemLevel = field7,
-        Unique = field8,
-        Name = field9,
-        Sockets = field10,
-        Appearances = field11,
-      };
     }
 
     #endregion
@@ -337,7 +689,7 @@ namespace Wowthing.Tool.Models {
       if (ReferenceEquals(this, other)) {
         return true;
       }
-      return IdClassIdSubclassId == other.IdClassIdSubclassId && BindTypeExpansion == other.BindTypeExpansion && PrimaryStatQuality == other.PrimaryStatQuality && RaceMask == other.RaceMask && ClassMask == other.ClassMask && Flags == other.Flags && InventoryType == other.InventoryType && ItemLevel == other.ItemLevel && Unique == other.Unique && Name == other.Name && (Sockets == null ? other.Sockets == null : other.Sockets != null && global::System.Linq.Enumerable.SequenceEqual(Sockets, other.Sockets)) && (Appearances is null ? other.Appearances is null : other.Appearances is not null && global::System.Linq.Enumerable.SequenceEqual(Appearances, other.Appearances));
+      return IdClassIdSubclassId == other.IdClassIdSubclassId && Name == other.Name && BindTypeExpansion == other.BindTypeExpansion && PrimaryStatQuality == other.PrimaryStatQuality && RaceMask == other.RaceMask && ClassMask == other.ClassMask && Flags == other.Flags && InventoryType == other.InventoryType && ItemLevel == other.ItemLevel && Unique == other.Unique && RequiredSkill == other.RequiredSkill && RequiredSkillRank == other.RequiredSkillRank && (Appearances is null ? other.Appearances is null : other.Appearances is not null && global::System.Linq.Enumerable.SequenceEqual(Appearances, other.Appearances)) && (CompletesQuestIds is null ? other.CompletesQuestIds is null : other.CompletesQuestIds is not null && global::System.Linq.Enumerable.SequenceEqual(CompletesQuestIds, other.CompletesQuestIds)) && (Sockets == null ? other.Sockets == null : other.Sockets != null && global::System.Linq.Enumerable.SequenceEqual(Sockets, other.Sockets)) && (TeachesDecorIds is null ? other.TeachesDecorIds is null : other.TeachesDecorIds is not null && global::System.Linq.Enumerable.SequenceEqual(TeachesDecorIds, other.TeachesDecorIds)) && (TeachesSpellIds is null ? other.TeachesSpellIds is null : other.TeachesSpellIds is not null && global::System.Linq.Enumerable.SequenceEqual(TeachesSpellIds, other.TeachesSpellIds)) && (TeachesTransmogIllusionIds == null ? other.TeachesTransmogIllusionIds == null : other.TeachesTransmogIllusionIds != null && global::System.Linq.Enumerable.SequenceEqual(TeachesTransmogIllusionIds, other.TeachesTransmogIllusionIds)) && (TeachesTransmogSetIds is null ? other.TeachesTransmogSetIds is null : other.TeachesTransmogSetIds is not null && global::System.Linq.Enumerable.SequenceEqual(TeachesTransmogSetIds, other.TeachesTransmogSetIds));
     }
 
     public override bool Equals(object obj) {
@@ -355,18 +707,25 @@ namespace Wowthing.Tool.Models {
 
     public override int GetHashCode() {
       int hash = 1;
-      hash ^= IdClassIdSubclassId.GetHashCode();
-      hash ^= BindTypeExpansion.GetHashCode();
-      hash ^= PrimaryStatQuality.GetHashCode();
-      hash ^= RaceMask.GetHashCode();
-      hash ^= ClassMask.GetHashCode();
-      hash ^= Flags.GetHashCode();
-      hash ^= InventoryType.GetHashCode();
-      hash ^= ItemLevel.GetHashCode();
-      hash ^= Unique.GetHashCode();
-      hash ^= Name.GetHashCode();
-      hash ^= Sockets.GetHashCode();
-      hash ^= Appearances.GetHashCode();
+      if (IdClassIdSubclassId is not null) hash ^= IdClassIdSubclassId.Value.GetHashCode();
+      if (Name is not null) hash ^= Name.GetHashCode();
+      if (BindTypeExpansion is not null) hash ^= BindTypeExpansion.Value.GetHashCode();
+      if (PrimaryStatQuality is not null) hash ^= PrimaryStatQuality.Value.GetHashCode();
+      if (RaceMask is not null) hash ^= RaceMask.Value.GetHashCode();
+      if (ClassMask is not null) hash ^= ClassMask.Value.GetHashCode();
+      if (Flags is not null) hash ^= Flags.Value.GetHashCode();
+      if (InventoryType is not null) hash ^= InventoryType.Value.GetHashCode();
+      if (ItemLevel is not null) hash ^= ItemLevel.Value.GetHashCode();
+      if (Unique is not null) hash ^= Unique.Value.GetHashCode();
+      if (RequiredSkill is not null) hash ^= RequiredSkill.Value.GetHashCode();
+      if (RequiredSkillRank is not null) hash ^= RequiredSkillRank.Value.GetHashCode();
+      if (Appearances is not null) hash ^= Appearances.GetHashCode();
+      if (CompletesQuestIds is not null) hash ^= CompletesQuestIds.GetHashCode();
+      if (Sockets != null) hash ^= Sockets.GetHashCode();
+      if (TeachesDecorIds is not null) hash ^= TeachesDecorIds.GetHashCode();
+      if (TeachesSpellIds is not null) hash ^= TeachesSpellIds.GetHashCode();
+      if (TeachesTransmogIllusionIds != null) hash ^= TeachesTransmogIllusionIds.GetHashCode();
+      if (TeachesTransmogSetIds is not null) hash ^= TeachesTransmogSetIds.GetHashCode();
       return hash;
     }
 

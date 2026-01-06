@@ -1,0 +1,9 @@
+{
+    "include": ["../../bebop/*.bop"],
+    "generators": {
+        "ts": {
+            "outFile": "types/bops.gen.ts",
+            "services": "client"
+        }
+    }
+}

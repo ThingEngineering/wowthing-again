@@ -1,14 +1,21 @@
-struct BebopItem {
-    uint32 idClassIdSubclassId;
-    byte bindTypeExpansion;
-    byte primaryStatQuality;
-    int64 raceMask;
-    int32 classMask;
-    byte flags; // 7b
-    byte inventoryType; // 6b
-    int16 itemLevel; // 12b
-    int16 unique;
-    string name;
-    byte[] sockets;
-    uint32[] appearances;
+message BebopItem {
+    1 -> uint32 idClassIdSubclassId;
+    2 -> string name;
+    3 -> byte bindTypeExpansion;
+    4 -> byte primaryStatQuality;
+    5 -> int64 raceMask;
+    6 -> int32 classMask;
+    7 -> byte flags; // 7b
+    8 -> byte inventoryType; // 6b
+    9 -> int16 itemLevel; // 10b
+    10 -> int16 unique;
+    11 -> int16 requiredSkill;
+    12 -> int16 requiredSkillRank;
+    13 -> uint32[] appearances;
+    14 -> int32[] completesQuestIds;
+    15 -> byte[] sockets;
+    16 -> uint16[] teachesDecorIds;
+    17 -> int32[] teachesSpellIds;
+    18 -> byte[] teachesTransmogIllusionIds;
+    19 -> uint16[] teachesTransmogSetIds;
 }
