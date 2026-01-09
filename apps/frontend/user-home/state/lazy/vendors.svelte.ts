@@ -552,8 +552,10 @@ class LazyVendorsProcessor {
                             [groupKey, groupName] = ['00pets', 'Pets'];
                         } else if (wowthingData.static.toyByItemId.has(item.id)) {
                             [groupKey, groupName] = ['00toys', 'Toys'];
+                        } else if (wowthingData.items.teachesDecor[item.id]) {
+                            [groupKey, groupName] = ['10decor', 'Decor'];
                         } else if (wowthingData.items.completesQuest[item.id]) {
-                            [groupKey, groupName] = ['10misc', 'Misc'];
+                            [groupKey, groupName] = ['01misc', 'Misc'];
                         } else if (wowthingData.static.professionAbilityByItemId.has(item.id)) {
                             [groupKey, groupName] = ['10recipes', 'Recipes'];
                         } else {
