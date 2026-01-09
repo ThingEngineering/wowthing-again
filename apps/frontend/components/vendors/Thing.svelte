@@ -19,7 +19,12 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    let { intersected, thing }: { intersected: boolean; thing: ThingData } = $props();
+    type Props = {
+        intersected?: boolean;
+        skipFaction?: boolean;
+        thing: ThingData;
+    };
+    let { intersected, skipFaction, thing }: Props = $props();
 
     let missing = $derived(
         (!browserState.current.vendors.highlightMissing && !thing.userHas) ||
@@ -140,7 +145,7 @@
             </div>
         {/if}
 
-        {#if thing.item.faction !== Faction.Both}
+        {#if !skipFaction && thing.item.faction !== Faction.Both}
             <div class="icon icon-faction drop-shadow">
                 <FactionIcon faction={thing.item.faction} border={2} size={20} useTooltip={false} />
             </div>
