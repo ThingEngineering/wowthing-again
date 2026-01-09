@@ -70,7 +70,10 @@
                         }
                     }
 
-                    if (!userHas[`${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`]) {
+                    const has = (userHas[
+                        `${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`
+                    ] || [false])[0];
+                    if (!has) {
                         for (const currency in thing.costs) {
                             retTotalCosts['OVERALL'][currency] =
                                 (retTotalCosts['OVERALL'][currency] || 0) + thing.costs[currency];
