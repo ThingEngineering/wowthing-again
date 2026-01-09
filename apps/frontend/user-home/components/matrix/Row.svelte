@@ -2,22 +2,25 @@
     import IntersectionObserver from 'svelte-intersection-observer';
 
     import { Constants } from '@/data/constants';
+    import { Region } from '@/enums/region';
     import { browserState } from '@/shared/state/browser.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
+    import type { Character } from '@/types';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import TooltipCharacter from './TooltipCharacter.svelte';
-    import { Region } from '@/enums/region';
-    import type { Character } from '@/types';
 
-    export let count: number;
-    export let xKeys: string[];
-    export let yEntries: string[];
-    export let yKey: string;
-    export let getCharacters: (xKey: string, yKey: string) => Character[];
+    type Props = {
+        count: number;
+        xKeys: string[];
+        yEntries: string[];
+        yKey: string;
+        getCharacters: (xKey: string, yKey: string) => Character[];
+    };
+    let { count, xKeys, yEntries, yKey, getCharacters }: Props = $props();
 
-    let element: HTMLElement;
-    let intersected = false;
+    let element: HTMLElement = $state(null);
+    let intersected = $state(false);
 </script>
 
 <style lang="scss">
@@ -54,7 +57,7 @@
                     <!-- {line} -->
                 {/each}
             </td>
-            {#each xKeys as xKey}
+            {#each xKeys as xKey (xKey)}
                 {@const keyCharacters = getCharacters(xKey, yKey)}
                 <td
                     class="characters as-{browserState.current.matrix.showCharacterAs}"
@@ -63,7 +66,7 @@
                     )}
                     class:bg-fail={keyCharacters.length === 0}
                 >
-                    {#each keyCharacters as character}
+                    {#each keyCharacters as character (character.id)}
                         <div
                             class="character"
                             use:componentTooltip={{
