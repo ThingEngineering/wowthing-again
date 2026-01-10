@@ -136,7 +136,7 @@ class WowthingData {
             const data = new Uint8Array(buffer);
 
             console.time('hmm');
-            var items = BebopItems.decode(data);
+            const items = BebopItems.decode(data);
             // for (var item in items) {
             //     // appearances[] = sourceType(4)_modifier(8)_appearanceId(20)
             //     // bindTypeExpansion = expansion(4)_bindType(4)
