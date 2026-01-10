@@ -164,7 +164,7 @@
             </tr>
         </thead>
         <tbody>
-            {#each abilities as [ability, userHas, spellId, currentRank, totalRanks, requiredAbility] (spellId)}
+            {#each abilities as [ability, userHas, spellId, currentRank, totalRanks, requiredAbility] (ability.id)}
                 {@const name =
                     ability.name ||
                     wowthingData.items.items[ability.itemIds[0]]?.name ||
