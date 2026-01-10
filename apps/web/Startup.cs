@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -68,7 +69,7 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment env)
                 if (oauthHost != null)
                 {
                     options.Region = BattleNetAuthenticationRegion.Custom;
-                    
+
                     options.AuthorizationEndpoint = BattleNetAuthenticationDefaults.Unified.AuthorizationEndpoint
                         .Replace("oauth.battle.net", oauthHost);
                     options.TokenEndpoint = BattleNetAuthenticationDefaults.Unified.TokenEndpoint
@@ -117,6 +118,7 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment env)
             services.AddResponseCompression(options =>
             {
                 options.EnableForHttps = true;
+                options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(["application/octet-stream"]);
             });
         }
 

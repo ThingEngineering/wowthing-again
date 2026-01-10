@@ -16,6 +16,7 @@ public class UserViewModel
     public readonly string JournalHash;
     public readonly string ManualHash;
     public readonly string StaticHash;
+    public readonly string BebopItemHash;
 
     public UserViewModel(
         Dictionary<string, string> hashes,
@@ -39,5 +40,6 @@ public class UserViewModel
         JournalHash = hashes["Journal"];
         ManualHash = hashes["Manual"];
         StaticHash = hashes["Static"];
+        BebopItemHash = hashes["BebopItem"];
     }
 }

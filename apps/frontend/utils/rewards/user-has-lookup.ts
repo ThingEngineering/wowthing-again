@@ -35,6 +35,8 @@ export function userHasLookup(
             snapshot.collectingCharactersV2,
             snapshot.isKnownRecipeData
         );
+    } else if (type === LookupType.Decor) {
+        return snapshot.hasDecorById.has(id);
     } else if (type === LookupType.Quest) {
         return snapshot.anyCharacterHasQuestById.has(id);
     } else if (type === LookupType.Spell) {

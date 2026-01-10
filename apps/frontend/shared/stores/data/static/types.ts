@@ -157,6 +157,7 @@ export class DataStatic {
     public professionAbilityBySpellId = new Map<number, StaticDataProfessionAbilityInfo>();
     public professionBySkillLineId = new Map<number, [StaticDataProfession, number]>();
     public professionBySlug = new Map<string, StaticDataProfession>();
+    public requiredProfessionByItemId = new Map<number, number>();
     public toyByItemId = new Map<number, StaticDataToy>();
 
     // Professions eh
@@ -198,6 +199,16 @@ export class DataStatic {
                         this.professionAbilityBySpellId.set(spellId, abilityInfo);
                     }
                 }
+            }
+        }
+
+        // ??
+        for (const [itemId, [requiredSkillId]] of getNumberKeyedEntries(
+            wowthingData.items.itemRequiredSkills
+        )) {
+            const [profession] = this.professionBySkillLineId.get(requiredSkillId) || [];
+            if (profession) {
+                this.requiredProfessionByItemId.set(itemId, profession.id);
             }
         }
     }

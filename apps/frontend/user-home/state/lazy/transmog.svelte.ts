@@ -206,8 +206,11 @@ export function doTransmog(): LazyTransmog {
                                     continue;
                                 }
 
-                                // These don't collect properly
-                                if (item.quality === ItemQuality.Heirloom) {
+                                // Legendaries aren't awarded and heirlooms don't collect properly
+                                if (
+                                    item.quality === ItemQuality.Legendary ||
+                                    item.quality === ItemQuality.Heirloom
+                                ) {
                                     continue;
                                 }
 

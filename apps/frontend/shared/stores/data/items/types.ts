@@ -22,6 +22,7 @@ export interface RawItems {
     craftingQualities: Record<number, number[]>;
     itemBonusListGroups: Record<number, Record<number, number[]>>;
     itemConversionEntries: Record<number, number[]>;
+    itemRequiredSkills: Record<number, [number, number]>;
     limitCategories: Record<number, number>;
     limitCategoryItems: Record<number, number[]>;
     specOverrides: Record<number, number[]>;
@@ -40,11 +41,12 @@ export class DataItems {
     public bonusIdToModifiedCrafting: RawItems['bonusIdToModifiedCrafting'];
     public completesQuest: RawItems['completesQuest'];
     public itemConversionEntries: RawItems['itemConversionEntries'];
+    public itemRequiredSkills: RawItems['itemRequiredSkills'];
     public limitCategories: RawItems['limitCategories'];
     public specOverrides: RawItems['specOverrides'];
     public teachesDecor: RawItems['teachesDecor'];
-    public teachesSpell: RawItems['teachesSpell'];
     public teachesIllusion: RawItems['teachesIllusion'];
+    public teachesSpell: RawItems['teachesSpell'];
     public teachesTransmog: RawItems['teachesTransmog'];
 
     public appearanceToItems: Record<number, [number, number][]> = {};

@@ -56,7 +56,7 @@ public static class DatabaseExtensions
         await Task.WhenAll(tasks);
     }
 
-    public static async Task SetCacheDataAndHash(this IDatabase db, string key, string data, string hash)
+    public static async Task SetCacheDataAndHash(this IDatabase db, string key, RedisValue data, string hash)
     {
         await db.StringSetAsync($"cache:{key}:data", data);
         await db.StringSetAsync($"cache:{key}:hash", hash);

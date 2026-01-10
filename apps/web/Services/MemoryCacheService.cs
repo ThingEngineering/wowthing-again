@@ -241,9 +241,10 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
                 var journalHash = db.StringGetAsync("cache:journal-enUS:hash");
                 var manualHash = db.StringGetAsync("cache:manual-enUS:hash");
                 var staticHash = db.StringGetAsync("cache:static-enUS:hash");
+                var bebopItemHash = db.StringGetAsync("cache:item-bebop-enUS:hash");
 
                 await Task.WhenAll(achievementHash, appearanceHash, auctionHash, dbHash, itemHash, journalHash,
-                    manualHash, staticHash);
+                    manualHash, staticHash, bebopItemHash);
 
                 return new Dictionary<string, string>
                 {
@@ -255,6 +256,7 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
                     { "Journal", journalHash.Result },
                     { "Manual", manualHash.Result },
                     { "Static", staticHash.Result },
+                    { "BebopItem", bebopItemHash.Result },
                 };
             }
         );

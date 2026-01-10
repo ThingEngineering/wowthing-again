@@ -1,13 +1,16 @@
 <script lang="ts">
-    import { iconLibrary } from '@/shared/icons'
+    import { iconLibrary } from '@/shared/icons';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
-    export let disabled = false
-    export let name: string
-    export let options: [string, string][]
-    export let value: string
+    type Props = {
+        disabled?: boolean;
+        name: string;
+        options: [string, string][];
+        value: string;
+    };
+    let { disabled, name, options, value = $bindable() }: Props = $props();
 </script>
 
 <style lang="scss">
@@ -28,22 +31,21 @@
     }
 </style>
 
-<fieldset
-    class="fancy-checkbox"
-    class:disabled
->
-    {#each options as [optionValue, optionLabel], optionIndex}
+<fieldset class="fancy-checkbox" class:disabled>
+    {#each options as [optionValue, optionLabel], optionIndex (optionValue)}
         <label for="input-{name}-{optionIndex}">
             <input
                 id="input-{name}-{optionIndex}"
-                name={name}
+                {name}
                 type="radio"
-                value="{optionValue}"
+                value={optionValue}
                 bind:group={value}
                 {disabled}
-            >
+            />
             <IconifyIcon
-                icon={optionValue === value ? iconLibrary.mdiRadioboxMarked : iconLibrary.mdiRadioboxBlank}
+                icon={optionValue === value
+                    ? iconLibrary.mdiRadioboxMarked
+                    : iconLibrary.mdiRadioboxBlank}
             />
             <ParsedText text={optionLabel} />
         </label>

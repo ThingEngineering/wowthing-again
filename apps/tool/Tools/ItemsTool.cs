@@ -138,6 +138,7 @@ public class ItemsTool
             .ToDictionaryAsync(wib => wib.Id);
 
         var completesQuestMap = new Dictionary<int, int[]>(); // itemId -> [questIds]
+        var requiredSkillMap = new Dictionary<int, int[]>(); // itemId -> [skillId, skillLevel]
         var teachesDecorMap = new Dictionary<int, int[]>(); // itemId -> [decorIds]
         var teachesSpellMap = new Dictionary<int, int[]>(); // itemId -> [spellIds]
         var teachesTransmogIllusionMap = new Dictionary<int, int[]>(); // itemId -> [transmogIllusionIds]
@@ -149,6 +150,11 @@ public class ItemsTool
                 completesQuestMap[item.Id] = item.CompletesQuestIds
                     .Where(id => id != 39609 && id != 39610) // Hallow's End/Winter Veil HQTs?
                     .ToArray();
+            }
+
+            if (item.RequiredSkill > 0)
+            {
+                requiredSkillMap[item.Id] = [item.RequiredSkill, item.RequiredSkillRank];
             }
 
             if (item.TeachesDecorIds.Length > 0)
@@ -236,6 +242,7 @@ public class ItemsTool
             CraftingQualities = idsByCraftingQuality,
             ItemBonusListGroups = listGroups,
             ItemConversionEntries = await LoadItemConversionEntries(),
+            ItemRequiredSkills = requiredSkillMap,
             LimitCategories = await LoadLimitCategories(),
             SpecOverrides = await LoadSpecOverrides(),
             TeachesDecor = teachesDecorMap,
@@ -268,7 +275,8 @@ public class ItemsTool
                     group => group.Select(item => item.Id).ToArray()
                 ),
         };
-        string? cacheHash = null;
+        string? jsonHash = null;
+        string? bebopHash = null;
 
         var seen = new HashSet<(int, int)>();
         var oppositeIds = _itemMap.Values
@@ -290,7 +298,6 @@ public class ItemsTool
 
         var items = _itemMap.Values.OrderBy(item => item.Id).ToArray();
         cacheData.RawItems = new RedisItemData[_itemMap.Count];
-        var bebopItems = new BebopItem[_itemMap.Count];
         int lastId = 0;
         for (int i = 0; i < items.Length; i++)
         {
@@ -363,13 +370,14 @@ public class ItemsTool
 
             string cacheJson = ToolContext.SerializeJson(cacheData);
             // This ends up being the MD5 of enUS, close enough
-            cacheHash ??= cacheJson.Md5();
+            jsonHash ??= cacheJson.Md5();
 
-            await db.SetCacheDataAndHash($"item-{language.ToString()}", cacheJson, cacheHash);
+            await db.SetCacheDataAndHash($"item-{language.ToString()}", cacheJson, jsonHash);
 
 
-            var bebopBuffer = new byte[1000];
-            using var bebopStream = new MemoryStream();
+            // var bebopBuffer = new byte[1000];
+            // using var bebopStream = new MemoryStream();
+            var bebopItems = new List<BebopItem>(items.Length);
             foreach (var item in items)
             {
                 // s6_c6_i20
@@ -379,31 +387,102 @@ public class ItemsTool
                 // q4_p4
                 byte primaryStatQuality = (byte)((int)item.PrimaryStat | ((int)item.Quality << 4));
 
-                // s4_m8_a20
-                var appearances = itemToModifiedAppearances.GetValueOrDefault(item.Id, [])
-                    .Select(app => (uint)app.AppearanceId | ((uint)app.Modifier << 20) | ((uint)app.SourceType << 28))
-                    .ToArray();
-
                 var bebopItem = new BebopItem
                 {
                     IdClassIdSubclassId = idClassIdSubclassId,
                     BindTypeExpansion = bindTypeExpansion,
                     PrimaryStatQuality = primaryStatQuality,
-                    RaceMask = item.RaceMask,
-                    ClassMask = item.ClassMask,
-                    Flags = (byte)item.Flags,
-                    InventoryType = (byte)item.InventoryType,
-                    ItemLevel = item.ItemLevel,
-                    Unique = item.Unique,
                     Name = _strings.GetValueOrDefault((language, item.Id), $"Item #{item.Id}"),
-                    Sockets = [..item.Sockets.Select(socket => (byte)socket)],
-                    Appearances = appearances
                 };
-                int bytesWritten = BebopSerializer.EncodeIntoBuffer(bebopItem, bebopBuffer);
-                bebopStream.Write(bebopBuffer, 0, bytesWritten);
+
+                if (item.RaceMask > 0)
+                {
+                    bebopItem.RaceMask = item.RaceMask;
+                }
+                if (item.ClassMask > 0)
+                {
+                    bebopItem.ClassMask = item.ClassMask;
+                }
+                if (item.Flags > 0)
+                {
+                    bebopItem.Flags = (byte)item.Flags;
+                }
+                if (item.InventoryType > 0)
+                {
+                    bebopItem.InventoryType = (byte)item.InventoryType;
+                }
+                if (item.ItemLevel > 0)
+                {
+                    bebopItem.ItemLevel = item.ItemLevel;
+                }
+                if (item.Unique > 0)
+                {
+                    bebopItem.Unique = item.Unique;
+                }
+
+                if (item.RequiredSkill > 0)
+                {
+                    bebopItem.RequiredSkill = item.RequiredSkill;
+                    bebopItem.RequiredSkillRank = item.RequiredSkillRank;
+                }
+
+                if (item.CompletesQuestIds.Length > 0)
+                {
+                    bebopItem.CompletesQuestIds = item.CompletesQuestIds;
+                }
+
+                if (item.Sockets.Length > 0)
+                {
+                    bebopItem.Sockets = [..item.Sockets.Select(socket => (byte)socket)];
+                }
+
+                if (item.TeachesDecorIds.Length > 0)
+                {
+                    bebopItem.TeachesDecorIds = [..item.TeachesDecorIds.Select(decorId => (ushort)decorId)];
+                }
+
+                if (item.TeachesTransmogIllusionIds.Length > 0)
+                {
+                    bebopItem.TeachesTransmogIllusionIds = [..item.TeachesTransmogIllusionIds.Select(illusionId => (byte)illusionId)];
+                }
+
+                if (item.TeachesTransmogSetIds.Length > 0)
+                {
+                    bebopItem.TeachesTransmogSetIds = [..item.TeachesTransmogSetIds.Select(setId => (ushort)setId)];
+                }
+
+                if (itemToModifiedAppearances.TryGetValue(item.Id, out var itemModifiedAppearances))
+                {
+                    // s4_m8_a20
+                    uint[] appearances = itemModifiedAppearances
+                        .Select(app => (uint)app.AppearanceId | ((uint)app.Modifier << 20) | ((uint)app.SourceType << 28))
+                        .ToArray();
+                    bebopItem.Appearances = appearances;
+                }
+
+                bebopItems.Add(bebopItem);
+                // int bytesWritten = BebopSerializer.EncodeIntoBuffer(bebopItem, bebopBuffer);
+                // bebopStream.Write(bebopBuffer, 0, bytesWritten);
             }
 
-            ToolContext.Logger.Warning("Bebop stream is {n} bytes", bebopStream.Length);
+            //
+            // bebopStream.Seek(0, SeekOrigin.Begin);
+            // byte[] bebopData = new  byte[bebopStream.Length];
+            // await bebopStream.ReadExactlyAsync(bebopData, 0, bebopData.Length);
+
+            var ugh = new BebopItems
+            {
+                Items = bebopItems.ToArray()
+            };
+            byte[] bebopData = BebopSerializer.Encode(ugh);
+
+            // This ends up being the MD5 of enUS, close enough
+            bebopHash ??= bebopData.Md5();
+
+            await db.SetCacheDataAndHash($"item-bebop-{language.ToString()}", bebopData, bebopHash);
+
+            ToolContext.Logger.Warning("Bebop stream is {len} bytes for {count} records", bebopData.Length, bebopItems.Count);
+            break;
         }
 
         _timer.AddPoint("Generate", true);
@@ -542,8 +621,8 @@ public class ItemsTool
                 continue;
             }
 
-            ToolContext.Logger.Information("ItemID={0} BonusTreeID={1} Name={2}",
-                mcItem.ItemID, mcReagentItem.ItemBonusTreeID, mcCategory.DisplayName);
+            // ToolContext.Logger.Information("ItemID={0} BonusTreeID={1} Name={2}",
+            //     mcItem.ItemID, mcReagentItem.ItemBonusTreeID, mcCategory.DisplayName);
 
             foreach (var treeNode in treeNodes)
             {
@@ -557,7 +636,7 @@ public class ItemsTool
                 // {
                 //
                 // };
-                ToolContext.Logger.Information("  - Node {id}", treeNode.ChildItemBonusListID);
+                // ToolContext.Logger.Information("  - Node {id}", treeNode.ChildItemBonusListID);
                 if (ret.TryGetValue(treeNode.ChildItemBonusListID, out var impostor))
                 {
                     ToolContext.Logger.Warning("Duplicate bonus list {id} - item={item1} name={name1} / item={item2} name={name2}",

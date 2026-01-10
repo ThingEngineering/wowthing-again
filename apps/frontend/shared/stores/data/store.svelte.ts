@@ -10,6 +10,7 @@ import type { DataItems, RawItems } from './items/types';
 import type { DataJournal, RawJournal } from './journal/types';
 import type { DataManual, RawManual } from './manual/types';
 import type { DataStatic, RawStatic } from './static/types';
+import { BebopItems } from '@/types/bops.gen';
 
 const requestInit: RequestInit = {
     credentials: 'include',
@@ -57,6 +58,7 @@ class WowthingData {
                     (rawData: RawItems) => (this.items = processItemsData(rawData))
                 )
             );
+            // promises.push(this.fetchAndProcessItems());
         }
         if (options.loadJournal !== false) {
             promises.push(
@@ -111,6 +113,38 @@ class WowthingData {
 
             const json = (await response.json()) as TRawData;
             processFunc(json);
+        } catch (err) {
+            console.error(err);
+            this.error = true;
+        }
+    }
+
+    private async fetchAndProcessItems() {
+        const dataUrl = document.getElementById('app')?.getAttribute(`data-item-bebop`);
+        const urlPath = dataUrl.replace('zzZZ', Language[this.language]);
+        const url = this.baseUri + urlPath.substring(1);
+
+        try {
+            const request = new Request(url, requestInit);
+            const response = await fetch(request);
+            if (!response.ok) {
+                console.error(response);
+                throw response.statusText;
+            }
+
+            const buffer = await response.arrayBuffer();
+            const data = new Uint8Array(buffer);
+
+            console.time('hmm');
+            const items = BebopItems.decode(data);
+            // for (var item in items) {
+            //     // appearances[] = sourceType(4)_modifier(8)_appearanceId(20)
+            //     // bindTypeExpansion = expansion(4)_bindType(4)
+            //     // idClassIdSubclassId = subclassId(6)_classId(6)_itemId(20)
+            //     // primaryStatQuality = quality(4)_primaryStat(4)
+            // }
+            console.timeEnd('hmm');
+            console.log(items);
         } catch (err) {
             console.error(err);
             this.error = true;

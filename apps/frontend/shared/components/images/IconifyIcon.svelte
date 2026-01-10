@@ -1,17 +1,18 @@
-<svelte:options immutable={true} />
-
 <script lang="ts">
     import { iconLibrary } from '@/shared/icons';
 
     import type { IconifyIcon } from '@iconify/types';
 
-    export let dropShadow = false;
-    export let extraClass: string = undefined;
-    export let icon: IconifyIcon;
-    export let scale: string = null;
-    export let tooltip: string = undefined;
+    type Props = {
+        icon: IconifyIcon;
+        dropShadow?: boolean;
+        extraClass?: string;
+        scale?: string;
+        tooltip?: string;
+    };
+    let { icon, dropShadow, extraClass, scale, tooltip }: Props = $props();
 
-    $: icon ||= iconLibrary.mdiImageBrokenVariant;
+    let actualIcon = $derived((icon ||= iconLibrary.mdiImageBrokenVariant));
 </script>
 
 <style lang="scss">
@@ -25,7 +26,7 @@
 
 <svg
     style:--scale={scale}
-    viewBox="0 0 {icon.width} {icon.height}"
+    viewBox="0 0 {actualIcon.width} {actualIcon.height}"
     aria-hidden="true"
     role="img"
     class={extraClass}
@@ -33,5 +34,5 @@
     data-tooltip={tooltip}
     on:click
 >
-    {@html icon.body}
+    {@html actualIcon.body}
 </svg>

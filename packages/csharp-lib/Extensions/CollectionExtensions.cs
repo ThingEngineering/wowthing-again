@@ -102,4 +102,12 @@ public static class CollectionExtensions
         }
         return value;
     }
+
+    public static string Md5(this byte[] bytes)
+    {
+        using var hash = MD5.Create();
+        return string.Concat(hash
+            .ComputeHash(bytes)
+            .Select(b => b.ToString("x2")));
+    }
 }

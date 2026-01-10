@@ -107,6 +107,8 @@ interface BrowserStateIdk {
         showCharacterAs: 'level' | 'name';
         showCovenant: boolean;
         showEmptyRows: boolean;
+        showLive: boolean;
+        showRemix: boolean;
         xAxis: string[];
         yAxis: string[];
     };
@@ -260,6 +262,8 @@ const initialState: BrowserStateIdk = {
         showCharacterAs: 'level',
         showCovenant: false,
         showEmptyRows: false,
+        showLive: true,
+        showRemix: false,
         xAxis: [],
         yAxis: [],
     },

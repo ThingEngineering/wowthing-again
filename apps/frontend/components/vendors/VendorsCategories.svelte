@@ -70,7 +70,10 @@
                         }
                     }
 
-                    if (!userHas[`${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`]) {
+                    const has = (userHas[
+                        `${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`
+                    ] || [false])[0];
+                    if (!has) {
                         for (const currency in thing.costs) {
                             retTotalCosts['OVERALL'][currency] =
                                 (retTotalCosts['OVERALL'][currency] || 0) + thing.costs[currency];
@@ -89,7 +92,7 @@
     let containerElement = $state<HTMLElement>(null);
     let resizeableElement = $state<HTMLElement>(null);
     let debouncedResize: () => void = $derived.by(() => {
-        if (resizeableElement) {
+        if (resizeableElement && categories) {
             return getColumnResizer(containerElement, resizeableElement, 'collection-v2-group', {
                 columnCount: '--column-count',
                 gap: 30,

@@ -2,6 +2,7 @@
     import IntersectionObserver from 'svelte-intersection-observer';
 
     import { AppearanceModifier } from '@/enums/appearance-modifier';
+    import { Faction } from '@/enums/faction';
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
     import { RewardType } from '@/enums/reward-type';
     import { browserState } from '@/shared/state/browser.svelte';
@@ -9,12 +10,12 @@
     import { ThingData } from '@/types/vendors';
     import { lazyState } from '@/user-home/state/lazy';
     import getPercentClass from '@/utils/get-percent-class';
+    import { applyBonusIds } from '@/utils/items/apply-bonus-ids';
     import type { ManualDataVendorGroup } from '@/types/data/manual';
 
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import Thing from './Thing.svelte';
-    import { applyBonusIds } from '@/utils/items/apply-bonus-ids';
 
     type Props = {
         group: ManualDataVendorGroup;
@@ -41,14 +42,19 @@
             ? overrideShowUncollected
             : browserState.current.vendors.showUncollected;
 
-    let things = $derived.by(() => {
-        const ret: ThingData[] = [];
+    let [things, groupName, skipFaction] = $derived.by(() => {
+        const retThings: ThingData[] = [];
+        let retGroupName: string = group.name;
+        let anyAlliance = false;
+        let anyHorde = false;
+        let anyNormal = false;
+
         for (const thing of showAll ? group.sells : group.sellsFiltered) {
             const bonusIds = thing.bonusIds || [];
             const thingKey = `${thing.type}|${thing.id}|${bonusIds.join(',')}`;
-            const userHas = lazyState.vendors.userHas[thingKey] === true;
+            const [userHas, lookupType, lookupId] = lazyState.vendors.userHas[thingKey] || [];
             if (showAll || (useShowCollected && userHas) || (useShowUncollected && !userHas)) {
-                const thingData = new ThingData(thing, userHas);
+                const thingData = new ThingData(thing, userHas, lookupId, lookupType);
 
                 thingData.bonusIds = bonusIds;
                 thingData.quality =
@@ -81,6 +87,10 @@
                     }
 
                     const item = wowthingData.items.items[thingData.linkId];
+                    if (!item) {
+                        console.warn('Invalid item', group.name, thingData.linkId);
+                        continue;
+                    }
 
                     const withBonusIds = applyBonusIds(bonusIds, {
                         itemLevel: item.itemLevel,
@@ -94,10 +104,6 @@
                     let modifier = thing.appearanceModifier;
                     if (appearanceKeys.length === 1 || !appearanceKeys.includes(modifier)) {
                         modifier = appearanceKeys[0];
-                    }
-
-                    if (item.id === 242368) {
-                        console.log({ item, withBonusIds, appearanceKeys, modifier, thingData });
                     }
 
                     if (group.overrideDifficulty === 14) {
@@ -121,11 +127,30 @@
                     }
                 }
 
-                ret.push(thingData);
+                if (thing.faction === Faction.Alliance) {
+                    anyAlliance = true;
+                } else if (thing.faction === Faction.Horde) {
+                    anyHorde = true;
+                } else {
+                    anyNormal = true;
+                }
+
+                retThings.push(thingData);
             }
         }
 
-        return ret;
+        let retSkipFaction = false;
+        if ([anyAlliance, anyHorde, anyNormal].filter(Boolean).length === 1) {
+            if (anyAlliance) {
+                retSkipFaction = true;
+                retGroupName = `:alliance: ${retGroupName}`;
+            } else if (anyHorde) {
+                retSkipFaction = true;
+                retGroupName = `:horde: ${retGroupName}`;
+            }
+        }
+
+        return [retThings, retGroupName, retSkipFaction];
     });
 </script>
 
@@ -152,14 +177,14 @@
         <div bind:this={element} class="collection{useV2 ? '-v2' : ''}-group">
             <div class="title">
                 <h4 class="drop-shadow text-overflow {getPercentClass(percent)}">
-                    <ParsedText text={group.name} />
+                    <ParsedText text={groupName} />
                 </h4>
                 <CollectibleCount counts={group.stats} />
             </div>
 
             <div class="collection-objects">
                 {#each things as thing (thing)}
-                    <Thing {intersected} {thing} />
+                    <Thing {intersected} {thing} {skipFaction} />
                 {/each}
             </div>
         </div>

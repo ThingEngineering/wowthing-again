@@ -36,7 +36,7 @@ export interface LazyVendors {
     allCurrencies: Set<number>;
     byNpcId: Record<number, ManualDataSharedVendor>;
     stats: Record<string, UserCount>;
-    userHas: Record<string, boolean>;
+    userHas: Record<string, [boolean, LookupType, number]>;
 }
 
 class LazyVendorsProcessor {
@@ -88,7 +88,7 @@ class LazyVendorsProcessor {
 
         const seen: Record<string, boolean> = {};
         const stats: Record<string, UserCount> = {};
-        const userHas: Record<string, boolean> = {};
+        const userHas: LazyVendors['userHas'] = {};
 
         const overallStats = (stats['OVERALL'] = new UserCount());
 
@@ -294,6 +294,7 @@ class LazyVendorsProcessor {
                     }
 
                     const thingKey = `${item.type}|${item.id}|${(item.bonusIds || []).join(',')}`;
+                    userHas[thingKey] = [hasDrop, lookupType, lookupId];
 
                     if (!seen[thingKey]) {
                         overallStats.total++;
@@ -317,8 +318,6 @@ class LazyVendorsProcessor {
 
                         catStats.have++;
                         groupStats.have++;
-
-                        userHas[thingKey] = true;
                     }
 
                     seen[thingKey] = true;
@@ -553,10 +552,15 @@ class LazyVendorsProcessor {
                             [groupKey, groupName] = ['00pets', 'Pets'];
                         } else if (wowthingData.static.toyByItemId.has(item.id)) {
                             [groupKey, groupName] = ['00toys', 'Toys'];
+                        } else if (wowthingData.items.teachesDecor[item.id]) {
+                            [groupKey, groupName] = ['00decor', 'Decor'];
                         } else if (wowthingData.items.completesQuest[item.id]) {
-                            [groupKey, groupName] = ['10misc', 'Misc'];
-                        } else if (wowthingData.static.professionAbilityByItemId.has(item.id)) {
-                            [groupKey, groupName] = ['10recipes', 'Recipes'];
+                            [groupKey, groupName] = ['01misc', 'Misc'];
+                        } else if (
+                            wowthingData.static.professionAbilityByItemId.has(item.id) ||
+                            wowthingData.static.requiredProfessionByItemId.has(item.id)
+                        ) {
+                            [groupKey, groupName] = ['10professions', 'Professions'];
                         } else {
                             [groupKey, groupName] = ['90transmog', 'Transmog'];
                         }
