@@ -87,6 +87,10 @@
                     }
 
                     const item = wowthingData.items.items[thingData.linkId];
+                    if (!item) {
+                        console.warn('Invalid item', group.name, thingData.linkId);
+                        continue;
+                    }
 
                     const withBonusIds = applyBonusIds(bonusIds, {
                         itemLevel: item.itemLevel,
@@ -100,10 +104,6 @@
                     let modifier = thing.appearanceModifier;
                     if (appearanceKeys.length === 1 || !appearanceKeys.includes(modifier)) {
                         modifier = appearanceKeys[0];
-                    }
-
-                    if (item.id === 242368) {
-                        console.log({ item, withBonusIds, appearanceKeys, modifier, thingData });
                     }
 
                     if (group.overrideDifficulty === 14) {
