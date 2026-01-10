@@ -138,14 +138,16 @@ export class CharacterProfession {
                 data.stats.total += ability.extraRanks.length + 1;
                 subProfessionStats.total += ability.extraRanks.length + 1;
 
+                let hadAny = false;
                 for (let rankIndex = ability.extraRanks.length - 1; rankIndex >= 0; rankIndex--) {
                     if (this.knownRecipes.has(ability.extraRanks[rankIndex][0])) {
                         data.stats.have += rankIndex + 2;
                         subProfessionStats.have += rankIndex + 2;
+                        hadAny = true;
                         break;
                     }
                 }
-                if (this.knownRecipes.has(ability.id)) {
+                if (!hadAny && this.knownRecipes.has(ability.id)) {
                     data.stats.have++;
                     subProfessionStats.have++;
                 }
