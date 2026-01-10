@@ -152,6 +152,7 @@ public static partial class Hardcoded
         169699, // Seasoned Elekk Ribeye
 
         // Enchanting
+        28021, // Arcane Dust
         44612, // WotLK Greater Blasting
         62257, // WotLK Titanguard
         343681, // Shadowlands ??
