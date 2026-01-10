@@ -164,6 +164,7 @@ public static partial class Hardcoded
         162208, // Ultimate Gnomish Army Knife (dupe for BoE?)
         178242, // Gearspring Parts (dupe for max results?)
         407170, // Inspired Order Recalibrator (temporary legendary craft)
+        473408, // Housing Crafting Test Recipe
 
         // Inscription
         130407, // MoP Mystery of the Mists
