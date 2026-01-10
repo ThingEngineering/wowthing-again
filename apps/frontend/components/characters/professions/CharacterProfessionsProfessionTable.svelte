@@ -169,10 +169,12 @@
                     ability.name ||
                     wowthingData.items.items[ability.itemIds[0]]?.name ||
                     `Spell #${spellId}`}
+                {@const hasAllRanks = !hasRanks || currentRank >= totalRanks}
                 <tr data-ability-id={ability.id}>
                     <td
                         class="ability-name text-overflow"
-                        class:status-success={userHas}
+                        class:status-success={hasAllRanks}
+                        class:status-shrug={!hasAllRanks}
                         class:status-fail={!userHas}
                         class:tier2={name.includes('Tier2')}
                         class:tier3={name.includes('Tier3')}
