@@ -92,7 +92,7 @@
     let containerElement = $state<HTMLElement>(null);
     let resizeableElement = $state<HTMLElement>(null);
     let debouncedResize: () => void = $derived.by(() => {
-        if (resizeableElement) {
+        if (resizeableElement && categories) {
             return getColumnResizer(containerElement, resizeableElement, 'collection-v2-group', {
                 columnCount: '--column-count',
                 gap: 30,
