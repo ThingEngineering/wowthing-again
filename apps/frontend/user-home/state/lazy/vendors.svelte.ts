@@ -553,11 +553,14 @@ class LazyVendorsProcessor {
                         } else if (wowthingData.static.toyByItemId.has(item.id)) {
                             [groupKey, groupName] = ['00toys', 'Toys'];
                         } else if (wowthingData.items.teachesDecor[item.id]) {
-                            [groupKey, groupName] = ['10decor', 'Decor'];
+                            [groupKey, groupName] = ['00decor', 'Decor'];
                         } else if (wowthingData.items.completesQuest[item.id]) {
                             [groupKey, groupName] = ['01misc', 'Misc'];
-                        } else if (wowthingData.static.professionAbilityByItemId.has(item.id)) {
-                            [groupKey, groupName] = ['10recipes', 'Recipes'];
+                        } else if (
+                            wowthingData.static.professionAbilityByItemId.has(item.id) ||
+                            wowthingData.static.requiredProfessionByItemId.has(item.id)
+                        ) {
+                            [groupKey, groupName] = ['10professions', 'Professions'];
                         } else {
                             [groupKey, groupName] = ['90transmog', 'Transmog'];
                         }
