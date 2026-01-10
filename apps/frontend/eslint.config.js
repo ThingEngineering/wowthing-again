@@ -7,7 +7,11 @@ import svelte from 'eslint-plugin-svelte';
 
 export default [
     {
-        ignores: ['dist', 'vite.config.ts'],
+        ignores: [
+            'dist',
+            'vite.config.ts',
+            'types/bops.gen.ts', // auto-generated
+        ],
     },
 
     js.configs.recommended,
