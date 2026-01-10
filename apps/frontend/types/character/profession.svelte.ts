@@ -13,6 +13,7 @@ import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
 import { UserCount } from '../user-count';
 import { professionSpecializationSpells } from '@/data/professions/professions';
+import { Faction } from '@/enums/faction';
 
 export interface CharacterProfessionRaw {
     currentSkill: number;
@@ -31,7 +32,8 @@ export class CharacterProfession {
 
     constructor(
         public id: number,
-        public specializationId?: number
+        private specializationId: number,
+        private faction: Faction
     ) {}
 
     process(
@@ -121,10 +123,15 @@ export class CharacterProfession {
         ] = []);
 
         for (const ability of category.abilities || []) {
+            if (ability.faction !== Faction.Neutral && ability.faction !== this.faction) {
+                continue;
+            }
+
+            // Gnomish/Goblin Engineering
             const requiredAbility = wowthingData.static.itemToRequiredAbility[ability.itemIds[0]];
             if (
                 professionSpecializationSpells[requiredAbility] &&
-                // this.specializationId !== undefined &&
+                this.specializationId !== undefined &&
                 this.specializationId !== requiredAbility
             ) {
                 continue;
