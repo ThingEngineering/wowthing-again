@@ -12,7 +12,7 @@
     };
     let { icon, dropShadow, extraClass, scale, tooltip }: Props = $props();
 
-    let actualIcon = $derived((icon ||= iconLibrary.mdiImageBrokenVariant));
+    let actualIcon = $derived(icon || iconLibrary.mdiImageBrokenVariant);
 </script>
 
 <style lang="scss">
