@@ -316,7 +316,8 @@ export class Character implements ContainsItems, HasNameAndRealm {
         for (const [professionId, professionData] of getNumberKeyedEntries(professions || {})) {
             const profession = (this.professions[professionId] = new CharacterProfession(
                 professionId,
-                this.professionSpecializations?.[professionId]
+                this.professionSpecializations?.[professionId],
+                this.faction
             ));
             profession.process(professionData, professionTraits || {});
         }
