@@ -1,4 +1,6 @@
 <script lang="ts">
+    import type { ComponentProps } from 'svelte';
+
     import { Faction } from '@/enums/faction';
     import { iconLibrary } from '@/shared/icons';
     import { lookupTypeIcons } from '@/shared/icons/mappings';
@@ -111,7 +113,7 @@
     }
 </style>
 
-{#snippet hoverIcon(icon)}
+{#snippet hoverIcon(icon: ComponentProps<IconifyIcon>['icon'])}
     <div class="icon icon-class quality1 drop-shadow">
         <IconifyIcon {icon} />
     </div>
