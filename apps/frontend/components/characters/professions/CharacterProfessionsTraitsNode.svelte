@@ -23,7 +23,7 @@
     }
     .number {
         text-align: right;
-        width: 2.1rem;
+        width: 2.2rem;
 
         &:last-child {
             padding-right: 0.6rem;
