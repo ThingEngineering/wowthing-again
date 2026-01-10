@@ -12,6 +12,7 @@ import type {
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
 import { UserCount } from '../user-count';
+import { professionSpecializationSpells } from '@/data/professions/professions';
 
 export interface CharacterProfessionRaw {
     currentSkill: number;
@@ -28,7 +29,10 @@ export class CharacterProfession {
     public subProfessionStats = $derived.by(() => this._derivedData.subProfessionStats);
     public subProfessionTraitStats = $derived.by(() => this._derivedData.subProfessionTraitStats);
 
-    constructor(public id: number) {}
+    constructor(
+        public id: number,
+        public specializationId?: number
+    ) {}
 
     process(
         rawProfession: Record<number, CharacterProfessionRaw>,
@@ -117,6 +121,15 @@ export class CharacterProfession {
         ] = []);
 
         for (const ability of category.abilities || []) {
+            const requiredAbility = wowthingData.static.itemToRequiredAbility[ability.itemIds[0]];
+            if (
+                professionSpecializationSpells[requiredAbility] &&
+                // this.specializationId !== undefined &&
+                this.specializationId !== requiredAbility
+            ) {
+                continue;
+            }
+
             // FIXME pass in faction?
             // if (ability.faction !== Faction.Neutral && ability.faction !== this.character.faction) {
             //     continue;

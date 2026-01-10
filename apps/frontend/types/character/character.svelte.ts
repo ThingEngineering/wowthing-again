@@ -300,12 +300,23 @@ export class Character implements ContainsItems, HasNameAndRealm {
             );
         }
 
+        this.professionSpecializations = {};
+        for (const [professionId, specialization] of Object.entries(professionSpecializations)) {
+            const spellId = professionSpecializationToSpell[specialization];
+            if (spellId) {
+                this.professionSpecializations[parseInt(professionId)] = spellId;
+            } else {
+                console.log(`Unknown profession specialization: ${professionId} ${specialization}`);
+            }
+        }
+
         // professions
         // TODO diff update this
         this.professions = {};
         for (const [professionId, professionData] of getNumberKeyedEntries(professions || {})) {
             const profession = (this.professions[professionId] = new CharacterProfession(
-                professionId
+                professionId,
+                this.professionSpecializations?.[professionId]
             ));
             profession.process(professionData, professionTraits || {});
         }
@@ -323,16 +334,6 @@ export class Character implements ContainsItems, HasNameAndRealm {
                 }
             }
             syncSet(pandaCooking.knownRecipes, pandaRecipes);
-        }
-
-        this.professionSpecializations = {};
-        for (const [professionId, specialization] of Object.entries(professionSpecializations)) {
-            const spellId = professionSpecializationToSpell[specialization];
-            if (spellId) {
-                this.professionSpecializations[parseInt(professionId)] = spellId;
-            } else {
-                console.log(`Unknown profession specialization: ${professionId} ${specialization}`);
-            }
         }
 
         this._itemCounts = {};
