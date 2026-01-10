@@ -44,6 +44,10 @@
         if (currency?.isAccountWide) {
             ret.push([null, userState.accountCurrency(currency.id)?.quantity || 0]);
         } else {
+            if (!currency && !item && !itemId) {
+                ret.push([null, userState.general.warbankGold || 0]);
+            }
+
             for (const character of userState.general.activeCharacters) {
                 let quantity = 0;
                 if (currency) {
@@ -101,7 +105,7 @@
         width: auto;
     }
     .amount {
-        --max-width: 4rem;
+        --max-width: 5rem;
         --width: 2rem;
 
         text-align: right;

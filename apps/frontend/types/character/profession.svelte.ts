@@ -12,6 +12,8 @@ import type {
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
 import { UserCount } from '../user-count';
+import { professionSpecializationSpells } from '@/data/professions/professions';
+import { Faction } from '@/enums/faction';
 
 export interface CharacterProfessionRaw {
     currentSkill: number;
@@ -28,7 +30,11 @@ export class CharacterProfession {
     public subProfessionStats = $derived.by(() => this._derivedData.subProfessionStats);
     public subProfessionTraitStats = $derived.by(() => this._derivedData.subProfessionTraitStats);
 
-    constructor(public id: number) {}
+    constructor(
+        public id: number,
+        private specializationId: number,
+        private faction: Faction
+    ) {}
 
     process(
         rawProfession: Record<number, CharacterProfessionRaw>,
@@ -117,6 +123,20 @@ export class CharacterProfession {
         ] = []);
 
         for (const ability of category.abilities || []) {
+            if (ability.faction !== Faction.Neutral && ability.faction !== this.faction) {
+                continue;
+            }
+
+            // Gnomish/Goblin Engineering
+            const requiredAbility = wowthingData.static.itemToRequiredAbility[ability.itemIds[0]];
+            if (
+                professionSpecializationSpells[requiredAbility] &&
+                this.specializationId !== undefined &&
+                this.specializationId !== requiredAbility
+            ) {
+                continue;
+            }
+
             // FIXME pass in faction?
             // if (ability.faction !== Faction.Neutral && ability.faction !== this.character.faction) {
             //     continue;
@@ -138,14 +158,16 @@ export class CharacterProfession {
                 data.stats.total += ability.extraRanks.length + 1;
                 subProfessionStats.total += ability.extraRanks.length + 1;
 
+                let hadAny = false;
                 for (let rankIndex = ability.extraRanks.length - 1; rankIndex >= 0; rankIndex--) {
                     if (this.knownRecipes.has(ability.extraRanks[rankIndex][0])) {
                         data.stats.have += rankIndex + 2;
                         subProfessionStats.have += rankIndex + 2;
+                        hadAny = true;
                         break;
                     }
                 }
-                if (this.knownRecipes.has(ability.id)) {
+                if (!hadAny && this.knownRecipes.has(ability.id)) {
                     data.stats.have++;
                     subProfessionStats.have++;
                 }

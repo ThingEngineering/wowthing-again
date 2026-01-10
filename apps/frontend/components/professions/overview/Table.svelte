@@ -11,6 +11,7 @@
     import Profession from './TableProfession.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import ProfessionSpecializationIcon from '@/shared/components/icons/ProfessionSpecializationIcon.svelte';
 
     export let characterIds: number[] = undefined;
     export let profession: StaticDataProfession;
@@ -45,7 +46,7 @@
         text-align: center;
     }
     .specialization {
-        --width: 12rem;
+        --width: 13rem;
     }
     td.specialization {
         text-align: left;
@@ -86,10 +87,11 @@
                 {@const specId = character.professionSpecializations?.[profession.id]}
                 <td class="specialization">
                     {#if specId}
-                        <WowheadLink id={specId} type="spell">
-                            <WowthingImage name="spell/{specId}" size={20} border={1} />
-                            {professionSpecializationSpells[specId]}
-                        </WowheadLink>
+                        <ProfessionSpecializationIcon
+                            {character}
+                            professionId={profession.id}
+                            includeText={true}
+                        />
                     {:else}
                         No spec!
                     {/if}

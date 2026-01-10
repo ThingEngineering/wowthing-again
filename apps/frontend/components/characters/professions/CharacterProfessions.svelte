@@ -8,12 +8,12 @@
     import getSavedRoute from '@/utils/get-saved-route';
     import type { Character, MultiSlugParams } from '@/types';
 
-    export let character: Character;
-    export let params: MultiSlugParams;
-
     import SubnavLinks from './CharacterProfessionsSubnavLinks.svelte';
     import Options from './CharacterProfessionsOptions.svelte';
     import View from './CharacterProfessionsView.svelte';
+
+    export let character: Character;
+    export let params: MultiSlugParams;
 
     let primaryProfessions: ProfessionData[];
     let secondaryProfessions: ProfessionData[];
