@@ -18,6 +18,7 @@
 
     import ProgressBar from '@/components/common/ProgressBar.svelte';
     import Table from './CharacterProfessionsProfessionTable.svelte';
+    import ProfessionSpecializationIcon from '@/shared/components/icons/ProfessionSpecializationIcon.svelte';
 
     export let character: Character;
     export let params: MultiSlugParams;
@@ -78,8 +79,17 @@
         column-count: 2;
         gap: 1rem;
         grid-template-columns: 1fr 1fr;
+
+        :global(button:first-child a) {
+            margin-right: 0.2rem;
+        }
     }
 </style>
+
+{#snippet professionTitle()}
+    <ProfessionSpecializationIcon {character} professionId={staticProfession.id} />
+    {getNameForFaction(subProfession.name, character.faction)}
+{/snippet}
 
 {#if expansion}
     <div class="professions-wrapper">
@@ -91,7 +101,7 @@
                 )}
                 have={charSubProfession?.skillCurrent || 0}
                 total={charSubProfession?.skillMax || -1}
-                title={getNameForFaction(subProfession.name, character.faction)}
+                title={professionTitle}
             />
 
             {#if stats?.total > 0}

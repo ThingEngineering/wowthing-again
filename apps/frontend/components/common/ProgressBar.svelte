@@ -1,17 +1,31 @@
 <script lang="ts">
-    import { iconStrings } from '@/data/icons';
+    import type { Snippet } from 'svelte';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import { iconStrings } from '@/data/icons';
     import { toNiceNumber } from '@/utils/formatting';
 
-    export let cls: string = null;
-    export let title: string = null;
-    export let have = Math.floor(Math.random() * 100);
-    export let midText: string = undefined;
-    export let selected = false;
-    export let shortText = false;
-    export let textCls: string = null;
-    export let total = 100;
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+
+    type Props = {
+        cls?: string;
+        have?: number;
+        midText?: string;
+        selected?: boolean;
+        shortText?: boolean;
+        textCls?: string;
+        title?: string | Snippet;
+        total?: number;
+    };
+    let {
+        have = Math.floor(Math.random() * 100),
+        total = 100,
+        cls,
+        title,
+        midText,
+        selected,
+        shortText,
+        textCls,
+    }: Props = $props();
 </script>
 
 <style lang="scss">
@@ -91,7 +105,11 @@
                 {#if selected}
                     <IconifyIcon icon={iconStrings['arrow-right']} />
                 {/if}
-                {title}
+                {#if typeof title === 'string'}
+                    {title}
+                {:else}
+                    {@render title()}
+                {/if}
             {/if}
         </span>
 
