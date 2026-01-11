@@ -34,7 +34,9 @@ class ActiveHolidays {
         }
 
         const filteredHolidays = Array.from(wowthingData.static.holidayById.values()).filter(
-            (holiday) => holiday.regionMask === 0 || (holiday.regionMask & regionMask) > 0
+            (holiday) =>
+                holiday.durations.length > 0 &&
+                (holiday.regionMask === 0 || (holiday.regionMask & regionMask) > 0)
         );
 
         const activeHolidays: ActiveHolidayMap = {};
