@@ -117,6 +117,11 @@ export function getBestItemLevels(character: Character): BestItemLevels {
 
         // Weapons, oh joy
         const specData = specializationData[specialization.id];
+        if (!specData) {
+            console.warn('Missing specialization data', specialization);
+            continue;
+        }
+
         const weaponsByType: Record<string, [ItemDataItem, number][]> = {
             offHand: [],
             oneHand: [],
