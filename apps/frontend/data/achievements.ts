@@ -2,7 +2,7 @@ export const addonAchievements: Record<number, boolean> = Object.fromEntries(
     [
         14765, // Ramparts Racer
         14766, // Parasoling
-    ].map((id) => [id, true]),
+    ].map((id) => [id, true])
 );
 
 export const forceAddonCriteria: Record<number, number> = {
@@ -45,7 +45,7 @@ export const forceGarrisonTalent: Record<number, [number, number]> = {
 };
 
 export const forceSupersedes: Record<number, number> = Object.fromEntries(
-    Object.entries(forceSupersededBy).map(([dest, src]) => [src, parseInt(dest)]),
+    Object.entries(forceSupersededBy).map(([dest, src]) => [src, parseInt(dest)])
 );
 
 export const honorAchievements: Record<number, boolean> = Object.fromEntries(
@@ -71,7 +71,7 @@ export const honorAchievements: Record<number, boolean> = Object.fromEntries(
         12915, // Honor Level 300
         12916, // Honor Level 400
         12917, // Honor Level 500
-    ].map((id) => [id, true]),
+    ].map((id) => [id, true])
 );
 
 type ExtraAchievementCategory = {
@@ -373,6 +373,18 @@ export const extraCategories: ExtraAchievementCategory[] = [
             { targetSlug: 'reputation/war-within', nameType: 1 },
             null,
             {
+                targetSlug: 'delves/the-war-within',
+                nameType: 1,
+                achievementIds: [
+                    40438, // Glory of the Delver
+                    40537, // Delve Loremaster: War Within
+                    40437, // Delver of the Depths 1
+                    40447, // Delver of the Depths 2
+                    40448, // Delver of the Depths 3
+                    40449, // Delver of the Depths 4
+                ],
+            },
+            {
                 targetSlug: 'dungeons-raids/war-within-dungeon',
                 nameType: 3,
                 overrideName: 'Dungeons',
@@ -385,21 +397,42 @@ export const extraCategories: ExtraAchievementCategory[] = [
                 overrideSlug: 'raids',
                 achievementIds: [
                     40232, // Glory of the Nerub-ar Raider
+                    41286, // Glory of the Liberation of Undermine Raider
+                    41597, // Glory of the Omega Raider
+                ],
+            },
+        ],
+    },
+    {
+        slug: 'midnight',
+        children: [
+            { targetSlug: 'exploration/midnight', nameType: 1 },
+            { targetSlug: 'quests/midnight', nameType: 1 },
+            { targetSlug: 'reputation/midnight', nameType: 1 },
+            null,
+            {
+                targetSlug: 'delves/midnight',
+                nameType: 1,
+                achievementIds: [],
+            },
+            {
+                targetSlug: 'dungeons-raids/midnight-dungeon',
+                nameType: 3,
+                overrideName: 'Dungeons',
+                overrideSlug: 'dungeons',
+                achievementIds: [61567, 61568],
+            },
+            {
+                targetSlug: 'dungeons-raids/midnight-raid',
+                nameType: 3,
+                overrideName: 'Raids',
+                overrideSlug: 'raids',
+                achievementIds: [
+                    61380, // Glory of the Midnight Raider
                 ],
             },
             null,
-            {
-                targetSlug: 'delves/the-war-within',
-                nameType: 1,
-                achievementIds: [
-                    40438, // Glory of the Delver
-                    40537, // Delve Loremaster: War Within
-                    40437, // Delver of the Depths 1
-                    40447, // Delver of the Depths 2
-                    40448, // Delver of the Depths 3
-                    40449, // Delver of the Depths 4
-                ],
-            },
+            { targetSlug: 'expansion-features/prey', nameType: 2 },
         ],
     },
 ];
