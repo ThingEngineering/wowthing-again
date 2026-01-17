@@ -1991,9 +1991,9 @@ public static partial class Hardcoded
                 new(127926, DungeonDifficultiesHeroicMythic), // Recipe: Potion of Deadly Grace [Rank 2]
             ]
         },
-        // Darkheart Thicket > Archdruid Glaidalis
+        // Darkheart Thicket > Shade of Xavius
         {
-            1654,
+            1657,
             [
                 new(128595,
                     DungeonDifficultiesNormalHeroicMythic), // Formula: Enchant Neck - Mark of the Hidden Satyr [Rank 2]
