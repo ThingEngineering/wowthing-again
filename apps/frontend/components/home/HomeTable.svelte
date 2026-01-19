@@ -30,7 +30,6 @@
     import RowProfessionCooldowns from './table/row/HomeTableRowProfessionCooldowns.svelte';
     import RowProfessionWorkOrders from './table/row/HomeTableRowProfessionWorkOrders.svelte';
     import RowProgress from './table/row/HomeTableRowProgress.svelte';
-    import RowRemixArtifact from '../character-table/row/RemixArtifact.svelte';
     import RowRestedExperience from './table/row/HomeTableRowRestedExperience.svelte';
     import RowSettings from './table/row/HomeTableRowSettings.svelte';
     import RowStatuses from './table/row/HomeTableRowStatuses.svelte';
@@ -150,8 +149,6 @@
                     <RowVaultRaid {character} />
                 {:else if field === 'vaultWorld'}
                     <RowVaultWorld {character} />
-                {:else if field === 'remixArtifact'}
-                    <RowRemixArtifact {character} />
                 {:else}
                     <td>&nbsp;</td>
                 {/if}

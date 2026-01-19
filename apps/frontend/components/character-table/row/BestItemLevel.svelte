@@ -21,7 +21,7 @@
 
 <td
     class="border-left quality{itemLevel
-        ? getItemLevelQuality(parseFloat(itemLevel), character.isRemix)
+        ? getItemLevelQuality(parseFloat(itemLevel))
         : character.calculatedItemLevelQuality}"
     use:componentTooltip={{
         component: Tooltip,

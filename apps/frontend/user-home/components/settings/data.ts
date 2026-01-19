@@ -45,5 +45,4 @@ export const homeChoices: SettingsChoice[] = [
     { id: 'vaultMythicPlus', name: 'Vault - Dungeon' },
     { id: 'vaultRaid', name: 'Vault - Raid' },
     { id: 'vaultWorld', name: 'Vault - World' },
-    { id: 'remixArtifact', name: 'Remix - Artifact' },
 ];

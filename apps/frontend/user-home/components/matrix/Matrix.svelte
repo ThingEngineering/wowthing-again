@@ -33,10 +33,7 @@
     let yKeys: string[];
     $: {
         const characters = userState.general.visibleCharacters.filter(
-            (char) =>
-                char.level >= browserState.current.matrix.minLevel &&
-                ((browserState.current.matrix.showLive && !char.isRemix) ||
-                    (browserState.current.matrix.showRemix && char.isRemix))
+            (char) => char.level >= browserState.current.matrix.minLevel
         );
 
         const realmMap: Record<number, StaticDataRealm> = {};
@@ -412,15 +409,6 @@
                 bind:value={browserState.current.matrix.showEmptyRows}
             >
                 Show empty rows
-            </CheckboxInput>
-        </div>
-
-        <div class="options-container background-box">
-            <CheckboxInput name="show_live" bind:value={browserState.current.matrix.showLive}>
-                Live
-            </CheckboxInput>
-            <CheckboxInput name="show_remix" bind:value={browserState.current.matrix.showRemix}>
-                Remix
             </CheckboxInput>
         </div>
     </div>

@@ -100,9 +100,6 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public level = $state(0);
     public levelXp = $state(0);
     public playedTotal = $state(0);
-    public remixArtifactRank = $state(0);
-    public remixResearchHave = $state(0);
-    public remixResearchTotal = $state(0);
     public restedExperience = $state(0);
 
     public chromieTime = $state(false);
@@ -218,11 +215,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
             CharacterStatisticBasicArray[],
             CharacterStatisticMiscArray[],
             CharacterStatisticRatingArray[],
-        ],
-
-        remixArtifactRank: number,
-        remixResearchHave: number,
-        remixResearchTotal: number
+        ]
     ) {
         this.id = id;
         this.name = name;
@@ -248,9 +241,6 @@ export class Character implements ContainsItems, HasNameAndRealm {
         this.lastApiUpdateUnix = lastApiUpdateUnix;
         this.lastSeenAddonUnix = lastSeenAddonUnix;
         this.scannedCurrenciesUnix = scannedCurrenciesUnix;
-        this.remixArtifactRank = remixArtifactRank;
-        this.remixResearchHave = remixResearchHave;
-        this.remixResearchTotal = remixResearchTotal;
 
         this.configuration = configuration;
         this.auras = auras;
@@ -542,7 +532,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     });
 
     public calculatedItemLevelQuality = $derived.by(() =>
-        getItemLevelQuality(parseFloat(this.calculatedItemLevel), this.isRemix)
+        getItemLevelQuality(parseFloat(this.calculatedItemLevel))
     );
 
     public fancyLevel = $derived.by(() => {

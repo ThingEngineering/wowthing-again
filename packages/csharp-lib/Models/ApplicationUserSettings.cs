@@ -111,7 +111,6 @@ public class ApplicationUserSettings
         "professions",
         "professionsSecondary",
         "progress",
-        "remixArtifact",
         "restedExperience",
         "statsSpeed",
         "statusIcons",

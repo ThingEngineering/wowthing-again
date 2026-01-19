@@ -227,11 +227,6 @@ export function useCharacterFilter(
                                 );
                             }
 
-                            // Remix
-                            if (part === 'remix') {
-                                return char.isRemix;
-                            }
-
                             // Work orders available?
                             // if (part === 'orders') {
                             //     return lazyStore.characters[char.id].professionWorkOrders.have > 0;

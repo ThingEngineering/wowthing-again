@@ -17,7 +17,6 @@
     import HeadKeystone from '@/components/character-table/head/Keystone.svelte';
     import HeadRaiderIo from '@/components/character-table/head/RaiderIo.svelte';
     import HeadVault from '@/components/character-table/head/Vault.svelte';
-    import RemixArtifact from '../character-table/row/RemixArtifact.svelte';
     import RowDungeon from './MythicPlusTableRowDungeon.svelte';
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte';
     import RowKeystone from '@/components/character-table/row/Keystone.svelte';
@@ -154,10 +153,6 @@
         {#key slug}
             {#if isCurrentSeason}
                 <RowItemLevel {character} />
-            {/if}
-
-            {#if season.id === Constants.remixMythicPlusSeason}
-                <RemixArtifact {character} />
             {/if}
 
             <RowRaiderIo {character} {season} />
