@@ -10,6 +10,7 @@
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import Self from './SubSidebarEntry.svelte';
     import Tooltip from '@/shared/components/parsed-text/Tooltip.svelte';
 
     type Props = {
@@ -226,7 +227,7 @@
         {#if expanded && item.children}
             <div class="subtree">
                 {#each item.children as child}
-                    <svelte:self
+                    <Self
                         baseUrl={url}
                         item={child}
                         parentItems={[...parentItems, item]}

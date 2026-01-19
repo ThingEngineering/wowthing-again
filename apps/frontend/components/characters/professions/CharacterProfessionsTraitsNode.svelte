@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { StaticDataSubProfessionTraitNode } from '@/shared/stores/static/types';
 
+    import Self from './CharacterProfessionsTraitsNode.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
     type Props = {
@@ -49,6 +50,6 @@
     <td class="slash">/</td>
     <td class="number">{node.rankMax}</td>
 </tr>
-{#each node.children || [] as childNode}
-    <svelte:self indent={indent + 1} node={childNode} {traits} />
+{#each node.children || [] as childNode (childNode)}
+    <Self indent={indent + 1} node={childNode} {traits} />
 {/each}
