@@ -229,7 +229,7 @@
                 {#each item.children as child}
                     <Self
                         baseUrl={url}
-                        item={child}
+                        item={child as TItem}
                         parentItems={[...parentItems, item]}
                         {alwaysExpand}
                         {anyChildren}
