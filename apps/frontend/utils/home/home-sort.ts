@@ -53,7 +53,7 @@ export function homeSort(char: Character, sortBy: string): string {
 
         return '100|ZZ';
     } else if (sortBy === 'mythicPlusScore') {
-        const season = char.isRemix ? Constants.remixMythicPlusSeason : Constants.mythicPlusSeason;
+        const season = Constants.mythicPlusSeason;
         const rating = char.mythicPlusSeasonScores?.[season] || char.raiderIo?.[season]?.all || 0;
         return leftPad(Math.floor(100000 - rating * 10), 6, '0');
         // } else if (sortBy === 'professionCooldowns') {

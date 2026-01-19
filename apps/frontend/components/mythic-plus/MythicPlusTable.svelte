@@ -96,13 +96,9 @@
 
     let filterFunc = $derived((char: Character) => {
         const meetsLevelReq = char.level >= season.minLevel;
-        if (char.isRemix) {
-            return meetsLevelReq && season.id === Constants.remixMythicPlusSeason;
-        } else {
-            const score =
-                char.mythicPlusSeasonScores?.[season.id] || char.raiderIo?.[season.id]?.all || 0;
-            return meetsLevelReq && score > 0;
-        }
+        const score =
+            char.mythicPlusSeasonScores?.[season.id] || char.raiderIo?.[season.id]?.all || 0;
+        return meetsLevelReq && score > 0;
     });
 </script>
 

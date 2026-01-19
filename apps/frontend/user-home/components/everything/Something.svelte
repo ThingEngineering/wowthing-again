@@ -19,15 +19,11 @@
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
-    import VendorsCategories from '@/components/vendors/VendorsCategories.svelte';
     import Thing from './Thing.svelte';
-    import { ItemLocation } from '@/enums/item-location';
+    import VendorsCategories from '@/components/vendors/VendorsCategories.svelte';
 
     let { slug, thing }: { slug: string; thing: EverythingData } = $props();
 
-    let checkCharacters = $derived(
-        slug === 'remix-legion' ? userState.general.activeCharacters.filter((c) => c.isRemix) : []
-    );
     let snapshot = $derived.by(() => snapshotStateForUserHasLookup());
     let dbThings = $derived.by(() => {
         const ret: SomethingThing[] = [];
@@ -72,29 +68,6 @@
                 let hasOnCharacterIds: number[] = [];
                 if (userHas) {
                     resultData.stats.have++;
-                } else {
-                    let anyHave = false;
-
-                    for (const character of checkCharacters) {
-                        if (
-                            Object.values(character.equippedItems).some(
-                                (item) => item.itemId === content.id
-                            ) ||
-                            character.itemsByLocation[ItemLocation.Bags].some(
-                                (item) => item.itemId === content.id
-                            ) ||
-                            character.itemsByLocation[ItemLocation.Bank].some(
-                                (item) => item.itemId === content.id
-                            )
-                        ) {
-                            anyHave = true;
-                            hasOnCharacterIds.push(character.id);
-                        }
-                    }
-
-                    if (anyHave) {
-                        resultData.remixHave++;
-                    }
                 }
 
                 const show =

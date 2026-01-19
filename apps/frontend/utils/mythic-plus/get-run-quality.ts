@@ -10,15 +10,6 @@ const qualityBreakpoints: number[][] = [
     [1, 1],
 ];
 
-const remixBreakpoints: number[][] = [
-    [51, 6],
-    [41, 5],
-    [31, 4],
-    [21, 3],
-    [11, 2],
-    [1, 1],
-];
-
 export function getRunQuality(run: CharacterMythicPlusRun | number, character?: Character): string {
     let level = 0;
     if (typeof run !== 'number') {
@@ -30,7 +21,7 @@ export function getRunQuality(run: CharacterMythicPlusRun | number, character?: 
         level = run;
     }
 
-    return `quality${getFirstMatch(character?.isRemix ? remixBreakpoints : qualityBreakpoints, level)}`;
+    return `quality${getFirstMatch(qualityBreakpoints, level)}`;
 }
 
 export function getRunQualityAffix(run: CharacterMythicPlusAddonMapAffix): string {

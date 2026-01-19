@@ -109,12 +109,7 @@
                         <RowLockouts {character} />
                     {/if}
                 {:else if field === 'mythicPlusScore'}
-                    <RowMythicPlusScore
-                        seasonId={character.isRemix
-                            ? Constants.remixMythicPlusSeason
-                            : Constants.mythicPlusSeason}
-                        {character}
-                    />
+                    <RowMythicPlusScore seasonId={Constants.mythicPlusSeason} {character} />
                 {:else if field === 'playedTime'}
                     {#if !isPublic}
                         <RowPlayedTime playedTotal={character.playedTotal} />

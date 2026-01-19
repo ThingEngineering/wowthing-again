@@ -351,24 +351,6 @@ export class Character implements ContainsItems, HasNameAndRealm {
             this.equippedItems[slot] = obj;
         }
 
-        // Remix: Legion hack - fix non-primary artifact weapon slot
-        if (this.isRemix) {
-            const mainHand = this.equippedItems[InventorySlot.MainHand];
-            const offHand = this.equippedItems[InventorySlot.OffHand];
-            if (
-                mainHand?.quality === ItemQuality.Artifact &&
-                offHand?.quality === ItemQuality.Artifact
-            ) {
-                if (mainHand.itemLevel < offHand.itemLevel) {
-                    mainHand.itemLevel = offHand.itemLevel;
-                    mainHand.bonusIds = offHand.bonusIds;
-                } else {
-                    offHand.itemLevel = mainHand.itemLevel;
-                    offHand.bonusIds = mainHand.bonusIds;
-                }
-            }
-        }
-
         const items: CharacterItem[] = [];
         for (const rawItem of rawItems || []) {
             const obj = new CharacterItem(...rawItem);
@@ -439,9 +421,9 @@ export class Character implements ContainsItems, HasNameAndRealm {
                 }
             }
 
-            const rioId = this.isRemix ? Constants.remixMythicPlusSeason : seasonId;
-            const rioScore = this.raiderIo?.[rioId]?.['all'] || 0;
-            this.mythicPlusSeasonScores[rioId] = Math.abs(total - rioScore) > 10 ? total : rioScore;
+            const rioScore = this.raiderIo?.[seasonId]?.['all'] || 0;
+            this.mythicPlusSeasonScores[seasonId] =
+                Math.abs(total - rioScore) > 10 ? total : rioScore;
         }
 
         for (const [week, runsArray] of Object.entries(rawMythicPlusWeeks || {})) {
@@ -547,8 +529,6 @@ export class Character implements ContainsItems, HasNameAndRealm {
     get isMaxLevel(): boolean {
         return this.level === Constants.characterMaxLevel;
     }
-
-    public isRemix = $derived(!!this.auras?.[Constants.remixLegionSpellId]);
 
     public lockoutKeys = $derived(Object.keys(this.lockouts || {}));
 

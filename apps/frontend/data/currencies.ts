@@ -39,11 +39,6 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
             name: 'World Events',
             slug: 'world-events',
         },
-        {
-            id: 100103,
-            name: 'Timerunning',
-            slug: 'timerunning',
-        },
     ],
 
     // The War Within
@@ -202,15 +197,6 @@ export const currencyExtra: Record<number, number[]> = {
     // Miscellaneous > World Events
     100102: [
         3309, // Hellstone Shard
-    ],
-    // Miscellaneous > Timerunning
-    100103: [
-        3252, // Bronze
-        3268, // Infinite Power
-        3292, // Infinite Knowledge
-        null,
-        3293, // Epoch Memento
-        3251, // Felforged Bronze
     ],
 };
 
@@ -419,14 +405,6 @@ export const currencyItems: Record<number, number[]> = {
         232365, // Timewarped Relic Coffer Key [Normal]
         232366, // Timewarped Relic Coffer Key [Heroic]
     ],
-    // Miscellaneous > Timerunning
-    100103: [
-        254267, // Fragmented Memento of Epoch Challenges
-        253227, // Flawless Thread of Time
-        253224, // Mote of a Broken Time
-        245925, // Artifactium Sand
-        249891, // Mound of Artifactium Sand
-    ],
     // Miscellaneous > Decor
     100104: [
         245586, // Ironwood Lumber [Classic]
@@ -582,8 +560,4 @@ export const pvpCurrencies = new Set<number>([
 
 export const currencyGood: Record<number, number> = {
     [Constants.currencies.honor]: 2000,
-    3292: 36, // [Remix] Infinite Knowledge
-    1253224: 10, // Mote of a Broken Time
-    1253227: 10, // Flawless Thread of Time
-    1254267: 100, // Fragmented Memento of Epoch Challenges
 };

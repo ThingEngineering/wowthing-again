@@ -10,7 +10,6 @@ export abstract class Constants {
 
     static readonly defaultUnixTime = 946684800;
 
-    static readonly remixLegionSpellId = 1213439;
     static readonly remixMythicPlusSeason: number = 1001;
 
     static readonly currencies = {

@@ -4,12 +4,10 @@
     import getPercentClass from '@/utils/get-percent-class';
     import type { SomethingThing } from './types';
 
-    import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
     import LookupThing from './LookupThing.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { UserCount } from '@/types';
 
     let { thingData }: { thingData: SomethingThing } = $props();
 
@@ -57,21 +55,6 @@
                 <ParsedText text={name} />
             {/if}
         </h4>
-
-        <CollectibleCount counts={thingData.stats}>
-            {#if thingData.remixHave > 0}
-                <span class="oof"
-                    >(
-                    <CollectibleCount
-                        counts={new UserCount(
-                            thingData.stats.have + thingData.remixHave,
-                            thingData.stats.total
-                        )}
-                    />
-                    )</span
-                >
-            {/if}
-        </CollectibleCount>
     </div>
 
     <div class="collection-objects">
