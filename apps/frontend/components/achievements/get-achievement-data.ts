@@ -34,7 +34,7 @@ export function getAchievementStatus(
 
     let leaves = 0;
 
-    let characters = userState.general.characters.filter(
+    const characters = userState.general.characters.filter(
         (char) =>
             (achievement.faction === 0 && char.faction === 1) ||
             (achievement.faction === 1 && char.faction === 0) ||
