@@ -50,7 +50,14 @@ class ActiveHolidays {
                 // Repeats, duration0 is duration and duration1 is time between
                 if (holiday.looping === 1) {
                     let actualStartDate = startDate;
+                    let escapeCounter = 0;
                     while (actualStartDate < currentTime) {
+                        escapeCounter++;
+                        if (escapeCounter > 1000) {
+                            console.error('looping holiday took WAY too long!', holiday);
+                            break;
+                        }
+
                         const endDate = actualStartDate.plus({ hours: holiday.durations[0] });
                         if (endDate > currentTime) {
                             if (holidayMap[holiday.id]) {
