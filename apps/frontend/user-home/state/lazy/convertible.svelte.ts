@@ -525,7 +525,21 @@ export function doConvertible(): LazyConvertible {
         for (const [classId, classData] of getNumberKeyedEntries(seasonData)) {
             for (const slotData of Object.values(classData)) {
                 for (const [modifier, modifierData] of getNumberKeyedEntries(slotData.modifiers)) {
+                    if (!classStats[classId]) {
+                        console.warn('invalid classId!', classId);
+                        continue;
+                    }
+
+                    if (!modifierStats[modifier]) {
+                        console.warn('invalid modifier!', classId, modifier);
+                        continue;
+                    }
+
                     const classModifierKey = `c${classId}--m${modifier}`;
+                    if (!classModifierStats[classModifierKey]) {
+                        console.warn('invalid classModifierKey!', classId, classModifierKey);
+                        continue;
+                    }
 
                     seasonStats.total++;
                     classStats[classId].total++;
