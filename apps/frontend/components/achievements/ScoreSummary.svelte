@@ -1,22 +1,31 @@
 <script lang="ts">
     import { achievementStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import getPercentClass from '@/utils/get-percent-class';
     import type { AchievementDataCategory } from '@/types';
 
     import AchievementsAchievement from './Achievement.svelte';
     import ProgressBar from '@/components/common/ProgressBar.svelte';
-    import { userState } from '@/user-home/state/user';
 
-    let categories: AchievementDataCategory[];
-    $: {
-        categories = [];
+    let [categories, extraCategories] = $derived.by(() => {
+        let retNormal: AchievementDataCategory[] = [];
+        let retExtra: AchievementDataCategory[] = [];
+
+        let nulls = 0;
         for (const category of $achievementStore.categories) {
             if (category === null) {
-                break;
+                nulls++;
+                continue;
             }
-            categories.push(category);
+            if (nulls === 0) {
+                retNormal.push(category);
+            } else if (nulls === 1) {
+                retExtra.push(category);
+            }
         }
-    }
+
+        return [retNormal, retExtra];
+    });
 </script>
 
 <style lang="scss">
@@ -36,10 +45,10 @@
         padding: 1rem;
         width: 100%;
     }
-    .overall {
-        margin-bottom: 1rem;
-    }
     .summary-categories {
+        border-top: 1px solid var(--border-color);
+        margin-top: 1rem;
+        padding-top: 1rem;
         width: 100%;
 
         @media screen and (min-width: 1100px) {
@@ -73,6 +82,24 @@
 
         <div class="summary-categories">
             {#each categories as category (category.id)}
+                {@const stats = userState.achievements.categories[category.id]}
+                <div class="category">
+                    <ProgressBar title={category.name} have={stats.have} total={stats.total} />
+                    <div
+                        class="points {getPercentClass(
+                            (stats.havePoints / stats.totalPoints) * 100
+                        )}"
+                    >
+                        {#if stats.totalPoints > 0}
+                            {stats.totalPoints - stats.havePoints}
+                        {/if}
+                    </div>
+                </div>
+            {/each}
+        </div>
+
+        <div class="summary-categories">
+            {#each extraCategories as category (category.id)}
                 {@const stats = userState.achievements.categories[category.id]}
                 <div class="category">
                     <ProgressBar title={category.name} have={stats.have} total={stats.total} />
