@@ -168,7 +168,7 @@ public class AchievementsTool
     private OutAchievementCategory GetLanguageCategory(Dictionary<int, string> langNames, OutAchievementCategory category)
     {
         var langCategory = (OutAchievementCategory)category.Clone();
-        langCategory.Name = langNames[category.Id];
+        langCategory.Name = langNames.GetValueOrDefault(category.Id, $"Category #{category.Id}");
 
         langCategory.Children = new();
         foreach (var childCategory in category.Children.EmptyIfNull())

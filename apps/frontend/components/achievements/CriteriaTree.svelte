@@ -4,6 +4,7 @@
     import { CriteriaType } from '@/enums/criteria-type';
     import { wowthingData } from '@/shared/stores/data';
     import { achievementStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import type {
         AchievementDataAchievement,
         AchievementDataCriteria,
@@ -12,9 +13,9 @@
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import ProgressBar from '@/components/common/ProgressBar.svelte';
+    import Self from './CriteriaTree.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
-    import { userState } from '@/user-home/state/user';
 
     export let accountWide = false;
     export let achievement: AchievementDataAchievement;
@@ -207,8 +208,8 @@
         {/if}
 
         {#if criteriaTree.children.length > 0}
-            {#each criteriaTree.children as child}
-                <svelte:self
+            {#each criteriaTree.children as child (child)}
+                <Self
                     child={true}
                     criteriaTreeId={child}
                     {accountWide}

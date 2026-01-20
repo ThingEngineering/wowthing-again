@@ -1,25 +1,24 @@
 <script lang="ts">
     import type { InventoryType } from '@/enums/inventory-type';
     import { inventoryTypeIcons } from '@/shared/icons/mappings';
+    import { wowthingData } from '@/shared/stores/data';
     import { getGenderedName } from '@/utils/get-gendered-name';
     import getItemLevelQuality from '@/utils/get-item-level-quality';
-    import type { StaticDataCharacterSpecialization } from '@/shared/stores/static/types';
-    import type { Character } from '@/types/character';
+    import type { CharacterProps } from '@/types/props';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
-    import { wowthingData } from '@/shared/stores/data';
 
-    export let bestItemLevels: Record<number, [string, InventoryType[]]>;
-    export let character: Character;
+    type Props = CharacterProps & {
+        bestItemLevels: Record<number, [string, InventoryType[]]>;
+    };
+    let { bestItemLevels, character }: Props = $props();
 
-    let specializations: StaticDataCharacterSpecialization[];
-    $: {
-        specializations = wowthingData.static.characterSpecializationsByClassId.get(
-            character.classId
-        );
-        specializations.sort((a, b) => a.name.localeCompare(b.name));
-    }
+    let specializations = $derived.by(() => {
+        const specs = wowthingData.static.characterSpecializationsByClassId.get(character.classId);
+        specs.sort((a, b) => a.name.localeCompare(b.name));
+        return specs;
+    });
 </script>
 
 <style lang="scss">
@@ -51,7 +50,7 @@
     <table class="table-striped">
         <tbody>
             {#each specializations as specialization (specialization.id)}
-                {@const [itemLevel, missingSlots] = bestItemLevels[specialization.id]}
+                {@const [itemLevel, missingSlots] = bestItemLevels[specialization.id] || ['0']}
                 <tr>
                     <td class="icon">
                         <SpecializationIcon specId={specialization.id} />
@@ -59,12 +58,7 @@
                     <td class="name">
                         {getGenderedName(specialization.name, character.gender)}
                     </td>
-                    <td
-                        class="quality{getItemLevelQuality(
-                            parseFloat(itemLevel),
-                            character.isRemix
-                        )}"
-                    >
+                    <td class="quality{getItemLevelQuality(parseFloat(itemLevel))}">
                         {itemLevel}
                     </td>
                     <td class="slots status-warn">

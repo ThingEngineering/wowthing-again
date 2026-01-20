@@ -17,7 +17,6 @@
     import HeadKeystone from '@/components/character-table/head/Keystone.svelte';
     import HeadRaiderIo from '@/components/character-table/head/RaiderIo.svelte';
     import HeadVault from '@/components/character-table/head/Vault.svelte';
-    import RemixArtifact from '../character-table/row/RemixArtifact.svelte';
     import RowDungeon from './MythicPlusTableRowDungeon.svelte';
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte';
     import RowKeystone from '@/components/character-table/row/Keystone.svelte';
@@ -97,13 +96,9 @@
 
     let filterFunc = $derived((char: Character) => {
         const meetsLevelReq = char.level >= season.minLevel;
-        if (char.isRemix) {
-            return meetsLevelReq && season.id === Constants.remixMythicPlusSeason;
-        } else {
-            const score =
-                char.mythicPlusSeasonScores?.[season.id] || char.raiderIo?.[season.id]?.all || 0;
-            return meetsLevelReq && score > 0;
-        }
+        const score =
+            char.mythicPlusSeasonScores?.[season.id] || char.raiderIo?.[season.id]?.all || 0;
+        return meetsLevelReq && score > 0;
     });
 </script>
 
@@ -154,10 +149,6 @@
         {#key slug}
             {#if isCurrentSeason}
                 <RowItemLevel {character} />
-            {/if}
-
-            {#if season.id === Constants.remixMythicPlusSeason}
-                <RemixArtifact {character} />
             {/if}
 
             <RowRaiderIo {character} {season} />

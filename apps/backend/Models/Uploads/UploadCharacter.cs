@@ -13,9 +13,6 @@ public class UploadCharacter
     public bool VaultHasRewards { get; set; }
     public short BankTabs { get; set; }
     public short DelvesGilded { get; set; }
-    public short RemixArtifactRank { get; set; }
-    public short RemixResearchHave { get; set; }
-    public short RemixResearchTotal { get; set; }
     public int ActiveCovenantId { get; set; }
     public int ChromieTime { get; set; }
     public int DailyReset { get; set; }

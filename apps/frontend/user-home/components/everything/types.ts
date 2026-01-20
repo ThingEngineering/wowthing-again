@@ -7,7 +7,6 @@ export class SomethingThing {
     constructor(public thing: DbDataThing) {}
 
     public stats = new UserCount();
-    public remixHave = 0;
     public contents: {
         lookupId: number;
         lookupType: LookupType;

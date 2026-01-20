@@ -121,6 +121,11 @@ export function doConvertible(): LazyConvertible {
             []) {
             const setItem = wowthingData.items.items[setItemId];
             const classId = maskToClass[setItem.classMask];
+            if (!classId) {
+                console.warn('invalid classMask', setItem.classMask);
+                continue;
+            }
+
             const setItemInventoryType = fixedInventoryType(setItem.inventoryType);
             const setItemRedundancySlot = inventoryTypeToItemRedundancySlot[setItemInventoryType];
 

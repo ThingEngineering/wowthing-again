@@ -812,7 +812,7 @@ public class DumpsTool
         foreach (var language in _languages)
         {
             foreach ((string key, string value) in _globalStringMap[language]
-                         .Where(kvp => kvp.Key.StartsWith("EXPANSION_NAME")))
+                         .Where(kvp => kvp.Key.StartsWith("EXPANSION_NAME") && !kvp.Key.Contains("_CAPS")))
             {
                 int expansionId = int.Parse(key.Replace("EXPANSION_NAME", ""));
                 CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowExpansion, expansionId, value);
@@ -1484,7 +1484,7 @@ public class DumpsTool
             {
                 foreach (var triggerEffect in triggerEffects)
                 {
-                    ToolContext.Logger.Information("SpellEffect {id1} triggers {id2}", spellEffect.ID, triggerEffect.ID);
+                    // ToolContext.Logger.Information("SpellEffect {id1} triggers {id2}", spellEffect.ID, triggerEffect.ID);
                     HandleSpellEffect(spellEffectMap, itemXItemEffect, triggerEffect);
                 }
             }

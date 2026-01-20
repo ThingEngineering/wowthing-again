@@ -15,27 +15,28 @@ export const expansionMap: Record<number, Expansion> = Object.fromEntries(
         new Expansion(8, 'Shadowlands', 'shadowlands', 'SL'),
         new Expansion(9, 'Dragonflight', 'dragonflight', 'DF'),
         new Expansion(10, 'The War Within', 'war-within', 'TWW'),
-    ].map((exp) => [exp.id, exp]),
+        new Expansion(11, 'Midnight', 'midnight', 'Mid'),
+    ].map((exp) => [exp.id, exp])
 );
 
 export const expansionSlugMap: Record<string, Expansion> = Object.fromEntries(
-    Object.values(expansionMap).map((expansion) => [expansion.slug, expansion]),
+    Object.values(expansionMap).map((expansion) => [expansion.slug, expansion])
 );
 
 export const expansionShortNameMap: Record<string, Expansion> = Object.fromEntries(
     Object.values(expansionMap).map((expansion) => [
         expansion.shortName.toLocaleLowerCase(),
         expansion,
-    ]),
+    ])
 );
 
 export const expansionOrder: Expansion[] = sortBy(
     Object.values(expansionMap),
-    (expansion) => expansion.id,
+    (expansion) => expansion.id
 );
 
 export const expansionOrderMap: Record<number, number> = Object.fromEntries(
-    expansionOrder.map((expansion, index) => [expansion.id, index]),
+    expansionOrder.map((expansion, index) => [expansion.id, index])
 );
 
 export const expansionReverseOrder = expansionOrder.slice();

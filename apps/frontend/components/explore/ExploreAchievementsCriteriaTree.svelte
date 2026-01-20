@@ -9,6 +9,8 @@
         AchievementDataCriteriaTree,
     } from '@/types';
 
+    import Self from './ExploreAchievementsCriteriaTree.svelte';
+
     export let achievement: AchievementDataAchievement;
     export let criteriaTreeId: number;
     export let depth = 0;
@@ -103,8 +105,8 @@
         </div>
     </div>
 
-    {#each criteriaTree?.children || [] as childId}
-        <svelte:self {achievement} criteriaTreeId={childId} depth={depth + 1} />
+    {#each criteriaTree?.children || [] as childId (childId)}
+        <Self {achievement} criteriaTreeId={childId} depth={depth + 1} />
     {/each}
 {:else}
     <div class="criteria-tree" style:--depth={depth}>

@@ -145,47 +145,28 @@
                 <tbody>
                     {#each dungeonIds as dungeonId (dungeonId)}
                         {@const dungeon = dungeonMap[dungeonId]}
-                        {#if character.isRemix}
-                            {@const run =
-                                character.mythicPlus?.seasons?.[Constants.mythicPlusSeason]?.[
-                                    dungeonId
-                                ]?.[0]}
-                            <tr>
-                                <td class="dungeon-name">
-                                    <code>{dungeon.abbreviation}</code>
-                                </td>
-                                {#if run}
-                                    <td class="dungeon-level {getRunQuality(run, character)}"
-                                        >{run.keystoneLevel}</td
-                                    >
-                                {:else}
-                                    <td class="dungeon-level quality0">---</td>
-                                {/if}
-                            </tr>
-                        {:else}
-                            {@const scores = character.mythicPlusSeasons?.[seasonId]?.[dungeonId]}
-                            {@const fortified = scores?.fortifiedScore}
-                            {@const tyrannical = scores?.tyrannicalScore}
-                            <tr>
-                                <td class="dungeon-name">
-                                    <code>{dungeon.abbreviation}</code>
-                                </td>
-                                {#each [fortified, tyrannical] as score}
-                                    <td class="dungeon-level">
-                                        {#if score}
-                                            <span class={getRunQualityAffix(score)}>
-                                                {score.level}
-                                            </span>
-                                        {:else}
-                                            <span class="quality0">---</span>
-                                        {/if}
-                                    </td>
-                                {/each}
+                        {@const scores = character.mythicPlusSeasons?.[seasonId]?.[dungeonId]}
+                        {@const fortified = scores?.fortifiedScore}
+                        {@const tyrannical = scores?.tyrannicalScore}
+                        <tr>
+                            <td class="dungeon-name">
+                                <code>{dungeon.abbreviation}</code>
+                            </td>
+                            {#each [fortified, tyrannical] as score}
                                 <td class="dungeon-level">
-                                    {scores?.overallScore || 0}
+                                    {#if score}
+                                        <span class={getRunQualityAffix(score)}>
+                                            {score.level}
+                                        </span>
+                                    {:else}
+                                        <span class="quality0">---</span>
+                                    {/if}
                                 </td>
-                            </tr>
-                        {/if}
+                            {/each}
+                            <td class="dungeon-level">
+                                {scores?.overallScore || 0}
+                            </td>
+                        </tr>
                     {/each}
                 </tbody>
             </table>

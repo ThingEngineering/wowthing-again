@@ -3,6 +3,8 @@ import sortBy from 'lodash/sortBy';
 import { addonAchievements } from '@/data/achievements';
 import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator';
 import { CriteriaType } from '@/enums/criteria-type';
+import { userState } from '@/user-home/state/user';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type {
     AchievementData,
     AchievementDataAchievement,
@@ -11,13 +13,8 @@ import type {
 } from '@/types';
 import type { UserQuestData } from '@/types/data';
 import type { AchievementStatus } from './types';
-import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
-import { userState } from '@/user-home/state/user';
-import { Constants } from '@/data/constants';
 
 const debugId = 42315;
-
-const remixCategoryIds = new Set([15554, 15556, 15557, 15558, 15559, 15560, 15561]);
 
 export function getAchievementStatus(
     achievementData: AchievementData,
@@ -37,16 +34,12 @@ export function getAchievementStatus(
 
     let leaves = 0;
 
-    let characters = userState.general.characters.filter(
+    const characters = userState.general.characters.filter(
         (char) =>
             (achievement.faction === 0 && char.faction === 1) ||
             (achievement.faction === 1 && char.faction === 0) ||
             achievement.faction === -1
     );
-
-    if (remixCategoryIds.has(achievement.categoryId)) {
-        characters = characters.filter((char) => char.auras?.[Constants.remixLegionSpellId]);
-    }
 
     const characterIds = new Set(characters.map((char) => char.id));
 
