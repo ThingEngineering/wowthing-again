@@ -158,6 +158,37 @@ public static partial class Hardcoded
         343681, // Shadowlands ??
         422338, // Shalasar's Sophic Vellum (temporary legendary craft)
 
+        // Enchanting - WoD mess
+        173716,
+        173717,
+        173718,
+        174979,
+        173720,
+        175076,
+        173721,
+        173722,
+        173723,
+        175072,
+        175071,
+        173719,
+        173724,
+        181870,
+        175070,
+        173725,
+        173726,
+        175085,
+        173727,
+        173728,
+        173729,
+        175086,
+        175078,
+        173730,
+        173731,
+        173732,
+        175074,
+        177355,
+        178241, // Other Temporal Crystal?
+
         // Engineering
         12900, // Mobile Alarm
         30342, // TBC Red Smoke Flare
