@@ -73,7 +73,13 @@
 
     let data = $derived(item ? dataFunc?.(item) : undefined);
     let decoration = $derived(item ? decorationFunc?.(item, parentItems) : undefined);
-    let percent = $derived(item ? percentFunc?.(item, parentItems) || -1 : undefined);
+    let percent = $derived.by(() => {
+        if (item) {
+            const result = percentFunc?.(item, parentItems);
+            return result !== undefined ? result : -1;
+        }
+        return undefined;
+    });
 
     let noCollapse = $derived.by(() => {
         if (actualNoVisitRoot && expanded && $location.startsWith(url) && $location !== url) {
