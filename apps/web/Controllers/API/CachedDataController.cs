@@ -47,7 +47,7 @@ public class CachedDataController : Controller
         if (hash != redisHash)
         {
             _logger.LogWarning("Invalid content hash: {hash}", hash);
-            return RedirectToAction("CachedData", new { type, languageCode = language.ToString(), hash = redisHash });
+            return RedirectToAction("CachedJson", new { type, languageCode = language.ToString(), hash = redisHash });
         }
 
         return Content(await db.StringGetAsync($"cache:{key}:data"), "application/json");

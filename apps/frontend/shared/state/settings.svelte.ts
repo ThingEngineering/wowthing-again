@@ -9,13 +9,13 @@ import { professionCooldowns } from '@/data/professions/cooldowns';
 import { Language } from '@/enums/language';
 import { sharedState } from '@/shared/state/shared.svelte';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
+import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import { hashObject } from '@/utils/hash-object.svelte';
 import type { Expansion } from '@/types';
+import type { Task } from '@/types/tasks';
 
 import { browserState } from './browser.svelte';
 import type { Settings } from '../stores/settings/types';
-import getTransmogClassMask from '@/utils/get-transmog-class-mask';
-import type { Task } from '@/types/tasks';
 
 const languageToSubdomain: Record<Language, string> = {
     [Language.deDE]: 'de',

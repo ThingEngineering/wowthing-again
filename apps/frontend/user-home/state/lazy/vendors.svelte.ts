@@ -49,7 +49,7 @@ class LazyVendorsProcessor {
 
     public process() {
         const snapshot = this._snapshot;
-        const vendorState = $state.snapshot(browserState.current).vendors;
+        const vendorState = $state.snapshot(browserState.current.vendors);
 
         if (!this._createdFarmData) {
             this._createdFarmData = true;
