@@ -144,15 +144,16 @@ public class CharacterJob : JobBase
             jobs.Add(JobType.CharacterReputations);
         }
 
-        if (apiCharacter.StatisticsLink?.Href != null)
-        {
-            jobs.Add(JobType.CharacterStats);
-        }
+        // if (apiCharacter.StatisticsLink?.Href != null)
+        // {
+        //     jobs.Add(JobType.CharacterStats);
+        // }
 
-        if (apiCharacter.SpecializationsLink?.Href != null)
-        {
-            jobs.Add(JobType.CharacterSpecializations);
-        }
+        // TODO: enable this if I ever fix talent data
+        // if (apiCharacter.SpecializationsLink?.Href != null)
+        // {
+        //     jobs.Add(JobType.CharacterSpecializations);
+        // }
 
         // jobs.Add(JobType.CharacterTransmogs);
 

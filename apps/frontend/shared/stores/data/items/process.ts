@@ -16,7 +16,7 @@ export function processItemsData(rawData: RawItems): DataItems {
     data.bonusIdToModifiedCrafting = cloneDeep(rawData.bonusIdToModifiedCrafting);
     data.completesQuest = cloneDeep(rawData.completesQuest);
     data.itemConversionEntries = cloneDeep(rawData.itemConversionEntries);
-    data.itemRequiredSkills = cloneDeep(rawData.itemRequiredSkills);
+    data.itemRequiredSkills = cloneDeep(rawData.itemRequiredSkills || {});
     data.limitCategories = cloneDeep(rawData.limitCategories);
     data.specOverrides = cloneDeep(rawData.specOverrides);
     data.teachesDecor = cloneDeep(rawData.teachesDecor);
