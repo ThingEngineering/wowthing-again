@@ -3,48 +3,48 @@ import { settingsState } from '@/shared/state/settings.svelte';
 
 export default function getTransmogClassMask(): number {
     let classMask = 0;
-    const settingsData = settingsState.value;
+    const transmogSettings = settingsState.value.transmog;
 
-    if (settingsData.transmog.showMage) {
+    if (transmogSettings.showMage) {
         classMask |= PlayableClassMask.Mage;
     }
-    if (settingsData.transmog.showPriest) {
+    if (transmogSettings.showPriest) {
         classMask |= PlayableClassMask.Priest;
     }
-    if (settingsData.transmog.showWarlock) {
+    if (transmogSettings.showWarlock) {
         classMask |= PlayableClassMask.Warlock;
     }
 
-    if (settingsData.transmog.showDemonHunter) {
+    if (transmogSettings.showDemonHunter) {
         classMask |= PlayableClassMask.DemonHunter;
     }
-    if (settingsData.transmog.showDruid) {
+    if (transmogSettings.showDruid) {
         classMask |= PlayableClassMask.Druid;
     }
-    if (settingsData.transmog.showMonk) {
+    if (transmogSettings.showMonk) {
         classMask |= PlayableClassMask.Monk;
     }
-    if (settingsData.transmog.showRogue) {
+    if (transmogSettings.showRogue) {
         classMask |= PlayableClassMask.Rogue;
     }
 
-    if (settingsData.transmog.showEvoker) {
+    if (transmogSettings.showEvoker) {
         classMask |= PlayableClassMask.Evoker;
     }
-    if (settingsData.transmog.showHunter) {
+    if (transmogSettings.showHunter) {
         classMask |= PlayableClassMask.Hunter;
     }
-    if (settingsData.transmog.showShaman) {
+    if (transmogSettings.showShaman) {
         classMask |= PlayableClassMask.Shaman;
     }
 
-    if (settingsData.transmog.showDeathKnight) {
+    if (transmogSettings.showDeathKnight) {
         classMask |= PlayableClassMask.DeathKnight;
     }
-    if (settingsData.transmog.showPaladin) {
+    if (transmogSettings.showPaladin) {
         classMask |= PlayableClassMask.Paladin;
     }
-    if (settingsData.transmog.showWarrior) {
+    if (transmogSettings.showWarrior) {
         classMask |= PlayableClassMask.Warrior;
     }
 
