@@ -221,7 +221,7 @@ export class DataStatic {
     ) {
         const data: StaticDataProfessionAbilityInfo[] = [];
 
-        for (const ability of category.abilities) {
+        for (const ability of category?.abilities || []) {
             data.push(
                 new StaticDataProfessionAbilityInfo(
                     professionId,
@@ -259,7 +259,7 @@ export class DataStatic {
             }
         }
 
-        for (const childCategory of category.children) {
+        for (const childCategory of category?.children || []) {
             this.recurseProfession(childCategory, professionId, subProfessionId, spellToItem);
         }
     }
