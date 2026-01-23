@@ -273,18 +273,19 @@ export const specializationData: Record<number, SpecializationData> = {
 };
 
 specializationData[252] = specializationData[250]; // Death Knight - Unholy = Blood
+specializationData[1480] = specializationData[577]; // Demon Hunter - Devourer = Havoc
+specializationData[581] = specializationData[577]; // Demon Hunter - Vengeance = Havoc
 specializationData[104] = specializationData[103]; // Druid - Guardian = Feral
 specializationData[105] = specializationData[102]; // Druid - Restoration = Balance
+specializationData[1468] = specializationData[1467]; // Evoker - Preservation = Devastation
+specializationData[1473] = specializationData[1467]; // Evoker - Augmentation = Devastation
 specializationData[254] = specializationData[253]; // Hunter - Marksmanship = Beast Mastery
 specializationData[257] = specializationData[256]; // Priest - Holy = Discipline
-specializationData[258] = specializationData[256]; // Hunter - Shadow = Discipline
+specializationData[258] = specializationData[256]; // Priest - Shadow = Discipline
 specializationData[63] = specializationData[62]; // Mage - Fire = Arcane
 specializationData[64] = specializationData[62]; // Mage - Frost = Arcane
+specializationData[269] = specializationData[268]; // Monk - Windwalker = Brewmaster
 specializationData[261] = specializationData[259]; // Rogue - Subtlety = Assassination
 specializationData[264] = specializationData[262]; // Shaman - Restoration = Elemental
 specializationData[266] = specializationData[265]; // Warlock - Demonology = Affliction
 specializationData[267] = specializationData[265]; // Warlock - Destruction = Affliction
-specializationData[269] = specializationData[268]; // Monk - Windwalker = Brewmaster
-specializationData[581] = specializationData[577]; // Demon Hunter - Vengeance = Havoc
-specializationData[1468] = specializationData[1467]; // Evoker - Preservation = Devastation
-specializationData[1473] = specializationData[1467]; // Evoker - Augmentation = Devastation
