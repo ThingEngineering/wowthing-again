@@ -12,6 +12,7 @@
     import Toys from '@/components/collectible/Toys.svelte';
     import Artifacts from './artifacts/Artifacts.svelte';
     import Decor from './decor/Decor.svelte';
+    import MageTower from './mage-tower/MageTower.svelte';
 
     let { params }: ParamsSlugsProps = $props();
 
@@ -36,6 +37,8 @@
         <Heirlooms />
     {:else if params.slug1 === 'illusions'}
         <Illusions />
+    {:else if params.slug1 === 'mage-tower'}
+        <MageTower />
     {:else if params.slug1 === 'mounts'}
         <Mounts basePath="collections" params={shiftedParams} />
     {:else if params.slug1 === 'pets'}

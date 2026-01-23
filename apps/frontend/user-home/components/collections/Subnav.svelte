@@ -69,6 +69,11 @@
             <!-- <Percent percent={lazyState.customizations.OVERALL.percent} /> -->
         </a>
 
+        <a href="#/collections/mage-tower" use:active>
+            Mage Tower
+            <!-- <Percent percent={lazyState.customizations.OVERALL.percent} /> -->
+        </a>
+
         <a href="#/collections/decor" use:active={'/collections/decor/*'}>
             Decor
             <!-- <Percent percent={lazyState.customizations.OVERALL.percent} /> -->

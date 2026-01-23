@@ -144,73 +144,75 @@
             <tbody>
                 {#each choreSet as charTaskChore (charTaskChore)}
                     {@const chore = taskChoreMap[`${taskName}_${charTaskChore.key}`]}
-                    <tr
-                        class:skipped={!charChore &&
-                            charTaskChore.skipped &&
-                            charTaskChore.status !== QuestStatus.Error}
-                    >
-                        <td
-                            class="name text-overflow"
-                            class:status-shrug={charTaskChore.status === QuestStatus.Error}
+                    {#if chore}
+                        <tr
+                            class:skipped={!charChore &&
+                                charTaskChore.skipped &&
+                                charTaskChore.status !== QuestStatus.Error}
                         >
-                            {#if chore.questReset === DbResetType.Daily && settingsState.value.tasks.showDailyIcon}
-                                <IconifyWrapper Icon={MynauiLetterDSquare} cls="quality3" />
-                            {:else if chore.questReset === DbResetType.Weekly && settingsState.value.tasks.showWeeklyIcon}
-                                <IconifyWrapper Icon={MynauiLetterWSquare} cls="quality3" />
-                            {/if}
-                            {#if chore.accountWide && settingsState.value.tasks.showAccountIcon}
-                                <IconifyWrapper Icon={MynauiLetterASquare} cls="status-shrug" />
-                            {/if}
-
-                            <ParsedText text={charTaskChore.name} />
-                        </td>
-                        <td class="status">
-                            <span
-                                class="status-{['fail', 'shrug', 'success', 'fail'][
-                                    charTaskChore.status
-                                ]}"
+                            <td
+                                class="name text-overflow"
+                                class:status-shrug={charTaskChore.status === QuestStatus.Error}
                             >
-                                {#if chore?.icon}
-                                    {#if 'body' in chore.icon}
-                                        <IconifyIcon icon={chore.icon} />
-                                    {:else}
-                                        <IconifyWrapper Icon={chore.icon} scale="1" />
-                                    {/if}
-                                {:else}
-                                    <IconifyIcon
-                                        icon={[
-                                            uiIcons.starEmpty,
-                                            uiIcons.starHalf,
-                                            uiIcons.starFull,
-                                            uiIcons.lock,
-                                        ][charTaskChore.status]}
-                                    />
+                                {#if chore.questReset === DbResetType.Daily && settingsState.value.tasks.showDailyIcon}
+                                    <IconifyWrapper Icon={MynauiLetterDSquare} cls="quality3" />
+                                {:else if chore.questReset === DbResetType.Weekly && settingsState.value.tasks.showWeeklyIcon}
+                                    <IconifyWrapper Icon={MynauiLetterWSquare} cls="quality3" />
                                 {/if}
-                            </span>
-                        </td>
-                        {#if anyErrors}
-                            <td class="error-text">
-                                {#if charTaskChore.status === QuestStatus.Error}
-                                    {charTaskChore.statusTexts[0]}
+                                {#if chore.accountWide && settingsState.value.tasks.showAccountIcon}
+                                    <IconifyWrapper Icon={MynauiLetterASquare} cls="status-shrug" />
                                 {/if}
-                            </td>
-                        {/if}
-                    </tr>
 
-                    {#if charTaskChore.status === QuestStatus.InProgress && charTaskChore.statusTexts[0]}
-                        <tr class:skipped={charTaskChore.skipped}>
-                            <td class="status-text" colspan={anyErrors ? 3 : 2}>
-                                {#each charTaskChore.statusTexts as statusText}
-                                    {@const [fixedText, textClass] = getFixedText(statusText)}
-                                    <div>
-                                        {#if !statusText.startsWith('<')}
-                                            &ndash;
-                                        {/if}
-                                        <ParsedText cls={textClass} text={fixedText} />
-                                    </div>
-                                {/each}
+                                <ParsedText text={charTaskChore.name} />
                             </td>
+                            <td class="status">
+                                <span
+                                    class="status-{['fail', 'shrug', 'success', 'fail'][
+                                        charTaskChore.status
+                                    ]}"
+                                >
+                                    {#if chore?.icon}
+                                        {#if 'body' in chore.icon}
+                                            <IconifyIcon icon={chore.icon} />
+                                        {:else}
+                                            <IconifyWrapper Icon={chore.icon} scale="1" />
+                                        {/if}
+                                    {:else}
+                                        <IconifyIcon
+                                            icon={[
+                                                uiIcons.starEmpty,
+                                                uiIcons.starHalf,
+                                                uiIcons.starFull,
+                                                uiIcons.lock,
+                                            ][charTaskChore.status]}
+                                        />
+                                    {/if}
+                                </span>
+                            </td>
+                            {#if anyErrors}
+                                <td class="error-text">
+                                    {#if charTaskChore.status === QuestStatus.Error}
+                                        {charTaskChore.statusTexts[0]}
+                                    {/if}
+                                </td>
+                            {/if}
                         </tr>
+
+                        {#if charTaskChore.status === QuestStatus.InProgress && charTaskChore.statusTexts[0]}
+                            <tr class:skipped={charTaskChore.skipped}>
+                                <td class="status-text" colspan={anyErrors ? 3 : 2}>
+                                    {#each charTaskChore.statusTexts as statusText}
+                                        {@const [fixedText, textClass] = getFixedText(statusText)}
+                                        <div>
+                                            {#if !statusText.startsWith('<')}
+                                                &ndash;
+                                            {/if}
+                                            <ParsedText cls={textClass} text={fixedText} />
+                                        </div>
+                                    {/each}
+                                </td>
+                            </tr>
+                        {/if}
                     {/if}
                 {/each}
             </tbody>
