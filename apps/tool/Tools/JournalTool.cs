@@ -158,7 +158,7 @@ public class JournalTool
             .ToDictionary(
                 group => group.Key,
                 group => group
-                    .Where(group2 => group2.MaybePlayerConditionID is 0 or 125989)
+                    .Where(group2 => group2.MaybePlayerConditionID is 0 or 129245)
                     .GroupBy(group2 => group2.MaybePlayerConditionID)
                     .OrderByDescending(group2 => group2.Key)
                     .First()
