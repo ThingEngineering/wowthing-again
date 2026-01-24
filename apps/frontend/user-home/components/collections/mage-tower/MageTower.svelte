@@ -35,6 +35,18 @@
                 ];
             })
     );
+    let overallHave = $derived(
+        data
+            .map(([, classData]) => classData.filter(([, has]) => has).length)
+            .reduce((a, b) => a + b, 0)
+    );
+    let overallTotal = $derived(
+        data
+            .map(
+                ([, classData]) => classData.filter(([specIndex]) => specIndex !== undefined).length
+            )
+            .reduce((a, b) => a + b, 0)
+    );
 </script>
 
 <style lang="scss">
@@ -52,7 +64,9 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th></th>
+            <th>
+                <CollectibleCount counts={new UserCount(overallHave, overallTotal)} />
+            </th>
             {#each mageTowerChallengeOrder as challenge, challengeIndex (challenge)}
                 {@const have = data.filter(([, classData]) => classData[challengeIndex][1]).length}
                 {@const total = data.filter(
