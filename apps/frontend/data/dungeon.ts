@@ -116,9 +116,9 @@ export const dungeonMap: Record<number, Dungeon> = Object.fromEntries(
 // [key level, item level] first match >= key is used
 export const keyVaultItemLevel: Array<Array<number>> = [
     [10, 147, 5], // Myth 1
-    [7, 704, 4], // Hero 4
-    [6, 701, 4], // Hero 3
-    [4, 697, 4], // Hero 2
+    [7, 144, 4], // Hero 4
+    [6, 141, 4], // Hero 3
+    [4, 137, 4], // Hero 2
     [2, 134, 4], // Hero 1
     [1, 131, 3], // [0] Champion 4
     [0, 118, 2], // [H] Veteran 4
