@@ -55,7 +55,7 @@
 
                     <span class="item-level pill abs-center">{equippedItem.itemLevel}</span>
 
-                    {#if equippedItem.itemLevel > 300}
+                    {#if equippedItem.itemLevel > 40}
                         {@const craftedQuality = equippedItem.craftedQuality || 1}
                         <span class="crafted-quality quality{craftedQuality}">
                             <CraftedQualityIcon quality={craftedQuality} />

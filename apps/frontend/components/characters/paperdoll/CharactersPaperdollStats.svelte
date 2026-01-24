@@ -1,29 +1,27 @@
 <script lang="ts">
     import { StatType } from '@/enums/stat-type';
-    import type { Character } from '@/types/character';
+    import type { CharacterProps } from '@/types/props';
 
     import Basic from './stats/CharactersPaperdollStatsBasic.svelte';
     import Misc from './stats/CharactersPaperdollStatsMisc.svelte';
     import Rating from './stats/CharactersPaperdollStatsRating.svelte';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 
-    let mainStat: StatType;
-    $: {
-        mainStat = 0;
-        if (!character.statistics) {
-            break $;
-        }
-
-        let maxValue = 0;
-        for (const testType of [StatType.Agility, StatType.Intellect, StatType.Strength]) {
-            const testValue = character.statistics.basic[testType]?.effective ?? 0;
-            if (testValue > maxValue) {
-                maxValue = testValue;
-                mainStat = testType;
+    let mainStat: StatType = $derived.by(() => {
+        let ret = 0;
+        if (character.statistics) {
+            let maxValue = 0;
+            for (const testType of [StatType.Agility, StatType.Intellect, StatType.Strength]) {
+                const testValue = character.statistics.basic[testType]?.effective ?? 0;
+                if (testValue > maxValue) {
+                    maxValue = testValue;
+                    ret = testType;
+                }
             }
         }
-    }
+        return ret;
+    });
 </script>
 
 <style lang="scss">

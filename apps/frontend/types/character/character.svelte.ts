@@ -345,11 +345,12 @@ export class Character implements ContainsItems, HasNameAndRealm {
             this.currencies[obj.id] = obj;
         }
 
-        this.equippedItems = {};
+        const equippedItems: this['equippedItems'] = {};
         for (const [slot, rawEquippedItemArray] of getNumberKeyedEntries(rawEquippedItems || {})) {
             const obj = new CharacterEquippedItem(...rawEquippedItemArray);
-            this.equippedItems[slot] = obj;
+            equippedItems[slot] = obj;
         }
+        this.equippedItems = equippedItems;
 
         const items: CharacterItem[] = [];
         for (const rawItem of rawItems || []) {
@@ -485,30 +486,28 @@ export class Character implements ContainsItems, HasNameAndRealm {
         () => this.hidden || settingsState.value.characters.ignoredCharacters?.includes(this.id)
     );
 
-    calculatedItemLevel = $derived.by(() => {
+    public calculatedItemLevel = $derived.by(() => {
         let calced: string = undefined;
-        if (Object.keys(this.equippedItems).length > 0) {
-            let count = 0,
-                itemLevels = 0;
-            for (let j = 0; j < slotOrder.length; j++) {
-                const slot = slotOrder[j];
-                const equippedItem = this.equippedItems[slot];
-                if (equippedItem !== undefined) {
+        let count = 0,
+            itemLevels = 0;
+        for (let j = 0; j < slotOrder.length; j++) {
+            const slot = slotOrder[j];
+            const equippedItem = this.equippedItems[slot];
+            if (equippedItem !== undefined) {
+                itemLevels += equippedItem.itemLevel;
+                count++;
+                if (
+                    slot === InventorySlot.MainHand &&
+                    this.equippedItems[InventorySlot.OffHand] === undefined
+                ) {
                     itemLevels += equippedItem.itemLevel;
                     count++;
-                    if (
-                        slot === InventorySlot.MainHand &&
-                        this.equippedItems[InventorySlot.OffHand] === undefined
-                    ) {
-                        itemLevels += equippedItem.itemLevel;
-                        count++;
-                    }
                 }
             }
-
-            const itemLevel = itemLevels / count;
-            calced = itemLevel.toFixed(1);
         }
+
+        const itemLevel = itemLevels / count;
+        calced = itemLevel.toFixed(1);
 
         return calced || this.equippedItemLevel.toFixed(1);
     });
