@@ -27,9 +27,9 @@ export const mageTowerByClass: Record<number, number[]> = {
         MageTowerChallenge.Agatha, // Unholy
     ],
     [PlayableClass.DemonHunter]: [
-        MageTowerChallenge.None, // Devourer
         MageTowerChallenge.Xylem, // Havoc
         MageTowerChallenge.Kruul, // Vengeance
+        MageTowerChallenge.None, // Devourer
     ],
     [PlayableClass.Druid]: [
         MageTowerChallenge.Raest, // Balance

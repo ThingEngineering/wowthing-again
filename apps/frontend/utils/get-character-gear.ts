@@ -88,7 +88,7 @@ export default function getCharacterGear(character: Character): CharacterGear[] 
             }
         }
 
-        if (character.level === Constants.characterMaxLevel && gear.equipped.itemLevel >= 580) {
+        if (character.level === Constants.characterMaxLevel && gear.equipped.itemLevel >= 80) {
             if (state.highlightEnchants) {
                 let enchants: number[];
                 if (inventorySlot === InventorySlot.OffHand) {
