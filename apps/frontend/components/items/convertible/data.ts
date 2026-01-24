@@ -53,22 +53,22 @@ export const convertibleCategories: ConvertibleCategory[] = [
         conversionCurrencyId: 3269, // Ethereal Voidsplinter
         tiers: [
             {
-                itemLevel: 707,
+                itemLevel: 147,
                 highUpgrade: currentUpgrade4,
                 lowUpgrade: currentUpgrade3,
             },
             {
-                itemLevel: 694,
+                itemLevel: 134,
                 highUpgrade: currentUpgrade3,
                 lowUpgrade: currentUpgrade2,
             },
             {
-                itemLevel: 681,
+                itemLevel: 121,
                 highUpgrade: currentUpgrade2,
                 lowUpgrade: currentUpgrade1,
             },
             {
-                itemLevel: 668,
+                itemLevel: 108,
                 highUpgrade: currentUpgrade1,
             },
         ],
