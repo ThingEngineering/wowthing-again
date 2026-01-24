@@ -402,6 +402,13 @@ export function doJournal(): LazyJournal {
 
                         const aItem = wowthingData.items.items[a.id];
                         const bItem = wowthingData.items.items[b.id];
+                        if (!aItem && !bItem) {
+                            return 0;
+                        } else if (aItem && !bItem) {
+                            return -1;
+                        } else if (!aItem && bItem) {
+                            return 1;
+                        }
 
                         // Sort by faction
                         const aFaction = aItem.allianceOnly ? 1 : aItem.hordeOnly ? 2 : 0;
