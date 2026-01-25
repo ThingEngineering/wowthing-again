@@ -9,6 +9,7 @@
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 
     export let character: Character;
     export let datas: ManualDataProgressData[];
@@ -153,7 +154,10 @@
                             {#if iconOverride}
                                 <WowthingImage name={iconOverride} size={20} border={1} />
                             {:else}
-                                {haveIndexes.indexOf(dataIndex) >= 0 ? '✔' : '❌'}
+                                <YesNoIcon
+                                    state={haveIndexes.indexOf(dataIndex) >= 0}
+                                    useStatusColors={true}
+                                />
                             {/if}
                         </td>
                         <td class="name">
