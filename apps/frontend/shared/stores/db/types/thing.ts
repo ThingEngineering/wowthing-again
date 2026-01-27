@@ -18,6 +18,8 @@ import { DbDataThingLocation } from './thing-location';
 import { DbDataThingContent, type DbDataThingContentArray } from './thing-content';
 import { DbDataThingGroup, type DbDataThingGroupArray } from './thing-group';
 
+const normalReputationTiers = ['friendly', 'honored', 'revered', 'exalted'];
+
 export class DbDataThing {
     public accountWide: boolean;
     public contents: DbDataThingContent[] = [];
@@ -90,8 +92,13 @@ export class DbDataThing {
                         const reputationParts = requirement.split(' ');
                         const reputationId = parseInt(reputationParts[1]);
                         if (reputationId > 0) {
-                            if (reputationParts[2]?.startsWith('renown-')) {
-                                contentRequirement = reputationParts[2].replace('renown-', 'R ');
+                            const requiredRep = reputationParts[2] || '';
+                            if (requiredRep.startsWith('renown-')) {
+                                contentRequirement = requiredRep.replace('renown-', 'R ');
+                            } else if (normalReputationTiers.includes(requiredRep)) {
+                                contentRequirement =
+                                    requiredRep.substring(0, 1).toLocaleUpperCase() +
+                                    requiredRep.substring(1, 3);
                             } else {
                                 console.log('dunno what to do with this', reputationParts);
                             }
