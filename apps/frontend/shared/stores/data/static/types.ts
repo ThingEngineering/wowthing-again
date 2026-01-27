@@ -133,7 +133,6 @@ export class DataStatic {
     public reputationById: Map<number, StaticDataReputation>;
     public toyById: Map<number, StaticDataToy>;
     public transmogSetById: Map<number, StaticDataTransmogSet>;
-    public transmogSetsByGroupId: Map<number, StaticDataTransmogSet[]>;
     public worldQuestById: Map<number, StaticDataWorldQuest>;
 
     // Calculate
@@ -159,6 +158,8 @@ export class DataStatic {
     public professionBySlug = new Map<string, StaticDataProfession>();
     public requiredProfessionByItemId = new Map<number, number>();
     public toyByItemId = new Map<number, StaticDataToy>();
+    public transmogSetsByGroupId: Map<number, StaticDataTransmogSet[]>;
+    public transmogSetBySourceId = new Map<number, StaticDataTransmogSet>();
 
     // Professions eh
     public buildProfessionData() {

@@ -180,6 +180,13 @@ export function processStaticData(rawData: RawStatic): DataStatic {
         }
     }
 
+    for (const transmogSet of data.transmogSetById.values()) {
+        for (const [itemId, modifier] of transmogSet.items) {
+            data.transmogSetBySourceId.set((itemId % 1_000_000) * 1000 + modifier, transmogSet);
+        }
+    }
+    console.log(data.transmogSetBySourceId);
+
     data.transmogSetsByGroupId = new Map(
         getNumberKeyedEntries(
             groupBy(
