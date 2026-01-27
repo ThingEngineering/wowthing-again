@@ -84,6 +84,12 @@ export const everythingData: Record<string, EverythingData> = {
         achievementsKey: ['world-events', 'anniversary-celebration'],
         vendorsKey: ['world-events', 'anniversary'],
     },
+    'prepatch-midnight': {
+        name: 'Prepatch: Midnight',
+        tag: 'event:prepatch-midnight',
+        achievementsKey: ['prepatch-midnight'],
+        vendorsKey: ['world-events', 'mid-twilight-ascension'],
+    },
     'remix-legion': {
         name: 'Remix: Legion',
         tag: 'event:remix-legion',

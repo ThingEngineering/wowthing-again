@@ -85,6 +85,7 @@ export const holidayIds: Record<number, number[]> = {
     [Holiday.BrawlTempleOfHotmogu]: [1166, 1167, 1168, 1169, 1170],
     [Holiday.BrawlWarsongScramble]: [664, 671, 678, 685, 1221],
 
+    [Holiday.PrepatchMidnight]: [1636, 1670, 1671, 1672, 1683],
     [Holiday.RemixLegion]: [1640, 1641, 1642, 1643, 1644, 1697],
 };
 
@@ -165,6 +166,11 @@ export const fancyHolidays: FancyHoliday[] = [
         holiday: Holiday.Anniversary,
         shortName: 'Anni',
         everything: 'anniversary',
+    },
+    {
+        holiday: Holiday.PrepatchMidnight,
+        shortName: 'Prepatch',
+        everything: 'prepatch-midnight',
     },
     {
         holiday: Holiday.RemixLegion,
