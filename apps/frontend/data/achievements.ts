@@ -435,4 +435,12 @@ export const extraCategories: ExtraAchievementCategory[] = [
             { targetSlug: 'expansion-features/prey', nameType: 2 },
         ],
     },
+    {
+        slug: 'prepatch-midnight',
+        achievementIds: [
+            42300, // Two Minutes to Midnight
+            61430, // Crunching for Cultists
+        ],
+        children: [],
+    },
 ];

@@ -120,7 +120,20 @@ export function doConvertible(): LazyConvertible {
         for (const setItemId of wowthingData.items.itemConversionEntries[convertibleCategory.id] ||
             []) {
             const setItem = wowthingData.items.items[setItemId];
-            const classId = maskToClass[setItem.classMask];
+
+            let classId = maskToClass[setItem.classMask];
+            // 8191 = all classes, for some reason pre-TWW cloaks got set to this
+            if (setItem.classMask === 8191) {
+                // hope it has a modifier 0!
+                const sourceId = setItemId * 1000;
+                const transmogSet = wowthingData.static.transmogSetBySourceId.get(sourceId);
+                if (transmogSet) {
+                    classId = maskToClass[transmogSet.classMask];
+                } else {
+                    console.log(setItemId, 'has no transmog set??');
+                }
+            }
+
             if (!classId) {
                 console.warn('invalid classMask', setItem.classMask);
                 continue;

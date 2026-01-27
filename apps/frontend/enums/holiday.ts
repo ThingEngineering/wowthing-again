@@ -42,6 +42,8 @@ export enum Holiday {
     BrawlTempleOfHotmogu,
     BrawlWarsongScramble,
 
+    // Temporary
+    PrepatchMidnight,
     RemixLegion,
 }
 

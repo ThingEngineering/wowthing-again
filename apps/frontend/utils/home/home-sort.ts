@@ -34,10 +34,10 @@ export function homeSort(char: Character, sortBy: string): string {
         );
     } else if (sortBy === 'lastSeenAddon') {
         return leftPad(2_000_000_000_000 - (char.lastSeenAddon?.toMillis() || 0), 13, '0');
-    } else if (sortBy === 'locationCurrent') {
+    } else if (sortBy === 'currentLocation') {
         // adding two spaces makes it sort before " > blah"
         return char.currentLocation + '  ' || 'ZZZZZ';
-    } else if (sortBy === 'locationHearth') {
+    } else if (sortBy === 'hearthLocation') {
         // adding two spaces makes it sort before " > blah"
         return char.hearthLocation + '  ' || 'ZZZZZ';
     } else if (sortBy === 'keystone') {

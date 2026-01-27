@@ -57,9 +57,10 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
         let categoryId = 100000;
         for (const extraCategory of extraCategories) {
             const reputations = data.categories.find((cat) => cat?.slug === 'reputation');
-            const slugCat = reputations?.children.find(
-                (child) => child.slug === extraCategory.slug
-            );
+            const slugCat =
+                extraCategory.slug === 'prepatch-midnight'
+                    ? { name: 'Prepatch: Midnight ', slug: 'prepatch-midnight' }
+                    : reputations?.children.find((child) => child.slug === extraCategory.slug);
             if (!slugCat) {
                 console.log('uh oh', extraCategory);
                 continue;
