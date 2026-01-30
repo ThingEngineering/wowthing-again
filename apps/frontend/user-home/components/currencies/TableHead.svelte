@@ -30,6 +30,7 @@
 <style lang="scss">
     th {
         --image-border-width: 2px;
+        --padding: 0.2rem;
         --padding-left: 0;
         --padding-right: 0;
         --width: var(--width-currency);
