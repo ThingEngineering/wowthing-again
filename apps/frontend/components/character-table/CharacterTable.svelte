@@ -161,7 +161,7 @@
                     {#if !showWarbank}
                         <slot name="emptyRow">
                             <tr>
-                                <td class="uhoh bg-fail">
+                                <td class="uhoh bg-fail" colspan="999">
                                     {#if userState.general.characters.length > 0}
                                         It looks like you have characters but none match your
                                         current character filter, try clearing that (end of the
