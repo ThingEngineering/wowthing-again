@@ -12,4 +12,5 @@ export enum ProgressDataType {
     GarrisonTree,
     AccountQuest,
     Item,
+    SpellKnown,
 }

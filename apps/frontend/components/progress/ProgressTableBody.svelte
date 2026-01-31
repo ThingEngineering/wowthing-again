@@ -43,7 +43,7 @@
         class:has-icon={!!progressData.icon}
         use:componentTooltip={{
             component: TooltipProgress,
-            props: {
+            propsFunc: () => ({
                 datas: progressData.datas,
                 descriptionText: progressData.descriptionText,
                 haveIndexes: progressData.haveIndexes,
@@ -52,7 +52,7 @@
                 showCurrencies: [progressData.showCurrency],
                 character,
                 group,
-            },
+            }),
         }}
     >
         {#if progressData.icon}
