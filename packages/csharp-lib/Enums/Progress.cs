@@ -15,4 +15,5 @@ public enum ProgressDataType
     GarrisonTree,
     AccountQuest,
     Item,
+    SpellKnown,
 }

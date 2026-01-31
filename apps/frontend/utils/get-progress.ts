@@ -306,6 +306,11 @@ export default function getProgress(
                             break;
                         }
 
+                        case ProgressDataType.SpellKnown: {
+                            haveThis = character.knownSpells?.includes(data.ids[0]);
+                            break;
+                        }
+
                         case ProgressDataType.SpentCyphers: {
                             showCurrency = 1979; // Cyphers of the First Ones
                             const spent = getSpentCyphers(character);
