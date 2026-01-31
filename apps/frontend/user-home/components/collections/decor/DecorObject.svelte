@@ -17,31 +17,52 @@
 
     let decorSettings = $derived(browserState.current.decor);
     let show = $derived(
-        (total > 0 && decorSettings.showCollected) || (total === 0 && decorSettings.showUncollected)
+        !!decorItem &&
+            ((total > 0 && decorSettings.showCollected) ||
+                (total === 0 && decorSettings.showUncollected))
     );
 </script>
 
 <style lang="scss">
     .object {
         --image-border: 2px;
-    }
-    .has-counts {
-        :global(img) {
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-            border-bottom-width: 1px;
+
+        display: flex;
+        flex-direction: column;
+        width: 84px;
+
+        :global(a) {
+            display: inline-block;
+            position: relative;
+
+            :global(img) {
+                display: block;
+            }
         }
     }
     .counts {
         --image-margin-top: -4px;
         --scale: 0.7;
 
-        border: 1px solid var(--image-border-color);
+        background: rgba(0, 0, 0, 0.5);
         border-bottom-left-radius: var(--border-radius);
         border-bottom-right-radius: var(--border-radius);
-        border-width: 0 2px 2px 2px;
-        padding-right: 0.2rem;
+        border-top: 1px solid var(--image-border-color);
+        bottom: 2px;
+        left: 2px;
+        padding: 0 0.3rem 0.1rem 0.1rem;
+        pointer-events: none;
+        position: absolute;
+        width: calc(100% - 4px);
         word-spacing: -0.4ch;
+    }
+    .name {
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        font-size: 90%;
+        line-clamp: 2;
+        overflow: hidden;
     }
 </style>
 
@@ -49,7 +70,6 @@
     <div
         class="object quality{quality}"
         class:missing={decorSettings.highlightMissing ? total > 0 : total === 0}
-        class:has-counts={total > 0}
     >
         <WowheadLink type="item" id={decorObject.itemId}>
             <Image
@@ -58,19 +78,21 @@
                 size={80}
                 border={2}
             />
+
+            {#if total > 0}
+                <div class="counts flex-wrapper quality{quality}-border">
+                    <span class="stored quality1">
+                        <IconifyIcon icon={iconLibrary.gameOpenChest} />
+                        {counts[0]}
+                    </span>
+                    <span class="placed quality1">
+                        <IconifyIcon icon={iconLibrary.gameHouse} />
+                        {counts[1]}
+                    </span>
+                </div>
+            {/if}
         </WowheadLink>
 
-        {#if total > 0}
-            <div class="counts flex-wrapper quality{quality}-border">
-                <span class="stored quality1">
-                    <IconifyIcon icon={iconLibrary.gameOpenChest} />
-                    {counts[0]}
-                </span>
-                <span class="placed quality1">
-                    <IconifyIcon icon={iconLibrary.gameHouse} />
-                    {counts[1]}
-                </span>
-            </div>
-        {/if}
+        <span class="name">{decorObject.name}</span>
     </div>
 {/if}
