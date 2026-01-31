@@ -4,6 +4,7 @@ import type { StaticDataCurrencyCategory } from '@/shared/stores/static/types';
 import { Constants } from './constants';
 
 export const categoryOrder: number[] = [
+    264, // Midnight
     260, // War Within
     250, // Dragonflight
     245, // Shadowlands
@@ -38,6 +39,15 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
             id: 100102,
             name: 'World Events',
             slug: 'world-events',
+        },
+    ],
+
+    // Midnight
+    264: [
+        {
+            id: 126401,
+            name: 'Crafting Moxie',
+            slug: 'crafting-moxie',
         },
     ],
 
@@ -106,6 +116,20 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
 };
 
 export const currencyExtra: Record<number, number[]> = {
+    // Midnight - Crafting Moxie
+    126401: [
+        3256, // Alchemy
+        3257, // Blacksmithing
+        3258, // Enchanting
+        3259, // Engineering
+        3260, // Herbalism
+        3261, // Inscription
+        3262, // Jewelcrafting
+        3263, // Leatherworking
+        3264, // Mining
+        3265, // Skinning
+        3266, // Tailoring
+    ],
     // The War Within - Crafting Concentration
     126001: [
         3045, // Alchemy
@@ -439,6 +463,20 @@ export const currencyItemCurrencies: Record<number, number> = {
 };
 
 export const currencyProfession: Record<number, number> = {
+    // Midnight - Crafting Moxie
+    3256: Profession.Alchemy,
+    3257: Profession.Blacksmithing,
+    3258: Profession.Enchanting,
+    3259: Profession.Engineering,
+    3260: Profession.Herbalism,
+    3261: Profession.Inscription,
+    3262: Profession.Jewelcrafting,
+    3263: Profession.Leatherworking,
+    3264: Profession.Mining,
+    3265: Profession.Skinning,
+    3266: Profession.Tailoring,
+
+    // The War Within
     3045: Profession.Alchemy,
     3040: Profession.Blacksmithing,
     3046: Profession.Enchanting,
@@ -450,6 +488,19 @@ export const currencyProfession: Record<number, number> = {
 };
 
 export const currencyIconOverride: Record<number, string> = {
+    // Midnight - Crafting Moxie
+    3256: imageStrings['alchemy'],
+    3257: imageStrings['blacksmithing'],
+    3258: imageStrings['enchanting'],
+    3259: imageStrings['engineering'],
+    3260: imageStrings['herbalism'],
+    3261: imageStrings['inscription'],
+    3262: imageStrings['jewelcrafting'],
+    3263: imageStrings['leatherworking'],
+    3264: imageStrings['mining'],
+    3265: imageStrings['skinning'],
+    3266: imageStrings['tailoring'],
+
     // The War Within - Concentration
     3045: imageStrings['alchemy'],
     3040: imageStrings['blacksmithing'],
@@ -462,6 +513,20 @@ export const currencyIconOverride: Record<number, string> = {
 };
 
 const skipCurrencies: number[] = [
+    // Midnight
+    3256, // Alchemy
+    3257, // Blacksmithing
+    3258, // Enchanting
+    3259, // Engineering
+    3260, // Herbalism
+    3261, // Inscription
+    3262, // Jewelcrafting
+    3263, // Leatherworking
+    3264, // Mining
+    3265, // Skinning
+    3266, // Tailoring
+    3349, // [DNT][PH]
+
     // The War Within
     2914, // Weathered Harbinger Crest
     2915, // Carved Harbinger Crest

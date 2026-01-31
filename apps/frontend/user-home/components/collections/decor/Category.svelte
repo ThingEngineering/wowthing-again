@@ -51,17 +51,19 @@
         <div class="collection-section">
             {#each category.subCategories as subCategory (subCategory.id)}
                 {@const subCount = lazyState.decor[`${category.slug}--${subCategory.slug}`]}
-                <div class="collection-group {getPercentClass(subCount.percent)}">
-                    <h4 class="drop-shadow">
-                        {subCategory.name}
-                        <CollectibleCount counts={subCount} />
-                    </h4>
-                    <div class="collection-objects">
-                        {#each subCategory.objects as decorObject (decorObject.id)}
-                            <DecorObject {decorObject} />
-                        {/each}
+                {#if subCount?.total > 0}
+                    <div class="collection-group {getPercentClass(subCount.percent)}">
+                        <h4 class="drop-shadow">
+                            {subCategory.name}
+                            <CollectibleCount counts={subCount} />
+                        </h4>
+                        <div class="collection-objects">
+                            {#each subCategory.objects as decorObject (decorObject.id)}
+                                <DecorObject {decorObject} />
+                            {/each}
+                        </div>
                     </div>
-                </div>
+                {/if}
             {/each}
         </div>
     </div>

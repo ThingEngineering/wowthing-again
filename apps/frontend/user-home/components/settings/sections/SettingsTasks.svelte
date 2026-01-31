@@ -204,7 +204,7 @@
         </tbody>
     </table>
 
-    {#if currentIds.length < 10}
+    {#if currentIds.length < 100}
         <button class="group-entry bg-success border b-success b-radius" onclick={newTask}
             >New Task</button
         >

@@ -19,6 +19,10 @@ export function doDecor(): UserCounts {
             const subCategoryData = (counts[subCategoryKey] = new UserCount());
 
             for (const decorObject of subCategory.objects) {
+                if (decorObject.itemId && !wowthingData.items.items[decorObject.itemId]) {
+                    continue;
+                }
+
                 if (!overallSeen.has(decorObject.id)) {
                     overallData.total++;
                 }

@@ -38,4 +38,7 @@ export const durationAuras: [number, string, boolean?][] = [
     [1258528, 'Mastery of Timeways IV'],
 ];
 
-export const staticAuras: [number, string][] = [[1246363, "Delver's Bounty"]];
+export const staticAuras: [number, string][] = [
+    [306715, 'XP gain disabled'],
+    [1246363, "Delver's Bounty"],
+];
