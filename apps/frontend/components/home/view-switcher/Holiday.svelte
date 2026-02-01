@@ -1,20 +1,21 @@
 <script lang="ts">
-    import { wowthingData } from '@/shared/stores/data';
     import { holidayIds, type FancyHoliday } from '@/data/holidays';
+    import { timeState } from '@/shared/state/time.svelte';
+    import { wowthingData } from '@/shared/stores/data';
     import { DbResetType, DbThingType } from '@/shared/stores/db/enums';
     import { DbDataThing, thingContentTypeToRewardType } from '@/shared/stores/db/types';
-    import { UserCount } from '@/types';
-    import { lazyState } from '@/user-home/state/lazy';
-    import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
-    import { userHasLookup } from '@/utils/rewards/user-has-lookup';
-    import { snapshotStateForUserHasLookup } from '@/utils/rewards/snapshot-state-for-user-has-lookup.svelte';
-    import getPercentClass from '@/utils/get-percent-class';
-    import { activeHolidays } from '@/user-home/state/activeHolidays.svelte';
-    import { timeState } from '@/shared/state/time.svelte';
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
-    import { toNiceDuration } from '@/utils/formatting';
-    import { userState } from '@/user-home/state/user';
+    import { UserCount } from '@/types/user-count';
     import { everythingData } from '@/user-home/components/everything/data';
+    import { activeHolidays } from '@/user-home/state/activeHolidays.svelte';
+    import { lazyState } from '@/user-home/state/lazy';
+    import { userState } from '@/user-home/state/user';
+    import { toNiceDuration } from '@/utils/formatting';
+    import getPercentClass from '@/utils/get-percent-class';
+    import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
+    import { snapshotStateForUserHasLookup } from '@/utils/rewards/snapshot-state-for-user-has-lookup.svelte';
+    import { userHasLookup } from '@/utils/rewards/user-has-lookup';
+
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
     type Props = { fancyHoliday: FancyHoliday };
     let { fancyHoliday }: Props = $props();
@@ -36,6 +37,12 @@
     let { farms, stats } = $derived.by(() => {
         const farms: { farm: DbDataThing; status: boolean }[] = [];
         const stats = new UserCount();
+
+        const { stats: dropStats } = lazyState.everything.drops[fancyHoliday.everything] || {};
+        if (dropStats) {
+            stats.have += dropStats.overall.have;
+            stats.total += dropStats.overall.total;
+        }
 
         const vendorStats = lazyState.vendors.stats[everything.vendorsKey.join('--')];
         if (vendorStats) {
