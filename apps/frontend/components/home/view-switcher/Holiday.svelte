@@ -16,6 +16,7 @@
     import { userHasLookup } from '@/utils/rewards/user-has-lookup';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import { achievementStore } from '@/stores';
 
     type Props = { fancyHoliday: FancyHoliday };
     let { fancyHoliday }: Props = $props();
@@ -48,6 +49,17 @@
         if (vendorStats) {
             stats.have += vendorStats.have;
             stats.total += vendorStats.total;
+        }
+
+        if (everything.achievementsKey?.length > 0) {
+            let cat = $achievementStore.categories.find(
+                (cat) => cat?.slug === everything.achievementsKey[0]
+            );
+            for (let i = 1; i < everything.achievementsKey.length; i++) {
+                cat = cat.children.find((cat) => cat?.slug === everything.achievementsKey[i]);
+            }
+            stats.have += userState.achievements.categories[cat?.id]?.have || 0;
+            stats.total += userState.achievements.categories[cat?.id]?.total || 0;
         }
 
         const results = wowthingData.db.search({
