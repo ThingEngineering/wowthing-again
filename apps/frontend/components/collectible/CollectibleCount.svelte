@@ -8,6 +8,7 @@
     let have = $derived(counts?.have ?? '??');
     let total = $derived(counts?.total ?? '??');
     let percent = $derived(counts?.percent || 0);
+    let quality = $derived(Math.floor(percent / 25) + 1);
 </script>
 
 <style lang="scss">
@@ -21,7 +22,7 @@
 </style>
 
 <span class="collectible-count">
-    <em class="quality{Math.floor(percent / 25) + 1}">{have}</em> /
-    <em class="quality{Math.floor(percent / 25) + 1}">{total}</em>
+    <em class="quality{quality}">{have}</em> /
+    <em class="quality{quality}">{total}</em>
     {@render children?.()}
 </span>
