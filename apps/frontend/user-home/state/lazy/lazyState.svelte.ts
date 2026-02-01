@@ -9,6 +9,7 @@ import { doJournal } from './journal.svelte';
 import { doTransmog } from './transmog.svelte';
 import { doVendors } from './vendors.svelte';
 import { doZoneMaps } from './zoneMaps.svelte';
+import { doEverything } from './everything.svelte';
 
 class LazyState {
     public achievements = $derived.by(() => logErrors(doAchievements));
@@ -16,6 +17,7 @@ class LazyState {
     public convertible = $derived.by(() => logErrors(doConvertible));
     public customizations = $derived.by(() => logErrors(doCustomizations));
     public decor = $derived.by(() => logErrors(doDecor));
+    public everything = $derived.by(() => logErrors(doEverything));
     public journal = $derived.by(() => logErrors(doJournal));
     public transmog = $derived.by(() => logErrors(doTransmog));
     public vendors = $derived.by(() => logErrors(doVendors));
