@@ -144,23 +144,21 @@
     {/if}
 
     {#if thing.achievementsKey}
-        {#await achievementStore.fetch({ language: settingsState.value.general.language }) then}
-            {@const achievementStats = getAchievementStats($achievementStore)}
-            <div class="collection thing-container">
-                <SectionTitle title="Achievements" count={achievementStats}></SectionTitle>
+        {@const achievementStats = getAchievementStats($achievementStore)}
+        <div class="collection thing-container">
+            <SectionTitle title="Achievements" count={achievementStats}></SectionTitle>
 
-                <div class="achievements">
-                    <AchievementCategory
-                        everythingSort={true}
-                        hideOptions={true}
-                        overrideShowCollected={browserState.current.everything.showCollected}
-                        overrideShowUncollected={true}
-                        recursive={true}
-                        slug1={thing.achievementsKey[0]}
-                        slug2={thing.achievementsKey[1]}
-                    />
-                </div>
+            <div class="achievements">
+                <AchievementCategory
+                    everythingSort={true}
+                    hideOptions={true}
+                    overrideShowCollected={browserState.current.everything.showCollected}
+                    overrideShowUncollected={true}
+                    recursive={true}
+                    slug1={thing.achievementsKey[0]}
+                    slug2={thing.achievementsKey[1]}
+                />
             </div>
-        {/await}
+        </div>
     {/if}
 </div>
