@@ -72,7 +72,7 @@ export function doEverything(): LazyEverything {
                     modifier,
                 });
 
-                let hasOnCharacterIds: number[] = [];
+                const hasOnCharacterIds: number[] = [];
                 if (userHas) {
                     resultData.stats.have++;
                 }

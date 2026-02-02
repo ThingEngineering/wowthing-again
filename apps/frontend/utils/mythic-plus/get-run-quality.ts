@@ -10,7 +10,7 @@ const qualityBreakpoints: number[][] = [
     [1, 1],
 ];
 
-export function getRunQuality(run: CharacterMythicPlusRun | number, character?: Character): string {
+export function getRunQuality(run: CharacterMythicPlusRun | number): string {
     let level = 0;
     if (typeof run !== 'number') {
         if (!run.timed) {
@@ -28,7 +28,7 @@ export function getRunQualityAffix(run: CharacterMythicPlusAddonMapAffix): strin
     return run.overTime ? 'quality0' : getQuality(run.level);
 }
 
-function getQuality(level: number, character?: Character): string {
+function getQuality(level: number): string {
     if (level >= 26) {
         return 'quality6';
     } else if (level >= 21) {

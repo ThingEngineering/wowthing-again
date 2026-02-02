@@ -58,7 +58,7 @@
     >
         {#if dungeon}
             <div class="flex-wrapper">
-                <span class="level {getRunQuality(character.weekly.keystoneLevel, character)}"
+                <span class="level {getRunQuality(character.weekly.keystoneLevel)}"
                     >{character.weekly.keystoneLevel}</span
                 >
                 <span class="dungeon" class:upgrade={isUpgrade}>{dungeon.abbreviation}</span>
