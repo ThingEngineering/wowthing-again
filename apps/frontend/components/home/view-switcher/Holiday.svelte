@@ -16,7 +16,6 @@
     import { userHasLookup } from '@/utils/rewards/user-has-lookup';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
-    import { achievementStore } from '@/stores';
 
     type Props = { fancyHoliday: FancyHoliday };
     let { fancyHoliday }: Props = $props();
@@ -52,7 +51,7 @@
         }
 
         if (everything.achievementsKey?.length > 0) {
-            let cat = $achievementStore.categories?.find(
+            let cat = wowthingData.achievements.categories?.find(
                 (cat) => cat?.slug === everything.achievementsKey[0]
             );
             for (let i = 1; i < everything.achievementsKey.length; i++) {

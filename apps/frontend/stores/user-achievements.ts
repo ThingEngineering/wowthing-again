@@ -10,6 +10,7 @@ import { userState } from '@/user-home/state/user';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type { AchievementsState } from '@/stores/local-storage';
 import type { AchievementData } from '@/types/achievement-data';
+import { wowthingData } from '@/shared/stores/data/store.svelte';
 
 export class UserAchievementDataStore extends WritableFancyStore<UserAchievementData> {
     get dataUrl(): string {
@@ -52,12 +53,12 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
         console.timeEnd('UserAchievementDataStore.initialize');
     }
 
-    setup(achievementState: AchievementsState, achievementData: AchievementData): void {
+    setup(achievementState: AchievementsState): void {
         console.time('UserAchievementDataStore.setup');
 
         const userAchievements = this.value.achievements;
 
-        const categories = achievementData.categories;
+        const categories = wowthingData.achievements.categories;
         const keepIds: Record<number, boolean> = {};
         for (const category of categories) {
             if (category === null) {
@@ -77,7 +78,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
 
         const all: [number, number][] = [];
         const allSeen = new Set<number>();
-        for (const achievement of Object.values(achievementData.achievement)) {
+        for (const achievement of wowthingData.achievements.achievementById.values()) {
             if (
                 (achievement.faction === 1 && !achievementState.showHorde) ||
                 (achievement.faction === 0 && !achievementState.showAlliance) ||
@@ -88,8 +89,8 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
             }
 
             const categoryIds = [achievement.categoryId];
-            if (achievementData.achievementToCategory[achievement.id]) {
-                categoryIds.push(achievementData.achievementToCategory[achievement.id]);
+            if (wowthingData.achievements.achievementToCategory[achievement.id]) {
+                categoryIds.push(wowthingData.achievements.achievementToCategory[achievement.id]);
             }
 
             for (const categoryId of categoryIds) {
@@ -122,7 +123,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
             }
         }
 
-        for (const category of achievementData.categories.filter((cat) => cat !== null)) {
+        for (const category of wowthingData.achievements.categories.filter((cat) => cat !== null)) {
             if (!cheevs[category.id]) {
                 cheevs[category.id] = new UserAchievementDataCategory(0, 0, 0, 0);
             }

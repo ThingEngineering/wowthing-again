@@ -1,6 +1,6 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons';
-    import { achievementStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data/store.svelte';
     import { achievementState } from '@/stores/local-storage';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { userState } from '@/user-home/state/user';
@@ -35,7 +35,7 @@
     let chain: number[];
     let faction: number;
     $: {
-        achievement = $achievementStore.achievement[achievementId];
+        achievement = wowthingData.achievements.achievementById.get(achievementId);
         if (!achievement) {
             break $;
         }
@@ -77,7 +77,8 @@
             achievement.supersededBy &&
             (userState.achievements.achievementEarnedById.has(achievement.supersededBy) ||
                 userState.achievements.achievementEarnedById.has(
-                    $achievementStore.achievement[achievement.supersededBy].supersededBy
+                    wowthingData.achievements.achievementById.get(achievement.supersededBy)
+                        .supersededBy
                 ))
         ) {
             show = false;
@@ -91,7 +92,7 @@
             let sigh = achievement;
             while (sigh?.supersedes) {
                 chain.push(sigh.supersedes);
-                sigh = $achievementStore.achievement[sigh.supersedes];
+                sigh = wowthingData.achievements.achievementById.get(sigh.supersedes);
             }
             chain.reverse();
 
@@ -103,7 +104,7 @@
                 sigh = achievement;
                 while (sigh?.supersededBy) {
                     chain.push(sigh.supersededBy);
-                    sigh = $achievementStore.achievement[sigh.supersededBy];
+                    sigh = wowthingData.achievements.achievementById.get(sigh.supersededBy);
                 }
             }
         }
@@ -113,7 +114,7 @@
         } else {
             if ((earned && !useShowCollected) || (!earned && !useShowUncollected)) {
                 show = false;
-            } else if (!earned && $achievementStore.isHidden[achievementId]) {
+            } else if (!earned && wowthingData.achievements.isHidden[achievementId]) {
                 show = false;
             } else if (kindaAlwaysShow) {
                 show = true;
@@ -273,9 +274,9 @@
                             <WowthingImage name="achievement/{chainId}" size={40} border={2} />
                         </AchievementLink>
 
-                        {#if $achievementStore.achievement[chainId]}
+                        {#if wowthingData.achievements.achievementById.has(chainId)}
                             <span class="pill abs-center">
-                                {$achievementStore.achievement[chainId].points}
+                                {wowthingData.achievements.achievementById.get(chainId).points}
                             </span>
                         {/if}
 

@@ -2,10 +2,10 @@ import cloneDeep from 'lodash/cloneDeep';
 import { SvelteMap } from 'svelte/reactivity';
 import { get } from 'svelte/store';
 
-import { achievementStore } from '@/stores';
 import { achievementState } from '@/stores/local-storage/achievements';
 import { UserAchievementDataCategory, type UserAchievementData } from '@/types';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
+import { wowthingData } from '@/shared/stores/data/store.svelte';
 
 export class DataUserAchievements {
     public achievementEarnedById = new SvelteMap<number, number>();
@@ -57,10 +57,9 @@ export class DataUserAchievements {
     private _derivedStats = $derived.by(() => {
         console.time('DataUserAchievements._derivedStats');
 
-        const achievementData = get(achievementStore);
         const achievementStateValue = get(achievementState);
 
-        const categories = achievementData.categories;
+        const categories = wowthingData.achievements.categories;
         const keepIds: Record<number, boolean> = {};
         for (const category of categories) {
             if (category === null) {
@@ -80,7 +79,7 @@ export class DataUserAchievements {
 
         const all: [number, number][] = [];
         const allSeen = new Set<number>();
-        for (const achievement of Object.values(achievementData.achievement)) {
+        for (const achievement of wowthingData.achievements.achievementById.values()) {
             if (
                 (achievement.faction === 1 && !achievementStateValue.showHorde) ||
                 (achievement.faction === 0 && !achievementStateValue.showAlliance) ||
@@ -91,8 +90,8 @@ export class DataUserAchievements {
             }
 
             const categoryIds = [achievement.categoryId];
-            if (achievementData.achievementToCategory[achievement.id]) {
-                categoryIds.push(achievementData.achievementToCategory[achievement.id]);
+            if (wowthingData.achievements.achievementToCategory[achievement.id]) {
+                categoryIds.push(wowthingData.achievements.achievementToCategory[achievement.id]);
             }
 
             for (const categoryId of categoryIds) {
@@ -126,7 +125,7 @@ export class DataUserAchievements {
             }
         }
 
-        for (const category of achievementData.categories.filter((cat) => cat !== null)) {
+        for (const category of wowthingData.achievements.categories.filter((cat) => cat !== null)) {
             if (!cheevs[category.id]) {
                 cheevs[category.id] = new UserAchievementDataCategory(0, 0, 0, 0);
             }

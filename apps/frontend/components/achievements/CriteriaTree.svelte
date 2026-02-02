@@ -3,7 +3,6 @@
     import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator';
     import { CriteriaType } from '@/enums/criteria-type';
     import { wowthingData } from '@/shared/stores/data';
-    import { achievementStore } from '@/stores';
     import { userState } from '@/user-home/state/user';
     import type {
         AchievementDataAchievement,
@@ -35,8 +34,8 @@
     let linkParams: Record<string, string>;
     let linkType: string;
     $: {
-        criteriaTree = $achievementStore.criteriaTree[criteriaTreeId];
-        criteria = $achievementStore.criteria[criteriaTree?.criteriaId];
+        criteriaTree = wowthingData.achievements.criteriaTreeById.get(criteriaTreeId);
+        criteria = wowthingData.achievements.criteriaById.get(criteriaTree?.criteriaId);
         description = criteriaTree.description;
 
         if (achievement.isAccountWide) {
@@ -72,10 +71,10 @@
 
         // Use Object Description
         if ((criteriaTree.flags & 0x20) > 0 || !description) {
-            const criteria = $achievementStore.criteria[criteriaTree.criteriaId];
+            const criteria = wowthingData.achievements.criteriaById.get(criteriaTree.criteriaId);
             if (criteria?.type === CriteriaType.EarnAchievement) {
                 description =
-                    $achievementStore.achievement[criteria.asset]?.name ??
+                    wowthingData.achievements.achievementById.get(criteria.asset)?.name ??
                     `Achievement #${criteria.asset}`;
             } else if (criteria?.type === CriteriaType.CastSpell) {
                 description = `Cast spell #${criteria.asset}`;

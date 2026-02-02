@@ -1,6 +1,6 @@
 <script lang="ts">
     import { browserState } from '@/shared/state/browser.svelte';
-    import { achievementStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
 
     import CriteriaTree from './ExploreAchievementsCriteriaTree.svelte';
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
@@ -8,7 +8,7 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
     let achievement = $derived(
-        $achievementStore.achievement[browserState.current.explore.achievementId]
+        wowthingData.achievements.achievementById.get(browserState.current.explore.achievementId)
     );
 </script>
 

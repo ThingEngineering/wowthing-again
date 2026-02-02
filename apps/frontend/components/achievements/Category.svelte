@@ -4,7 +4,6 @@
     import uniq from 'lodash/uniq';
     import { replace } from 'svelte-spa-router';
 
-    import { achievementStore } from '@/stores';
     import { achievementState } from '@/stores/local-storage';
     import { userState } from '@/user-home/state/user';
     import { leftPad } from '@/utils/formatting';
@@ -12,6 +11,7 @@
     import Achievement from './Achievement.svelte';
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import ProgressBar from '@/components/common/ProgressBar.svelte';
+    import { wowthingData } from '@/shared/stores/data';
 
     type Props = {
         everythingSort?: boolean;
@@ -33,7 +33,7 @@
     }: Props = $props();
 
     let category = $derived.by(() => {
-        let cat = find($achievementStore.categories, (c) => c !== null && c.slug === slug1);
+        let cat = find(wowthingData.achievements.categories, (c) => c !== null && c.slug === slug1);
         if (!cat) {
             return null;
         }
@@ -77,16 +77,16 @@
                         10,
                         '0'
                     ),
-                    leftPad($achievementStore.achievement[id].categoryId, 5, '0'),
-                    leftPad($achievementStore.achievement[id].order, 4, '0'),
+                    leftPad(wowthingData.achievements.achievementById.get(id).categoryId, 5, '0'),
+                    leftPad(wowthingData.achievements.achievementById.get(id).order, 4, '0'),
                 ].join('|')
             );
         } else {
             ids = sortBy(category.achievementIds as number[], (id) =>
                 [
                     userState.achievements.achievementEarnedById.has(id) ? '0' : '1',
-                    leftPad($achievementStore.achievement[id].categoryId, 5, '0'),
-                    leftPad($achievementStore.achievement[id].order, 4, '0'),
+                    leftPad(wowthingData.achievements.achievementById.get(id).categoryId, 5, '0'),
+                    leftPad(wowthingData.achievements.achievementById.get(id).order, 4, '0'),
                     leftPad(100000 - id, 6, '0'),
                 ].join('|')
             );
@@ -94,7 +94,7 @@
 
         return uniq(
             ids.filter((id) => {
-                const cheev = $achievementStore.achievement[id];
+                const cheev = wowthingData.achievements.achievementById.get(id);
 
                 // Don't show tracking achievements
                 if ((cheev.flags & 0x100_000) > 0) {

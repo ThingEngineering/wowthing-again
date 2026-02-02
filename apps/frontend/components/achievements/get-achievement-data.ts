@@ -3,10 +3,10 @@ import sortBy from 'lodash/sortBy';
 import { addonAchievements } from '@/data/achievements';
 import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator';
 import { CriteriaType } from '@/enums/criteria-type';
+import { wowthingData } from '@/shared/stores/data/store.svelte';
 import { userState } from '@/user-home/state/user';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type {
-    AchievementData,
     AchievementDataAchievement,
     AchievementDataCriteriaTree,
     UserAchievementData,
@@ -17,18 +17,18 @@ import type { AchievementStatus } from './types';
 const debugId = 42315;
 
 export function getAchievementStatus(
-    achievementData: AchievementData,
     userAchievementData: UserAchievementData,
     userQuestData: UserQuestData,
     achievement: AchievementDataAchievement
 ): AchievementStatus {
+    const achievementData = wowthingData.achievements;
     const ret: AchievementStatus = {
         characterCounts: [],
         criteriaCharacters: {},
         criteriaTrees: [],
         oneCriteria: false,
         reputation: false,
-        rootCriteriaTree: achievementData.criteriaTree[achievement.criteriaTreeId],
+        rootCriteriaTree: achievementData.criteriaTreeById.get(achievement.criteriaTreeId),
         total: 0,
     };
 
@@ -61,7 +61,7 @@ export function getAchievementStatus(
         }
 
         //const criteriaTree = achievementData.criteriaTree[criteriaTreeId]
-        const criteria = achievementData.criteria[criteriaTree.criteriaId];
+        const criteria = achievementData.criteriaById.get(criteriaTree.criteriaId);
         const characterData = (ret.criteriaCharacters[criteriaTree.criteriaId || 0] ||= []);
 
         if (
@@ -175,7 +175,7 @@ export function getAchievementStatus(
         }
 
         for (const criteriaTreeId of criteriaTree.children) {
-            recurse(criteriaTree, achievementData.criteriaTree[criteriaTreeId], addStuff);
+            recurse(criteriaTree, achievementData.criteriaTreeById.get(criteriaTreeId), addStuff);
         }
     }
 
@@ -184,7 +184,7 @@ export function getAchievementStatus(
     ret.reputation =
         ret.criteriaTrees.length === 1 &&
         ret.criteriaTrees[0].length === 1 &&
-        achievementData.criteria[ret.criteriaTrees[0][0].criteriaId]?.type ===
+        achievementData.criteriaById.get(ret.criteriaTrees[0][0].criteriaId)?.type ===
             CriteriaType.ReputationGained;
 
     const characterCounts: Record<number, number> = {};

@@ -1,14 +1,9 @@
-import { get } from 'svelte/store';
-
 import { difficultyMap } from '@/data/difficulty';
 import { RewardType } from '@/enums/reward-type';
-import { achievementStore } from '@/stores';
 import { wowthingData } from '@/shared/stores/data';
 import type { ManualDataZoneMapDrop } from '@/types/data/manual';
 
 export function getDropName(drop: ManualDataZoneMapDrop): string {
-    const achievementData = get(achievementStore);
-
     if (
         drop.type === RewardType.Item ||
         drop.type === RewardType.Cosmetic ||
@@ -20,11 +15,14 @@ export function getDropName(drop: ManualDataZoneMapDrop): string {
     } else if (drop.type === RewardType.Achievement) {
         if (drop.subType > 0) {
             return (
-                achievementData.criteriaTree[drop.subType]?.description ??
+                wowthingData.achievements.criteriaTreeById.get(drop.subType)?.description ??
                 `Criteria #${drop.subType}`
             );
         } else {
-            return achievementData.achievement[drop.id]?.name ?? `Achievement #${drop.id}`;
+            return (
+                wowthingData.achievements.achievementById.get(drop.id)?.name ??
+                `Achievement #${drop.id}`
+            );
         }
     } else if (drop.type === RewardType.Currency) {
         const currency = wowthingData.static.currencyById.get(drop.id);

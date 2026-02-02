@@ -1,10 +1,8 @@
 <script lang="ts">
     import { browserState } from '@/shared/state/browser.svelte';
-    import { settingsState } from '@/shared/state/settings.svelte';
-    import { achievementStore } from '@/stores/achievements';
+    import { wowthingData } from '@/shared/stores/data';
     import { lazyState } from '@/user-home/state/lazy';
     import { userState } from '@/user-home/state/user';
-    import type { AchievementData } from '@/types';
     import type { EverythingData } from './data';
 
     import AchievementCategory from '@/components/achievements/Category.svelte';
@@ -18,8 +16,10 @@
 
     let { things: dbThings, stats } = $derived(lazyState.everything.drops[slug]);
 
-    const getAchievementStats = (achievementData: AchievementData) => {
-        let cat = achievementData.categories.find((cat) => cat?.slug === thing.achievementsKey[0]);
+    const getAchievementStats = () => {
+        let cat = wowthingData.achievements.categories.find(
+            (cat) => cat?.slug === thing.achievementsKey[0]
+        );
         for (let i = 1; i < thing.achievementsKey.length; i++) {
             cat = cat.children.find((cat) => cat?.slug === thing.achievementsKey[i]);
         }
@@ -144,7 +144,7 @@
     {/if}
 
     {#if thing.achievementsKey}
-        {@const achievementStats = getAchievementStats($achievementStore)}
+        {@const achievementStats = getAchievementStats()}
         <div class="collection thing-container">
             <SectionTitle title="Achievements" count={achievementStats}></SectionTitle>
 
