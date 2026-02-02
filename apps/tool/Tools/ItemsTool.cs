@@ -482,7 +482,6 @@ public class ItemsTool
             await db.SetCacheDataAndHash($"item-bebop-{language.ToString()}", bebopData, bebopHash);
 
             ToolContext.Logger.Warning("Bebop stream is {len} bytes for {count} records", bebopData.Length, bebopItems.Count);
-            break;
         }
 
         _timer.AddPoint("Generate", true);
