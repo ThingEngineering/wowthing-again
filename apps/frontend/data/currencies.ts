@@ -222,6 +222,10 @@ export const currencyExtra: Record<number, number[]> = {
     100102: [
         3309, // Hellstone Shard
     ],
+    // Miscellaneous > Decor
+    100104: [
+        3363, // Community Coupons
+    ],
 };
 
 export const currencyItems: Record<number, number[]> = {
