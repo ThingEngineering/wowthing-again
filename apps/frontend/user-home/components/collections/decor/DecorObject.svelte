@@ -27,6 +27,7 @@
     .object {
         --image-border: 2px;
 
+        background: var(--color-highlight-background);
         display: flex;
         flex-direction: column;
         width: 84px;
