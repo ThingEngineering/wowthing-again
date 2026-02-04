@@ -516,6 +516,21 @@ export const currencyIconOverride: Record<number, string> = {
     3041: imageStrings['tailoring'],
 };
 
+export const currencyText: Record<number, string> = {
+    1_245586: 'Cla', // Ironwood Lumber [Classic]
+    1_242691: 'TBC', // Olemba Lumber [TBC]
+    1_251762: 'WotLK', // Coldwind Lumber [WotLK]
+    1_251764: 'Cata', // Ashwood Lumber [Cata]
+    1_251763: 'MoP', // Bamboo Lumber [MoP]
+    1_251766: 'WoD', // Shadowmoon Lumber [WoD]
+    1_251767: 'Leg', // Fel-Touched Lumber [Legion]
+    1_251768: 'BfA', // Darkpine Lumber [BfA]
+    1_251772: 'SL', // Arden Lumber [SL]
+    1_251773: 'DF', // Dragonpine Lumber [DF]
+    1_248012: 'TWW', // Dornic Fir Lumber [TWW]
+    1_256963: 'Mid', // Thalssian Lumber [Mid]
+};
+
 const skipCurrencies: number[] = [
     // Midnight
     3256, // Alchemy

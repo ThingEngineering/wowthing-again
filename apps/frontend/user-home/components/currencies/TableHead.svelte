@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { currencyIconOverride } from '@/data/currencies';
+    import { currencyIconOverride, currencyText } from '@/data/currencies';
     import { wowthingData } from '@/shared/stores/data';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { currencyState } from '@/stores/local-storage';
@@ -10,21 +10,23 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let currency: StaticDataCurrency = undefined;
-    export let itemId = 0;
-    export let slug: string;
-    export let sortingBy: boolean;
+    type Props = {
+        currency?: StaticDataCurrency;
+        itemId?: number;
+        slug: string;
+        sortingBy: boolean;
+    };
+    let { currency, itemId, slug, sortingBy }: Props = $props();
 
-    let cls: string;
-    let onClick: (event: Event) => void;
-    $: {
-        cls = itemId ? `quality${wowthingData.items.items[itemId]?.quality || 1}` : 'quality1';
+    let cls = $derived(
+        itemId ? `quality${wowthingData.items.items[itemId]?.quality || 1}` : 'quality1'
+    );
+    let text = $derived(currencyText[itemId ? 1_000_000 + itemId : currency.id]);
 
-        onClick = function (event: Event) {
-            event.preventDefault();
-            $currencyState.sortOrder[slug] = sortingBy ? 0 : itemId || currency.id;
-        };
-    }
+    let onClick = $derived((event: Event) => {
+        event.preventDefault();
+        $currencyState.sortOrder[slug] = sortingBy ? 0 : itemId || currency.id;
+    });
 </script>
 
 <style lang="scss">
@@ -42,8 +44,15 @@
         border-top-width: 0;
         padding-bottom: var(--padding);
         padding-top: var(--padding);
-        position: relative;
         text-align: center;
+
+        :global(a) {
+            display: block;
+            position: relative;
+        }
+    }
+    .text {
+        bottom: 0;
     }
 </style>
 
@@ -70,6 +79,10 @@
             size={40}
             border={2}
         />
+
+        {#if text}
+            <span class="text quality1 abs-center pill">{text}</span>
+        {/if}
 
         {#if sortingBy}
             <TableSortedBy />
