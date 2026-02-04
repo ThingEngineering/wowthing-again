@@ -1,15 +1,36 @@
 <script lang="ts">
+    import sortBy from 'lodash/sortBy';
+    import uniqBy from 'lodash/uniqBy';
+
     import { browserState } from '@/shared/state/browser.svelte';
     import { lazyState } from '@/user-home/state/lazy';
     import getPercentClass from '@/utils/get-percent-class';
-    import type { StaticDataDecorCategory } from '@/shared/stores/static/types';
+    import type {
+        StaticDataDecorCategory,
+        StaticDataDecorObject,
+    } from '@/shared/stores/static/types';
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte';
     import DecorObject from './DecorObject.svelte';
+    import { wowthingData } from '@/shared/stores/data';
 
     let { category }: { category: StaticDataDecorCategory } = $props();
+
+    const sortObjects = (objects: StaticDataDecorObject[]) => {
+        return sortBy(
+            uniqBy(objects, (object) => object.itemId),
+            (object) => {
+                const item = wowthingData.items.items[object.itemId];
+                if (!item) {
+                    return 'z';
+                }
+
+                return [9 - item.quality, item.name].join('|');
+            }
+        );
+    };
 </script>
 
 <style lang="scss">
@@ -58,7 +79,7 @@
                             <CollectibleCount counts={subCount} />
                         </h4>
                         <div class="collection-objects">
-                            {#each subCategory.objects as decorObject (decorObject.id)}
+                            {#each sortObjects(subCategory.objects) as decorObject (decorObject.id)}
                                 <DecorObject {decorObject} />
                             {/each}
                         </div>
