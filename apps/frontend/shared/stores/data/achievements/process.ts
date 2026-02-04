@@ -335,30 +335,30 @@ export function processAchievementsData(rawData: RawAchievements): DataAchieveme
                 13762, // [A] Aqua Team Murder Force
                 13761, // [H] Aqua Team Murder Force
             ],
-            [
-                13744, // Seasoned: Bladesman Inowari
-                13746, // Seasoned: Neri Sharpfin
-            ],
-            [
-                13745, // Seasoned: Farseer Ori
-                13747, // Seasoned: Poen Gillbrack
-            ],
-            [
-                13743, // Seasoned: Hunter Akana
-                13748, // Seasoned: Vim Brineheart
-            ],
-            [
-                13754, // Veteran: Bladesman Inowari
-                13749, // Veteran: Neri Sharpfin
-            ],
-            [
-                13755, // Veteran: Farseer Ori
-                13751, // Veteran: Poen Gillbrack
-            ],
-            [
-                13753, // Veteran: Hunter Akana
-                13752, // Veteran: Vim Brineheart
-            ],
+            // [
+            //     13744, // Seasoned: Bladesman Inowari
+            //     13746, // Seasoned: Neri Sharpfin
+            // ],
+            // [
+            //     13745, // Seasoned: Farseer Ori
+            //     13747, // Seasoned: Poen Gillbrack
+            // ],
+            // [
+            //     13743, // Seasoned: Hunter Akana
+            //     13748, // Seasoned: Vim Brineheart
+            // ],
+            // [
+            //     13754, // Veteran: Bladesman Inowari
+            //     13749, // Veteran: Neri Sharpfin
+            // ],
+            // [
+            //     13755, // Veteran: Farseer Ori
+            //     13751, // Veteran: Poen Gillbrack
+            // ],
+            // [
+            //     13753, // Veteran: Hunter Akana
+            //     13752, // Veteran: Vim Brineheart
+            // ],
             [
                 13759, // Battle-Scarred: Bladesman Inowari
                 13750, // Battle-Scarred: Neri Sharpfin
