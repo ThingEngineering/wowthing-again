@@ -3,7 +3,7 @@
     import { timeState } from '@/shared/state/time.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { DbResetType, DbThingType } from '@/shared/stores/db/enums';
-    import { DbDataThing, thingContentTypeToRewardType } from '@/shared/stores/db/types';
+    import { DbDataThing } from '@/shared/stores/db/types';
     import { UserCount } from '@/types/user-count';
     import { everythingData } from '@/user-home/components/everything/data';
     import { activeHolidays } from '@/user-home/state/activeHolidays.svelte';
@@ -11,9 +11,6 @@
     import { userState } from '@/user-home/state/user';
     import { toNiceDuration } from '@/utils/formatting';
     import getPercentClass from '@/utils/get-percent-class';
-    import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
-    import { snapshotStateForUserHasLookup } from '@/utils/rewards/snapshot-state-for-user-has-lookup.svelte';
-    import { userHasLookup } from '@/utils/rewards/user-has-lookup';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
@@ -33,7 +30,6 @@
     );
     let everything = $derived(everythingData[fancyHoliday.everything]);
 
-    let snapshot = $derived.by(() => snapshotStateForUserHasLookup());
     let { farms, stats } = $derived.by(() => {
         const farms: { farm: DbDataThing; status: boolean }[] = [];
         const stats = new UserCount();
@@ -67,20 +63,6 @@
         for (const result of results) {
             // farmable things
             if (result.type === DbThingType.Item || result.type === DbThingType.Npc) {
-                console.log('other?', result);
-                for (const content of result.contents) {
-                    stats.total++;
-
-                    const [lookupType, lookupId] = rewardToLookup(
-                        thingContentTypeToRewardType[content.type],
-                        content.id
-                    );
-                    const userHas = userHasLookup(snapshot, lookupType, lookupId, {});
-                    if (userHas) {
-                        stats.have++;
-                    }
-                }
-
                 // TODO: handle per-character?
                 if (result.accountWide) {
                     if (result.resetType === DbResetType.Daily) {
