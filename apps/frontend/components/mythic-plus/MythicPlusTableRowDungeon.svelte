@@ -144,7 +144,7 @@
                 <span class="quality0">--</span>
             {/if}
         {:else if bestRun}
-            <span class={getRunQuality(bestRun, character)}>
+            <span class={getRunQuality(bestRun)}>
                 {bestRun.keystoneLevel}
             </span>
 

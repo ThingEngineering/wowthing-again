@@ -10,6 +10,7 @@ export enum Holiday {
     MidsummerFireFestival,
     Noblegarden,
     PilgrimsBounty,
+    PiratesDay,
     TrialOfStyle,
     WinterVeil,
 
@@ -28,6 +29,7 @@ export enum Holiday {
     TimewalkingWod,
     TimewalkingLegion,
     TimewalkingBfa,
+    TimewalkingSl,
 
     BrawlArathiBlizzard,
     BrawlClassicAshran,
@@ -56,4 +58,5 @@ export const timewalkingHolidays = [
     Holiday.TimewalkingWod,
     Holiday.TimewalkingLegion,
     Holiday.TimewalkingBfa,
+    Holiday.TimewalkingSl,
 ];

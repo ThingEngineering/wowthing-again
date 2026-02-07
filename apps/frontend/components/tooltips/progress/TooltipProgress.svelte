@@ -2,7 +2,8 @@
     import { covenantFeatureCost } from '@/data/covenant';
     import { Faction } from '@/enums/faction';
     import { ProgressDataType } from '@/enums/progress-data-type';
-    import { achievementStore, userAchievementStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
+    import { userAchievementStore } from '@/stores';
     import { getNameForFaction } from '@/utils/get-name-for-faction';
     import type { Character } from '@/types';
     import type { ManualDataProgressData, ManualDataProgressGroup } from '@/types/data/manual';
@@ -34,13 +35,15 @@
 
         // Special cases
         if (group.name === 'Valorous Appearances') {
-            const cheev = $achievementStore.achievement[datas[1].ids[0]];
-            const rootTree = $achievementStore.criteriaTree[cheev.criteriaTreeId];
+            const cheev = wowthingData.achievements.achievementById.get(datas[1].ids[0]);
+            const rootTree = wowthingData.achievements.criteriaTreeById.get(cheev.criteriaTreeId);
             const charCheev = $userAchievementStore.addonAchievements[character.id]?.[cheev.id];
             const newDesc = { ...descriptionText };
             if (charCheev?.earned !== true) {
                 for (let childIndex = 0; childIndex < rootTree.children.length; childIndex++) {
-                    const childTree = $achievementStore.criteriaTree[rootTree.children[childIndex]];
+                    const childTree = wowthingData.achievements.criteriaTreeById.get(
+                        rootTree.children[childIndex]
+                    );
                     newDesc[1] += `<br>${charCheev?.criteria?.[childIndex] > 0 ? '✔' : '❌'} ${childTree.description}`;
                 }
             }

@@ -24,6 +24,7 @@
 
     // NOTE: can't switch to this until all SCSS variables are removed
     import '../scss/global.scss';
+    import { achievementState } from '@/stores/local-storage';
 
     let ready = $state(false);
 
@@ -34,7 +35,7 @@
 
         basicTooltipsDelegate = delegateBasicTooltips();
 
-        await wowthingData.fetch(settingsState.value.general.language);
+        await Promise.all([wowthingData.fetch(settingsState.value.general.language)]);
 
         await Promise.all([
             userAchievementStore.fetch(),
@@ -47,6 +48,7 @@
         userStore.setup(settingsState.value, $userStore);
         // FIX: should likely be derived
         userQuestStore.setup($timeStore);
+        userAchievementStore.setup($achievementState);
 
         // mounting the new nav conditionally is annoying
         const navTarget = document.querySelector('#app-nav');

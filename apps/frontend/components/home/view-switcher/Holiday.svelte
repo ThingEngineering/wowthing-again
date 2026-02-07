@@ -1,29 +1,22 @@
 <script lang="ts">
-    import { wowthingData } from '@/shared/stores/data';
     import { holidayIds, type FancyHoliday } from '@/data/holidays';
-    import { DbResetType, DbThingType } from '@/shared/stores/db/enums';
-    import { DbDataThing, thingContentTypeToRewardType } from '@/shared/stores/db/types';
-    import { UserCount } from '@/types';
-    import { lazyState } from '@/user-home/state/lazy';
-    import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
-    import { userHasLookup } from '@/utils/rewards/user-has-lookup';
-    import { snapshotStateForUserHasLookup } from '@/utils/rewards/snapshot-state-for-user-has-lookup.svelte';
-    import getPercentClass from '@/utils/get-percent-class';
-    import { activeHolidays } from '@/user-home/state/activeHolidays.svelte';
     import { timeState } from '@/shared/state/time.svelte';
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
-    import { toNiceDuration } from '@/utils/formatting';
-    import { userState } from '@/user-home/state/user';
+    import { wowthingData } from '@/shared/stores/data';
+    import { DbResetType, DbThingType } from '@/shared/stores/db/enums';
+    import { DbDataThing } from '@/shared/stores/db/types';
+    import { UserCount } from '@/types/user-count';
     import { everythingData } from '@/user-home/components/everything/data';
+    import { lazyState } from '@/user-home/state/lazy';
+    import { userState } from '@/user-home/state/user';
+    import { toNiceDuration } from '@/utils/formatting';
+    import getPercentClass from '@/utils/get-percent-class';
+    import { type ActiveHoliday } from '@/user-home/state/activeHolidays.svelte';
 
-    type Props = { fancyHoliday: FancyHoliday };
-    let { fancyHoliday }: Props = $props();
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
-    let activeHoliday = $derived(
-        holidayIds[fancyHoliday.holiday]
-            .map((id) => activeHolidays.value[`h${id}`])
-            .find((h) => !!h)
-    );
+    type Props = { activeHoliday: ActiveHoliday; fancyHoliday: FancyHoliday };
+    let { activeHoliday, fancyHoliday }: Props = $props();
+
     // future => time until start, current => time until end
     let remainingTime = $derived.by(() =>
         activeHoliday.soon
@@ -32,15 +25,31 @@
     );
     let everything = $derived(everythingData[fancyHoliday.everything]);
 
-    let snapshot = $derived.by(() => snapshotStateForUserHasLookup());
     let { farms, stats } = $derived.by(() => {
         const farms: { farm: DbDataThing; status: boolean }[] = [];
         const stats = new UserCount();
+
+        const { stats: dropStats } = lazyState.everything.drops[fancyHoliday.everything] || {};
+        if (dropStats) {
+            stats.have += dropStats.overall.have;
+            stats.total += dropStats.overall.total;
+        }
 
         const vendorStats = lazyState.vendors.stats[everything.vendorsKey.join('--')];
         if (vendorStats) {
             stats.have += vendorStats.have;
             stats.total += vendorStats.total;
+        }
+
+        if (everything.achievementsKey?.length > 0) {
+            let cat = wowthingData.achievements.categories?.find(
+                (cat) => cat?.slug === everything.achievementsKey[0]
+            );
+            for (let i = 1; i < everything.achievementsKey.length; i++) {
+                cat = cat?.children?.find((cat) => cat?.slug === everything.achievementsKey[i]);
+            }
+            stats.have += userState.achievements.categories[cat?.id]?.have || 0;
+            stats.total += userState.achievements.categories[cat?.id]?.total || 0;
         }
 
         const results = wowthingData.db.search({
@@ -49,20 +58,6 @@
         for (const result of results) {
             // farmable things
             if (result.type === DbThingType.Item || result.type === DbThingType.Npc) {
-                console.log('other?', result);
-                for (const content of result.contents) {
-                    stats.total++;
-
-                    const [lookupType, lookupId] = rewardToLookup(
-                        thingContentTypeToRewardType[content.type],
-                        content.id
-                    );
-                    const userHas = userHasLookup(snapshot, lookupType, lookupId, {});
-                    if (userHas) {
-                        stats.have++;
-                    }
-                }
-
                 // TODO: handle per-character?
                 if (result.accountWide) {
                     if (result.resetType === DbResetType.Daily) {

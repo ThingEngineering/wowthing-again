@@ -18,6 +18,7 @@
     let { active, view = $bindable() }: { active: boolean; view: SettingsView } = $props();
 
     const categoryPrefix: Record<number, string> = {
+        264: '[Mid]', // Midnight
         260: '[TWW]', // The War Within
         250: '[DF]', // Dragonflight
         245: '[SL]', // Shadowlands

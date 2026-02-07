@@ -4,6 +4,7 @@
     import getPercentClass from '@/utils/get-percent-class';
     import type { SomethingThing } from './types';
 
+    import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
     import LookupThing from './LookupThing.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
@@ -53,6 +54,10 @@
                 </WowheadLink>
             {:else}
                 <ParsedText text={name} />
+            {/if}
+
+            {#if thingData.stats}
+                <CollectibleCount counts={thingData.stats} />
             {/if}
         </h4>
     </div>

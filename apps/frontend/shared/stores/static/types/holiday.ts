@@ -5,6 +5,8 @@ export class StaticDataHoliday {
 
     constructor(
         public id: number,
+        public nameId: number,
+        public descriptionId: number,
         public name: string,
         public filterType: number,
         public flags: number,
@@ -12,7 +14,7 @@ export class StaticDataHoliday {
         public priority: number,
         public regionMask: number,
         public durations: number[],
-        startDates: number[],
+        startDates: number[]
     ) {
         this.startDates = startDates.map((unixTime) => DateTime.fromSeconds(unixTime));
     }

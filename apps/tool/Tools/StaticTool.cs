@@ -4,6 +4,7 @@ using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Enums;
 using Wowthing.Tool.Models;
 using Wowthing.Tool.Models.Artifacts;
+using Wowthing.Tool.Models.CollectableSource;
 using Wowthing.Tool.Models.Covenants;
 using Wowthing.Tool.Models.Heirlooms;
 using Wowthing.Tool.Models.Housing;
@@ -507,6 +508,10 @@ public class StaticTool
                 foreach (var decorSubcategory in decorCategory.Subcategories)
                 {
                     decorSubcategory.Name = GetString(StringType.WowDecorSubcategoryName, language, decorSubcategory.Id);
+                    foreach (var decor in decorSubcategory.Decors)
+                    {
+                        decor.Name = GetString(StringType.WowDecorObjectName, Language.enUS, decor.Id);
+                    }
                 }
             }
 
@@ -644,11 +649,15 @@ public class StaticTool
 
     private async Task<List<StaticDecorCategory>> LoadDecor()
     {
+        var decorIdToSourceType =
+            (await DataUtilities.LoadDumpCsvAsync<DumpCollectableSourceInfo>("collectablesourceinfo"))
+            .Where(x => x.HouseDecorID > 0)
+            .ToDictionary(x => x.HouseDecorID, x => x.SourceTypeEnum);
         var decorCategories = await DataUtilities.LoadDumpCsvAsync<DumpDecorCategory>("decorcategory");
         var decorSubcategories = await DataUtilities.LoadDumpCsvAsync<DumpDecorSubcategory>("decorsubcategory");
         var decorIdToSubcategoryId = (await DataUtilities.LoadDumpCsvAsync<DumpDecorXDecorSubcategory>("decorxdecorsubcategory"))
             .ToGroupedDictionary(x => x.HouseDecorID, x => x.DecorSubcategoryID);
-        var houseDecors = await DataUtilities.LoadDumpCsvAsync<DumpHouseDecor>("housedecor");
+        var houseDecors = await DataUtilities.LoadDumpCsvAsync<DumpHouseDecor>("housedecor", validFunc: (decor) => !decor.Name.StartsWith("[DNT]"));
 
         var ret = new List<StaticDecorCategory>();
         var outCategoryMap = new Dictionary<short, StaticDecorCategory>();

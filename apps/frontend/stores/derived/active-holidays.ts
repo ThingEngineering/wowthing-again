@@ -1,7 +1,6 @@
 import { derived } from 'svelte/store';
 import type { DateTime } from 'luxon';
 
-import { holidayMap } from '@/data/holidays';
 import { Holiday } from '@/enums/holiday';
 import { wowthingData } from '@/shared/stores/data';
 import { timeStore } from '@/shared/stores/time';
@@ -53,12 +52,7 @@ export const activeHolidays = derived([timeStore], ([$timeStore]) => {
 
                     const endDate = actualStartDate.plus({ hours: holiday.durations[0] });
                     if (endDate > $timeStore) {
-                        if (holidayMap[holiday.id]) {
-                            activeHolidays[`h${holiday.id}`] = holiday;
-                            if (Holiday[holidayMap[holiday.id]].startsWith('Brawl')) {
-                                activeHolidays['pvpBrawl'] = holiday;
-                            }
-                        }
+                        activeHolidays[`h${holiday.id}`] = holiday;
                         break;
                     }
 

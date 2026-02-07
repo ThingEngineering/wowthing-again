@@ -1,24 +1,21 @@
 <script lang="ts">
-    import { achievementStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
 
     import ProgressBar from '@/components/common/ProgressBar.svelte';
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
 
-    let categories: SidebarItem[];
-    $: {
-        categories = [
-            {
-                id: 0,
-                name: 'Summary',
-                slug: 'summary',
-                children: [],
-            },
-            null,
-            ...$achievementStore.categories,
-        ];
-    }
+    const categories: SidebarItem[] = [
+        {
+            id: 0,
+            name: 'Summary',
+            slug: 'summary',
+            children: [],
+        },
+        null,
+        ...wowthingData.achievements.categories,
+    ];
 
     const percentFunc = function (entry: SidebarItem): number {
         const cat = userState.achievements.categories[entry.id];

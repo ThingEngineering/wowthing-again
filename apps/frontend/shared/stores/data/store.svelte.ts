@@ -1,16 +1,18 @@
 import { Language } from '@/enums/language';
+import { BebopItems } from '@/types/bops.gen';
 
+import { processAchievementsData } from './achievements/process';
 import { processDbData } from './db/process';
 import { processItemsData } from './items/process';
 import { processJournalData } from './journal/process';
 import { processManualData } from './manual/process';
 import { processStaticData } from './static/process';
+import type { DataAchievements, RawAchievements } from './achievements/types';
 import type { DataDb, RawDb } from './db/types';
 import type { DataItems, RawItems } from './items/types';
 import type { DataJournal, RawJournal } from './journal/types';
 import type { DataManual, RawManual } from './manual/types';
 import type { DataStatic, RawStatic } from './static/types';
-import { BebopItems } from '@/types/bops.gen';
 
 const requestInit: RequestInit = {
     credentials: 'include',
@@ -18,6 +20,7 @@ const requestInit: RequestInit = {
 };
 
 interface WowthingDataOptions {
+    loadAchievements: boolean;
     loadDb: boolean;
     loadItems: boolean;
     loadJournal: boolean;
@@ -33,6 +36,7 @@ class WowthingData {
 
     public loaded = $state(false);
 
+    public achievements: DataAchievements;
     public db: DataDb;
     public items: DataItems;
     public journal: DataJournal;
@@ -46,6 +50,16 @@ class WowthingData {
         this.language = language;
 
         const promises: Promise<void>[] = [];
+
+        if (options.loadAchievements !== false) {
+            promises.push(
+                this.fetchAndProcess(
+                    'achievements',
+                    (rawData: RawAchievements) =>
+                        (this.achievements = processAchievementsData(rawData))
+                )
+            );
+        }
         if (options.loadDb !== false) {
             promises.push(
                 this.fetchAndProcess('db', (rawData: RawDb) => (this.db = processDbData(rawData)))

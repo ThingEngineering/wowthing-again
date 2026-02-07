@@ -1,10 +1,10 @@
 import sortBy from 'lodash/sortBy';
-import { get } from 'svelte/store';
 
 import { forceAddonCriteria, forceGarrisonTalent } from '@/data/achievements';
 import { CriteriaType } from '@/enums/criteria-type';
 import { Faction } from '@/enums/faction';
 import { CriteriaTreeOperator } from '@/enums/wow';
+import { wowthingData } from '@/shared/stores/data/store.svelte';
 import { UserCount } from '@/types';
 import {
     type AchievementData,
@@ -15,7 +15,6 @@ import {
     type Character,
 } from '@/types';
 import { userState } from '../user';
-import { achievementStore } from '@/stores';
 
 export class LazyAchievements {
     public achievements: Record<number, ComputedAchievement> = {};
@@ -78,13 +77,6 @@ class AchievementProcessor {
     private overallPoints: UserCount;
     private overallStats: UserCount;
 
-    private achievementData: AchievementData;
-
-    constructor() {
-        // FIXME: move to wowthingData
-        this.achievementData = get(achievementStore);
-    }
-
     process(): LazyAchievements {
         console.time('AchievementProcessor.process');
 
@@ -98,7 +90,7 @@ class AchievementProcessor {
         this.overallPoints = this.data.points['OVERALL'] = new UserCount();
         this.overallStats = this.data.stats['OVERALL'] = new UserCount();
 
-        for (const category of this.achievementData.categories.filter((cat) => !!cat)) {
+        for (const category of wowthingData.achievements.categories.filter((cat) => !!cat)) {
             this.processCategory(category);
 
             for (const childCategory of category.children) {
@@ -137,7 +129,7 @@ class AchievementProcessor {
         }
 
         for (const achievementId of allIds) {
-            const achievement = this.achievementData.achievement[achievementId];
+            const achievement = wowthingData.achievements.achievementById.get(achievementId);
             if (!achievement) {
                 console.warn('Invalid achievement id:', achievementId);
                 continue;
@@ -177,8 +169,9 @@ class AchievementProcessor {
     // Depth-first traversal of criteria trees, we need to know the state of the children to
     // calculate the state of the parent
     private processAchievementCriteria(achievementData: ComputedAchievement) {
-        const rootCriteriaTree =
-            this.achievementData.criteriaTree[achievementData.achievement.criteriaTreeId];
+        const rootCriteriaTree = wowthingData.achievements.criteriaTreeById.get(
+            achievementData.achievement.criteriaTreeId
+        );
         if (!rootCriteriaTree) {
             return;
         }
@@ -190,12 +183,12 @@ class AchievementProcessor {
         achievementData: ComputedAchievement,
         criteriaTree: AchievementDataCriteriaTree
     ): ComputedCriteria {
-        const criteria = this.achievementData.criteria[criteriaTree.criteriaId];
+        const criteria = wowthingData.achievements.criteriaById.get(criteriaTree.criteriaId);
         const criteriaData = new ComputedCriteria(criteriaTree, criteria);
 
         // continue downwards before processing this node
         for (const childTreeId of criteriaTree.children || []) {
-            const childTree = this.achievementData.criteriaTree[childTreeId];
+            const childTree = wowthingData.achievements.criteriaTreeById.get(childTreeId);
             if (childTree) {
                 criteriaData.children.push(this.recurseCriteriaTree(achievementData, childTree));
             }

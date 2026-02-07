@@ -13,7 +13,6 @@
     import { RewardType } from '@/enums/reward-type';
     import { rewardTypeIcons } from '@/shared/icons/mappings';
     import { wowthingData } from '@/shared/stores/data';
-    import { achievementStore } from '@/stores';
     import { lazyState } from '@/user-home/state/lazy';
     import { userState } from '@/user-home/state/user';
     import { leftPad } from '@/utils/formatting';
@@ -326,13 +325,15 @@
                                 {#if drop.note}
                                     <ParsedText text={drop.note} />
                                 {:else if drop.type === RewardType.Achievement}
+                                    {@const achievement =
+                                        wowthingData.achievements.achievementById.get(drop.id)}
                                     {#if drop.subType > 0}
                                         <IconifyIcon
                                             icon={rewardTypeIcons[RewardType.Achievement]}
                                         />
-                                        {$achievementStore.achievement[drop.id].name}
+                                        {achievement.name}
                                     {:else}
-                                        {$achievementStore.achievement[drop.id].description}
+                                        {achievement.description}
                                     {/if}
                                 {:else if dropStatus.setNote}
                                     <ParsedText text={dropStatus.setNote} />

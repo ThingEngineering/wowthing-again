@@ -1,26 +1,21 @@
 <script lang="ts">
-    import { achievementStore } from '@/stores';
     import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator';
     import { CriteriaType } from '@/enums/criteria-type';
+    import { wowthingData } from '@/shared/stores/data/store.svelte';
     import { leftPad } from '@/utils/formatting';
-    import type {
-        AchievementDataAchievement,
-        AchievementDataCriteria,
-        AchievementDataCriteriaTree,
-    } from '@/types';
+    import type { AchievementDataAchievement } from '@/types';
 
     import Self from './ExploreAchievementsCriteriaTree.svelte';
 
-    export let achievement: AchievementDataAchievement;
-    export let criteriaTreeId: number;
-    export let depth = 0;
+    type Props = {
+        achievement: AchievementDataAchievement;
+        criteriaTreeId: number;
+        depth?: number;
+    };
+    let { achievement, criteriaTreeId, depth = 0 }: Props = $props();
 
-    let criteria: AchievementDataCriteria;
-    let criteriaTree: AchievementDataCriteriaTree;
-    $: {
-        criteriaTree = $achievementStore.criteriaTree[criteriaTreeId];
-        criteria = $achievementStore.criteria[criteriaTree?.criteriaId];
-    }
+    let criteriaTree = $derived(wowthingData.achievements.criteriaTreeById.get(criteriaTreeId));
+    let criteria = $derived(wowthingData.achievements.criteriaById.get(criteriaTree?.criteriaId));
 </script>
 
 <style lang="scss">

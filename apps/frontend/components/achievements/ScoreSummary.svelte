@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { achievementStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
     import getPercentClass from '@/utils/get-percent-class';
     import type { AchievementDataCategory } from '@/types';
@@ -12,7 +12,7 @@
         let retExtra: AchievementDataCategory[] = [];
 
         let nulls = 0;
-        for (const category of $achievementStore.categories) {
+        for (const category of wowthingData.achievements.categories) {
             if (category === null) {
                 nulls++;
                 continue;

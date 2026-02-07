@@ -1,7 +1,8 @@
 <script lang="ts">
     import { honorAchievements } from '@/data/achievements';
     import { CriteriaTreeOperator } from '@/enums/wow';
-    import { achievementStore, userAchievementStore, userQuestStore } from '@/stores';
+    import { wowthingData } from '@/shared/stores/data/store.svelte';
+    import { userAchievementStore, userQuestStore } from '@/stores';
     import { achievementState } from '@/stores/local-storage';
     import { userState } from '@/user-home/state/user';
     import { getAchievementStatus } from '@/utils/achievements';
@@ -13,14 +14,11 @@
 
     export let achievement: AchievementDataAchievement;
 
-    $: data = getAchievementStatus(
-        $achievementStore,
-        $userAchievementStore,
-        $userQuestStore,
-        achievement
-    );
+    $: data = getAchievementStatus($userAchievementStore, $userQuestStore, achievement);
 
-    $: rootCriteriaTree = $achievementStore.criteriaTree[achievement.criteriaTreeId];
+    $: rootCriteriaTree = wowthingData.achievements.criteriaTreeById.get(
+        achievement.criteriaTreeId
+    );
 
     let oof: [number, number][];
     $: {
@@ -118,7 +116,9 @@
             <ProgressBar
                 title="Honor Level"
                 have={userState.general.honorLevel || 0}
-                total={$achievementStore.criteria[data.criteriaTrees[0][0].criteriaId]?.asset || 0}
+                total={wowthingData.achievements.criteriaById.get(
+                    data.criteriaTrees[0][0].criteriaId
+                )?.asset || 0}
             />
         {:else if progressBar}
             <ProgressBar

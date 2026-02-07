@@ -38,7 +38,7 @@ export class AchievementDataAchievement {
         public supersedes: number,
         public description: string,
         public name: string,
-        public reward: string,
+        public reward: string
     ) {}
 
     get isAccountWide(): boolean {
@@ -53,18 +53,20 @@ export class AchievementDataAchievement {
     }
 }
 
-type AchievementDataAchievementArray = ConstructorParameters<typeof AchievementDataAchievement>;
+export type AchievementDataAchievementArray = ConstructorParameters<
+    typeof AchievementDataAchievement
+>;
 
 export class AchievementDataCriteria {
     constructor(
         public id: number,
         public asset: number,
         public modifierTreeId: number,
-        public type: CriteriaType,
+        public type: CriteriaType
     ) {}
 }
 
-type AchievementDataCriteriaArray = ConstructorParameters<typeof AchievementDataCriteria>;
+export type AchievementDataCriteriaArray = ConstructorParameters<typeof AchievementDataCriteria>;
 
 export class AchievementDataCriteriaTree {
     constructor(
@@ -74,7 +76,7 @@ export class AchievementDataCriteriaTree {
         public flags: number,
         public operator: number,
         public description: string,
-        public children: number[],
+        public children: number[]
     ) {}
 
     hasFlag(flag: CriteriaTreeFlags): boolean {
@@ -94,4 +96,6 @@ export class AchievementDataCriteriaTree {
     }
 }
 
-type AchievementDataCriteriaTreeArray = ConstructorParameters<typeof AchievementDataCriteriaTree>;
+export type AchievementDataCriteriaTreeArray = ConstructorParameters<
+    typeof AchievementDataCriteriaTree
+>;

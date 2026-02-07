@@ -10,6 +10,9 @@ public class StaticHoliday : WowHoliday
 
     public StaticHoliday(WowHoliday holiday) : base(holiday.Id)
     {
+        DescriptionId = holiday.DescriptionId;
+        NameId = holiday.NameId;
+
         FilterType = holiday.FilterType;
         Flags = holiday.Flags;
         Looping = holiday.Looping;

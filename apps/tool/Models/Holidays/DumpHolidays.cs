@@ -9,6 +9,7 @@ public class DumpHolidays
 
     public short CalendarFilterType { get; set; }
     public short Flags { get; set; }
+    public short HolidayDescriptionID { get; set; }
     public short HolidayNameID { get; set; }
     public short Looping { get; set; }
     public short Priority { get; set; }
