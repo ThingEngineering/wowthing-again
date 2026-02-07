@@ -1,4 +1,3 @@
-import { holidayIds } from '@/data/holidays';
 import { taskMap } from '@/data/tasks';
 import { settingsState } from '@/shared/state/settings.svelte';
 import { logErrors } from '@/utils/log-errors';
@@ -24,9 +23,7 @@ class ActiveViewTasks {
             // Any task with required holidays needs at least one active
             if (
                 task.requiredHolidays?.length > 0 &&
-                !task.requiredHolidays.some((holiday) =>
-                    holidayIds[holiday].some((holidayId) => !!activeHolidays.value[`h${holidayId}`])
-                )
+                !task.requiredHolidays.some((holidayId) => !!activeHolidays.value[holidayId])
             ) {
                 continue;
             }
@@ -44,10 +41,8 @@ class ActiveViewTasks {
 
                 if (chore.requiredHolidays?.length > 0) {
                     if (
-                        chore.requiredHolidays.some((holiday) =>
-                            holidayIds[holiday].some(
-                                (holidayId) => !!activeHolidays.value[`h${holidayId}`]
-                            )
+                        chore.requiredHolidays.some(
+                            (holidayId) => !!activeHolidays.value[holidayId]
                         )
                     ) {
                         activeChores.push(chore);

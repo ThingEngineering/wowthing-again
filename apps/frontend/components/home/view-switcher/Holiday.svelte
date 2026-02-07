@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { holidayIds, type FancyHoliday } from '@/data/holidays';
+    import { type FancyHoliday } from '@/data/holidays';
     import { timeState } from '@/shared/state/time.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { DbResetType, DbThingType } from '@/shared/stores/db/enums';

@@ -4,6 +4,8 @@ import { timeState } from '@/shared/state/time.svelte';
 import { wowthingData } from '@/shared/stores/data';
 import { userState } from '@/user-home/state/user';
 import type { StaticDataHoliday } from '@/shared/stores/static/types';
+import { holidayIds } from '@/data/holidays';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
 export type ActiveHoliday = {
     holiday: StaticDataHoliday;
@@ -11,13 +13,14 @@ export type ActiveHoliday = {
     endDate: DateTime;
     soon?: boolean;
 };
-export type ActiveHolidayMap = Record<string, ActiveHoliday>;
+export type ActiveHolidayMap = Record<number, ActiveHoliday>;
 
 class ActiveHolidays {
     private cachedActive: Record<number, ActiveHolidayMap> = {};
     private cachedTime: Record<number, DateTime> = {};
 
     value = $derived.by(() => {
+        console.time('activeHolidays');
         const allRegions = userState.general.allRegions || [];
         if (allRegions.length === 0) {
             return {} as ActiveHolidayMap;
@@ -39,8 +42,18 @@ class ActiveHolidays {
 
         const activeHolidays: ActiveHolidayMap = {};
         const setActive = (holiday: StaticDataHoliday, data: ActiveHoliday) => {
-            activeHolidays[`name${holiday.nameId}`] = data;
-            activeHolidays[`desc${holiday.descriptionId}`] = data;
+            for (const [holidayEnum, [nameIds, descriptionIds]] of getNumberKeyedEntries(
+                holidayIds
+            )) {
+                const actualDescriptionIds = descriptionIds || [];
+                if (
+                    nameIds.includes(holiday.nameId) &&
+                    (actualDescriptionIds.length === 0 ||
+                        actualDescriptionIds.includes(holiday.descriptionId))
+                ) {
+                    activeHolidays[holidayEnum] = data;
+                }
+            }
         };
 
         for (const holiday of filteredHolidays) {
@@ -100,6 +113,9 @@ class ActiveHolidays {
         this.cachedActive[regionMask] = activeHolidays;
         this.cachedTime[regionMask] = currentTime;
 
+        console.log(activeHolidays);
+
+        console.timeEnd('activeHolidays');
         return activeHolidays;
     });
 }

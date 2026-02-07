@@ -16,23 +16,19 @@ import { AchievementsState, achievementState } from '../local-storage';
 
 import { userQuestStore } from '../user-quests';
 
-import { activeHolidays, type ActiveHolidays } from '../derived/active-holidays';
-
 export const lazyStore = derived(
-    [timeStore, achievementState, userQuestStore, activeHolidays],
+    [timeStore, achievementState, userQuestStore],
     debounce(
-        ([$timeStore, $achievementState, $userQuestStore, $activeHolidays]: [
+        ([$timeStore, $achievementState, $userQuestStore]: [
             DateTime,
             AchievementsState,
             FancyStoreType<UserQuestData>,
-            ActiveHolidays,
         ]) => {
             storeInstance.update(
                 settingsState.value,
                 $timeStore,
                 $achievementState,
-                $userQuestStore,
-                $activeHolidays
+                $userQuestStore
             );
             return storeInstance;
         },
@@ -57,8 +53,7 @@ export class LazyStore {
         settings: Settings,
         currentTime: DateTime,
         achievementState: AchievementsState,
-        userQuestData: UserQuestData,
-        activeHolidays: ActiveHolidays
+        userQuestData: UserQuestData
     ) {
         const newHashes: Record<string, string> = {
             currentTime: currentTime.toString(),
@@ -108,7 +103,6 @@ export class LazyStore {
                     currentTime,
                     settings: this.settings,
                     userQuestData,
-                    activeHolidays,
                 })
             );
         }

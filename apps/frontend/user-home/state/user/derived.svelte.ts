@@ -3,7 +3,6 @@ import { DateTime } from 'luxon';
 
 import { Constants } from '@/data/constants';
 import { expansionMap, expansionOrder } from '@/data/expansion';
-import { holidayIds } from '@/data/holidays';
 import { taskMap } from '@/data/tasks';
 import { QuestStatus } from '@/enums/quest-status';
 import { Region } from '@/enums/region';
@@ -467,9 +466,7 @@ export class DataUserDerived {
         // Any chore with required holidays needs at least one active
         if (
             chore.requiredHolidays?.length > 0 &&
-            !chore.requiredHolidays.some((holiday) =>
-                holidayIds[holiday].some((holidayId) => activeHolidays.value[`h${holidayId}`])
-            )
+            !chore.requiredHolidays.some((holidayId) => activeHolidays.value[holidayId])
         ) {
             return null;
         }
