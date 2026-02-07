@@ -860,6 +860,9 @@ public class DumpsTool
                 context.WowHoliday.Add(dbHoliday);
             }
 
+            dbHoliday.DescriptionId = holiday.HolidayDescriptionID;
+            dbHoliday.NameId = holiday.HolidayNameID;
+
             dbHoliday.FilterType = holiday.CalendarFilterType;
             dbHoliday.Flags = holiday.Flags;
             dbHoliday.Looping = holiday.Looping;

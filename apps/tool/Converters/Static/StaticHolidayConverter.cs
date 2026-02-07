@@ -13,6 +13,8 @@ public class StaticHolidayConverter : JsonConverter<StaticHoliday>
     {
         writer.WriteStartArray();
         writer.WriteNumberValue(holiday.Id);
+        writer.WriteNumberValue(holiday.NameId);
+        writer.WriteNumberValue(holiday.DescriptionId);
         writer.WriteStringValue(holiday.Name);
         writer.WriteNumberValue(holiday.FilterType);
         writer.WriteNumberValue(holiday.Flags);
