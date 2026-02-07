@@ -6,22 +6,17 @@
     import { DbDataThing } from '@/shared/stores/db/types';
     import { UserCount } from '@/types/user-count';
     import { everythingData } from '@/user-home/components/everything/data';
-    import { activeHolidays } from '@/user-home/state/activeHolidays.svelte';
     import { lazyState } from '@/user-home/state/lazy';
     import { userState } from '@/user-home/state/user';
     import { toNiceDuration } from '@/utils/formatting';
     import getPercentClass from '@/utils/get-percent-class';
+    import { type ActiveHoliday } from '@/user-home/state/activeHolidays.svelte';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
-    type Props = { fancyHoliday: FancyHoliday };
-    let { fancyHoliday }: Props = $props();
+    type Props = { activeHoliday: ActiveHoliday; fancyHoliday: FancyHoliday };
+    let { activeHoliday, fancyHoliday }: Props = $props();
 
-    let activeHoliday = $derived(
-        holidayIds[fancyHoliday.holiday]
-            .map((id) => activeHolidays.value[`h${id}`])
-            .find((h) => !!h)
-    );
     // future => time until start, current => time until end
     let remainingTime = $derived.by(() =>
         activeHoliday.soon

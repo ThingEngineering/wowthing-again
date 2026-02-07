@@ -8,15 +8,21 @@
     let active = $derived(activeHolidays.value);
     let activeFancyHolidays = $derived.by(() => {
         const ret = fancyHolidays
-            .map(
-                (fancyHoliday) =>
-                    [
-                        fancyHoliday,
-                        (holidayIds[fancyHoliday.holiday] || [])
-                            .map((id) => active[`h${id}`])
-                            .filter((a) => !!a),
-                    ] as [FancyHoliday, ActiveHoliday[]]
-            )
+            .map((fancyHoliday) => {
+                const holidayData: [FancyHoliday, ActiveHoliday[]] = [fancyHoliday, []];
+
+                const [nameIds, descriptionIds] = holidayIds[fancyHoliday.holiday] || [[]];
+                holidayData[1].push(
+                    ...(nameIds || []).map((nameId) => active[`name${nameId}`]).filter((a) => !!a)
+                );
+                holidayData[1].push(
+                    ...(descriptionIds || [])
+                        .map((descriptionId) => active[`desc${descriptionId}`])
+                        .filter((a) => !!a)
+                );
+
+                return holidayData;
+            })
             .filter(([, activeData]) => activeData.length > 0);
 
         ret.sort((a, b) => {
@@ -38,6 +44,6 @@
     });
 </script>
 
-{#each activeFancyHolidays as [fancyHoliday] (fancyHoliday)}
-    <Holiday {fancyHoliday} />
+{#each activeFancyHolidays as [fancyHoliday, active] (fancyHoliday)}
+    <Holiday {fancyHoliday} activeHoliday={active[0]} />
 {/each}
