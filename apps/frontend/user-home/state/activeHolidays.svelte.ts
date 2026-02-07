@@ -1,7 +1,5 @@
 import type { DateTime } from 'luxon';
 
-import { holidayMap } from '@/data/holidays';
-import { Holiday } from '@/enums/holiday';
 import { timeState } from '@/shared/state/time.svelte';
 import { wowthingData } from '@/shared/stores/data';
 import { userState } from '@/user-home/state/user';
@@ -40,6 +38,11 @@ class ActiveHolidays {
         );
 
         const activeHolidays: ActiveHolidayMap = {};
+        const setActive = (holiday: StaticDataHoliday, data: ActiveHoliday) => {
+            activeHolidays[`name${holiday.nameId}`] = data;
+            activeHolidays[`desc${holiday.descriptionId}`] = data;
+        };
+
         for (const holiday of filteredHolidays) {
             // const taskKeys = wowthingData.static.holidayIdToKeys.get(holiday.id);
             // if (!taskKeys || taskKeys.every((key) => activeHolidays[key])) {
@@ -60,17 +63,12 @@ class ActiveHolidays {
 
                         const endDate = actualStartDate.plus({ hours: holiday.durations[0] });
                         if (endDate > currentTime) {
-                            if (holidayMap[holiday.id]) {
-                                const holidayData = {
-                                    holiday,
-                                    startDate: actualStartDate,
-                                    endDate,
-                                };
-                                activeHolidays[`h${holiday.id}`] = holidayData;
-                                if (Holiday[holidayMap[holiday.id]].startsWith('Brawl')) {
-                                    activeHolidays['pvpBrawl'] = holidayData;
-                                }
-                            }
+                            const holidayData = {
+                                holiday,
+                                startDate: actualStartDate,
+                                endDate,
+                            };
+                            setActive(holiday, holidayData);
                             break;
                         }
 
@@ -86,12 +84,13 @@ class ActiveHolidays {
                     });
 
                     if (actualStartDate < fakeStartTime && endDate > currentTime) {
-                        activeHolidays[`h${holiday.id}`] = {
+                        const holidayData = {
                             holiday,
                             startDate: actualStartDate,
                             endDate,
                             soon: actualStartDate > currentTime,
                         };
+                        setActive(holiday, holidayData);
                         break;
                     }
                 }

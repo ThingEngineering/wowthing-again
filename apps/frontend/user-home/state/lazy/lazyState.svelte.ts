@@ -5,11 +5,11 @@ import { doAppearances } from './appearances.svelte';
 import { doConvertible } from './convertible.svelte';
 import { doCustomizations } from './customizations.svelte';
 import { doDecor } from './decor.svelte';
+import { doEverything } from './everything.svelte';
 import { doJournal } from './journal.svelte';
 import { doTransmog } from './transmog.svelte';
 import { doVendors } from './vendors.svelte';
 import { doZoneMaps } from './zoneMaps.svelte';
-import { doEverything } from './everything.svelte';
 
 class LazyState {
     public achievements = $derived.by(() => logErrors(doAchievements));
