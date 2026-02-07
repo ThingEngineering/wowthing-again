@@ -20,7 +20,6 @@ import type {
     UserQuestDataCharacterProgressObjective,
 } from '@/types/data';
 import type { Chore } from '@/types/tasks';
-import type { ActiveHolidays } from '../derived/active-holidays';
 
 export interface LazyCharacter {
     chores: Record<string, LazyCharacterChore>;
@@ -62,7 +61,6 @@ export class LazyCharacterCooldowns {
 }
 
 interface LazyStores {
-    activeHolidays: ActiveHolidays;
     currentTime: DateTime;
     settings: Settings;
     userQuestData: UserQuestData;
