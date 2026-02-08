@@ -17,6 +17,7 @@
     import { auctionState } from '@/stores/local-storage';
     import { userState } from '@/user-home/state/user';
     import {
+        userAuctionMissingDecorStore,
         userAuctionMissingRecipeStore,
         userAuctionMissingTransmogStore,
         type UserAuctionEntry,
@@ -38,11 +39,41 @@
 
     let { page, slug1 }: { page: number; slug1: string } = $props();
 
+    let searchFunc = $derived.by(() => {
+        if (slug1 === 'missing-recipes') {
+            return () => userAuctionMissingRecipeStore.search(settingsState.value, $auctionState);
+        } else if (slug1 === 'missing-decor') {
+            return () => userAuctionMissingDecorStore.search(settingsState.value, $auctionState);
+        } else {
+            return () =>
+                userAuctionMissingTransmogStore.search(
+                    settingsState.value,
+                    $auctionState,
+                    $userStore,
+                    slug1.replace('missing-appearance-', '')
+                );
+        }
+    });
+
+    let realmSearch = $derived.by(() => {
+        var ret: string;
+        if (slug1 === 'missing-recipes') {
+            ret = $auctionState.missingRecipeRealmSearch;
+        } else if (slug1 === 'missing-decor') {
+            ret = $auctionState.missingDecorRealmSearch;
+        } else {
+            ret = $auctionState.missingTransmogRealmSearch;
+        }
+        return ret.toLocaleLowerCase();
+    });
+
     function setRealmSearch(connectedRealmId: number) {
         const realmName =
             wowthingData.static.connectedRealmById.get(connectedRealmId).realmNames[0];
         if (slug1 === 'missing-recipes') {
             $auctionState.missingRecipeRealmSearch = realmName;
+        } else if (slug1 === 'missing-decor') {
+            $auctionState.missingDecorRealmSearch = realmName;
         } else {
             $auctionState.missingTransmogRealmSearch = realmName;
         }
@@ -262,15 +293,10 @@
 
 <UnderConstruction />
 
-{#await slug1 === 'missing-recipes' ? userAuctionMissingRecipeStore.search(settingsState.value, $auctionState) : userAuctionMissingTransmogStore.search(settingsState.value, $auctionState, $userStore, slug1.replace('missing-appearance-', ''))}
+{#await searchFunc()}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then [things, updated]}
     {#if things.length > 0}
-        {@const realmSearch = (
-            slug1 === 'missing-recipes'
-                ? $auctionState.missingRecipeRealmSearch
-                : $auctionState.missingTransmogRealmSearch
-        ).toLocaleLowerCase()}
         <Paginate
             items={things || []}
             perPage={$auctionState.limitToCheapestRealm ? 48 : 24}

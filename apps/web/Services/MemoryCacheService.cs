@@ -196,6 +196,23 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
         );
     }
 
+    public async Task<Dictionary<int, int>> GetDecor()
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            MemoryCacheKeys.DecorItems,
+            async cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
+
+                var decorItems = await _context.WowDecor
+                    .AsNoTracking()
+                    .Where(decor => decor.ItemId > 0)
+                    .ToArrayAsync();
+
+                return decorItems.ToDictionary(decor => decor.Id, decor => decor.ItemId);
+            });
+    }
+
     public async Task<Dictionary<int, Dictionary<int, int[]>>> GetProfessionRecipeItems()
     {
         return await _memoryCache.GetOrCreateAsync(

@@ -11,7 +11,6 @@ import { userState } from '@/user-home/state/user';
 import type { AuctionState } from '../local-storage';
 import type { UserAuctionEntry } from '.';
 import type { Settings } from '@/shared/stores/settings/types';
-import type { HasNameAndRealm, UserItem } from '@/types/shared';
 
 export class UserAuctionMissingRecipeDataStore {
     private static url = '/api/auctions/missing-recipes';
