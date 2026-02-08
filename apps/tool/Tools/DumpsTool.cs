@@ -123,6 +123,7 @@ public class DumpsTool
             ImportCharacterSpecializations,
             ImportCurrencies,
             ImportCurrencyCategories,
+            ImportDecor,
             ImportFactions,
             ImportHolidays,
             ImportInstances,
@@ -703,6 +704,28 @@ public class DumpsTool
             category => category.ID,
             category => category.Name
         );
+    }
+
+    private async Task ImportDecor(WowDbContext context)
+    {
+        var houseDecors = await DataUtilities
+            .LoadDumpCsvAsync<DumpHouseDecor>("housedecor", validFunc: (decor) => !decor.Name.StartsWith("[DNT]"));
+
+        var dbDecorMap = await context.WowDecor.ToDictionaryAsync(decor => decor.Id);
+
+        foreach (var houseDecor in houseDecors)
+        {
+            if (!dbDecorMap.TryGetValue(houseDecor.ID, out var dbHouseDecor))
+            {
+                dbHouseDecor = dbDecorMap[houseDecor.ID] = new WowDecor(houseDecor.ID);
+                context.WowDecor.Add(dbHouseDecor);
+            }
+
+            dbHouseDecor.ItemId = houseDecor.ItemID;
+            dbHouseDecor.Type = houseDecor.Type;
+        }
+
+        _timer.AddPoint("Decor");
     }
 
     private async Task ImportFactions(WowDbContext context)
