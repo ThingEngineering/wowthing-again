@@ -39,6 +39,11 @@
                         forceWildcard: true,
                     },
                     {
+                        name: 'Decor',
+                        slug: 'decor',
+                        forceWildcard: true,
+                    },
+                    {
                         name: 'Recipes',
                         slug: 'recipes',
                         forceWildcard: true,

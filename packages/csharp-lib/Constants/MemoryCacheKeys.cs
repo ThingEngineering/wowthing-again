@@ -6,6 +6,7 @@ public static class MemoryCacheKeys
     public const string AuctionConnectedRealms = "auction-connected-realms";
     public const string AuctionHouseUpdatedTimes = "auction-house-updated-times";
     public const string BackgroundImages = "background-images";
+    public const string DecorItems = "decor-items";
     public const string ItemBonuses = "item-bonuses";
     public const string ItemClasses = "item-classes";
     public const string ItemModifiedAppearances = "item-modified-appearances";

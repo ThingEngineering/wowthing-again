@@ -82,6 +82,7 @@
         'missing-toys': Missing,
         'missing-appearance-ids': MissingBigResults,
         'missing-appearance-sources': MissingBigResults,
+        'missing-decor': MissingBigResults,
         'missing-recipes': MissingBigResults,
         'sell-commodities': Commodities,
         'sell-extra-pets': ExtraPets,

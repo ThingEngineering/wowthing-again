@@ -1,8 +1,8 @@
-﻿using Wowthing.Lib.Enums;
+using Wowthing.Lib.Enums;
 
 namespace Wowthing.Web.Forms;
 
-public class ApiMissingTransmogForm : IApiAuctionsForm
+public interface IApiAuctionsForm
 {
     public bool AllRealms { get; set; }
     public bool IncludeRussia { get; set; }

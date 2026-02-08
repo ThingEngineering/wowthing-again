@@ -14,6 +14,9 @@ export class AuctionState {
     public showDontHave = true;
     public showHave = true;
 
+    public missingDecorNameSearch = '';
+    public missingDecorRealmSearch = '';
+
     public missingRecipeCharacterIds: number[] = [];
     public missingRecipeExpansion = -1;
     public missingRecipeProfessionId = 0;
@@ -45,6 +48,7 @@ export class AuctionState {
         'missing-toys': 'price_up',
         'missing-appearance-ids': 'price_up',
         'missing-appearance-sources': 'price_up',
+        'missing-decor': 'price_up',
         'missing-recipes': 'price_up',
         'specific-item': 'price_up',
     };

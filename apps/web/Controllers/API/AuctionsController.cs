@@ -452,36 +452,9 @@ public class AuctionsController : Controller
             return NoContent();
         }
 
-        // Always apply a region limit
-        var region = (WowRegion)Math.Max(1, (int)form.Region);
-        var connectedRealmQuery = _context.WowRealm
-            .AsNoTracking()
-            .Where(realm => realm.Region == region);
+        timer.AddPoint("User");
 
-        if (region == WowRegion.EU && !form.IncludeRussia)
-        {
-            connectedRealmQuery = connectedRealmQuery.Where(realm => realm.Locale != "ruRU");
-        }
-
-        int[] connectedRealmIds = await connectedRealmQuery
-            .Select(realm => realm.ConnectedRealmId)
-            .Distinct()
-            .ToArrayAsync();
-
-        if (!form.AllRealms)
-        {
-            var accounts = await _context.PlayerAccount
-                .AsNoTracking()
-                .Where(pa => pa.UserId == user.Id && pa.Enabled)
-                .ToArrayAsync();
-            var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
-
-            connectedRealmIds = connectedRealmIds
-                .Intersect(accountConnectedRealmIds)
-                .ToArray();
-        }
-
-        _logger.LogInformation("User={userId} Realms=[{realms}]", user.Id, string.Join(", ", connectedRealmIds));
+        int[] connectedRealmIds = await GetFormRealmIds(user, form);
 
         timer.AddPoint("Realms");
 
@@ -581,36 +554,9 @@ WHERE   tc.appearance_id IS NULL
             return NoContent();
         }
 
-        // Always apply a region limit
-        var region = (WowRegion)Math.Max(1, (int)form.Region);
-        var connectedRealmQuery = _context.WowRealm
-            .AsNoTracking()
-            .Where(realm => realm.Region == region);
+        timer.AddPoint("User");
 
-        if (region == WowRegion.EU && !form.IncludeRussia)
-        {
-            connectedRealmQuery = connectedRealmQuery.Where(realm => realm.Locale != "ruRU");
-        }
-
-        int[] connectedRealmIds = await connectedRealmQuery
-            .Select(realm => realm.ConnectedRealmId)
-            .Distinct()
-            .ToArrayAsync();
-
-        if (!form.AllRealms)
-        {
-            var accounts = await _context.PlayerAccount
-                .AsNoTracking()
-                .Where(pa => pa.UserId == user.Id && pa.Enabled)
-                .ToArrayAsync();
-            int[] accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
-
-            connectedRealmIds = connectedRealmIds
-                .Intersect(accountConnectedRealmIds)
-                .ToArray();
-        }
-
-        _logger.LogInformation("User={userId} Realms=[{realms}]", user.Id, string.Join(", ", connectedRealmIds));
+        int[] connectedRealmIds = await GetFormRealmIds(user, form);
 
         timer.AddPoint("Realms");
 
@@ -665,6 +611,109 @@ WHERE   tc.appearance_source IS NULL
 
         var grouped = auctions
             .GroupBy(auction => auction.AppearanceSource)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .OrderBy(auction => auction.BuyoutPrice)
+                    .Take(5)
+                    .ToList()
+            );
+
+        timer.AddPoint("Group");
+
+        var data = new
+        {
+            Auctions = grouped,
+            Updated = await _memoryCacheService.GetAuctionHouseUpdatedTimes(),
+        };
+        string json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
+
+        timer.AddPoint("JSON", true);
+
+        int kept = grouped.Values
+            .Select(groupAuctions => groupAuctions.Count)
+            .Sum();
+        _logger.LogInformation($"{auctions.Count} rows, kept {kept}");
+        _logger.LogInformation($"{timer}");
+
+        return Content(json, MediaTypeNames.Application.Json);
+    }
+
+    [HttpPost("missing-decor")]
+    [Authorize]
+    public async Task<IActionResult> MissingDecor([FromBody] ApiMissingTransmogForm form)
+    {
+        var timer = new JankTimer();
+
+        var user = await _userManager.GetUserAsync(HttpContext.User);
+        if (user == null)
+        {
+            _logger.LogWarning("ruh roh");
+            return NotFound();
+        }
+
+        timer.AddPoint("User");
+
+        int[] connectedRealmIds = await GetFormRealmIds(user, form);
+
+        timer.AddPoint("Realms");
+
+        // Missing decor
+        var accountDecors = _context.PlayerAccountAddonData
+            .Where(paad => paad.Account.UserId == user.Id)
+            .Select(paad => paad.Decor);
+
+        var decorIds = new HashSet<int>();
+        foreach (var accountDecor in accountDecors)
+        {
+            foreach (var (decorId, values) in accountDecor.EmptyIfNull())
+            {
+                if (values != null && values.Sum() > 0)
+                {
+                    decorIds.Add(decorId);
+                }
+            }
+        }
+
+        var decorToItem = await _memoryCacheService.GetDecor();
+        var missingDecorItemIds = new List<int>();
+        foreach ((int decorId, int itemId) in decorToItem)
+        {
+            if (!decorIds.Contains(decorId))
+            {
+                missingDecorItemIds.Add(itemId);
+            }
+        }
+
+        // Auctions
+        await using var connection = _context.GetConnection();
+        await connection.OpenAsync();
+
+        // MissingRecipeQuery does the exact same kind of query we want
+        var auctions = new List<MissingRecipeQuery>();
+        await using (var command = new NpgsqlCommand(MissingRecipeQuery.Sql, connection))
+        {
+            command.Parameters.Add(new() { Value = connectedRealmIds });
+            command.Parameters.Add(new() { Value = missingDecorItemIds.ToArray() });
+            await using var reader = await command.ExecuteReaderAsync();
+            timer.AddPoint("Query");
+
+            while (await reader.ReadAsync())
+            {
+                auctions.Add(new()
+                {
+                    ConnectedRealmId = reader.GetInt32(0),
+                    ItemId = reader.GetInt32(1),
+                    TimeLeft = (WowAuctionTimeLeft)reader.GetInt16(2),
+                    BuyoutPrice = reader.GetInt64(3)
+                });
+            }
+        }
+
+        timer.AddPoint("Load");
+
+        var grouped = auctions
+            .GroupBy(auction => auction.ItemId)
             .ToDictionary(
                 group => group.Key,
                 group => group
@@ -1099,5 +1148,38 @@ WHERE   tc.appearance_source IS NULL
             .ToArrayAsync();
 
         return regionRealmIds;
+    }
+
+    private async Task<int[]> GetFormRealmIds(ApplicationUser user, IApiAuctionsForm form)
+    {
+        var region = (WowRegion)Math.Max(1, (int)form.Region);
+        var connectedRealmQuery = _context.WowRealm
+            .AsNoTracking()
+            .Where(realm => realm.Region == region);
+
+        if (region == WowRegion.EU && !form.IncludeRussia)
+        {
+            connectedRealmQuery = connectedRealmQuery.Where(realm => realm.Locale != "ruRU");
+        }
+
+        int[] connectedRealmIds = await connectedRealmQuery
+            .Select(realm => realm.ConnectedRealmId)
+            .Distinct()
+            .ToArrayAsync();
+
+        if (!form.AllRealms)
+        {
+            var accounts = await _context.PlayerAccount
+                .AsNoTracking()
+                .Where(pa => pa.UserId == user.Id && pa.Enabled)
+                .ToArrayAsync();
+            var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
+
+            connectedRealmIds = connectedRealmIds
+                .Intersect(accountConnectedRealmIds)
+                .ToArray();
+        }
+
+        return connectedRealmIds;
     }
 }
