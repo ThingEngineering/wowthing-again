@@ -20,6 +20,7 @@
         await Promise.all([
             auctionStore.fetch(),
             wowthingData.fetch(Language.enUS, {
+                loadAchievements: false,
                 loadDb: false,
                 loadJournal: false,
                 loadManual: false,
