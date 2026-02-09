@@ -15,6 +15,9 @@ spec:
       labels:
         app: wowthing-again-backend
     spec:
+      nodeSelector:
+        wowthing: backend
+
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
@@ -25,7 +28,7 @@ spec:
 
       containers:
         - name: wowthing-again-backend
-          image: 'ghcr.io/thingengineering/wowthing-again/backend:_VERSION_'
+          image: "ghcr.io/thingengineering/wowthing-again/backend:_VERSION_"
           imagePullPolicy: Always
           ports:
             - name: prometheus

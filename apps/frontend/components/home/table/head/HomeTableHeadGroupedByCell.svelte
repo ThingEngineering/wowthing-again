@@ -33,7 +33,9 @@
                 {#if groupBy === 'account'}
                     <span class="tag">{groupValue || 'No-Tag'}</span>
                 {:else if groupBy === 'faction'}
-                    {@const factionAsEnum = parseInt(groupValue, 10)}
+                    {@const reversed = groupByContext.sortBy.includes('-faction')}
+                    {@const parsed = parseInt(groupValue, 10)}
+                    {@const factionAsEnum = reversed ? Math.abs(parsed - 5) : parsed}
                     <FactionIcon faction={factionAsEnum} />
                 {:else if groupBy === 'enabled'}
                     Account: {groupValue === 'a' ? 'Enabled' : 'Disabled'}
