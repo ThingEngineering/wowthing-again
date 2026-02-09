@@ -10,6 +10,8 @@ spec:
   selector:
     matchLabels:
       app: wowthing-again-backend
+  nodeSelector:
+    wowthing: backend
   template:
     metadata:
       labels:
@@ -25,7 +27,7 @@ spec:
 
       containers:
         - name: wowthing-again-backend
-          image: 'ghcr.io/thingengineering/wowthing-again/backend:_VERSION_'
+          image: "ghcr.io/thingengineering/wowthing-again/backend:_VERSION_"
           imagePullPolicy: Always
           ports:
             - name: prometheus

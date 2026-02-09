@@ -10,16 +10,8 @@ spec:
   selector:
     matchLabels:
       app: wowthing-again-web
-  affinity:
-    nodeAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 100
-          preference:
-            matchExpressions:
-              - key: wowthing
-                operator: in
-                values:
-                  - web
+  nodeSelector:
+    wowthing: web
   template:
     metadata:
       labels:
