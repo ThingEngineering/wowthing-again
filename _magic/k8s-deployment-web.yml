@@ -6,10 +6,20 @@ metadata:
   labels:
     app: wowthing-again-web
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: wowthing-again-web
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: wowthing
+                operator: in
+                values:
+                  - web
   template:
     metadata:
       labels:
@@ -25,7 +35,7 @@ spec:
 
       containers:
         - name: wowthing-again-web
-          image: 'ghcr.io/thingengineering/wowthing-again/web:_VERSION_'
+          image: "ghcr.io/thingengineering/wowthing-again/web:_VERSION_"
           imagePullPolicy: Always
           ports:
             - name: http
