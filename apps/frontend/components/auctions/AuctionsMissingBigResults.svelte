@@ -285,6 +285,11 @@
         --image-margin-top: -2px;
 
         padding-bottom: 0;
+
+        .flex-wrapper {
+            justify-content: center;
+            gap: var(--padding-size);
+        }
     }
     .border-shrug {
         --image-margin-top: -5px;
@@ -331,14 +336,18 @@
                                 {#if characterIds?.length > 0}
                                     <tr>
                                         <th class="profession-character" colspan="3">
-                                            <ProfessionIcon id={profession.id} />
-                                            {#each characterIds as characterId (characterId)}
-                                                {@const character =
-                                                    userState.general.characterById[characterId]}
-                                                <span class="class-{character.classId}">
-                                                    {character.name}
-                                                </span>
-                                            {/each}
+                                            <div class="flex-wrapper">
+                                                <ProfessionIcon id={profession.id} />
+                                                {#each characterIds as characterId (characterId)}
+                                                    {@const character =
+                                                        userState.general.characterById[
+                                                            characterId
+                                                        ]}
+                                                    <span class="class-{character.classId}">
+                                                        {character.name}
+                                                    </span>
+                                                {/each}
+                                            </div>
                                         </th>
                                     </tr>
                                 {/if}
