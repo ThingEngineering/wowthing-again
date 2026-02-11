@@ -649,10 +649,11 @@ public class StaticTool
 
     private async Task<List<StaticDecorCategory>> LoadDecor()
     {
-        var decorIdToSourceType =
-            (await DataUtilities.LoadDumpCsvAsync<DumpCollectableSourceInfo>("collectablesourceinfo"))
-            .Where(x => x.HouseDecorID > 0)
-            .ToDictionary(x => x.HouseDecorID, x => x.SourceTypeEnum);
+        // duplicates?
+        // var decorIdToSourceType =
+        //     (await DataUtilities.LoadDumpCsvAsync<DumpCollectableSourceInfo>("collectablesourceinfo"))
+        //     .Where(x => x.HouseDecorID > 0)
+        //     .ToDictionary(x => x.HouseDecorID, x => x.SourceTypeEnum);
         var decorCategories = await DataUtilities.LoadDumpCsvAsync<DumpDecorCategory>("decorcategory");
         var decorSubcategories = await DataUtilities.LoadDumpCsvAsync<DumpDecorSubcategory>("decorsubcategory");
         var decorIdToSubcategoryId = (await DataUtilities.LoadDumpCsvAsync<DumpDecorXDecorSubcategory>("decorxdecorsubcategory"))
