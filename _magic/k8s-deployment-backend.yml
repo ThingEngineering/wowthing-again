@@ -15,9 +15,6 @@ spec:
       labels:
         app: wowthing-again-backend
     spec:
-      nodeSelector:
-        wowthing: backend
-
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
