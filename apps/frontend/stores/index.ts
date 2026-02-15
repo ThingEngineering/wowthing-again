@@ -1,5 +1,4 @@
 export * from './item-search';
-export * from './parsed-text';
 export * from './user';
 export * from './user-achievements';
 export * from './user-auctions';
