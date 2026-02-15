@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { MAX_TAGS } from '@/data/constants';
     import { uiIcons } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
@@ -14,7 +15,7 @@
 
     const newTag = () => {
         let newId = 0;
-        for (let i = 30; i > 20; i--) {
+        for (let i = 30; i > 30 - MAX_TAGS; i--) {
             if (!currentIds.includes(i)) {
                 newId = i;
                 break;
@@ -129,7 +130,7 @@
         </tbody>
     </table>
 
-    {#if currentIds.length < 100}
+    {#if currentIds.length < MAX_TAGS}
         <button class="group-entry bg-success border b-success b-radius" onclick={newTag}
             >New Tag</button
         >
