@@ -141,6 +141,14 @@ public static partial class Hardcoded
         { 17, 9114 }, // LFR
     };
 
+    private static readonly Dictionary<int, int> MidnightRaid = new()
+    {
+        { 14, 13471 }, // Normal
+        { 15, 13472 }, // Heroic
+        { 16, 13473 }, // Mythic
+        { 17, 13470 }, // LFR
+    };
+
     public static readonly Dictionary<int, Dictionary<int, int>> InstanceBonusIds = new()
     {
         { 369, MopSiege }, // Siege of Orgrimmar
@@ -223,6 +231,11 @@ public static partial class Hardcoded
         { 1273, WarWithinRaid }, // Nerub-ar Palace
         { 1296, WarWithinRaid }, // Liberation of Undermine
         { 1302, WarWithinRaid }, // Manaforge Omega
+
+        // Midnight
+        { 1314, MidnightRaid }, // The Dreamrift
+        { 1307, MidnightRaid }, // The Voidspire
+        { 1308, MidnightRaid }, // March on Quel'Danas
     };
 }
 
