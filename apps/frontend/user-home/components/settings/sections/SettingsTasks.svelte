@@ -17,6 +17,10 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import Select from '@/shared/components/forms/Select.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import { uiIcons } from '@/shared/icons/ui';
+
+    let deleting = $state<string>(null);
 
     let currentIds = $derived.by(() =>
         (settingsState.value.customTasks || []).map((task) => task.key)
@@ -55,20 +59,26 @@
 
         settingsState.value.customTasks.push(task);
     };
+
+    const deleteConfirmClick = (taskKey: string) => {
+        deleting = null;
+        settingsState.value.customTasks = settingsState.value.customTasks.filter(
+            (task) => task.key !== taskKey
+        );
+    };
 </script>
 
 <style lang="scss">
-    div {
+    .settings-block {
         --image-margin-top: -4px;
+
+        width: 60rem;
     }
     .task-tooltips {
         --scale: 1.2;
     }
     table {
         --padding: 2;
-    }
-    tr:first-child td {
-        border-top: 1px solid var(--border-color);
     }
     button {
         cursor: pointer;
@@ -85,6 +95,9 @@
     }
     .quest-ids {
         --width: 10rem;
+    }
+    tr:first-child .delete {
+        border-top: 1px solid var(--border-color);
     }
 </style>
 
@@ -195,6 +208,25 @@
                             bind:value={task.maximumLevel}
                         />
                     </td>
+                    <td class="delete" class:border-right={deleting === task.key}>
+                        <IconifyIcon
+                            extraClass="status-fail"
+                            icon={uiIcons.no}
+                            tooltip="Delete"
+                            on:click={() => (deleting = deleting === task.key ? null : task.key)}
+                        />
+                    </td>
+                    {#if deleting === task.key}
+                        <td class="deleting border-top">
+                            Permanently delete?
+                            <IconifyIcon
+                                extraClass="status-fail"
+                                icon={uiIcons.yes}
+                                tooltip="Delete"
+                                on:click={() => deleteConfirmClick(task.key)}
+                            />
+                        </td>
+                    {/if}
                 </tr>
             {:else}
                 <tr>
