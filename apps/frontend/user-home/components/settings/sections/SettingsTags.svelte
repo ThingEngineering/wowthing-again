@@ -7,7 +7,6 @@
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
-    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
 
     let deleting = $state(0);
 
@@ -91,9 +90,13 @@
 </style>
 
 <div class="settings-block">
-    <UnderConstruction />
-
     <h3>Tags</h3>
+
+    <p>
+        Create custom character tags and apply them on the Home screen, you can then use them for
+        character filters: <code>tag=meow</code> for only characters with the tag,
+        <code>!tag=meow</code> for only characters without.
+    </p>
 
     <table class="table table-striped">
         <tbody>

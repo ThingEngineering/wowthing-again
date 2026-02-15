@@ -7,18 +7,18 @@
         MynauiLetterDSquare,
         MynauiLetterWSquare,
     } from '@/shared/icons/components';
+    import { uiIcons } from '@/shared/icons/ui';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { DbResetType } from '@/shared/stores/db/enums';
     import type { SettingsTask } from '@/shared/stores/settings/types/task';
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import NumberInput from '@/shared/components/forms/NumberInput.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import Select from '@/shared/components/forms/Select.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
-    import { uiIcons } from '@/shared/icons/ui';
 
     let deleting = $state<string>(null);
 
