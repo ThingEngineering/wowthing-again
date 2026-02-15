@@ -1,7 +1,7 @@
 <script lang="ts">
     import xor from 'lodash/xor';
 
-    import { Constants } from '@/data/constants';
+    import { Constants, MAX_TASKS } from '@/data/constants';
     import {
         MynauiLetterASquare,
         MynauiLetterDSquare,
@@ -204,7 +204,7 @@
         </tbody>
     </table>
 
-    {#if currentIds.length < 100}
+    {#if currentIds.length < MAX_TASKS}
         <button class="group-entry bg-success border b-success b-radius" onclick={newTask}
             >New Task</button
         >
