@@ -135,10 +135,10 @@ public static partial class Hardcoded
 
     private static readonly Dictionary<int, int> WarWithinRaid = new()
     {
-        { 14, 9123 }, // Normal
-        { 15, 9124 }, // Heroic
-        { 16, 9125 }, // Mythic
-        { 17, 9122 }, // LFR
+        { 14, 9111 }, // Normal
+        { 15, 9112 }, // Heroic
+        { 16, 9113 }, // Mythic
+        { 17, 9114 }, // LFR
     };
 
     public static readonly Dictionary<int, Dictionary<int, int>> InstanceBonusIds = new()
