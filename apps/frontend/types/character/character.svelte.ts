@@ -10,7 +10,6 @@ import { moveSpeedTalents } from '@/data/talents';
 import { Faction } from '@/enums/faction';
 import { InventorySlot } from '@/enums/inventory-slot';
 import { ItemLocation } from '@/enums/item-location';
-import { ItemQuality } from '@/enums/item-quality';
 import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
 import { PlayableClass } from '@/enums/playable-class';
 import { Profession } from '@/enums/profession';
@@ -70,6 +69,9 @@ import type { Account } from '../account';
 import type { CharacterAura } from './aura';
 import type { CharacterPatronOrder } from './patron-order';
 import type { CharacterMovementSpeed } from './movement-speed';
+import type { CharacterQuests } from '@/user-home/state/user/types';
+import { DbResetType } from '@/shared/stores/db/enums/db-reset-type';
+import { timeState } from '@/shared/state/time.svelte';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Static
@@ -117,6 +119,8 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public lastSeenAddonUnix = $state(0);
     public scannedCurrencies: DateTime = $state<DateTime>(undefined);
     public scannedCurrenciesUnix = $state(0);
+
+    public quests = $state<CharacterQuests>(undefined);
 
     // Calculated
     public bags: Record<number, number> = $state({});
@@ -657,6 +661,33 @@ export class Character implements ContainsItems, HasNameAndRealm {
         return ret;
     });
 
+    // Quests
+    public hasCompletedQuest(questId: number, reset?: DbResetType) {
+        if (!this.quests) {
+            return false;
+        }
+
+        const hasQuest = this.quests.hasQuestById.has(questId);
+        if (!reset || !hasQuest) {
+            return hasQuest;
+        }
+
+        const now = timeState.slowTime;
+
+        if (reset === DbResetType.Daily) {
+            let resetTime = this.dailyReset;
+            while (resetTime < now) {
+                resetTime = resetTime.plus({ days: 1 });
+            }
+            resetTime = resetTime.minus({ days: 1 });
+
+            return resetTime < this.quests.scannedTime;
+        }
+
+        return false;
+    }
+
+    // Reputation
     reputationData = $derived.by(() => {
         const ret: Record<string, CharacterReputation> = {};
         for (const category of wowthingData.manual.reputationSets) {

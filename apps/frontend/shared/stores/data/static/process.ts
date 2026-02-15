@@ -185,7 +185,6 @@ export function processStaticData(rawData: RawStatic): DataStatic {
             data.transmogSetBySourceId.set((itemId % 1_000_000) * 1000 + modifier, transmogSet);
         }
     }
-    console.log(data.transmogSetBySourceId);
 
     data.transmogSetsByGroupId = new Map(
         getNumberKeyedEntries(

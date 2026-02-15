@@ -7,9 +7,9 @@ import { QuestStatus } from '@/enums/quest-status';
 import { Role } from '@/enums/role';
 import { wowthingData } from '@/shared/stores/data';
 import { parseBooleanQuery } from '@/shared/utils/boolean-parser';
+import { userState } from '@/user-home/state/user';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { Character } from '@/types';
-import type { UserQuestData } from '@/types/data';
 
 type FilterFunc = (char: Character) => boolean;
 
@@ -17,7 +17,6 @@ const _cache: Record<string, string[][]> = {};
 
 export function useCharacterFilter(
     settings: Settings,
-    userQuestData: UserQuestData,
     filterFunc: FilterFunc,
     char: Character,
     filterString: string
@@ -78,22 +77,24 @@ export function useCharacterFilter(
                                 const questString = match[2].toString();
                                 const questId = parseInt(questString);
 
-                                const charQuests = userQuestData.characters[char.id];
                                 let hasQuest = false;
 
-                                if (isNaN(questId)) {
-                                    const matchingQuests = Object.entries(
-                                        charQuests?.progressQuests || {}
-                                    )
-                                        .filter(([key]) => key.toLocaleLowerCase() === questString)
-                                        .map(([, value]) => value);
-                                    hasQuest =
-                                        matchingQuests.length === 1 &&
-                                        matchingQuests[0].status === QuestStatus.Completed;
-                                } else {
-                                    hasQuest =
-                                        charQuests?.quests?.has(questId) ||
-                                        charQuests?.dailyQuests?.has(questId);
+                                const charQuests = userState.quests.characterById.get(char.id); // userQuestData.characters[char.id];
+                                if (charQuests) {
+                                    if (isNaN(questId)) {
+                                        const matchingQuests = Array.from(
+                                            charQuests.progressQuestByKey?.entries()
+                                        )
+                                            .filter(
+                                                ([key]) => key.toLocaleLowerCase() === questString
+                                            )
+                                            .map(([, value]) => value);
+                                        hasQuest =
+                                            matchingQuests.length === 1 &&
+                                            matchingQuests[0].status === QuestStatus.Completed;
+                                    } else {
+                                        hasQuest = charQuests.hasQuestById.has(questId);
+                                    }
                                 }
 
                                 return match[1]?.toString() === 'no' ? !hasQuest : hasQuest;
