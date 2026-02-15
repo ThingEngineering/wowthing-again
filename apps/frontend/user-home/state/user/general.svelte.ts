@@ -33,6 +33,9 @@ import type { Faction } from '@/enums/faction';
 import { logErrors } from '@/utils/log-errors';
 import type { HasNameAndRealm } from '@/types/shared/has-name-and-realm';
 import type { UserItem } from '@/types/shared/user-item';
+import type { CharacterQuests } from './types';
+
+type GeneralProcessFunc = (generalState: DataUserGeneral) => void;
 
 export class DataUserGeneral {
     public accountById: Record<number, Account> = $state({});
@@ -70,6 +73,11 @@ export class DataUserGeneral {
     public visibleCharacters = $derived.by(() => this._visibleCharacters());
 
     private _warbankScannedAt: string;
+    private _afterProcessFuncs: GeneralProcessFunc[] = [];
+
+    public afterProcess(processFunc: GeneralProcessFunc) {
+        this._afterProcessFuncs.push(processFunc);
+    }
 
     public process(userData: UserData): void {
         console.time('DataUserGeneral.process');
@@ -105,7 +113,6 @@ export class DataUserGeneral {
                     lastScannedCurrencies > character.scannedCurrenciesUnix
                 ) {
                     character.init(...characterArray);
-                    console.log('general', character.id, character.name);
                 }
             } else {
                 character = new Character();
@@ -214,7 +221,21 @@ export class DataUserGeneral {
             this.hasIllusionByEnchantmentId.add(illusionId);
         }
 
+        let processFunc: GeneralProcessFunc;
+        while ((processFunc = this._afterProcessFuncs.pop())) {
+            processFunc(this);
+        }
+
         console.timeEnd('DataUserGeneral.process');
+    }
+
+    public processQuests(characterQuestsById: Map<number, CharacterQuests>): void {
+        for (const [characterId, characterQuests] of characterQuestsById.entries()) {
+            const character = this.characterById[characterId];
+            if (character) {
+                character.quests ||= characterQuests;
+            }
+        }
     }
 
     public anyCharacterKnowsSpellById = $derived.by(() => {

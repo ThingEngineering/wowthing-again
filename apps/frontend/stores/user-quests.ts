@@ -22,6 +22,9 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
         console.time('UserQuestDataStore.initialize');
 
         userState.quests.process(userQuestData);
+        userState.general.afterProcess((generalState) =>
+            generalState.processQuests(userState.quests.characterById)
+        );
 
         if (userQuestData.accountHas === undefined) {
             userQuestData.accountHas = new Set<number>(userQuestData.account || []);

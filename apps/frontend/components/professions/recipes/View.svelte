@@ -7,7 +7,6 @@
     import { iconLibrary } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { userQuestStore } from '@/stores';
     import { newNavState, professionsRecipesState } from '@/stores/local-storage';
     import { userState } from '@/user-home/state/user';
     import { useCharacterFilter } from '@/utils/characters';
@@ -53,7 +52,6 @@
         const professionCharacters = userState.general.visibleCharacters.filter((char) =>
             useCharacterFilter(
                 settingsState.value,
-                $userQuestStore,
                 (c) =>
                     !collectorIds.includes(c.id) &&
                     !!c.professions?.[profession.id]?.subProfessions?.[subProfession.id],

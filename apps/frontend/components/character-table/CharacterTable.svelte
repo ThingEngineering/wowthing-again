@@ -5,7 +5,6 @@
 
     import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { userQuestStore } from '@/stores';
     import { newNavState } from '@/stores/local-storage';
     import { userState } from '@/user-home/state/user';
     import { useCharacterFilter } from '@/utils/characters';
@@ -63,7 +62,6 @@
         characters = characters.filter((char) =>
             useCharacterFilter(
                 settingsState.value,
-                $userQuestStore,
                 filterFunc,
                 char,
                 $newNavState.characterFilter ||

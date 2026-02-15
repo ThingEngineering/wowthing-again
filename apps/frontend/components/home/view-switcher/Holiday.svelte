@@ -2,7 +2,7 @@
     import { type FancyHoliday } from '@/data/holidays';
     import { timeState } from '@/shared/state/time.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { DbResetType, DbThingType } from '@/shared/stores/db/enums';
+    import { DbThingType } from '@/shared/stores/db/enums';
     import { DbDataThing } from '@/shared/stores/db/types';
     import { UserCount } from '@/types/user-count';
     import { everythingData } from '@/user-home/components/everything/data';
@@ -59,16 +59,14 @@
             // farmable things
             if (result.type === DbThingType.Item || result.type === DbThingType.Npc) {
                 // TODO: handle per-character?
-                if (result.accountWide) {
-                    if (result.resetType === DbResetType.Daily) {
-                        farms.push({
-                            farm: result,
-
-                            status: userState.quests.anyCharacterHasById.has(
-                                result.trackingQuestId
-                            ),
-                        });
-                    }
+                if (result.accountWide && result.resetType) {
+                    const status = userState.general.activeCharacters.some((char) =>
+                        char.hasCompletedQuest(result.trackingQuestId, result.resetType)
+                    );
+                    farms.push({
+                        farm: result,
+                        status,
+                    });
                 }
             }
         }
