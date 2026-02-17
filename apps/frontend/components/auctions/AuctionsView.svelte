@@ -362,6 +362,30 @@
                 />
             </div>
         </div>
+    {:else if actualSlug === 'missing-decor'}
+        <div class="options-wrapper">
+            <div class="options-group">
+                <TextInput
+                    name="decor_name_search"
+                    maxlength={20}
+                    placeholder="Name filter"
+                    clearButton={true}
+                    inputWidth="10rem"
+                    bind:value={$auctionState.missingDecorNameSearch}
+                />
+            </div>
+
+            <div class="options-group">
+                <TextInput
+                    name="decor_realm_search"
+                    maxlength={20}
+                    placeholder="Realm filter"
+                    clearButton={true}
+                    inputWidth="10rem"
+                    bind:value={$auctionState.missingDecorRealmSearch}
+                />
+            </div>
+        </div>
     {:else if actualSlug === 'missing-recipes'}
         <div class="options-wrapper">
             <div class="options-group">
