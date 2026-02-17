@@ -137,19 +137,16 @@
 
         .pill {
             bottom: 0;
+            pointer-events: none;
         }
     }
     td {
         padding-left: 0.4rem;
         padding-right: 0.4rem;
     }
-    // .category {
-    // }
     .source {
         padding-right: 0;
     }
-    // .name {
-    // }
     .status {
         border-left: 1px solid var(--border-color);
         text-align: center;
@@ -169,8 +166,13 @@
             {#each characters as character}
                 {#if character !== null}
                     <th class="character-icon">
-                        <div>
-                            <ClassIcon {character} border={2} size={40} />
+                        <div class="faction{character.faction}">
+                            <ClassIcon
+                                {character}
+                                border={2}
+                                size={40}
+                                tooltip={`${character.name}-${character.realm.name}`}
+                            />
                             <span class="pill abs-center">{character.name.slice(0, 5)}</span>
                         </div>
                     </th>
