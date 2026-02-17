@@ -2,14 +2,12 @@
     import { wowthingData } from '@/shared/stores/data';
     import { getGenderedName } from '@/utils/get-gendered-name';
     import type { StaticDataCharacterClass } from '@/shared/stores/static/types/character';
-    import type { Character } from '@/types';
     import type { CharacterProps } from '@/types/props';
 
     import WowthingImage from './sources/WowthingImage.svelte';
 
-    type Props = CharacterProps & {
+    type Props = Partial<CharacterProps> & {
         border?: number;
-        character?: Character;
         characterClass?: StaticDataCharacterClass;
         classId?: number;
         size?: number;
