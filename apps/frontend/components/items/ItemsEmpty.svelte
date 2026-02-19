@@ -3,6 +3,9 @@
 </script>
 
 <style lang="scss">
+    td {
+        padding: 2px;
+    }
     div {
         background: var(--color-highlight-background);
         border: 2px solid var(--item-empty-border, var(--color-fail-border));
