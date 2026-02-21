@@ -15,7 +15,9 @@
         --padding: 2;
     }
     .expires {
-        --width: 2.2rem;
+        --width: 2.8rem;
+
+        text-align: right;
     }
     .zone {
         --width: 5rem;
@@ -28,7 +30,7 @@
         text-align: left;
     }
     .gold {
-        --width: 1.5rem;
+        --width: 1.7rem;
 
         text-align: right;
     }
