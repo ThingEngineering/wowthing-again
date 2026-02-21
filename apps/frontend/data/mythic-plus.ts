@@ -125,6 +125,17 @@ const orderWarWithinS3: number[] = [
     391, // Tazavesh: Streets of Wonder [SL]
 ];
 
+const orderMidnightS1: number[] = [
+    558, // Magister's Terrace
+    560, // Maisara Caverns
+    559, // Nexus-Point Xenas
+    557, // Windrunner Spire
+    402, // Algeth'ar Academy [DF]
+    239, // Seat (other seat?) [Legion]
+    161, // Skyreach [WoD]
+    556, // Pit of Saron [WotLK]
+];
+
 const orderRemixLegion: number[] = [
     209, // The Arcway
     199, // Black Rook Hold
@@ -143,6 +154,16 @@ const orderRemixLegion: number[] = [
 
 export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
     [
+        new MythicPlusSeason({
+            id: 16,
+            name: '[Mid] Season 1',
+            slug: 'midnight-1',
+            minLevel: 90,
+            orders: [orderMidnightS1],
+            portalLevel: 10,
+            scoreType: MythicPlusScoreType.WarWithin,
+            startPeriod: 1055, // 2026-03-17
+        }),
         new MythicPlusSeason({
             id: 1001,
             name: '[Legion] Remix',
