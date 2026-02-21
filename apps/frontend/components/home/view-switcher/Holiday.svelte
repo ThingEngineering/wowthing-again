@@ -52,24 +52,27 @@
             stats.total += userState.achievements.categories[cat?.id]?.total || 0;
         }
 
-        const results = wowthingData.db.search({
-            tags: [everything.tag],
-        });
-        for (const result of results) {
-            // farmable things
-            if (result.type === DbThingType.Item || result.type === DbThingType.Npc) {
-                // TODO: handle per-character?
-                if (result.accountWide && result.resetType) {
-                    const status = userState.general.activeCharacters.some((char) =>
-                        char.hasCompletedQuest(result.trackingQuestId, result.resetType)
-                    );
-                    farms.push({
-                        farm: result,
-                        status,
-                    });
+        if (dropStats && dropStats.overall.percent < 100) {
+            const results = wowthingData.db.search({
+                tags: [everything.tag],
+            });
+            for (const result of results) {
+                // farmable things
+                if (result.type === DbThingType.Item || result.type === DbThingType.Npc) {
+                    // TODO: handle per-character?
+                    if (result.accountWide && result.resetType) {
+                        const status = userState.general.activeCharacters.some((char) =>
+                            char.hasCompletedQuest(result.trackingQuestId, result.resetType)
+                        );
+                        farms.push({
+                            farm: result,
+                            status,
+                        });
+                    }
                 }
             }
         }
+
         return { farms, stats };
     });
 </script>
