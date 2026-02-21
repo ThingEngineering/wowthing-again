@@ -344,12 +344,12 @@ export const currencyItems: Record<number, number[]> = {
         212493, // Odd Glob of Wax
         206350, // Radiant Remnant
         null,
+        224025, // Crackling Shard
+        246240, // Devoured Energy-Pod
+        null,
         233246, // Gunk-Covered Thingy
         234741, // Miscellaneous Mechanica
         238920, // Radiant Emblem of Service
-        null,
-        237502, // Puzzling Cartel Chip
-        244465, // Titan Disc Shards
     ],
     // The War Within - Season 1
     126011: [
