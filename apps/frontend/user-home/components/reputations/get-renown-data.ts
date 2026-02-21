@@ -57,56 +57,62 @@ export function getRenownData({
 
     ret.characterRep =
         actualCharacter.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
-    if (ret.characterRep.value !== -1) {
-        if (ret.dataRep.renownCurrencyId > 0) {
-            const currency = wowthingData.static.currencyById.get(ret.dataRep.renownCurrencyId);
-            ret.renownMax = currency.maxTotal;
+    const repValue = ret.characterRep.value === -1 ? 0 : ret.characterRep.value;
+    if (ret.dataRep.renownCurrencyId > 0) {
+        const currency = wowthingData.static.currencyById.get(ret.dataRep.renownCurrencyId);
+        ret.renownMax = currency.maxTotal;
 
-            ret.renownCurrent = ret.characterRep.value / (ret.dataRep.maxValues[0] || 2500);
-            ret.cls = `quality${1 + Math.floor(ret.renownCurrent / (ret.renownMax / 5))}`;
+        ret.renownCurrent = repValue / (ret.dataRep.maxValues[0] || 2500);
+        ret.cls = `quality${1 + Math.floor(ret.renownCurrent / (ret.renownMax / 4))}`;
 
-            ret.characterParagon = actualCharacter.paragons?.[ret.characterRep.reputationId];
+        ret.characterParagon = actualCharacter.paragons?.[ret.characterRep.reputationId];
 
-            let tier = ret.renownCurrent;
-            if (ret.characterParagon) {
-                tier += ret.characterParagon.current / ret.characterParagon.max;
-            }
+        let tier = ret.renownCurrent;
+        if (ret.characterParagon) {
+            tier += ret.characterParagon.current / ret.characterParagon.max;
+        }
 
-            ret.renownLevel = (Math.floor(tier * 100) / 100).toFixed(2);
-        } else {
-            const tiers =
-                wowthingData.static.reputationTierById.get(ret.dataRep.tierId) ||
-                wowthingData.static.reputationTierById.get(0);
-            ret.repTier = findReputationTier(tiers, ret.characterRep.value);
+        if (ret.dataRep.paragonId && ret.cls === 'quality5') {
+            ret.cls = 'quality6';
+        }
 
-            if (ret.dataRep.id === brannId) {
-                const levelMatch = ret.repTier.name.match(/(\d\d\d?)$/);
-                if (levelMatch) {
-                    const oof = brannHack(levelMatch[1]);
-                    ret.cls = `reputation${oof} reputation${oof}-border`;
+        ret.renownLevel = (Math.floor(tier * 100) / 100).toFixed(2);
+    } else {
+        const tiers =
+            wowthingData.static.reputationTierById.get(ret.dataRep.tierId) ||
+            wowthingData.static.reputationTierById.get(0);
+        ret.repTier = findReputationTier(tiers, repValue);
 
-                    // Brann hack to treat him as blocks of 10 levels
-                    let actualMax = 0;
-                    let actualValue = ret.repTier.value;
-                    const currentIndex = tiers.names.length - ret.repTier.tier;
-                    const start = Math.floor(currentIndex / 10) * 10;
-                    const end = Math.floor((start + 10) / 10) * 10;
-                    for (let i = start; i < end; i++) {
-                        const diff = tiers.minValues[i] - (tiers.minValues[i - 1] || 0);
-                        actualMax += diff;
-                        if (i < currentIndex) {
-                            actualValue += diff;
-                        }
+        if (ret.dataRep.id === brannId) {
+            const levelMatch = ret.repTier.name.match(/(\d\d\d?)$/);
+            if (levelMatch) {
+                const oof = brannHack(levelMatch[1]);
+                ret.cls = `reputation${oof} reputation${oof}-border`;
+
+                // Brann hack to treat him as blocks of 10 levels
+                let actualMax = 0;
+                let actualValue = ret.repTier.value;
+                const currentIndex = tiers.names.length - ret.repTier.tier;
+                const start = Math.floor(currentIndex / 10) * 10;
+                const end = Math.floor((start + 10) / 10) * 10;
+                for (let i = start; i < end; i++) {
+                    const diff = tiers.minValues[i] - (tiers.minValues[i - 1] || 0);
+                    actualMax += diff;
+                    if (i < currentIndex) {
+                        actualValue += diff;
                     }
-
-                    ret.renownLevel = ((actualValue / actualMax) * 100).toFixed(1) + '%';
                 }
-            } else {
-                ret.cls = `reputation${ret.repTier.tier} reputation${ret.repTier.tier}-border`;
-                ret.renownLevel = `${ret.repTier.percent}%`;
 
-                if (ret.dataRep.paragonId) {
-                    ret.characterParagon = actualCharacter.paragons?.[ret.dataRep.id];
+                ret.renownLevel = ((actualValue / actualMax) * 100).toFixed(1) + '%';
+            }
+        } else {
+            ret.cls = `reputation${ret.repTier.tier} reputation${ret.repTier.tier}-border`;
+            ret.renownLevel = `${ret.repTier.percent}%`;
+
+            if (ret.dataRep.paragonId) {
+                ret.characterParagon = actualCharacter.paragons?.[ret.dataRep.id];
+                if (ret.repTier.tier === 1) {
+                    ret.cls = 'reputation0 reputation0-border';
                 }
             }
         }
