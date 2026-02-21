@@ -4,6 +4,9 @@ import { convertibleCategories } from '@/components/items/convertible/data';
 
 // MapChallengeMode.db2
 export const dungeons: Dungeon[] = [
+    // Wrath of the Lich King
+    new Dungeon(556, 'Pit of Saron', 'PIT', '', 1860 / 60),
+
     // Cataclysm
     new Dungeon(438, 'The Vortex Pinnacle', 'VP', 'achievement/4847', 1800 / 60),
     new Dungeon(456, 'Throne of the Tides', 'ToT', 'achievement/4839', 2040 / 60),
@@ -14,6 +17,7 @@ export const dungeons: Dungeon[] = [
     new Dungeon(2, 'Temple of the Jade Serpent', 'TJS', 'achievement/6757', 30),
 
     // Warlords of Draenor
+    new Dungeon(161, 'Skyreach', 'SR', 'achievement/8844', 1680 / 60),
     new Dungeon(165, 'Shadowmoon Burial Grounds', 'SBG', 'achievement/9041', 33),
     new Dungeon(166, 'Grimrail Depot', 'GD', 'achievement/9043', 30),
     new Dungeon(168, 'The Everbloom', 'EB', 'achievement/9044', 1980 / 60),
@@ -39,6 +43,8 @@ export const dungeons: Dungeon[] = [
     new Dungeon(233, 'Cathedral of Eternal Night', 'CEN', 'achievement/11702', 2100 / 60),
     new Dungeon(234, 'Return to Karazhan: Upper', 'UPPR', 'achievement/11429', 35),
     new Dungeon(239, 'Seat of the Triumvirate', 'SoT', 'achievement/12008', 2100 / 60),
+    // ?? why is there a new one for Midnight
+    new Dungeon(583, 'Seat of the Triumvirate', 'SoT', 'achievement/12008', 1200 / 60),
 
     // Battle for Azeroth
     new Dungeon(244, "Atal'Dazar", 'AD', 'achievement/12824', 1800 / 60),
@@ -107,6 +113,12 @@ export const dungeons: Dungeon[] = [
     new Dungeon(506, 'Cinderbrew Meadery', 'CM', 'achievement/40366', 30),
     new Dungeon(525, 'Operation: Floodgate', 'OF', 'achievement/41339', 1920 / 60),
     new Dungeon(542, "Eco-Dome Al'dani", 'EDA', 'achievement/42782', 1860 / 60),
+
+    // Midnight
+    new Dungeon(557, 'Windrunner Spire', 'WS', 'achievement/41288', 2010 / 60),
+    new Dungeon(558, "Magister's Terrace", 'MT', 'achievement/61213', 2010 / 60),
+    new Dungeon(559, 'Nexus-Point Xenas', 'NPX', 'achievement/61646', 1770 / 60),
+    new Dungeon(560, 'Maisara Caverns', 'MC', 'achievement/61644', 1980 / 60),
 ];
 
 export const dungeonMap: Record<number, Dungeon> = Object.fromEntries(
@@ -328,6 +340,14 @@ export const extraInstances: StaticDataInstance[] = [
         shortName: 'Gob',
     },
 
+    // Midnight
+    {
+        expansion: 11,
+        id: 111001,
+        name: 'Midnight World Bosses',
+        shortName: 'MWB',
+    },
+
     // Holidays
     {
         expansion: 100,
@@ -409,6 +429,7 @@ export const worldBossInstanceIds: number[] = [
     1192, // Shadowlands
     1205, // Dragonflight
     1278, // Khaz Algar
+    1312, // Midnight
 ];
 
 export const ignoredLockoutInstances: Record<number, boolean> = Object.fromEntries(
@@ -416,5 +437,6 @@ export const ignoredLockoutInstances: Record<number, boolean> = Object.fromEntri
         1192, // Shadowlands
         1205, // Dragon Isles
         1278, // Khaz Algar
+        1312, // Midnight
     ].map((id) => [id, true])
 );

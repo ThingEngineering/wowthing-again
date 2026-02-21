@@ -1,3 +1,10 @@
+.reputation0 {
+    color: var(--color-quality6);
+}
+.reputation0-border {
+    --image-border-color: var(--color-quality6-border);
+    border-color: var(--color-quality6-border);
+}
 .reputation1 {
     color: var(--color-quality5);
 }

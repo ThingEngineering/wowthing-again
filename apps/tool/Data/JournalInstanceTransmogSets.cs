@@ -10,5 +10,9 @@ public partial class Hardcoded
         { 1207, 225 }, // [T25] Dragonflight > Amirdrassil, the Dream's Hope
         { 1273, 273 }, // [T26] The War Within > Nerub-ar Palace
         { 1296, 305 }, // [T27] The War Within > Liberation of Undermine
+        { 1302, 330 }, // [T28] The War Within > Manaforge Omega
+        { 1307, 372 }, // [T29] Midnight > The Voidspire
+        { 1308, 372 }, // [T29] Midnight > March on Quel'Danas
+        { 1314, 372 }, // [T29] Midnight > The Dreamrift
     };
 }

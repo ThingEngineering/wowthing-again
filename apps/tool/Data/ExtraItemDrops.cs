@@ -2765,6 +2765,17 @@ public static partial class Hardcoded
 
         #region Dragonflight
 
+        // Dawn of the Infinite > Chrono-Lord Deos
+        {
+            2538,
+            [
+                new(208102, DungeonDifficultiesHeroicMythic), // Cliffside Wylderdrake: Visage of the Infinite
+                new(208103, DungeonDifficultiesHeroicMythic), // Highland Drake: Visage of the Infinite
+                new(208104, DungeonDifficultiesHeroicMythic), // Renewed Proto-Drake: Visage of the Infinite
+                new(208105, DungeonDifficultiesHeroicMythic), // Windborne Velocidrake: Visage of the Infinite
+                new(208106, DungeonDifficultiesHeroicMythic), // Winding Slitherdrake: Visage of the Infinite
+            ]
+        },
         // Vault of the Incarnates > Trash
         {
             1001200,

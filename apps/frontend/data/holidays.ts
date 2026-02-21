@@ -98,7 +98,7 @@ export type FancyHoliday = {
 export const fancyHolidays: FancyHoliday[] = [
     {
         holiday: Holiday.Brewfest,
-        shortName: 'Brewfest',
+        shortName: '🍻',
         everything: 'brewfest',
     },
     {
@@ -108,7 +108,7 @@ export const fancyHolidays: FancyHoliday[] = [
     },
     {
         holiday: Holiday.DarkmoonFaire,
-        shortName: 'DMF',
+        shortName: '🎡',
         everything: 'darkmoon-faire',
     },
     {
@@ -128,7 +128,7 @@ export const fancyHolidays: FancyHoliday[] = [
     },
     {
         holiday: Holiday.LunarFestival,
-        shortName: 'Lunar Festival',
+        shortName: '🌛',
         everything: 'lunar-festival',
     },
     {
@@ -138,7 +138,7 @@ export const fancyHolidays: FancyHoliday[] = [
     },
     {
         holiday: Holiday.Noblegarden,
-        shortName: 'Noblegarden',
+        shortName: '🐰',
         everything: 'noblegarden',
     },
     {
@@ -153,7 +153,7 @@ export const fancyHolidays: FancyHoliday[] = [
     },
     {
         holiday: Holiday.WinterVeil,
-        shortName: 'Winter Veil',
+        shortName: '🎅',
         everything: 'winter-veil',
     },
     //
