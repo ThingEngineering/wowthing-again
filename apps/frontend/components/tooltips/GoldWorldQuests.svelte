@@ -30,7 +30,7 @@
         text-align: left;
     }
     .gold {
-        --width: 1.7rem;
+        --width: 2rem;
 
         text-align: right;
     }
