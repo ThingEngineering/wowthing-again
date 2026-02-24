@@ -86,6 +86,13 @@ export const holidayIds: Record<number, [number[], number[]?]> = {
     [Holiday.BrawlTempleOfHotmogu]: [[400]],
     [Holiday.BrawlWarsongScramble]: [[257]],
 
+    [Holiday.CupEasternKingdoms]: [[427]], // Classic
+    [Holiday.CupKalimdor]: [[424]], // Classic
+    [Holiday.CupOutland]: [[428]], // TBC
+    [Holiday.CupNorthrend]: [[431]], // WotLK
+    [Holiday.CupPandaria]: [[432]], // MoP
+    [Holiday.CupBrokenIsles]: [[433]], // Legion
+
     [Holiday.PrepatchMidnight]: [[450]],
     [Holiday.RemixLegion]: [[447]],
 };
@@ -156,6 +163,38 @@ export const fancyHolidays: FancyHoliday[] = [
         shortName: '🎅',
         everything: 'winter-veil',
     },
+    // Flying Cups
+    {
+        holiday: Holiday.CupEasternKingdoms, // Classic
+        shortName: 'Eastern Kingdoms 🛩️',
+        everything: 'cup-eastern-kingdoms',
+    },
+    {
+        holiday: Holiday.CupKalimdor, // Classic
+        shortName: 'Kalimdor 🛩️',
+        everything: 'cup-kalimdor',
+    },
+    {
+        holiday: Holiday.CupOutland, // TBC
+        shortName: 'Outland 🛩️',
+        everything: 'cup-outland',
+    },
+    {
+        holiday: Holiday.CupNorthrend, // WotLK
+        shortName: 'Northrend 🛩️',
+        everything: 'cup-northrend',
+    },
+    {
+        holiday: Holiday.CupPandaria, // MoP
+        shortName: 'Pandaria 🛩️',
+        everything: 'cup-pandaria',
+    },
+    {
+        holiday: Holiday.CupBrokenIsles, // Legion
+        shortName: 'Broken Isles 🛩️',
+        everything: 'cup-broken-isles',
+    },
+
     //
     {
         holiday: Holiday.Anniversary,

@@ -14,7 +14,7 @@
             children: [],
         },
         null,
-        ...wowthingData.achievements.categories,
+        ...wowthingData.achievements.categories.filter((cat) => !cat?.slug?.endsWith('-hidden')),
     ];
 
     const percentFunc = function (entry: SidebarItem): number {

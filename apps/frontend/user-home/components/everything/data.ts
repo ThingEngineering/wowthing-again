@@ -78,6 +78,13 @@ export const everythingData: Record<string, EverythingData> = {
         vendorsKey: ['world-events', 'winter-veil'],
     },
     //
+    'cup-outland': {
+        name: 'Outland Cup',
+        tag: 'event:outland-cup',
+        achievementsKey: ['outland-cup-hidden'],
+        vendorsKey: ['world-events', 'outland-cup'],
+    },
+    //
     anniversary: {
         name: 'Anniversary',
         tag: 'event:anniversary',
