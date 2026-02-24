@@ -443,4 +443,11 @@ export const extraCategories: ExtraAchievementCategory[] = [
         ],
         children: [],
     },
+    {
+        slug: 'outland-cup',
+        achievementIds: [
+            19092, 19097, 19098, 19099, 19100, 19101, 19102, 19103, 19104, 19105, 19106, 19107,
+        ],
+        children: [],
+    },
 ];

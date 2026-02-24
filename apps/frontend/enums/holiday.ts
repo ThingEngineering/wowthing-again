@@ -44,6 +44,13 @@ export enum Holiday {
     BrawlTempleOfHotmogu,
     BrawlWarsongScramble,
 
+    CupEasternKingdoms, // Classic
+    CupKalimdor, // Classic
+    CupOutland, // TBC
+    CupNorthrend, // WotLK
+    CupPandaria, // MoP
+    CupBrokenIsles, // Legion
+
     // Temporary
     PrepatchMidnight,
     RemixLegion,
