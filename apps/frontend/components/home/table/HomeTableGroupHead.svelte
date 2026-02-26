@@ -2,6 +2,7 @@
     import sumBy from 'lodash/sumBy';
 
     import { iconStrings } from '@/data/icons';
+    import { iconLibrary } from '@/shared/icons';
     import { browserState } from '@/shared/state/browser.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
@@ -239,15 +240,15 @@
             <HeadTasks {getSortState} {setSortState} />
         {:else if field === 'vaultMythicPlus'}
             <td class="sortable sorted-{getSortState()}" onclick={() => setSortState()}
-                >Dungeon Vault</td
+                >Dungeon <IconifyIcon icon={iconLibrary.mdiSafeSquareOutline} /></td
             >
         {:else if field === 'vaultRaid'}
             <td class="sortable sorted-{getSortState()}" onclick={() => setSortState()}
-                >Raid Vault</td
+                >Raid <IconifyIcon icon={iconLibrary.mdiSafeSquareOutline} /></td
             >
         {:else if field === 'vaultWorld'}
             <td class="sortable sorted-{getSortState()}" onclick={() => setSortState()}
-                >World Vault</td
+                >World <IconifyIcon icon={iconLibrary.mdiSafeSquareOutline} /></td
             >
         {:else}
             <td>&nbsp;</td>

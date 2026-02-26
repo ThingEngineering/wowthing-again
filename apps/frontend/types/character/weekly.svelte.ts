@@ -1,3 +1,4 @@
+import parseApiTime from '@/utils/parse-api-time';
 import { CharacterItem, type CharacterItemArray } from './item';
 
 export class CharacterWeekly {
@@ -8,12 +9,14 @@ export class CharacterWeekly {
     public keystoneLevel: number = $state(0);
     public keystoneScannedAt: string = $state(null);
     public vault: CharacterWeeklyVault = $state({
+        anyThreshold: false,
         availableRewards: false,
         generatedRewards: false,
         dungeonProgress: [],
         raidProgress: [],
         worldProgress: [],
     });
+    public vaultScannedAt: string = $state(null);
 
     public process(
         delveWeek: number,
@@ -42,6 +45,7 @@ export class CharacterWeekly {
         }
 
         if (vaultScannedAt) {
+            this.vaultScannedAt = vaultScannedAt;
             this.vault.availableRewards = vaultAvailableRewards;
             this.vault.generatedRewards = vaultGeneratedRewards;
             this.vault.dungeonProgress = (dungeonProgress || []).map(
@@ -53,12 +57,20 @@ export class CharacterWeekly {
             this.vault.worldProgress = (worldProgress || []).map(
                 (array) => new CharacterWeeklyProgress(...array)
             );
+            this.vault.anyThreshold = [
+                ...this.vault.dungeonProgress,
+                ...this.vault.raidProgress,
+                ...this.vault.worldProgress,
+            ].some((tier) => tier.progress >= tier.threshold);
         }
     }
+
+    public vaultScannedTime = $derived(parseApiTime(this.vaultScannedAt));
 }
 export type CharacterWeeklyArray = Parameters<CharacterWeekly['process']>;
 
 export interface CharacterWeeklyVault {
+    anyThreshold: boolean;
     availableRewards: boolean;
     generatedRewards: boolean;
     dungeonProgress: CharacterWeeklyProgress[];

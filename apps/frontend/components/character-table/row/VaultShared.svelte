@@ -1,20 +1,22 @@
 <script lang="ts">
+    import { timeState } from '@/shared/state/time.svelte';
     import type { CharacterWeeklyProgress } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
-    type Props = {
-        availableRewards: boolean;
-        generatedRewards: boolean;
+    type Props = CharacterProps & {
         progresses: CharacterWeeklyProgress[];
         qualityFunc: (progress: CharacterWeeklyProgress) => number;
         textFunc: (progress: CharacterWeeklyProgress) => string;
     };
-    let {
-        availableRewards,
-        generatedRewards,
-        progresses,
-        qualityFunc = null,
-        textFunc,
-    }: Props = $props();
+    let { character, progresses, qualityFunc = null, textFunc }: Props = $props();
+
+    let generatedRewards = $derived(character.weekly?.vault?.generatedRewards);
+    let availableRewards = $derived(
+        character.weekly?.vault?.availableRewards ||
+            (character.weekly?.vault?.anyThreshold &&
+                character.weeklyReset < timeState.slowTime &&
+                character.weeklyReset > character.weekly.vaultScannedTime)
+    );
 </script>
 
 <style lang="scss">
