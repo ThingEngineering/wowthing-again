@@ -16,6 +16,7 @@ import getFilteredItems from '@/utils/journal/get-filtered-items.svelte';
 import { isRecipeKnown } from '@/utils/professions/is-recipe-known';
 import { userState } from '../user';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
+import { lazyState } from './lazyState.svelte';
 
 export interface LazyJournal {
     filteredItems: Record<string, JournalDataEncounterItem[]>;
@@ -176,6 +177,8 @@ export function doJournal(): LazyJournal {
                     for (const item of filteredItems) {
                         let allCollected = true;
 
+                        if (item.id === 143517 || item.id === 143521) console.log(item);
+
                         for (const appearance of item.appearances) {
                             let appearanceKey: string;
                             let oppositeKey: string;
@@ -249,6 +252,15 @@ export function doJournal(): LazyJournal {
                                     appearance.userHas = (teachesDecors || []).some((decorId) =>
                                         userState.general.hasDecorById.has(decorId)
                                     );
+                                } else {
+                                    const transmogSetId =
+                                        wowthingData.items.teachesTransmog[item.id];
+                                    if (transmogSetId) {
+                                        const statsKey = `ensemble:${transmogSetId}`;
+                                        const stats = lazyState.transmog.stats[statsKey];
+                                        appearance.userHas =
+                                            (stats?.have || 0) >= (stats?.total || 1);
+                                    }
                                 }
                             }
 

@@ -204,6 +204,7 @@ public class JournalTool
 
         // { itemId => { modifierId => appearanceId } }
         var appearancesByItemId = itemModifiedAppearances
+            .Where(ima => ima.AppearanceId > 0)
             .GroupBy(ima => ima.ItemId)
             .ToDictionary(
                 itemIdGroup => itemIdGroup.Key,
@@ -951,9 +952,8 @@ public class JournalTool
                                 {
                                     var first = appearances
                                         .MinBy(kvp => kvp.Key);
-
-                                    modifierId = first.Key;
-                                    appearanceId = first.Value;
+                                        modifierId = first.Key;
+                                        appearanceId = first.Value;
                                 }
 
                                 var appearanceKey = (appearanceId, modifierId);
@@ -965,6 +965,7 @@ public class JournalTool
                                         ModifierId = modifierId,
                                     };
                                 }
+
                                 itemAppearances[appearanceKey].Difficulties.Add(difficultyId);
                             }
 
