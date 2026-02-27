@@ -1,6 +1,39 @@
 import { Profession } from '@/enums/profession';
 import type { TaskProfession } from '@/types/data';
 
+const midnightTaskQuests = [
+    93700, // Experience Tranquility
+    93701, // ??
+    93702, // The Root of Life
+    93703, // Sin'dorei Vices
+    93704, // Traditional Harvests
+];
+
+export const midnightHerbalism: TaskProfession = {
+    id: Profession.Herbalism,
+    subProfessionId: 2912,
+    treatiseQuest: {
+        itemId: 245761, // Thalassian Treatise on Herbalism
+        questId: 95130,
+    },
+    taskQuests: midnightTaskQuests.map((questId) => ({
+        itemId: 263462, // Thalassian Herbalist's Notes
+        questId,
+    })),
+    bookQuests: [
+        {
+            itemId: 250443, // Echo of Abundance: Herbalism
+            questId: 92174,
+            source: '???',
+        },
+        {
+            itemId: 258410, // Traditions of the Hara'nir: Herbalism
+            questId: 93411,
+            source: 'HN 6',
+        },
+    ],
+};
+
 const taskQuestIds = [
     82916, // When Fungi Bloom
     82958, // Little Blessings

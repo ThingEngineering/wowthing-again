@@ -4,19 +4,31 @@ import { Profession } from '@/enums/profession';
 import { toIndexRecord } from '@/utils/to-index-record';
 import type { TaskProfession } from '@/types/data';
 
-import { dragonflightAlchemy, warWithinAlchemy } from './alchemy';
-import { dragonflightBlacksmithing, warWithinBlacksmithing } from './blacksmithing';
+import { dragonflightAlchemy, midnightAlchemy, warWithinAlchemy } from './alchemy';
+import {
+    dragonflightBlacksmithing,
+    midnightBlacksmithing,
+    warWithinBlacksmithing,
+} from './blacksmithing';
 import { dragonflightCooking } from './cooking';
-import { dragonflightEnchanting, warWithinEnchanting } from './enchanting';
-import { dragonflightEngineering, warWithinEngineering } from './engineering';
+import { dragonflightEnchanting, midnightEnchanting, warWithinEnchanting } from './enchanting';
+import { dragonflightEngineering, midnightEngineering, warWithinEngineering } from './engineering';
 import { dragonflightFishing } from './fishing';
-import { dragonflightHerbalism, warWithinHerbalism } from './herbalism';
-import { dragonflightInscription, warWithinInscription } from './inscription';
-import { dragonflightJewelcrafting, warWithinJewelcrafting } from './jewelcrafting';
-import { dragonflightLeatherworking, warWithinLeatherworking } from './leatherworking';
-import { dragonflightMining, warWithinMining } from './mining';
-import { dragonflightSkinning, warWithinSkinning } from './skinning';
-import { dragonflightTailoring, warWithinTailoring } from './tailoring';
+import { dragonflightHerbalism, midnightHerbalism, warWithinHerbalism } from './herbalism';
+import { dragonflightInscription, midnightInscription, warWithinInscription } from './inscription';
+import {
+    dragonflightJewelcrafting,
+    midnightJewelcrafting,
+    warWithinJewelcrafting,
+} from './jewelcrafting';
+import {
+    dragonflightLeatherworking,
+    midnightLeatherworking,
+    warWithinLeatherworking,
+} from './leatherworking';
+import { dragonflightMining, midnightMining, warWithinMining } from './mining';
+import { dragonflightSkinning, midnightSkinning, warWithinSkinning } from './skinning';
+import { dragonflightTailoring, midnightTailoring, warWithinTailoring } from './tailoring';
 
 export const professionIdToSlug: Record<number, string> = {
     [Profession.Alchemy]: 'alchemy',
@@ -136,4 +148,23 @@ export const warWithinProfessions: TaskProfession[] = [
 
 export const warWithinProfessionMap: Record<number, TaskProfession> = Object.fromEntries(
     warWithinProfessions.map((profession) => [profession.id, profession])
+);
+
+export const midnightProfessions: TaskProfession[] = [
+    midnightAlchemy,
+    midnightBlacksmithing,
+    midnightEnchanting,
+    midnightEngineering,
+    midnightInscription,
+    midnightJewelcrafting,
+    midnightLeatherworking,
+    midnightTailoring,
+
+    midnightHerbalism,
+    midnightMining,
+    midnightSkinning,
+];
+
+export const midnightProfessionMap: Record<number, TaskProfession> = Object.fromEntries(
+    midnightProfessions.map((profession) => [profession.id, profession])
 );

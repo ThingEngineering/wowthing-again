@@ -1,6 +1,39 @@
 import { Profession } from '@/enums/profession';
 import type { TaskProfession } from '@/types/data';
 
+const midnightTaskQuests = [
+    93705, // Copper for Your Thoughts?
+    93706, // Aggressive Tin-dencies
+    93707, // ??
+    93708, // Conductive Metals
+    93709, // Stocking the Staples
+];
+
+export const midnightMining: TaskProfession = {
+    id: Profession.Mining,
+    subProfessionId: 2916,
+    treatiseQuest: {
+        itemId: 245762, // Thalassian Treatise on Mining
+        questId: 95135,
+    },
+    taskQuests: midnightTaskQuests.map((questId) => ({
+        itemId: 263463, // Thalassian Miner's Notes
+        questId,
+    })),
+    bookQuests: [
+        {
+            itemId: 250444, // Echo of Abundance: Mining
+            questId: 92187,
+            source: '???',
+        },
+        {
+            itemId: 250924, // Whisper of the Loa: Leatherworking
+            questId: 92372,
+            source: 'AT 6',
+        },
+    ],
+};
+
 const warWithinTaskQuests = [
     83102, // Bismuth is Business
     83103, // Acquiring Aqirite

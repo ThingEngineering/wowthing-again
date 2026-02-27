@@ -1,6 +1,27 @@
 import { Profession } from '@/enums/profession';
 import type { TaskProfession } from '@/types/data';
 
+export const midnightEngineering: TaskProfession = {
+    id: Profession.Engineering,
+    subProfessionId: 2910,
+    orderQuest: {
+        itemId: 263456, // Thalassian Engineer's Notepad
+        questId: 93692,
+    },
+    // TODO: fix this when the item completes the correct questID??
+    // treatiseQuest: {
+    //     itemId: 245809, // Thalassian Treatise on Engineering
+    //     questId: 83728,
+    // },
+    bookQuests: [
+        {
+            itemId: 262646, // Beyond the Event Horizon: Engineering
+            questId: 93796,
+            source: '???',
+        },
+    ],
+};
+
 export const warWithinEngineering: TaskProfession = {
     id: Profession.Engineering,
     subProfessionId: 2875,

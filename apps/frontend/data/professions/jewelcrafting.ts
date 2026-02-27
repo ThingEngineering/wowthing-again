@@ -1,6 +1,26 @@
 import { Profession } from '@/enums/profession';
 import type { TaskProfession } from '@/types/data';
 
+export const midnightJewelcrafting: TaskProfession = {
+    id: Profession.Jewelcrafting,
+    subProfessionId: 2914,
+    orderQuest: {
+        itemId: 263458, // Thalassian Jewelcrafter's Notebook
+        questId: 93694,
+    },
+    treatiseQuest: {
+        itemId: 245760, // Thalassian Treatise on Jewelcrafting
+        questId: 95133,
+    },
+    bookQuests: [
+        {
+            itemId: 257599, // Skill Issue: Jewelcrafting
+            questId: 93222,
+            source: 'SC 6',
+        },
+    ],
+};
+
 export const warWithinJewelcrafting: TaskProfession = {
     id: Profession.Jewelcrafting,
     subProfessionId: 2879,

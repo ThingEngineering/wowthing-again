@@ -1,6 +1,39 @@
 import { Profession } from '@/enums/profession';
 import type { TaskProfession } from '@/types/data';
 
+const midnightTaskQuests = [
+    93710, // Tempered in Darkness
+    93711, // The Chill of the Void
+    93712, // ??
+    93713, // ??
+    93714, // Minor Scales
+];
+
+export const midnightSkinning: TaskProfession = {
+    id: Profession.Skinning,
+    subProfessionId: 2917,
+    treatiseQuest: {
+        itemId: 245828, // Thalassian Treatise on Skinning
+        questId: 95136,
+    },
+    taskQuests: midnightTaskQuests.map((questId) => ({
+        itemId: 263461, // Thalassian Skinner's Notes
+        questId,
+    })),
+    bookQuests: [
+        {
+            itemId: 250445, // Echo of Abundance: Skinning
+            questId: 92188,
+            source: '???',
+        },
+        {
+            itemId: 250923, // Whisper of the Loa: Skinning
+            questId: 92373,
+            source: 'AT 6',
+        },
+    ],
+};
+
 const taskQuestIds = [
     82992, // Stormcharged Goods
     82993, // From Shadows

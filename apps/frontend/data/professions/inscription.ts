@@ -1,6 +1,26 @@
 import { Profession } from '@/enums/profession';
 import type { TaskProfession } from '@/types/data';
 
+export const midnightInscription: TaskProfession = {
+    id: Profession.Inscription,
+    subProfessionId: 2913,
+    orderQuest: {
+        itemId: 263457, // Thalassian Scribe's Journal
+        questId: 93693,
+    },
+    treatiseQuest: {
+        itemId: 245757, // Thalassian Treatise on Inscription
+        questId: 95131,
+    },
+    bookQuests: [
+        {
+            itemId: 258411, // Traditions of the Hara'nir: Herbalism
+            questId: 93412,
+            source: 'HT 6',
+        },
+    ],
+};
+
 export const warWithinInscription: TaskProfession = {
     id: Profession.Inscription,
     subProfessionId: 2878,

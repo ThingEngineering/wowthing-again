@@ -1,6 +1,37 @@
 import { Profession } from '@/enums/profession';
 import type { TaskProfession } from '@/types/data';
 
+const midnightTaskQuests = [
+    93697, // ??
+    93698, // Splintered Radiance
+    93699, // A Ray of Sunlight
+];
+
+export const midnightEnchanting: TaskProfession = {
+    id: Profession.Enchanting,
+    subProfessionId: 2909,
+    treatiseQuest: {
+        itemId: 245759, // Thalassian Treatise on Enchanting
+        questId: 95129,
+    },
+    taskQuests: midnightTaskQuests.map((questId) => ({
+        itemId: 263464, // Thalassian Enchanter's Folio
+        questId,
+    })),
+    bookQuests: [
+        {
+            itemId: 250445, // Echo of Abundance: Enchanting
+            questId: 92186,
+            source: '???',
+        },
+        {
+            itemId: 257600, // Skill Issue: Enchanting
+            questId: 92374,
+            source: 'SC 6',
+        },
+    ],
+};
+
 const warWithinTaskQuests = [
     84084, // Just a Pinch
     84085, // The Power of Potential
