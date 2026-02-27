@@ -10,14 +10,6 @@ export const midChores12_0_0: Task = {
     showSeparate: true,
     chores: [
         {
-            key: 'twwEmissaryArchives',
-            name: '[Dor] Archives',
-            minimumLevel: 80,
-            icon: aliasedIcons.bookshelf,
-            questIds: [],
-            questReset: DbResetType.Custom,
-        },
-        {
             key: 'midDelves',
             name: '[Dor] Delves',
             minimumLevel: 80,
@@ -27,15 +19,16 @@ export const midChores12_0_0: Task = {
                 93909, // Delves: Worldwide Research
             ],
         },
-        {
-            key: 'midUnity',
-            name: '[???] Unity',
-            minimumLevel: 80,
-            icon: aliasedIcons.planet,
-            questIds: [
-                // ???
-            ],
-        },
+        // {
+        //     key: 'midUnity',
+        //     name: '[???] Unity',
+        //     minimumLevel: 80,
+        //     icon: aliasedIcons.planet,
+        //     questReset: DbResetType.Weekly,
+        //     questIds: [
+        //         // ???
+        //     ],
+        // },
         {
             key: 'midDungeon',
             name: '[???] Dungeon',
