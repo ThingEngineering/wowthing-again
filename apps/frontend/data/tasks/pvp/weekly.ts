@@ -47,5 +47,15 @@ export const pvpWeekly: Task = {
             questIds: [80185],
             questReset: DbResetType.Weekly,
         },
+        {
+            key: 'pvpSparks',
+            name: '[PvP] Sparks of War',
+            questIds: [
+                93423, // Sparks of War: Eversong
+                93424, // Sparks of War: Zul'Aman
+                93425, // Sparks of War: Harandar
+                93426, // Sparks of War: Voidstorm
+            ],
+        },
     ],
 };
