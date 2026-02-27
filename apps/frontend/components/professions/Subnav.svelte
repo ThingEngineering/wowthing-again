@@ -28,7 +28,7 @@
         <a href="#/professions/recipes" use:active={'/professions/recipes/*'}> Recipes </a>
 
         <a href="#/professions/dragonflight-knowledge" use:active> [DF] Knowledge </a>
-
         <a href="#/professions/war-within-knowledge" use:active> [TWW] Knowledge </a>
+        <a href="#/professions/midnight-knowledge" use:active> [Mid] Knowledge </a>
     </nav>
 </div>

@@ -1,6 +1,26 @@
 import { Profession } from '@/enums/profession';
 import type { TaskProfession } from '@/types/data';
 
+export const midnightLeatherworking: TaskProfession = {
+    id: Profession.Leatherworking,
+    subProfessionId: 2915,
+    orderQuest: {
+        itemId: 263459, // Thalassian Leatherworker's Journal
+        questId: 93695,
+    },
+    treatiseQuest: {
+        itemId: 245758, // Thalassian Treatise on Leatherworking
+        questId: 95134,
+    },
+    bookQuests: [
+        {
+            itemId: 250922, // Whisper of the Loa: Leatherworking
+            questId: 92371,
+            source: 'AT 6',
+        },
+    ],
+};
+
 export const warWithinLeatherworking: TaskProfession = {
     id: Profession.Leatherworking,
     subProfessionId: 2880,

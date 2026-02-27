@@ -6,7 +6,7 @@ import { buildProfessionChores } from '../build-profession-chores';
 export const twwProfessions: Task = {
     key: 'twwProfessions',
     name: '[TWW] Professions',
-    shortName: 'Pro',
+    shortName: '🔨WW',
     minimumLevel: 70,
     chores: buildProfessionChores(10, warWithinProfessions),
 };

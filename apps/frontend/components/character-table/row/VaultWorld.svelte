@@ -31,13 +31,7 @@
 
 {#if worldVault?.length > 0}
     <td use:componentTooltip={{ component: TooltipVaultWorld, props: { character } }} class="b-l">
-        <VaultShared
-            availableRewards={character.weekly?.vault.availableRewards}
-            generatedRewards={character.weekly?.vault.generatedRewards}
-            progresses={worldVault}
-            {qualityFunc}
-            {textFunc}
-        />
+        <VaultShared progresses={worldVault} {character} {qualityFunc} {textFunc} />
     </td>
 {:else}
     <td>&nbsp;</td>

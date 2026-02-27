@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { warWithinProfessions } from '@/data/professions';
-    import { warWithinZones } from '@/data/zones';
+    import { midnightProfessions, warWithinProfessions } from '@/data/professions';
+    import { midnightZones, warWithinZones } from '@/data/zones';
     import type { Character } from '@/types';
 
     import CharacterKnowledge from './CharacterKnowledge.svelte';
@@ -12,9 +12,11 @@
 
     let { slug }: { slug: string } = $props();
 
+    let professions = $derived(slug === 'midnight' ? midnightProfessions : warWithinProfessions);
+    let zones = $derived(slug === 'midnight' ? midnightZones : warWithinZones);
+
     // TODO: update this for more generic expansion stuff
-    const filterFunc = (char: Character) =>
-        warWithinProfessions.some((p) => char.professions?.[p.id]);
+    const filterFunc = (char: Character) => professions.some((p) => char.professions?.[p.id]);
 </script>
 
 <style lang="scss">
@@ -41,7 +43,7 @@
         <th class="spacer"></th>
         <th colspan="2" class="border"></th>
         <th class="spacer"></th>
-        {#each warWithinZones as zone}
+        {#each zones as zone}
             {#if zone === null}
                 <th class="spacer"></th>
             {:else}
@@ -58,6 +60,6 @@
         <td class="spacer"></td>
         <CharacterKnowledge {character} expansionSlug={slug} profession={0} />
         <CharacterKnowledge {character} expansionSlug={slug} profession={1} />
-        <V2Row {character} />
+        <V2Row {character} expansionSlug={slug} {professions} {zones} />
     </svelte:fragment>
 </CharacterTable>

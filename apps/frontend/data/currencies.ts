@@ -380,6 +380,13 @@ export const currencyItems: Record<number, number[]> = {
         231768, // Enchanted Gilded Ethereal Crest
     ],
 
+    // Midnight
+    264: [
+        262636, // Anguish-Scribed Rune [hunts, uncommon]
+        262637, // Anguish-Infused Rune [hunts, rare]
+        262638, // Anguish-Permeated Rune [hunts, epic]
+    ],
+
     // Player vs Player
     2: [
         137642, // Mark of Honor

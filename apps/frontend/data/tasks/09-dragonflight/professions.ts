@@ -6,7 +6,7 @@ import { buildProfessionChores } from '../build-profession-chores';
 export const dfProfessions: Task = {
     key: 'dfProfessions',
     name: '[DF] Professions',
-    shortName: 'DFPro',
+    shortName: '🔨DF',
     minimumLevel: 70,
     chores: buildProfessionChores(9, dragonflightProfessions),
 };

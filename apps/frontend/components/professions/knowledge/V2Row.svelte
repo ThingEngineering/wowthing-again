@@ -1,16 +1,20 @@
 <script lang="ts">
-    import { warWithinProfessions } from '@/data/professions';
-    import { warWithinZones } from '@/data/zones';
     import { Profession } from '@/enums/profession';
     import { wowthingData } from '@/shared/stores/data';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { userState } from '@/user-home/state/user';
-    import type { TaskProfessionQuest } from '@/types/data';
+    import type { ProfessionZone } from '@/data/professions/zone';
+    import type { TaskProfession, TaskProfessionQuest } from '@/types/data';
     import type { CharacterProps } from '@/types/props';
 
     import Tooltip from '@/components/tooltips/profession-knowledge/TooltipProfessionKnowledge.svelte';
 
-    let { character }: CharacterProps = $props();
+    type Props = CharacterProps & {
+        expansionSlug: string;
+        professions: TaskProfession[];
+        zones: ProfessionZone[];
+    };
+    let { character, expansionSlug, professions, zones }: Props = $props();
 
     type ZoneData = {
         have: number;
@@ -30,7 +34,7 @@
         const ret: ZoneData[] = [];
 
         // Zones
-        for (const zone of warWithinZones) {
+        for (const zone of zones) {
             if (zone === null) {
                 ret.push(null);
                 continue;
@@ -42,7 +46,7 @@
                 items: [],
             };
 
-            for (const profData of warWithinProfessions) {
+            for (const profData of professions) {
                 if (!character.professions?.[profData.id]) {
                     continue;
                 }
@@ -86,7 +90,7 @@
                     const things = wowthingData.db.search({
                         maps: [zone.map],
                         tags: [
-                            `expansion:10`,
+                            expansionSlug === 'midnight' ? 'expansion:11' : 'expansion:10',
                             `profession:${professionSlug}`,
                             'treasure:profession',
                         ],
@@ -151,7 +155,7 @@
 </style>
 
 <td class="spacer"></td>
-{#each warWithinZones as zone, zoneIndex (zoneIndex)}
+{#each zones as zone, zoneIndex (zoneIndex)}
     {@const zoneData = data[zoneIndex]}
     {#if zone === null}
         <td class="spacer"></td>

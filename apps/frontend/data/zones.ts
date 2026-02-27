@@ -1,5 +1,51 @@
 import type { ProfessionZone } from './professions/zone';
 
+export const midnightZones: ProfessionZone[] = [
+    {
+        name: 'Eversong Woods',
+        icon: 'achievement/41802',
+        map: '11-midnight/eversong-woods',
+        shortName: 'EW',
+    },
+    {
+        name: 'Haranar',
+        icon: 'achievement/41804',
+        map: '11-midnight/haranar',
+        shortName: 'HN',
+    },
+    {
+        name: 'Voidstorm',
+        icon: 'achievement/41806',
+        map: '11-midnight/voidstorm',
+        shortName: 'VS',
+    },
+    {
+        name: "Zul'Aman",
+        icon: 'achievement/41803',
+        map: '11-midnight/zul-aman',
+        shortName: 'ZA',
+    },
+    null,
+    {
+        name: 'Amani Tribe Books',
+        icon: 'achievement/62263',
+        shortName: 'AT',
+        reputationId: 2696,
+    },
+    {
+        name: "Hara'ti Books",
+        icon: 'achievement/62264',
+        shortName: 'HT',
+        reputationId: 2704,
+    },
+    {
+        name: 'Silvermoon Court Books',
+        icon: 'achievement/62262',
+        shortName: 'SC',
+        reputationId: 2710,
+    },
+];
+
 export const warWithinZones: ProfessionZone[] = [
     {
         name: 'Dornogal',

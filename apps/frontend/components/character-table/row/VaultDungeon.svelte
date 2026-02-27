@@ -35,13 +35,7 @@
         use:componentTooltip={{ component: TooltipMythicPlusVault, props: { character } }}
         class="b-l"
     >
-        <VaultShared
-            availableRewards={character.weekly?.vault.availableRewards}
-            generatedRewards={character.weekly?.vault.generatedRewards}
-            progresses={mythicPlus}
-            {qualityFunc}
-            {textFunc}
-        />
+        <VaultShared {character} progresses={mythicPlus} {qualityFunc} {textFunc} />
     </td>
 {:else}
     <td>&nbsp;</td>

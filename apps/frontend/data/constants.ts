@@ -3,9 +3,9 @@ export const MAX_TASKS = 100;
 export const MAX_VIEWS = 100;
 
 export abstract class Constants {
-    static readonly characterMaxLevel: number = 80;
+    static readonly characterMaxLevel: number = 90;
     static readonly charactersPerAccount: number = 70;
-    static readonly expansion: number = 10;
+    static readonly expansion: number = 11;
     static readonly guildBankTabItems = 98;
     static readonly maxRenown: number = 80;
     static readonly restedDuration: number = 10 * 24 * 60 * 60; // 10 days

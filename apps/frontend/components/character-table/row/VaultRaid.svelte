@@ -20,8 +20,7 @@
 {#if raidVault?.length > 0}
     <td use:componentTooltip={{ component: TooltipVaultRaid, props: { character } }} class="b-l">
         <VaultShared
-            availableRewards={character.weekly?.vault.availableRewards}
-            generatedRewards={character.weekly?.vault.generatedRewards}
+            {character}
             progresses={raidVault}
             qualityFunc={(prog) => getRaidVaultItemLevel(prog)[1]}
             textFunc={(prog) =>
