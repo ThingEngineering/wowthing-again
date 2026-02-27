@@ -38,12 +38,11 @@ export class DataDb {
 
         for (const tagName of query.tags || []) {
             const tagId = this.tagsByName.get(tagName);
-            if (!tagId) {
-                // console.warn('Invalid db tag:', tagName);
-                continue;
-            }
+            // if (!tagId) {
+            //     console.warn('Invalid db tag:', tagName);
+            // }
 
-            subsets.push(this.thingsByTagId.get(tagId));
+            subsets.push(this.thingsByTagId.get(tagId) || []);
         }
 
         let things = intersectionWith(...subsets, (a, b) => a === b);
