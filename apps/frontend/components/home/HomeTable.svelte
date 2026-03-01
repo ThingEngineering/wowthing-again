@@ -115,7 +115,9 @@
                         <RowPlayedTime playedTotal={character.playedTotal} />
                     {/if}
                 {:else if field === 'professionConcentration'}
-                    <RowProfessionConcentration {character} />
+                    <RowProfessionConcentration {character} expansion={11} />
+                {:else if field === 'professionConcentrationTWW'}
+                    <RowProfessionConcentration {character} expansion={10} />
                 {:else if field === 'professionConcentrationDF'}
                     <RowProfessionConcentration {character} expansion={9} />
                 {:else if field === 'professionCooldowns'}
