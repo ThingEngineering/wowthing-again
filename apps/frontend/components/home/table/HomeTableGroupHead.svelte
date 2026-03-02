@@ -207,6 +207,8 @@
                 <RowPlayedTime {playedTotal} />
             {/if}
         {:else if field === 'professionConcentration'}
+            <td><code>[Mid]</code> Conc</td>
+        {:else if field === 'professionConcentrationTWW'}
             <td><code>[TWW]</code> Conc</td>
         {:else if field === 'professionConcentrationDF'}
             <td><code>[DF] Conc</code></td>

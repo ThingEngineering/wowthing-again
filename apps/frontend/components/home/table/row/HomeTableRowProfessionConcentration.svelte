@@ -3,10 +3,7 @@
 
     import { Constants } from '@/data/constants';
     import { imageStrings } from '@/data/icons';
-    import {
-        professionConcentrationTWW,
-        professionConcentrationDF,
-    } from '@/data/professions/cooldowns';
+    import { expansionProfessionConcentration } from '@/data/professions/cooldowns';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { timeStore } from '@/shared/stores/time';
@@ -16,12 +13,10 @@
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    type Props = CharacterProps & { expansion?: number };
+    type Props = CharacterProps & { expansion: number };
     let { character, expansion }: Props = $props();
 
-    let concentrationData = $derived(
-        expansion === 9 ? professionConcentrationDF : professionConcentrationTWW
-    );
+    let concentrationData = $derived(expansionProfessionConcentration[expansion]);
     let professions = $derived.by(() =>
         sortBy(
             Object.keys(concentrationData)
@@ -31,7 +26,7 @@
                     const charProf = character.professions?.[professionId];
                     const subProfession = profession.expansionSubProfession[Constants.expansion];
                     return (
-                        !!charProf && charProf.subProfessions[subProfession.id]?.skillCurrent >= 50
+                        !!charProf && charProf.subProfessions[subProfession.id]?.skillCurrent >= 1
                     );
                 })
                 .map((id) => wowthingData.static.professionById.get(parseInt(id))),

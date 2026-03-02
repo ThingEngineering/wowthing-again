@@ -1,7 +1,7 @@
+import { AppearanceModifier } from '@/enums/appearance-modifier';
+import { ArmorType } from '@/enums/armor-type';
 import { InventoryType } from '@/enums/inventory-type';
 import type { ConvertibleCategory, ConvertibleCategoryUpgrade } from './types';
-import { ArmorType } from '@/enums/armor-type';
-import { AppearanceModifier } from '@/enums/appearance-modifier';
 
 export const modifierToTier: Record<number, number> = {
     [AppearanceModifier.Mythic]: 4,
@@ -12,39 +12,67 @@ export const modifierToTier: Record<number, number> = {
 
 export const currentUpgrade1: ConvertibleCategoryUpgrade[] = [
     {
-        upgradeId: 3284,
+        upgradeId: 3341,
         upgradeCost: 15,
-        achievementId: 41886, // Weathered of the Ethereal
+        achievementId: 42767, // Veteran of the Dawn
         achievementUpgradeCost: 10,
     },
 ];
 export const currentUpgrade2: ConvertibleCategoryUpgrade[] = [
     {
-        upgradeId: 3286,
+        upgradeId: 3343,
         upgradeCost: 15,
-        achievementId: 41887, // Carved of the Ethereal
+        achievementId: 42768, // Champion of the Dawn
         achievementUpgradeCost: 10,
     },
 ];
 export const currentUpgrade3: ConvertibleCategoryUpgrade[] = [
     {
-        upgradeId: 3288,
+        upgradeId: 3345,
         upgradeCost: 15,
-        achievementId: 41888, // Runed of the Ethereal
+        achievementId: 42769, // Hero of the Dawn
         achievementUpgradeCost: 10,
     },
 ];
 export const currentUpgrade4: ConvertibleCategoryUpgrade[] = [
     {
-        upgradeId: 3290,
+        upgradeId: 3347,
         upgradeCost: 15,
-        achievementId: 41892, // Gilded of the Ethereal
+        achievementId: 42770, // Myth of the Dawn
         achievementUpgradeCost: 10,
     },
 ];
 
 // ID = ItemConversion.db2
 export const convertibleCategories: ConvertibleCategory[] = [
+    {
+        id: 12,
+        minimumLevel: 90,
+        name: '[Mid] Season 1',
+        slug: 'mid-season-1',
+        conversionCurrencyId: 3378, // Dawnlight Manaflux
+        tiers: [
+            {
+                itemLevel: 272,
+                highUpgrade: currentUpgrade4,
+                lowUpgrade: currentUpgrade3,
+            },
+            {
+                itemLevel: 259,
+                highUpgrade: currentUpgrade3,
+                lowUpgrade: currentUpgrade2,
+            },
+            {
+                itemLevel: 246,
+                highUpgrade: currentUpgrade2,
+                lowUpgrade: currentUpgrade1,
+            },
+            {
+                itemLevel: 233,
+                highUpgrade: currentUpgrade1,
+            },
+        ],
+    },
     {
         id: 11,
         minimumLevel: 80,
@@ -54,22 +82,15 @@ export const convertibleCategories: ConvertibleCategory[] = [
         tiers: [
             {
                 itemLevel: 147,
-                highUpgrade: currentUpgrade4,
-                lowUpgrade: currentUpgrade3,
             },
             {
                 itemLevel: 134,
-                highUpgrade: currentUpgrade3,
-                lowUpgrade: currentUpgrade2,
             },
             {
                 itemLevel: 121,
-                highUpgrade: currentUpgrade2,
-                lowUpgrade: currentUpgrade1,
             },
             {
                 itemLevel: 108,
-                highUpgrade: currentUpgrade1,
             },
         ],
         purchases: [

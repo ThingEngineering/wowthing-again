@@ -1,26 +1,40 @@
 import { Profession } from '@/enums/profession';
 import type { ProfessionCooldownQuest, ProfessionCooldownSpell } from '@/types';
 
-export const professionConcentrationTWW: Record<number, number> = {
-    [Profession.Alchemy]: 3045,
-    [Profession.Blacksmithing]: 3040,
-    [Profession.Enchanting]: 3046,
-    [Profession.Engineering]: 3044,
-    [Profession.Inscription]: 3043,
-    [Profession.Jewelcrafting]: 3013,
-    [Profession.Leatherworking]: 3042,
-    [Profession.Tailoring]: 3041,
-};
-
-export const professionConcentrationDF: Record<number, number> = {
-    [Profession.Alchemy]: 3054,
-    [Profession.Blacksmithing]: 3050,
-    [Profession.Enchanting]: 3051,
-    [Profession.Engineering]: 3052,
-    [Profession.Inscription]: 3053,
-    [Profession.Jewelcrafting]: 3047,
-    [Profession.Leatherworking]: 3049,
-    [Profession.Tailoring]: 3048,
+export const expansionProfessionConcentration: Record<number, Record<number, number>> = {
+    // Midnight
+    11: {
+        [Profession.Alchemy]: 3161,
+        [Profession.Blacksmithing]: 3162,
+        [Profession.Enchanting]: 3163,
+        [Profession.Engineering]: 3164,
+        [Profession.Inscription]: 3165,
+        [Profession.Jewelcrafting]: 3166,
+        [Profession.Leatherworking]: 3167,
+        [Profession.Tailoring]: 3168,
+    },
+    // TWW
+    10: {
+        [Profession.Alchemy]: 3045,
+        [Profession.Blacksmithing]: 3040,
+        [Profession.Enchanting]: 3046,
+        [Profession.Engineering]: 3044,
+        [Profession.Inscription]: 3043,
+        [Profession.Jewelcrafting]: 3013,
+        [Profession.Leatherworking]: 3042,
+        [Profession.Tailoring]: 3041,
+    },
+    // DF
+    9: {
+        [Profession.Alchemy]: 3054,
+        [Profession.Blacksmithing]: 3050,
+        [Profession.Enchanting]: 3051,
+        [Profession.Engineering]: 3052,
+        [Profession.Inscription]: 3053,
+        [Profession.Jewelcrafting]: 3047,
+        [Profession.Leatherworking]: 3049,
+        [Profession.Tailoring]: 3048,
+    },
 };
 
 // cooldown of 0 = "use the addon data"
