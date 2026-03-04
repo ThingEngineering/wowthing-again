@@ -1,24 +1,28 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
-    import { timeStore } from '@/shared/stores/time';
+    import { timeState } from '@/shared/state/time.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
-    import type { Character } from '@/types';
-
+    import type { CharacterProps } from '@/types/props';
     import type { CommodityData } from './auction-store';
 
     import Order from './Order.svelte';
 
-    export let character: Character;
-    export let commodities: CommodityData;
-    export let profession: StaticDataProfession;
+    type Props = CharacterProps & {
+        commodities: CommodityData;
+        profession: StaticDataProfession;
+    };
+    let { character, commodities, profession }: Props = $props();
 
-    $: now = $timeStore.toUnixInteger();
-    $: activeOrders = sortBy(
-        character.patronOrders?.[profession.id]?.filter((order) => order.expirationTime > now) ||
-            [],
-        (order) => `${order.expirationTime}:${wowthingData.items.items[order.itemId]?.name}`
+    let now = $derived(timeState.slowTime.toUnixInteger());
+    let activeOrders = $derived(
+        sortBy(
+            character.patronOrders?.[profession.id]?.filter(
+                (order) => order.expirationTime > now
+            ) || [],
+            (order) => `${order.expirationTime}:${wowthingData.items.items[order.itemId]?.name}`
+        )
     );
 </script>
 

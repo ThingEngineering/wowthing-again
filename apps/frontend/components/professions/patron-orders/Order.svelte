@@ -154,15 +154,20 @@
             {(patronOrder.tipAmount / 10000).toFixed(1)} g
         </div>
         <div class="rewards border-left">
-            {#each patronOrder.rewards as reward}
+            {#each patronOrder.rewards as reward (reward.itemId)}
+                {@const linkType = reward.itemId < 5000 ? 'currency' : 'item'}
+                {@const quality =
+                    reward.itemId < 5000
+                        ? 4
+                        : wowthingData.items.items[reward.itemId]?.quality || 1}
                 <div class="reward">
-                    <WowheadLink type="item" id={reward.itemId}>
+                    <WowheadLink type={linkType} id={reward.itemId}>
                         {reward.count}
                         <WowthingImage
-                            name="item/{reward.itemId}"
+                            name="{linkType}/{reward.itemId}"
                             size={20}
                             border={1}
-                            cls={`quality${wowthingData.items.items[reward.itemId].quality}-border`}
+                            cls={`quality${quality}-border`}
                         />
                     </WowheadLink>
                 </div>

@@ -8,11 +8,10 @@ export const midnightEngineering: TaskProfession = {
         itemId: 263456, // Thalassian Engineer's Notepad
         questId: 93692,
     },
-    // TODO: fix this when the item completes the correct questID??
-    // treatiseQuest: {
-    //     itemId: 245809, // Thalassian Treatise on Engineering
-    //     questId: 83728,
-    // },
+    treatiseQuest: {
+        itemId: 245809, // Thalassian Treatise on Engineering
+        questId: 95138,
+    },
     bookQuests: [
         {
             itemId: 262646, // Beyond the Event Horizon: Engineering
