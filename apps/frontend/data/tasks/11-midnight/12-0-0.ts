@@ -10,30 +10,52 @@ export const midChores12_0_0: Task = {
     showSeparate: true,
     chores: [
         {
-            key: 'midDelves',
-            name: '[Dor] Delves',
-            minimumLevel: 80,
-            icon: iconLibrary.gameDigDug,
-            questReset: DbResetType.Weekly,
+            key: 'midUnity',
+            name: 'Unity',
+            minimumLevel: 90,
+            icon: aliasedIcons.planet,
+            questReset: DbResetType.Weekly, // TODO: weird 3 week garbage?
             questIds: [
-                93909, // Delves: Worldwide Research
+                93890, // Midnight: Abundance
+                93767, // Midnight: Arcantina
+                94457, // Midnight: Battlegrounds
+                93909, // Midnight: Delves
+                93911, // Midnight: Dungeons
+                93769, // Midnight: Housing
+                93891, // Midnight: Legends of the Haranir
+                93910, // Midnight: Prey
+                93912, // Midnight: Raid
+                93889, // Midnight: Saltheril's Soiree
+                93892, // Midnight: Stormarion Assault
+                93913, // Midnight: World Boss
+                93766, // Midnight: World Quests
             ],
         },
+        {
+            key: 'midHope',
+            name: 'Hope in the Darkest Corners',
+            minimumLevel: 80,
+            icon: iconLibrary.gameCandleLight,
+            questReset: DbResetType.Weekly,
+            questIds: [95468],
+        },
         // {
-        //     key: 'midUnity',
-        //     name: '[???] Unity',
+        //     key: 'midDelves',
+        //     name: '[Dor] Delves',
         //     minimumLevel: 80,
-        //     icon: aliasedIcons.planet,
+        //     icon: iconLibrary.gameDigDug,
         //     questReset: DbResetType.Weekly,
         //     questIds: [
-        //         // ???
+        //         93909, // Delves: Worldwide Research
         //     ],
         // },
         {
             key: 'midDungeon',
-            name: '[???] Dungeon',
+            name: 'Dungeon',
             minimumLevel: Constants.characterMaxLevel,
             accountWide: true,
+            showQuestName: true,
+            questReset: DbResetType.Weekly,
             questIds: [
                 93751, // Windrunner Spire
                 93752, // Murder Row
@@ -44,7 +66,6 @@ export const midChores12_0_0: Task = {
                 93757, // Voidscar Arena
                 93758, // Nexus-Point Xenas
             ],
-            questReset: DbResetType.Weekly,
         },
         // 94446, A Nightmarish Task, weekly?
     ],
