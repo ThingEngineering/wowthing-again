@@ -20,6 +20,38 @@ export const midnightMining: TaskProfession = {
         itemId: 263463, // Thalassian Miner's Notes
         questId,
     })),
+    gatherQuests: [
+        {
+            itemId: 237496, // Igneous Rock Specimen
+            questId: 88673,
+            source: 'Gathering',
+        },
+        {
+            itemId: 237496, // Igneous Rock Specimen
+            questId: 88674,
+            source: 'Gathering',
+        },
+        {
+            itemId: 237496, // Igneous Rock Specimen
+            questId: 88675,
+            source: 'Gathering',
+        },
+        {
+            itemId: 237496, // Igneous Rock Specimen
+            questId: 88676,
+            source: 'Gathering',
+        },
+        {
+            itemId: 237496, // Igneous Rock Specimen
+            questId: 88677,
+            source: 'Gathering',
+        },
+        {
+            itemId: 237506, // Septarian Nodule
+            questId: 88678,
+            source: 'Gathering',
+        },
+    ],
     bookQuests: [
         {
             itemId: 250444, // Echo of Abundance: Mining
