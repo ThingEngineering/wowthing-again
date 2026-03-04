@@ -1,7 +1,52 @@
 import { Constants } from '@/data/constants';
 import { aliasedIcons, iconLibrary } from '@/shared/icons';
 import { DbResetType } from '@/shared/stores/db/enums';
-import type { Task } from '@/types/tasks';
+import { userState } from '@/user-home/state/user';
+import type { Character } from '@/types';
+import type { Chore, Task } from '@/types/tasks';
+
+const specialAssignmentUnlocks = [
+    94865, // Special Assignment: What Remains of a Temple Broken
+    94866, // Special Assignment: Ours Once More!
+    94390, // Special Assignment: A Hunter's Regret
+    95435, // Special Assignment: Shade and Claw
+    92848, // Special Assignment: The Grand Magister's Drink
+    94391, // Special Assignment: Push Back the Light
+    94795, // Special Assignment: Agents of the Shield
+    94743, // Special Assignment: Precision Excision
+];
+
+const specialAssignmentUnlockToQuest: Record<number, number> = {
+    94865: 91390, // Special Assignment: What Remains of a Temple Broken
+    94866: 91796, // Special Assignment: Ours Once More!
+    94390: 92063, // Special Assignment: A Hunter's Regret
+    95435: 92139, // Special Assignment: Shade and Claw
+    92848: 92145, // Special Assignment: The Grand Magister's Drink
+    94391: 93013, // Special Assignment: Push Back the Light
+    94795: 93244, // Special Assignment: Agents of the Shield
+    94743: 93438, // Special Assignment: Precision Excision
+};
+
+const specialAssignmentFunc = (index: number, isQuest: boolean) => {
+    return (char: Character, chore: Chore) => {
+        const charQuests = userState.quests.characterById.get(char.id);
+        const completedOrInProgress = specialAssignmentUnlocks.filter(
+            (questId) =>
+                charQuests.hasQuestById.has(questId) ||
+                charQuests.progressQuestByKey.has(`q${questId}`)
+        );
+
+        if (completedOrInProgress[index]) {
+            return [
+                isQuest
+                    ? specialAssignmentUnlockToQuest[completedOrInProgress[index]]
+                    : completedOrInProgress[index],
+            ];
+        } else {
+            return specialAssignmentUnlocks;
+        }
+    };
+};
 
 export const midChores12_0_0: Task = {
     key: 'midChores12_0',
@@ -49,6 +94,52 @@ export const midChores12_0_0: Task = {
         //         93909, // Delves: Worldwide Research
         //     ],
         // },
+        {
+            key: 'midSpecial1',
+            name: 'Special Assignment 1',
+            icon: iconLibrary.mdiNumeric1CircleOutline,
+            showQuestName: true,
+            questReset: DbResetType.Weekly,
+            subChores: [
+                {
+                    key: 'unlock',
+                    name: 'World Quests',
+                    questResetForced: true,
+                    questIds: specialAssignmentFunc(0, false),
+                },
+                {
+                    key: 'assignment',
+                    name: 'Assignment',
+                    alwaysStarted: true,
+                    showQuestName: true,
+                    questResetForced: true,
+                    questIds: specialAssignmentFunc(0, true),
+                },
+            ],
+        },
+        {
+            key: 'midSpecial2',
+            name: 'Special Assignment 2',
+            icon: iconLibrary.mdiNumeric2CircleOutline,
+            showQuestName: true,
+            questReset: DbResetType.Weekly,
+            subChores: [
+                {
+                    key: 'unlock',
+                    name: 'World Quests',
+                    questResetForced: true,
+                    questIds: specialAssignmentFunc(1, false),
+                },
+                {
+                    key: 'assignment',
+                    name: 'Assignment',
+                    alwaysStarted: true,
+                    showQuestName: true,
+                    questResetForced: true,
+                    questIds: specialAssignmentFunc(1, true),
+                },
+            ],
+        },
         {
             key: 'midDungeon',
             name: 'Dungeon',
