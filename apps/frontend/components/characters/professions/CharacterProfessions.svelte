@@ -1,30 +1,21 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte';
-
-    import {
-        getCharacterProfessions,
-        type ProfessionData,
-    } from '@/utils/get-character-professions';
+    import { getCharacterProfessions } from '@/utils/get-character-professions';
     import getSavedRoute from '@/utils/get-saved-route';
-    import type { Character, MultiSlugParams } from '@/types';
 
     import SubnavLinks from './CharacterProfessionsSubnavLinks.svelte';
     import Options from './CharacterProfessionsOptions.svelte';
     import View from './CharacterProfessionsView.svelte';
+    import type { CharacterProps, ParamsSlugsProps } from '@/types/props';
 
-    export let character: Character;
-    export let params: MultiSlugParams;
+    type Props = CharacterProps & ParamsSlugsProps;
+    let { character, params }: Props = $props();
 
-    let primaryProfessions: ProfessionData[];
-    let secondaryProfessions: ProfessionData[];
-    $: {
-        primaryProfessions = getCharacterProfessions(character, 0);
-        secondaryProfessions = getCharacterProfessions(character, 1).filter(
-            (prof) => prof[0].slug === 'cooking'
-        );
-    }
+    let primaryProfessions = $derived(getCharacterProfessions(character, 0));
+    let secondaryProfessions = $derived(
+        getCharacterProfessions(character, 1).filter((prof) => prof[0].slug === 'cooking')
+    );
 
-    afterUpdate(() => {
+    $effect(() => {
         getSavedRoute(
             `characters/${params.slug1}/${params.slug2}/${params.slug3}`,
             params.slug4,
