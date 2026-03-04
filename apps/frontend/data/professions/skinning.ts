@@ -20,6 +20,38 @@ export const midnightSkinning: TaskProfession = {
         itemId: 263461, // Thalassian Skinner's Notes
         questId,
     })),
+    gatherQuests: [
+        {
+            itemId: 238625, // Fine Void-Tempered Hide
+            questId: 88534,
+            source: 'Gathering',
+        },
+        {
+            itemId: 238625, // Fine Void-Tempered Hide
+            questId: 88535,
+            source: 'Gathering',
+        },
+        {
+            itemId: 238625, // Fine Void-Tempered Hide
+            questId: 88536,
+            source: 'Gathering',
+        },
+        {
+            itemId: 238625, // Fine Void-Tempered Hide
+            questId: 88537,
+            source: 'Gathering',
+        },
+        {
+            itemId: 238625, // Fine Void-Tempered Hide
+            questId: 88538,
+            source: 'Gathering',
+        },
+        {
+            itemId: 238626, // Mana-Infused Bone
+            questId: 88539,
+            source: 'Gathering',
+        },
+    ],
     bookQuests: [
         {
             itemId: 250445, // Echo of Abundance: Skinning
