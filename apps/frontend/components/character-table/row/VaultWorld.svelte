@@ -34,5 +34,5 @@
         <VaultShared progresses={worldVault} {character} {qualityFunc} {textFunc} />
     </td>
 {:else}
-    <td>&nbsp;</td>
+    <td class="b-l">&nbsp;</td>
 {/if}
