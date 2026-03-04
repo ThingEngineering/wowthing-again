@@ -44,7 +44,7 @@
         <span class="status-shrug">
             {charChore.progressCurrent} / {charChore.progressTotal}
         </span>
-    {:else}
+    {:else if charChore?.status === QuestStatus.NotStarted}
         <IconifyIcon icon={uiIcons.starEmpty} extraClass="status-fail" />
     {/if}
 </td>
