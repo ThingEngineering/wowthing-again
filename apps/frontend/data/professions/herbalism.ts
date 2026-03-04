@@ -20,6 +20,38 @@ export const midnightHerbalism: TaskProfession = {
         itemId: 263462, // Thalassian Herbalist's Notes
         questId,
     })),
+    gatherQuests: [
+        {
+            itemId: 238465, // Thalassian Phoenix Plume
+            questId: 81425,
+            source: 'Gathering',
+        },
+        {
+            itemId: 238465, // Thalassian Phoenix Plume
+            questId: 81426,
+            source: 'Gathering',
+        },
+        {
+            itemId: 238465, // Thalassian Phoenix Plume
+            questId: 81427,
+            source: 'Gathering',
+        },
+        {
+            itemId: 238465, // Thalassian Phoenix Plume
+            questId: 81428,
+            source: 'Gathering',
+        },
+        {
+            itemId: 238465, // Thalassian Phoenix Plume
+            questId: 81429,
+            source: 'Gathering',
+        },
+        {
+            itemId: 238466, // Thalassian Phoenix Tail
+            questId: 81430,
+            source: 'Gathering',
+        },
+    ],
     bookQuests: [
         {
             itemId: 250443, // Echo of Abundance: Herbalism
