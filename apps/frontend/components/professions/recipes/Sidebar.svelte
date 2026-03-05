@@ -21,8 +21,9 @@
         }
         children.sort((a, b) => a.slug.localeCompare(b.slug));
 
-        const cooking = wowthingData.static.professionBySlug.get('cooking');
         children.push(null);
+
+        const cooking = wowthingData.static.professionBySlug.get('cooking');
         children.push({
             name: `:profession-${cooking.id}: ${cooking.name.split('|')[0]}`,
             slug: cooking.slug,
@@ -30,10 +31,23 @@
 
         categories = [];
         for (const expansion of settingsState.expansions) {
+            const expansionChildren = children.slice();
+
+            const fishing = wowthingData.static.professionBySlug.get('fishing');
+            const categoryChildren = fishing.expansionCategory[
+                expansion.id
+            ].children[0].children.filter((cat) => cat.abilities.length > 0);
+            if (categoryChildren.length > 0) {
+                expansionChildren.push({
+                    name: `:profession-${fishing.id}: ${fishing.name.split('|')[0]}`,
+                    slug: fishing.slug,
+                });
+            }
+
             categories.push({
                 name: expansion.name,
                 slug: expansion.slug,
-                children,
+                children: expansionChildren,
             });
         }
     }
