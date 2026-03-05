@@ -1,16 +1,19 @@
 <script lang="ts">
     import { getItemUrl } from '@/utils/get-item-url';
     import { getProfessionEquipment } from '@/utils/professions';
-    import type { Character } from '@/types';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
+    import type { CharacterProps } from '@/types/props';
 
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character;
-    export let profession: StaticDataProfession;
+    type Props = CharacterProps & { profession: StaticDataProfession };
+    let { character, profession }: Props = $props();
 
-    $: equippedItems = getProfessionEquipment(character, profession.id);
+    let equippedItems = $derived(getProfessionEquipment(character, profession.id));
+    let length = $derived(
+        profession.slug === 'fishing' ? 1 : profession.slug === 'cooking' ? 2 : 3
+    );
 </script>
 
 <style lang="scss">
@@ -46,7 +49,7 @@
 </style>
 
 <div class="item-container">
-    {#each { length: 3 }, index}
+    {#each { length }, index}
         {@const equippedItem = equippedItems[index]}
         {#if equippedItem}
             <div class="item quality{equippedItem.quality}">
@@ -63,7 +66,6 @@
                     {/if}
                 </a>
             </div>
-            {index}
         {:else}
             <div class="empty-slot border border-radius border-fail">
                 {#if index === 0}

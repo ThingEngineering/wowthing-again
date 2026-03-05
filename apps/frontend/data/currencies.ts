@@ -153,6 +153,9 @@ export const currencyExtra: Record<number, number[]> = {
     ],
     // Midnight - Season 1
     126411: [
+        3310, // Coffer Key Shards
+        3028, // Restored Coffer Key
+        null,
         3378, // Dawnlight Manaflux
         3383, // Adventurer Dawncrest
         3341, // Veteran Dawncrest
@@ -412,10 +415,13 @@ export const currencyItems: Record<number, number[]> = {
 
     // Midnight
     264: [
+        255826, // Mysterious Skyshards
         262636, // Anguish-Scribed Rune [hunts, uncommon]
         262637, // Anguish-Infused Rune [hunts, rare]
         262638, // Anguish-Permeated Rune [hunts, epic]
     ],
+    // Midnight - Season 1
+    // 126411: [],
 
     // Player vs Player
     2: [

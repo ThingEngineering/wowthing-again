@@ -551,6 +551,9 @@ export class DataUserDerived {
                     subChore,
                     chore
                 );
+                if (!charSubChore) {
+                    continue;
+                }
 
                 const suffixText = `[${charSubChore.progressCurrent}/${charSubChore.progressTotal}] ${charSubChore.name}`;
 

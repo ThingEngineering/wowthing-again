@@ -12,7 +12,9 @@
 
     let primaryProfessions = $derived(getCharacterProfessions(character, 0));
     let secondaryProfessions = $derived(
-        getCharacterProfessions(character, 1).filter((prof) => prof[0].slug === 'cooking')
+        getCharacterProfessions(character, 1).filter((prof) =>
+            ['cooking', 'fishing'].includes(prof[0].slug)
+        )
     );
 
     $effect(() => {

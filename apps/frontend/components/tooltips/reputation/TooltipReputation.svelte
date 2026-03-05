@@ -8,7 +8,7 @@
     } from '@/shared/stores/static/types';
     import type { Character, CharacterReputationParagon } from '@/types';
     import type { ManualDataReputationSet } from '@/types/data/manual';
-    import { brannHack } from './brann-hack';
+    import { brannHack, valeeraHack } from './delve-hacks';
 
     import RenownTooltip from './TooltipReputationRenown.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
@@ -19,8 +19,6 @@
     export let dataRep: StaticDataReputation;
     export let paragon: CharacterReputationParagon = undefined;
     export let reputation: ManualDataReputationSet = undefined;
-
-    const brannId = 2640;
 
     let reps: {
         cls: string;
@@ -50,7 +48,10 @@
             }
 
             // Brann hack - only show blocks of 10 levels or (current->next multiple of 10)
-            if (dataRep.id === brannId) {
+            if (
+                dataRep.id === Constants.reputations.delveBrann ||
+                dataRep.id === Constants.reputations.delveValeera
+            ) {
                 const foundBase = Math.floor((foundIndex + 1) / 10);
                 const indexBase = Math.floor((i + 1) / 10);
                 if (i % 10 !== 9 && (foundIndex === -1 || foundBase !== indexBase)) {
@@ -80,10 +81,14 @@
             if (reps[i].maxValue <= 0) {
                 reps[i].cls = ['status-shrug', 'status-warn', 'status-fail'][Math.min(2, badCount)];
                 badCount++;
-            } else if (dataRep.id === brannId) {
+            } else if (
+                dataRep.id === Constants.reputations.delveBrann ||
+                dataRep.id === Constants.reputations.delveValeera
+            ) {
                 const levelMatch = reps[i].name.match(/(\d\d\d?)/);
                 if (levelMatch) {
-                    reps[i].cls = `reputation${brannHack(levelMatch[1])}`;
+                    reps[i].cls =
+                        `reputation${dataRep.id === Constants.reputations.delveBrann ? brannHack(levelMatch[1]) : valeeraHack(levelMatch[1])}`;
                 }
             } else if (i >= setClass) {
                 reps[i].cls = `reputation${start - i + 1}`;
