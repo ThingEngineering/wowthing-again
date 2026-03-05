@@ -1,7 +1,8 @@
-import { brannHack } from '@/components/tooltips/reputation/brann-hack';
+import { brannHack, valeeraHack } from '@/components/tooltips/reputation/delve-hacks';
+import { Constants } from '@/data/constants';
 import { wowthingData } from '@/shared/stores/data';
+import { userState } from '@/user-home/state/user';
 import findReputationTier from '@/utils/find-reputation-tier';
-
 import type { StaticDataReputation } from '@/shared/stores/static/types';
 import type {
     Character,
@@ -10,7 +11,6 @@ import type {
     ReputationTier,
 } from '@/types';
 import type { ManualDataReputationSet } from '@/types/data/manual';
-import { userState } from '@/user-home/state/user';
 
 interface GetRenownDataParameters {
     character?: Character;
@@ -30,8 +30,6 @@ class RenownData {
     public renownMax: number;
     public repTier: ReputationTier;
 }
-
-const brannId = 2640;
 
 export function getRenownData({
     character,
@@ -83,10 +81,17 @@ export function getRenownData({
             wowthingData.static.reputationTierById.get(0);
         ret.repTier = findReputationTier(tiers, repValue);
 
-        if (ret.dataRep.id === brannId) {
-            const levelMatch = ret.repTier.name.match(/(\d\d\d?)$/);
+        if (
+            ret.dataRep.id === Constants.reputations.delveBrann ||
+            ret.dataRep.id === Constants.reputations.delveValeera
+        ) {
+            console.log(ret);
+            const levelMatch = ret.repTier.name.match(/(\d{1,3})$/);
             if (levelMatch) {
-                const oof = brannHack(levelMatch[1]);
+                const oof =
+                    ret.dataRep.id === Constants.reputations.delveBrann
+                        ? brannHack(levelMatch[1])
+                        : valeeraHack(levelMatch[1]);
                 ret.cls = `reputation${oof} reputation${oof}-border`;
 
                 // Brann hack to treat him as blocks of 10 levels

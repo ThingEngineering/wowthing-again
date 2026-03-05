@@ -31,6 +31,8 @@ export abstract class Constants {
     static readonly reputations = {
         artisansConsortium: 2544,
         loammNiffen: 2564,
+        delveBrann: 2640,
+        delveValeera: 2744,
     };
 
     // static JSON -> itemBonusListGroups -> match upgradeTiers IDs
