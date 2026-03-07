@@ -588,6 +588,8 @@ export class DataUserDerived {
 
             if (charChore.progressCurrent === charChore.progressTotal) {
                 charChore.status = QuestStatus.Completed;
+            } else if (charChore.progressCurrent > 0) {
+                charChore.status = QuestStatus.InProgress;
             }
         } else if (chore.progressFunc) {
             const { have, need } = chore.progressFunc(character);

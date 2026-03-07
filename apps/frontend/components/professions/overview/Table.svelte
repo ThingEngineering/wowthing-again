@@ -1,6 +1,5 @@
 <script lang="ts">
     import { imageStrings } from '@/data/icons';
-    import { professionSpecializationSpells } from '@/data/professions';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { leftPad } from '@/utils/formatting/left-pad';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
@@ -10,7 +9,6 @@
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte';
     import Profession from './TableProfession.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import ProfessionSpecializationIcon from '@/shared/components/icons/ProfessionSpecializationIcon.svelte';
 
     export let characterIds: number[] = undefined;
@@ -40,7 +38,7 @@
     }
     td,
     th {
-        --width: 4.5rem;
+        --width: 4rem;
 
         border-left: 1px solid var(--border-color);
         text-align: center;

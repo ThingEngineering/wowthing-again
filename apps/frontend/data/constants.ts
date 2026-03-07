@@ -25,7 +25,6 @@ export abstract class Constants {
 
     static readonly items = {
         petCage: 82800,
-        reshiiWraps: 235499,
     };
 
     static readonly reputations = {

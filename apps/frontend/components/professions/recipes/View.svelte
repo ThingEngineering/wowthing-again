@@ -145,7 +145,14 @@
         padding-right: 0.4rem;
     }
     .source {
+        --width: calc(23px + 0.4rem);
+
         padding-right: 0;
+    }
+    .name {
+        --width: 22rem;
+
+        max-width: 22rem;
     }
     .status {
         border-left: 1px solid var(--border-color);
@@ -207,7 +214,11 @@
                             {#if recipeItem}
                                 <span class="quality{recipeItem.quality ?? 1}">
                                     <WowheadLink type="item" id={recipeItem.id}>
-                                        <WowthingImage name="item/{recipeItem.id}" size={20} />
+                                        <WowthingImage
+                                            name="item/{recipeItem.id}"
+                                            size={20}
+                                            border={1}
+                                        />
 
                                         {#if recipeItem.allianceOnly}
                                             <FactionIcon faction={Faction.Alliance} />
@@ -217,11 +228,11 @@
                                     </WowheadLink>
                                 </span>
                             {:else}
-                                <ProfessionIcon id={profession.id} />
+                                <ProfessionIcon id={profession.id} border={1} />
                             {/if}
                         </td>
                         <td
-                            class="name {ability.itemIds[0]
+                            class="name text-overflow {ability.itemIds[0]
                                 ? `quality${wowthingData.items.items[ability.itemIds[0]].quality}`
                                 : undefined}"
                         >

@@ -19,21 +19,29 @@
 
 <style lang="scss">
     td {
-        --width: 4.5rem;
+        --padding: 0.2rem;
+        --width: 5.2rem;
 
         border-left: 1px solid var(--border-color);
         text-align: center;
     }
     .flex-wrapper {
-        justify-content: space-around;
+        justify-content: center;
     }
     .slash {
         color: #aaa;
-        width: 1rem;
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
     }
     .value {
-        text-align: right;
         width: 1.8rem;
+
+        &:first-child {
+            text-align: right;
+        }
+        &:last-child {
+            text-align: left;
+        }
     }
 </style>
 
