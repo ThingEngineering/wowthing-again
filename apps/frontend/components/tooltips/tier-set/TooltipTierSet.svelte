@@ -40,12 +40,6 @@
         }
     });
 
-    let reshiiWraps = $derived(
-        Object.values(character.equippedItems || {}).find(
-            (item) => item.itemId === Constants.items.reshiiWraps
-        )
-    );
-
     const gemToStat: Record<number, string> = {
         238040: 'Crit', // Precise
         238044: 'Crit', // Pure Precise
@@ -142,29 +136,6 @@
             </table>
         {/each}
     </div>
-
-    {#if character.level === Constants.characterMaxLevel}
-        <div class="extra flex-wrapper">
-            {#if reshiiWraps}
-                {@const gem = wowthingData.items.items[reshiiWraps.gemIds[0]]}
-                {#if gem}
-                    <span>
-                        <WowthingImage name={`item/${gem.id}`} size={16} border={1} />
-                        <ParsedText text={`{item:${gem.id}}`} />
-                    </span>
-                    <span>{gemToStat[gem.id] || '???'}</span>
-                {:else}
-                    <span>
-                        <ParsedText text={`No gem in {item:${Constants.items.reshiiWraps}}!`} />
-                    </span>
-                {/if}
-            {:else}
-                <span>
-                    <ParsedText text={`No {item:${Constants.items.reshiiWraps}}!`} />
-                </span>
-            {/if}
-        </div>
-    {/if}
 
     {#if maxCharges}
         <div class="bottom">

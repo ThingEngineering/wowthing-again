@@ -40,7 +40,6 @@ export const twwChores11_2_0: Task = {
             icon: iconLibrary.mdiSwimDive,
             questReset: DbResetType.Weekly,
             questIds: [91093],
-            couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
         },
         {
             key: 'twwKareshSpecial',
@@ -69,7 +68,6 @@ export const twwChores11_2_0: Task = {
                     ],
                 },
             ],
-            couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
         },
         {
             key: 'twwEcologicalSuccession',
@@ -86,28 +84,24 @@ export const twwChores11_2_0: Task = {
             // maybe these need to be subChores?
             questIds: [89062], // Devourer Attack: The Atrium
             questReset: DbResetType.Weekly,
-            couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
         },
         {
             key: 'twwMakingDeposit2',
             name: 'Anima: Eco-dome',
             questIds: [89061], // Devourer Attack: Eco-dome: Primus
             questReset: DbResetType.Weekly,
-            couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
         },
         {
             key: 'twwMakingDeposit3',
             name: 'Anima: Oasis',
             questIds: [85722], // Devourer Attack: The Oasis
             questReset: DbResetType.Weekly,
-            couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
         },
         {
             key: 'twwMakingDeposit4',
             name: 'Anima: Tazavesh',
             questIds: [89063], // Devourer Attack: Tazavesh
             questReset: DbResetType.Weekly,
-            couldGetFunc: (char) => char.getItemCount(Constants.items.reshiiWraps) > 0,
         },
     ],
 };
