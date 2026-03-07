@@ -150,6 +150,15 @@ export const midChores12_0_0: Task = {
             ],
         },
         {
+            key: 'midResearch',
+            name: 'Void Research',
+            minimumLevel: 80,
+            accountWide: true,
+            showQuestName: true,
+            questReset: DbResetType.Weekly,
+            questIds: [94790],
+        },
+        {
             key: 'midDungeon',
             name: 'Dungeon',
             minimumLevel: Constants.characterMaxLevel,
