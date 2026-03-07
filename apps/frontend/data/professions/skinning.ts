@@ -28,12 +28,7 @@ export const midnightSkinning: TaskProfession = {
         },
         {
             itemId: 238625, // Fine Void-Tempered Hide
-            questId: 88535,
-            source: 'Gathering',
-        },
-        {
-            itemId: 238625, // Fine Void-Tempered Hide
-            questId: 88536,
+            questId: 88549,
             source: 'Gathering',
         },
         {
@@ -43,12 +38,17 @@ export const midnightSkinning: TaskProfession = {
         },
         {
             itemId: 238625, // Fine Void-Tempered Hide
-            questId: 88538,
+            questId: 88536,
+            source: 'Gathering',
+        },
+        {
+            itemId: 238625, // Fine Void-Tempered Hide
+            questId: 88530,
             source: 'Gathering',
         },
         {
             itemId: 238626, // Mana-Infused Bone
-            questId: 88539,
+            questId: 88529,
             source: 'Gathering',
         },
     ],
