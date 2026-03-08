@@ -196,10 +196,11 @@ export default function getProgress(
                         showCurrency = 1037829; // Cyphers of the First Ones
                     }
                 } else if (group.type === 'campaign' || group.type === 'questline') {
-                    const haveQuests = data.ids.filter((questId) =>
+                    const questStatuses = data.ids.map((questId) =>
                         userState.quests.characterById.get(character.id)?.hasQuestById?.has(questId)
-                    ).length;
-                    haveThis = haveQuests === data.ids.length;
+                    );
+                    const haveQuests = questStatuses.filter((v) => !!v).length;
+                    haveThis = questStatuses.at(-1);
 
                     descriptionText[dataIndex] = `${haveQuests} / ${data.ids.length}`;
                 } else if (group.type === 'item') {

@@ -12,6 +12,18 @@ export const midnightTailoring: TaskProfession = {
         itemId: 245756, // Thalassian Treatise on Skinning
         questId: 95137,
     },
+    dropQuests: [
+        {
+            itemId: 259202, // Embroidered Memento
+            questId: 93542,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 259203, // Finely Woven Lynx Collar
+            questId: 93543,
+            source: 'Mobs/Treasures',
+        },
+    ],
     bookQuests: [
         {
             itemId: 257601, // Skill Issue: Tailoring

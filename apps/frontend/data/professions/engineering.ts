@@ -12,6 +12,18 @@ export const midnightEngineering: TaskProfession = {
         itemId: 245809, // Thalassian Treatise on Engineering
         questId: 95138,
     },
+    dropQuests: [
+        {
+            itemId: 259194, // Dance Gear
+            questId: 93534,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 259195, // Dawn Capacitor
+            questId: 93535,
+            source: 'Mobs/Treasures',
+        },
+    ],
     bookQuests: [
         {
             itemId: 262646, // Beyond the Event Horizon: Engineering

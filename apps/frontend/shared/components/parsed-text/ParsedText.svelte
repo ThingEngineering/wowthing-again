@@ -30,6 +30,11 @@
             /(- )?\|A:Professions-ChatIcon-Quality-Tier(\d):20:20\|a/,
             '{craftedQuality:$2}'
         );
+        // TODO: fix with Midnight tier icons later
+        html = html.replace(
+            /(- )?\|A:Professions-Icon-Quality-12-Tier(\d)-Small[:\d]+\|a/,
+            '{craftedQuality:$2}'
+        );
 
         // {faction:factionId}
         html = html.replaceAll(/\{faction:(\d+)\}/g, (_, factionIdString: string) => {

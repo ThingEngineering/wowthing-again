@@ -12,6 +12,18 @@ export const midnightAlchemy: TaskProfession = {
         itemId: 245755, // Thalassian Treatise on Alchemy
         questId: 95127,
     },
+    dropQuests: [
+        {
+            itemId: 259189, // Aged Cruor
+            questId: 93529,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 259188, // Lightbloomed Spore Sample
+            questId: 93528,
+            source: 'Mobs/Treasures',
+        },
+    ],
     bookQuests: [
         {
             itemId: 262645, // Beyond the Event Horizon: Alchemy
