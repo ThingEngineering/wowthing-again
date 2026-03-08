@@ -18,6 +18,50 @@ export const midnightEnchanting: TaskProfession = {
         itemId: 263464, // Thalassian Enchanter's Folio
         questId,
     })),
+    dropQuests: [
+        {
+            itemId: 259193, // Lost Thalassian Vellum
+            questId: 93533,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 259192, // Voidstorm Ashes
+            questId: 93532,
+            source: 'Mobs/Treasures',
+        },
+    ],
+    gatherQuests: [
+        {
+            itemId: 267654, // Swirling Arcane Essence
+            questId: 95048,
+            source: 'Disenchanting',
+        },
+        {
+            itemId: 267654, // Swirling Arcane Essence
+            questId: 95049,
+            source: 'Disenchanting',
+        },
+        {
+            itemId: 267654, // Swirling Arcane Essence
+            questId: 95050,
+            source: 'Disenchanting',
+        },
+        {
+            itemId: 267654, // Swirling Arcane Essence
+            questId: 95051,
+            source: 'Disenchanting',
+        },
+        {
+            itemId: 267654, // Swirling Arcane Essence
+            questId: 95052,
+            source: 'Disenchanting',
+        },
+        {
+            itemId: 267655, // Brimming Mana Shard
+            questId: 95053,
+            source: 'Disenchanting',
+        },
+    ],
     bookQuests: [
         {
             itemId: 250445, // Echo of Abundance: Enchanting
