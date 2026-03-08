@@ -104,6 +104,47 @@ export const midChores12_0_0: Task = {
         //     ],
         // },
         {
+            key: 'midAbundance',
+            name: 'Abundance',
+            icon: iconLibrary.gameTwirlyFlower,
+            minimumLevel: 80,
+            showQuestName: true,
+            questReset: DbResetType.Weekly,
+            questIds: [89507],
+        },
+        {
+            key: 'midSoiree',
+            name: 'Soiree',
+            icon: iconLibrary.mdiPartyPopper,
+            minimumLevel: 80,
+            showQuestName: true,
+            questReset: DbResetType.Weekly,
+            questIds: [
+                90573, // Fortify the Runestones: Magisters
+                90574, // Fortify the Runestones: Blood Knights
+                90575, // Fortify the Runestones: Farstriders
+                90576, // Fortify the Runestones: Shades of the Row                        { quest = 89507 }, -- Abundant Offerings
+            ],
+        },
+        {
+            key: 'midStormarion',
+            name: 'Stormarion',
+            minimumLevel: 80,
+            showQuestName: true,
+            questReset: DbResetType.Weekly,
+            questIds: [90962],
+        },
+        {
+            key: 'midResearch',
+            name: 'Void Research',
+            icon: iconLibrary.gameFizzingFlask,
+            minimumLevel: 80,
+            accountWide: true,
+            showQuestName: true,
+            questReset: DbResetType.Weekly,
+            questIds: [94790],
+        },
+        {
             key: 'midSpecial1',
             name: 'Special Assignment 1',
             icon: iconLibrary.mdiNumeric1CircleOutline,
@@ -150,17 +191,9 @@ export const midChores12_0_0: Task = {
             ],
         },
         {
-            key: 'midResearch',
-            name: 'Void Research',
-            minimumLevel: 80,
-            accountWide: true,
-            showQuestName: true,
-            questReset: DbResetType.Weekly,
-            questIds: [94790],
-        },
-        {
             key: 'midDungeon',
             name: 'Dungeon',
+            icon: iconLibrary.faDungeon,
             minimumLevel: Constants.characterMaxLevel,
             accountWide: true,
             showQuestName: true,
