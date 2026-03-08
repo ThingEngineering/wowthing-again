@@ -28,7 +28,7 @@ export const midnightBlacksmithing: TaskProfession = {
         {
             itemId: 262644, // Beyond the Event Horizon: Blacksmithing
             questId: 93795,
-            source: '???',
+            source: 'TS 9', // The Singularity
         },
     ],
 };

@@ -61,7 +61,7 @@ export const midnightHerbalism: TaskProfession = {
         {
             itemId: 258410, // Traditions of the Hara'nir: Herbalism
             questId: 93411,
-            source: 'HN 6',
+            source: 'HT 6',
         },
     ],
 };

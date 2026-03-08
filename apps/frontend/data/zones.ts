@@ -2,6 +2,12 @@ import type { ProfessionZone } from './professions/zone';
 
 export const midnightZones: ProfessionZone[] = [
     {
+        name: 'Silvermoon City',
+        icon: 'achievement/2767',
+        map: '11-midnight/silvermoon-city',
+        shortName: 'Silv',
+    },
+    {
         name: 'Eversong Woods',
         icon: 'achievement/41802',
         map: '11-midnight/eversong-woods',
@@ -43,6 +49,12 @@ export const midnightZones: ProfessionZone[] = [
         icon: 'achievement/62262',
         shortName: 'SC',
         reputationId: 2710,
+    },
+    {
+        name: 'The Singularity Books',
+        icon: 'achievement/62265',
+        shortName: 'TS',
+        reputationId: 2699,
     },
 ];
 

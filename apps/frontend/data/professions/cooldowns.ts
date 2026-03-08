@@ -42,6 +42,24 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
     // Alchemy
     {
         type: 'spell',
+        key: 'midAlchemyWondrous',
+        name: '[Mid] Wondrous Synergist',
+        profession: Profession.Alchemy,
+        cooldown: [[0]],
+    },
+    {
+        type: 'spell',
+        key: 'midAlchemyTransmute',
+        name: '[Mid] Transmute',
+        profession: Profession.Alchemy,
+        cooldown: [
+            [64800], // 18h
+            // TODO: ???
+            // [60480, 2871, 99058, 21], // 16h48m @ 20 points in Transmutation
+        ],
+    },
+    {
+        type: 'spell',
         key: 'twwAlchemyMeticulous',
         name: '[TWW] Meticulous Experimentation',
         profession: Profession.Alchemy,
