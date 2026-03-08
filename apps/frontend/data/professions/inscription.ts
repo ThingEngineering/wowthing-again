@@ -12,6 +12,18 @@ export const midnightInscription: TaskProfession = {
         itemId: 245757, // Thalassian Treatise on Inscription
         questId: 95131,
     },
+    dropQuests: [
+        {
+            itemId: 259196, // Brilliant Phoenix Ink
+            questId: 93536,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 259197, // Loa-Blessed Rune
+            questId: 93537,
+            source: 'Mobs/Treasures',
+        },
+    ],
     bookQuests: [
         {
             itemId: 258411, // Traditions of the Hara'nir: Herbalism

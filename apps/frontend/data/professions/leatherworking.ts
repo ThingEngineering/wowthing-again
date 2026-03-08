@@ -12,6 +12,18 @@ export const midnightLeatherworking: TaskProfession = {
         itemId: 245758, // Thalassian Treatise on Leatherworking
         questId: 95134,
     },
+    dropQuests: [
+        {
+            itemId: 259200, // Amani Tanning Oil
+            questId: 93540,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 259201, // Thalassian Mana Oil
+            questId: 93541,
+            source: 'Mobs/Treasures',
+        },
+    ],
     bookQuests: [
         {
             itemId: 250922, // Whisper of the Loa: Leatherworking

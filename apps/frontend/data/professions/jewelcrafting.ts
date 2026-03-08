@@ -12,6 +12,18 @@ export const midnightJewelcrafting: TaskProfession = {
         itemId: 245760, // Thalassian Treatise on Jewelcrafting
         questId: 95133,
     },
+    dropQuests: [
+        {
+            itemId: 259199, // Harandar Stone Sample
+            questId: 93539,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 259198, // Void-Touched Eversong Diamond Fragments
+            questId: 93538,
+            source: 'Mobs/Treasures',
+        },
+    ],
     bookQuests: [
         {
             itemId: 257599, // Skill Issue: Jewelcrafting

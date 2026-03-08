@@ -12,6 +12,18 @@ export const midnightBlacksmithing: TaskProfession = {
         itemId: 245763, // Thalassian Treatise on Blacksmithing
         questId: 95128,
     },
+    dropQuests: [
+        {
+            itemId: 259191, // Infused Quenching Oil
+            questId: 93531,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 259190, // Thalassian Whestone
+            questId: 93530,
+            source: 'Mobs/Treasures',
+        },
+    ],
     bookQuests: [
         {
             itemId: 262644, // Beyond the Event Horizon: Blacksmithing
