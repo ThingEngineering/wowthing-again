@@ -51,6 +51,11 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
         },
         {
             id: 126402,
+            name: 'Crafting Knowledge',
+            slug: 'crafting-knowledge',
+        },
+        {
+            id: 126403,
             name: 'Crafting Moxie',
             slug: 'crafting-moxie',
         },
@@ -137,8 +142,22 @@ export const currencyExtra: Record<number, number[]> = {
         3167, // Leatherworking,
         3168, // Tailoring,
     ],
-    // Midnight - Crafting Moxie
+    // Midnight - Crafting Knowledge
     126402: [
+        3150, // Alchemy
+        3151, // Blacksmithing
+        3152, // Enchanting
+        3153, // Engineering
+        3155, // Inscription
+        3156, // Jewelcrafting
+        3157, // Leatherworking
+        3160, // Tailoring
+        3154, // Herbalism
+        3158, // Mining
+        3159, // Skinning
+    ],
+    // Midnight - Crafting Moxie
+    126403: [
         3256, // Alchemy
         3257, // Blacksmithing
         3258, // Enchanting
