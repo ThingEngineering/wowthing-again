@@ -28,7 +28,7 @@ export const midnightEngineering: TaskProfession = {
         {
             itemId: 262646, // Beyond the Event Horizon: Engineering
             questId: 93796,
-            source: '???',
+            source: 'TS 9', // The Singularity
         },
     ],
 };

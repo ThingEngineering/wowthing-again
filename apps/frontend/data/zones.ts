@@ -50,6 +50,12 @@ export const midnightZones: ProfessionZone[] = [
         shortName: 'SC',
         reputationId: 2710,
     },
+    {
+        name: 'The Singularity Books',
+        icon: 'achievement/62265',
+        shortName: 'TS',
+        reputationId: 2699,
+    },
 ];
 
 export const warWithinZones: ProfessionZone[] = [

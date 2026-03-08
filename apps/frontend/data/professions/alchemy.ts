@@ -28,7 +28,7 @@ export const midnightAlchemy: TaskProfession = {
         {
             itemId: 262645, // Beyond the Event Horizon: Alchemy
             questId: 93794,
-            source: '???',
+            source: 'TS 9', // The Singularity
         },
     ],
 };
