@@ -146,6 +146,7 @@ export { default as mdiNumeric4CircleOutline } from '@iconify/icons-mdi/numeric-
 export { default as mdiNumeric5CircleOutline } from '@iconify/icons-mdi/numeric-5-circle-outline';
 export { default as mdiPageFirst } from '@iconify/icons-mdi/page-first';
 export { default as mdiPageLast } from '@iconify/icons-mdi/page-last';
+export { default as mdiPartyPopper } from '@iconify/icons-mdi/party-popper';
 export { default as mdiPlanet } from '@iconify/icons-mdi/planet';
 export { default as mdiPlus } from '@iconify/icons-mdi/plus';
 export { default as mdiProgressQuestion } from '@iconify/icons-mdi/progress-question';
