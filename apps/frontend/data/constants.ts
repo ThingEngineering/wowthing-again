@@ -17,7 +17,7 @@ export abstract class Constants {
     static readonly remixMythicPlusSeason: number = 1001;
 
     static readonly currencies = {
-        catalyst: 3269, // Ethereal Voidsplinter
+        catalyst: 3378, // Dawnlight Manaflux [Mid S1]
         conquest: 1602,
         honor: 1792,
         itemUpgrade: 3008, // Valorstones
