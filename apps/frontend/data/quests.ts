@@ -43,6 +43,17 @@ export const dailyQuestLevel: Record<number, number> = {
     8: 60,
 };
 
+export const questNameOverride: Record<number, string> = {
+    95435: 'Eversong WQs', // Special Assignment: Shade and Claw
+    92848: 'Eversong WQs', // Special Assignment: The Grand Magister's Drink
+    94390: 'Harandar WQs', // Special Assignment: A Hunter's Regret
+    94391: 'Harandar WQs', // Special Assignment: Push Back the Light
+    94795: 'Voidstorm WQs', // Special Assignment: Agents of the Shield
+    94743: 'Voidstorm WQs', // Special Assignment: Precision Excision
+    94865: "Zul'Aman WQs", // Special Assignment: What Remains of a Temple Broken
+    94866: "Zul'Aman WQs", // Special Assignment: Ours Once More!
+};
+
 export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEntries(
     [
         // Ardenweald
@@ -51,14 +62,14 @@ export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEn
             ItemQuality.Rare,
             'Aiding Ardenweald',
             null,
-            'Complete 3 World Quests',
+            'Complete 3 World Quests'
         ),
         new GlobalDailyQuest(
             60388,
             ItemQuality.Rare,
             'Training in Ardenweald',
             null,
-            'Complete 3 World Quests',
+            'Complete 3 World Quests'
         ),
         new GlobalDailyQuest(60419, ItemQuality.Epic, 'A Call to Ardenweald', null, 'Fill the bar'),
         new GlobalDailyQuest(
@@ -66,7 +77,7 @@ export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEn
             ItemQuality.Epic,
             'Challenges in Ardenweald',
             null,
-            'Complete a dungeon or the Terrors in Tirna Scithe world quest',
+            'Complete a dungeon or the Terrors in Tirna Scithe world quest'
         ),
 
         // Bastion
@@ -75,14 +86,14 @@ export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEn
             ItemQuality.Rare,
             'Aiding Bastion',
             null,
-            'Complete 3 World Quests',
+            'Complete 3 World Quests'
         ),
         new GlobalDailyQuest(
             60404,
             ItemQuality.Rare,
             'Training in Bastion',
             null,
-            'Complete 3 World Quests',
+            'Complete 3 World Quests'
         ),
         new GlobalDailyQuest(60425, ItemQuality.Epic, 'A Call to Bastion', null, 'Fill the bar'),
         new GlobalDailyQuest(
@@ -90,7 +101,7 @@ export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEn
             ItemQuality.Epic,
             'Challenges in Bastion',
             null,
-            'Complete a dungeon or the Disloyal Denizens world quest',
+            'Complete a dungeon or the Disloyal Denizens world quest'
         ),
 
         // Maldraxxus
@@ -99,14 +110,14 @@ export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEn
             ItemQuality.Rare,
             'Aiding Maldraxxus',
             null,
-            'Complete 3 World Quests',
+            'Complete 3 World Quests'
         ),
         new GlobalDailyQuest(
             60408,
             ItemQuality.Rare,
             'Training in Maldraxxus',
             null,
-            'Complete 3 World Quests',
+            'Complete 3 World Quests'
         ),
         new GlobalDailyQuest(60429, ItemQuality.Epic, 'A Call to Maldraxxus', null, 'Fill the bar'),
         new GlobalDailyQuest(
@@ -114,7 +125,7 @@ export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEn
             ItemQuality.Epic,
             'Challenges in Maldraxxus',
             null,
-            'Complete a dungeon or the Chosen Champions world quest',
+            'Complete a dungeon or the Chosen Champions world quest'
         ),
 
         // Revendreth
@@ -123,14 +134,14 @@ export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEn
             ItemQuality.Rare,
             'Aiding Revendreth',
             null,
-            'Complete 3 World Quests',
+            'Complete 3 World Quests'
         ),
         new GlobalDailyQuest(
             60410,
             ItemQuality.Rare,
             'Training in Revendreth',
             null,
-            'Complete 3 World Quests',
+            'Complete 3 World Quests'
         ),
         new GlobalDailyQuest(60432, ItemQuality.Epic, 'A Call to Revendreth', null, 'Fill the bar'),
         new GlobalDailyQuest(
@@ -138,7 +149,7 @@ export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEn
             ItemQuality.Epic,
             'Challenges in Revendreth',
             null,
-            'Complete a dungeon or the Destroy the Dominant world quest',
+            'Complete a dungeon or the Destroy the Dominant world quest'
         ),
 
         // Misc
@@ -147,21 +158,21 @@ export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEn
             ItemQuality.Rare,
             'Anima Salvage',
             null,
-            'Gather 150 Anima Embers from Torghast',
+            'Gather 150 Anima Embers from Torghast'
         ),
         new GlobalDailyQuest(
             60415,
             ItemQuality.Rare,
             'Rare Resources',
             null,
-            'Collect 3 Coins of Brokerage from rares/treasures',
+            'Collect 3 Coins of Brokerage from rares/treasures'
         ),
         new GlobalDailyQuest(
             60454,
             ItemQuality.Epic,
             'Storm the Maw',
             null,
-            'Kill 3 rare or special encounter bosses in The Maw',
+            'Kill 3 rare or special encounter bosses in The Maw'
         ),
 
         // Battle for Azeroth
@@ -170,14 +181,14 @@ export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEn
             ItemQuality.Common,
             'Champions of Azeroth',
             null,
-            'Complete 4 world quests',
+            'Complete 4 world quests'
         ),
         new GlobalDailyQuest(
             50604,
             ItemQuality.Common,
             'Tortollan Seekers',
             null,
-            'Complete 3 world quests',
+            'Complete 3 world quests'
         ),
 
         new GlobalDailyQuest(
@@ -185,28 +196,28 @@ export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEn
             ItemQuality.Common,
             'Proudmoore Admiralty',
             'Zandalari Empire',
-            'Complete 4 world quests',
+            'Complete 4 world quests'
         ),
         new GlobalDailyQuest(
             50602,
             ItemQuality.Common,
             "Storm's Wake",
             "Talanji's Expedition",
-            'Complete 4 world quests',
+            'Complete 4 world quests'
         ),
         new GlobalDailyQuest(
             50603,
             ItemQuality.Common,
             'Order of Embers',
             "Vol'dunai",
-            'Complete 4 world quests',
+            'Complete 4 world quests'
         ),
         new GlobalDailyQuest(
             50606,
             ItemQuality.Common,
             'Alliance War Effort',
             'Horde War Efffort',
-            'Complete 4 world quests',
+            'Complete 4 world quests'
         ),
 
         new GlobalDailyQuest(
@@ -214,7 +225,7 @@ export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEn
             ItemQuality.Common,
             'The Waveblade Ankoan',
             'The Unshackled',
-            'Complete 4 world quests',
+            'Complete 4 world quests'
         ),
 
         // Legion
@@ -223,49 +234,49 @@ export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEn
             ItemQuality.Common,
             'The Dreamweavers',
             null,
-            'Complete 4 world quests',
+            'Complete 4 world quests'
         ),
         new GlobalDailyQuest(
             42233,
             ItemQuality.Common,
             'Highmountain Tribes',
             null,
-            'Complete 4 world quests',
+            'Complete 4 world quests'
         ),
         new GlobalDailyQuest(
             42234,
             ItemQuality.Common,
             'The Valarjar',
             null,
-            'Complete 4 world quests',
+            'Complete 4 world quests'
         ),
         new GlobalDailyQuest(
             42420,
             ItemQuality.Common,
             'Court of Farondis',
             null,
-            'Complete 4 world quests',
+            'Complete 4 world quests'
         ),
         new GlobalDailyQuest(
             42421,
             ItemQuality.Common,
             'The Nightfallen',
             null,
-            'Complete 4 world quests',
+            'Complete 4 world quests'
         ),
         new GlobalDailyQuest(
             42422,
             ItemQuality.Common,
             'The Wardens',
             null,
-            'Complete 4 world quests',
+            'Complete 4 world quests'
         ),
         new GlobalDailyQuest(
             43179,
             ItemQuality.Common,
             'The Kirin Tor',
             null,
-            'Complete 3 world quests',
+            'Complete 3 world quests'
         ),
 
         new GlobalDailyQuest(
@@ -273,23 +284,23 @@ export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEn
             ItemQuality.Common,
             'Army of the Light',
             null,
-            'Complete 4 world quests',
+            'Complete 4 world quests'
         ),
         new GlobalDailyQuest(
             48641,
             ItemQuality.Common,
             'Armies of Legionfall',
             null,
-            'Complete 4 world quests',
+            'Complete 4 world quests'
         ),
         new GlobalDailyQuest(
             48642,
             ItemQuality.Common,
             'Argussian Reach',
             null,
-            'Complete 4 world quests',
+            'Complete 4 world quests'
         ),
-    ].map((gdq) => [gdq.id, gdq]),
+    ].map((gdq) => [gdq.id, gdq])
 );
 
 export const questToLockout: Record<number, number> = {

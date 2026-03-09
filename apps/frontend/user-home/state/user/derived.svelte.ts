@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 
 import { Constants } from '@/data/constants';
 import { expansionMap, expansionOrder } from '@/data/expansion';
+import { questNameOverride } from '@/data/quests';
 import { taskMap } from '@/data/tasks';
 import { QuestStatus } from '@/enums/quest-status';
 import { Region } from '@/enums/region';
@@ -640,10 +641,13 @@ export class DataUserDerived {
             charChore.status = QuestStatus.InProgress;
         }
 
-        charChore.name =
-            chore.showQuestName || chore.subChores?.length > 0
-                ? charChore.quest?.name || chore.name
-                : chore.name;
+        if (chore.showQuestName || chore.subChores?.length > 0) {
+            charChore.name = charChore.quest?.name;
+        } else if (questNameOverride[charChore.quest?.id]) {
+            charChore.name = questNameOverride[charChore.quest.id];
+        }
+
+        charChore.name ||= chore.name;
 
         return charChore;
     }
