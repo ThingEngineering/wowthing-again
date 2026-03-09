@@ -58,6 +58,7 @@ export const midChores12_0_0: Task = {
             key: 'midHopeUnity',
             name: 'Hope/Unity',
             icon: aliasedIcons.planet,
+            questReset: DbResetType.Weekly,
             subChoresAnyOrder: true,
             subChores: [
                 {
