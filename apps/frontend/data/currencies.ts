@@ -440,7 +440,9 @@ export const currencyItems: Record<number, number[]> = {
         262638, // Anguish-Permeated Rune [hunts, epic]
     ],
     // Midnight - Season 1
-    // 126411: [],
+    126411: [
+        232875, // Spark of Radiance
+    ],
 
     // Player vs Player
     2: [
