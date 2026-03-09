@@ -72,6 +72,7 @@ export { default as gameSpikedDragonHead } from '@iconify/icons-game-icons/spike
 export { default as gameStaryu } from '@iconify/icons-game-icons/staryu';
 export { default as gameStopwatch } from '@iconify/icons-game-icons/stopwatch';
 export { default as gameStrongbox } from '@iconify/icons-game-icons/strongbox';
+export { default as gameTeslaTurret } from '@iconify/icons-game-icons/tesla-turret';
 export { default as gameThorHammer } from '@iconify/icons-game-icons/thor-hammer';
 export { default as gameThumbUp } from '@iconify/icons-game-icons/thumb-up';
 export { default as gameTotemHead } from '@iconify/icons-game-icons/totem-head';
