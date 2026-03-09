@@ -435,6 +435,8 @@ export const currencyItems: Record<number, number[]> = {
     // Midnight
     264: [
         255826, // Mysterious Skyshards
+        242241, // Latent Arcana
+        246951, // Stormarion Core
         262636, // Anguish-Scribed Rune [hunts, uncommon]
         262637, // Anguish-Infused Rune [hunts, rare]
         262638, // Anguish-Permeated Rune [hunts, epic]
