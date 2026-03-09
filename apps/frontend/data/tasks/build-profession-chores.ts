@@ -1,8 +1,9 @@
 import { Profession } from '@/enums/profession';
 import { settingsState } from '@/shared/state/settings.svelte';
 import { DbResetType } from '@/shared/stores/db/enums';
+import { userState } from '@/user-home/state/user';
 import type { Character } from '@/types';
-import type { TaskProfession } from '@/types/data';
+import type { TaskProfession, TaskProfessionQuest } from '@/types/data';
 import type { Chore } from '@/types/tasks';
 
 export function buildProfessionChores(
@@ -68,13 +69,7 @@ export function buildProfessionChores(
                 name: `${name}: Gather`,
                 alwaysStarted: true,
                 questReset: DbResetType.Weekly,
-                subChores: taskProfession.gatherQuests.map((taskQuest, index) => ({
-                    key: `gather${index}`,
-                    name: `{item:${taskQuest.itemId}}`,
-                    alwaysStarted: true,
-                    showQuestName: true,
-                    questIds: [taskQuest.questId],
-                })),
+                subChores: buildGatherSubChores(taskProfession.gatherQuests),
                 couldGetFunc,
                 canGetFunc: (char) =>
                     getExpansionSkill(char, taskProfession.id, taskProfession.subProfessionId, 1),
@@ -139,4 +134,37 @@ function getExpansionSkill(
 ): string {
     const skill = char.professions[professionId].subProfessions[subprofessionId]?.skillCurrent ?? 0;
     return skill < minSkill ? `Need ${minSkill} skill` : '';
+}
+function buildGatherSubChores(gatherQuests: TaskProfessionQuest[]): Chore[] {
+    // group by itemId first
+    const itemOrder: number[] = [];
+    const byItem: Record<number, TaskProfessionQuest[]> = {};
+    for (const gatherQuest of gatherQuests) {
+        if (!byItem[gatherQuest.itemId]) {
+            itemOrder.push(gatherQuest.itemId);
+            byItem[gatherQuest.itemId] = [];
+        }
+        byItem[gatherQuest.itemId].push(gatherQuest);
+    }
+
+    // build out chores
+    return itemOrder.map((itemId, index) => ({
+        key: `gather${index}`,
+        name: `{item:${itemId}}`,
+        alwaysStarted: true,
+        showQuestName: true,
+        progressFunc: (char) => ({
+            have: byItem[itemId].filter((gatherQuest) =>
+                userState.quests.characterById.get(char.id)?.hasQuestById?.has(gatherQuest.questId)
+            ).length,
+            need: byItem[itemId].length,
+        }),
+    }));
+    // return gatherQuests.map((taskQuest, index) => ({
+    //     key: `gather${index}`,
+    //     name: `{item:${taskQuest.itemId}}`,
+    //     alwaysStarted: true,
+    //     showQuestName: true,
+    //     questIds: [taskQuest.questId],
+    // }));
 }
