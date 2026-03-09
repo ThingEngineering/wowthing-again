@@ -58,6 +58,7 @@ export const midChores12_0_0: Task = {
             key: 'midHopeUnity',
             name: 'Hope/Unity',
             icon: aliasedIcons.planet,
+            questReset: DbResetType.Weekly,
             subChoresAnyOrder: true,
             subChores: [
                 {
@@ -129,6 +130,7 @@ export const midChores12_0_0: Task = {
         {
             key: 'midStormarion',
             name: 'Stormarion',
+            icon: iconLibrary.gameTeslaTurret,
             minimumLevel: 80,
             showQuestName: true,
             questReset: DbResetType.Weekly,
