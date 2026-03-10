@@ -602,6 +602,20 @@ export const currencyIconOverride: Record<number, string> = {
     3041: imageStrings['tailoring'],
 };
 
+export const currencyShowRemaining = new Set<number>([
+    3189, // Alchemy
+    3199, // Blacksmithing
+    3198, // Enchanting
+    3197, // Engineering
+    3196, // Herbalism
+    3195, // Inscription
+    3194, // Jewelcrafting
+    3193, // Leatherworking
+    3192, // Mining
+    3191, // Skinning
+    3190, // Tailoring
+]);
+
 export const currencyText: Record<number, string> = {
     1_245586: 'Cla', // Ironwood Lumber [Classic]
     1_242691: 'TBC', // Olemba Lumber [TBC]
