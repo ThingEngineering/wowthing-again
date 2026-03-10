@@ -11,7 +11,6 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { ItemBonusType } from '@/enums/item-bonus-type';
 
     type Props = CharacterProps & {
         inventorySlot: InventorySlot;
@@ -41,60 +40,6 @@
         }
     });
 
-    const effectSpells: Record<number, string> = {
-        212387: '+1 Arcane Aegis',
-        212376: '+2 Arcane Aegis',
-        212369: '+3 Arcane Aegis',
-        // +1 Arcane Ward,
-        212711: '+2 Arcane Ward',
-        212708: '+3 Arcane Ward',
-        // +1 Brewing Storm,
-        224299: '+2 Brewing Storm',
-        224300: '+3 Brewing Storm',
-        212292: '+1 Highmountain Fortitude',
-        // +2 Highmountain Fortitude,
-        212367: '+3 Highmountain Fortitude',
-        215505: '+1 I Am My Scars!',
-        215506: '+2 I Am My Scars!',
-        215507: '+3 I Am My Scars!',
-        215529: "+1 Light's Vengeance",
-        215530: "+2 Light's Vengeance",
-        215531: "+3 Light's Vengeance",
-        212291: '+1 Souls of the Caw',
-        212375: '+2 Souls of the Caw',
-        212368: '+3 Souls of the Caw',
-        212705: '+1 Storm Surger',
-        212707: '+2 Storm Surger',
-        212704: '+3 Storm Surger',
-        // +1 Temporal Retaliation,
-        // +2 Temporal Retaliation,
-        212370: '+3 Temporal Retaliation',
-        212293: '+1 Terror From Below',
-        212373: '+2 Terror From Below',
-        212366: '+3 Terror From Below',
-        212294: '+1 Touch of Malice',
-        212372: '+2 Touch of Malice',
-        212365: '+3 Touch of Malice',
-        212295: '+1 Volatile Magics',
-        212371: '+2 Volatile Magics',
-        212364: '+3 Volatile Magics',
-    };
-    let effectSpell = $derived.by(() => {
-        for (const bonusId of equippedItem?.bonusIds || []) {
-            const bonus = wowthingData.items.itemBonuses[bonusId];
-            for (const bonusData of bonus?.bonuses || []) {
-                if (bonusData[0] === ItemBonusType.ItemEffectId) {
-                    if (effectSpells[bonusData[1]]) {
-                        return effectSpells[bonusData[1]];
-                    } else if (bonusData[1] < 214327 || bonusData[1] > 214333) {
-                        console.log(bonusId, bonusData);
-                    }
-                }
-            }
-        }
-        return '';
-    });
-
     const getCraftedData = () => {
         for (const [craftedBonusId, levelIds] of getNumberKeyedEntries(craftedTiers)) {
             if (equippedItem.bonusIds.includes(craftedBonusId)) {
@@ -117,8 +62,13 @@
             if (wowthingData.items.itemBonusCurrentSeason.has(bonusId)) {
                 const upgrades = wowthingData.items.itemBonusToUpgrade[bonusId];
                 if (upgrades) {
+                    console.log('uppies', upgrades);
                     return upgrades;
+                } else {
+                    console.log('no uppies');
                 }
+            } else {
+                console.log('not current?', bonusId);
             }
         }
     };
@@ -233,10 +183,6 @@
                     </WowheadLink>
                 </span>
             {/each}
-
-            {#if effectSpell}
-                <span class="embellishment">{effectSpell}</span>
-            {/if}
 
             {#if tertiary}
                 <span class="embellishment status-shrug">{tertiary}</span>
