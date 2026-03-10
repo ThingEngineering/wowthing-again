@@ -137,16 +137,6 @@ export const midChores12_0_0: Task = {
             questIds: [90962],
         },
         {
-            key: 'midResearch',
-            name: 'Void Research',
-            icon: iconLibrary.gameFizzingFlask,
-            minimumLevel: 80,
-            accountWide: true,
-            showQuestName: true,
-            questReset: DbResetType.Weekly,
-            questIds: [94790],
-        },
-        {
             key: 'midSpecial1',
             name: 'Special Assignment 1',
             icon: iconLibrary.mdiNumeric1CircleOutline,
@@ -193,10 +183,20 @@ export const midChores12_0_0: Task = {
             ],
         },
         {
+            key: 'midResearch',
+            name: 'Void Research',
+            icon: iconLibrary.gameFizzingFlask,
+            minimumLevel: 80,
+            accountWide: true,
+            showQuestName: true,
+            questReset: DbResetType.Weekly,
+            questIds: [94790],
+        },
+        {
             key: 'midDungeon',
             name: 'Dungeon',
             icon: iconLibrary.faDungeon,
-            minimumLevel: Constants.characterMaxLevel,
+            minimumLevel: 90,
             accountWide: true,
             showQuestName: true,
             questReset: DbResetType.Weekly,
@@ -209,6 +209,22 @@ export const midChores12_0_0: Task = {
                 93756, // The Blinding Vale
                 93757, // Voidscar Arena
                 93758, // Nexus-Point Xenas
+            ],
+        },
+        {
+            key: 'midWorldBoss',
+            name: 'World Boss',
+            icon: iconLibrary.emojiZzz,
+            minimumLevel: 90,
+            accountWide: true,
+            showQuestName: true,
+            questReset: DbResetType.Weekly,
+            questIds: [
+                // TODO from AreaPOI.db2, verify
+                92123, // Cragpine
+                92560, // Lu'ashal
+                92636, // Predaxas
+                92034, // Thorm'belan
             ],
         },
         // 94446, A Nightmarish Task, weekly?
