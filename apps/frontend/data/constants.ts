@@ -35,7 +35,26 @@ export abstract class Constants {
     };
 
     // static JSON -> itemBonusListGroups -> match upgradeTiers IDs
-    static readonly seasonItemBonusListGroups = [513, 514, 515, 516, 517, 518];
+    static readonly seasonItemBonusListGroups = new Set<number>([
+        607,
+        608,
+        609,
+        610,
+        611,
+        612, // first set
+        613,
+        614,
+        615,
+        616,
+        617,
+        618, // second set
+        619,
+        626,
+        627,
+        628,
+        629,
+        630, // third set
+    ]);
 
     static readonly upgradeTiers = {
         explorer: 970,
