@@ -1,13 +1,12 @@
 <script lang="ts">
     import find from 'lodash/find';
     import maxBy from 'lodash/maxBy';
-    import { getContext } from 'svelte';
     import IntersectionObserver from 'svelte-intersection-observer';
 
     import { petBreedMap } from '@/data/pet-breed';
     import { userState } from '@/user-home/state/user';
     import type { CollectibleState } from '@/shared/state/browser.svelte';
-    import type { CollectibleContext } from '@/types/contexts';
+    import { getCollectibleContext } from './context';
 
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
     import NpcLink from '@/shared/components/links/NpcLink.svelte';
@@ -20,7 +19,7 @@
 
     let { collectibleState, things }: Props = $props();
 
-    const { thingMapFunc } = getContext('collection') as CollectibleContext;
+    const { thingMapFunc, thingQualityFunc } = getCollectibleContext();
 
     let element = $state<HTMLElement>(null);
     let intersected = $state(false);
@@ -28,7 +27,10 @@
     let userHasThing = $derived(find(things, (petId) => userState.general.hasPetById.has(petId)));
     let origId = $derived(userHasThing ?? things[0]);
     let pets = $derived(userHasThing ? userState.general.petsById[origId] : []);
-    let quality = $derived(maxBy(pets, (pet) => pet.quality)?.quality || 2);
+    let quality = $derived(
+        maxBy(pets, (pet) => pet.quality)?.quality || thingQualityFunc(origId) || 1
+    );
+    $inspect(quality);
     let showAsMissing = $derived(
         userHasThing ? collectibleState.highlightMissing : !collectibleState.highlightMissing
     );
@@ -52,7 +54,7 @@
 <IntersectionObserver once {element} bind:intersecting={intersected}>
     <div
         bind:this={element}
-        class="collection-object {userHasThing ? `quality${quality}` : 'has-not'}"
+        class="collection-object quality{quality}"
         class:missing={showAsMissing}
         style:height={pets.length > 0 ? `${44 + 18 * pets.length}px` : null}
         data-id={origId}

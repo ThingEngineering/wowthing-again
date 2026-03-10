@@ -11,6 +11,16 @@
     let { basePath = '', params }: { basePath: string; params: MultiSlugParams } = $props();
 
     const thingMapFunc = (thing: number) => wowthingData.static.petById.get(thing)?.creatureId;
+    const thingQualityFunc = (thing: number) => {
+        const pet = wowthingData.static.petById.get(thing);
+        if (pet?.itemIds?.length > 0) {
+            return Math.max(
+                ...pet.itemIds.map((itemId) => wowthingData.items.items[itemId]?.quality || 1)
+            );
+        }
+
+        return 1;
+    };
 
     let [maxLevelQuality, qualities] = $derived.by(() => {
         let countMaxLevel = 0;
@@ -52,6 +62,7 @@
     userHas={userState.general.hasPetById}
     {params}
     {thingMapFunc}
+    {thingQualityFunc}
 >
     <svelte:fragment slot="extra-options">
         <div class="progress">

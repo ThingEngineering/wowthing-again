@@ -1,14 +1,12 @@
 <script lang="ts">
     import find from 'lodash/find';
-    import { getContext } from 'svelte';
     import IntersectionObserver from 'svelte-intersection-observer';
-
-    import type { CollectibleContext } from '@/types/contexts';
+    import type { CollectibleState } from '@/shared/state/browser.svelte';
+    import { getCollectibleContext } from './context';
 
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import type { CollectibleState } from '@/shared/state/browser.svelte';
 
     type Props = {
         collectibleState: CollectibleState;
@@ -17,7 +15,7 @@
 
     let { collectibleState, things }: Props = $props();
 
-    const { thingMapFunc, thingType, userHas } = getContext('collection') as CollectibleContext;
+    const { thingMapFunc, thingType, userHas } = getCollectibleContext();
 
     let element = $state<HTMLElement>(null);
     let intersected = $state(false);

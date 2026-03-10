@@ -1,9 +1,7 @@
 <script lang="ts">
-    import { getContext } from 'svelte';
-
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
-    import type { CollectibleContext } from '@/types/contexts';
     import type { ManualDataSetCategory } from '@/types/data/manual';
+    import { getCollectibleContext } from './context';
 
     import ProgressBar from '@/components/common/ProgressBar.svelte';
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
@@ -11,7 +9,7 @@
     type Props = { includeSearch?: boolean; sets: ManualDataSetCategory[][] };
     let { includeSearch = false, sets }: Props = $props();
 
-    const { route, stats } = getContext('collection') as CollectibleContext;
+    let { route, stats } = getCollectibleContext();
 
     let overall = $derived(stats.OVERALL);
     let categories = $derived.by(() => {
