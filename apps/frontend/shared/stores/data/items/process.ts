@@ -102,23 +102,25 @@ export function processItemsData(rawData: RawItems): DataItems {
         const obj = new DataItemBonus(...itemBonusArray);
         data.itemBonuses[obj.id] = obj;
 
-        if (obj.bonuses[0][0] === ItemBonusType.AddSockets && obj.bonuses[0][2] === 7) {
-            data.itemBonusSocket.add(obj.id);
-        } else if (obj.bonuses[0][0] === ItemBonusType.IncreaseBonusStat) {
-            if (obj.bonuses[0][1] === StatType.AvoidanceRating) {
-                data.itemBonusAvoidance.add(obj.id);
-            } else if (obj.bonuses[0][1] === StatType.LifestealRating) {
-                data.itemBonusLeech.add(obj.id);
-            } else if (obj.bonuses[0][1] === StatType.SpeedRating) {
-                data.itemBonusSpeed.add(obj.id);
+        for (const bonus of obj.bonuses) {
+            if (bonus[0] === ItemBonusType.AddSockets && bonus[2] === 7) {
+                data.itemBonusSocket.add(obj.id);
+            } else if (bonus[0] === ItemBonusType.IncreaseBonusStat) {
+                if (bonus[1] === StatType.AvoidanceRating) {
+                    data.itemBonusAvoidance.add(obj.id);
+                } else if (bonus[1] === StatType.LifestealRating) {
+                    data.itemBonusLeech.add(obj.id);
+                } else if (bonus[1] === StatType.SpeedRating) {
+                    data.itemBonusSpeed.add(obj.id);
+                }
+            } else if (
+                bonus[0] === ItemBonusType.ItemBonusListGroupId &&
+                Constants.seasonItemBonusListGroups.has(bonus[1])
+            ) {
+                data.itemBonusCurrentSeason.add(obj.id);
+            } else if (bonus[0] === ItemBonusType.ItemConversionId) {
+                data.itemConversionBonus[obj.id] = bonus[1];
             }
-        } else if (
-            obj.bonuses[0][0] === ItemBonusType.ItemBonusListGroupId &&
-            Constants.seasonItemBonusListGroups.indexOf(obj.bonuses[0][1]) >= 0
-        ) {
-            data.itemBonusCurrentSeason.add(obj.id);
-        } else if (obj.bonuses[0][0] === ItemBonusType.ItemConversionId) {
-            data.itemConversionBonus[obj.id] = obj.bonuses[0][1];
         }
     }
 

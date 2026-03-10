@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { afterUpdate, setContext } from 'svelte';
+    import { setContext } from 'svelte';
 
     import getSavedRoute from '@/utils/get-saved-route';
     import type { MultiSlugParams } from '@/types';
@@ -10,30 +10,31 @@
     import CollectibleSidebar from './CollectibleSidebar.svelte';
     import PetSearch from './PetSearch.svelte';
 
-    export let params: MultiSlugParams;
-    export let route: string;
-    export let sets: ManualDataSetCategory[][];
-    export let stats: CollectibleContext['stats'];
-    export let thingMapFunc: (thing: number) => number = undefined;
-    export let thingType: string;
-    export let userHas: Set<number>;
+    type Props = {
+        params: MultiSlugParams;
+        route: string;
+        sets: ManualDataSetCategory[][];
+        stats: CollectibleContext['stats'];
+        thingType: string;
+        userHas: Set<number>;
+        thingMapFunc?: (thing: number) => number;
+        thingQualityFunc?: (thing: number) => number;
+    };
+    let { params, route, sets, stats, thingType, userHas, thingMapFunc, thingQualityFunc }: Props =
+        $props();
 
-    $: {
-        const countsKey = route.split('/').slice(-1)[0];
-        const context: CollectibleContext = {
-            countsKey,
-            route,
-            stats,
-            thingMapFunc,
-            thingType,
-            userHas,
-        };
-        setContext('collection', context);
-    }
-
-    afterUpdate(() => {
-        getSavedRoute(route, params.slug1, params.slug2);
+    let context: CollectibleContext = $derived({
+        countsKey: route.split('/').slice(-1)[0],
+        route,
+        stats,
+        thingType,
+        userHas,
+        thingMapFunc,
+        thingQualityFunc,
     });
+    setContext('collectible', () => context);
+
+    $effect(() => getSavedRoute(route, params.slug1, params.slug2));
 </script>
 
 <style lang="scss">

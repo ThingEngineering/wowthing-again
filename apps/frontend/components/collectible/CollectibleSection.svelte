@@ -1,11 +1,11 @@
 <script lang="ts">
     import find from 'lodash/find';
-    import { getContext, tick } from 'svelte';
+    import { tick } from 'svelte';
 
     import { browserState, type CollectibleState } from '@/shared/state/browser.svelte';
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import type { ManualDataSetCategory } from '@/types/data/manual';
-    import type { CollectibleContext } from '@/types/contexts';
+    import { getCollectibleContext } from './context';
 
     import Category from './CollectibleCategory.svelte';
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
@@ -18,7 +18,7 @@
 
     let { slug1, slug2, sets }: Props = $props();
 
-    const { countsKey, thingType } = getContext('collection') as CollectibleContext;
+    const { countsKey, thingType } = getCollectibleContext();
 
     let collectibleState = browserState.current[
         `collectible-${countsKey}` as keyof typeof browserState.current

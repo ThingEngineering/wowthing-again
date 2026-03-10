@@ -1,7 +1,11 @@
 import type { DateTime } from 'luxon';
 
 import { toNiceDuration, toNiceNumber } from '../formatting';
-import { currencyItemCurrencies, currencyProfession } from '@/data/currencies';
+import {
+    currencyItemCurrencies,
+    currencyProfession,
+    currencyShowRemaining,
+} from '@/data/currencies';
 import { wowthingData } from '@/shared/stores/data';
 import { CharacterCurrency, type Character } from '@/types/character';
 import { userState } from '@/user-home/state/user';
@@ -124,6 +128,13 @@ export function getCurrencyData(
             ret.amount = toNiceNumber(quantity);
             ret.tooltip = `${quantity.toLocaleString()}x ${name}`;
         }
+    }
+
+    if (currencyShowRemaining.has(currency?.id) && ret.tooltip.startsWith(`${ret.amount} / `)) {
+        const { amountRaw, capRemaining } = ret;
+        ret.amountRaw = capRemaining;
+        ret.capRemaining = amountRaw;
+        ret.amount = ret.amountRaw.toString();
     }
 
     return ret;

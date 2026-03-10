@@ -1,10 +1,8 @@
 <script lang="ts">
-    import { getContext } from 'svelte';
-
     import getPercentClass from '@/utils/get-percent-class';
     import type { CollectibleState } from '@/shared/state/browser.svelte';
-    import type { CollectibleContext } from '@/types/contexts';
     import type { ManualDataSetCategory } from '@/types/data/manual';
+    import { getCollectibleContext } from './context';
 
     import CollectibleThing from './CollectibleThing.svelte';
     import CollectibleThingPet from './CollectibleThingPet.svelte';
@@ -20,7 +18,7 @@
 
     let { category, collectibleState, slug1, thingType }: Props = $props();
 
-    const { stats } = getContext('collection') as CollectibleContext;
+    const { stats } = getCollectibleContext();
 
     let useV2 = $derived(
         category.groups.length > 2 && category.groups.reduce((a, b) => a + b.things.length, 0) > 30

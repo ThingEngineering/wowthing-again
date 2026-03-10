@@ -1,15 +1,12 @@
 <script lang="ts">
     import { Constants } from '@/data/constants';
     import { iconLibrary } from '@/shared/icons';
-    import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
     import getItemLevelQuality from '@/utils/get-item-level-quality';
     import type { CharacterProps } from '@/types/props';
     import type { LazyConvertibleCharacterItem } from '@/user-home/state/lazy/convertible.svelte';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
     type Props = {
         tierSets: [string, number, number, LazyConvertibleCharacterItem?][][];

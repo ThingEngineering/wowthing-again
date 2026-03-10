@@ -60,6 +60,11 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
             slug: 'crafting-moxie',
         },
         {
+            id: 126404,
+            name: 'Crafting Catchup',
+            slug: 'crafting-catchup',
+        },
+        {
             id: 126411,
             name: 'Season 1',
             slug: 'season-1',
@@ -169,6 +174,20 @@ export const currencyExtra: Record<number, number[]> = {
         3260, // Herbalism
         3264, // Mining
         3265, // Skinning
+    ],
+    // Midnight - Crafting Catchup
+    126404: [
+        3189, // Alchemy
+        3199, // Blacksmithing
+        3198, // Enchanting
+        3197, // Engineering
+        3196, // Herbalism
+        3195, // Inscription
+        3194, // Jewelcrafting
+        3193, // Leatherworking
+        3192, // Mining
+        3191, // Skinning
+        3190, // Tailoring
     ],
     // Midnight - Season 1
     126411: [
@@ -434,6 +453,7 @@ export const currencyItems: Record<number, number[]> = {
 
     // Midnight
     264: [
+        264882, // Finery Funds
         255826, // Mysterious Skyshards
         242241, // Latent Arcana
         246951, // Stormarion Core
@@ -556,6 +576,19 @@ export const currencyProfession: Record<number, number> = {
     3265: Profession.Skinning,
     3266: Profession.Tailoring,
 
+    // Midnight - Crafting Catchup
+    3189: Profession.Alchemy,
+    3199: Profession.Blacksmithing,
+    3198: Profession.Enchanting,
+    3197: Profession.Engineering,
+    3196: Profession.Herbalism,
+    3195: Profession.Inscription,
+    3194: Profession.Jewelcrafting,
+    3193: Profession.Leatherworking,
+    3192: Profession.Mining,
+    3191: Profession.Skinning,
+    3190: Profession.Tailoring,
+
     // The War Within - Crafting Concentration
     3045: Profession.Alchemy,
     3040: Profession.Blacksmithing,
@@ -591,6 +624,19 @@ export const currencyIconOverride: Record<number, string> = {
     3265: imageStrings['skinning'],
     3266: imageStrings['tailoring'],
 
+    // Midnight - Crafting Catchup
+    3189: imageStrings['alchemy'],
+    3199: imageStrings['blacksmithing'],
+    3198: imageStrings['enchanting'],
+    3197: imageStrings['engineering'],
+    3196: imageStrings['herbalism'],
+    3195: imageStrings['inscription'],
+    3194: imageStrings['jewelcrafting'],
+    3193: imageStrings['leatherworking'],
+    3192: imageStrings['mining'],
+    3191: imageStrings['skinning'],
+    3190: imageStrings['tailoring'],
+
     // The War Within - Crafting Concentration
     3045: imageStrings['alchemy'],
     3040: imageStrings['blacksmithing'],
@@ -601,6 +647,20 @@ export const currencyIconOverride: Record<number, string> = {
     3042: imageStrings['leatherworking'],
     3041: imageStrings['tailoring'],
 };
+
+export const currencyShowRemaining = new Set<number>([
+    3189, // Alchemy
+    3199, // Blacksmithing
+    3198, // Enchanting
+    3197, // Engineering
+    3196, // Herbalism
+    3195, // Inscription
+    3194, // Jewelcrafting
+    3193, // Leatherworking
+    3192, // Mining
+    3191, // Skinning
+    3190, // Tailoring
+]);
 
 export const currencyText: Record<number, string> = {
     1_245586: 'Cla', // Ironwood Lumber [Classic]
@@ -631,6 +691,7 @@ const skipCurrencies: number[] = [
     3265, // Skinning
     3266, // Tailoring
     3349, // [DNT][PH]
+    3394, // Latent Arcana
 
     // The War Within
     2914, // Weathered Harbinger Crest

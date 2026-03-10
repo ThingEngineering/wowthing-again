@@ -4,7 +4,8 @@ export interface CollectibleContext {
     countsKey: string;
     route: string;
     stats: Record<string, UserCount>;
-    thingMapFunc: (thing: number) => number;
     thingType: string;
     userHas: Set<number>;
+    thingMapFunc?: (thing: number) => number;
+    thingQualityFunc?: (thing: number) => number;
 }
