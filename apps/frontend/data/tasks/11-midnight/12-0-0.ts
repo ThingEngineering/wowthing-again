@@ -137,6 +137,15 @@ export const midChores12_0_0: Task = {
             questIds: [90962],
         },
         {
+            key: 'midResearch',
+            name: 'Void Research',
+            icon: iconLibrary.gameFizzingFlask,
+            minimumLevel: 80,
+            showQuestName: true,
+            questReset: DbResetType.Weekly,
+            questIds: [94790],
+        },
+        {
             key: 'midSpecial1',
             name: 'Special Assignment 1',
             icon: iconLibrary.mdiNumeric1CircleOutline,
@@ -181,16 +190,6 @@ export const midChores12_0_0: Task = {
                     questIds: specialAssignmentFunc(1, true),
                 },
             ],
-        },
-        {
-            key: 'midResearch',
-            name: 'Void Research',
-            icon: iconLibrary.gameFizzingFlask,
-            minimumLevel: 80,
-            accountWide: true,
-            showQuestName: true,
-            questReset: DbResetType.Weekly,
-            questIds: [94790],
         },
         {
             key: 'midDungeon',
