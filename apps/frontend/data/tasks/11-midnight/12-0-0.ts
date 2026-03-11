@@ -217,6 +217,7 @@ export const midChores12_0_0: Task = {
             minimumLevel: 90,
             accountWide: true,
             showQuestName: true,
+            questResetForced: true,
             questReset: DbResetType.Weekly,
             questIds: [
                 93751, // Windrunner Spire
