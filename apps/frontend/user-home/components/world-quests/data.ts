@@ -3,6 +3,55 @@ import type { WorldQuestZone } from './types';
 
 export const zoneData: WorldQuestZone[] = [
     {
+        id: 9999,
+        name: '[Mid] Midnight',
+        slug: 'midnight',
+        mapName: '',
+        children: [
+            {
+                id: 2395,
+                name: 'Eversong Woods',
+                slug: 'eversong-woods',
+                mapName: '11-midnight/eversong_woods',
+                continentPoint: [0, 0],
+                anchor: 'top-left',
+            },
+            {
+                id: 2413,
+                name: 'Harandar',
+                slug: 'harandar',
+                mapName: '11-midnight/harandar',
+                continentPoint: [0, 0],
+                anchor: 'top-left',
+            },
+            {
+                id: 2405,
+                name: 'Voidstorm',
+                slug: 'voidstorm',
+                mapName: '11-midnight/voidstorm',
+                continentPoint: [0, 0],
+                anchor: 'top-left',
+            },
+            {
+                id: 2437,
+                name: "Zul'Aman",
+                slug: 'zulaman',
+                mapName: '11-midnight/zulaman',
+                continentPoint: [0, 0],
+                anchor: 'top-left',
+            },
+            null,
+            {
+                id: 2393,
+                name: 'Silvermoon City',
+                slug: 'silvermoon-city',
+                mapName: '11-midnight/silvermoon_city',
+                continentPoint: [0, 0],
+                anchor: 'top-left',
+            },
+        ],
+    },
+    {
         id: 2274,
         name: '[TWW] The War Within',
         slug: 'war-within',

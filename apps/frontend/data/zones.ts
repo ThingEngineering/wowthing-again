@@ -4,13 +4,13 @@ export const midnightZones: ProfessionZone[] = [
     {
         name: 'Silvermoon City',
         icon: 'achievement/2767',
-        map: '11-midnight/silvermoon-city',
+        map: '11-midnight/silvermoon_city',
         shortName: 'Silv',
     },
     {
         name: 'Eversong Woods',
         icon: 'achievement/41802',
-        map: '11-midnight/eversong-woods',
+        map: '11-midnight/eversong_woods',
         shortName: 'Ever',
     },
     {
@@ -28,7 +28,7 @@ export const midnightZones: ProfessionZone[] = [
     {
         name: "Zul'Aman",
         icon: 'achievement/41803',
-        map: '11-midnight/zul-aman',
+        map: '11-midnight/zulaman',
         shortName: 'Zul',
     },
     null,

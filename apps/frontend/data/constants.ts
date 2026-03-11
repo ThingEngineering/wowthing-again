@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon';
+
 export const MAX_TAGS = 20;
 export const MAX_TASKS = 100;
 export const MAX_VIEWS = 100;
@@ -13,6 +15,7 @@ export abstract class Constants {
     static readonly mythicPlusSeason: number = 15;
 
     static readonly defaultUnixTime = 946684800;
+    static readonly defaultTime = DateTime.fromSeconds(Constants.defaultUnixTime);
 
     static readonly remixMythicPlusSeason: number = 1001;
 
