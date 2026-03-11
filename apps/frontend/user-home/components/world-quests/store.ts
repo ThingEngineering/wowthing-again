@@ -9,16 +9,15 @@ import type {
     ApiWorldQuestReward,
 } from './types';
 import type { RewardType } from '@/enums/reward-type';
+import { timeState } from '@/shared/state/time.svelte';
 
 class WorldQuestStore {
     private static url = '/api/world-quests/active';
-    // private cache: Record<number, ]> = {}
-    private cache: Record<string, Record<number, ApiWorldQuest[]>> = {};
+    private cache: Record<number, Record<number, ApiWorldQuest[]>> = {};
+    private questsCache: Record<number, ApiWorldQuest[]> = {};
 
     async fetch(region: number) {
-        const cacheKey = [region].join('--');
-
-        if (!this.cache[cacheKey]) {
+        if (!this.cache[region]) {
             const xsrf = document.getElementById('app').getAttribute('data-xsrf');
 
             const response = await fetch(`${WorldQuestStore.url}/${region}`, {
@@ -32,20 +31,20 @@ class WorldQuestStore {
             if (response.ok) {
                 const responseData = (await response.json()) as ApiWorldQuestRaw[];
 
-                const finalData: Record<number, ApiWorldQuest[]> = (this.cache[region] = {});
+                const finalData: (typeof this.cache)[number] = (this.cache[region] = {});
                 for (const apiWorldQuest of responseData) {
                     const jsonData = JSON.parse(apiWorldQuest.jsonData) as ApiWorldQuestJson;
 
                     const expires = DateTime.fromISO(
                         sortBy(
                             Object.entries(jsonData.expirations),
-                            ([, value]) => 1_000_000 - value,
+                            ([, value]) => 1_000_000 - value
                         )[0][0],
-                        { zone: 'utc' },
+                        { zone: 'utc' }
                     );
                     const locationParts = sortBy(
                         Object.entries(jsonData.locations),
-                        ([, value]) => 1_000_000 - value,
+                        ([, value]) => 1_000_000 - value
                     )[0][0].split(' ');
 
                     const worldQuest: ApiWorldQuest = {
@@ -77,12 +76,29 @@ class WorldQuestStore {
             }
         }
 
-        return this.cache[cacheKey] || {};
+        return this.cache[region] || {};
     }
 
     getCached(region: number): Record<number, ApiWorldQuest[]> {
-        const cacheKey = [region].join('--');
-        return this.cache[cacheKey] || {};
+        return this.cache[region] || {};
+    }
+
+    getCachedQuests(region: number) {
+        if (!this.questsCache[region]) {
+            const zones = this.cache[region] || {};
+            const questIdToExpiry = new Map<number, ApiWorldQuest>();
+            for (const worldQuests of Object.values(zones)) {
+                for (const worldQuest of worldQuests) {
+                    questIdToExpiry.set(worldQuest.questId, worldQuest);
+                }
+            }
+            const allQuests = sortBy(
+                Array.from(questIdToExpiry.values()),
+                (worldQuest) => worldQuest.expires
+            );
+            this.questsCache[region] = allQuests;
+        }
+        return this.questsCache[region];
     }
 
     isLoaded(region: number): boolean {

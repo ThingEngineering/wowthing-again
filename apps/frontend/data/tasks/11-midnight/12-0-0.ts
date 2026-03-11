@@ -1,7 +1,8 @@
 import { Constants } from '@/data/constants';
 import { aliasedIcons, iconLibrary } from '@/shared/icons';
+import { timeState } from '@/shared/state/time.svelte';
 import { DbResetType } from '@/shared/stores/db/enums';
-import { userState } from '@/user-home/state/user';
+import { worldQuestStore } from '@/user-home/components/world-quests/store';
 import type { Character } from '@/types';
 import type { Chore, Task } from '@/types/tasks';
 
@@ -29,23 +30,35 @@ const specialAssignmentUnlockToQuest: Record<number, number> = {
 
 const specialAssignmentFunc = (index: number, isQuest: boolean) => {
     return (char: Character, chore: Chore) => {
-        const charQuests = userState.quests.characterById.get(char.id);
-        const completedOrInProgress = specialAssignmentUnlocks.filter(
-            (questId) =>
-                charQuests.hasQuestById.has(questId) ||
-                charQuests.progressQuestByKey.has(`q${questId}`)
+        const now = timeState.slowTime;
+        const allWorldQuests = worldQuestStore.getCachedQuests(char.region);
+        const questIdIndexes = Object.fromEntries(
+            allWorldQuests
+                .filter((worldQuest) => worldQuest.expires > now)
+                .map((worldQuest, index) => [worldQuest.questId, index])
         );
 
-        if (completedOrInProgress[index]) {
+        const activeQuests = specialAssignmentUnlocks
+            .filter((questId) => questIdIndexes[questId])
+            .map((questId) => [questIdIndexes[questId], questId]);
+        activeQuests.sort((a, b) => a[0] - b[0]);
+
+        if (activeQuests[index]) {
             return [
                 isQuest
-                    ? specialAssignmentUnlockToQuest[completedOrInProgress[index]]
-                    : completedOrInProgress[index],
+                    ? specialAssignmentUnlockToQuest[activeQuests[index][1]]
+                    : activeQuests[index][1],
             ];
         } else {
             return specialAssignmentUnlocks;
         }
     };
+};
+
+const specialAssignmentExpiry: Chore['customExpiryFunc'] = (char, scannedAt, questIds) => {
+    const allWorldQuests = worldQuestStore.getCachedQuests(char.region);
+    const worldQuest = allWorldQuests.find((wq) => wq.questId === questIds[0]);
+    return worldQuest?.expires || Constants.defaultTime;
 };
 
 export const midChores12_0_0: Task = {
@@ -150,21 +163,24 @@ export const midChores12_0_0: Task = {
             name: 'Special Assignment 1',
             icon: iconLibrary.mdiNumeric1CircleOutline,
             showQuestName: true,
-            questReset: DbResetType.Weekly,
+            questReset: DbResetType.Custom,
+            customExpiryFunc: specialAssignmentExpiry,
             subChores: [
                 {
                     key: 'unlock',
                     name: 'World Quests',
-                    questResetForced: true,
+                    alwaysStarted: true,
+                    overrideNeed: 3,
                     questIds: specialAssignmentFunc(0, false),
+                    customExpiryFunc: specialAssignmentExpiry,
                 },
                 {
                     key: 'assignment',
                     name: 'Assignment',
                     alwaysStarted: true,
                     showQuestName: true,
-                    questResetForced: true,
                     questIds: specialAssignmentFunc(0, true),
+                    customExpiryFunc: specialAssignmentExpiry,
                 },
             ],
         },
@@ -173,21 +189,24 @@ export const midChores12_0_0: Task = {
             name: 'Special Assignment 2',
             icon: iconLibrary.mdiNumeric2CircleOutline,
             showQuestName: true,
-            questReset: DbResetType.Weekly,
+            questReset: DbResetType.Custom,
+            customExpiryFunc: specialAssignmentExpiry,
             subChores: [
                 {
                     key: 'unlock',
                     name: 'World Quests',
-                    questResetForced: true,
+                    alwaysStarted: true,
+                    overrideNeed: 3,
                     questIds: specialAssignmentFunc(1, false),
+                    customExpiryFunc: specialAssignmentExpiry,
                 },
                 {
                     key: 'assignment',
                     name: 'Assignment',
                     alwaysStarted: true,
                     showQuestName: true,
-                    questResetForced: true,
                     questIds: specialAssignmentFunc(1, true),
+                    customExpiryFunc: specialAssignmentExpiry,
                 },
             ],
         },

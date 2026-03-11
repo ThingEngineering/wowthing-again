@@ -30,12 +30,17 @@ export type Chore = {
     showQuestName?: boolean;
     minimumLevel?: number;
     maximumLevel?: number;
+    overrideNeed?: number;
     questIds?: number[] | ((char: Character, chore?: Chore) => number[]);
     questReset?: DbResetType;
     questResetForced?: boolean;
     subChoresAnyOrder?: boolean;
     subChores?: Chore[];
     requiredHolidays?: Holiday[];
+
+    /**
+     * Function to manually calculate progress
+     */
     progressFunc?: (char: Character) => { have: number; need: number };
     /**
      * Function to check if character is eligibile for this task (eg has a profession)
@@ -45,7 +50,12 @@ export type Chore = {
      * Function to check if character is able to pick up this task (eg has a high enough skill)
      */
     canGetFunc?: (char: Character) => string;
-
-    customExpiryFunc?: (char: Character, scannedAt: DateTime) => DateTime;
+    /**
+     * Function to generate a custom expiry time
+     */
+    customExpiryFunc?: (char: Character, scannedAt: DateTime, questIds: number[]) => DateTime;
+    /**
+     * Function to ????
+     */
     decorationFunc?: (expires: DateTime) => string;
 };

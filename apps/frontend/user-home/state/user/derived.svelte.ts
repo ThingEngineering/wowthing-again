@@ -477,7 +477,13 @@ export class DataUserDerived {
         const choreReset = chore.questReset || parent?.questReset;
         const resetForced = chore.questResetForced === true || parent?.questResetForced === true;
 
+        let questIds: number[] = [];
         if (chore.questIds) {
+            questIds =
+                typeof chore.questIds === 'function'
+                    ? chore.questIds(character, chore)
+                    : chore.questIds;
+
             let expiresAt: DateTime;
             if (choreReset === DbResetType.Weekly) {
                 expiresAt = getNextWeeklyResetFromTime(
@@ -486,7 +492,7 @@ export class DataUserDerived {
                     character
                 );
             } else if (choreReset === DbResetType.Custom) {
-                expiresAt = chore.customExpiryFunc(character, charScanned);
+                expiresAt = chore.customExpiryFunc(character, charScanned, questIds);
             } else if (choreReset === DbResetType.Never) {
                 expiresAt = timeState.slowTime.plus({ days: 30 });
             } else {
@@ -497,10 +503,6 @@ export class DataUserDerived {
                 );
             }
 
-            const questIds =
-                typeof chore.questIds === 'function'
-                    ? chore.questIds(character, chore)
-                    : chore.questIds;
             for (const questId of questIds) {
                 // is the quest in progress?
                 const questProgress = characterQuests?.progressQuestByKey?.get(`q${questId}`);
@@ -641,10 +643,16 @@ export class DataUserDerived {
             charChore.status = QuestStatus.InProgress;
         }
 
+        if (!charChore.quest && chore.overrideNeed) {
+            charChore.progressTotal = chore.overrideNeed;
+        }
+
         if (chore.showQuestName || chore.subChores?.length > 0) {
             charChore.name = charChore.quest?.name;
         } else if (questNameOverride[charChore.quest?.id]) {
             charChore.name = questNameOverride[charChore.quest.id];
+        } else if (questIds.length === 1 && questNameOverride[questIds[0]]) {
+            charChore.name = questNameOverride[questIds[0]];
         }
 
         charChore.name ||= chore.name;
