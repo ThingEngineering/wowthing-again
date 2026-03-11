@@ -53,7 +53,7 @@ export type Chore = {
     /**
      * Function to generate a custom expiry time
      */
-    customExpiryFunc?: (char: Character, scannedAt: DateTime, questIds: number[]) => DateTime;
+    customExpiryFunc?: (char: Character, scannedAt: DateTime, questIds?: number[]) => DateTime;
     /**
      * Function to ????
      */
