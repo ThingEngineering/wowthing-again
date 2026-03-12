@@ -2,6 +2,7 @@
     import { QuestStatus } from '@/enums/quest-status';
     import { uiIcons } from '@/shared/icons';
     import { userState } from '@/user-home/state/user';
+    import { toNiceNumber } from '@/utils/formatting/to-nice-number';
     import type { CharacterProps } from '@/types/props';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
@@ -42,7 +43,10 @@
         <IconifyIcon icon={uiIcons.question} scale="0.75" /> -->
     {:else if charChore?.status === QuestStatus.InProgress}
         <span class="status-shrug">
-            {charChore.progressCurrent} / {charChore.progressTotal}
+            {toNiceNumber(charChore.progressCurrent, 0)} / {toNiceNumber(
+                charChore.progressTotal,
+                0
+            )}
         </span>
     {:else if charChore?.status === QuestStatus.NotStarted}
         <IconifyIcon icon={uiIcons.starEmpty} extraClass="status-fail" />
