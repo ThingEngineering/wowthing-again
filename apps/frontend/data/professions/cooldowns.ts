@@ -193,6 +193,14 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
     // Herbalism
     {
         type: 'spell',
+        key: 'midHerbalismOverload',
+        name: '[Mid] Overload Herb',
+        profession: Profession.Herbalism,
+        unimportant: true,
+        cooldown: [[0]],
+    },
+    {
+        type: 'spell',
         key: 'twwHerbalismOverload',
         name: '[TWW] Overload Herb',
         profession: Profession.Herbalism,
@@ -361,6 +369,14 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
     // Mining
     {
         type: 'spell',
+        key: 'midMiningOverload',
+        name: '[Mid] Overload Deposit',
+        profession: Profession.Mining,
+        unimportant: true,
+        cooldown: [[0]],
+    },
+    {
+        type: 'spell',
         key: 'twwMiningOverload',
         name: '[TWW] Overload Deposit',
         profession: Profession.Mining,
@@ -401,6 +417,28 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
     },
 
     // Tailoring
+    {
+        type: 'spell',
+        key: 'midArcanoweave',
+        name: '[Mid] Arcanoweave',
+        profession: Profession.Tailoring,
+        cooldown: [
+            [60480], // 16h48m
+            // [43200, 2883, 100304, 1], // 12h @ unlocked Dawnweaving
+            // [30240, 2883, 100304, 21], // 8h24m @ 20 points in Dawnweaving
+        ],
+    },
+    {
+        type: 'spell',
+        key: 'midSunfire',
+        name: '[Mid] Sunfire',
+        profession: Profession.Tailoring,
+        cooldown: [
+            [60480], // 16h48m
+            // [43200, 2883, 100302, 1], // 12h @ unlocked Duskweaving
+            // [30240, 2883, 100302, 21], // 8h24m @ 20 points in Duskweaving
+        ],
+    },
     {
         type: 'spell',
         key: 'twwDawnweave',
