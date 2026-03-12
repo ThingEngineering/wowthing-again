@@ -72,10 +72,10 @@
 {#await auctionsCommoditiesSpecificStore.search(regionIds, itemIds)}
     L O A D I N G . . .
 {:then commodities}
-    {#if slug === 'all'}
+    {#if slug === 'all' || slug === 'collectors'}
         <div class="wrapper-column">
             {#each sortedProfessions as profession}
-                <Table {commodities} {profession} />
+                <Table {commodities} {profession} {slug} />
             {/each}
         </div>
     {:else}

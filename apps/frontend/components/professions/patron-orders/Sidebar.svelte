@@ -11,6 +11,10 @@
             name: 'All',
             slug: 'all',
         },
+        {
+            name: 'Collectors',
+            slug: 'collectors',
+        },
         null,
         ...sortedProfessions.map((prof) => ({
             name: `:profession-${prof.id}: ${prof.name.split('|')[0]}`,
@@ -18,8 +22,5 @@
         })),
     ] as SidebarItem[]);
 </script>
-
-<style lang="scss">
-</style>
 
 <Sidebar baseUrl="/professions/patron-orders" items={categories} width="10rem"></Sidebar>
