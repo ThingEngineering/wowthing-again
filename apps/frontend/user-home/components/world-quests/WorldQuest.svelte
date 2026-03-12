@@ -19,11 +19,23 @@
 
     let { worldQuest }: { worldQuest: ApiWorldQuest } = $props();
 
+    let staticWorldQuest = $derived(wowthingData.static.worldQuestById.get(worldQuest.questId));
+    let questInfo = $derived(wowthingData.static.questInfoById.get(staticWorldQuest?.questInfoId));
+
     let hoursRemaining = $derived(
         worldQuest.expires.diff(timeState.slowTime).toMillis() / 1000 / 60 / 60
     );
-    let staticWorldQuest = $derived(wowthingData.static.worldQuestById.get(worldQuest.questId));
-    let questInfo = $derived(wowthingData.static.questInfoById.get(staticWorldQuest?.questInfoId));
+    let strokeColor = $derived.by(() => {
+        if (hoursRemaining < 6) {
+            return 'var(--color-fail)';
+        } else if (hoursRemaining < 12) {
+            return 'var(--color-warn)';
+        } else if (hoursRemaining < 24) {
+            return 'var(--color-shrug)';
+        } else {
+            return 'var(--color-success)';
+        }
+    });
 
     let [iconName, rewardString] = $derived.by(() => {
         let retIcon: string = undefined;
@@ -59,25 +71,31 @@
         position: absolute;
         top: var(--top);
         transform: translateX(-50%) translateY(-18px);
-        width: 36px;
+        width: 50px;
 
         &:hover {
             z-index: 100;
         }
-    }
-    .world-quest-icon,
-    .world-quest-amount {
-        background: var(--color-highlight-background);
-        border: 2px solid var(--image-border-color, var(--border-color));
+        :global(a) {
+            overflow: auto;
+        }
     }
     .world-quest-icon {
         --image-border-width: 0;
 
+        background: var(--color-highlight-background);
         border-radius: 50%;
-        height: 36px;
-        overflow: hidden;
+        height: 50px;
         position: relative;
-        width: 36px;
+        width: 50px;
+
+        :global(img) {
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
     }
     .world-quest-faction {
         --image-border-radius: 50%;
@@ -96,6 +114,8 @@
         right: -8px;
     }
     .world-quest-amount {
+        background: var(--color-highlight-background);
+        border: 2px solid var(--image-border-color, var(--border-color));
         border-radius: var(--border-radius-small);
         font-size: 95%;
         line-height: 1;
@@ -107,12 +127,13 @@
 
 {#if worldQuest.expires > timeState.slowTime}
     <div
-        class="world-quest drop-shadow"
-        class:border-success={hoursRemaining >= 12}
-        class:border-shrug={hoursRemaining < 12 && hoursRemaining >= 6}
-        class:border-fail={hoursRemaining < 6}
+        class="world-quest"
+        class:status-success={hoursRemaining >= 12}
+        class:status-shrug={hoursRemaining < 12 && hoursRemaining >= 6}
+        class:status-fail={hoursRemaining < 6}
         data-id={worldQuest.questId}
         style="--left: {worldQuest.locationX}%; --top: {worldQuest.locationY}%;"
+        style:--stroke={strokeColor}
         use:componentTooltip={{
             component: Tooltip,
             props: {
@@ -126,6 +147,35 @@
     >
         <WowheadLink id={worldQuest.questId} type="quest" toComments={true}>
             <div class="world-quest-icon">
+                <svg
+                    width="50"
+                    height="50"
+                    viewBox="0 0 50 50"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style="transform:rotate(-90deg)"
+                >
+                    <circle
+                        r="20"
+                        cx="25"
+                        cy="25"
+                        fill="transparent"
+                        stroke="#101418"
+                        stroke-width="6"
+                    ></circle>
+                    <circle
+                        r="21"
+                        cx="25"
+                        cy="25"
+                        stroke="var(--stroke)"
+                        stroke-width="6"
+                        stroke-linecap="round"
+                        stroke-dashoffset="{130 - (Math.min(48, hoursRemaining) / 48) * 130}px"
+                        fill="transparent"
+                        stroke-dasharray="130px"
+                    ></circle>
+                </svg>
+
                 {#if iconName}
                     <WowthingImage name={iconName} size={32} border={0} />
                 {:else}

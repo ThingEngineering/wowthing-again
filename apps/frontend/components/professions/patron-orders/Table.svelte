@@ -1,6 +1,7 @@
 <script lang="ts">
     import { imageStrings } from '@/data/icons';
-    import type { StaticDataProfession } from '@/shared/stores/static/types'
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import type { StaticDataProfession } from '@/shared/stores/static/types';
     import type { Character } from '@/types';
     import type { CommodityData } from './auction-store';
 
@@ -11,16 +12,21 @@
 
     export let commodities: CommodityData;
     export let profession: StaticDataProfession;
+    export let slug: string = undefined;
 
-    let filterFunc: (char: Character) => boolean
+    let filterFunc: (char: Character) => boolean;
     $: {
         if (profession) {
-            filterFunc = (char) => profession &&
+            filterFunc = (char) =>
+                profession &&
                 !!char.professions?.[profession.id] &&
-                char.patronOrders?.[profession.id] !== undefined
-        }
-        else {
-            filterFunc = () => false
+                char.patronOrders?.[profession.id] !== undefined &&
+                (slug !== 'collectors' ||
+                    settingsState.value.professions.collectingCharactersV2[profession.id]?.includes(
+                        char.id
+                    ));
+        } else {
+            filterFunc = () => false;
         }
     }
 </script>
@@ -35,7 +41,7 @@
         height: 1.5rem;
     }
     .header-spacer {
-        width: 27.7rem; 
+        width: 27.7rem;
     }
     .rewards {
         text-align: center;
@@ -51,11 +57,7 @@
     <CharacterTable {filterFunc} showEmpty={false}>
         <CharacterTableHead slot="head">
             <svelte:fragment slot="headText">
-                <WowthingImage
-                    name={imageStrings[profession.slug]}
-                    size={20}
-                    border={1}
-                />
+                <WowthingImage name={imageStrings[profession.slug]} size={20} border={1} />
                 {profession.name.split('|')[0]}
             </svelte:fragment>
 
@@ -69,11 +71,7 @@
         </CharacterTableHead>
 
         <svelte:fragment slot="rowExtra" let:character>
-            <TableCell
-                {character}
-                {commodities}
-                {profession}
-            />
+            <TableCell {character} {commodities} {profession} />
         </svelte:fragment>
     </CharacterTable>
 {/if}
