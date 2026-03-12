@@ -56,7 +56,7 @@ export const midnightMining: TaskProfession = {
         {
             itemId: 250444, // Echo of Abundance: Mining
             questId: 92187,
-            source: '???',
+            source: 'AB',
         },
         {
             itemId: 250924, // Whisper of the Loa: Leatherworking

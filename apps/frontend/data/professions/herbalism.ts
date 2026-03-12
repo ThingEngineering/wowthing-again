@@ -56,7 +56,7 @@ export const midnightHerbalism: TaskProfession = {
         {
             itemId: 250443, // Echo of Abundance: Herbalism
             questId: 92174,
-            source: '???',
+            source: 'AB',
         },
         {
             itemId: 258410, // Traditions of the Hara'nir: Herbalism

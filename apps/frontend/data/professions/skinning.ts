@@ -56,7 +56,7 @@ export const midnightSkinning: TaskProfession = {
         {
             itemId: 250445, // Echo of Abundance: Skinning
             questId: 92188,
-            source: '???',
+            source: 'AB',
         },
         {
             itemId: 250923, // Whisper of the Loa: Skinning

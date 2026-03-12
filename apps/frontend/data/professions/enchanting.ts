@@ -66,7 +66,7 @@ export const midnightEnchanting: TaskProfession = {
         {
             itemId: 250445, // Echo of Abundance: Enchanting
             questId: 92186,
-            source: '???',
+            source: 'AB',
         },
         {
             itemId: 257600, // Skill Issue: Enchanting

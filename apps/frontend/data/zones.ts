@@ -33,6 +33,11 @@ export const midnightZones: ProfessionZone[] = [
     },
     null,
     {
+        name: 'Abundance Books',
+        icon: 'achievement/62341',
+        shortName: 'AB',
+    },
+    {
         name: 'Amani Tribe Books',
         icon: 'achievement/62263',
         shortName: 'AT',
