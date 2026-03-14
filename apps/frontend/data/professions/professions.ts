@@ -168,3 +168,9 @@ export const midnightProfessions: TaskProfession[] = [
 export const midnightProfessionMap: Record<number, TaskProfession> = Object.fromEntries(
     midnightProfessions.map((profession) => [profession.id, profession])
 );
+
+export const expansionProfessionMap: Record<number, typeof midnightProfessionMap> = {
+    9: dragonflightProfessionMap,
+    10: warWithinProfessionMap,
+    11: midnightProfessionMap,
+};

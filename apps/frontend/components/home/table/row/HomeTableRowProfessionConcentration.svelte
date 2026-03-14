@@ -87,7 +87,6 @@
                     settingsState.value.professions.fullConcentrationIsBad,
                     percent
                 )}"
-                class:faded={['leatherworking', 'tailoring'].includes(profession.slug)}
                 data-tooltip={tooltip}
             >
                 <WowthingImage name={imageStrings[profession.slug]} size={20} border={1} />

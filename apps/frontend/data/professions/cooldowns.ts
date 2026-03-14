@@ -1,4 +1,5 @@
 import { Profession } from '@/enums/profession';
+import { DbResetType } from '@/shared/stores/db/enums';
 import type { ProfessionCooldownQuest, ProfessionCooldownSpell } from '@/types';
 
 export const expansionProfessionConcentration: Record<number, Record<number, number>> = {
@@ -393,6 +394,51 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
     },
 
     // Skinning
+    {
+        type: 'quest',
+        key: 'midProfessionSkinningGloomclaw',
+        name: '[Mid] Skin Gloomclaw (Eversong)',
+        profession: Profession.Skinning,
+        minimumLevel: 80,
+        reset: DbResetType.Daily,
+        ids: [88545],
+    },
+    {
+        type: 'quest',
+        key: 'midProfessionSkinningSilverscale',
+        name: "[Mid] Skin Silverscale (Zul'Aman)",
+        profession: Profession.Skinning,
+        minimumLevel: 80,
+        reset: DbResetType.Daily,
+        ids: [88526],
+    },
+    {
+        type: 'quest',
+        key: 'midProfessionSkinningLumenfin',
+        name: '[Mid] Skin Lumenfin (Harandar)',
+        profession: Profession.Skinning,
+        minimumLevel: 80,
+        reset: DbResetType.Daily,
+        ids: [88531],
+    },
+    {
+        type: 'quest',
+        key: 'midProfessionSkinningUmbrafang',
+        name: '[Mid] Skin Umbrafang (Voidstorm)',
+        profession: Profession.Skinning,
+        minimumLevel: 80,
+        reset: DbResetType.Daily,
+        ids: [88532],
+    },
+    {
+        type: 'quest',
+        key: 'midProfessionSkinningNetherscythe',
+        name: '[Mid] Skin Netherscythe (Voidstorm)',
+        profession: Profession.Skinning,
+        minimumLevel: 80,
+        reset: DbResetType.Daily,
+        ids: [88524],
+    },
     {
         type: 'quest',
         key: 'twwProfessionSkinningSlatefang',

@@ -54,7 +54,7 @@ export const midnightSkinning: TaskProfession = {
     ],
     bookQuests: [
         {
-            itemId: 250445, // Echo of Abundance: Skinning
+            itemId: 250360, // Echo of Abundance: Skinning
             questId: 92188,
             source: 'AB',
         },
