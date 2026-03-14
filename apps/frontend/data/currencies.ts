@@ -455,8 +455,11 @@ export const currencyItems: Record<number, number[]> = {
     264: [
         264882, // Finery Funds
         255826, // Mysterious Skyshards
+        245345, // Fused Vitality
+        null,
         242241, // Latent Arcana
         246951, // Stormarion Core
+        null,
         262636, // Anguish-Scribed Rune [hunts, uncommon]
         262637, // Anguish-Infused Rune [hunts, rare]
         262638, // Anguish-Permeated Rune [hunts, epic]
