@@ -1,4 +1,6 @@
 <script lang="ts">
+    import uniq from 'lodash/uniq';
+
     import { uiIcons } from '@/shared/icons';
     import type { SettingsChoice } from '@/shared/stores/settings/types';
 
@@ -31,21 +33,27 @@
     );
 
     let activeItems = $derived(
-        (activeNumberIds !== undefined
-            ? activeNumberIds.map((id) => choices.find((item) => item.id === id.toString()))
-            : activeStringIds.map((id) => choices.find((item) => item.id === id))
-        ).filter((item) => !!item)
+        uniq(
+            (activeNumberIds !== undefined
+                ? activeNumberIds.map((id) => choices.find((item) => item.id === id.toString()))
+                : activeStringIds.map((id) => choices.find((item) => item.id === id))
+            ).filter((item) => !!item)
+        )
     );
     let inactiveItems = $derived(
-        choices
-            .filter(
-                (item) =>
-                    (activeNumberIds !== undefined
-                        ? !activeNumberIds.includes(parseInt(item.id))
-                        : !activeStringIds.includes(item.id)) &&
-                    filterWords.every((word) => item.name.toLocaleLowerCase().indexOf(word) >= 0)
-            )
-            .slice(0, maxItems)
+        uniq(
+            choices
+                .filter(
+                    (item) =>
+                        (activeNumberIds !== undefined
+                            ? !activeNumberIds.includes(parseInt(item.id))
+                            : !activeStringIds.includes(item.id)) &&
+                        filterWords.every(
+                            (word) => item.name.toLocaleLowerCase().indexOf(word) >= 0
+                        )
+                )
+                .slice(0, maxItems)
+        )
     );
 
     function onActiveChange() {
