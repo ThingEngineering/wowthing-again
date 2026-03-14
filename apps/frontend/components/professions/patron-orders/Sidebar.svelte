@@ -3,6 +3,8 @@
     import type { StaticDataProfession } from '@/shared/stores/static/types';
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
+    import { browserState } from '@/shared/state/browser.svelte';
 
     let { sortedProfessions }: { sortedProfessions: StaticDataProfession[] } = $props();
 
@@ -23,4 +25,13 @@
     ] as SidebarItem[]);
 </script>
 
-<Sidebar baseUrl="/professions/patron-orders" items={categories} width="10rem"></Sidebar>
+<Sidebar baseUrl="/professions/patron-orders" items={categories} width="10rem">
+    <svelt:fragment slot="after">
+        <CheckboxInput
+            name="patron_unknown"
+            bind:value={browserState.current.professions.patronOrdersUnknown}
+        >
+            Unknown recipes
+        </CheckboxInput>
+    </svelt:fragment>
+</Sidebar>
