@@ -1,6 +1,7 @@
 import type { DateTime } from 'luxon';
 
 import type { Profession } from '@/enums/profession';
+import type { DbResetType } from '@/shared/stores/db/enums';
 
 export interface ProfessionCooldown {
     data: ProfessionCooldownQuest | ProfessionCooldownSpell;
@@ -18,6 +19,7 @@ export interface ProfessionCooldownQuest {
     name: string;
     profession: Profession;
     minimumLevel?: number;
+    reset?: DbResetType;
     unimportant?: boolean;
     ids: number[];
 }
