@@ -89,6 +89,9 @@
         position: relative;
         width: 50px;
 
+        svg {
+            filter: brightness(0.75);
+        }
         :global(img) {
             border-radius: 50%;
             position: absolute;
