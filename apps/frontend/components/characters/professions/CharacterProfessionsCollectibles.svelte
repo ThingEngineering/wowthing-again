@@ -4,7 +4,7 @@
 
     import { Constants } from '@/data/constants';
     import { expansionSlugMap } from '@/data/expansion';
-    import { dragonflightProfessionMap, warWithinProfessionMap } from '@/data/professions';
+    import { expansionProfessionMap } from '@/data/professions';
     import { zoneShortName } from '@/data/zones';
     import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
@@ -39,9 +39,7 @@
             return;
         }
 
-        return expansion.id === 9
-            ? dragonflightProfessionMap[staticProfession.id]
-            : warWithinProfessionMap[staticProfession.id];
+        return expansionProfessionMap[expansion.id][staticProfession.id];
     });
 
     let things = $derived.by(() => {
