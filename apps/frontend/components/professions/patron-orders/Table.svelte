@@ -10,25 +10,25 @@
     import TableCell from './TableCell.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let commodities: CommodityData;
-    export let profession: StaticDataProfession;
-    export let slug: string = undefined;
+    type Props = {
+        commodities: CommodityData;
+        profession?: StaticDataProfession;
+        slug?: string;
+    };
+    let { commodities, profession, slug }: Props = $props();
 
-    let filterFunc: (char: Character) => boolean;
-    $: {
-        if (profession) {
-            filterFunc = (char) =>
-                profession &&
-                !!char.professions?.[profession.id] &&
-                char.patronOrders?.[profession.id] !== undefined &&
-                (slug !== 'collectors' ||
-                    settingsState.value.professions.collectingCharactersV2[profession.id]?.includes(
-                        char.id
-                    ));
-        } else {
-            filterFunc = () => false;
-        }
-    }
+    let filterFunc: (char: Character) => boolean = $derived.by(() =>
+        profession
+            ? (char) =>
+                  profession &&
+                  !!char.professions?.[profession.id] &&
+                  char.patronOrders?.[profession.id] !== undefined &&
+                  (slug !== 'collectors' ||
+                      settingsState.value.professions.collectingCharactersV2[
+                          profession.id
+                      ]?.includes(char.id))
+            : () => false
+    );
 </script>
 
 <style lang="scss">
@@ -41,11 +41,11 @@
         height: 1.5rem;
     }
     .header-spacer {
-        width: 27.7rem;
+        width: 27rem;
     }
     .rewards {
         text-align: center;
-        width: 10.1rem;
+        width: 10.75rem;
     }
     .costs {
         flex-grow: 1;

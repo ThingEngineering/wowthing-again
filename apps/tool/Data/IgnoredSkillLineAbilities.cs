@@ -40,6 +40,15 @@ public static partial class Hardcoded
         433607, // TWW ??
         433608, // TWW ??
         430610, // TWW ??
+        1230772, // Mid ??
+        1230871, // Mid ??
+        1230879, // Mid ??
+        1230880, // Mid ??
+        1230881, // Mid ??
+        1230882, // Mid ??
+        1230884, // Mid ??
+        1233131, // Mid ??
+        1233139, // Mid ??
 
         // Blacksmithing
         2671, // Rough Bronze Bracers
@@ -197,6 +206,10 @@ public static partial class Hardcoded
         178242, // Gearspring Parts (dupe for max results?)
         407170, // Inspired Order Recalibrator (temporary legendary craft)
         473408, // Housing Crafting Test Recipe
+        1229918, // Mid ??
+        1229925, // Mid ??
+        1229929, // Mid ??
+        1261938, // Mid ??
 
         // Inscription
         130407, // MoP Mystery of the Mists
@@ -204,6 +217,7 @@ public static partial class Hardcoded
         178550, // WoD Borrow Draenic Mortar
         343687, // Shadowlands ??
         422337, // Lydaria's Binding Rune (temporary legendary craft)
+        1230063, // Mid ??
 
         // Jewelcrafting
         25614, // Silver Rose Pendant
@@ -246,6 +260,11 @@ public static partial class Hardcoded
         176314, // [A] Fearsome Battle Standard (garrison building craft)
         176315, // [H] Inspiring Battle Standard (garrison building craft)
         176316, // [H] Fearsome Battle Standard (garrison building craft)
+        1228435, // Mid ??
+        1228998, // Mid ??
+        1228999, // Mid ??
+        1230770, // Mid ??
+        1279126, // Mid ??
 
         // Tailoring ranks?
         3908,

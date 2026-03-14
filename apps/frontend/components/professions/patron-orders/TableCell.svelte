@@ -8,6 +8,7 @@
     import type { CommodityData } from './auction-store';
 
     import Order from './Order.svelte';
+    import { browserState } from '@/shared/state/browser.svelte';
 
     type Props = CharacterProps & {
         commodities: CommodityData;
@@ -19,7 +20,12 @@
     let activeOrders = $derived(
         sortBy(
             character.patronOrders?.[profession.id]?.filter(
-                (order) => order.expirationTime > now
+                (order) =>
+                    order.expirationTime > now &&
+                    (browserState.current.professions.patronOrdersUnknown ||
+                        character.professions?.[profession.id]?.knownRecipes?.has(
+                            order.skillLineAbilityId
+                        ))
             ) || [],
             (order) => `${order.expirationTime}:${wowthingData.items.items[order.itemId]?.name}`
         )
@@ -28,8 +34,11 @@
 
 <style lang="scss">
     td {
+        --padding: 0;
+
         border-left: 1px solid var(--border-color);
-        padding: 0 0.3rem;
+        padding-bottom: 0;
+        padding-top: 0;
         width: calc(5rem + 2.3rem + 20rem + 0.5rem);
     }
 </style>

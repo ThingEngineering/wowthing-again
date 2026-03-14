@@ -181,13 +181,13 @@ export const currencyExtra: Record<number, number[]> = {
         3199, // Blacksmithing
         3198, // Enchanting
         3197, // Engineering
-        3196, // Herbalism
         3195, // Inscription
         3194, // Jewelcrafting
         3193, // Leatherworking
+        3190, // Tailoring
+        3196, // Herbalism
         3192, // Mining
         3191, // Skinning
-        3190, // Tailoring
     ],
     // Midnight - Season 1
     126411: [
@@ -455,8 +455,11 @@ export const currencyItems: Record<number, number[]> = {
     264: [
         264882, // Finery Funds
         255826, // Mysterious Skyshards
+        245345, // Fused Vitality
+        null,
         242241, // Latent Arcana
         246951, // Stormarion Core
+        null,
         262636, // Anguish-Scribed Rune [hunts, uncommon]
         262637, // Anguish-Infused Rune [hunts, rare]
         262638, // Anguish-Permeated Rune [hunts, epic]

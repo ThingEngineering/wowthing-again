@@ -110,6 +110,9 @@ interface BrowserStateIdk {
         xAxis: string[];
         yAxis: string[];
     };
+    professions: {
+        patronOrdersUnknown: boolean;
+    };
     reputations: {
         sortOrder: Record<string, number[]>;
     };
@@ -262,6 +265,9 @@ const initialState: BrowserStateIdk = {
         showEmptyRows: false,
         xAxis: [],
         yAxis: [],
+    },
+    professions: {
+        patronOrdersUnknown: true,
     },
     reputations: {
         sortOrder: {},

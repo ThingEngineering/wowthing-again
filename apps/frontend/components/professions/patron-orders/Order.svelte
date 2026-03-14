@@ -73,7 +73,7 @@
     .flex-wrapper {
         --image-margin-top: -4px;
 
-        align-items: stretch;
+        align-items: center;
         justify-content: start;
 
         &:not(:last-child) {
