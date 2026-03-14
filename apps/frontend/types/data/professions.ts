@@ -3,7 +3,7 @@ import type { Profession } from '@/enums/profession';
 export interface TaskProfessionQuest {
     itemId: number;
     points?: number;
-    questId: number;
+    questId?: number;
     source?: string;
     costs?: {
         amount: number;
