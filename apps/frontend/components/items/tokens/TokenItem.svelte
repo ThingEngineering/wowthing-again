@@ -21,7 +21,7 @@
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
     import TooltipAlreadyHave from '@/components/tooltips/auction-already-have/TooltipAuctionAlreadyHave.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
@@ -230,7 +230,7 @@
                         {#if intersected}
                             <WowheadLink id={expandedItemId} type="item">
                                 <span class="slot">
-                                    <IconifyIcon
+                                    <IconifyWrapper
                                         dropShadow={true}
                                         icon={showItemIcon
                                             ? weaponSubclassIcons[expandedItem?.subclassId]

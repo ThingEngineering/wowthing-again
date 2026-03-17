@@ -13,7 +13,7 @@
 
     import CraftLevels from './CharacterProfessionsProfessionCraftLevels.svelte';
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import SkillRanks from './CharacterProfessionsProfessionSkillRanks.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
@@ -224,8 +224,8 @@
                                                 {@const hasCrafted = userState.quests.characterById
                                                     .get(character.id)
                                                     .hasQuestById.has(ability.firstCraftQuestId)}
-                                                <IconifyIcon
-                                                    extraClass={hasCrafted
+                                                <IconifyWrapper
+                                                    cls={hasCrafted
                                                         ? 'status-success'
                                                         : 'status-fail'}
                                                     icon={hasCrafted ? uiIcons.yes : uiIcons.no}

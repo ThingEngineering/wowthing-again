@@ -16,7 +16,7 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import { iconLibrary } from '@/shared/icons';
 
     const slotOrder = bestTypeOrder.concat(weaponSubclassOrder.map((sub) => sub + 100));
@@ -168,7 +168,7 @@
 
                                 {#if isPrimary}
                                     <span class="primary-in-slot">
-                                        <IconifyIcon icon={iconLibrary.hisExclamationCircle} />
+                                        <IconifyWrapper icon={iconLibrary.hisExclamationCircle} />
                                     </span>
                                 {/if}
                             </div>

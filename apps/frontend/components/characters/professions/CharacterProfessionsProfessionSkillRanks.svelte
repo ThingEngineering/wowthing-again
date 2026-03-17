@@ -2,7 +2,7 @@
     import { uiIcons } from '@/shared/icons';
     import type { StaticDataProfessionAbility } from '@/shared/stores/static/types';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
 
     type Props = {
@@ -39,7 +39,7 @@
                 id={index === 0 ? ability.spellId : ability.extraRanks[index - 1][1]}
                 type="spell"
             >
-                <IconifyIcon
+                <IconifyWrapper
                     icon={index < currentRank && userHas ? uiIcons.starFull : uiIcons.starEmpty}
                 />
             </WowheadLink>

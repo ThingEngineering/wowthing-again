@@ -1,5 +1,3 @@
-import type { IconifyIcon } from '@iconify/types';
-
 import { iconStrings } from '@/data/icons';
 import { ArmorType } from '@/enums/armor-type';
 import { RewardType } from '@/enums/reward-type';
@@ -14,11 +12,12 @@ import {
 } from '@/shared/icons/mappings';
 import { wowthingData } from '@/shared/stores/data';
 import type { ManualDataZoneMapDrop } from '@/types/data/manual';
+import type { Icon } from '@/types/icons';
 
-export function getDropIcon(drop: ManualDataZoneMapDrop, isCriteria: boolean): IconifyIcon {
+export function getDropIcon(drop: ManualDataZoneMapDrop, isCriteria: boolean): Icon {
     const manualData = wowthingData.manual;
 
-    let icon: IconifyIcon;
+    let icon: Icon;
     if (isCriteria) {
         icon = iconStrings['list'];
     } else if (drop.type === RewardType.Armor) {

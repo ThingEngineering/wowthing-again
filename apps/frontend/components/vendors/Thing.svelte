@@ -1,6 +1,4 @@
 <script lang="ts">
-    import type { ComponentProps } from 'svelte';
-
     import { Faction } from '@/enums/faction';
     import { iconLibrary } from '@/shared/icons';
     import { lookupTypeIcons } from '@/shared/icons/mappings';
@@ -9,13 +7,14 @@
     import { lazyState } from '@/user-home/state/lazy';
     import { getClassesFromMask } from '@/utils/get-classes-from-mask';
     import getPercentClass from '@/utils/get-percent-class';
+    import type { Icon } from '@/types/icons';
     import type { ThingData } from '@/types/vendors';
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
     import CurrencyLink from '@/shared/components/links/CurrencyLink.svelte';
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
@@ -113,9 +112,9 @@
     }
 </style>
 
-{#snippet hoverIcon(icon: ComponentProps<IconifyIcon>['icon'])}
+{#snippet hoverIcon(icon: Icon)}
     <div class="icon icon-class quality1 drop-shadow">
-        <IconifyIcon {icon} />
+        <IconifyWrapper {icon} />
     </div>
 {/snippet}
 
@@ -195,7 +194,7 @@
             </div>
         {:else if (thing.bonusIds || []).includes(999999)}
             <div class="icon icon-class status-shrug drop-shadow">
-                <IconifyIcon icon={iconLibrary.gameDiceRandom} />
+                <IconifyWrapper icon={iconLibrary.gameDiceRandom} />
             </div>
         {/if}
 

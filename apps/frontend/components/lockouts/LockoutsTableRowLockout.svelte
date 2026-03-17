@@ -8,7 +8,7 @@
     import type { CharacterLockout, InstanceDifficulty } from '@/types';
     import type { CharacterProps } from '@/types/props';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import TooltipLockout from '@/components/tooltips/lockout/TooltipLockout.svelte';
 
     type Props = CharacterProps & {
@@ -65,11 +65,11 @@
             <span>/</span>
             <span>{maxBosses}</span>
         {:else if lockout?.defeatedBosses >= maxBosses}
-            <IconifyIcon icon={uiIcons.starFull} />
+            <IconifyWrapper icon={uiIcons.starFull} />
         {:else if lockout?.defeatedBosses > 0}
-            <IconifyIcon icon={uiIcons.starHalf} />
+            <IconifyWrapper icon={uiIcons.starHalf} />
         {:else if settingsState.value.layout.showEmptyLockouts}
-            <IconifyIcon icon={uiIcons.starEmpty} />
+            <IconifyWrapper icon={uiIcons.starEmpty} />
         {/if}
     </td>
 {:else}
@@ -86,7 +86,7 @@
         }}
     >
         {#if settingsState.value.layout.showEmptyLockouts}
-            <IconifyIcon icon={uiIcons.starEmpty} />
+            <IconifyWrapper icon={uiIcons.starEmpty} />
         {/if}
     </td>
 {/if}

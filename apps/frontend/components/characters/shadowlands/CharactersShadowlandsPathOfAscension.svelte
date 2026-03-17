@@ -5,7 +5,7 @@
     import type { CharacterShadowlandsCovenantFeature } from '@/types';
     import type { CharacterProps } from '@/types/props';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
@@ -98,13 +98,13 @@
                         data-tooltip={`${fight.name} - ${ascensionFightOrder[questIndex]}`}
                     >
                         {#if characterHas}
-                            <IconifyIcon icon={uiIcons.starFull} />
+                            <IconifyWrapper icon={uiIcons.starFull} />
                         {:else if feature?.rank < fight.unlockRanks[questIndex]}
-                            <IconifyIcon icon={uiIcons.lock} extraClass="unavailable" />
+                            <IconifyWrapper icon={uiIcons.lock} cls="unavailable" />
                         {:else if (questIndex > 0 && !quests?.has(fight.fightQuestIds[Math.min(2, questIndex - 1)])) || !quests?.has(fight.unlockQuestId)}
-                            <IconifyIcon icon={uiIcons.lock} />
+                            <IconifyWrapper icon={uiIcons.lock} />
                         {:else}
-                            <IconifyIcon extraClass="status-shrug" icon={uiIcons.starEmpty} />
+                            <IconifyWrapper icon={uiIcons.starEmpty} cls="status-shrug" />
                         {/if}
                     </td>
                 {/each}

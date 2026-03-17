@@ -5,7 +5,7 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { newNavState } from '@/stores/local-storage';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
     import Tooltip from '@/components/tooltips/character-filter/TooltipCharacterFilter.svelte';
 
@@ -39,6 +39,6 @@
     />
 
     <button class="clear-filter" on:click={clearFilter}>
-        <IconifyIcon icon={iconLibrary.mdiClose} tooltip="Clear filter" />
+        <IconifyWrapper icon={iconLibrary.mdiClose} tooltip="Clear filter" />
     </button>
 </div>

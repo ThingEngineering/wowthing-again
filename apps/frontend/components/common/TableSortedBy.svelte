@@ -1,7 +1,7 @@
 <script lang="ts">
     import { iconLibrary } from '@/shared/icons';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 </script>
 
 <style lang="scss">
@@ -21,5 +21,5 @@
 </style>
 
 <div class="sorted-by drop-shadow">
-    <IconifyIcon icon={iconLibrary.mdiArrowDownBoldCircleOutline} />
+    <IconifyWrapper icon={iconLibrary.mdiArrowDownBoldCircleOutline} />
 </div>

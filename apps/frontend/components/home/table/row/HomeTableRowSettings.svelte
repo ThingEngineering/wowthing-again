@@ -6,7 +6,7 @@
     import type { Character } from '@/types/character';
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     export let character: Character;
 
@@ -65,10 +65,10 @@
 
 <td class="settings">
     <div class="settings-icon">
-        <IconifyIcon
+        <IconifyWrapper
             icon={iconLibrary.mdiCogOutline}
             tooltip="Character settings"
-            on:click={onClick}
+            onclick={onClick}
         />
 
         {#if $characterSettingsStore === character.id}

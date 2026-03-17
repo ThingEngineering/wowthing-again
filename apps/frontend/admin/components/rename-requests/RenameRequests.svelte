@@ -5,7 +5,7 @@
     import { iconLibrary } from '@/shared/icons';
     import type { RenameRequest } from './types';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     let renameRequests: RenameRequest[];
 
@@ -74,18 +74,18 @@
                     >
                     <td class="action status-success">
                         {#if !renameRequest.inUse}
-                            <IconifyIcon
+                            <IconifyWrapper
                                 icon={iconLibrary.mdiCheck}
                                 tooltip="Approve request"
-                                on:click={async () => await approveRequest(renameRequest.id)}
+                                onclick={async () => await approveRequest(renameRequest.id)}
                             />
                         {/if}
                     </td>
                     <td class="action status-fail">
-                        <IconifyIcon
+                        <IconifyWrapper
                             icon={iconLibrary.mdiClose}
                             tooltip="Decline request"
-                            on:click={async () => await declineRequest(renameRequest.id)}
+                            onclick={async () => await declineRequest(renameRequest.id)}
                         />
                     </td>
                 </tr>

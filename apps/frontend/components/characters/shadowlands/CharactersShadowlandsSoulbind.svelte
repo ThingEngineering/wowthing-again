@@ -5,7 +5,7 @@
     import type { Character, CharacterShadowlandsSoulbind } from '@/types';
     import type { StaticDataSoulbind } from '@/shared/stores/static/types';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import SpellLink from '@/shared/components/links/SpellLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
@@ -141,11 +141,11 @@
                                 size={48}
                                 border={2}
                             />
-                            <IconifyIcon dropShadow={true} icon={soulbindSockets[column[1]]} />
+                            <IconifyWrapper dropShadow={true} icon={soulbindSockets[column[1]]} />
                         </SpellLink>
                     {:else}
                         <div class="empty-socket" data-tooltip="Empty socket">
-                            <IconifyIcon dropShadow={true} icon={soulbindSockets[column[1]]} />
+                            <IconifyWrapper dropShadow={true} icon={soulbindSockets[column[1]]} />
                         </div>
                     {/if}
                 </div>

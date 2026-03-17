@@ -5,7 +5,7 @@
     import { toNiceNumber } from '@/utils/formatting/to-nice-number';
     import type { CharacterProps } from '@/types/props';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     type Props = CharacterProps & {
         choreName: string;
@@ -38,9 +38,9 @@
     data-full-task-name={fullTaskName}
 >
     {#if charChore?.status === QuestStatus.Completed}
-        <IconifyIcon icon={uiIcons.starFull} extraClass="status-success" />
+        <IconifyWrapper icon={uiIcons.starFull} cls="status-success" />
         <!-- {:else if charChore.countCompleted === charTask.countTotal}
-        <IconifyIcon icon={uiIcons.question} scale="0.75" /> -->
+        <IconifyWrapper icon={uiIcons.question} scale="0.75" /> -->
     {:else if charChore?.status === QuestStatus.InProgress}
         <span class="status-shrug">
             {toNiceNumber(charChore.progressCurrent, 0)} / {toNiceNumber(
@@ -49,6 +49,6 @@
             )}
         </span>
     {:else if charChore?.status === QuestStatus.NotStarted}
-        <IconifyIcon icon={uiIcons.starEmpty} extraClass="status-fail" />
+        <IconifyWrapper icon={uiIcons.starEmpty} cls="status-fail" />
     {/if}
 </td>

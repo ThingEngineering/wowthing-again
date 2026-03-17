@@ -6,7 +6,7 @@
     import getProgress from '@/utils/get-progress';
     import type { CharacterProps } from '@/types/props';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import TooltipProgress from '@/components/tooltips/progress/TooltipProgress.svelte';
 
     let { character }: CharacterProps = $props();
@@ -42,7 +42,7 @@
                 }}
             >
                 {#if data.have > 0 && data.have === data.total}
-                    <IconifyIcon icon={uiIcons.starFull} />
+                    <IconifyWrapper icon={uiIcons.starFull} />
                 {:else}
                     {data.have} / {data.total}
                 {/if}

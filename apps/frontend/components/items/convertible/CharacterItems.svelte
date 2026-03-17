@@ -6,7 +6,7 @@
     import { getItemUrl } from '@/utils/get-item-url';
     import type { LazyConvertibleCharacterItem } from '@/user-home/state/lazy/convertible.svelte';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
     let { data }: { data: LazyConvertibleCharacterItem[] } = $props();
@@ -75,8 +75,8 @@
         <div class="upgradeable-item">
             <span class="icons-left status-shrug drop-shadow">
                 {#if slotData.isPurchased}
-                    <IconifyIcon
-                        extraClass={slotData.canAfford ? 'status-shrug' : 'status-fail'}
+                    <IconifyWrapper
+                        cls={slotData.canAfford ? 'status-shrug' : 'status-fail'}
                         icon={iconLibrary.mdiCurrencyUsd}
                         scale="0.85"
                         tooltip="Purchase this item!"
@@ -84,8 +84,8 @@
                 {/if}
 
                 {#if slotData.isUpgradeable}
-                    <IconifyIcon
-                        extraClass={slotData.canUpgrade ? 'status-shrug' : 'status-fail'}
+                    <IconifyWrapper
+                        cls={slotData.canUpgrade ? 'status-shrug' : 'status-fail'}
                         icon={iconStrings.plus}
                         tooltip={slotData.canUpgrade
                             ? 'Upgrade this item!'
@@ -117,8 +117,8 @@
 
             <span class="icons-right status-shrug drop-shadow">
                 {#if slotData.isConvertible}
-                    <IconifyIcon
-                        extraClass={slotData.canConvert ? 'status-shrug' : 'status-fail'}
+                    <IconifyWrapper
+                        cls={slotData.canConvert ? 'status-shrug' : 'status-fail'}
                         icon={iconLibrary.gameShurikenAperture}
                         scale="0.85"
                         tooltip={slotData.canConvert

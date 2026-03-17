@@ -12,7 +12,7 @@
     import type { Character, CharacterGear } from '@/types';
 
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import type { ConvertibleCategoryUpgrade } from './convertible/types';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
@@ -226,7 +226,7 @@
                             {#if iconName}
                                 <WowthingImage border={0} name={iconName} size={20} />
                             {:else}
-                                <IconifyIcon icon={iconStrings['plus']} />
+                                <IconifyWrapper icon={iconStrings['plus']} />
                             {/if}
                         </div>
                     {/if}

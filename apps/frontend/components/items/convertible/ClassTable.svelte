@@ -14,7 +14,7 @@
     import CharacterItems from './CharacterItems.svelte';
     import CharacterTable from '@/components/character-table/CharacterTable.svelte';
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     type Props = {
         modifier: AppearanceModifier;
@@ -100,7 +100,7 @@
             {#each convertibleTypes as inventoryType (inventoryType)}
                 <td class="item-slot">
                     {#if data[inventoryType].modifiers[modifier].userHas}
-                        <IconifyIcon extraClass="status-success" icon={uiIcons.yes} />
+                        <IconifyWrapper cls="status-success" icon={uiIcons.yes} />
                     {:else}
                         <CharacterItems
                             data={data[inventoryType].modifiers[modifier].characters[
@@ -121,7 +121,7 @@
             {#each convertibleTypes as inventoryType (inventoryType)}
                 <td class="item-slot">
                     {#if data[inventoryType].modifiers[modifier].userHas}
-                        <IconifyIcon extraClass="status-success" icon={uiIcons.yes} />
+                        <IconifyWrapper cls="status-success" icon={uiIcons.yes} />
                     {:else}
                         ---
                     {/if}

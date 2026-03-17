@@ -20,7 +20,7 @@
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
@@ -192,7 +192,7 @@
                 <div
                     class="overlay player-class decor iconify-icon drop-shadow quality1 quality2-border"
                 >
-                    <IconifyIcon icon={iconLibrary.gameHouse} />
+                    <IconifyWrapper icon={iconLibrary.gameHouse} />
                 </div>
             {/if}
 
@@ -207,7 +207,7 @@
                     class="overlay buyable iconify-icon drop-shadow"
                     class:status-success={appearance.userHas}
                 >
-                    <IconifyIcon icon={iconLibrary.mdiBank} />
+                    <IconifyWrapper icon={iconLibrary.mdiBank} />
                 </div>
             {:else if appearance.userHas}
                 <CollectedIcon />
@@ -223,7 +223,7 @@
 
             {#if hardModeItemIds.has(dataItem.id)}
                 <div class="overlay hard-mode drop-shadow">
-                    <IconifyIcon icon={iconLibrary.mdiSkull} />
+                    <IconifyWrapper icon={iconLibrary.mdiSkull} />
                 </div>
             {/if}
 

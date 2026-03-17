@@ -1,9 +1,8 @@
-import type { IconifyIcon } from '@iconify/types';
-
 import * as iconLibrary from '../library';
 import { InventoryType } from '@/enums/inventory-type';
+import type { Icon } from '@/types/icons';
 
-export const inventoryTypeIcons: Record<InventoryType, IconifyIcon> = {
+export const inventoryTypeIcons: Record<InventoryType, Icon> = {
     [InventoryType.NonEquippable]: null,
     [InventoryType.Head]: iconLibrary.gameBarbute,
     [InventoryType.Neck]: iconLibrary.gameHeartNecklace,

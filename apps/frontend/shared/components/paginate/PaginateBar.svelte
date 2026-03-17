@@ -1,7 +1,7 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     export let page: number;
     export let pages: number;
@@ -45,11 +45,11 @@
 <div class="paginate border">
     {#if page > 1}
         <a href="{url}/1" data-tooltip="First page">
-            <IconifyIcon icon={iconStrings['page-first']} />
+            <IconifyWrapper icon={iconStrings['page-first']} />
         </a>
     {:else}
         <span>
-            <IconifyIcon icon={iconStrings['page-first']} />
+            <IconifyWrapper icon={iconStrings['page-first']} />
         </span>
     {/if}
 
@@ -81,11 +81,11 @@
 
     {#if page < pages}
         <a href="{url}/{pages}" data-tooltip="Last page">
-            <IconifyIcon icon={iconStrings['page-last']} />
+            <IconifyWrapper icon={iconStrings['page-last']} />
         </a>
     {:else}
         <span>
-            <IconifyIcon icon={iconStrings['page-last']} />
+            <IconifyWrapper icon={iconStrings['page-last']} />
         </span>
     {/if}
 

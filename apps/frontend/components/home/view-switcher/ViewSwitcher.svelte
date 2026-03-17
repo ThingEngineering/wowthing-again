@@ -8,7 +8,7 @@
     import { userState } from '@/user-home/state/user';
 
     import Holidays from './Holidays.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParagonQuests from '../table/paragon/ParagonQuests.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
@@ -93,7 +93,7 @@
                 data-tooltip="Settings"
                 use:link
             >
-                <IconifyIcon icon={iconLibrary.mdiCogOutline} />
+                <IconifyWrapper icon={iconLibrary.mdiCogOutline} />
             </a>
         {/if}
     </div>

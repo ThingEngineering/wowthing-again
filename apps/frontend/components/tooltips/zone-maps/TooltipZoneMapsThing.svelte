@@ -25,7 +25,7 @@
         ManualDataZoneMapFarm,
     } from '@/types/data/manual';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
@@ -189,7 +189,7 @@
         {/if}
 
         {#if farm.type === FarmType.Quest}
-            <IconifyIcon icon={iconStrings.exclamation} />
+            <IconifyWrapper icon={iconStrings.exclamation} />
         {/if}
 
         <ParsedText text={farm.isPhased ? `${farm.name} [Phased]` : farm.name} />
@@ -244,7 +244,7 @@
                             ? 'fail'
                             : 'success'}"
                     >
-                        <IconifyIcon icon={getDropIcon(drop, isCriteria)} />
+                        <IconifyWrapper icon={getDropIcon(drop, isCriteria)} />
                     </td>
                     <td class="name" class:status-success={!dropStatus.need}>
                         {#if drop.amount > 0}
@@ -328,7 +328,7 @@
                                     {@const achievement =
                                         wowthingData.achievements.achievementById.get(drop.id)}
                                     {#if drop.subType > 0}
-                                        <IconifyIcon
+                                        <IconifyWrapper
                                             icon={rewardTypeIcons[RewardType.Achievement]}
                                         />
                                         {achievement.name}

@@ -3,7 +3,7 @@
     import { settingsState } from '@/shared/state/settings.svelte';
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import NameTooltip from './characters/SettingsCharactersNameTooltip.svelte';
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte';
 </script>
@@ -110,7 +110,7 @@
             bind:value={settingsState.value.layout.showEmptyLockouts}
             name="layout_showEmptyLockouts"
         >
-            Show a <span class="status-fail"><IconifyIcon icon={uiIcons.starHalf} /></span>
+            Show a <span class="status-fail"><IconifyWrapper icon={uiIcons.starHalf} /></span>
             for empty lockouts.
         </CheckboxInput>
     </div>

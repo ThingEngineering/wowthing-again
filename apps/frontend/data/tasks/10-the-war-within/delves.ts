@@ -1,4 +1,4 @@
-import { iconComponents } from '@/shared/icons';
+import { iconLibrary } from '@/shared/icons';
 import { DbResetType } from '@/shared/stores/db/enums';
 import type { Task } from '@/types/tasks';
 
@@ -25,7 +25,7 @@ export const twwDelves: Task = {
         {
             key: 'gilded',
             name: 'Gilded Stash',
-            icon: iconComponents.GameCutDiamond,
+            icon: iconLibrary.GameCutDiamond,
             minimumLevel: 80,
             questReset: DbResetType.Weekly,
             questResetForced: true,
@@ -42,7 +42,7 @@ export const twwDelves: Task = {
         {
             key: 'map',
             name: 'Map Drop',
-            icon: iconComponents.GameTreasureMap,
+            icon: iconLibrary.GameTreasureMap,
             minimumLevel: 80,
             alwaysStarted: true,
             questReset: DbResetType.Weekly,

@@ -1,9 +1,8 @@
-import type { IconifyIcon } from '@iconify/types';
-
 import * as iconLibrary from '../library';
 import { LookupType } from '@/enums/lookup-type';
+import type { Icon } from '@/types/icons';
 
-export const lookupTypeIcons: Record<number, IconifyIcon> = {
+export const lookupTypeIcons: Record<number, Icon> = {
     [LookupType.Currency]: iconLibrary.gameTwoCoins,
     [LookupType.Decor]: iconLibrary.gameHouse,
     [LookupType.Illusion]: iconLibrary.mdiAutoFix,

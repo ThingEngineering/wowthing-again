@@ -6,7 +6,7 @@
     import { ItemLocation } from '@/enums/item-location';
     import type { HasNameAndRealm, UserItem } from '@/types/shared';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     type Props = {
         groupItems?: boolean;
@@ -92,7 +92,10 @@
                     {#each items as item}
                         <tr>
                             <td class="location drop-shadow">
-                                <IconifyIcon icon={itemLocationIcons[item.location]} scale="0.9" />
+                                <IconifyWrapper
+                                    icon={itemLocationIcons[item.location]}
+                                    scale="0.9"
+                                />
                             </td>
                             <td class="bag max-width">{item.containerName}</td>
                             <td class="slot max-width">Slot {item.slot}</td>

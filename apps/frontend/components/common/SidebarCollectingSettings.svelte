@@ -7,7 +7,7 @@
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '../../shared/components/parsed-text/ParsedText.svelte';
 
     let { showRemaining = false }: { showRemaining?: boolean } = $props();
@@ -80,7 +80,7 @@
 <div class="border collecting-settings">
     <button class="expand" on:click|preventDefault|stopPropagation={toggleExpanded}>
         Collecting Settings
-        <IconifyIcon
+        <IconifyWrapper
             icon={iconStrings['chevron-' + ($collectingSettingsState.expanded ? 'down' : 'right')]}
         />
     </button>

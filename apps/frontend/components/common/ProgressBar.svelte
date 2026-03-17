@@ -4,7 +4,7 @@
     import { iconStrings } from '@/data/icons';
     import { toNiceNumber } from '@/utils/formatting';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     type Props = {
         cls?: string;
@@ -103,7 +103,7 @@
         <span class="drop-shadow {textCls || ''}">
             {#if title}
                 {#if selected}
-                    <IconifyIcon icon={iconStrings['arrow-right']} />
+                    <IconifyWrapper icon={iconStrings['arrow-right']} />
                 {/if}
                 {#if typeof title === 'string'}
                     {title}

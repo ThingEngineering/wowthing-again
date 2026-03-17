@@ -1,9 +1,8 @@
-import type { IconifyIcon } from '@iconify/types';
-
 import * as iconLibrary from '../library';
 import { RewardType } from '@/enums/reward-type';
+import type { Icon } from '@/types/icons';
 
-export const rewardTypeIcons: Record<number, IconifyIcon> = {
+export const rewardTypeIcons: Record<number, Icon> = {
     [RewardType.Achievement]: iconLibrary.mdiTrophy,
     [RewardType.AccountQuest]: iconLibrary.mdiExclamationThick,
     [RewardType.Armor]: iconLibrary.mdiTshirtCrew,

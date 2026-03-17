@@ -8,7 +8,7 @@
     import type { CharacterCommodities } from './get-character-commodities';
     import type { CommodityData } from './store';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
@@ -77,9 +77,9 @@
     <thead>
         <tr>
             <td class="character-realm" colspan="2">
-                <IconifyIcon
+                <IconifyWrapper
                     icon={isExpanded ? uiIcons.minus : uiIcons.plus}
-                    on:click={() =>
+                    onclick={() =>
                         ($commoditiesState.expanded[characterData.characterId] = !isExpanded)}
                     tooltip={isExpanded ? 'Collapse this character' : 'Expand this character'}
                 />

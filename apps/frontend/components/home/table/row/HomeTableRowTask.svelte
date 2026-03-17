@@ -6,7 +6,7 @@
     import { userState } from '@/user-home/state/user';
     import type { CharacterProps } from '@/types/props';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     type Props = CharacterProps & {
         fullTaskName: string;
@@ -52,11 +52,11 @@
     >
         {#if Object.values(charTask.chores).filter((chore) => !chore.skipped).length === 1}
             {#if charTask.status === QuestStatus.Completed}
-                <IconifyIcon icon={uiIcons.starFull} />
+                <IconifyWrapper icon={uiIcons.starFull} />
             {:else if charTask.countCompleted === charTask.countTotal}
-                <IconifyIcon icon={uiIcons.question} scale="0.75" />
+                <IconifyWrapper icon={uiIcons.question} scale="0.75" />
             {:else if !inProgress}
-                <IconifyIcon icon={uiIcons.starEmpty} />
+                <IconifyWrapper icon={uiIcons.starEmpty} />
             {:else}
                 {charTask.countCompleted} / {charTask.countTotal}
             {/if}

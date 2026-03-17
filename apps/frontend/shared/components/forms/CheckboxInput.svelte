@@ -3,7 +3,7 @@
 
     import { iconLibrary } from '@/shared/icons';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     type Props = {
         name: string;
@@ -26,7 +26,7 @@
 <fieldset class="fancy-checkbox" class:disabled data-state={value}>
     <label for="input-{name}" class="text-overflow">
         <input id="input-{name}" {name} type="checkbox" bind:checked={value} on:change {disabled} />
-        <IconifyIcon
+        <IconifyWrapper
             icon={value ? iconLibrary.mdiCheckboxOutline : iconLibrary.mdiCheckboxBlankOutline}
         />
         <span class="text {textClass || ''}">

@@ -17,7 +17,7 @@
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import TableSet from './TableSet.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
@@ -345,9 +345,9 @@
                 {/if}
             </td>
             <td class="name highlight" colspan="100">
-                <IconifyIcon
+                <IconifyWrapper
                     icon={isExpanded ? uiIcons.minus : uiIcons.plus}
-                    on:click={() => ($transmogSetsState.collapsedCategories[groupKey] = isExpanded)}
+                    onclick={() => ($transmogSetsState.collapsedCategories[groupKey] = isExpanded)}
                     tooltip={isExpanded ? 'Collapse this group' : 'Expand this group'}
                 />
 
@@ -384,7 +384,7 @@
                                     class="has-transmog-set-id"
                                     data-tooltip="Uses a Blizzard transmog set"
                                 >
-                                    <IconifyIcon icon={iconLibrary.gameStaryu} scale="0.8" />
+                                    <IconifyWrapper icon={iconLibrary.gameStaryu} scale="0.8" />
                                 </span>
                             {/if}
                         </div>

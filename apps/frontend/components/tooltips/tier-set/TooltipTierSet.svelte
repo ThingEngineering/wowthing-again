@@ -6,7 +6,7 @@
     import type { CharacterProps } from '@/types/props';
     import type { LazyConvertibleCharacterItem } from '@/user-home/state/lazy/convertible.svelte';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     type Props = {
         tierSets: [string, number, number, LazyConvertibleCharacterItem?][][];
@@ -116,8 +116,8 @@
                                     )}"
                                 >
                                     {convertible.equippedItem.itemLevel}
-                                    <IconifyIcon
-                                        extraClass={convertible.canConvert
+                                    <IconifyWrapper
+                                        cls={convertible.canConvert
                                             ? 'status-shrug'
                                             : 'status-fail'}
                                         icon={iconLibrary.gameShurikenAperture}

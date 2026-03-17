@@ -120,6 +120,7 @@
     .name {
         padding-right: 1rem;
         text-align: left;
+        width: 100%;
 
         :global(.description-short) {
             color: #00ccff;

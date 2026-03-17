@@ -20,7 +20,7 @@
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
@@ -251,7 +251,7 @@
                                     target="_blank"
                                     data-tooltip="Find auctions"
                                 >
-                                    <IconifyIcon icon={iconLibrary.mdiBank} />
+                                    <IconifyWrapper icon={iconLibrary.mdiBank} />
                                 </a>
                             {/if}
                         </td>

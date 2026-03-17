@@ -12,7 +12,7 @@
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     import RaceIcon from '@/shared/components/images/RaceIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
@@ -242,7 +242,7 @@
                     iconStrings[dataString] ||
                     !imageStrings[dataString]
                 ) {
-                    mount(IconifyIcon, {
+                    mount(IconifyWrapper, {
                         target: span,
                         props: {
                             icon:

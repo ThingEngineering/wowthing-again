@@ -1,5 +1,5 @@
 <script lang="ts">
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import { inventoryTypeIcons } from '@/shared/icons/mappings';
     import { wowthingData } from '@/shared/stores/data';
     import type { Character, CharacterItem } from '@/types';
@@ -87,7 +87,7 @@
             {@const item = wowthingData.items.items[reward.itemId]}
             <tr>
                 <td class="icon">
-                    <IconifyIcon icon={inventoryTypeIcons[item.inventoryType]} />
+                    <IconifyWrapper icon={inventoryTypeIcons[item.inventoryType]} />
                 </td>
                 <td class="item-level">
                     {calculated.itemLevel}

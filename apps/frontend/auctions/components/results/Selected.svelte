@@ -6,7 +6,7 @@
     import { wowthingData } from '@/shared/stores/data';
     import { leftPad } from '@/utils/formatting';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     export let selected: string;
 
@@ -79,7 +79,7 @@
                             {#if realm.region === Region.EU && euLocales[realm.locale]}
                                 {@const { icon: countryIcon, name: countryName } =
                                     euLocales[realm.locale]}
-                                <IconifyIcon
+                                <IconifyWrapper
                                     dropShadow={true}
                                     icon={countryIcon}
                                     tooltip={`EU: ${countryName}`}

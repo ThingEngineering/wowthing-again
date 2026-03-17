@@ -5,7 +5,7 @@
     import { componentTooltip } from '@/shared/utils/tooltips';
     import type { ComponentTooltipProps } from '@/shared/utils/tooltips/types';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     export let clearButton = false;
     export let inputWidth: string = null;
@@ -57,7 +57,7 @@
 
     {#if clearButton}
         <button class="clear-text" class:disabled={!value} on:click={() => (value = '')}>
-            <IconifyIcon icon={iconLibrary.mdiClose} tooltip="Clear text" />
+            <IconifyWrapper icon={iconLibrary.mdiClose} tooltip="Clear text" />
         </button>
     {/if}
 

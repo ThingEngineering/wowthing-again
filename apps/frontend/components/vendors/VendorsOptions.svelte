@@ -3,7 +3,7 @@
     import { browserState } from '@/shared/state/browser.svelte';
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     let filters = $derived.by(() => {
         let byType1: string[] = [];
@@ -160,7 +160,7 @@
     >
         Filters: {filters}
 
-        <IconifyIcon
+        <IconifyWrapper
             icon={iconStrings[
                 'chevron-' + (browserState.current.vendors.filtersExpanded ? 'down' : 'right')
             ]}

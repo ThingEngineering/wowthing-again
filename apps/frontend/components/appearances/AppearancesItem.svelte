@@ -1,5 +1,3 @@
-<svelte:options immutable={true} />
-
 <script lang="ts">
     import { itemModifierMap } from '@/data/item-modifier';
     import { appearanceState } from '@/stores/local-storage';
@@ -9,28 +7,30 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let has: boolean;
-    export let modifiedAppearance: AppearanceDataModifiedAppearance;
+    type Props = {
+        has: boolean;
+        modifiedAppearance: AppearanceDataModifiedAppearance;
+    };
+    let { has, modifiedAppearance }: Props = $props();
 
-    let bonusId: number;
-    let difficulty: string;
-    let difficultyShort: string;
-    let imageName: string;
-    $: {
-        const mod = modifiedAppearance;
+    let imageName = $derived(
+        'item/' +
+            [
+                modifiedAppearance.itemId.toString(),
+                ...(modifiedAppearance.modifier > 0
+                    ? [modifiedAppearance.modifier.toString()]
+                    : []
+                ).join('_'),
+            ]
+    );
 
-        imageName = `item/${mod.itemId}`;
-        if (mod.modifier > 0) {
-            imageName += `_${mod.modifier}`;
-        }
-
-        if (itemModifierMap[mod.modifier]) {
-            [difficulty, difficultyShort, bonusId] = itemModifierMap[mod.modifier];
-        } else {
-            const modifierString = mod.modifier.toString();
-            [difficulty, difficultyShort, bonusId] = [modifierString, modifierString, 0];
-        }
-    }
+    let [difficulty, difficultyShort, bonusId] = $derived(
+        itemModifierMap[modifiedAppearance.modifier] || [
+            modifiedAppearance.modifier.toString(),
+            modifiedAppearance.modifier.toString(),
+            0,
+        ]
+    );
 </script>
 
 <style lang="scss">

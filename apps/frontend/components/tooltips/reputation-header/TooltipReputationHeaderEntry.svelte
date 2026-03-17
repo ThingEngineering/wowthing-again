@@ -10,7 +10,7 @@
         ManualDataReputationSet,
     } from '@/types/data/manual';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import { userState } from '@/user-home/state/user';
 
@@ -103,7 +103,7 @@
         {#each rewards as reward}
             <tr class:have={reward.have}>
                 <td class="type status-{reward.have ? 'success' : 'fail'}">
-                    <IconifyIcon icon={rewardTypeIcons[reward.type]} />
+                    <IconifyWrapper icon={rewardTypeIcons[reward.type]} />
                 </td>
                 <td class="name">
                     {reward.name}

@@ -6,7 +6,7 @@
     import getItemLevelQuality from '@/utils/get-item-level-quality';
     import type { CharacterProps } from '@/types/props';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
 
     type Props = CharacterProps & {
@@ -63,7 +63,7 @@
                     </td>
                     <td class="slots status-warn">
                         {#each missingSlots as missingSlot (missingSlot)}
-                            <IconifyIcon icon={inventoryTypeIcons[missingSlot]} />
+                            <IconifyWrapper icon={inventoryTypeIcons[missingSlot]} />
                         {/each}
                     </td>
                 </tr>
