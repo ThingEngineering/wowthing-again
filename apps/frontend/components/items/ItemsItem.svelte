@@ -100,11 +100,11 @@
 
 <style lang="scss">
     .gear {
-        height: 46px;
+        height: 48px;
         padding: 2px;
         position: relative;
         text-align: center;
-        width: 46px;
+        width: 48px;
 
         --image-border-width: 2px;
         --image-margin-top: 0;
