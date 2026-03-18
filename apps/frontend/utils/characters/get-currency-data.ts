@@ -49,11 +49,11 @@ export function getCurrencyData(
         }
 
         let extraTooltip: string;
-        let amount = characterCurrency.quantity;
         if (characterCurrency.remainingTime) {
             extraTooltip = `${toNiceDuration(characterCurrency.remainingTime)} to max!`;
         }
 
+        const amount = characterCurrency.quantity;
         ret.amount = toNiceNumber(amount);
         ret.amountRaw = amount;
 

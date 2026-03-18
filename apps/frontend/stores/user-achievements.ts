@@ -1,6 +1,7 @@
 import { get } from 'svelte/store';
 
 import { userModifiedStore } from './user-modified';
+import { wowthingData } from '@/shared/stores/data/store.svelte';
 import { WritableFancyStore } from '@/types/fancy-store';
 import {
     UserAchievementDataCategory,
@@ -9,8 +10,6 @@ import {
 import { userState } from '@/user-home/state/user';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type { AchievementsState } from '@/stores/local-storage';
-import type { AchievementData } from '@/types/achievement-data';
-import { wowthingData } from '@/shared/stores/data/store.svelte';
 
 export class UserAchievementDataStore extends WritableFancyStore<UserAchievementData> {
     get dataUrl(): string {

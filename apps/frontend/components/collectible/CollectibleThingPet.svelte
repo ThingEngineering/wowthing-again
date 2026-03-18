@@ -30,7 +30,6 @@
     let quality = $derived(
         maxBy(pets, (pet) => pet.quality)?.quality || thingQualityFunc(origId) || 1
     );
-    $inspect(quality);
     let showAsMissing = $derived(
         userHasThing ? collectibleState.highlightMissing : !collectibleState.highlightMissing
     );

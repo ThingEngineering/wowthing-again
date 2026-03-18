@@ -36,17 +36,6 @@
             return [charCatalyst.quantity, charCatalyst.max];
         }
     });
-
-    const gemToStat: Record<number, string> = {
-        238040: 'Crit', // Precise
-        238044: 'Crit', // Pure Precise
-        238039: 'Haste', // Chronomatic
-        238045: 'Haste', // Pure Chronomatic
-        238037: 'Mastery', // Energizing
-        238046: 'Mastery', // Pure Energizing
-        238041: 'Versatility', // Dexterous
-        238042: 'Versatility', // Pure Dexterous
-    };
 </script>
 
 <style lang="scss">

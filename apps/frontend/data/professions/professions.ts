@@ -29,7 +29,6 @@ import {
 import { dragonflightMining, midnightMining, warWithinMining } from './mining';
 import { dragonflightSkinning, midnightSkinning, warWithinSkinning } from './skinning';
 import { dragonflightTailoring, midnightTailoring, warWithinTailoring } from './tailoring';
-import { Expansion } from '@/enums/expansion';
 
 export const professionIdToSlug: Record<number, string> = {
     [Profession.Alchemy]: 'alchemy',

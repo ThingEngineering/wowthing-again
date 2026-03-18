@@ -9,7 +9,6 @@ import type {
     ItemSearchResponseItem,
 } from '@/types/items';
 import { userState } from '@/user-home/state/user';
-import { settingsState } from '@/shared/state/settings.svelte';
 
 type ItemSearchGroupBy = 'character' | 'item';
 

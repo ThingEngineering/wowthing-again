@@ -1,5 +1,5 @@
-import type { Character, CharacterMythicPlusAddonMapAffix, CharacterMythicPlusRun } from '@/types';
 import getFirstMatch from '../get-first-match';
+import type { CharacterMythicPlusAddonMapAffix, CharacterMythicPlusRun } from '@/types';
 
 const qualityBreakpoints: number[][] = [
     [26, 6],

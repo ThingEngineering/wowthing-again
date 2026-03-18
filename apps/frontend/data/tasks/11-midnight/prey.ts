@@ -104,7 +104,7 @@ const nightmareQuestIds: number[] = [
 ];
 
 const preyFunc = (questIds: number[], index: number) => {
-    return (char: Character, chore: Chore) => {
+    return (char: Character) => {
         const charQuests = userState.quests.characterById.get(char.id);
         const completedOrInProgress = questIds.filter(
             (questId) =>

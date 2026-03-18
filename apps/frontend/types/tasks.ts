@@ -1,6 +1,4 @@
 import type { DateTime } from 'luxon';
-import type { Component } from 'svelte';
-import type { SvelteHTMLElements } from 'svelte/elements';
 
 import type { Holiday } from '@/enums/holiday';
 import type { DbResetType } from '@/shared/stores/db/enums';
