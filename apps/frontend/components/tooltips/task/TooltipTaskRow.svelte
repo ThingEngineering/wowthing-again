@@ -5,6 +5,7 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { DbResetType } from '@/shared/stores/db/enums';
     import { userState } from '@/user-home/state/user';
+    import { getPercentStatusClass } from '@/utils/get-percent-class';
     import type { CharacterChore } from '@/user-home/state/user/types/tasks.svelte';
 
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
@@ -112,7 +113,7 @@
     .error-text {
         font-size: 0.95rem;
         text-align: left;
-        width: 7rem;
+        max-width: 7rem;
     }
     .status-text {
         color: #afffff;
@@ -193,6 +194,19 @@
                                     {#if charTaskChore.status === QuestStatus.Error}
                                         {charTaskChore.statusTexts[0]}
                                     {/if}
+                                </td>
+                            {:else if chore.questCount > 1}
+                                {@const cls = getPercentStatusClass(
+                                    ((chore.alwaysStarted
+                                        ? Math.max(1, charTaskChore.progressCurrent)
+                                        : charTaskChore.progressCurrent) /
+                                        charTaskChore.progressTotal) *
+                                        100
+                                )}
+                                <td class="error-text">
+                                    <ParsedText
+                                        text={`[|${cls}|${charTaskChore.progressCurrent}/${charTaskChore.progressTotal}]`}
+                                    />
                                 </td>
                             {/if}
                         </tr>

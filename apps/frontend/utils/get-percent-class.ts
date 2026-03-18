@@ -24,3 +24,17 @@ export default function getPercentClass(percent: number | UserCount): string {
         return 'quality1';
     }
 }
+
+export function getPercentStatusClass(percent: number): string {
+    if (percent === undefined) {
+        return 'status-fail';
+    }
+
+    if (percent >= 100) {
+        return 'status-success';
+    } else if (percent > 0) {
+        return 'status-shrug';
+    } else {
+        return 'status-fail';
+    }
+}

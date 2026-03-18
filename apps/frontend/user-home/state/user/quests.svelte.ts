@@ -1,3 +1,4 @@
+import sortBy from 'lodash/sortBy';
 import { SvelteSet } from 'svelte/reactivity';
 
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
@@ -45,6 +46,15 @@ export class DataUserQuests {
         }
         return ret;
     });
+
+    public mostRecentCharacter = $derived(
+        sortBy(
+            Array.from(this.characterById.values()).filter(
+                (charQuests) => !!charQuests.scannedTime
+            ),
+            (charQuests) => -charQuests.scannedTime
+        )[0]
+    );
 
     public progressQuestCharactersByKey = $derived.by(() => {
         const ret: Record<string, number[]> = {};

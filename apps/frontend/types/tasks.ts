@@ -29,6 +29,7 @@ export type Chore = {
     minimumLevel?: number;
     maximumLevel?: number;
     overrideNeed?: number;
+    questCount?: number;
     questIds?: number[] | ((char: Character, chore?: Chore) => number[]);
     questReset?: DbResetType;
     questResetForced?: boolean;
