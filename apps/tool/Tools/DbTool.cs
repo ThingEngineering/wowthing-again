@@ -62,7 +62,7 @@ public class DbTool
     private void LoadDbFiles()
     {
         ToolContext.Logger.Information("📁_db/");
-        var rootDirInfo = new DirectoryInfo(Path.Join(DataUtilities.DataPath, "_db"));
+        var rootDirInfo = new DirectoryInfo(Path.Join(DataUtilities.DataPath, "db"));
         RecurseDirectory(rootDirInfo, 0, null, new HashSet<int>(), new HashSet<int>());
     }
 
