@@ -30,17 +30,7 @@
     }
 </style>
 
-{#if 'props' in icon}
-    {@const Icon = icon as ComponentIcon}
-    <span
-        class={cls}
-        class:drop-shadow-single={dropShadow}
-        style:--scale={scale}
-        data-tooltip={tooltip}
-    >
-        <Icon />
-    </span>
-{:else}
+{#if 'body' in icon}
     {@const actualIcon = (icon || iconLibrary.mdiImageBrokenVariant) as IconifyIcon}
     <svg
         style:--scale={scale}
@@ -54,4 +44,14 @@
     >
         {@html actualIcon.body}
     </svg>
+{:else}
+    {@const Icon = icon as ComponentIcon}
+    <span
+        class={cls}
+        class:drop-shadow-single={dropShadow}
+        style:--scale={scale}
+        data-tooltip={tooltip}
+    >
+        <Icon />
+    </span>
 {/if}
