@@ -232,12 +232,21 @@ export const midChores12_0_0: Task = {
             ],
         },
         {
+            key: 'midWorldBossFirst',
+            name: 'World Boss (First)',
+            icon: iconLibrary.emojiZzz,
+            minimumLevel: 90,
+            accountWide: true,
+            questReset: DbResetType.Weekly,
+            questIds: [
+                92127, // Tracking quest?
+            ],
+        },
+        {
             key: 'midWorldBoss',
             name: 'World Boss',
             icon: iconLibrary.emojiZzz,
             minimumLevel: 90,
-            accountWide: true,
-            showQuestName: true,
             questReset: DbResetType.Weekly,
             questIds: [
                 // TODO from AreaPOI.db2, verify
