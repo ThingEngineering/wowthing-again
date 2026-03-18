@@ -7,6 +7,7 @@
     import CharacterTable from '@/components/character-table/CharacterTable.svelte';
     import Row from './TableRow.svelte';
     import Sidebar from './Sidebar.svelte';
+    import { settingsState } from '@/shared/state/settings.svelte';
 
     let { slug }: { slug: string } = $props();
 
@@ -15,6 +16,10 @@
     const filterFunc = (char: Character): boolean => {
         if (slug === 'all') {
             return true;
+        } else if (slug === 'collectors') {
+            return Object.values(settingsState.value.professions.collectingCharactersV2 || {}).some(
+                (characterIds) => characterIds.includes(char.id)
+            );
         } else if (slug === 'some') {
             return someProfessions.some((id) => !!char.professions?.[id]);
         } else {
@@ -27,7 +32,7 @@
 
 <Sidebar />
 
-{#if slug === 'all' || slug === 'some' || professionId}
+{#if slug === 'all' || slug === 'collectors' || slug === 'some' || professionId}
     <CharacterTable {filterFunc} skipIgnored={true}>
         <svelte:fragment slot="rowExtra" let:character>
             <Row {character} {professionId} {slug} />

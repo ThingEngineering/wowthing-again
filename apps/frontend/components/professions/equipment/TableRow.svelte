@@ -18,6 +18,7 @@
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import Item from '../../items/ItemsItem.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { settingsState } from '@/shared/state/settings.svelte';
 
     let { character, professionId, slug }: CharacterProps & { professionId: number; slug: string } =
         $props();
@@ -33,6 +34,14 @@
                 continue;
             }
 
+            if (
+                slug === 'collectors' &&
+                !settingsState.value.professions.collectingCharactersV2[profession.id]?.includes(
+                    character.id
+                )
+            ) {
+                continue;
+            }
             if (slug === 'some' && !someProfessions.includes(profession.id)) {
                 continue;
             }
