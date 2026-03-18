@@ -1,7 +1,6 @@
-import type { IconifyIcon } from '@iconify/types';
-
 import { Constants } from '@/data/constants';
 import { iconLibrary } from '@/shared/icons';
+import type { Icon } from '@/types/icons';
 
 export const imageStrings: Record<string, string> = {
     alliance: Constants.icons.alliance,
@@ -39,7 +38,7 @@ export const imageStrings: Record<string, string> = {
     'gold-medal': 'achievement/8890',
 };
 
-export const iconStrings: Record<string, IconifyIcon> = {
+export const iconStrings: Record<string, Icon> = {
     exclamation: iconLibrary.mdiExclamationThick,
     fire: iconLibrary.mdiFire,
     item: iconLibrary.mdiGiftOutline,
@@ -80,7 +79,7 @@ export const iconStrings: Record<string, IconifyIcon> = {
     armorPlate: iconLibrary.mdiLetterP,
 };
 
-export const soulbindSockets: Record<number, IconifyIcon> = {
+export const soulbindSockets: Record<number, Icon> = {
     1: iconLibrary.mdiLightningBoltOutline, // Finesse
     2: iconLibrary.mdiSwordCross, // Potency
     3: iconLibrary.mdiShieldHalfFull, // Endurance

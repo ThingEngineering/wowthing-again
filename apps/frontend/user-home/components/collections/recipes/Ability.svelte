@@ -7,7 +7,7 @@
     import { recipesState } from './state';
 
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
@@ -95,8 +95,8 @@
                 {#if ability.extraRanks?.length > 0}
                     <div class="rank">
                         {#each { length: ability.extraRanks.length + 1 }, index}
-                            <IconifyIcon
-                                extraClass={rank <= index ? 'faded' : undefined}
+                            <IconifyWrapper
+                                cls={rank <= index ? 'faded' : undefined}
                                 icon={rank > index ? uiIcons.starFull : uiIcons.starEmpty}
                             />
                         {/each}

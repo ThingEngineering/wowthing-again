@@ -8,7 +8,7 @@
     import { componentTooltip } from '@/shared/utils/tooltips';
     import type { SidebarItem } from './types';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import Self from './SubSidebarEntry.svelte';
     import Tooltip from '@/shared/components/parsed-text/Tooltip.svelte';
@@ -225,7 +225,9 @@
                     class:faded={noCollapse}
                     on:click|preventDefault|stopPropagation={noCollapse ? null : toggleExpanded}
                 >
-                    <IconifyIcon icon={iconStrings['chevron-' + (expanded ? 'down' : 'right')]} />
+                    <IconifyWrapper
+                        icon={iconStrings['chevron-' + (expanded ? 'down' : 'right')]}
+                    />
                 </button>
             {/if}
         </a>

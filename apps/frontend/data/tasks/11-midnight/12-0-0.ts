@@ -87,6 +87,7 @@ export const midChores12_0_0: Task = {
                     key: 'unity',
                     name: 'Unity',
                     minimumLevel: 90,
+                    showQuestName: true,
                     icon: aliasedIcons.planet,
                     questReset: DbResetType.Weekly, // TODO: weird 3 week garbage?
                     questIds: [

@@ -1,20 +1,14 @@
 <script lang="ts">
     import { taskChoreMap, taskMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
-    import { uiIcons } from '@/shared/icons';
+    import { iconLibrary, uiIcons } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { DbResetType } from '@/shared/stores/db/enums';
     import { userState } from '@/user-home/state/user';
     import type { CharacterChore } from '@/user-home/state/user/types/tasks.svelte';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
-    import {
-        MynauiLetterASquare,
-        MynauiLetterDSquare,
-        MynauiLetterWSquare,
-    } from '@/shared/icons/components';
 
     type Props = {
         characterId: number;
@@ -155,12 +149,21 @@
                                 class:status-shrug={charTaskChore.status === QuestStatus.Error}
                             >
                                 {#if chore.questReset === DbResetType.Daily && settingsState.value.tasks.showDailyIcon}
-                                    <IconifyWrapper Icon={MynauiLetterDSquare} cls="quality3" />
+                                    <IconifyWrapper
+                                        icon={iconLibrary.MynauiLetterDSquare}
+                                        cls="quality3"
+                                    />
                                 {:else if chore.questReset === DbResetType.Weekly && settingsState.value.tasks.showWeeklyIcon}
-                                    <IconifyWrapper Icon={MynauiLetterWSquare} cls="quality3" />
+                                    <IconifyWrapper
+                                        icon={iconLibrary.MynauiLetterWSquare}
+                                        cls="quality3"
+                                    />
                                 {/if}
                                 {#if chore.accountWide && settingsState.value.tasks.showAccountIcon}
-                                    <IconifyWrapper Icon={MynauiLetterASquare} cls="status-shrug" />
+                                    <IconifyWrapper
+                                        icon={iconLibrary.MynauiLetterASquare}
+                                        cls="status-shrug"
+                                    />
                                 {/if}
 
                                 <ParsedText text={charTaskChore.name} />
@@ -172,13 +175,9 @@
                                     ]}"
                                 >
                                     {#if chore?.icon}
-                                        {#if 'body' in chore.icon}
-                                            <IconifyIcon icon={chore.icon} />
-                                        {:else}
-                                            <IconifyWrapper Icon={chore.icon} scale="1" />
-                                        {/if}
+                                        <IconifyWrapper icon={chore.icon} scale="1" />
                                     {:else}
-                                        <IconifyIcon
+                                        <IconifyWrapper
                                             icon={[
                                                 uiIcons.starEmpty,
                                                 uiIcons.starHalf,
@@ -222,13 +221,13 @@
     {#if settingsState.value.tasks.showIconLegend}
         <div class="bottom" style:--scale="1.2">
             <span>
-                <IconifyWrapper Icon={MynauiLetterDSquare} cls="quality3" /> Daily
+                <IconifyWrapper icon={iconLibrary.MynauiLetterDSquare} cls="quality3" /> Daily
             </span>
             <span>
-                <IconifyWrapper Icon={MynauiLetterWSquare} cls="quality3" /> Weekly
+                <IconifyWrapper icon={iconLibrary.MynauiLetterWSquare} cls="quality3" /> Weekly
             </span>
             <span>
-                <IconifyWrapper Icon={MynauiLetterASquare} cls="status-shrug" /> Account
+                <IconifyWrapper icon={iconLibrary.MynauiLetterASquare} cls="status-shrug" /> Account
             </span>
         </div>
     {/if}

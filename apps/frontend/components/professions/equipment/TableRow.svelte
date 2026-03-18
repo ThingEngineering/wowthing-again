@@ -15,7 +15,7 @@
 
     import CurrenciesCell from '@/user-home/components/currencies/TableRow.svelte';
     import Empty from '../../items/ItemsEmpty.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import Item from '../../items/ItemsItem.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
@@ -122,7 +122,7 @@
                     tooltip={getNameForFaction(profession.name, character.faction)}
                 />
             {:else}
-                <IconifyIcon icon={uiIcons.no} tooltip="No profession!" />
+                <IconifyWrapper icon={uiIcons.no} tooltip="No profession!" />
             {/if}
         </div>
     </td>

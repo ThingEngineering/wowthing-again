@@ -10,7 +10,7 @@
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import petLocationTooltip from '@/utils/pet-location-tooltip';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import Paginate from '@/shared/components/paginate/Paginate.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
@@ -153,8 +153,8 @@
                                                 data-location={pet.location}
                                                 data-tooltip={petLocationTooltip(pet)}
                                             >
-                                                <IconifyIcon
-                                                    extraClass="drop-shadow"
+                                                <IconifyWrapper
+                                                    cls="drop-shadow"
                                                     icon={itemLocationIcons[pet.location]}
                                                     scale="0.9"
                                                 />

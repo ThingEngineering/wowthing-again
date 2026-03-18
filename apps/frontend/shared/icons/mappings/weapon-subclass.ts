@@ -1,9 +1,8 @@
-import type { IconifyIcon } from '@iconify/types';
-
-import * as iconLibrary from '../library';
 import { WeaponSubclass } from '@/enums/weapon-subclass';
+import type { Icon } from '@/types/icons';
+import * as iconLibrary from '../library';
 
-export const weaponSubclassIcons: Record<number, IconifyIcon> = {
+export const weaponSubclassIcons: Record<number, Icon> = {
     [WeaponSubclass.OneHandedAxe]: iconLibrary.gameHatchet,
     [WeaponSubclass.OneHandedMace]: iconLibrary.gameThorHammer,
     [WeaponSubclass.OneHandedSword]: iconLibrary.gameGladius,

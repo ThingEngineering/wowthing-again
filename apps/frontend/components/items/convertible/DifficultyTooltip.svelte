@@ -11,7 +11,7 @@
 
     import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     type Props = {
         characterClass: StaticDataCharacterClass;
@@ -85,8 +85,8 @@
                         <td class="realm">{character.realm.name}</td>
                         <td class="icon">
                             {#if isPurchased}
-                                <IconifyIcon
-                                    extraClass={canUpgrade ? 'status-shrug' : 'status-fail'}
+                                <IconifyWrapper
+                                    cls={canUpgrade ? 'status-shrug' : 'status-fail'}
                                     icon={iconLibrary.mdiCurrencyUsd}
                                     scale="0.85"
                                 />
@@ -96,8 +96,8 @@
                         </td>
                         <td class="icon">
                             {#if isUpgradeable}
-                                <IconifyIcon
-                                    extraClass={canUpgrade ? 'status-shrug' : 'status-fail'}
+                                <IconifyWrapper
+                                    cls={canUpgrade ? 'status-shrug' : 'status-fail'}
                                     icon={uiIcons.plus}
                                 />
                             {:else}
@@ -106,8 +106,8 @@
                         </td>
                         <td class="icon">
                             {#if isConvertible}
-                                <IconifyIcon
-                                    extraClass={canConvert ? 'status-shrug' : 'status-fail'}
+                                <IconifyWrapper
+                                    cls={canConvert ? 'status-shrug' : 'status-fail'}
                                     icon={iconLibrary.gameShurikenAperture}
                                     scale="0.85"
                                 />

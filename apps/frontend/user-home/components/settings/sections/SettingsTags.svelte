@@ -5,7 +5,7 @@
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
     import type { SettingsTag } from '@/shared/stores/settings/types/tag';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
 
     let deleting = $state(0);
@@ -106,21 +106,21 @@
                         <TextInput maxlength={16} name="tag-{tag.id}" bind:value={tag.name} />
                     </td>
                     <td class="icon" class:border-right={deleting === tag.id}>
-                        <IconifyIcon
-                            extraClass="status-fail"
+                        <IconifyWrapper
+                            cls="status-fail"
                             icon={uiIcons.no}
                             tooltip="Delete"
-                            on:click={() => (deleting = deleting === tag.id ? 0 : tag.id)}
+                            onclick={() => (deleting = deleting === tag.id ? 0 : tag.id)}
                         />
                     </td>
                     {#if deleting === tag.id}
                         <td class="deleting">
                             Permanently delete?
-                            <IconifyIcon
-                                extraClass="status-fail"
+                            <IconifyWrapper
+                                cls="status-fail"
                                 icon={uiIcons.yes}
                                 tooltip="Delete"
-                                on:click={() => deleteConfirmClick(tag.id)}
+                                onclick={() => deleteConfirmClick(tag.id)}
                             />
                         </td>
                     {/if}

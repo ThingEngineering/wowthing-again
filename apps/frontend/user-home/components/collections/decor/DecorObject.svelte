@@ -1,5 +1,5 @@
 <script lang="ts">
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import Image from '@/shared/components/images/Image.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import { iconLibrary } from '@/shared/icons';
@@ -83,11 +83,11 @@
             {#if total > 0}
                 <div class="counts flex-wrapper quality{quality}-border">
                     <span class="stored quality1">
-                        <IconifyIcon icon={iconLibrary.gameOpenChest} />
+                        <IconifyWrapper icon={iconLibrary.gameOpenChest} />
                         {counts[0]}
                     </span>
                     <span class="placed quality1">
-                        <IconifyIcon icon={iconLibrary.gameHouse} />
+                        <IconifyWrapper icon={iconLibrary.gameHouse} />
                         {counts[1]}
                     </span>
                 </div>

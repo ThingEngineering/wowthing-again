@@ -1,22 +1,20 @@
 <script lang="ts">
-    import { uiIcons } from '@/shared/icons'
+    import { uiIcons } from '@/shared/icons';
 
-    import IconifyIcon from '../images/IconifyIcon.svelte'
+    import IconifyWrapper from '../images/IconifyWrapper.svelte';
 
-    export let extraClass: string = undefined
-    export let state: boolean
-    export let useStatusColors = false
+    type Props = {
+        state: boolean;
+        extraClass?: string; // = undefined
+        useStatusColors?: boolean; // = false
+    };
+    let { state, extraClass, useStatusColors }: Props = $props();
 
-    let sighClass: string
-    $: {
-        sighClass = useStatusColors ? `${state ? 'status-success' : 'status-fail'}` : ''
-        if (extraClass) {
-            sighClass = `${sighClass} ${extraClass}`
-        }
-    }
+    let sighClass = $derived(
+        [useStatusColors ? `${state ? 'status-success' : 'status-fail'}` : '', extraClass]
+            .filter((s) => !!s)
+            .join(' ')
+    );
 </script>
 
-<IconifyIcon
-    extraClass={sighClass}
-    icon={state ? uiIcons.yes : uiIcons.no}
-/>
+<IconifyWrapper cls={sighClass} icon={state ? uiIcons.yes : uiIcons.no} />

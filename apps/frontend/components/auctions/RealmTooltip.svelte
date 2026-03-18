@@ -1,10 +1,9 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
-    import { settingsState } from '@/shared/state/settings.svelte';
+    import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
     import { userState } from '@/user-home/state/user';
     import type { StaticDataConnectedRealm } from '@/shared/stores/static/types';
-    import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
 
     type Props = {
         ageInMinutes: number;

@@ -16,7 +16,6 @@
 
     let artifact = $derived(wowthingData.static.artifactBySpecializationId.get(specializationId));
     let item = $derived(wowthingData.items.items[artifactItemId]);
-    $inspect({ artifact, item });
 
     function unlockProgress(
         setIndex: number,

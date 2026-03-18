@@ -13,7 +13,7 @@
     import { convertibleTypes } from './data';
     import type { ConvertibleCategory } from './types';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import Tooltip from './DifficultyTooltip.svelte';
 
     type Props = {
@@ -113,21 +113,19 @@
                                 }}
                             >
                                 {#if data?.userHas}
-                                    <IconifyIcon extraClass="status-success" icon={uiIcons.yes} />
+                                    <IconifyWrapper cls="status-success" icon={uiIcons.yes} />
                                 {:else if data?.anyIsConvertible || data?.anyIsPurchaseable || data?.anyIsUpgradeable}
                                     {#if data.anyIsPurchaseable}
-                                        <IconifyIcon
-                                            extraClass={data.anyCanAfford
-                                                ? 'status-shrug'
-                                                : 'status-fail'}
+                                        <IconifyWrapper
+                                            cls={data.anyCanAfford ? 'status-shrug' : 'status-fail'}
                                             icon={iconLibrary.mdiCurrencyUsd}
                                             scale="0.85"
                                         />
                                     {/if}
 
                                     {#if data.anyIsUpgradeable}
-                                        <IconifyIcon
-                                            extraClass={data.anyCanUpgrade
+                                        <IconifyWrapper
+                                            cls={data.anyCanUpgrade
                                                 ? 'status-shrug'
                                                 : 'status-fail'}
                                             icon={uiIcons.plus}
@@ -135,8 +133,8 @@
                                     {/if}
 
                                     {#if data.anyIsConvertible}
-                                        <IconifyIcon
-                                            extraClass={data.anyCanConvert
+                                        <IconifyWrapper
+                                            cls={data.anyCanConvert
                                                 ? 'status-shrug'
                                                 : 'status-fail'}
                                             icon={iconLibrary.gameShurikenAperture}

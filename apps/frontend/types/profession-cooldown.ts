@@ -18,6 +18,7 @@ export interface ProfessionCooldownQuest {
     key: string;
     name: string;
     profession: Profession;
+    subProfessionId?: number;
     minimumLevel?: number;
     reset?: DbResetType;
     unimportant?: boolean;
@@ -29,6 +30,7 @@ export interface ProfessionCooldownSpell {
     key: string;
     name: string;
     profession: Profession;
+    subProfessionId?: number;
     unimportant?: boolean;
     cooldown: number[][];
 }

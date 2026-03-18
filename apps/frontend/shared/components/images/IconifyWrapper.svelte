@@ -1,13 +1,18 @@
 <script lang="ts">
-    import type { Component } from 'svelte';
-    import type { SvelteHTMLElements } from 'svelte/elements';
+    import type { IconifyIcon } from '@iconify/types';
+
+    import { iconLibrary } from '@/shared/icons';
+    import type { ComponentIcon, Icon } from '@/types/icons';
 
     type Props = {
-        Icon: Component<SvelteHTMLElements['svg']>;
+        icon: Icon;
         cls?: string;
+        dropShadow?: boolean;
+        onclick?: (e: Event) => void;
         scale?: string;
+        tooltip?: string;
     };
-    let { Icon, cls, scale }: Props = $props();
+    let { icon, cls, dropShadow, onclick, scale, tooltip }: Props = $props();
 </script>
 
 <style lang="scss">
@@ -17,8 +22,36 @@
             transform: scale(var(--scale, 1));
         }
     }
+    svg {
+        height: 24px;
+        margin-top: var(--image-margin-top, 0);
+        width: 24px;
+        transform: scale(var(--scale, 1));
+    }
 </style>
 
-<span class={cls} style:--scale={scale}>
-    <Icon />
-</span>
+{#if 'body' in icon}
+    {@const actualIcon = (icon || iconLibrary.mdiImageBrokenVariant) as IconifyIcon}
+    <svg
+        style:--scale={scale}
+        viewBox="0 0 {actualIcon.width} {actualIcon.height}"
+        aria-hidden="true"
+        role="img"
+        class={cls}
+        class:drop-shadow-single={dropShadow}
+        data-tooltip={tooltip}
+        {onclick}
+    >
+        {@html actualIcon.body}
+    </svg>
+{:else}
+    {@const Icon = icon as ComponentIcon}
+    <span
+        class={cls}
+        class:drop-shadow-single={dropShadow}
+        style:--scale={scale}
+        data-tooltip={tooltip}
+    >
+        <Icon />
+    </span>
+{/if}

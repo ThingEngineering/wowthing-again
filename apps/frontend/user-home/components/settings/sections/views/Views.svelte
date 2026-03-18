@@ -4,7 +4,7 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import type { SettingsView } from '@/shared/stores/settings/types';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     let deleting = $state<string>(null);
 
@@ -115,42 +115,42 @@
                     </td>
                     <td class="icon">
                         {#if viewIndex > 0}
-                            <IconifyIcon
+                            <IconifyWrapper
                                 icon={uiIcons.chevronUp}
                                 scale="1.2"
                                 tooltip="Move up"
-                                on:click={() => moveUpClick(viewIndex)}
+                                onclick={() => moveUpClick(viewIndex)}
                             />
                         {/if}
                     </td>
                     <td class="icon">
                         {#if viewIndex < settingsState.value.views.length - 1}
-                            <IconifyIcon
+                            <IconifyWrapper
                                 icon={uiIcons.chevronDown}
                                 scale="1.2"
                                 tooltip="Move down"
-                                on:click={() => moveDownClick(viewIndex)}
+                                onclick={() => moveDownClick(viewIndex)}
                             />
                         {/if}
                     </td>
                     <td class="icon" class:border-right={deleting === view.id}>
                         {#if viewIndex > 0}
-                            <IconifyIcon
-                                extraClass="status-fail"
+                            <IconifyWrapper
+                                cls="status-fail"
                                 icon={uiIcons.no}
                                 tooltip="Delete"
-                                on:click={() => (deleting = deleting === view.id ? null : view.id)}
+                                onclick={() => (deleting = deleting === view.id ? null : view.id)}
                             />
                         {/if}
                     </td>
                     {#if deleting === view.id}
                         <td class="deleting">
                             Permanently delete?
-                            <IconifyIcon
-                                extraClass="status-fail"
+                            <IconifyWrapper
+                                cls="status-fail"
                                 icon={uiIcons.yes}
                                 tooltip="Delete"
-                                on:click={() => deleteConfirmClick(view.id)}
+                                onclick={() => deleteConfirmClick(view.id)}
                             />
                         </td>
                     {/if}

@@ -9,7 +9,7 @@
     import AchievementLink from '@/shared/components/links/AchievementLink.svelte';
     import Criteria from './Criteria.svelte';
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
     export let achievementId: number;
@@ -282,7 +282,7 @@
 
                         {#if chainId === achievementId}
                             <div class="abs-center chain-current drop-shadow">
-                                <IconifyIcon icon={iconStrings['arrow-up']} />
+                                <IconifyWrapper icon={iconStrings['arrow-up']} />
                             </div>
                         {/if}
                     </div>

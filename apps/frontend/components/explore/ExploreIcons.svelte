@@ -3,7 +3,7 @@
 
     import { iconLibrary } from '@/shared/icons';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     const icons = sortBy(Object.entries(iconLibrary), ([name]) => name);
 </script>
@@ -25,7 +25,7 @@
 <div class="thing-container border">
     {#each icons as [name, icon] (name)}
         <div class="icon">
-            <IconifyIcon {icon} />
+            <IconifyWrapper {icon} />
             <span>{name}</span>
         </div>
     {/each}

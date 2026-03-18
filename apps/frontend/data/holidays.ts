@@ -1,5 +1,4 @@
 import { Holiday } from '@/enums/holiday';
-import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
 export const holidayMinimumLevel: Record<number, number> = {
     // Timewalking: TBC

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import IconifyIcon from '../images/IconifyIcon.svelte';
+    import IconifyWrapper from '../images/IconifyWrapper.svelte';
 
     import { iconLibrary } from '@/shared/icons';
 
@@ -16,5 +16,5 @@
 </style>
 
 <div class="collected-icon drop-shadow2" class:status-success={!soon} class:status-shrug={soon}>
-    <IconifyIcon icon={soon ? iconLibrary.gameStopwatch : iconLibrary.mdiCheckboxOutline} />
+    <IconifyWrapper icon={soon ? iconLibrary.gameStopwatch : iconLibrary.mdiCheckboxOutline} />
 </div>

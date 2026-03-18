@@ -9,7 +9,6 @@ import type {
     ApiWorldQuestReward,
 } from './types';
 import type { RewardType } from '@/enums/reward-type';
-import { timeState } from '@/shared/state/time.svelte';
 
 class WorldQuestStore {
     private static url = '/api/world-quests/active';

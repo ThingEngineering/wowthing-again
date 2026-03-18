@@ -1,4 +1,4 @@
-import type { IconifyIcon } from '@iconify/types';
+import type { Icon } from '@/types/icons';
 
 export interface SidebarItem {
     name: string;
@@ -7,7 +7,7 @@ export interface SidebarItem {
     fullUrl?: string;
     forceNoVisit?: boolean;
     forceWildcard?: boolean;
-    icon?: IconifyIcon;
+    icon?: Icon;
     id?: number;
     percent?: number;
 }

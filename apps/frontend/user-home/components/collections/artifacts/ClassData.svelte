@@ -11,7 +11,6 @@
     let { classId, itemIds }: Props = $props();
 
     let cls = $derived(wowthingData.static.characterClassById.get(classId));
-    let name = $derived(getGenderedName(cls.name));
 </script>
 
 <style lang="scss">

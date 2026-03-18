@@ -1,8 +1,11 @@
+import { get } from 'svelte/store';
+
 import { Constants } from '@/data/constants';
 import { dungeonMap } from '@/data/dungeon';
 import { QuestStatus } from '@/enums/quest-status';
 import { timeState } from '@/shared/state/time.svelte';
 import { wowthingData } from '@/shared/stores/data';
+import { lazyStore } from '@/stores/lazy';
 import { userState } from '@/user-home/state/user';
 import { leftPad } from '@/utils/formatting';
 import { getCharacterRested } from '@/utils/get-character-rested';
@@ -56,13 +59,13 @@ export function homeSort(char: Character, sortBy: string): string {
         const season = Constants.mythicPlusSeason;
         const rating = char.mythicPlusSeasonScores?.[season] || char.raiderIo?.[season]?.all || 0;
         return leftPad(Math.floor(100000 - rating * 10), 6, '0');
-        // } else if (sortBy === 'professionCooldowns') {
-        //     const cooldownData = lazyStore.characters[char.id].professionCooldowns;
-        //     return leftPad(
-        //         100 - (cooldownData.total > 0 ? (cooldownData.have / cooldownData.total) * 100 : -1),
-        //         3,
-        //         '0'
-        //     );
+    } else if (sortBy === 'professionCooldowns') {
+        const cooldownData = get(lazyStore).characters[char.id].professionCooldowns;
+        return leftPad(
+            100 - (cooldownData.total > 0 ? (cooldownData.have / cooldownData.total) * 100 : -1),
+            3,
+            '0'
+        );
         // } else if (sortBy === 'professionWorkOrders') {
         //     const orderData = lazyStore.characters[char.id].professionWorkOrders;
         //     return leftPad(10 - (orderData.total > 0 ? orderData.have : -1), 3, '0');

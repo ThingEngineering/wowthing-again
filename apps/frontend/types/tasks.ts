@@ -1,17 +1,15 @@
 import type { DateTime } from 'luxon';
-import type { Component } from 'svelte';
-import type { SvelteHTMLElements } from 'svelte/elements';
-import type { IconifyIcon } from '@iconify/types';
 
 import type { Holiday } from '@/enums/holiday';
 import type { DbResetType } from '@/shared/stores/db/enums';
+import type { Icon } from '@/types/icons';
 import type { Character } from './character';
 
 export type Task = {
     key: string;
     name: string;
     shortName: string;
-    icon?: IconifyIcon;
+    icon?: Icon;
     maximumLevel?: number;
     minimumLevel?: number;
     requiredHolidays?: Holiday[];
@@ -23,7 +21,7 @@ export type Task = {
 export type Chore = {
     key: string;
     name: string;
-    icon?: IconifyIcon | Component<SvelteHTMLElements['svg']>;
+    icon?: Icon;
     accountWide?: boolean;
     alwaysStarted?: boolean;
     noAlone?: boolean;

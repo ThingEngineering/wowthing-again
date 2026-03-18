@@ -8,7 +8,7 @@
     import type { Character, DailyQuestsReward } from '@/types';
     import type { GlobalDailyQuest } from '@/types/data';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
     export let callings: [DailyQuestsReward, GlobalDailyQuest, boolean][];
@@ -63,8 +63,8 @@
             {#each callings as [rewards, daily, status], callingIndex}
                 <tr>
                     <td class="status">
-                        <IconifyIcon
-                            extraClass={status ? 'status-success' : 'status-fail'}
+                        <IconifyWrapper
+                            cls={status ? 'status-success' : 'status-fail'}
                             icon={status ? uiIcons.yes : uiIcons.no}
                             scale="0.91"
                         />

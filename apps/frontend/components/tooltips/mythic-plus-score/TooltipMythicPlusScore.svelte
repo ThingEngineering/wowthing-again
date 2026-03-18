@@ -6,10 +6,9 @@
     import { userStore } from '@/stores';
     import { getRunCounts } from '@/utils/dungeon';
     import getRaiderIoColor from '@/utils/get-raider-io-color';
-    import { getRunQuality, getRunQualityAffix } from '@/utils/mythic-plus';
+    import { getRunQualityAffix } from '@/utils/mythic-plus';
     import type { Character, CharacterMythicPlusAddonRun, CharacterRaiderIoSeason } from '@/types';
     import type { UserDataRaiderIoScoreTiers } from '@/types/user-data';
-    import { Constants } from '@/data/constants';
 
     export let character: Character;
     export let scores: CharacterRaiderIoSeason;

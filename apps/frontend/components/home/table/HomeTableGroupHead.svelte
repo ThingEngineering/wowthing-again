@@ -20,7 +20,7 @@
     import HeadMovementSpeed from '@/components/character-table/head/MovementSpeed.svelte';
     import HeadProgress from './head/HomeTableHeadProgress.svelte';
     import HeadTasks from './head/HomeTableHeadTasks.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import RowGold from './row/HomeTableRowGold.svelte';
     import RowPlayedTime from './row/HomeTableRowPlayedTime.svelte';
     import SpacerRow from '@/components/character-table/CharacterTableSpacerRow.svelte';
@@ -142,7 +142,7 @@
             >
         {:else if field === 'callings'}
             <td data-tooltip="Shadowlands Callings">
-                <IconifyIcon icon={iconStrings['calendar-quest']} /> SL
+                <IconifyWrapper icon={iconStrings['calendar-quest']} /> SL
             </td>
         {:else if field === 'covenant'}
             <HeadCovenant />
@@ -152,11 +152,11 @@
             <HeadCurrentLocation {getSortState} {setSortState} />
         {:else if field === 'emissariesBfa'}
             <td data-tooltip="Battle for Azeroth Emissaries">
-                <IconifyIcon icon={iconStrings['calendar-quest']} /> BfA
+                <IconifyWrapper icon={iconStrings['calendar-quest']} /> BfA
             </td>
         {:else if field === 'emissariesLegion'}
             <td data-tooltip="Legion Emissaries">
-                <IconifyIcon icon={iconStrings['calendar-quest']} /> Legion
+                <IconifyWrapper icon={iconStrings['calendar-quest']} /> Legion
             </td>
         {:else if field === 'gear'}
             <td>Gear</td>
@@ -244,15 +244,15 @@
             <HeadTasks {getSortState} {setSortState} />
         {:else if field === 'vaultMythicPlus'}
             <td class="sortable sorted-{getSortState()}" onclick={() => setSortState()}
-                >Dungeon <IconifyIcon icon={iconLibrary.mdiSafeSquareOutline} /></td
+                >Dungeon <IconifyWrapper icon={iconLibrary.mdiSafeSquareOutline} /></td
             >
         {:else if field === 'vaultRaid'}
             <td class="sortable sorted-{getSortState()}" onclick={() => setSortState()}
-                >Raid <IconifyIcon icon={iconLibrary.mdiSafeSquareOutline} /></td
+                >Raid <IconifyWrapper icon={iconLibrary.mdiSafeSquareOutline} /></td
             >
         {:else if field === 'vaultWorld'}
             <td class="sortable sorted-{getSortState()}" onclick={() => setSortState()}
-                >World <IconifyIcon icon={iconLibrary.mdiSafeSquareOutline} /></td
+                >World <IconifyWrapper icon={iconLibrary.mdiSafeSquareOutline} /></td
             >
         {:else}
             <td>&nbsp;</td>

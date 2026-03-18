@@ -7,10 +7,9 @@
     import { userState } from '@/user-home/state/user';
     import type { SortableProps } from '@/types/props';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import Tooltip from '@/components/tooltips/task/TooltipTaskHead.svelte';
-    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     let { getSortState, setSortState }: SortableProps = $props();
 
@@ -61,11 +60,7 @@
     >
         {#if chore}
             {#if chore.icon}
-                {#if 'body' in chore.icon}
-                    <IconifyIcon icon={chore.icon} scale="0.9" />
-                {:else}
-                    <IconifyWrapper Icon={chore.icon} scale="1" />
-                {/if}
+                <IconifyWrapper icon={chore.icon} scale="0.9" />
             {/if}
         {:else}
             <ParsedText text={task.shortName} />

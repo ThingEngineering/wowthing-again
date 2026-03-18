@@ -12,7 +12,7 @@
     import type { ApiWorldQuest } from './types';
 
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import Tooltip from './Tooltip.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
@@ -194,12 +194,12 @@
 
             {#if questInfoIcon[questInfo?.type]}
                 <div class="world-quest-type drop-shadow">
-                    <IconifyIcon icon={iconLibrary[questInfoIcon[questInfo.type]]} />
+                    <IconifyWrapper icon={iconLibrary[questInfoIcon[questInfo.type]]} />
                 </div>
             {:else if questInfo?.type === QuestInfoType.Normal || questInfo?.type === QuestInfoType.WorldBoss}
                 {#if (questInfo.flags & QuestInfoFlags.Elite) > 0}
                     <div class="world-quest-type drop-shadow">
-                        <IconifyIcon icon={iconLibrary['gameCrownedSkull']} />
+                        <IconifyWrapper icon={iconLibrary['gameCrownedSkull']} />
                     </div>
                 {/if}
             {/if}

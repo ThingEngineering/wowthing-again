@@ -16,7 +16,7 @@
         ManualDataZoneMapFarm,
     } from '@/types/data/manual';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import Tooltip from '@/components/tooltips/zone-maps/TooltipZoneMapsThing.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
 
@@ -177,7 +177,7 @@
             {#if farm.type === FarmType.Dungeon || farm.type === FarmType.Raid}
                 <a href="#/journal/{status.link}">
                     <div class={classes.join(' ')}>
-                        <IconifyIcon {icon} scale="1" />
+                        <IconifyWrapper {icon} scale="1" />
                     </div>
                 </a>
             {:else}
@@ -188,7 +188,7 @@
                     type={FarmIdType[farm.idType].toLowerCase()}
                 >
                     <div class={classes.join(' ')}>
-                        <IconifyIcon {icon} scale={big ? '1.2' : scale} />
+                        <IconifyWrapper {icon} scale={big ? '1.2' : scale} />
                     </div>
 
                     {#if status.need && farm.type != FarmType.Vendor && map.mapName !== 'misc_exiles_reach'}

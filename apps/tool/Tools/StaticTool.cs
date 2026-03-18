@@ -11,6 +11,7 @@ using Wowthing.Tool.Models.Housing;
 using Wowthing.Tool.Models.Journal;
 using Wowthing.Tool.Models.Professions;
 using Wowthing.Tool.Models.Quests;
+using Wowthing.Tool.Models.Reputations;
 using Wowthing.Tool.Models.Spells;
 using Wowthing.Tool.Models.Static;
 using Wowthing.Tool.Models.Traits;
@@ -418,6 +419,7 @@ public class StaticTool
 
             cacheData.Artifacts = await LoadArtifacts(language);
             cacheData.RawQuestInfo = await LoadQuestInfo(language);
+            cacheData.RenownRewards = await LoadRenownRewards(language);
 
             cacheData.RawProfessions = professions[language];
             cacheData.Soulbinds = soulbinds[language];
@@ -1253,6 +1255,44 @@ public class StaticTool
     {
         var questInfos = await DataUtilities.LoadDumpCsvAsync<DumpQuestInfo>("questinfo", language);
         return questInfos.Select(qi => new StaticQuestInfo(qi)).ToArray();
+    }
+
+    private async Task<Dictionary<int, List<ManualRenownReward>>> LoadRenownRewards(Language language)
+    {
+        var covenants = await DataUtilities.LoadDumpCsvAsync<DumpCovenant>
+            ("covenant", language, validFunc: dc => dc.FactionID > 0);
+        var covenantToRenownRewards = (await DataUtilities.LoadDumpCsvAsync<DumpRenownReward>("renownrewards", language))
+            .ToGroupedDictionary(drr => drr.CovenantID);
+
+        var ret = new Dictionary<int, List<ManualRenownReward>>();
+        foreach (var covenant in covenants)
+        {
+            if (!covenantToRenownRewards.TryGetValue(covenant.ID, out var dumpRenownRewards))
+            {
+                continue;
+            }
+
+            var rewards = new List<ManualRenownReward>();
+
+            var grouped = dumpRenownRewards
+                .GroupBy(drr => drr.Level)
+                .OrderBy(group => group.Key);
+            foreach (var group in grouped)
+            {
+                var tier = new ManualRenownReward(group.Key);
+                foreach (var reward in group.OrderBy(drr => drr.UiOrder))
+                {
+                    tier.Names.Add(reward.Name);
+                    tier.ToastDescriptions.Add(reward.ToastDescription);
+                }
+
+                rewards.Add(tier);
+            }
+
+            ret.Add(covenant.FactionID, rewards);
+        }
+
+        return ret;
     }
 
     private async Task<Dictionary<Language, Dictionary<int, List<OutSoulbind>>>> LoadSoulbinds()

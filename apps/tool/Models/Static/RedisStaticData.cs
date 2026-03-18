@@ -2,6 +2,7 @@
 using Wowthing.Tool.Models.Covenants;
 using Wowthing.Tool.Models.Housing;
 using Wowthing.Tool.Models.Professions;
+using Wowthing.Tool.Models.Reputations;
 
 namespace Wowthing.Tool.Models.Static;
 
@@ -51,4 +52,5 @@ public class RedisStaticData
     public StaticTransmogSet[] RawTransmogSets { get; set; }
     public StaticWorldQuest[] RawWorldQuests { get; set; }
     public List<StaticArtifact> Artifacts { get; set; }
+    public Dictionary<int, List<ManualRenownReward>> RenownRewards { get; set; }
 }

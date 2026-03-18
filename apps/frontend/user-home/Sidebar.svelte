@@ -8,7 +8,7 @@
     import getPercentClass from '@/utils/get-percent-class';
 
     import CharacterFilter from './CharacterFilter.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import Sidebar from '@/components/main-sidebar/MainSidebar.svelte';
 
     let filteredNavItems = $derived.by(() =>
@@ -67,7 +67,7 @@
                         class:wip={navItem.text.indexOf('WIP') >= 0}
                         href="#/{navItem.path}"
                     >
-                        <IconifyIcon icon={iconLibrary[navItem.icon]} dropShadow={true} />
+                        <IconifyWrapper icon={iconLibrary[navItem.icon]} dropShadow={true} />
                         {navItem.text}
                     </a>
 

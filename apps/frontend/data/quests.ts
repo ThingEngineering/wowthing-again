@@ -1,5 +1,13 @@
 import { ItemQuality } from '@/enums/item-quality';
+import { QuestStatus } from '@/enums/quest-status';
 import { GlobalDailyQuest } from '@/types/data';
+
+export const questStatusClass: Record<QuestStatus, string> = {
+    [QuestStatus.NotStarted]: 'status-fail',
+    [QuestStatus.InProgress]: 'status-shrug',
+    [QuestStatus.Completed]: 'status-success',
+    [QuestStatus.Error]: 'status-fail',
+};
 
 export const progressQuestMap: Record<string, string> = {
     slKorthia: 'shapingFate',

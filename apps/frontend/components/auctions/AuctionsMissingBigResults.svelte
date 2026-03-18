@@ -26,7 +26,7 @@
     import type { ItemDataItem } from '@/types/data/item';
 
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import Paginate from '@/shared/components/paginate/Paginate.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
@@ -403,15 +403,15 @@
 
                                         <span class="icons">
                                             {#if needSource && !needAppearance}
-                                                <IconifyIcon
-                                                    extraClass="status-shrug"
+                                                <IconifyWrapper
+                                                    cls="status-shrug"
                                                     icon={iconLibrary.mdiWizardHat}
                                                     scale="0.85"
                                                     tooltip="You have collected this appearance from another item"
                                                 />
                                             {:else if needAppearance}
-                                                <IconifyIcon
-                                                    extraClass="status-fail"
+                                                <IconifyWrapper
+                                                    cls="status-fail"
                                                     icon={iconLibrary.mdiWizardHat}
                                                     scale="0.85"
                                                     tooltip="You have not collected this appearance"
@@ -428,7 +428,7 @@
                                                         },
                                                     }}
                                                 >
-                                                    <IconifyIcon
+                                                    <IconifyWrapper
                                                         icon={iconLibrary.mdiAlertOutline}
                                                         scale="0.9"
                                                     />
@@ -440,7 +440,7 @@
                                                     onclick={() =>
                                                         navigator.clipboard.writeText(item.name)}
                                                 >
-                                                    <IconifyIcon
+                                                    <IconifyWrapper
                                                         icon={iconLibrary.mdiClipboardPlusOutline}
                                                         scale="0.9"
                                                     />
@@ -490,7 +490,7 @@
                                         {#if connectedRealm.region === Region.EU && euLocales[connectedRealm.locale]}
                                             {@const { icon: countryIcon, name: countryName } =
                                                 euLocales[connectedRealm.locale]}
-                                            <IconifyIcon
+                                            <IconifyWrapper
                                                 dropShadow={true}
                                                 icon={countryIcon}
                                                 tooltip={`EU: ${countryName}`}
@@ -542,7 +542,10 @@
                             data-tooltip="Copy shopping list to clipboard"
                             onclick={() => exportShoppingList()}
                         >
-                            <IconifyIcon icon={iconLibrary.mdiClipboardPlusOutline} scale="0.9" />
+                            <IconifyWrapper
+                                icon={iconLibrary.mdiClipboardPlusOutline}
+                                scale="0.9"
+                            />
                         </button>
                     </span>
                     <span

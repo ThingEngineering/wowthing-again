@@ -1,7 +1,7 @@
 <script lang="ts">
     import { iconLibrary } from '@/shared/icons';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     type Props = {
         bindGroup: string[];
@@ -48,7 +48,7 @@
             {disabled}
             onchange={onChange}
         />
-        <IconifyIcon
+        <IconifyWrapper
             icon={checked ? iconLibrary.mdiCheckboxOutline : iconLibrary.mdiCheckboxBlankOutline}
         />
         <span class="text {textClass || ''}"><slot /></span>

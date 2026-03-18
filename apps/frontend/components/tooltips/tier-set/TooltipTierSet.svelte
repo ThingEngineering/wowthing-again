@@ -6,7 +6,7 @@
     import type { CharacterProps } from '@/types/props';
     import type { LazyConvertibleCharacterItem } from '@/user-home/state/lazy/convertible.svelte';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     type Props = {
         tierSets: [string, number, number, LazyConvertibleCharacterItem?][][];
@@ -36,17 +36,6 @@
             return [charCatalyst.quantity, charCatalyst.max];
         }
     });
-
-    const gemToStat: Record<number, string> = {
-        238040: 'Crit', // Precise
-        238044: 'Crit', // Pure Precise
-        238039: 'Haste', // Chronomatic
-        238045: 'Haste', // Pure Chronomatic
-        238037: 'Mastery', // Energizing
-        238046: 'Mastery', // Pure Energizing
-        238041: 'Versatility', // Dexterous
-        238042: 'Versatility', // Pure Dexterous
-    };
 </script>
 
 <style lang="scss">
@@ -116,8 +105,8 @@
                                     )}"
                                 >
                                     {convertible.equippedItem.itemLevel}
-                                    <IconifyIcon
-                                        extraClass={convertible.canConvert
+                                    <IconifyWrapper
+                                        cls={convertible.canConvert
                                             ? 'status-shrug'
                                             : 'status-fail'}
                                         icon={iconLibrary.gameShurikenAperture}

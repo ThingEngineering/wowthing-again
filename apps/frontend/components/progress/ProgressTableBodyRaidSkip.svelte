@@ -6,7 +6,7 @@
     import type { UserQuestDataCharacterProgress } from '@/types/data';
     import type { ManualDataProgressGroup } from '@/types/data/manual';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import Tooltip from '@/components/tooltips/progress-raid-skip/TooltipProgressRaidSkip.svelte';
 
     export let character: Character;
@@ -95,9 +95,9 @@
         {#each progresses as progress}
             <div class={progress.cls}>
                 {#if progress.completed}
-                    <IconifyIcon icon={uiIcons.yes} />
+                    <IconifyWrapper icon={uiIcons.yes} />
                 {:else if progress.progressQuest === undefined}
-                    <IconifyIcon icon={uiIcons.no} />
+                    <IconifyWrapper icon={uiIcons.no} />
                 {:else}
                     {progress.progressQuest.objectives?.[0]?.have ?? 0}
                     /

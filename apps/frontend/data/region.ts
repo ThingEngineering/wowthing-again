@@ -1,7 +1,7 @@
 import { Region } from '@/enums/region';
 import { iconLibrary } from '@/shared/icons';
 import type { ResetTime } from '@/types';
-import type { IconifyIcon } from '@iconify/types';
+import type { Icon } from '@/types/icons';
 
 // Times are [hour, minute] in UTC
 export const resetTimes: Record<Region, ResetTime> = {
@@ -37,7 +37,7 @@ export const resetTimes: Record<Region, ResetTime> = {
     },
 };
 
-export const euLocales: Record<string, { icon: IconifyIcon; name: string }> = {
+export const euLocales: Record<string, { icon: Icon; name: string }> = {
     deDE: {
         icon: iconLibrary.twemojiFlagGermany,
         name: 'Germany',

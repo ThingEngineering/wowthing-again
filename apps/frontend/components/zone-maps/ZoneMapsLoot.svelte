@@ -10,7 +10,7 @@
     import { getDropData, getDropIcon } from '@/utils/zone-maps';
     import type { ManualDataZoneMapFarm } from '@/types/data/manual';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
 
@@ -109,7 +109,7 @@
                 <td class="name">
                     {#each farms as farm}
                         <div>
-                            <IconifyIcon icon={farmTypeIcons[farm.type]} />
+                            <IconifyWrapper icon={farmTypeIcons[farm.type]} />
                             <ParsedText text={farm.name} />
                         </div>
                     {/each}
@@ -120,7 +120,7 @@
                         {@const dropData = dropDatas[dataIndex]}
                         {@const icon = getDropIcon(drop, false)}
                         <div>
-                            <IconifyIcon {icon} />
+                            <IconifyWrapper {icon} />
                             <span class="quality{dropData.quality}">
                                 <WowheadLink id={dropData.linkId} type={dropData.linkType}>
                                     {dropData.name}

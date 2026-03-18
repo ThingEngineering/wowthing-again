@@ -10,7 +10,7 @@
     import { newNavState, professionsRecipesState } from '@/stores/local-storage';
     import { userState } from '@/user-home/state/user';
     import { useCharacterFilter } from '@/utils/characters';
-    import type { Character, Expansion } from '@/types';
+    import type { Character, ExpansionData } from '@/types';
     import type {
         StaticDataProfession,
         StaticDataProfessionCategory,
@@ -20,13 +20,13 @@
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 
-    export let expansion: Expansion;
+    export let expansion: ExpansionData;
     export let profession: StaticDataProfession;
 
     let categoryChildren: StaticDataProfessionCategory[];
@@ -251,7 +251,7 @@
                                     target="_blank"
                                     data-tooltip="Find auctions"
                                 >
-                                    <IconifyIcon icon={iconLibrary.mdiBank} />
+                                    <IconifyWrapper icon={iconLibrary.mdiBank} />
                                 </a>
                             {/if}
                         </td>

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { iconLibrary } from '@/shared/icons';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
     type Props = {
@@ -42,7 +42,7 @@
                 bind:group={value}
                 {disabled}
             />
-            <IconifyIcon
+            <IconifyWrapper
                 icon={optionValue === value
                     ? iconLibrary.mdiRadioboxMarked
                     : iconLibrary.mdiRadioboxBlank}

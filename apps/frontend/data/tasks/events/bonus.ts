@@ -52,7 +52,7 @@ export const eventBonus: Task = {
             requiredHolidays: [Holiday.BonusBattleground],
             questReset: DbResetType.Weekly,
             questResetForced: true,
-            questIds: [83345], // A Call to Battle
+            questIds: [93593], // A Call to Battle
         },
         {
             key: 'petBattles',

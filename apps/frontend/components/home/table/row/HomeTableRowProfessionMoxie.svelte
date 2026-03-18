@@ -62,7 +62,7 @@
 <td>
     <div class="flex-wrapper">
         {#each professions as profession}
-            {@const { amount, percent, tooltip } = getCurrencyData(
+            {@const { amount, tooltip } = getCurrencyData(
                 $timeStore,
                 character,
                 wowthingData.static.currencyById.get(professionMoxie[profession.id])

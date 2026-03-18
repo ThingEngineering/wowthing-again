@@ -1,5 +1,7 @@
+import { Expansion } from '@/enums/expansion';
 import { Profession } from '@/enums/profession';
 import type { TaskProfession } from '@/types/data';
+import { expansionSubProfession } from '../sub-professions';
 
 const midnightTaskQuests = [
     93710, // Tempered in Darkness
@@ -11,7 +13,7 @@ const midnightTaskQuests = [
 
 export const midnightSkinning: TaskProfession = {
     id: Profession.Skinning,
-    subProfessionId: 2917,
+    subProfessionId: expansionSubProfession[Expansion.Midnight][Profession.Skinning],
     treatiseQuest: {
         itemId: 245828, // Thalassian Treatise on Skinning
         questId: 95136,

@@ -4,15 +4,14 @@
     import { ItemQuality } from '@/enums/item-quality';
     import { LookupType } from '@/enums/lookup-type';
     import { RewardType } from '@/enums/reward-type';
-    import { armorTypeComponents, rewardTypeIcons } from '@/shared/icons/mappings';
+    import { armorTypeIcons, rewardTypeIcons } from '@/shared/icons/mappings';
     import { wowthingData } from '@/shared/stores/data';
     import { characterNamesFromIds } from '@/utils/characters/character-names-from-ids';
 
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     type Props = {
         lookupId: number;
@@ -120,7 +119,7 @@
 
     {#if lookupType === LookupType.Mount || lookupType === LookupType.Pet || lookupType === LookupType.Toy}
         <div class="icon icon-class quality1 drop-shadow">
-            <IconifyIcon
+            <IconifyWrapper
                 icon={lookupType === LookupType.Mount
                     ? rewardTypeIcons[RewardType.Mount]
                     : lookupType === LookupType.Pet
@@ -130,7 +129,7 @@
         </div>
     {:else if armorType !== ArmorType.None}
         <div class="icon icon-class quality1 drop-shadow">
-            <IconifyWrapper Icon={armorTypeComponents[armorType]} scale="1.3" />
+            <IconifyWrapper icon={armorTypeIcons[armorType]} scale="1.3" />
         </div>
     {/if}
 

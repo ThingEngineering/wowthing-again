@@ -9,7 +9,7 @@
     import getPercentClass from '@/utils/get-percent-class';
 
     import CharacterFilter from './CharacterFilter.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     let filteredNavItems = $derived.by(() =>
         navItems.filter(
@@ -94,7 +94,7 @@
                         ? `/${navItem.path}*`
                         : `/${navItem.path}`}
                 >
-                    <IconifyIcon icon={iconLibrary[navItem.icon]} dropShadow={true} />
+                    <IconifyWrapper icon={iconLibrary[navItem.icon]} dropShadow={true} />
 
                     {#if !settingsState.value.layout.newNavigationIcons}
                         {navItem.text}

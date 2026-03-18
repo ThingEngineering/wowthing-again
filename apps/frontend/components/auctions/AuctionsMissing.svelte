@@ -12,7 +12,7 @@
     import connectedRealmName from '@/utils/connected-realm-name';
     import { getColumnResizer } from '@/utils/get-column-resizer';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import Paginate from '@/shared/components/paginate/Paginate.svelte';
     import RealmTooltip from './RealmTooltip.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
@@ -226,7 +226,7 @@
                                         {#if connectedRealm.region === Region.EU && euLocales[connectedRealm.locale]}
                                             {@const { icon: countryIcon, name: countryName } =
                                                 euLocales[connectedRealm.locale]}
-                                            <IconifyIcon
+                                            <IconifyWrapper
                                                 dropShadow={true}
                                                 icon={countryIcon}
                                                 tooltip={`EU: ${countryName}`}

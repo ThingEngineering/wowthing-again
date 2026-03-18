@@ -2,18 +2,13 @@
     import xor from 'lodash/xor';
 
     import { Constants, MAX_TASKS } from '@/data/constants';
-    import {
-        MynauiLetterASquare,
-        MynauiLetterDSquare,
-        MynauiLetterWSquare,
-    } from '@/shared/icons/components';
+    import { iconLibrary } from '@/shared/icons';
     import { uiIcons } from '@/shared/icons/ui';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { DbResetType } from '@/shared/stores/db/enums';
     import type { SettingsTask } from '@/shared/stores/settings/types/task';
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import NumberInput from '@/shared/components/forms/NumberInput.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
@@ -115,7 +110,7 @@
             name="tasks_show_account_icon"
             bind:value={settingsState.value.tasks.showAccountIcon}
         >
-            <IconifyWrapper Icon={MynauiLetterASquare} cls="status-shrug" />
+            <IconifyWrapper icon={iconLibrary.MynauiLetterASquare} cls="status-shrug" />
             Show account icon
         </CheckboxInput>
 
@@ -123,7 +118,7 @@
             name="tasks_show_daily_icon"
             bind:value={settingsState.value.tasks.showDailyIcon}
         >
-            <IconifyWrapper Icon={MynauiLetterDSquare} cls="quality3" />
+            <IconifyWrapper icon={iconLibrary.MynauiLetterDSquare} cls="quality3" />
             Show daily icon
         </CheckboxInput>
 
@@ -131,7 +126,7 @@
             name="tasks_show_weekly_icon"
             bind:value={settingsState.value.tasks.showWeeklyIcon}
         >
-            <IconifyWrapper Icon={MynauiLetterWSquare} cls="quality3" />
+            <IconifyWrapper icon={iconLibrary.MynauiLetterWSquare} cls="quality3" />
             Show weekly icon
         </CheckboxInput>
     </div>
@@ -209,21 +204,21 @@
                         />
                     </td>
                     <td class="delete" class:border-right={deleting === task.key}>
-                        <IconifyIcon
-                            extraClass="status-fail"
+                        <IconifyWrapper
+                            cls="status-fail"
                             icon={uiIcons.no}
                             tooltip="Delete"
-                            on:click={() => (deleting = deleting === task.key ? null : task.key)}
+                            onclick={() => (deleting = deleting === task.key ? null : task.key)}
                         />
                     </td>
                     {#if deleting === task.key}
                         <td class="deleting border-top">
                             Permanently delete?
-                            <IconifyIcon
-                                extraClass="status-fail"
+                            <IconifyWrapper
+                                cls="status-fail"
                                 icon={uiIcons.yes}
                                 tooltip="Delete"
-                                on:click={() => deleteConfirmClick(task.key)}
+                                onclick={() => deleteConfirmClick(task.key)}
                             />
                         </td>
                     {/if}

@@ -10,7 +10,7 @@
     import type { Character, CharacterLockout } from '@/types';
     import type { JournalDataInstance } from '@/types/data';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import TooltipLockout from '@/components/tooltips/lockout/TooltipLockout.svelte';
 
     let { instance }: { instance: JournalDataInstance } = $props();
@@ -65,8 +65,8 @@
                                 propsFunc: () => ({ character, instanceId: instance.id, lockout }),
                             }}
                         >
-                            <IconifyIcon
-                                extraClass="status-{['fail', 'shrug', 'success'][status]}"
+                            <IconifyWrapper
+                                cls="status-{['fail', 'shrug', 'success'][status]}"
                                 icon={[uiIcons.starEmpty, uiIcons.starHalf, uiIcons.starFull][
                                     status
                                 ]}

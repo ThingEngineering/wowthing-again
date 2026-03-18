@@ -3,7 +3,7 @@
 
     import type { SettingsChoice } from '@/shared/stores/settings/types';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
     export let icon;
@@ -73,7 +73,7 @@
             <span class="name text-overflow">
                 <ParsedText text={item.name} />
             </span>
-            <IconifyIcon {icon} />
+            <IconifyWrapper {icon} />
         </div>
     {/each}
 </div>
