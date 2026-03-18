@@ -323,14 +323,22 @@ export class DataUserDerived {
         return maxReps;
     }
 
-    public doActiveViewTasks(character: Character, characterQuests: CharacterQuests) {
+    private _taskChoreName: Record<string, string[]> = {};
+    public doActiveViewTasks(
+        latestQuests: CharacterQuests,
+        character: Character,
+        characterQuests: CharacterQuests
+    ) {
         const ret: Record<string, CharacterTask> = {};
 
         const customTaskMap = $state.snapshot(settingsState.customTaskMap) as Record<string, Task>;
         const showCompletedUntrackedChores = settingsState.activeView.showCompletedUntrackedChores;
 
         for (const fullTaskName of activeViewTasks.value) {
-            const [taskName, choreName] = fullTaskName.split('|', 2);
+            const [taskName, choreName] = (this._taskChoreName[fullTaskName] ||= fullTaskName.split(
+                '|',
+                2
+            ));
             const task = taskMap[taskName] || customTaskMap[taskName];
             if (
                 !task ||
@@ -354,7 +362,13 @@ export class DataUserDerived {
                 // if (!choreName && disabledChores.includes(chore.key)) {
                 //     continue;
                 // }
-                const charChore = this.processTaskChore(character, characterQuests, task, chore);
+                const charChore = this.processTaskChore(
+                    latestQuests,
+                    character,
+                    characterQuests,
+                    task,
+                    chore
+                );
                 if (!charChore) {
                     continue;
                 }
@@ -446,13 +460,17 @@ export class DataUserDerived {
     }
 
     private processTaskChore(
+        latestQuests: CharacterQuests,
         character: Character,
         characterQuests: CharacterQuests,
         task: Task,
         chore: Chore,
         parent?: Chore
     ): CharacterChore {
-        if (!character || !characterQuests) {
+        if (chore.accountWide && !latestQuests) {
+            return null;
+        }
+        if (!chore.accountWide && (!character || !characterQuests)) {
             return null;
         }
 
@@ -472,11 +490,18 @@ export class DataUserDerived {
             return null;
         }
 
+        const useQuests = chore.accountWide ? latestQuests : characterQuests;
+
         const charChore = new CharacterChore(chore.key, undefined);
-        const charScanned = characterQuests.scannedTime;
+        if (chore.questCount) {
+            charChore.progressTotal = chore.questCount;
+        }
+
+        const charScanned = useQuests.scannedTime;
         const choreReset = chore.questReset || parent?.questReset;
         const resetForced = chore.questResetForced === true || parent?.questResetForced === true;
 
+        let completedCount = 0;
         let questIds: number[] = [];
         if (chore.questIds) {
             questIds =
@@ -505,7 +530,7 @@ export class DataUserDerived {
 
             for (const questId of questIds) {
                 // is the quest in progress?
-                const questProgress = characterQuests?.progressQuestByKey?.get(`q${questId}`);
+                const questProgress = useQuests?.progressQuestByKey?.get(`q${questId}`);
                 if (
                     questProgress &&
                     (!resetForced ||
@@ -527,9 +552,9 @@ export class DataUserDerived {
                 }
 
                 // is the quest completed?
-                if (characterQuests?.hasQuestById?.has(questId)) {
+                if (useQuests?.hasQuestById?.has(questId)) {
                     if (choreReset === DbResetType.Never || expiresAt > timeState.slowTime) {
-                        charChore.progressCurrent = 1;
+                        charChore.progressCurrent++;
                         charChore.quest = {
                             expires: expiresAt?.toUnixInteger(),
                             id: questId,
@@ -538,7 +563,11 @@ export class DataUserDerived {
                             status: QuestStatus.Completed,
                         };
                     }
-                    break;
+
+                    completedCount++;
+                    if (!chore.questCount || completedCount >= chore.questCount) {
+                        break;
+                    }
                 }
             }
         } else if (chore.subChores) {
@@ -548,6 +577,7 @@ export class DataUserDerived {
 
             for (const subChore of chore.subChores) {
                 const charSubChore = this.processTaskChore(
+                    latestQuests,
                     character,
                     characterQuests,
                     task,
@@ -613,6 +643,7 @@ export class DataUserDerived {
         }
 
         if (
+            !chore.questCount &&
             charChore.status === QuestStatus.InProgress &&
             charChore.quest?.objectives?.length > 0
         ) {
@@ -627,19 +658,29 @@ export class DataUserDerived {
                 DateTime.fromSeconds(charChore.quest.expires) > timeState.slowTime ||
                 (chore.key.startsWith('dmf') && charChore.quest.expires === 0))
         ) {
-            // charTask maybe?
-            charChore.status = charChore.quest.status;
-            if (
-                charChore.status === QuestStatus.InProgress &&
-                charChore.quest.objectives?.length > 0
-            ) {
-                const lastObjective = charChore.quest.objectives.at(-1);
-                charChore.progressCurrent = lastObjective.have;
-                charChore.progressTotal = lastObjective.need;
+            if (chore.questCount) {
+                if (charChore.progressCurrent >= charChore.progressTotal) {
+                    charChore.status = QuestStatus.Completed;
+                } else if (charChore.progressCurrent > 0) {
+                    charChore.status = QuestStatus.InProgress;
+                }
+            } else {
+                // charTask maybe?
+                charChore.status = charChore.quest.status;
+                if (
+                    charChore.status === QuestStatus.InProgress &&
+                    charChore.quest.objectives?.length > 0
+                ) {
+                    const lastObjective = charChore.quest.objectives.at(-1);
+                    charChore.progressCurrent = lastObjective.have;
+                    charChore.progressTotal = lastObjective.need;
 
-                charChore.statusTexts = this.getObjectivesText(charChore.quest.objectives);
+                    charChore.statusTexts = this.getObjectivesText(charChore.quest.objectives);
+                }
             }
-        } else if (chore.alwaysStarted && charChore.status === QuestStatus.NotStarted) {
+        }
+
+        if (chore.alwaysStarted && charChore.status === QuestStatus.NotStarted) {
             charChore.status = QuestStatus.InProgress;
         }
 
@@ -656,6 +697,8 @@ export class DataUserDerived {
         }
 
         charChore.name ||= chore.name;
+
+        if (chore.key === 'preyRep') console.log(character.name, charChore);
 
         return charChore;
     }

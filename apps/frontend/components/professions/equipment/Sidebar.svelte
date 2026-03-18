@@ -13,8 +13,8 @@
                 slug: 'all',
             },
             {
-                name: 'Some',
-                slug: 'some',
+                name: 'Collectors',
+                slug: 'collectors',
             },
             null,
         ];
@@ -41,6 +41,12 @@
                 slug: profession.slug,
             });
         }
+
+        ret.push(null);
+        ret.push({
+            name: 'Some',
+            slug: 'some',
+        });
 
         return ret;
     });

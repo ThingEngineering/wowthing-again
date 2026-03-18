@@ -10,6 +10,8 @@
     import { wowthingData } from '@/shared/stores/data';
     import { getItemUrl } from '@/utils/get-item-url';
     import type { Character, CharacterGear } from '@/types';
+    import type { ItemDataItem } from '@/types/data/item';
+    import type { CharacterProps } from '@/types/props';
 
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
@@ -17,12 +19,25 @@
     import type { ConvertibleCategoryUpgrade } from './convertible/types';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
 
-    export let character: Character = undefined;
-    export let forceCrafted = false;
-    export let gear: Partial<CharacterGear>;
-    export let tierPieces: number[] = undefined;
-    export let useHighlighting = false;
-    export let useItemCount = false;
+    type Props = Partial<CharacterProps> & {
+        gear: Partial<CharacterGear>;
+        character?: Character;
+        forceCrafted?: boolean;
+        tierPieces?: number[];
+        useHighlighting?: boolean;
+        useItemCount?: boolean;
+        failStateFunc?: (item: ItemDataItem) => boolean;
+    };
+
+    let {
+        gear,
+        character,
+        forceCrafted,
+        tierPieces,
+        useHighlighting,
+        useItemCount,
+        failStateFunc,
+    }: Props = $props();
 
     function getIconName(): [string, number] {
         let tiers: ConvertibleCategoryUpgrade[][];
@@ -85,11 +100,11 @@
 
 <style lang="scss">
     .gear {
-        height: 46px;
+        height: 48px;
         padding: 2px;
         position: relative;
         text-align: center;
-        width: 46px;
+        width: 48px;
 
         --image-border-width: 2px;
         --image-margin-top: 0;
@@ -184,8 +199,9 @@
             </WowheadLink>
         {:else}
             {@const item = wowthingData.items.items[gear.equipped.itemId]}
+            {@const failState = failStateFunc?.(item)}
             <a
-                class="quality{gear.equipped.quality}"
+                class={failState ? 'border-fail' : `quality${gear.equipped.quality}`}
                 href={getItemUrl(gear.equipped, character, tierPieces)}
             >
                 <WowthingImage name="item/{gear.equipped.itemId}" size={40} border={2} />

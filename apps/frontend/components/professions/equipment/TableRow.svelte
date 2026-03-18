@@ -1,6 +1,7 @@
 <script lang="ts">
     import orderBy from 'lodash/orderBy';
 
+    import { Constants } from '@/data/constants';
     import { imageStrings } from '@/data/icons';
     import { uiIcons } from '@/shared/icons';
     import { professionIdToSlug } from '@/data/professions';
@@ -13,11 +14,11 @@
 
     import { someProfessions } from './some';
 
-    import CurrenciesCell from '@/user-home/components/currencies/TableRow.svelte';
     import Empty from '../../items/ItemsEmpty.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import Item from '../../items/ItemsItem.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { settingsState } from '@/shared/state/settings.svelte';
 
     let { character, professionId, slug }: CharacterProps & { professionId: number; slug: string } =
         $props();
@@ -33,6 +34,14 @@
                 continue;
             }
 
+            if (
+                slug === 'collectors' &&
+                !settingsState.value.professions.collectingCharactersV2[profession.id]?.includes(
+                    character.id
+                )
+            ) {
+                continue;
+            }
             if (slug === 'some' && !someProfessions.includes(profession.id)) {
                 continue;
             }
@@ -106,9 +115,6 @@
     }
 </style>
 
-<td class="spacer"></td>
-<CurrenciesCell {character} itemId={210814} sortingBy={false} />
-
 {#each professions as [profession, userHas, slots] (profession)}
     <td class="spacer"></td>
 
@@ -130,7 +136,11 @@
     {#each { length: profession?.slug === 'fishing' ? 1 : profession.type === 0 ? 3 : 2 }, slot}
         {@const gear = slots[slot]}
         {#if gear?.equipped}
-            <Item forceCrafted={true} {gear} />
+            <Item
+                failStateFunc={(item) => item.expansion !== Constants.expansion}
+                forceCrafted={true}
+                {gear}
+            />
         {:else if !userHas}
             <Empty opacity="0.3" />
         {:else}

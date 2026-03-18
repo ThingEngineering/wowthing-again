@@ -81,6 +81,7 @@ class UserState {
         const ret: Record<number, Record<string, CharacterTask>> = {};
         for (const character of userState.general.activeCharacters) {
             ret[character.id] = this.derived.doActiveViewTasks(
+                userState.quests.mostRecentCharacter,
                 character,
                 userState.quests.characterById.get(character.id)
             );

@@ -48,7 +48,7 @@
 
     --color-fail: #ff1e00;
     --color-fail-background: color-mix(in oklch, var(--color-fail) 30%, #000 70%);
-    --color-fail-border: color-mix(in oklch, var(--color-fail) 70%, var(--border-color) 30%);
+    --color-fail-border: color-mix(in oklch, var(--color-fail) 80%, var(--border-color) 20%);
 
     // factions
     --color-alliance-border: #006aff;

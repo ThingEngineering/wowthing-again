@@ -119,6 +119,16 @@ code {
     color: #ffffaa;
     vertical-align: 1px;
     // padding: 0 0.2rem;
+
+    &.status-success {
+        color: var(--color-success);
+    }
+    &.status-shrug {
+        color: var(--color-shrug);
+    }
+    &.status-fail {
+        color: var(--color-fail);
+    }
 }
 
 #app {

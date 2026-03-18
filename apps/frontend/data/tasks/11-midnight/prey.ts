@@ -128,34 +128,23 @@ export const midPrey: Task = {
     showSeparate: true,
     chores: [
         {
+            key: 'preyRep',
+            name: 'Reputation',
+            icon: iconLibrary.gameHeartPlus,
+            accountWide: true,
+            alwaysStarted: true,
+            questCount: 4,
+            questIds: [95000, 95001, 95002, 95003],
+            questReset: DbResetType.Weekly,
+        },
+        {
             key: 'preyNormal',
             name: 'Normal',
             icon: iconLibrary.notoClownFace,
             alwaysStarted: true,
+            questCount: 4,
             questReset: DbResetType.Weekly,
-            subChores: [
-                {
-                    key: 'prey1',
-                    name: 'Prey #1',
-                    showQuestName: true,
-                    questIds: preyFunc(normalQuestIds, 0),
-                },
-                {
-                    key: 'prey2',
-                    name: 'Prey #2',
-                    questIds: preyFunc(normalQuestIds, 1),
-                },
-                {
-                    key: 'prey3',
-                    name: 'Prey #3',
-                    questIds: preyFunc(normalQuestIds, 2),
-                },
-                {
-                    key: 'prey4',
-                    name: 'Prey #4',
-                    questIds: preyFunc(normalQuestIds, 3),
-                },
-            ],
+            questIds: normalQuestIds,
         },
         {
             key: 'preyHard',
@@ -163,30 +152,9 @@ export const midPrey: Task = {
             icon: iconLibrary.notoCowboyHatFace,
             minimumLevel: 90,
             alwaysStarted: true,
+            questCount: 4,
             questReset: DbResetType.Weekly,
-            subChores: [
-                {
-                    key: 'prey1',
-                    name: 'Prey #1',
-                    showQuestName: true,
-                    questIds: preyFunc(hardQuestIds, 0),
-                },
-                {
-                    key: 'prey2',
-                    name: 'Prey #2',
-                    questIds: preyFunc(hardQuestIds, 1),
-                },
-                {
-                    key: 'prey3',
-                    name: 'Prey #3',
-                    questIds: preyFunc(hardQuestIds, 2),
-                },
-                {
-                    key: 'prey4',
-                    name: 'Prey #4',
-                    questIds: preyFunc(hardQuestIds, 3),
-                },
-            ],
+            questIds: hardQuestIds,
         },
         {
             key: 'preyNightmare',
@@ -194,30 +162,9 @@ export const midPrey: Task = {
             icon: iconLibrary.notoAngryFaceWithHorns,
             minimumLevel: 90,
             alwaysStarted: true,
+            questCount: 4,
             questReset: DbResetType.Weekly,
-            subChores: [
-                {
-                    key: 'prey1',
-                    name: 'Prey #1',
-                    showQuestName: true,
-                    questIds: preyFunc(nightmareQuestIds, 0),
-                },
-                {
-                    key: 'prey2',
-                    name: 'Prey #2',
-                    questIds: preyFunc(nightmareQuestIds, 1),
-                },
-                {
-                    key: 'prey3',
-                    name: 'Prey #3',
-                    questIds: preyFunc(nightmareQuestIds, 2),
-                },
-                {
-                    key: 'prey4',
-                    name: 'Prey #4',
-                    questIds: preyFunc(nightmareQuestIds, 3),
-                },
-            ],
+            questIds: nightmareQuestIds,
         },
     ],
 };

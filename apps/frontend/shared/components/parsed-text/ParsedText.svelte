@@ -219,7 +219,9 @@
         html = html.replaceAll(/:([a-zA-Z0-9_-]+):/g, '<span data-string="$1"></span>');
 
         // Square brackets => code
-        html = html.replaceAll(/(\[(.*?)\])/g, '<code>$1</code>');
+        html = html.replaceAll(/\[(?:\|(.*?)\|)?(.*?)\]/g, (_, cls, text) => {
+            return cls ? `<code class="${cls}">[${text}]</code>` : `<code>[${text}]</code>`;
+        });
     }
 
     afterUpdate(() => {
