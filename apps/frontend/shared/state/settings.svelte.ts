@@ -11,7 +11,7 @@ import { sharedState } from '@/shared/state/shared.svelte';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import { hashObject } from '@/utils/hash-object.svelte';
-import type { Expansion } from '@/types';
+import type { ExpansionData } from '@/types';
 import type { Task } from '@/types/tasks';
 
 import { browserState } from './browser.svelte';
@@ -171,7 +171,7 @@ function createSettingsState() {
         get useAccountTags() {
             return useAccountTags;
         },
-        get expansions(): Expansion[] {
+        get expansions(): ExpansionData[] {
             return expansionOrder.filter(
                 (exp) => !settings.collections.hideFuture || exp.id <= Constants.expansion
             );

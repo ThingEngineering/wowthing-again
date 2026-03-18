@@ -706,7 +706,11 @@ function doProfessionCooldowns(
         for (const cooldownData of cooldownDatas) {
             if (
                 stores.settings.professions.cooldowns[cooldownData.key] === false ||
-                !character.professions?.[cooldownData.profession]
+                !character.professions?.[cooldownData.profession] ||
+                (cooldownData.subProfessionId &&
+                    !character.professions[cooldownData.profession].subProfessions[
+                        cooldownData.subProfessionId
+                    ])
             ) {
                 continue;
             }

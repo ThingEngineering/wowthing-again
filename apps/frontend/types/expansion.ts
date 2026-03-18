@@ -1,8 +1,8 @@
-export class Expansion {
+export class ExpansionData {
     constructor(
         public id: number,
         public name: string,
         public slug: string,
-        public shortName: string,
+        public shortName: string
     ) {}
 }

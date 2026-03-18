@@ -28,10 +28,10 @@
         class:status-fail={data.anyFull}
         use:componentTooltip={{
             component: Tooltip,
-            props: {
+            propsFunc: () => ({
                 character,
                 cooldowns: data.cooldowns,
-            },
+            }),
         }}
     >
         {#if data.total > 0}

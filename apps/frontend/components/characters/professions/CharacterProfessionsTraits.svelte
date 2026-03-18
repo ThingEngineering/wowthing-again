@@ -1,6 +1,6 @@
 <script lang="ts">
     import { expansionSlugMap } from '@/data/expansion';
-    import type { Character, Expansion, MultiSlugParams } from '@/types';
+    import type { Character, ExpansionData, MultiSlugParams } from '@/types';
     import type {
         StaticDataProfession,
         StaticDataSubProfession,
@@ -15,7 +15,7 @@
     export let staticProfession: StaticDataProfession;
 
     let charTraits: Record<number, number>;
-    let expansion: Expansion;
+    let expansion: ExpansionData;
     let subProfession: StaticDataSubProfession;
     $: {
         expansion = expansionSlugMap[params.slug5];

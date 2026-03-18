@@ -37,6 +37,7 @@ import {
     type StaticDataQuestLineArray,
     type StaticDataRealm,
     type StaticDataRealmArray,
+    type StaticDataRenownReward,
     type StaticDataReputation,
     type StaticDataReputationArray,
     type StaticDataReputationTier,
@@ -69,6 +70,7 @@ export interface RawStatic {
     keystoneAffixes: Record<number, StaticDataKeystoneAffix>;
     questNames: Record<number, string>;
     reagentCategories: Record<number, number[]>;
+    renownRewards: Record<number, StaticDataRenownReward[]>;
     reputationTiers: Record<number, StaticDataReputationTier>;
     sharedStrings: Record<number, string>;
     skillLineAbilityItems: Record<number, number[]>; // skillLineId -> [itemIds]

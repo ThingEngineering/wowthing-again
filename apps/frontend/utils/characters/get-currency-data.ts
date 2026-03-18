@@ -50,21 +50,8 @@ export function getCurrencyData(
 
         let extraTooltip: string;
         let amount = characterCurrency.quantity;
-        if (currency.rechargeInterval > 0 && currency.maxTotal > 0 && character.scannedCurrencies) {
-            const diff = time.diff(character.scannedCurrencies).toMillis();
-            if (diff >= currency.rechargeInterval) {
-                amount = Math.min(
-                    characterCurrency.max,
-                    amount + Math.floor(diff / currency.rechargeInterval) * currency.rechargeAmount
-                );
-                if (amount < characterCurrency.max) {
-                    const remainingTime =
-                        ((characterCurrency.max - amount) / currency.rechargeAmount) *
-                            currency.rechargeInterval -
-                        (diff % currency.rechargeInterval);
-                    extraTooltip = `${toNiceDuration(remainingTime)} to max!`;
-                }
-            }
+        if (characterCurrency.remainingTime) {
+            extraTooltip = `${toNiceDuration(characterCurrency.remainingTime)} to max!`;
         }
 
         ret.amount = toNiceNumber(amount);

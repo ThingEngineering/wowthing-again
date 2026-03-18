@@ -15,7 +15,9 @@ import { PlayableClass } from '@/enums/playable-class';
 import { Profession } from '@/enums/profession';
 import { StatType } from '@/enums/stat-type';
 import { settingsState } from '@/shared/state/settings.svelte';
+import { timeState } from '@/shared/state/time.svelte';
 import { wowthingData } from '@/shared/stores/data';
+import { DbResetType } from '@/shared/stores/db/enums/db-reset-type';
 import { getBestItemLevels } from '@/utils/characters/get-best-item-levels';
 import { syncSet } from '@/utils/collections/sync-set';
 import { leftPad } from '@/utils/formatting';
@@ -70,8 +72,6 @@ import type { CharacterAura } from './aura';
 import type { CharacterPatronOrder } from './patron-order';
 import type { CharacterMovementSpeed } from './movement-speed';
 import type { CharacterQuests } from '@/user-home/state/user/types';
-import { DbResetType } from '@/shared/stores/db/enums/db-reset-type';
-import { timeState } from '@/shared/state/time.svelte';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Static
@@ -122,9 +122,10 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
     public quests = $state<CharacterQuests>(undefined);
 
+    private currencyObjects: Record<number, CharacterCurrency> = $state({});
+
     // Calculated
     public bags: Record<number, number> = $state({});
-    public currencies: Record<number, CharacterCurrency> = $state({});
     public equippedItems: Record<number, CharacterEquippedItem> = $state({});
     public itemsByAppearanceId: Record<number, CharacterItem[]> = $state.raw({});
     public itemsByAppearanceSource: Record<string, CharacterItem[]> = $state.raw({});
@@ -344,10 +345,12 @@ export class Character implements ContainsItems, HasNameAndRealm {
             this.weekly.process(...rawWeekly);
         }
 
-        for (const rawCurrency of rawCurrencies || []) {
-            const obj = new CharacterCurrency(...rawCurrency);
-            this.currencies[obj.id] = obj;
-        }
+        this.currencyObjects = Object.fromEntries(
+            (rawCurrencies || []).map((currencyArray) => {
+                const obj = new CharacterCurrency(...currencyArray);
+                return [obj.id, obj];
+            })
+        );
 
         const equippedItems: this['equippedItems'] = {};
         for (const [slot, rawEquippedItemArray] of getNumberKeyedEntries(rawEquippedItems || {})) {
@@ -532,6 +535,50 @@ export class Character implements ContainsItems, HasNameAndRealm {
     get isMaxLevel(): boolean {
         return this.level === Constants.characterMaxLevel;
     }
+
+    public currencies = $derived.by(() => {
+        const ret: Record<number, CharacterCurrency> = {};
+        const now = timeState.slowTime;
+
+        for (const characterCurrency of Object.values(this.currencyObjects)) {
+            let newCurrency = characterCurrency;
+
+            const staticCurrency = wowthingData.static.currencyById.get(characterCurrency.id);
+            if (
+                this.scannedCurrencies &&
+                characterCurrency.quantity > 0 &&
+                staticCurrency &&
+                staticCurrency.rechargeInterval > 0 &&
+                staticCurrency.maxTotal > 0
+            ) {
+                const diff = now.diff(this.scannedCurrencies).toMillis();
+                if (diff >= staticCurrency.rechargeInterval) {
+                    const amount = Math.min(
+                        characterCurrency.max,
+                        characterCurrency.quantity +
+                            Math.floor(diff / staticCurrency.rechargeInterval) *
+                                staticCurrency.rechargeAmount
+                    );
+
+                    newCurrency = characterCurrency.clone();
+                    newCurrency.quantity = amount;
+
+                    if (amount < characterCurrency.max) {
+                        newCurrency.remainingTime =
+                            ((characterCurrency.max - amount) / staticCurrency.rechargeAmount) *
+                                staticCurrency.rechargeInterval -
+                            (diff % staticCurrency.rechargeInterval);
+                    }
+                }
+
+                ret[characterCurrency.id] = newCurrency;
+            }
+
+            ret[characterCurrency.id] = newCurrency;
+        }
+
+        return ret;
+    });
 
     public lockoutKeys = $derived(Object.keys(this.lockouts || {}));
 

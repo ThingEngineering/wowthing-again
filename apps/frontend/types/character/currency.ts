@@ -7,6 +7,8 @@ export class CharacterCurrency {
     public weekMax: number;
     public weekQuantity: number;
 
+    public remainingTime: number = 0;
+
     constructor(
         public id: number,
         quantity?: number,
@@ -15,7 +17,7 @@ export class CharacterCurrency {
         isMovingMax?: number,
         isWeekly?: number,
         weekQuantity?: number,
-        weekMax?: number,
+        weekMax?: number
     ) {
         this.isMovingMax = isMovingMax === 1;
         this.isWeekly = isWeekly === 1;
@@ -24,6 +26,19 @@ export class CharacterCurrency {
         this.totalQuantity = totalQuantity || 0;
         this.weekMax = weekMax || 0;
         this.weekQuantity = weekQuantity || 0;
+    }
+
+    public clone() {
+        return new CharacterCurrency(
+            this.id,
+            this.quantity,
+            this.max,
+            this.totalQuantity,
+            this.isMovingMax ? 1 : 0,
+            this.isWeekly ? 1 : 0,
+            this.weekQuantity,
+            this.weekMax
+        );
     }
 }
 

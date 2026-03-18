@@ -10,7 +10,7 @@
     import { newNavState, professionsRecipesState } from '@/stores/local-storage';
     import { userState } from '@/user-home/state/user';
     import { useCharacterFilter } from '@/utils/characters';
-    import type { Character, Expansion } from '@/types';
+    import type { Character, ExpansionData } from '@/types';
     import type {
         StaticDataProfession,
         StaticDataProfessionCategory,
@@ -26,7 +26,7 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 
-    export let expansion: Expansion;
+    export let expansion: ExpansionData;
     export let profession: StaticDataProfession;
 
     let categoryChildren: StaticDataProfessionCategory[];

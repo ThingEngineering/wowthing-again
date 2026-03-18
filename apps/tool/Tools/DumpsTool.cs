@@ -736,29 +736,21 @@ public class DumpsTool
 
         // Fix missing expansions
         var factionMap = factions.ToDictionary(faction => faction.ID);
-        foreach (var faction in factions)
+        foreach (var faction in factions.Where(faction => faction.Expansion == 0 && faction.ParentFactionID > 0))
         {
-            if (faction.Expansion != 0)
+            if (factionMap.TryGetValue(faction.ParentFactionID, out var parent))
             {
-                continue;
-            }
-
-            if (faction.ParentFactionID > 0)
-            {
-                if (factionMap.TryGetValue(faction.ParentFactionID, out var parent))
+                while (parent != null)
                 {
-                    while (parent != null)
+                    if (parent.Expansion > 0)
                     {
-                        if (parent.Expansion > 0)
-                        {
-                            faction.Expansion = parent.Expansion;
-                            break;
-                        }
+                        faction.Expansion = parent.Expansion;
+                        break;
+                    }
 
-                        if (parent.ParentFactionID == 0 || !factionMap.TryGetValue(parent.ParentFactionID, out parent))
-                        {
-                            break;
-                        }
+                    if (parent.ParentFactionID == 0 || !factionMap.TryGetValue(parent.ParentFactionID, out parent))
+                    {
+                        break;
                     }
                 }
             }

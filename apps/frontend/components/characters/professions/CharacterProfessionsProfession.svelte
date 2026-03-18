@@ -11,7 +11,7 @@
     import type {
         Character,
         CharacterSubProfession,
-        Expansion,
+        ExpansionData,
         MultiSlugParams,
         UserCount,
     } from '@/types';
@@ -25,7 +25,7 @@
     export let staticProfession: StaticDataProfession;
 
     let charSubProfession: CharacterSubProfession;
-    let expansion: Expansion;
+    let expansion: ExpansionData;
     let filteredCategories: Record<number, StaticDataProfessionAbility[]>;
     let hasFirstCraft: boolean;
     let knownRecipes: Set<number>;

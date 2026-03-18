@@ -1,6 +1,8 @@
 import { Profession } from '@/enums/profession';
 import { DbResetType } from '@/shared/stores/db/enums';
 import type { ProfessionCooldownQuest, ProfessionCooldownSpell } from '@/types';
+import { expansionSubProfession } from '../sub-professions';
+import { Expansion } from '@/enums/expansion';
 
 export const expansionProfessionConcentration: Record<number, Record<number, number>> = {
     // Midnight
@@ -399,6 +401,7 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         key: 'midProfessionSkinningGloomclaw',
         name: '[Mid] Skin Gloomclaw (Eversong)',
         profession: Profession.Skinning,
+        subProfessionId: expansionSubProfession[Expansion.Midnight][Profession.Skinning],
         minimumLevel: 80,
         reset: DbResetType.Daily,
         ids: [88545],
@@ -408,6 +411,7 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         key: 'midProfessionSkinningSilverscale',
         name: "[Mid] Skin Silverscale (Zul'Aman)",
         profession: Profession.Skinning,
+        subProfessionId: expansionSubProfession[Expansion.Midnight][Profession.Skinning],
         minimumLevel: 80,
         reset: DbResetType.Daily,
         ids: [88526],
@@ -417,6 +421,7 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         key: 'midProfessionSkinningLumenfin',
         name: '[Mid] Skin Lumenfin (Harandar)',
         profession: Profession.Skinning,
+        subProfessionId: expansionSubProfession[Expansion.Midnight][Profession.Skinning],
         minimumLevel: 80,
         reset: DbResetType.Daily,
         ids: [88531],
@@ -426,6 +431,7 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         key: 'midProfessionSkinningUmbrafang',
         name: '[Mid] Skin Umbrafang (Voidstorm)',
         profession: Profession.Skinning,
+        subProfessionId: expansionSubProfession[Expansion.Midnight][Profession.Skinning],
         minimumLevel: 80,
         reset: DbResetType.Daily,
         ids: [88532],
@@ -435,6 +441,7 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         key: 'midProfessionSkinningNetherscythe',
         name: '[Mid] Skin Netherscythe (Voidstorm)',
         profession: Profession.Skinning,
+        subProfessionId: expansionSubProfession[Expansion.Midnight][Profession.Skinning],
         minimumLevel: 80,
         reset: DbResetType.Daily,
         ids: [88524],

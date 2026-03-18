@@ -21,3 +21,9 @@ export interface StaticDataReputationTier {
     minValues: number[];
     names: string[];
 }
+
+export interface StaticDataRenownReward {
+    level: number;
+    names: string[];
+    toastDescriptions: string[];
+}

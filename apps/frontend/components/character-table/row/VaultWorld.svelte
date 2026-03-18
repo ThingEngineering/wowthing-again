@@ -10,6 +10,7 @@
     let { character }: CharacterProps = $props();
 
     let worldVault = $derived(character.isMaxLevel ? character.weekly?.vault?.worldProgress : []);
+    // tier 5 could be hard prey
 
     function qualityFunc(prog: CharacterWeeklyProgress): number {
         return getWorldTier(prog.level)[1];
