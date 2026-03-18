@@ -115,8 +115,6 @@
     }
 </style>
 
-<td class="spacer"></td>
-
 {#each professions as [profession, userHas, slots] (profession)}
     <td class="spacer"></td>
 
