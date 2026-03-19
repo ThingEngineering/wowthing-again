@@ -18,6 +18,8 @@ interface CharacterCurrencyData {
     capRemaining: number;
     percent: number;
     tooltip: string;
+    weekAmount: number;
+    weekMax: number;
 }
 
 export function getCurrencyData(
@@ -32,6 +34,8 @@ export function getCurrencyData(
         capRemaining: 0,
         percent: 0,
         tooltip: '',
+        weekAmount: 0,
+        weekMax: 0,
     };
 
     if (currency) {
@@ -56,19 +60,26 @@ export function getCurrencyData(
         const amount = characterCurrency.quantity;
         ret.amount = toNiceNumber(amount);
         ret.amountRaw = amount;
+        ret.weekAmount = characterCurrency.weekQuantity;
+        ret.weekMax = characterCurrency.weekMax;
 
         if (characterCurrency.isMovingMax && characterCurrency.max > 0) {
             ret.capRemaining = characterCurrency.max - characterCurrency.totalQuantity;
             ret.percent = (characterCurrency.totalQuantity / characterCurrency.max) * 100;
             ret.tooltip = `${characterCurrency.totalQuantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`;
         } else {
+            ret.tooltip = amount.toLocaleString();
+
             if (characterCurrency.max > 0) {
                 ret.capRemaining = characterCurrency.max - amount;
                 ret.percent = (amount / characterCurrency.max) * 100;
-                ret.tooltip = `${amount.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`;
+                ret.tooltip = `${ret.tooltip} / ${characterCurrency.max.toLocaleString()}`;
+            } else if (characterCurrency.weekMax > 0) {
+                ret.capRemaining = characterCurrency.weekMax - characterCurrency.weekQuantity;
+                ret.percent = (characterCurrency.weekQuantity / characterCurrency.weekMax) * 100;
+                extraTooltip = `${characterCurrency.weekQuantity.toLocaleString()} / ${characterCurrency.weekMax.toLocaleString()} weekly cap`;
             } else {
                 ret.percent = 0;
-                ret.tooltip = amount.toLocaleString();
             }
         }
         ret.tooltip += ` ${currency.name}`;

@@ -26,14 +26,14 @@
     {@const currency =
         currencyId < 1000000 ? wowthingData.static.currencyById.get(currencyId) : undefined}
     {@const itemId = currencyId > 1000000 ? currencyId - 1000000 : 0}
-    {@const { amount, amountRaw, percent, tooltip } = getCurrencyData(
+    {@const { amount, amountRaw, percent, tooltip, weekMax } = getCurrencyData(
         $timeStore,
         character,
         currency,
         itemId
     )}
     {#if amount}
-        {@const good = currencyGood[currencyId]}
+        {@const good = currencyGood[currencyId] || weekMax || 0}
         <td
             class="max-width"
             class:status-success={good && amountRaw >= good}
