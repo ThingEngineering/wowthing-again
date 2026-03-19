@@ -698,8 +698,6 @@ export class DataUserDerived {
 
         charChore.name ||= chore.name;
 
-        if (chore.key === 'preyRep') console.log(character.name, charChore);
-
         return charChore;
     }
 
