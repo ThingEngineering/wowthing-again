@@ -412,10 +412,18 @@ export class DataUserDerived {
                 }
 
                 if (!charChore.skipped) {
-                    charTask.countTotal++;
+                    if (task.sumChores) {
+                        charTask.countTotal += charChore.progressTotal;
+                    } else {
+                        charTask.countTotal++;
+                    }
 
                     if (charChore.status === QuestStatus.Completed) {
-                        charTask.countCompleted++;
+                        if (task.sumChores) {
+                            charTask.countCompleted += charChore.progressCurrent;
+                        } else {
+                            charTask.countCompleted++;
+                        }
                     } else if (charChore.status === QuestStatus.InProgress) {
                         charTask.status ||= QuestStatus.InProgress;
                         charTask.countStarted++;
