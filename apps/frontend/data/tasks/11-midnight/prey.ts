@@ -1,11 +1,23 @@
+import { Strings } from '@/data/constants';
 import { iconLibrary } from '@/shared/icons';
 import { DbResetType } from '@/shared/stores/db/enums';
-import type { Task } from '@/types/tasks';
 import { userState } from '@/user-home/state/user';
+import type { Task } from '@/types/tasks';
 
+const PREY_REPUTATION_ID = 2764;
 const NORMAL_UNLOCK = 93086; // To the Sanctum!
 const HEROIC_UNLOCK = 92177; // One Hero's Prey
 const NIGHTMARE_UNLOCK = 92182; // The Sheep or the Wolf
+
+const renownFunc = (renown?: number) => {
+    if (!renown) {
+        return true;
+    }
+
+    const repCharacter =
+        userState.general.characterById[userState.reputations[PREY_REPUTATION_ID]?.[1]];
+    return repCharacter?.reputationData?.['midnight']?.sets?.[2]?.[2]?.value >= renown * 4000;
+};
 
 export const midPrey: Task = {
     key: 'midPrey',
@@ -13,6 +25,7 @@ export const midPrey: Task = {
     shortName: 'Prey',
     minimumLevel: 80,
     showSeparate: true,
+    sumChores: true,
     chores: [
         {
             key: 'preyRep',
@@ -32,8 +45,10 @@ export const midPrey: Task = {
             questCount: 2,
             questReset: DbResetType.Weekly,
             questIds: [93168, 93156],
-            couldGetFunc: (char) =>
-                userState.quests.characterById.get(char.id)?.hasQuestById?.has(NORMAL_UNLOCK),
+            canGetFunc: (char) =>
+                userState.quests.characterById.get(char.id)?.hasQuestById?.has(NORMAL_UNLOCK)
+                    ? ''
+                    : Strings.doUnlockQuests,
         },
         {
             key: 'preyHard',
@@ -44,20 +59,26 @@ export const midPrey: Task = {
             questCount: 2,
             questReset: DbResetType.Weekly,
             questIds: [93169, 93857],
-            couldGetFunc: (char) =>
-                userState.quests.characterById.get(char.id)?.hasQuestById?.has(HEROIC_UNLOCK),
+            couldGetFunc: () => renownFunc(1),
+            canGetFunc: (char) =>
+                userState.quests.characterById.get(char.id)?.hasQuestById?.has(HEROIC_UNLOCK)
+                    ? ''
+                    : Strings.doUnlockQuests,
         },
         {
             key: 'preyNightmare',
-            name: 'Nightmare- {item:262346}',
+            name: 'Nightmare - {item:262346}',
             icon: iconLibrary.notoAngryFaceWithHorns,
             minimumLevel: 90,
             alwaysStarted: true,
             questCount: 2,
             questReset: DbResetType.Weekly,
             questIds: [93170, 93861],
-            couldGetFunc: (char) =>
-                userState.quests.characterById.get(char.id)?.hasQuestById?.has(NIGHTMARE_UNLOCK),
+            couldGetFunc: () => renownFunc(4),
+            canGetFunc: (char) =>
+                userState.quests.characterById.get(char.id)?.hasQuestById?.has(NIGHTMARE_UNLOCK)
+                    ? ''
+                    : Strings.doUnlockQuests,
         },
         {
             key: 'preyNightmarishTask',
@@ -66,8 +87,11 @@ export const midPrey: Task = {
             minimumLevel: 90,
             questReset: DbResetType.Weekly,
             questIds: [94446],
-            couldGetFunc: (char) =>
-                userState.quests.characterById.get(char.id)?.hasQuestById?.has(NIGHTMARE_UNLOCK),
+            couldGetFunc: () => renownFunc(4),
+            canGetFunc: (char) =>
+                userState.quests.characterById.get(char.id)?.hasQuestById?.has(NIGHTMARE_UNLOCK)
+                    ? ''
+                    : Strings.doUnlockQuests,
         },
     ],
 };

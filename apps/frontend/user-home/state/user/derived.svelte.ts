@@ -412,21 +412,19 @@ export class DataUserDerived {
                 }
 
                 if (!charChore.skipped) {
-                    if (task.sumChores) {
-                        charTask.countTotal += charChore.progressTotal;
-                    } else {
-                        charTask.countTotal++;
-                    }
+                    charTask.countTotal += task.sumChores ? charChore.progressTotal : 1;
 
                     if (charChore.status === QuestStatus.Completed) {
+                        charTask.countCompleted += task.sumChores ? charChore.progressCurrent : 1;
+                    } else if (charChore.status === QuestStatus.InProgress) {
+                        charTask.status ||= QuestStatus.InProgress;
+
                         if (task.sumChores) {
                             charTask.countCompleted += charChore.progressCurrent;
                         } else {
-                            charTask.countCompleted++;
+                            charTask.countStarted++;
                         }
-                    } else if (charChore.status === QuestStatus.InProgress) {
-                        charTask.status ||= QuestStatus.InProgress;
-                        charTask.countStarted++;
+
                         if (
                             charChore.status === QuestStatus.InProgress &&
                             charChore.quest?.objectives?.length > 0

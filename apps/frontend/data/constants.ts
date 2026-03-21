@@ -96,3 +96,7 @@ export abstract class Constants {
         armorPlate: 'item/102268',
     };
 }
+
+export abstract class Strings {
+    static readonly doUnlockQuests = 'Do unlock quests!';
+}
