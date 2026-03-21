@@ -35,6 +35,11 @@ export abstract class Constants {
         loammNiffen: 2564,
         delveBrann: 2640,
         delveValeera: 2744,
+
+        midnightAmani: 2696,
+        midnightHarati: 2704,
+        midnightSingulatity: 2699,
+        midnightSilvermoon: 2710,
     };
 
     // static JSON -> itemBonusListGroups -> match upgradeTiers IDs
