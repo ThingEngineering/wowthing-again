@@ -109,6 +109,7 @@ export class DataStatic {
     public keystoneAffixById: Map<number, StaticDataKeystoneAffix>;
     public questNameById: Map<number, string>;
     public reagentCategoriesById: Map<number, number[]>;
+    public renownRewards: Record<number, StaticDataRenownReward[]>;
     public reputationTierById: Map<number, StaticDataReputationTier>;
     public sharedStringById: Map<number, string>;
 
