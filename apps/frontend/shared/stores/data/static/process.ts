@@ -58,6 +58,7 @@ export function processStaticData(rawData: RawStatic): DataStatic {
 
     data.itemToRequiredAbility = cloneDeep(rawData.itemToRequiredAbility);
     data.itemToSkillLine = cloneDeep(rawData.itemToSkillLine);
+    data.renownRewards = cloneDeep(rawData.renownRewards);
     data.skillLineAbilityItems = cloneDeep(rawData.skillLineAbilityItems);
 
     data.bagById = createObjects(rawData.rawBags, StaticDataBag);

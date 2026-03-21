@@ -198,6 +198,8 @@ export { default as notoSnowflake } from '@iconify/icons-noto/snowflake';
 export { default as notoSunWithFace } from '@iconify/icons-noto/sun-with-face';
 export { default as notoWaterWave } from '@iconify/icons-noto/water-wave';
 
+export { default as notoV1AngryFaceWithHorns } from '~icons/noto-v1/angry-face-with-horns';
+
 export { default as openmojiFlagFrance } from '@iconify/icons-openmoji/flag-france';
 export { default as openmojiFlagGermany } from '@iconify/icons-openmoji/flag-germany';
 export { default as openmojiFlagItaly } from '@iconify/icons-openmoji/flag-italy';

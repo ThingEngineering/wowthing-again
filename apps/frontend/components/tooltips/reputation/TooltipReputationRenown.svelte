@@ -2,33 +2,39 @@
     import { Constants } from '@/data/constants';
     import { wowthingData } from '@/shared/stores/data';
     import type { StaticDataReputation } from '@/shared/stores/static/types';
-    import type { Character, CharacterReputationParagon } from '@/types';
+    import type { CharacterReputationParagon } from '@/types';
     import type { ManualDataReputationSet } from '@/types/data/manual';
+    import type { CharacterProps } from '@/types/props';
 
     import ProgressBar from '@/components/common/ProgressBar.svelte';
+    import RenownRewards from './RenownRewards.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character;
-    export let characterParagon: CharacterReputationParagon = undefined;
-    export let characterRep: number;
-    export let dataRep: StaticDataReputation;
-    export let reputation: ManualDataReputationSet = undefined;
+    type Props = CharacterProps & {
+        characterRep: number;
+        dataRep: StaticDataReputation;
+        characterParagon?: CharacterReputationParagon;
+        reputation?: ManualDataReputationSet;
+    };
+    let { character, characterRep, dataRep, characterParagon, reputation }: Props = $props();
 
-    let progress: number;
-    let tier: number;
+    let maxRenown = $derived(
+        wowthingData.static.currencyById.get(dataRep.renownCurrencyId)?.maxTotal || 1
+    );
+    let renownValue = $derived(dataRep.maxValues[0] || 2500);
+    let tier = $derived(Math.floor(characterRep / renownValue));
+    let progress = $derived(
+        tier < maxRenown ? characterRep % renownValue : characterParagon?.current || 0
+    );
 
-    $: maxRenown = wowthingData.static.currencyById.get(dataRep.renownCurrencyId)?.maxTotal || 1;
-    $: renownValue = dataRep.maxValues[0] || 2500;
-    $: {
-        tier = Math.floor(characterRep / renownValue);
-        progress = tier < maxRenown ? characterRep % renownValue : characterParagon?.current || 0;
-    }
+    let upcomingRewards = $derived(
+        (wowthingData.static.renownRewards[dataRep.id] || []).filter(
+            (reward) => reward.level > tier
+        )
+    );
 </script>
 
 <style lang="scss">
-    .wowthing-tooltip {
-        width: 15rem;
-    }
     .tooltip-body {
         padding: 0.5rem;
     }
@@ -37,7 +43,7 @@
     }
 </style>
 
-<div class="wowthing-tooltip">
+<div class="wowthing-tooltip" style:width={upcomingRewards.length > 0 ? '25rem' : '15rem'}>
     <h4 class="text-overflow">
         {#if reputation?.both === undefined && character}
             <WowthingImage
@@ -60,5 +66,9 @@
             total={tier < maxRenown ? renownValue : characterParagon?.max}
             shortText={true}
         />
+
+        {#if upcomingRewards.length > 0}
+            <RenownRewards reputationId={dataRep.id} rewards={upcomingRewards} />
+        {/if}
     </div>
 </div>

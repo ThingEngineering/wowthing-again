@@ -1,123 +1,22 @@
+import { Strings } from '@/data/constants';
 import { iconLibrary } from '@/shared/icons';
 import { DbResetType } from '@/shared/stores/db/enums';
-import type { Character } from '@/types';
-import type { Chore, Task } from '@/types/tasks';
 import { userState } from '@/user-home/state/user';
+import type { Task } from '@/types/tasks';
 
-const normalQuestIds: number[] = [
-    91114, // Prey: Consul Nebulor (Normal)
-    91112, // Prey: Crusader Luxia Maxwell (Normal)
-    91100, // Prey: Deliah Gloomsong (Normal)
-    91124, // Prey: Dengzag, the Darkened Blaze (Normal)
-    91115, // Prey: Executor Kaenius (Normal)
-    91123, // Prey: Grothoz, the Burning Shadow (Normal)
-    91111, // Prey: High Vindicator Vureem (Normal)
-    91116, // Prey: Imperator Enigmalia (Normal)
-    91103, // Prey: Jo'zolo the Breaker (Normal)
-    91117, // Prey: Knight-Errant Bloodshatter (Normal)
-    91098, // Prey: L-N-0R the Recycler (Normal)
-    91110, // Prey: Lamyne of the Undercroft (Normal)
-    91108, // Prey: Lieutenant Blazewing (Normal)
-    91119, // Prey: Lost Theldrin (Normal)
-    91095, // Prey: Magister Sunbreaker (Normal)
-    91096, // Prey: Magistrix Emberlash (Normal)
-    91099, // Prey: Mordril Shadowfell (Normal)
-    91102, // Prey: Nexus-Edge Hadim (Normal)
-    91120, // Prey: Neydra the Starving (Normal)
-    91109, // Prey: Petyoll the Razorleaf (Normal)
-    91101, // Prey: Phaseblade Talasha (Normal)
-    91113, // Prey: Praetor Singularis (Normal)
-    91107, // Prey: Ranger Swiftglade (Normal)
-    91097, // Prey: Senior Tinker Ozwold (Normal)
-    91105, // Prey: The Talon of Janali (Normal)
-    91106, // Prey: The Wing of Akil'zon (Normal)
-    91122, // Prey: Thorn-Witch Liset (Normal)
-    91121, // Prey: Thornspeaker Edgath (Normal)
-    91118, // Prey: Vylenna the Defector (Normal)
-    91104, // Prey: Zadu, Fist of Nalorakk (Normal)
-];
+const PREY_REPUTATION_ID = 2764;
+const NORMAL_UNLOCK = 93086; // To the Sanctum!
+const HEROIC_UNLOCK = 92177; // One Hero's Prey
+const NIGHTMARE_UNLOCK = 92182; // The Sheep or the Wolf
 
-const hardQuestIds: number[] = [
-    91245, // Prey: Consul Nebulor (Hard)
-    91243, // Prey: Crusader Luxia Maxwell (Hard)
-    91220, // Prey: Deliah Gloomsong (Hard)
-    91255, // Prey: Dengzag, the Darkened Blaze (Hard)
-    91246, // Prey: Executor Kaenius (Hard)
-    91254, // Prey: Grothoz, the Burning Shadow (Hard)
-    91242, // Prey: High Vindicator Vureem (Hard)
-    91247, // Prey: Imperator Enigmalia (Hard)
-    91226, // Prey: Jo'zolo the Breaker (Hard)
-    91248, // Prey: Knight-Errant Bloodshatter (Hard)
-    91216, // Prey: L-N-0R the Recycler (Hard)
-    91240, // Prey: Lamyne of the Undercroft (Hard)
-    91236, // Prey: Lieutenant Blazewing (Hard)
-    91250, // Prey: Lost Theldrin (Hard)
-    91210, // Prey: Magister Sunbreaker (Hard)
-    91212, // Prey: Magistrix Emberlash (Hard)
-    91218, // Prey: Mordril Shadowfell (Hard)
-    91224, // Prey: Nexus-Edge Hadim (Hard)
-    91251, // Prey: Neydra the Starving (Hard)
-    91238, // Prey: Petyoll the Razorleaf (Hard)
-    91222, // Prey: Phaseblade Talasha (Hard)
-    91244, // Prey: Praetor Singularis (Hard)
-    91234, // Prey: Ranger Swiftglade (Hard)
-    91214, // Prey: Senior Tinker Ozwold (Hard)
-    91230, // Prey: The Talon of Janali (Hard)
-    91232, // Prey: The Wing of Akil'zon (Hard)
-    91253, // Prey: Thorn-Witch Liset (Hard)
-    91252, // Prey: Thornspeaker Edgath (Hard)
-    91249, // Prey: Vylenna the Defector (Hard)
-    91228, // Prey: Zadu, Fist of Nalorakk (Hard)
-];
+const renownFunc = (renown?: number) => {
+    if (!renown) {
+        return true;
+    }
 
-const nightmareQuestIds: number[] = [
-    91259, // Prey: Consul Nebulor (Nightmare)
-    91257, // Prey: Crusader Luxia Maxwell (Nightmare)
-    91221, // Prey: Deliah Gloomsong (Nightmare)
-    91269, // Prey: Dengzag, the Darkened Blaze (Nightmare)
-    91260, // Prey: Executor Kaenius (Nightmare)
-    91268, // Prey: Grothoz, the Burning Shadow (Nightmare)
-    91256, // Prey: High Vindicator Vureem (Nightmare)
-    91261, // Prey: Imperator Enigmalia (Nightmare)
-    91227, // Prey: Jo'zolo the Breaker (Nightmare)
-    91262, // Prey: Knight-Errant Bloodshatter (Nightmare)
-    91217, // Prey: L-N-0R the Recycler (Nightmare)
-    91241, // Prey: Lamyne of the Undercroft (Nightmare)
-    91237, // Prey: Lieutenant Blazewing (Nightmare)
-    91264, // Prey: Lost Theldrin (Nightmare)
-    91211, // Prey: Magister Sunbreaker (Nightmare)
-    91213, // Prey: Magistrix Emberlash (Nightmare)
-    91219, // Prey: Mordril Shadowfell (Nightmare)
-    91225, // Prey: Nexus-Edge Hadim (Nightmare)
-    91265, // Prey: Neydra the Starving (Nightmare)
-    91239, // Prey: Petyoll the Razorleaf (Nightmare)
-    91223, // Prey: Phaseblade Talasha (Nightmare)
-    91258, // Prey: Praetor Singularis (Nightmare)
-    91235, // Prey: Ranger Swiftglade (Nightmare)
-    91215, // Prey: Senior Tinker Ozwold (Nightmare)
-    91231, // Prey: The Talon of Janali (Nightmare)
-    91233, // Prey: The Wing of Akil'zon (Nightmare)
-    91267, // Prey: Thorn-Witch Liset (Nightmare)
-    91266, // Prey: Thornspeaker Edgath (Nightmare)
-    91263, // Prey: Vylenna the Defector (Nightmare)
-    91229, // Prey: Zadu, Fist of Nalorakk (Nightmare)
-];
-
-const preyFunc = (questIds: number[], index: number) => {
-    return (char: Character) => {
-        const charQuests = userState.quests.characterById.get(char.id);
-        const completedOrInProgress = questIds.filter(
-            (questId) =>
-                charQuests.hasQuestById.has(questId) ||
-                charQuests.progressQuestByKey.has(`q${questId}`)
-        );
-
-        if (completedOrInProgress[index]) {
-            return [completedOrInProgress[index]];
-        } else {
-            return questIds.filter((questId) => !completedOrInProgress.includes(questId));
-        }
-    };
+    const repCharacter =
+        userState.general.characterById[userState.reputations[PREY_REPUTATION_ID]?.[1]];
+    return repCharacter?.reputationData?.['midnight']?.sets?.[2]?.[2]?.value >= renown * 4000;
 };
 
 export const midPrey: Task = {
@@ -126,6 +25,7 @@ export const midPrey: Task = {
     shortName: 'Prey',
     minimumLevel: 80,
     showSeparate: true,
+    sumChores: true,
     chores: [
         {
             key: 'preyRep',
@@ -139,32 +39,59 @@ export const midPrey: Task = {
         },
         {
             key: 'preyNormal',
-            name: 'Normal',
+            name: 'Normal - {item:257023}',
             icon: iconLibrary.notoClownFace,
             alwaysStarted: true,
-            questCount: 4,
+            questCount: 2,
             questReset: DbResetType.Weekly,
-            questIds: normalQuestIds,
+            questIds: [93168, 93156],
+            canGetFunc: (char) =>
+                userState.quests.characterById.get(char.id)?.hasQuestById?.has(NORMAL_UNLOCK)
+                    ? ''
+                    : Strings.doUnlockQuests,
         },
         {
             key: 'preyHard',
-            name: 'Hard',
+            name: 'Hard - {item:257026}',
             icon: iconLibrary.notoCowboyHatFace,
             minimumLevel: 90,
             alwaysStarted: true,
-            questCount: 4,
+            questCount: 2,
             questReset: DbResetType.Weekly,
-            questIds: hardQuestIds,
+            questIds: [93169, 93857],
+            couldGetFunc: () => renownFunc(1),
+            canGetFunc: (char) =>
+                userState.quests.characterById.get(char.id)?.hasQuestById?.has(HEROIC_UNLOCK)
+                    ? ''
+                    : Strings.doUnlockQuests,
         },
         {
             key: 'preyNightmare',
-            name: 'Nightmare',
+            name: 'Nightmare - {item:262346}',
             icon: iconLibrary.notoAngryFaceWithHorns,
             minimumLevel: 90,
             alwaysStarted: true,
-            questCount: 4,
+            questCount: 2,
             questReset: DbResetType.Weekly,
-            questIds: nightmareQuestIds,
+            questIds: [93170, 93861],
+            couldGetFunc: () => renownFunc(4),
+            canGetFunc: (char) =>
+                userState.quests.characterById.get(char.id)?.hasQuestById?.has(NIGHTMARE_UNLOCK)
+                    ? ''
+                    : Strings.doUnlockQuests,
+        },
+        {
+            key: 'preyNightmarishTask',
+            name: 'A Nightmarish Task',
+            icon: iconLibrary.notoV1AngryFaceWithHorns,
+            minimumLevel: 90,
+            questReset: DbResetType.Weekly,
+            questIds: [94446],
+            couldGetFunc: () => renownFunc(4),
+            canGetFunc: (char) =>
+                userState.quests.characterById.get(char.id)?.hasQuestById?.has(NIGHTMARE_UNLOCK)
+                    ? ''
+                    : Strings.doUnlockQuests,
         },
     ],
 };

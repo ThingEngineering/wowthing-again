@@ -412,13 +412,19 @@ export class DataUserDerived {
                 }
 
                 if (!charChore.skipped) {
-                    charTask.countTotal++;
+                    charTask.countTotal += task.sumChores ? charChore.progressTotal : 1;
 
                     if (charChore.status === QuestStatus.Completed) {
-                        charTask.countCompleted++;
+                        charTask.countCompleted += task.sumChores ? charChore.progressCurrent : 1;
                     } else if (charChore.status === QuestStatus.InProgress) {
                         charTask.status ||= QuestStatus.InProgress;
-                        charTask.countStarted++;
+
+                        if (task.sumChores) {
+                            charTask.countCompleted += charChore.progressCurrent;
+                        } else {
+                            charTask.countStarted++;
+                        }
+
                         if (
                             charChore.status === QuestStatus.InProgress &&
                             charChore.quest?.objectives?.length > 0
@@ -697,8 +703,6 @@ export class DataUserDerived {
         }
 
         charChore.name ||= chore.name;
-
-        if (chore.key === 'preyRep') console.log(character.name, charChore);
 
         return charChore;
     }

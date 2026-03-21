@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { Strings } from '@/data/constants';
     import { taskChoreMap, taskMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
     import { iconLibrary, uiIcons } from '@/shared/icons';
@@ -196,13 +197,16 @@
                                     {/if}
                                 </td>
                             {:else if chore.questCount > 1}
-                                {@const cls = getPercentStatusClass(
-                                    ((chore.alwaysStarted
-                                        ? Math.max(1, charTaskChore.progressCurrent)
-                                        : charTaskChore.progressCurrent) /
-                                        charTaskChore.progressTotal) *
-                                        100
-                                )}
+                                {@const cls =
+                                    charTaskChore.statusTexts[0] === Strings.doUnlockQuests
+                                        ? 'status-fail'
+                                        : getPercentStatusClass(
+                                              ((chore.alwaysStarted
+                                                  ? Math.max(1, charTaskChore.progressCurrent)
+                                                  : charTaskChore.progressCurrent) /
+                                                  charTaskChore.progressTotal) *
+                                                  100
+                                          )}
                                 <td class="error-text">
                                     <ParsedText
                                         text={`[|${cls}|${charTaskChore.progressCurrent}/${charTaskChore.progressTotal}]`}

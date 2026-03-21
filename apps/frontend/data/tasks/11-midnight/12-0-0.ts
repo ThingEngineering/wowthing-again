@@ -212,6 +212,15 @@ export const midChores12_0_0: Task = {
             ],
         },
         {
+            key: 'midLostLegends',
+            name: 'Lost Legends',
+            icon: iconLibrary.gameSecretBook,
+            minimumLevel: 83,
+            accountWide: true,
+            questReset: DbResetType.Weekly,
+            questIds: [89268],
+        },
+        {
             key: 'midDungeon',
             name: 'Dungeon',
             icon: iconLibrary.faDungeon,
