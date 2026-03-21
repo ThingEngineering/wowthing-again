@@ -35,9 +35,6 @@
 </script>
 
 <style lang="scss">
-    .wowthing-tooltip {
-        width: 20rem;
-    }
     .tooltip-body {
         padding: 0.5rem;
     }
@@ -46,7 +43,7 @@
     }
 </style>
 
-<div class="wowthing-tooltip">
+<div class="wowthing-tooltip" style:width={upcomingRewards.length > 0 ? '25rem' : '15rem'}>
     <h4 class="text-overflow">
         {#if reputation?.both === undefined && character}
             <WowthingImage
@@ -71,7 +68,7 @@
         />
 
         {#if upcomingRewards.length > 0}
-            <RenownRewards rewards={upcomingRewards} />
+            <RenownRewards reputationId={dataRep.id} rewards={upcomingRewards} />
         {/if}
     </div>
 </div>
