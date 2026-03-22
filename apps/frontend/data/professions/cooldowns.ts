@@ -45,6 +45,13 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
     // Alchemy
     {
         type: 'spell',
+        key: 'midAlchemyBouquet',
+        name: '[Mid] Bouquet of Herbs',
+        profession: Profession.Alchemy,
+        cooldown: [[0]],
+    },
+    {
+        type: 'spell',
         key: 'midAlchemyWondrous',
         name: '[Mid] Wondrous Synergist',
         profession: Profession.Alchemy,
