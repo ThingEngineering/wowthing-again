@@ -33,6 +33,7 @@ export { default as gameCrossbow } from '~icons/game-icons/crossbow';
 export { default as gameCrossedSwords } from '~icons/game-icons/crossed-swords';
 export { default as gameCrownedSkull } from '~icons/game-icons/crowned-skull';
 export { default as gameCurvyKnife } from '~icons/game-icons/curvy-knife';
+export { default as gameCutDiamond } from '~icons/game-icons/cut-diamond';
 export { default as gameDeathSkull } from '~icons/game-icons/death-skull';
 export { default as gameDiceRandom } from '~icons/game-icons/perspective-dice-six-faces-random';
 export { default as gameDigDug } from '~icons/game-icons/dig-dug';
@@ -180,6 +181,14 @@ export { default as mdiUnicorn } from '~icons/mdi/unicorn';
 export { default as mdiWardrobeOutline } from '~icons/mdi/wardrobe-outline';
 export { default as mdiWizardHat } from '~icons/mdi/wizard-hat';
 
+export { default as mynauiLetterASquare } from '~icons/mynaui/letter-a-square';
+export { default as mynauiLetterCSquare } from '~icons/mynaui/letter-c-square';
+export { default as mynauiLetterDSquare } from '~icons/mynaui/letter-d-square';
+export { default as mynauiLetterLSquare } from '~icons/mynaui/letter-l-square';
+export { default as mynauiLetterMSquare } from '~icons/mynaui/letter-m-square';
+export { default as mynauiLetterPSquare } from '~icons/mynaui/letter-p-square';
+export { default as mynauiLetterWSquare } from '~icons/mynaui/letter-w-square';
+
 export { default as notoAngryFaceWithHorns } from '~icons/noto/angry-face-with-horns';
 export { default as notoBackpack } from '~icons/noto/backpack';
 export { default as notoBank } from '~icons/noto/bank';
@@ -217,14 +226,3 @@ export { default as twemojiFlagPortgual } from '~icons/twemoji/flag-portugal';
 export { default as twemojiFlagRussia } from '~icons/twemoji/flag-russia';
 export { default as twemojiFlagSpain } from '~icons/twemoji/flag-spain';
 export { default as twemojiFlagUnitedKingdom } from '~icons/twemoji/flag-united-kingdom';
-
-export { default as GameCutDiamond } from '~icons/game-icons/cut-diamond';
-export { default as GameTreasureMap } from '~icons/game-icons/treasure-map';
-
-export { default as MynauiLetterASquare } from '~icons/mynaui/letter-a-square';
-export { default as MynauiLetterCSquare } from '~icons/mynaui/letter-c-square';
-export { default as MynauiLetterDSquare } from '~icons/mynaui/letter-d-square';
-export { default as MynauiLetterLSquare } from '~icons/mynaui/letter-l-square';
-export { default as MynauiLetterMSquare } from '~icons/mynaui/letter-m-square';
-export { default as MynauiLetterPSquare } from '~icons/mynaui/letter-p-square';
-export { default as MynauiLetterWSquare } from '~icons/mynaui/letter-w-square';

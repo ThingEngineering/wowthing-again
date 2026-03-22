@@ -152,18 +152,18 @@
                             >
                                 {#if chore.questReset === DbResetType.Daily && settingsState.value.tasks.showDailyIcon}
                                     <IconifyWrapper
-                                        icon={iconLibrary.MynauiLetterDSquare}
+                                        icon={iconLibrary.mynauiLetterDSquare}
                                         cls="quality3"
                                     />
                                 {:else if chore.questReset === DbResetType.Weekly && settingsState.value.tasks.showWeeklyIcon}
                                     <IconifyWrapper
-                                        icon={iconLibrary.MynauiLetterWSquare}
+                                        icon={iconLibrary.mynauiLetterWSquare}
                                         cls="quality3"
                                     />
                                 {/if}
                                 {#if chore.accountWide && settingsState.value.tasks.showAccountIcon}
                                     <IconifyWrapper
-                                        icon={iconLibrary.MynauiLetterASquare}
+                                        icon={iconLibrary.mynauiLetterASquare}
                                         cls="status-shrug"
                                     />
                                 {/if}
@@ -239,13 +239,13 @@
     {#if settingsState.value.tasks.showIconLegend}
         <div class="bottom" style:--scale="1.2">
             <span>
-                <IconifyWrapper icon={iconLibrary.MynauiLetterDSquare} cls="quality3" /> Daily
+                <IconifyWrapper icon={iconLibrary.mynauiLetterDSquare} cls="quality3" /> Daily
             </span>
             <span>
-                <IconifyWrapper icon={iconLibrary.MynauiLetterWSquare} cls="quality3" /> Weekly
+                <IconifyWrapper icon={iconLibrary.mynauiLetterWSquare} cls="quality3" /> Weekly
             </span>
             <span>
-                <IconifyWrapper icon={iconLibrary.MynauiLetterASquare} cls="status-shrug" /> Account
+                <IconifyWrapper icon={iconLibrary.mynauiLetterASquare} cls="status-shrug" /> Account
             </span>
         </div>
     {/if}
