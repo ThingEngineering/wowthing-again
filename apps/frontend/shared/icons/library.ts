@@ -6,8 +6,11 @@ export { default as emojiZzz } from '~icons/emojione-monotone/zzz';
 
 export { default as faDungeon } from '~icons/fa-solid/dungeon';
 
+export { default as fluentAngryFaceWithHorns } from '~icons/fluent-emoji-high-contrast/angry-face-with-horns';
+
 export { default as gameAnimalHide } from '~icons/game-icons/animal-hide';
 export { default as gameAnvil } from '~icons/game-icons/anvil';
+export { default as gameBabyFace } from '~icons/game-icons/baby-face';
 export { default as gameBackpack } from '~icons/game-icons/backpack';
 export { default as gameBarbecue } from '~icons/game-icons/barbecue';
 export { default as gameBarbute } from '~icons/game-icons/barbute';
@@ -17,6 +20,7 @@ export { default as gameBeamsAura } from '~icons/game-icons/beams-aura';
 export { default as gameBearFace } from '~icons/game-icons/bear-face';
 export { default as gameBeltArmor } from '~icons/game-icons/belt-armor';
 export { default as gameBigDiamondRing } from '~icons/game-icons/big-diamond-ring';
+export { default as gameBladeBite } from '~icons/game-icons/blade-bite';
 export { default as gameBlunderbuss } from '~icons/game-icons/blunderbuss';
 export { default as gameBracer } from '~icons/game-icons/bracer';
 export { default as gameBrassKnuckles } from '~icons/game-icons/brass-knuckles';
@@ -53,6 +57,7 @@ export { default as gameHeartPlus } from '~icons/game-icons/heart-plus';
 export { default as gameHouse } from '~icons/game-icons/house';
 export { default as gameJigsawBox } from '~icons/game-icons/jigsaw-box';
 export { default as gameKnapsack } from '~icons/game-icons/knapsack';
+export { default as gameLabradorHead } from '~icons/game-icons/labrador-head';
 export { default as gameLockedFortress } from '~icons/game-icons/locked-fortress';
 export { default as gameMetalBoot } from '~icons/game-icons/metal-boot';
 export { default as gameNightSky } from '~icons/game-icons/night-sky';
@@ -124,6 +129,7 @@ export { default as mdiCloud } from '~icons/mdi/cloud';
 export { default as mdiCogOutline } from '~icons/mdi/cog-outline';
 export { default as mdiCurrencyUsd } from '~icons/mdi/currency-usd';
 export { default as mdiDiceMultiple } from '~icons/mdi/dice-multiple';
+export { default as mdiDog } from '~icons/mdi/dog';
 export { default as mdiDuck } from '~icons/mdi/duck';
 export { default as mdiEmoticonDevilOutline } from '~icons/mdi/emoticon-devil-outline';
 export { default as mdiExclamationThick } from '~icons/mdi/exclamation-thick';

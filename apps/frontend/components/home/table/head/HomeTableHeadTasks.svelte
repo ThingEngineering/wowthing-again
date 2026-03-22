@@ -48,6 +48,7 @@
     <td
         class="sortable sorted-{getSortState(fullTaskName)} {customExpiry || ''}"
         data-task={taskName}
+        style:--scale="0.9"
         onclick={() => setSortState(fullTaskName)}
         use:componentTooltip={{
             component: Tooltip,
@@ -60,7 +61,7 @@
     >
         {#if chore}
             {#if chore.icon}
-                <IconifyWrapper icon={chore.icon} scale="0.9" />
+                <IconifyWrapper icon={chore.icon} />
             {/if}
         {:else}
             <ParsedText text={task.shortName} />
