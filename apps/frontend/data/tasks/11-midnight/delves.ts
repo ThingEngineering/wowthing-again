@@ -12,7 +12,7 @@ export const midDelves: Task = {
         // {
         //     key: 'map',
         //     name: '{item:252415}',
-        //     icon: iconLibrary.GameTreasureMap,
+        //     icon: iconLibrary.gameTreasureMap,
         //     minimumLevel: 80,
         //     alwaysStarted: true,
         //     questReset: DbResetType.Weekly,

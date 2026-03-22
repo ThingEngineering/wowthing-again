@@ -1,7 +1,7 @@
 <script lang="ts">
     import groupBy from 'lodash/groupBy';
     import sortBy from 'lodash/sortBy';
-    import { location } from 'svelte-spa-router';
+    import { router } from 'svelte-spa-router';
 
     import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
@@ -65,7 +65,7 @@
                 filterFunc,
                 char,
                 $newNavState.characterFilter ||
-                    ($location === '/' ? settingsState.activeView.characterFilter : '')
+                    (router.location === '/' ? settingsState.activeView.characterFilter : '')
             )
         );
 

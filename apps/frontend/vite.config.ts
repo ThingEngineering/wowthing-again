@@ -56,6 +56,16 @@ const config = <UserConfig>defineConfig({
                 assetFileNames: 'dist/assets/[name]-[hash][extname]',
                 chunkFileNames: 'dist/assets/[name]-[hash].js',
                 entryFileNames: 'dist/assets/[name]-[hash].js',
+                manualChunks: (id) => {
+                    if (id.includes('node_modules') && !id.includes('/chart')) {
+                        return 'vendor';
+                    } else if (id.startsWith('~icons/')) {
+                        return 'icons';
+                    }
+
+                    // console.log(id);
+                    return null;
+                },
             },
         },
         sourcemap: sourceMapsInProduction,

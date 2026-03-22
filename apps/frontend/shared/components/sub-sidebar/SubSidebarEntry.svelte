@@ -1,5 +1,5 @@
 <script lang="ts" generics="TItem extends SidebarItem">
-    import { link, location, replace } from 'svelte-spa-router';
+    import { link, replace, router } from 'svelte-spa-router';
     import active from 'svelte-spa-router/active';
 
     import { iconStrings } from '@/data/icons';
@@ -68,7 +68,9 @@
     let expanded = $derived(
         alwaysExpand ||
             $subSidebarState.expanded[url] ||
-            ($location.startsWith(url) && !($location === url) && item.children?.length > 0)
+            (router.location.startsWith(url) &&
+                !(router.location === url) &&
+                item.children?.length > 0)
     );
 
     let data = $derived(item ? dataFunc?.(item) : undefined);
@@ -82,7 +84,12 @@
     });
 
     let noCollapse = $derived.by(() => {
-        if (actualNoVisitRoot && expanded && $location.startsWith(url) && $location !== url) {
+        if (
+            actualNoVisitRoot &&
+            expanded &&
+            router.location.startsWith(url) &&
+            router.location !== url
+        ) {
             return true;
         } else if (alwaysExpand) {
             return true;
@@ -105,7 +112,7 @@
 
     $effect(() => {
         if (item) {
-            if (actualNoVisitRoot && $location === url) {
+            if (actualNoVisitRoot && router.location === url) {
                 $subSidebarState.expanded[url] = true;
                 replace(`${url}/${item.children[0].slug}`);
             }
@@ -116,7 +123,7 @@
         expanded = !expanded;
         $subSidebarState.expanded[url] = expanded;
 
-        if ($location.startsWith(url) && $location !== url) {
+        if (router.location.startsWith(url) && router.location !== url) {
             replace(url);
         }
     };

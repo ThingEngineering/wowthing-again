@@ -1,6 +1,6 @@
 import debounce from 'lodash/debounce';
 import uniq from 'lodash/uniq';
-import { location } from 'svelte-spa-router';
+import { router } from 'svelte-spa-router';
 
 // WARNING: do NOT import any of the other stores!
 import { Constants } from '@/data/constants';
@@ -35,9 +35,6 @@ function createSettingsState() {
     let settings = $state<Settings>();
     let saving = $state(0);
 
-    let reactiveLocation = $state('');
-    location.subscribe((state) => (reactiveLocation = state));
-
     const saveData = async () => {
         saving = 1;
 
@@ -64,7 +61,7 @@ function createSettingsState() {
     );
 
     const activeView = $derived(
-        (reactiveLocation === '/'
+        (router.location === '/'
             ? settings.views.find((view) => view.id === browserState.current.home.activeView)
             : settings.views[0]) || settings.views[0]
     );

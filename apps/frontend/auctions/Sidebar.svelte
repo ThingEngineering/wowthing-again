@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { location, replace } from 'svelte-spa-router';
+    import { replace, router } from 'svelte-spa-router';
 
     import { auctionsAppState } from '@/auctions/stores/state';
     import { Region } from '@/enums/region';
@@ -27,7 +27,7 @@
         if (oldRegion !== newRegion) {
             $auctionsAppState.region = newRegion;
             replace(
-                $location.replace(
+                router.location.replace(
                     `/${Region[oldRegion].toLowerCase()}/`,
                     `/${Region[newRegion].toLowerCase()}/`
                 )

@@ -9,7 +9,8 @@ class ActiveViewTasks {
     value = $derived.by(() => logErrors(this._value));
 
     private _value() {
-        const customTaskMap = $state.snapshot(settingsState.customTaskMap) as Record<string, Task>;
+        // const customTaskMap = $state.snapshot(settingsState.customTaskMap) as Record<string, Task>;
+        const customTaskMap = settingsState.customTaskMap;
 
         const activeTasks: string[] = [];
 

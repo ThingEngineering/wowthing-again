@@ -4,10 +4,10 @@ import type { Icon } from '@/types/icons';
 
 export const armorTypeIcons: Record<ArmorType, Icon> = {
     [ArmorType.Cloak]: iconLibrary.gameCape,
-    [ArmorType.Cloth]: iconLibrary.MynauiLetterCSquare,
-    [ArmorType.Leather]: iconLibrary.MynauiLetterLSquare,
-    [ArmorType.Mail]: iconLibrary.MynauiLetterMSquare,
-    [ArmorType.Plate]: iconLibrary.MynauiLetterPSquare,
+    [ArmorType.Cloth]: iconLibrary.mynauiLetterCSquare,
+    [ArmorType.Leather]: iconLibrary.mynauiLetterLSquare,
+    [ArmorType.Mail]: iconLibrary.mynauiLetterMSquare,
+    [ArmorType.Plate]: iconLibrary.mynauiLetterPSquare,
     // [ArmorType.Cloth]: iconLibrary.mdiLetterC,
     // [ArmorType.Leather]: iconLibrary.mdiLetterL,
     // [ArmorType.Mail]: iconLibrary.mdiLetterM,
