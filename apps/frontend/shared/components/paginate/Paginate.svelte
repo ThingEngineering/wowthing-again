@@ -1,37 +1,28 @@
 <script lang="ts" generics="TData">
-    import { location } from 'svelte-spa-router'
+    import { router } from 'svelte-spa-router';
 
-    import PaginateBar from './PaginateBar.svelte'
+    import PaginateBar from './PaginateBar.svelte';
+    import type _ from 'lodash';
 
-    export let items: TData[]
-    export let page: number
-    export let perPage: number
-    export let pageItems: TData[] = []
+    type Props = {
+        items: TData[];
+        page: number;
+        perPage: number;
+    };
+    let { items, page, perPage }: Props = $props();
 
-    let end: number
-    let pages: number
-    let start: number
-    let url: string
-    $: {
-        pages = Math.ceil(items.length / perPage)
-        page = Math.max(1, Math.min(pages, page))
-        start = (page - 1) * perPage
-        end = start + perPage
+    let pages = $derived(Math.ceil(items.length / perPage));
+    let derivedPage = $derived(Math.max(1, Math.min(pages, page)));
+    let start = $derived((page - 1) * perPage);
+    let end = $derived(start + perPage);
 
-        url = '#' + $location.replace(/\/?\d+$/, '')
+    let url = $derived('#' + router.location.replace(/\/?\d+$/, ''));
 
-        pageItems = items.slice(start, end);
-    }
+    let pageItems = $derived(items.slice(start, end));
 </script>
 
 {#if items.length > 0}
-    <PaginateBar
-        total={items.length}
-        {page}
-        {pages}
-        {perPage}
-        {url}
-    >
+    <PaginateBar total={items.length} page={derivedPage} {pages} {perPage} {url}>
         <slot name="bar-end" slot="bar-end"></slot>
     </PaginateBar>
 {/if}
@@ -39,11 +30,5 @@
 <slot paginated={pageItems} />
 
 {#if items.length > 0}
-    <PaginateBar
-        total={items.length}
-        {page}
-        {pages}
-        {perPage}
-        {url}
-    />
+    <PaginateBar total={items.length} page={derivedPage} {pages} {perPage} {url} />
 {/if}

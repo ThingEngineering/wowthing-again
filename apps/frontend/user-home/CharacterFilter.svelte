@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { location } from 'svelte-spa-router';
+    import { router } from 'svelte-spa-router';
 
     import { iconLibrary } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
@@ -29,7 +29,7 @@
 <div class="character-filter" id="character-filter">
     <TextInput
         name="character-filter"
-        placeholder={($location === '/' ? settingsState.activeView.characterFilter : '') ||
+        placeholder={(router.location === '/' ? settingsState.activeView.characterFilter : '') ||
             'Character filter...'}
         bind:value={$newNavState.characterFilter}
         tooltipComponent={{
