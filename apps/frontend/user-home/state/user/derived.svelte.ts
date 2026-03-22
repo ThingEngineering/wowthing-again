@@ -331,7 +331,8 @@ export class DataUserDerived {
     ) {
         const ret: Record<string, CharacterTask> = {};
 
-        const customTaskMap = $state.snapshot(settingsState.customTaskMap) as Record<string, Task>;
+        // const customTaskMap = $state.snapshot(settingsState.customTaskMap) as Record<string, Task>;
+        const customTaskMap = settingsState.customTaskMap;
         const showCompletedUntrackedChores = settingsState.activeView.showCompletedUntrackedChores;
 
         for (const fullTaskName of activeViewTasks.value) {
