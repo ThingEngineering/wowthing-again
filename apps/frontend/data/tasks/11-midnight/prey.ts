@@ -45,8 +45,8 @@ export const midPrey: Task = {
             questCount: 2,
             questReset: DbResetType.Weekly,
             questIds: [93168, 93156],
-            canGetFunc: (char) =>
-                userState.quests.characterById.get(char.id)?.hasQuestById?.has(NORMAL_UNLOCK)
+            canGetFunc: () =>
+                userState.quests.anyCharacterHasById.has(NORMAL_UNLOCK)
                     ? ''
                     : Strings.doUnlockQuests,
         },
@@ -61,7 +61,7 @@ export const midPrey: Task = {
             questIds: [93169, 93857],
             couldGetFunc: () => renownFunc(1),
             canGetFunc: (char) =>
-                userState.quests.characterById.get(char.id)?.hasQuestById?.has(HEROIC_UNLOCK)
+                userState.quests.anyCharacterHasById.has(HEROIC_UNLOCK)
                     ? ''
                     : Strings.doUnlockQuests,
         },
@@ -76,7 +76,7 @@ export const midPrey: Task = {
             questIds: [93170, 93861],
             couldGetFunc: () => renownFunc(4),
             canGetFunc: (char) =>
-                userState.quests.characterById.get(char.id)?.hasQuestById?.has(NIGHTMARE_UNLOCK)
+                userState.quests.anyCharacterHasById.has(NIGHTMARE_UNLOCK)
                     ? ''
                     : Strings.doUnlockQuests,
         },
@@ -89,7 +89,7 @@ export const midPrey: Task = {
             questIds: [94446],
             couldGetFunc: () => renownFunc(4),
             canGetFunc: (char) =>
-                userState.quests.characterById.get(char.id)?.hasQuestById?.has(NIGHTMARE_UNLOCK)
+                userState.quests.anyCharacterHasById.has(NIGHTMARE_UNLOCK)
                     ? ''
                     : Strings.doUnlockQuests,
         },
