@@ -31,7 +31,10 @@ export class CharacterWeekly {
         vaultGeneratedRewards?: boolean,
         dungeonProgress?: CharacterWeeklyProgressArray[],
         raidProgress?: CharacterWeeklyProgressArray[],
-        worldProgress?: CharacterWeeklyProgressArray[]
+        worldProgress?: CharacterWeeklyProgressArray[],
+        dungeonActivities?: CharacterWeeklyActivitiesArray[],
+        raidActivities?: CharacterWeeklyActivitiesArray[],
+        worldActivities?: CharacterWeeklyActivitiesArray[]
     ) {
         this.delveWeek = delveWeek;
         this.delveGilded = delveGilded;
@@ -48,6 +51,7 @@ export class CharacterWeekly {
             this.vaultScannedAt = vaultScannedAt;
             this.vault.availableRewards = vaultAvailableRewards;
             this.vault.generatedRewards = vaultGeneratedRewards;
+
             this.vault.dungeonProgress = (dungeonProgress || []).map(
                 (array) => new CharacterWeeklyProgress(...array)
             );
@@ -57,6 +61,17 @@ export class CharacterWeekly {
             this.vault.worldProgress = (worldProgress || []).map(
                 (array) => new CharacterWeeklyProgress(...array)
             );
+
+            this.vault.dungeonActivities = (dungeonActivities || []).map(
+                (array) => new CharacterWeeklyActivities(...array)
+            );
+            this.vault.raidActivities = (raidActivities || []).map(
+                (array) => new CharacterWeeklyActivities(...array)
+            );
+            this.vault.worldActivities = (worldActivities || []).map(
+                (array) => new CharacterWeeklyActivities(...array)
+            );
+
             this.vault.anyThreshold = [
                 ...this.vault.dungeonProgress,
                 ...this.vault.raidProgress,
@@ -76,6 +91,9 @@ export interface CharacterWeeklyVault {
     dungeonProgress: CharacterWeeklyProgress[];
     raidProgress: CharacterWeeklyProgress[];
     worldProgress: CharacterWeeklyProgress[];
+    dungeonActivities: CharacterWeeklyActivities[];
+    raidActivities: CharacterWeeklyActivities[];
+    worldActivities: CharacterWeeklyActivities[];
 }
 
 export class CharacterWeeklyProgress {
@@ -96,3 +114,12 @@ export class CharacterWeeklyProgress {
     }
 }
 type CharacterWeeklyProgressArray = ConstructorParameters<typeof CharacterWeeklyProgress>;
+
+export class CharacterWeeklyActivities {
+    constructor(
+        public tierId: number,
+        public level: number,
+        public amount: number
+    ) {}
+}
+type CharacterWeeklyActivitiesArray = ConstructorParameters<typeof CharacterWeeklyActivities>;

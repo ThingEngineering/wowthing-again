@@ -6,22 +6,22 @@
     import { leftPad } from '@/utils/formatting';
     import { getNextWeeklyResetFromTime } from '@/utils/get-next-reset';
     import { getWorldTier } from '@/utils/vault/get-world-tier';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import Progress from './Progress.svelte';
     import Rewards from './Rewards.svelte';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 
-    $: progress = character.weekly?.vault?.worldProgress || [];
+    let progress = $derived(character.weekly?.vault?.worldProgress || []);
 
-    let improve: [string, number, number][];
-    $: {
+    let improve = $derived.by(() => {
+        const ret: [string, number, number][] = [];
+
         const [currentItemLevel] = getWorldTier(progress[0].level);
         const betterOptions = worldVaultItemLevel.filter(
-            ([, itemLevel]) => itemLevel > currentItemLevel,
+            ([, itemLevel]) => itemLevel > currentItemLevel
         );
-        improve = [];
         for (let i = betterOptions.length - 1; i >= 0; i--) {
             const [betterTier, betterItemLevel, quality] = betterOptions[i];
             let tierRange = betterTier.toString();
@@ -29,30 +29,52 @@
                 tierRange = `${betterTier} - ${betterOptions[i - 1][0] - 1}`;
             }
 
-            improve.push([tierRange, betterItemLevel, quality]);
-            if (improve.length === 3) {
+            ret.push([tierRange, betterItemLevel, quality]);
+            if (ret.length === 3) {
                 break;
             }
         }
-    }
 
-    let runs: [number, string][];
-    $: {
-        runs = [];
-        if (character.weekly?.delves) {
+        return ret;
+    });
+
+    let runs = $derived.by(() => {
+        let ret: [number, string][] = [];
+
+        if (character.weekly?.vault?.worldActivities?.length > 0) {
+            for (const activity of character.weekly.vault.worldActivities) {
+                for (let i = 0; i < activity.amount; i++) {
+                    ret.push([
+                        activity.level,
+                        activityTier[activity.tierId] || `Tier ${activity.tierId}`,
+                    ]);
+                }
+            }
+        } else if (character.weekly?.delves) {
             const nextReset = getNextWeeklyResetFromTime(
                 $timeStore,
-                character.realm.region,
+                character.realm.region
             ).toUnixInteger();
+
             if (Math.abs(character.weekly.delveWeek - nextReset) < 5) {
-                runs = sortBy(character.weekly.delves, ([level]) => leftPad(11 - level, 2, '0'));
+                ret = sortBy(character.weekly.delves, ([level]) => leftPad(11 - level, 2, '0'));
             }
 
-            for (let i = runs.length; i < progress[2].progress; i++) {
-                runs.push([1, 'Activities/Delves']);
+            for (let i = ret.length; i < progress[2].progress; i++) {
+                ret.push([1, 'Activities/Delves']);
             }
         }
-    }
+
+        return ret;
+    });
+
+    const activityTier: Record<number, string> = {
+        104: 'World Activity',
+        105: 'Delve',
+        112: 'Normal Prey',
+        115: 'Hard Prey',
+        116: 'Nightmare Prey',
+    };
 
     function getRunCount(index: number): number {
         if (progress[index]) {

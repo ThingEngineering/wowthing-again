@@ -70,6 +70,9 @@ public class UploadCharacter
 
     [JsonConverter(typeof(DefaultOnErrorConverter<Dictionary<string, UploadCharacterVault[]>>))]
     public Dictionary<string, UploadCharacterVault[]> Vault { get; set; }
+
+    [JsonConverter(typeof(DefaultOnErrorConverter<Dictionary<string, UploadCharacterVaultV2>>))]
+    public Dictionary<string, UploadCharacterVaultV2> VaultV2 { get; set; }
 }
 
 public class UploadCharacterAchievement
