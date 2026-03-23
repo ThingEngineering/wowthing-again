@@ -13,7 +13,7 @@ export const modifierToTier: Record<number, number> = {
 export const currentUpgrade1: ConvertibleCategoryUpgrade[] = [
     {
         upgradeId: 3341,
-        upgradeCost: 15,
+        upgradeCost: 20,
         achievementId: 42767, // Veteran of the Dawn
         achievementUpgradeCost: 10,
     },
@@ -21,7 +21,7 @@ export const currentUpgrade1: ConvertibleCategoryUpgrade[] = [
 export const currentUpgrade2: ConvertibleCategoryUpgrade[] = [
     {
         upgradeId: 3343,
-        upgradeCost: 15,
+        upgradeCost: 20,
         achievementId: 42768, // Champion of the Dawn
         achievementUpgradeCost: 10,
     },
@@ -29,7 +29,7 @@ export const currentUpgrade2: ConvertibleCategoryUpgrade[] = [
 export const currentUpgrade3: ConvertibleCategoryUpgrade[] = [
     {
         upgradeId: 3345,
-        upgradeCost: 15,
+        upgradeCost: 20,
         achievementId: 42769, // Hero of the Dawn
         achievementUpgradeCost: 10,
     },
@@ -37,7 +37,7 @@ export const currentUpgrade3: ConvertibleCategoryUpgrade[] = [
 export const currentUpgrade4: ConvertibleCategoryUpgrade[] = [
     {
         upgradeId: 3347,
-        upgradeCost: 15,
+        upgradeCost: 20,
         achievementId: 42770, // Myth of the Dawn
         achievementUpgradeCost: 10,
     },
