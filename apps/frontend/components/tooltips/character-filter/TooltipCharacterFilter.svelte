@@ -48,6 +48,11 @@
                 <code>level=60 | &lt;=,&lt;,=,&gt;,&gt;=</code>
             </dd>
 
+            <dt>Last seen (days)</dt>
+            <dd>
+                <code>seen&lt;=7 | &lt;=,&lt;,=,&gt;,&gt;=</code>
+            </dd>
+
             <dt>Item Level</dt>
             <dd>
                 <code>ilevel&gt;=400 | &lt;=,&lt;,=,&gt;,&gt;=</code>

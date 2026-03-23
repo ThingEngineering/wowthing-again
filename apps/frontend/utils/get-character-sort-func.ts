@@ -86,6 +86,8 @@ export const getCharacterSortFunc = (prefixFunc?: SortValueFunction, viewSortBy?
                         '0'
                     )
                 );
+            } else if (thing === 'seen') {
+                out.push(leftPad(2000000000 - char.lastSeenAddonUnix, 10, '0'));
             } else if (thing === 'level') {
                 // in descending order
                 const levelData = getCharacterLevel(char);

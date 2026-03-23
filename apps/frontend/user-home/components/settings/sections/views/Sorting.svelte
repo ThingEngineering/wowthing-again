@@ -23,6 +23,7 @@
         { id: 'gold', name: 'Gold' },
         { id: 'itemlevel', name: 'Item level' },
         { id: 'level', name: 'Level' },
+        { id: 'seen', name: 'Last seen' },
     ];
 
     let sortByChoices: SettingsChoice[] = $derived([

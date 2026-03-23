@@ -61,7 +61,7 @@ any help with getting started, I'm available most days.
 
 1. Install Docker and Docker Compose - [Windows install instructions](https://docs.docker.com/docker-for-windows/install/)
 
-1. Install the dotnet SDK, currently 8.x
+1. Install the dotnet SDK, currently 9.x
 
 1. Log in or sign up for a [Battle.Net Developer](https://develop.battle.net) account
 
@@ -119,7 +119,7 @@ any help with getting started, I'm available most days.
 1. Start the initial data import/build, this will take a while:
 
     ```bash
-    cd app/tool/
+    cd apps/tool/
     dotnet run all
     ```
 
