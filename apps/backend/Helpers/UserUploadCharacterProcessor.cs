@@ -1455,7 +1455,27 @@ public class UserUploadCharacterProcessor
             _character.Weekly.Vault.RaidProgress = null;
             _character.Weekly.Vault.WorldProgress = null;
 
-            if (_characterData.Vault != null)
+            if (_characterData.VaultV2 != null)
+            {
+                if (_characterData.VaultV2.TryGetValue("t1", out var activityVault))
+                {
+                    _character.Weekly.Vault.MythicPlusActivities = ConvertVaultActivities(activityVault.Activities);
+                    _character.Weekly.Vault.MythicPlusProgress = ConvertVault(activityVault.Tiers);
+                }
+
+                if (_characterData.VaultV2.TryGetValue("t3", out var raidVault))
+                {
+                    _character.Weekly.Vault.RaidActivities = ConvertVaultActivities(raidVault.Activities);
+                    _character.Weekly.Vault.RaidProgress = ConvertVault(raidVault.Tiers);
+                }
+
+                if (_characterData.VaultV2.TryGetValue("t6", out var worldVault))
+                {
+                    _character.Weekly.Vault.WorldActivities = ConvertVaultActivities(worldVault.Activities);
+                    _character.Weekly.Vault.WorldProgress = ConvertVault(worldVault.Tiers);
+                }
+            }
+            else if (_characterData.Vault != null)
             {
                 if (_characterData.Vault.TryGetValue("t1", out var activityVault))
                 {
@@ -1508,6 +1528,24 @@ public class UserUploadCharacterProcessor
         return ret;
     }
 
+    private List<PlayerCharacterWeeklyVaultActivity> ConvertVaultActivities(string[] activityStrings)
+    {
+        var ret = new List<PlayerCharacterWeeklyVaultActivity>();
+
+        foreach (string activityString in activityStrings.EmptyIfNull())
+        {
+            string[] parts =  activityString.Split(':');
+            if (parts.Length == 3 &&
+                int.TryParse(parts[0], out int tierId) &&
+                int.TryParse(parts[1], out int difficulty) &&
+                int.TryParse(parts[2], out int progress))
+            {
+                ret.Add(new PlayerCharacterWeeklyVaultActivity(tierId, difficulty, progress));
+            }
+        }
+
+        return ret;
+    }
 }
 
 public record struct WorldQuestReportKey(short Expansion, int ZoneId, int QuestId, short Faction, short Class);

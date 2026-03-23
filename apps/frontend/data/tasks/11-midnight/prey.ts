@@ -40,7 +40,7 @@ export const midPrey: Task = {
         {
             key: 'preyNormal',
             name: 'Normal - {item:257023}',
-            icon: iconLibrary.notoClownFace,
+            icon: iconLibrary.mdiDog,
             alwaysStarted: true,
             questCount: 2,
             questReset: DbResetType.Weekly,
@@ -53,7 +53,7 @@ export const midPrey: Task = {
         {
             key: 'preyHard',
             name: 'Hard - {item:257026}',
-            icon: iconLibrary.notoCowboyHatFace,
+            icon: iconLibrary.gameBearFace,
             minimumLevel: 90,
             alwaysStarted: true,
             questCount: 2,
@@ -68,7 +68,7 @@ export const midPrey: Task = {
         {
             key: 'preyNightmare',
             name: 'Nightmare - {item:262346}',
-            icon: iconLibrary.notoAngryFaceWithHorns,
+            icon: iconLibrary.gameCrownedSkull,
             minimumLevel: 90,
             alwaysStarted: true,
             questCount: 2,
@@ -83,7 +83,7 @@ export const midPrey: Task = {
         {
             key: 'preyNightmarishTask',
             name: 'A Nightmarish Task',
-            icon: iconLibrary.notoV1AngryFaceWithHorns,
+            icon: iconLibrary.fluentAngryFaceWithHorns,
             minimumLevel: 90,
             questReset: DbResetType.Weekly,
             questIds: [94446],

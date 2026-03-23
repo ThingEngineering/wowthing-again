@@ -11,3 +11,9 @@ public class UploadCharacterVault
 
     public List<string> Rewards { get; set; }
 }
+
+public class UploadCharacterVaultV2
+{
+    public string[] Activities { get; set; }
+    public UploadCharacterVault[] Tiers { get; set; }
+}

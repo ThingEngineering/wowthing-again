@@ -33,6 +33,10 @@ public class ApiUserCharacterWeeklyConverter : JsonConverter<ApiUserCharacterWee
             WriteVaultProgress(writer, weekly.Vault.MythicPlusProgress, options);
             WriteVaultProgress(writer, weekly.Vault.RaidProgress, options);
             WriteVaultProgress(writer, weekly.Vault.WorldProgress, options);
+
+            WriteVaultActivities(writer, weekly.Vault.MythicPlusActivities, options);
+            WriteVaultActivities(writer, weekly.Vault.RaidActivities, options);
+            WriteVaultActivities(writer, weekly.Vault.WorldActivities, options);
         }
 
         writer.WriteEndArray();
@@ -69,6 +73,26 @@ public class ApiUserCharacterWeeklyConverter : JsonConverter<ApiUserCharacterWee
             }
             writer.WriteEndArray();
 
+            writer.WriteEndArray();
+        }
+
+        writer.WriteEndArray();
+    }
+
+    private void WriteVaultActivities(
+        Utf8JsonWriter writer,
+        List<PlayerCharacterWeeklyVaultActivity> activities,
+        JsonSerializerOptions options
+    )
+    {
+        writer.WriteStartArray();
+
+        foreach (var activity in activities.EmptyIfNull())
+        {
+            writer.WriteStartArray();
+            writer.WriteNumberValue(activity.Id);
+            writer.WriteNumberValue(activity.Level);
+            writer.WriteNumberValue(activity.Amount);
             writer.WriteEndArray();
         }
 

@@ -43,7 +43,10 @@ public class PlayerCharacterWeeklyVault
     public List<PlayerCharacterWeeklyVaultProgress> MythicPlusProgress { get; set; }
     public List<PlayerCharacterWeeklyVaultProgress> RaidProgress { get; set; }
     public List<PlayerCharacterWeeklyVaultProgress> WorldProgress { get; set; }
-    // public List<PlayerCharacterWeeklyVaultProgress> RankedPvpProgress { get; set; }
+
+    public List<PlayerCharacterWeeklyVaultActivity> MythicPlusActivities { get; set; }
+    public List<PlayerCharacterWeeklyVaultActivity> RaidActivities { get; set; }
+    public List<PlayerCharacterWeeklyVaultActivity> WorldActivities { get; set; }
 }
 
 public class PlayerCharacterWeeklyUghQuest
@@ -64,5 +67,19 @@ public class PlayerCharacterWeeklyVaultProgress
     public int? ItemLevel { get; set; }
     public int? UpgradeItemLevel { get; set; }
 
-    public List<PlayerCharacterItem> Rewards { get; set; } = new();
+    public List<PlayerCharacterItem> Rewards { get; set; } = [];
+}
+
+public class PlayerCharacterWeeklyVaultActivity
+{
+    public PlayerCharacterWeeklyVaultActivity(int id, int level, int amount)
+    {
+        Id = id;
+        Level = level;
+        Amount = amount;
+    }
+
+    public int Id { get; set; }
+    public int Level { get; set; }
+    public int Amount { get; set; }
 }
