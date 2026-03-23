@@ -15,6 +15,9 @@ export class CharacterWeekly {
         dungeonProgress: [],
         raidProgress: [],
         worldProgress: [],
+        dungeonActivities: [],
+        raidActivities: [],
+        worldActivities: [],
     });
     public vaultScannedAt: string = $state(null);
 
