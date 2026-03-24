@@ -44,7 +44,7 @@ export const midPrey: Task = {
             alwaysStarted: true,
             questCount: 2,
             questReset: DbResetType.Weekly,
-            questIds: [93168, 93156],
+            questIds: [93168, 93853],
             canGetFunc: () =>
                 userState.quests.anyCharacterHasById.has(NORMAL_UNLOCK)
                     ? ''
