@@ -62,6 +62,8 @@ public class ItemsTool
         737, // 11.2 Optional Reagent - Season 3 - Enchanted Crests
         761, // 11.1.5 Optional Reagent - Season 2 - Augmentation Matrix - Mythic
         764, // 11.1.5 Optional Reagent - Season 2 - Augmentation Matrix - Heroic
+        901, // 12.0 Optional Reagent - Season 1 - Crests
+        902, // 12.0 Optional Reagent - Outdoor Upgrade Dungeon - All
     ];
 
     private static readonly HashSet<int> SkipReagentItems = [
