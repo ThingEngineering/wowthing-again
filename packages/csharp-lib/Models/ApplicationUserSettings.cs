@@ -112,6 +112,7 @@ public class ApplicationUserSettings
         "professionWorkOrders",
         "professions",
         "professionsSecondary",
+        "professionsV2",
         "progress",
         "restedExperience",
         "statsSpeed",
@@ -444,6 +445,7 @@ public class ApplicationUserSettingsView
     public List<int> HomeCurrencies { get; set; } = new();
     public List<int> HomeItems { get; set; } = new();
     public List<int> HomeLockouts { get; set; } = new();
+    public List<string> HomeProfessionsV2 { get; set; } = new();
     public List<string> HomeProgress { get; set; } = new();
     public List<string> HomeTasks { get; set; } = new();
 

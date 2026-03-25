@@ -29,6 +29,7 @@
     import RowProfessionConcentration from './table/row/HomeTableRowProfessionConcentration.svelte';
     import RowProfessionCooldowns from './table/row/HomeTableRowProfessionCooldowns.svelte';
     import RowProfessionMoxie from './table/row/HomeTableRowProfessionMoxie.svelte';
+    import RowProfessionsV2 from './table/row/HomeTableRowProfessionsV2.svelte';
     import RowProfessionWorkOrders from './table/row/HomeTableRowProfessionWorkOrders.svelte';
     import RowProgress from './table/row/HomeTableRowProgress.svelte';
     import RowRestedExperience from './table/row/HomeTableRowRestedExperience.svelte';
@@ -131,6 +132,8 @@
                     <RowProfessions {character} />
                 {:else if field === 'professionsSecondary'}
                     <RowProfessions {character} professionType={1} />
+                {:else if field === 'professionsV2'}
+                    <RowProfessionsV2 {character} />
                 {:else if field === 'progress'}
                     <RowProgress {character} />
                 {:else if field === 'restedExperience'}
