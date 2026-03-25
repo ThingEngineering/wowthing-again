@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { currencyIconOverride } from '@/data/currencies';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { componentTooltip } from '@/shared/utils/tooltips';
@@ -38,14 +39,14 @@
             {@const itemId = currencyId - 1000000}
             {@const item = wowthingData.items.items[itemId]}
             <WowthingImage
-                name="item/{itemId}"
+                name={currencyIconOverride[itemId] || `item/${itemId}`}
                 size={16}
                 border={2}
                 cls="quality{item?.quality || 1}-border"
             />
         {:else}
             <WowthingImage
-                name="currency/{currencyId}"
+                name={currencyIconOverride[currencyId] || `currency/${currencyId}`}
                 size={16}
                 border={2}
                 cls="quality1-border"

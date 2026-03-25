@@ -17,7 +17,7 @@ class ActiveViewTasks {
         for (const fullTaskName of settingsState.activeView.homeTasks) {
             const [taskKey, choreKey] = fullTaskName.split('|', 2);
             const task = taskMap[taskKey] || customTaskMap[fullTaskName];
-            if (!task || (choreKey && !task.chores.some((chore) => chore.key === choreKey))) {
+            if (!task || (choreKey && !task.chores.some((chore) => chore?.key === choreKey))) {
                 continue;
             }
 
@@ -31,7 +31,7 @@ class ActiveViewTasks {
 
             const disabledChores = settingsState.activeView.disabledChores?.[fullTaskName] || [];
             const activeChores: Chore[] = [];
-            for (const chore of task.chores) {
+            for (const chore of task.chores.filter((chore) => !!chore)) {
                 if (
                     !chore ||
                     disabledChores.includes(chore.key) ||
