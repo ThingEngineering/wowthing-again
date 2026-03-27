@@ -248,7 +248,10 @@ export const midChores12_0_0: Task = {
             accountWide: true,
             questReset: DbResetType.Weekly,
             questIds: [
-                92127, // Tracking quest?
+                92127,
+                92128,
+                92129, // probably
+                92130,
             ],
         },
         {
