@@ -46,8 +46,11 @@
             byType2 = ['ALL'];
         }
 
-        if (browserState.current.vendors.showDragonriding) {
+        if (browserState.current.vendors.showDecor) {
             byThing.push('D');
+        }
+        if (browserState.current.vendors.showDragonriding) {
+            byThing.push('F');
         }
         if (browserState.current.vendors.showIllusions) {
             byThing.push('I');
@@ -216,6 +219,12 @@
 
     <div class="options-container filters-container">
         <span>Things:</span>
+
+        <button>
+            <CheckboxInput name="show_decor" bind:value={browserState.current.vendors.showDecor}
+                >Decor</CheckboxInput
+            >
+        </button>
 
         <button>
             <CheckboxInput

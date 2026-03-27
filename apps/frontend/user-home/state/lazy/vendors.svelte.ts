@@ -241,6 +241,7 @@ class LazyVendorsProcessor {
                     );
 
                     if (
+                        (!vendorState.showDecor && lookupType === LookupType.Decor) ||
                         (!vendorState.showIllusions && lookupType === LookupType.Illusion) ||
                         (!vendorState.showMounts && lookupType === LookupType.Mount) ||
                         (!vendorState.showPets && lookupType === LookupType.Pet) ||
