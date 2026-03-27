@@ -12,11 +12,11 @@ export const eventBonus: Task = {
         {
             key: 'delves',
             name: 'Delves',
-            minimumLevel: 10,
+            minimumLevel: 90,
             requiredHolidays: [Holiday.BonusDelve],
             questReset: DbResetType.Weekly,
             questResetForced: true,
-            questIds: [84776], // A Call to Delves
+            questIds: [93595], // A Call to Delves
         },
         {
             key: 'dungeons',
