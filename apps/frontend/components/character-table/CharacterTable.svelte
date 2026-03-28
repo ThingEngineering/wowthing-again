@@ -4,7 +4,6 @@
     import { router } from 'svelte-spa-router';
 
     import { setCharacterTableContext } from './context';
-    import { ContextKey } from '@/enums/context-key';
     import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { newNavState } from '@/stores/local-storage';
