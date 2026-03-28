@@ -28,6 +28,10 @@ const specialAssignmentUnlockToQuest: Record<number, number> = {
     94743: 93438, // Special Assignment: Precision Excision
 };
 
+const specialAssignmentQuestToUnlock: Record<number, number> = Object.fromEntries(
+    Object.entries(specialAssignmentUnlockToQuest).map(([k, v]) => [v, parseInt(k)])
+);
+
 const specialAssignmentFunc = (index: number, isQuest: boolean) => {
     return (char: Character, chore: Chore) => {
         const now = timeState.slowTime;
@@ -57,7 +61,8 @@ const specialAssignmentFunc = (index: number, isQuest: boolean) => {
 
 const specialAssignmentExpiry: Chore['customExpiryFunc'] = (char, scannedAt, questIds) => {
     const allWorldQuests = worldQuestStore.getCachedQuests(char.region);
-    const worldQuest = allWorldQuests.find((wq) => wq.questId === questIds[0]);
+    const findQuestId = specialAssignmentQuestToUnlock[questIds[0]] || questIds[0];
+    const worldQuest = allWorldQuests.find((wq) => wq.questId === findQuestId);
     return worldQuest?.expires || Constants.defaultTime;
 };
 
