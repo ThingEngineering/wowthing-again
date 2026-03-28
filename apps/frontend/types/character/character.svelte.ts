@@ -28,7 +28,7 @@ import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { initializeContainsItems } from '@/utils/items/initialize-contains-items';
 import { getDungeonScores } from '@/utils/mythic-plus';
 import type { Region } from '@/enums/region';
-import type { StaticDataRealm } from '@/shared/stores/static/types';
+import type { StaticDataProfession, StaticDataRealm } from '@/shared/stores/static/types';
 import type { Guild } from '@/types/guild';
 
 import type { CharacterConfiguration } from './configuration';
@@ -46,7 +46,11 @@ import {
     type CharacterMythicPlusAddonMapArray,
     type CharacterMythicPlusAddonRunArray,
 } from './mythic-plus';
-import { CharacterProfession, type CharacterProfessionRaw } from './profession.svelte';
+import {
+    CharacterProfession,
+    CharacterSubProfession,
+    type CharacterProfessionRaw,
+} from './profession.svelte';
 import type { CharacterRaiderIoSeason } from './raider-io-season';
 import type {
     CharacterReputation,
@@ -72,6 +76,8 @@ import type { CharacterAura } from './aura';
 import type { CharacterPatronOrder } from './patron-order';
 import type { CharacterMovementSpeed } from './movement-speed';
 import type { CharacterQuests } from '@/user-home/state/user/types';
+import { ProfessionType } from '@/enums/profession-type';
+import { getProfessionSortKey } from '@/utils/professions/get-profession-sort-key';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Static
@@ -620,6 +626,36 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
     public activeSpecializationLoadout = $derived.by(() => {
         return this.specializations[this.activeSpecId]?.find((loadout) => loadout.active);
+    });
+
+    public professionData = $derived.by(() => {
+        const ret: [StaticDataProfession, CharacterSubProfession, boolean][] = [];
+
+        for (const staticProfession of wowthingData.static.professionById.values()) {
+            if (staticProfession?.type !== ProfessionType.Primary) {
+                continue;
+            }
+
+            let best: [CharacterSubProfession, number];
+            for (const expansion of settingsState.expansions) {
+                const subProfession = staticProfession.expansionSubProfession[expansion.id];
+                if (subProfession) {
+                    const characterSubProfession =
+                        this.professions[staticProfession.id]?.subProfessions?.[subProfession.id];
+                    if (characterSubProfession && expansion.id >= (best?.[1] || 0)) {
+                        best = [characterSubProfession, expansion.id];
+                    }
+                }
+            }
+
+            if (best) {
+                ret.push([staticProfession, best[0], best[1] === Constants.expansion]);
+            }
+        }
+
+        ret.sort((a, b) => getProfessionSortKey(a[0]).localeCompare(getProfessionSortKey(b[0])));
+
+        return ret;
     });
 
     public allProfessionAbilities = $derived.by(() => {
