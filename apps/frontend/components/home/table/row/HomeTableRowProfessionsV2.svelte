@@ -1,18 +1,17 @@
 <script lang="ts">
+    import uniq from 'lodash/uniq';
+
+    import { getCharacterTableContext } from '@/components/character-table/context';
     import { Constants } from '@/data/constants';
     import { imageStrings } from '@/data/icons';
     import { expansionProfessionConcentration } from '@/data/professions/cooldowns';
     import { professionMoxie } from '@/data/professions/moxie';
-    import { ProfessionType } from '@/enums/profession-type';
     import { Region } from '@/enums/region';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { timeStore } from '@/shared/stores/time';
     import { componentTooltip } from '@/shared/utils/tooltips/component-tooltip.svelte';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
-    import { getProfessionSortKey } from '@/utils/professions/get-profession-sort-key';
-    import type { StaticDataProfession } from '@/shared/stores/static/types/profession';
-    import type { CharacterSubProfession } from '@/types/character/profession.svelte';
     import type { CharacterProps } from '@/types/props';
 
     import Tooltip from '@/components/tooltips/professions/TooltipProfessions.svelte';
@@ -20,40 +19,27 @@
 
     let { character }: CharacterProps = $props();
 
-    let concentrationData = $derived(expansionProfessionConcentration[Constants.expansion]);
-    let professions = $derived.by(() => {
-        const ret: [StaticDataProfession, CharacterSubProfession, boolean][] = [];
-
-        for (const staticProfession of wowthingData.static.professionById.values()) {
-            if (staticProfession?.type !== ProfessionType.Primary) {
-                continue;
-            }
-
-            let best: [CharacterSubProfession, number];
-            for (const expansion of settingsState.expansions) {
-                const subProfession = staticProfession.expansionSubProfession[expansion.id];
-                if (subProfession) {
-                    const characterSubProfession =
-                        character.professions[staticProfession.id]?.subProfessions?.[
-                            subProfession.id
-                        ];
-                    if (characterSubProfession && expansion.id >= (best?.[1] || 0)) {
-                        best = [characterSubProfession, expansion.id];
-                    }
-                }
-            }
-
-            if (best) {
-                ret.push([staticProfession, best[0], best[1] === Constants.expansion]);
-            }
-        }
-
-        ret.sort((a, b) => getProfessionSortKey(a[0]).localeCompare(getProfessionSortKey(b[0])));
-
-        return ret;
+    const { characters: visibleCharacters } = getCharacterTableContext()();
+    let [anyConcentration, anyMoxie] = $derived.by(() => {
+        const professionIds = uniq(
+            visibleCharacters.flatMap((char) =>
+                char.professionData.filter(([, , isCurrent]) => isCurrent).map(([prof]) => prof.id)
+            )
+        );
+        return [
+            professionIds.some((id) => !!concentrationData[id]),
+            professionIds.some((id) => !!professionMoxie[id]),
+        ];
     });
 
-    let fields = $derived(['concentration', 'moxie']);
+    let concentrationData = $derived(expansionProfessionConcentration[Constants.expansion]);
+    let professions = $derived(character.professionData);
+
+    let fields = $derived(
+        ['concentration', 'moxie'].filter(
+            (key) => (key === 'concentration' && anyConcentration) || (key === 'moxie' && anyMoxie)
+        )
+    );
 
     function statusClass(fullIsBad: boolean, percent: number) {
         if (percent >= 100) {
@@ -91,6 +77,10 @@
         gap: 0.4rem;
         grid-template-columns: repeat(var(--columns), 1fr);
         padding: 0 0.3rem;
+
+        > * {
+            width: 3.5rem;
+        }
     }
     a {
         --image-margin-top: 0;
