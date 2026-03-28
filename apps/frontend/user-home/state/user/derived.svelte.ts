@@ -325,7 +325,7 @@ export class DataUserDerived {
 
     private _taskChoreName: Record<string, string[]> = {};
     public doActiveViewTasks(
-        latestQuests: CharacterQuests,
+        accountWeeklyQuestIds: Set<number>,
         character: Character,
         characterQuests: CharacterQuests
     ) {
@@ -364,7 +364,7 @@ export class DataUserDerived {
                 //     continue;
                 // }
                 const charChore = this.processTaskChore(
-                    latestQuests,
+                    accountWeeklyQuestIds,
                     character,
                     characterQuests,
                     task,
@@ -467,14 +467,14 @@ export class DataUserDerived {
     }
 
     private processTaskChore(
-        latestQuests: CharacterQuests,
+        accountWeeklyQuestIds: Set<number>,
         character: Character,
         characterQuests: CharacterQuests,
         task: Task,
         chore: Chore,
         parent?: Chore
     ): CharacterChore {
-        if (chore.accountWide && !latestQuests) {
+        if (chore.accountWide && !accountWeeklyQuestIds) {
             return null;
         }
         if (!chore.accountWide && (!character || !characterQuests)) {
@@ -497,14 +497,12 @@ export class DataUserDerived {
             return null;
         }
 
-        const useQuests = chore.accountWide ? latestQuests : characterQuests;
-
         const charChore = new CharacterChore(chore.key, undefined);
         if (chore.questCount) {
             charChore.progressTotal = chore.questCount;
         }
 
-        const charScanned = useQuests.scannedTime;
+        const charScanned = characterQuests.scannedTime;
         const choreReset = chore.questReset || parent?.questReset;
         const resetForced = chore.questResetForced === true || parent?.questResetForced === true;
 
@@ -537,7 +535,7 @@ export class DataUserDerived {
 
             for (const questId of questIds) {
                 // is the quest in progress?
-                const questProgress = useQuests?.progressQuestByKey?.get(`q${questId}`);
+                const questProgress = characterQuests?.progressQuestByKey?.get(`q${questId}`);
                 if (
                     questProgress &&
                     (!resetForced ||
@@ -559,7 +557,10 @@ export class DataUserDerived {
                 }
 
                 // is the quest completed?
-                if (useQuests?.hasQuestById?.has(questId)) {
+                const questCompleted = chore.accountWide
+                    ? accountWeeklyQuestIds.has(questId)
+                    : characterQuests?.hasQuestById?.has(questId);
+                if (questCompleted) {
                     if (choreReset === DbResetType.Never || expiresAt > timeState.slowTime) {
                         charChore.progressCurrent++;
                         charChore.quest = {
@@ -584,7 +585,7 @@ export class DataUserDerived {
 
             for (const subChore of chore.subChores) {
                 const charSubChore = this.processTaskChore(
-                    latestQuests,
+                    accountWeeklyQuestIds,
                     character,
                     characterQuests,
                     task,

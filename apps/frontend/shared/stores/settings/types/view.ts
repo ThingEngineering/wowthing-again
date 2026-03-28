@@ -15,6 +15,7 @@ export interface SettingsView {
     homeCurrencies: number[];
     homeItems: number[];
     homeLockouts: number[];
+    homeProfessionsV2: string[];
     homeProgress: string[];
     homeTasks: string[];
 

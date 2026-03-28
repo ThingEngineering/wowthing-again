@@ -32,6 +32,7 @@ export const homeChoices: SettingsChoice[] = [
     { id: 'mythicPlusScore', name: 'Mythic+ score' },
     { id: 'playedTime', name: 'Played time' },
     { id: 'professions', name: 'Professions - Primary' },
+    { id: 'professionsV2', name: 'Professions - Primary (V2)' },
     { id: 'professionsSecondary', name: 'Professions - Secondary' },
     { id: 'professionConcentration', name: 'Profession Concentration [Mid]' },
     { id: 'professionConcentrationTWW', name: 'Profession Concentration [TWW]' },

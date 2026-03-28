@@ -22,6 +22,7 @@
             homeCurrencies: [],
             homeItems: [],
             homeLockouts: [],
+            homeProfessionsV2: [],
             homeProgress: [],
             homeTasks: [],
             disabledChores: {},

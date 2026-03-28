@@ -228,6 +228,8 @@
             >
         {:else if field === 'professions'}
             <td>Professions</td>
+        {:else if field === 'professionsV2'}
+            <td>Professions</td>
         {:else if field === 'professionsSecondary'}
             <td>Secondary Profs</td>
         {:else if field === 'progress'}

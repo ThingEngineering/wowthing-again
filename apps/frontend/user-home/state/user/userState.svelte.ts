@@ -2,7 +2,9 @@ import sortBy from 'lodash/sortBy';
 
 import { UserCount } from '@/types';
 import { settingsState } from '@/shared/state/settings.svelte';
+import { timeState } from '@/shared/state/time.svelte';
 import { wowthingData } from '@/shared/stores/data';
+import { logErrors } from '@/utils/log-errors';
 import type { ManualDataHeirloomItem } from '@/types/data/manual/heirloom';
 import type { ManualDataIllusionItem } from '@/types/data/manual/illusion';
 
@@ -10,7 +12,6 @@ import { DataUserAchievements } from './achievements.svelte';
 import { DataUserDerived } from './derived.svelte';
 import { DataUserGeneral } from './general.svelte';
 import { DataUserQuests } from './quests.svelte';
-import { logErrors } from '@/utils/log-errors';
 import type { CharacterTask } from './types/tasks.svelte';
 
 type GenericCategory<T> = {
@@ -57,6 +58,26 @@ class UserState {
         )
     );
 
+    public weeklyQuestIds = $derived.by(() => {
+        const now = timeState.slowTime;
+
+        const allQuestIds = new Set<number>();
+        const characterIds = this.general.activeCharacters
+            .filter((char) => char.weeklyReset > now)
+            .map((char) => char.id);
+
+        for (const characterId of characterIds) {
+            const characterQuests = this.quests.characterById.get(characterId);
+            if (characterQuests) {
+                for (const questId of characterQuests.hasQuestById.values()) {
+                    allQuestIds.add(questId);
+                }
+            }
+        }
+
+        return allQuestIds;
+    });
+
     public something() {
         // TODO: fetch user/achievements/quests
         // TODO: process
@@ -81,7 +102,7 @@ class UserState {
         const ret: Record<number, Record<string, CharacterTask>> = {};
         for (const character of userState.general.activeCharacters) {
             ret[character.id] = this.derived.doActiveViewTasks(
-                userState.quests.mostRecentCharacter,
+                userState.weeklyQuestIds,
                 character,
                 userState.quests.characterById.get(character.id)
             );
