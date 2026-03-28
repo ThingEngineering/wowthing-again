@@ -237,7 +237,7 @@ public class ApiController : Controller
 
         var characterQuery = _context.PlayerCharacter
             .Where(c => c.Account.UserId == apiResult.User.Id)
-            .Where(c => c.Level > 0);
+            .Where(c => c.ClassId > 0 && c.RaceId > 0 && c.Level > 0)
         if (apiResult.Public)
         {
             characterQuery = characterQuery.Where(c => c.Level >= 11);
