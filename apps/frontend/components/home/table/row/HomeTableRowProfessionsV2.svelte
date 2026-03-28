@@ -1,6 +1,4 @@
 <script lang="ts">
-    import uniq from 'lodash/uniq';
-
     import { getCharacterTableContext } from '@/components/character-table/context';
     import { Constants } from '@/data/constants';
     import { imageStrings } from '@/data/icons';
@@ -21,25 +19,36 @@
 
     const { characters: visibleCharacters } = getCharacterTableContext()();
     let [anyConcentration, anyMoxie] = $derived.by(() => {
-        const professionIds = uniq(
-            visibleCharacters.flatMap((char) =>
-                char.professionData.filter(([, , isCurrent]) => isCurrent).map(([prof]) => prof.id)
-            )
-        );
-        return [
-            professionIds.some((id) => !!concentrationData[id]),
-            professionIds.some((id) => !!professionMoxie[id]),
+        const professionIds = visibleCharacters.map((char) =>
+            char.professionData.map(([prof, , isCurrent]) => [prof.id, isCurrent])
+        ) as [number, boolean][][];
+
+        const retConcentration = [
+            professionIds.some((data) => data[0]?.[1] && !!concentrationData[data[0][0]]),
+            professionIds.some((data) => data[1]?.[1] && !!concentrationData[data[1][0]]),
         ];
+        const retMoxie = [
+            professionIds.some((data) => data[0]?.[1] && !!professionMoxie[data[0][0]]),
+            professionIds.some((data) => data[1]?.[1] && !!professionMoxie[data[1][0]]),
+        ];
+
+        return [retConcentration, retMoxie];
     });
 
     let concentrationData = $derived(expansionProfessionConcentration[Constants.expansion]);
     let professions = $derived(character.professionData);
 
-    let fields = $derived(
-        ['concentration', 'moxie'].filter(
-            (key) => (key === 'concentration' && anyConcentration) || (key === 'moxie' && anyMoxie)
-        )
-    );
+    // TODO: derive from settings state
+    let fields = $derived(['concentration', 'moxie']);
+
+    let columnCounts = $derived([
+        1 +
+            (fields.includes('concentration') && anyConcentration[0] ? 1 : 0) +
+            (fields.includes('moxie') && anyMoxie[0] ? 1 : 0),
+        1 +
+            (fields.includes('concentration') && anyConcentration[1] ? 1 : 0) +
+            (fields.includes('moxie') && anyMoxie[1] ? 1 : 0),
+    ]);
 
     function statusClass(fullIsBad: boolean, percent: number) {
         if (percent >= 100) {
@@ -56,6 +65,8 @@
 
 <style lang="scss">
     td {
+        --profession-width: 3.5rem;
+
         padding-left: 0;
         padding-right: 0;
     }
@@ -66,7 +77,6 @@
     }
     .professions {
         display: grid;
-        grid-template-columns: 1fr 1fr;
         width: 100%;
     }
     .profession {
@@ -75,11 +85,11 @@
         display: grid;
         flex-wrap: nowrap;
         gap: 0.4rem;
-        grid-template-columns: repeat(var(--columns), 1fr);
+        grid-template-columns: repeat(var(--columns), var(--profession-width));
         padding: 0 0.3rem;
 
         > * {
-            width: 3.5rem;
+            width: var(--profession-width);
         }
     }
     a {
@@ -104,13 +114,13 @@
 </style>
 
 <td class="b-l">
-    <div class="professions">
+    <div class="professions" style:grid-template-columns="{columnCounts[0]}fr {columnCounts[1]}fr">
         {#each professions as [profession, charProfession, current], index (profession.id)}
             {@const currentSkill = charProfession?.skillCurrent || 0}
             <div
                 class="profession"
                 class:b-l={index > 0}
-                style:--columns={1 + fields.length}
+                style:--columns={columnCounts[index]}
                 data-id={profession.id}
             >
                 <a
@@ -137,7 +147,7 @@
 
                 {#if current}
                     {#each fields as field (field)}
-                        {#if field === 'concentration'}
+                        {#if field === 'concentration' && anyConcentration[index]}
                             {@const concCurrency = wowthingData.static.currencyById.get(
                                 concentrationData[profession.id]
                             )}
@@ -162,7 +172,7 @@
                             {:else}
                                 <div class="concentration"></div>
                             {/if}
-                        {:else if field === 'moxie'}
+                        {:else if field === 'moxie' && anyMoxie[index]}
                             {@const moxieCurrency = wowthingData.static.currencyById.get(
                                 professionMoxie[profession.id]
                             )}
