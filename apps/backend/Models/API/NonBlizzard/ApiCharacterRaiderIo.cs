@@ -26,6 +26,7 @@ public class ApiCharacterRaiderIoSeason
         { "season-tww-2", 14 },
         { "season-tww-3", 15 },
         { "season-tww-3-legion-remix", 1001 },
+        { "season-mn-1", 17 },
     };
 
     public string Season { get; set; }

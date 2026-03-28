@@ -155,14 +155,14 @@ const orderRemixLegion: number[] = [
 export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
     [
         new MythicPlusSeason({
-            id: 16,
+            id: 17,
             name: '[Mid] Season 1',
             slug: 'midnight-1',
             minLevel: 90,
             orders: [orderMidnightS1],
             portalLevel: 10,
             scoreType: MythicPlusScoreType.WarWithin,
-            startPeriod: 1055, // 2026-03-17
+            startPeriod: 1056, // 2026-03-24
         }),
         new MythicPlusSeason({
             id: 1001,

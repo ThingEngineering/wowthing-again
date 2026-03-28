@@ -12,7 +12,7 @@ export abstract class Constants {
     static readonly maxRenown: number = 80;
     static readonly restedDuration: number = 10 * 24 * 60 * 60; // 10 days
 
-    static readonly mythicPlusSeason: number = 15;
+    static readonly mythicPlusSeason: number = 17;
 
     static readonly defaultUnixTime = 946684800;
     static readonly defaultTime = DateTime.fromSeconds(Constants.defaultUnixTime);

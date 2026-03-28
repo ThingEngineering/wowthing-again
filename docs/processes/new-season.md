@@ -11,10 +11,13 @@
 ## `apps/frontend/data/dungeon.ts`
 
 - Add any new dungeons to `dungeons`, `MapChallengeMode.db2` has the info
-- Add a new `orderBlah` for dungeon order (if necessary)
-- Update `seasonMap` to add the new season
 - Update `keyVaultItemLevel` with the new M+ vault item levels
 - Update `raidVaultItemLevel` with the new raid vault item levels
+
+## `apps/frontend/data/mythic-plus.ts`
+
+- Add a new `orderBlah` for dungeon order (if necessary)
+- Update `seasonMap` to add the new season
 
 ## `apps/frontend/utils/mythic-plus/get-dungeon-level.ts`
 

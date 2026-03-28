@@ -3,6 +3,7 @@
     import sortBy from 'lodash/sortBy';
     import { router } from 'svelte-spa-router';
 
+    import { setCharacterTableContext } from './context';
     import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { newNavState } from '@/stores/local-storage';
@@ -114,6 +115,8 @@
 
         return [characters, groups];
     });
+
+    setCharacterTableContext(() => ({ characters }));
 
     const paddingMap: Record<string, number> = {
         small: 1,

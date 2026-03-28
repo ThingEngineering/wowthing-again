@@ -17,6 +17,8 @@ import { getDungeonLevel } from '@/utils/mythic-plus/get-dungeon-level';
 import { getWorldTier } from '@/utils/vault/get-world-tier';
 import type { Character } from '@/types';
 
+const MAX_TIME = 2 ** 31 * 1000;
+
 export function homeSort(char: Character, sortBy: string): string {
     if (sortBy === 'gold') {
         return leftPad(10_000_000 - char.gold, 8, '0');
@@ -36,7 +38,7 @@ export function homeSort(char: Character, sortBy: string): string {
             '0'
         );
     } else if (sortBy === 'lastSeenAddon') {
-        return leftPad(2_000_000_000_000 - (char.lastSeenAddon?.toMillis() || 0), 13, '0');
+        return leftPad(MAX_TIME - (char.lastSeenAddon?.toMillis() || 0), 13, '0');
     } else if (sortBy === 'currentLocation') {
         // adding two spaces makes it sort before " > blah"
         return char.currentLocation + '  ' || 'ZZZZZ';
