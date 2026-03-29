@@ -18,7 +18,7 @@
         character,
         characterClass,
         border = 1,
-        classId = 0,
+        classId,
         size = 20,
         tooltip,
         useTooltip = true,
@@ -35,4 +35,4 @@
     );
 </script>
 
-<WowthingImage name="class/{cls.id}" {border} {size} tooltip={finalTooltip} />
+<WowthingImage name="class/{cls?.id}" {border} {size} tooltip={finalTooltip} />
