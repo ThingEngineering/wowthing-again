@@ -227,6 +227,14 @@
                                         {/if}
                                     </WowheadLink>
                                 </span>
+                            {:else if ability.spellId}
+                                <WowheadLink type="spell" id={ability.spellId}>
+                                    <WowthingImage
+                                        name="spell/{ability.spellId}"
+                                        size={20}
+                                        border={1}
+                                    />
+                                </WowheadLink>
                             {:else}
                                 <ProfessionIcon id={profession.id} border={1} />
                             {/if}
