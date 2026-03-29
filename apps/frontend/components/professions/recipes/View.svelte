@@ -42,11 +42,12 @@
         characters = [];
         const collectorIds =
             settingsState.value.professions.collectingCharactersV2?.[profession.id] || [];
-        if (collectorIds.length > 0) {
+        const validCollectors = collectorIds
+            .map((collectorId) => userState.general.characterById[collectorId])
+            .filter((char) => !!char);
+        if (validCollectors.length > 0) {
             characters.push(null);
-            characters.push(
-                ...collectorIds.map((collectorId) => userState.general.characterById[collectorId])
-            );
+            characters.push(...validCollectors);
         }
 
         const professionCharacters = userState.general.visibleCharacters.filter((char) =>
@@ -171,7 +172,7 @@
                 >
             </th>
             {#each characters as character}
-                {#if character !== null}
+                {#if character}
                     <th class="character-icon">
                         <div class="faction{character.faction}">
                             <ClassIcon
@@ -207,8 +208,8 @@
                 </tr>
 
                 {#each abilities as ability}
-                    {@const recipes = wowthingData.static.skillLineAbilityItems[ability.id]}
-                    {@const recipeItem = wowthingData.items.items[recipes?.[0]]}
+                    {@const recipes = wowthingData.static.skillLineAbilityItems[ability.id] || []}
+                    {@const recipeItem = wowthingData.items.items[recipes[0]]}
                     <tr data-id={ability.id}>
                         <td class="source">
                             {#if recipeItem}
