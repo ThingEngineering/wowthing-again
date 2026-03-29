@@ -32,7 +32,6 @@
             .getCurrentPeriodForCharacter($timeStore, character)
             .endTime.toUnixInteger();
 
-        runCounts = [];
         const allRuns: CharacterMythicPlusAddonRun[] = [];
 
         for (const [timestamp, weekRuns] of Object.entries(character.mythicPlusWeeks || {})) {

@@ -5,11 +5,11 @@ import type { ItemSearchResponseCommon } from '@/types/items';
 export function getItemUrl(
     item: Partial<CharacterEquippedItem>,
     character?: Character,
-    tierPieces?: number[],
+    tierPieces?: number[]
 ): string {
     const useWowdb = settingsState.value.general.useWowdb;
 
-    let url = '';
+    let url: string;
     const params = [];
 
     // WowDB
@@ -55,7 +55,7 @@ export function getItemUrl(
 // TODO unify these once equipped item storage is updated
 export function getItemUrlSearch<T extends ItemSearchResponseCommon>(
     itemId: number,
-    item: T,
+    item: T
 ): string {
     let url = getItemUrl({
         bonusIds: item.bonusIds ?? [],

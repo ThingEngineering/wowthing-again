@@ -8,13 +8,15 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 
-    export let dedupe: boolean = true;
-    // isCollected, itemId, modifier
-    export let items: TransmogSlot[];
+    type Props = {
+        dedupe?: boolean;
+        // isCollected, itemId, modifier
+        items: TransmogSlot[];
+    };
+    let { dedupe = true, items }: Props = $props();
 
-    let itemData: [boolean, ItemDataItem, number?][];
-    $: {
-        itemData = [];
+    let itemData = $derived.by(() => {
+        let ret: [boolean, ItemDataItem, number?][];
 
         if (dedupe) {
             const byName: Record<string, [boolean, ItemDataItem]> = {};
@@ -42,16 +44,16 @@
                 return 0;
             });
 
-            itemData = nameOrder.map((name) => byName[name]);
+            ret = nameOrder.map((name) => byName[name]);
         } else {
-            itemData = items.map(([, haveSource, itemId, modifier]) => [
+            ret = items.map(([, haveSource, itemId, modifier]) => [
                 haveSource,
                 wowthingData.items.items[itemId],
                 modifier,
             ]);
         }
 
-        itemData.sort(([aHave], [bHave]) => {
+        ret.sort(([aHave], [bHave]) => {
             if (aHave === true && bHave === false) {
                 return -1;
             } else if (aHave === false && bHave === true) {
@@ -61,9 +63,11 @@
         });
 
         if (dedupe) {
-            itemData = itemData.slice(0, 2);
+            ret = ret.slice(0, 2);
         }
-    }
+
+        return ret;
+    });
 
     function getItemText(item: ItemDataItem, modifier: number): string {
         const parts: string[] = [];

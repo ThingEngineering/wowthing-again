@@ -49,7 +49,7 @@
             }
 
             for (const character of userState.general.activeCharacters) {
-                let quantity = 0;
+                let quantity: number;
                 if (currency) {
                     quantity = character.currencies?.[currency.id]?.quantity || 0;
                 } else if (item) {

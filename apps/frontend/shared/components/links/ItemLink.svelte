@@ -4,7 +4,7 @@
     export let id: number;
     export let bonusIds: number[] = [];
 
-    let url = '';
+    let url: string;
     const params: Map<string, string> = new Map<string, string>();
     $: {
         if (settingsState.value.general.useWowdb) {

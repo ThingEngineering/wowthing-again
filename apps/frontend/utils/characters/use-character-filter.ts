@@ -41,7 +41,6 @@ export function useCharacterFilter(
         }
 
         const partCache: Record<string, boolean> = {};
-        result = false;
         result = partArrays.some((parts) =>
             parts.every(
                 (outerPart) =>
@@ -67,11 +66,7 @@ export function useCharacterFilter(
                                 const now = Math.floor(Date.now() / 1000);
                                 const days = parseInt(match[2]);
                                 const diff = (now - char.lastSeenAddonUnix) / 86400;
-                                return compareValues(
-                                    match[1].toString(),
-                                    diff,
-                                    days
-                                );
+                                return compareValues(match[1].toString(), diff, days);
                             }
 
                             // Item level

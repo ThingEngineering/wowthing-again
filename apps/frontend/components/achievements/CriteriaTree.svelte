@@ -43,7 +43,7 @@
                 criteriaCharacters?.[criteriaTree?.criteriaId || -1]?.[0]?.[1] || 0;
             have = maxCharacter > 0 && maxCharacter >= criteriaTree.amount;
         } else {
-            let maybeCriteria: number[][] = [];
+            let maybeCriteria: number[][];
             maybeCriteria = criteriaCharacters[criteria?.id] || [[0, 0]];
 
             if (achievement.isAccountWide) {

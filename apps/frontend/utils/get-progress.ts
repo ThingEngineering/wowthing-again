@@ -25,7 +25,7 @@ export default function getProgress(
     group: ManualDataProgressGroup,
     countAccountWide = true
 ): ProgressInfo {
-    let have = 0;
+    let have: number;
     let missingRequired = false;
     let showCurrency = 0;
     let total = 0;
@@ -241,7 +241,7 @@ export default function getProgress(
                                         (cheev.criteria?.[data.ids[1]] || 0) >= (data.value || 1);
                                 } else if (data.description && data.value) {
                                     // TODO do this properly
-                                    let have = 0;
+                                    let have: number;
                                     if (data.ids[0] === 11160) {
                                         have = (cheev.criteria || []).reduce(
                                             (a, b) => a + Math.min(1, b),

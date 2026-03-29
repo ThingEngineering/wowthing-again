@@ -1,54 +1,53 @@
 <script lang="ts">
-    import debounce from 'lodash/debounce'
+    import debounce from 'lodash/debounce';
 
-    import type { Character } from '@/types'
+    import type { Character } from '@/types';
 
-    import BackgroundSelector from '@/components/common/BackgroundSelector.svelte'
-    import RangeInput from '@/shared/components/forms/RangeInput.svelte'
+    import BackgroundSelector from '@/components/common/BackgroundSelector.svelte';
+    import RangeInput from '@/shared/components/forms/RangeInput.svelte';
 
-    export let backgroundBrightness: number
-    export let backgroundSaturation: number
-    export let character: Character
-    export let selected: number
+    export let backgroundBrightness: number;
+    export let backgroundSaturation: number;
+    export let character: Character;
+    export let selected: number;
 
-    let first = true
-    let status = ''
-
-    $: debouncedSave(selected, backgroundBrightness, backgroundSaturation)
-
-    const getValue = (value: number): string => value === -1 ? 'Def' : `${value * 10}%`
+    let first = true;
+    let status = '';
 
     const debouncedSave = debounce(async (id: number, brightness: number, saturation: number) => {
         if (first) {
-            first = false
-            return
+            first = false;
+            return;
         }
 
-        status = 'Saving...'
+        status = 'Saving...';
 
         const form = {
             backgroundId: id,
             backgroundBrightness: brightness,
             backgroundSaturation: saturation,
-        }
-        const xsrf = document.getElementById('app').getAttribute('data-xsrf')
-        
+        };
+        const xsrf = document.getElementById('app').getAttribute('data-xsrf');
+
         const response = await fetch(`/api/character/${character.id}/configuration`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'RequestVerificationToken': xsrf,
+                RequestVerificationToken: xsrf,
             },
             body: JSON.stringify(form),
-        })
+        });
 
         if (response.ok) {
-            status = 'Saved!'
+            status = 'Saved!';
+        } else {
+            status = 'ERROR!';
         }
-        else {
-            status = 'ERROR!'
-        }
-    }, 500)
+    }, 500);
+
+    $: debouncedSave(selected, backgroundBrightness, backgroundSaturation);
+
+    const getValue = (value: number): string => (value === -1 ? 'Def' : `${value * 10}%`);
 </script>
 
 <style lang="scss">
@@ -96,10 +95,11 @@
         <span class="status">{status}</span>
     </div>
 
-    <BackgroundSelector
-        bind:selected
-        showDefault={true}
-    />
-    
-    <p>You can change your default background in <a href="#/settings/characters">Settings > Characters</a></p>
+    <BackgroundSelector bind:selected showDefault={true} />
+
+    <p>
+        You can change your default background in <a href="#/settings/characters"
+            >Settings > Characters</a
+        >
+    </p>
 </div>

@@ -500,7 +500,6 @@ export class Character implements ContainsItems, HasNameAndRealm {
     );
 
     public calculatedItemLevel = $derived.by(() => {
-        let calced: string = undefined;
         let count = 0,
             itemLevels = 0;
         for (let j = 0; j < slotOrder.length; j++) {
@@ -520,7 +519,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         }
 
         const itemLevel = itemLevels / count;
-        calced = itemLevel.toFixed(1);
+        const calced = itemLevel.toFixed(1);
 
         return calced || this.equippedItemLevel.toFixed(1);
     });

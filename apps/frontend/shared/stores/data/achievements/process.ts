@@ -803,6 +803,8 @@ export function processAchievementsData(rawData: RawAchievements): DataAchieveme
         children: [],
     });
 
+    console.debug('last category', categoryId);
+
     for (const category of ret.categories.filter((cat) => cat?.id >= 100000)) {
         for (const maybeArray of category.achievementIds) {
             if (Array.isArray(maybeArray)) {
