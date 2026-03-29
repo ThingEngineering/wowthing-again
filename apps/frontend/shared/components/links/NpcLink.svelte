@@ -5,7 +5,7 @@
     export let noTooltip = false;
     export let toComments = false;
 
-    let url = '';
+    let url: string;
     $: {
         if (settingsState.value.general.useWowdb) {
             url = `https://www.wowdb.com/npcs/${id}`;

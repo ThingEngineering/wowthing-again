@@ -22,7 +22,7 @@
     const character: Character = getContext('character');
 
     let addonMap: CharacterMythicPlusAddonMap;
-    let allRuns: CharacterMythicPlusAddonRun[];
+    // let allRuns: CharacterMythicPlusAddonRun[];
     let bestRun: CharacterMythicPlusRun;
     let hasPortal: boolean;
     let isTyrannical: boolean;
@@ -118,7 +118,7 @@
         component: TooltipMythicPlusRuns,
         props: {
             addonMap,
-            allRuns,
+            allRuns: [],
             character,
             dungeonId,
             runs,

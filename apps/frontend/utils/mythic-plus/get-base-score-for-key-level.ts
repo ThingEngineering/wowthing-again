@@ -4,7 +4,7 @@ export function getBaseScoreForKeyLevel(keyLevel: number): number {
     //  5 per normal affix
     //  5 per keystone level
 
-    let affixes = 0;
+    let affixes: number;
     if (keyLevel < 5) {
         affixes = 1;
     } else if (keyLevel < 10) {

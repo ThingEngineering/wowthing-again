@@ -1,16 +1,14 @@
 <script lang="ts">
     import { settingsState } from '@/shared/state/settings.svelte';
 
-    export let id: number;
+    type Props = { id: number };
+    let { id }: Props = $props();
 
-    let url = '';
-    $: {
-        if (settingsState.value.general.useWowdb) {
-            url = `https://www.wowdb.com/achievements/${id}`;
-        } else {
-            url = `https://${settingsState.wowheadBaseUrl}/achievement=${id}`;
-        }
-    }
+    let url = $derived(
+        settingsState.value.general.useWowdb
+            ? `https://www.wowdb.com/achievements/${id}`
+            : `https://${settingsState.wowheadBaseUrl}/achievement=${id}`
+    );
 </script>
 
 <a href={url}>

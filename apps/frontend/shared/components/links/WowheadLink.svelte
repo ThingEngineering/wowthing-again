@@ -12,7 +12,7 @@
 
     // TODO: hook up a setting to control links in new tabs
 
-    let url = '';
+    let url: string;
     $: {
         url = `https://${settingsState.wowheadBaseUrl}/${type}=${id}`;
 

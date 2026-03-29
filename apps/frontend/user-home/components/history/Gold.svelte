@@ -76,7 +76,7 @@
         month: ['MMM yyyy', 'month'],
     };
 
-    const redrawChart = function (historyState: HistoryState, userHistoryData: UserHistoryData) {
+    function redrawChart(historyState: HistoryState, userHistoryData: UserHistoryData) {
         console.time('redrawChart');
         if (chart) {
             chart.destroy();
@@ -412,7 +412,7 @@
         console.timeEnd('redrawChart.newChart');
 
         console.timeEnd('redrawChart');
-    };
+    }
 </script>
 
 <style lang="scss">

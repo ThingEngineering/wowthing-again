@@ -32,6 +32,24 @@
         children: [ManualDataZoneMapFarm, number][];
     };
 
+    const lootFarmTypes = toIndexRecord<number>([
+        FarmType.Event,
+        FarmType.EventBig,
+        FarmType.Kill,
+        FarmType.KillBig,
+        FarmType.Treasure,
+    ]);
+    const lootRewardTypes = toIndexRecord<number>([
+        RewardType.Armor,
+        RewardType.Cosmetic,
+        RewardType.Illusion,
+        RewardType.Item,
+        RewardType.Mount,
+        RewardType.Pet,
+        RewardType.Toy,
+        RewardType.Weapon,
+    ]);
+
     let categories: ManualDataZoneMapCategory[];
     let farms: ManualDataZoneMapFarm[];
     let farmStatuses: FarmStatus[];
@@ -191,23 +209,6 @@
         }
     };
 
-    const lootFarmTypes = toIndexRecord<number>([
-        FarmType.Event,
-        FarmType.EventBig,
-        FarmType.Kill,
-        FarmType.KillBig,
-        FarmType.Treasure,
-    ]);
-    const lootRewardTypes = toIndexRecord<number>([
-        RewardType.Armor,
-        RewardType.Cosmetic,
-        RewardType.Illusion,
-        RewardType.Item,
-        RewardType.Mount,
-        RewardType.Pet,
-        RewardType.Toy,
-        RewardType.Weapon,
-    ]);
     const typeOrder = toIndexRecord<number>([
         FarmType.Vendor,
         FarmType.Profession,

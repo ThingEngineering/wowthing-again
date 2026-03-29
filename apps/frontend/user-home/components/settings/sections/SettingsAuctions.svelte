@@ -25,13 +25,13 @@
     );
     connectedRealms.sort((a, b) => a.displayText.localeCompare(b.displayText));
 
-    $: debouncedUpdateSettings(shownRealms);
-
     const debouncedUpdateSettings = debounce((shownRealms) => {
         settingsState.value.auctions.ignoredRealms = Object.keys(crIds)
             .filter((crId) => shownRealms.indexOf(crId) === -1)
             .map((crId) => parseInt(crId));
     }, 100);
+
+    $: debouncedUpdateSettings(shownRealms);
 </script>
 
 <style lang="scss">

@@ -11,7 +11,7 @@ const qualityBreakpoints: number[][] = [
 ];
 
 export function getRunQuality(run: CharacterMythicPlusRun | number): string {
-    let level = 0;
+    let level;
     if (typeof run !== 'number') {
         if (!run.timed) {
             return 'quality0';
