@@ -178,7 +178,7 @@
                                 {character}
                                 border={2}
                                 size={40}
-                                tooltip={`${character.name}-${character.realm.name}`}
+                                tooltip={`${character.name}-${character.realm?.name ?? 'UNKNOWN'}`}
                             />
                             <span class="pill abs-center">{character.name.slice(0, 5)}</span>
                         </div>
