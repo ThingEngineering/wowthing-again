@@ -110,10 +110,12 @@
     --color-class-12: #a330c9; // Demon Hunter
     --color-class-13: #33937f; // Evoker
 
-    // svelte-multiselect
+    // svelte-multiselect - vars got real weird after updating
     --sms-li-active-bg: #003048;
-    --sms-options-bg: #0a0b0c;
-    --sms-options-border: 1px solid #8b8d8f;
+    --sms-bg: #0a0b0c;
+    --sms-options-bg: var(--sms-bg);
+    --sms-border: 1px solid #8b8d8f;
+    --sms-options-border: var(--sms-border);
     --sms-placeholder-color: #bbb;
     --sms-selected-li-padding: 0 0.2rem;
 

@@ -44,6 +44,10 @@
 </script>
 
 <style lang="scss">
+    .collecting {
+        // dropdowns need to appear outside of this container
+        overflow: visible;
+    }
     table {
         --image-border-width: 1px;
         --image-margin-top: -4px;
@@ -65,16 +69,28 @@
     .character {
         --width: 20rem;
 
+        padding: 0.25m 0.3rem 0.25rem 0;
+
         :global(ul.selected) {
-            flex-wrap: none;
+            flex-direction: column;
+            padding: 0.25rem 0;
         }
         :global(ul.selected > li) {
             margin-top: 1px;
+            padding: 0 0 0 0.3rem;
+            width: 15.5rem;
+        }
+        :global(ul.selected > input) {
+            border-color: var(--border-color);
+            border-radius: var(--border-radius);
+            margin: 0 2pt;
+            padding: 0 0 0 0.3rem;
+            width: 15.5rem;
         }
     }
 </style>
 
-<div class="settings-block">
+<div class="settings-block collecting">
     <h3>Collecting</h3>
     <p>
         Which specific characters to use when checking if a recipe has been collected. Any secondary
