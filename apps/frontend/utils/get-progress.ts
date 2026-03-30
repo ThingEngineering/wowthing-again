@@ -7,7 +7,7 @@ import { ProgressDataType } from '@/enums/progress-data-type';
 import { QuestStatus } from '@/enums/quest-status';
 import { wowthingData } from '@/shared/stores/data';
 import { userState } from '@/user-home/state/user';
-import { toNiceNumber } from '@/utils/formatting';
+import { leftPad, toNiceNumber } from '@/utils/formatting';
 import type {
     Character,
     CharacterShadowlandsCovenant,
@@ -304,6 +304,25 @@ export default function getProgress(
                                 wowthingData.static.questNameById.get(data.ids[0]) ||
                                 data.name ||
                                 `Quest #${data.ids[0]}`;
+                            break;
+                        }
+
+                        case ProgressDataType.QuestLine: {
+                            const questLine = wowthingData.static.questLineById.get(data.ids[0]);
+                            if (!questLine) {
+                                console.warn('bad questLine?', data.ids);
+                                break;
+                            }
+
+                            const haveQuests = questLine.questIds.map((questId) =>
+                                checkCharacterQuestIds(character.id, [questId])
+                            );
+                            const haveCount = haveQuests.filter((have) => have).length;
+
+                            haveThis = haveQuests.at(-1);
+                            nameOverride[dataIndex] =
+                                `[${leftPad(haveCount, 2, '0')}/${leftPad(haveQuests.length, 2, '0')}] ${questLine.name}`;
+
                             break;
                         }
 

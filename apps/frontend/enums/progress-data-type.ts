@@ -13,4 +13,5 @@ export enum ProgressDataType {
     AccountQuest,
     Item,
     SpellKnown,
+    QuestLine,
 }
