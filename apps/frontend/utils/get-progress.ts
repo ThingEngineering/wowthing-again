@@ -25,7 +25,7 @@ export default function getProgress(
     group: ManualDataProgressGroup,
     countAccountWide = true
 ): ProgressInfo {
-    let have: number;
+    let have: number = 0;
     let missingRequired = false;
     let showCurrency = 0;
     let total = 0;
