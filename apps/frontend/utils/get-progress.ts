@@ -298,12 +298,20 @@ export default function getProgress(
                             break;
                         }
 
-                        case ProgressDataType.AccountQuest: {
-                            haveThis = checkAccountQuestIds(data.ids);
-                            nameOverride[dataIndex] =
+                        case ProgressDataType.Quests: {
+                            const haveQuests = data.ids.map((questId) =>
+                                checkCharacterQuestIds(character.id, [questId])
+                            );
+                            const haveCount = haveQuests.filter((have) => have).length;
+                            const questName =
                                 wowthingData.static.questNameById.get(data.ids[0]) ||
                                 data.name ||
                                 `Quest #${data.ids[0]}`;
+
+                            haveThis = haveQuests.at(-1);
+                            nameOverride[dataIndex] =
+                                `[${leftPad(haveCount, 2, '0')}/${leftPad(haveQuests.length, 2, '0')}] ${questName}`;
+
                             break;
                         }
 
@@ -323,6 +331,15 @@ export default function getProgress(
                             nameOverride[dataIndex] =
                                 `[${leftPad(haveCount, 2, '0')}/${leftPad(haveQuests.length, 2, '0')}] ${questLine.name}`;
 
+                            break;
+                        }
+
+                        case ProgressDataType.AccountQuest: {
+                            haveThis = checkAccountQuestIds(data.ids);
+                            nameOverride[dataIndex] =
+                                wowthingData.static.questNameById.get(data.ids[0]) ||
+                                data.name ||
+                                `Quest #${data.ids[0]}`;
                             break;
                         }
 
