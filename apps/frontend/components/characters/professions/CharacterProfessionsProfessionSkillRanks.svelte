@@ -16,14 +16,12 @@
 
 <style lang="scss">
     span {
-        --scale: 0.9;
-
         padding-left: 0;
         text-align: right;
         width: 5rem;
 
         :global(a + a) {
-            margin-left: -0.5rem;
+            margin-left: -0.2rem;
         }
     }
 </style>

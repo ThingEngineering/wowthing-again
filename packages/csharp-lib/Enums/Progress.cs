@@ -16,4 +16,6 @@ public enum ProgressDataType
     AccountQuest,
     Item,
     SpellKnown,
+    QuestLine,
+    Quests,
 }
