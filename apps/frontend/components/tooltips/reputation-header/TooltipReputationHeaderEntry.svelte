@@ -4,6 +4,7 @@
     import { RewardType } from '@/enums/reward-type';
     import { rewardTypeIcons } from '@/shared/icons/mappings';
     import { wowthingData } from '@/shared/stores/data';
+    import { userState } from '@/user-home/state/user';
     import type { Character } from '@/types';
     import type {
         ManualDataReputationReputation,
@@ -12,60 +13,68 @@
 
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { userState } from '@/user-home/state/user';
 
-    export let faction: Faction = Faction.Neutral;
-    export let reputation: ManualDataReputationReputation;
-    export let set: ManualDataReputationSet;
+    type Props = {
+        reputation: ManualDataReputationReputation;
+        set: ManualDataReputationSet;
+        faction?: Faction;
+    };
+    let { reputation, set, faction = Faction.Neutral }: Props = $props();
 
-    let rewards: {
-        id: number;
-        name: string;
-        type: RewardType;
-        have: boolean;
-    }[];
-    let totalParagon = 0;
-    $: {
-        rewards = [];
-        if (set.paragon) {
-            totalParagon = userState.general.activeCharacters.reduce(
-                (a: number, b: Character) => a + (b.paragons?.[reputation.id]?.received ?? 0),
-                0
-            );
+    let totalParagon = $derived(
+        !set.paragon
+            ? 0
+            : userState.general.activeCharacters.reduce(
+                  (a: number, b: Character) => a + (b.paragons?.[reputation.id]?.received ?? 0),
+                  0
+              )
+    );
+    let rewards = $derived.by(() => {
+        const ret: {
+            id: number;
+            name: string;
+            type: RewardType;
+            have: boolean;
+        }[] = [];
 
-            if (reputation.rewards) {
-                for (const reward of reputation.rewards) {
-                    let have = false;
-                    let name: string;
-                    if (reward.type === RewardType.Mount) {
-                        have = userState.general.hasMountById.has(reward.id);
-                        const mount = wowthingData.static.mountById.get(reward.id);
-                        name = mount ? mount.name : `Mount #${reward.id}`;
-                    } else if (reward.type === RewardType.Pet) {
-                        have = userState.general.hasPetById.has(reward.id);
-                        const pet = wowthingData.static.petById.get(reward.id);
-                        name = pet ? pet.name : `Pet #${reward.id}`;
-                    } else if (reward.type === RewardType.Toy) {
-                        have = userState.general.hasToyById.has(reward.id);
-                        const toy = wowthingData.static.toyById.get(reward.id);
-                        name = toy ? toy.name : `Toy #${reward.id}`;
-                    } else if (reward.type === RewardType.Transmog) {
-                        const item = wowthingData.items.items[reward.id];
-                        have = userState.general.hasAppearanceById.has(
-                            item?.appearances[0]?.appearanceId || 0
-                        );
-                        name = item?.name || `Item #${reward.id}`;
-                    }
-
-                    rewards.push({
-                        ...reward,
-                        have,
-                        name,
-                    });
+        if (set.paragon && reputation.rewards) {
+            for (const reward of reputation.rewards) {
+                let have = false;
+                let name: string;
+                if (reward.type === RewardType.Mount) {
+                    have = userState.general.hasMountById.has(reward.id);
+                    const mount = wowthingData.static.mountById.get(reward.id);
+                    name = mount ? mount.name : `Mount #${reward.id}`;
+                } else if (reward.type === RewardType.Pet) {
+                    have = userState.general.hasPetById.has(reward.id);
+                    const pet = wowthingData.static.petById.get(reward.id);
+                    name = pet ? pet.name : `Pet #${reward.id}`;
+                } else if (reward.type === RewardType.Toy) {
+                    have =
+                        userState.general.hasToyById.has(reward.id) ||
+                        userState.general.hasToyByItemId.has(reward.id);
+                    const toy =
+                        wowthingData.static.toyById.get(reward.id) ||
+                        wowthingData.static.toyByItemId.get(reward.id);
+                    name = toy ? toy.name : `Toy #${reward.id}`;
+                } else if (reward.type === RewardType.Transmog) {
+                    const item = wowthingData.items.items[reward.id];
+                    have = userState.general.hasAppearanceById.has(
+                        item?.appearances[0]?.appearanceId || 0
+                    );
+                    name = item?.name || `Item #${reward.id}`;
                 }
+
+                ret.push({
+                    ...reward,
+                    have,
+                    name,
+                });
             }
         }
-    }
+
+        return ret;
+    });
 </script>
 
 <style lang="scss">
