@@ -10,6 +10,9 @@
 
 <style lang="scss">
     td {
+        --image-border-width: 2px;
+        --padding-left: 0;
+        --padding-right: 0;
         --width: 2rem;
 
         word-spacing: -0.2ch;
@@ -18,11 +21,12 @@
 
 {#each settingsState.activeView.homeItems as itemId (itemId)}
     {@const itemIdString = itemId.toString()}
+    {@const item = wowthingData.items.items[itemId]}
     <td
-        class="sortable sorted-{getSortState(itemIdString)}"
+        class="sortable sorted-{getSortState(itemIdString)} quality{item?.quality || 1}-border"
         data-tooltip={wowthingData.items.items[itemId].name}
         onclick={() => setSortState(itemIdString)}
     >
-        <WowthingImage name="item/{itemId}" size={16} border={1} />
+        <WowthingImage name="item/{itemId}" size={16} border={2} />
     </td>
 {/each}
