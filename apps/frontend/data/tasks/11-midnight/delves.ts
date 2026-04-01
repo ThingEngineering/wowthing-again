@@ -30,18 +30,20 @@ export const midDelves: Task = {
             subChoresAnyOrder: true,
             questReset: DbResetType.Weekly,
             questResetForced: true,
-            subChores: [
-                {
-                    key: 'get',
-                    name: 'Get Bounty',
-                    questIds: [86371],
-                },
-                {
-                    key: 'use',
-                    name: 'Use Bounty',
-                    questIds: [92887],
-                },
-            ],
+            questIds: [86371],
+            // This seems wrong, I got no tracking quest for using the map or looting the box
+            // subChores: [
+            //     {
+            //         key: 'get',
+            //         name: 'Get Bounty',
+            //         questIds: [86371],
+            //     },
+            //     {
+            //         key: 'use',
+            //         name: 'Use Bounty',
+            //         questIds: [92887],
+            //     },
+            // ],
         },
         {
             key: 'gilded',

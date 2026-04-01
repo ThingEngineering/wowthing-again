@@ -6,7 +6,7 @@ import type { Task } from '@/types/tasks';
 
 const PREY_REPUTATION_ID = 2764;
 const NORMAL_UNLOCK = 93086; // To the Sanctum!
-const HEROIC_UNLOCK = 92177; // One Hero's Prey
+const HARD_UNLOCK = 92178; // Practical Magic
 const NIGHTMARE_UNLOCK = 92182; // The Sheep or the Wolf
 
 const renownFunc = (renown?: number) => {
@@ -61,9 +61,7 @@ export const midPrey: Task = {
             questIds: [93169, 93857],
             couldGetFunc: () => renownFunc(1),
             canGetFunc: (char) =>
-                userState.quests.anyCharacterHasById.has(HEROIC_UNLOCK)
-                    ? ''
-                    : Strings.doUnlockQuests,
+                userState.quests.anyCharacterHasById.has(HARD_UNLOCK) ? '' : Strings.doUnlockQuests,
         },
         {
             key: 'preyNightmare',

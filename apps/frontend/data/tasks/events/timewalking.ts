@@ -31,15 +31,16 @@ export const eventTimewalking: Task = {
                     ];
                 } else {
                     return [
-                        83274, // An Original Path Through Time [Classic max]
-                        83363, // A Burning Path Through Time [TBC max]
-                        83365, // A Frozen Path Through Time [Wrath max]
-                        83359, // A Shattered Path Through Time [Cata max]
-                        83362, // A Shrouded Path Through Time [MoP max]
-                        83364, // A Savage Path Through Time [WoD max]
-                        83360, // A Fel Path Through Time [Legion max]
-                        88805, // A Scarred Path Through Time [BfA max]
+                        93607, // An Original Path Through Time [Classic max]
+                        93608, // A Burning Path Through Time [TBC max]
+                        93610, // A Frozen Path Through Time [Wrath max]
+                        93611, // A Shattered Path Through Time [Cata max]
+                        93612, // A Shrouded Path Through Time [MoP max]
+                        93613, // A Savage Path Through Time [WoD max]
+                        93614, // A Fel Path Through Time [Legion max]
+                        93627, // A Scarred Path Through Time [BfA max]
                         92649, // A Shadowed Path Through Time [SL max]
+                        93628, // A Shadowed Path Through Time [SL max]
                     ];
                 }
             },
