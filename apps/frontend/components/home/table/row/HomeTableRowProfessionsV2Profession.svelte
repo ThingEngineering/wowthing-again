@@ -101,10 +101,11 @@
                     {character}
                     currency={concCurrency}
                     fullIsBad={settingsState.value.professions.fullConcentrationIsBad}
+                    useIconOverride={false}
                     useStatusClass={true}
                 />
             {:else if field === 'moxie' && showMoxie}
-                <Currency {character} currency={moxieCurrency} />
+                <Currency {character} currency={moxieCurrency} useIconOverride={false} />
             {/if}
         {/each}
     {/if}
