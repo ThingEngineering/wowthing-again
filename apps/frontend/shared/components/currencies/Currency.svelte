@@ -5,13 +5,21 @@
     import type { CharacterProps } from '@/types/props';
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { currencyIconOverride } from '@/data/currencies';
 
     type Props = CharacterProps & {
         currency: StaticDataCurrency;
         fullIsBad?: boolean;
+        useIconOverride?: boolean;
         useStatusClass?: boolean;
     };
-    let { character, currency, fullIsBad, useStatusClass }: Props = $props();
+    let {
+        character,
+        currency,
+        fullIsBad,
+        useIconOverride = true,
+        useStatusClass,
+    }: Props = $props();
 
     let data = $derived(currency && getCurrencyData(timeState.slowTime, character, currency));
 
@@ -40,8 +48,9 @@
 {#if data}
     {@const { amount, percent, tooltip } = data}
     {@const status = useStatusClass ? statusClass(percent) : ''}
+    {@const icon = useIconOverride ? currencyIconOverride[currency.id] : ''}
     <div class="currency {status}" data-tooltip={tooltip}>
-        <WowthingImage name="currency/{currency.id}" size={20} border={1} />
+        <WowthingImage name={icon || `currency/${currency.id}`} size={20} border={1} />
         <span>{amount}</span>
     </div>
 {:else}
