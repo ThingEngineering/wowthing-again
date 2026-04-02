@@ -551,7 +551,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
     public currencies = $derived.by(() => {
         const ret: Record<number, CharacterCurrency> = {};
-        const now = timeState.slowTime;
+        const now = timeState.time;
 
         for (const characterCurrency of Object.values(this.currencyObjects)) {
             let newCurrency = characterCurrency;
