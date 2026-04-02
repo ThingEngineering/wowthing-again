@@ -40,35 +40,36 @@ public class ApiUserCharacterConverter : JsonConverter<ApiUserCharacter>
         writer.WriteNumberValue(character.DailyReset?.ToUnixTimeSeconds() ?? 0); // 23
         writer.WriteNumberValue(character.WeeklyReset?.ToUnixTimeSeconds() ?? 0); // 24
         writer.WriteNumberValue(character.ScannedCurrencies?.ToUnixTimeSeconds() ?? 0); // 25
+        writer.WriteNumberValue(character.TransferredCurrencies?.ToUnixTimeSeconds() ?? 0); // 26
 
-        JsonSerializer.Serialize(writer, character.Configuration, options); // 26
+        JsonSerializer.Serialize(writer, character.Configuration, options); // 27
 
-        JsonSerializer.Serialize(writer, character.Auras, options); // 27
-        JsonSerializer.Serialize(writer, character.EquippedItems, options); // 28
-        JsonSerializer.Serialize(writer, character.Garrisons, options); // 29
-        JsonSerializer.Serialize(writer, character.GarrisonTrees, options); // 30
-        JsonSerializer.Serialize(writer, character.HighestItemLevel, options); // 31
-        JsonSerializer.Serialize(writer, character.KnownSpells, options); // 32
-        JsonSerializer.Serialize(writer, character.Lockouts, options); // 33
-        JsonSerializer.Serialize(writer, character.MythicPlus, options); // 34
-        JsonSerializer.Serialize(writer, character.MythicPlusAddon, options); // 35
-        JsonSerializer.Serialize(writer, character.MythicPlusSeasons, options); // 36
-        JsonSerializer.Serialize(writer, character.Paragons, options); // 37
-        JsonSerializer.Serialize(writer, character.PatronOrders, options); // 38
-        JsonSerializer.Serialize(writer, character.Professions, options); // 39
-        JsonSerializer.Serialize(writer, character.ProfessionCooldowns, options); // 40
-        JsonSerializer.Serialize(writer, character.ProfessionSpecializations, options); // 41
-        JsonSerializer.Serialize(writer, character.ProfessionTraits, options); // 42
-        JsonSerializer.Serialize(writer, character.RaiderIo, options); // 43
-        JsonSerializer.Serialize(writer, character.Reputations, options); // 44
-        JsonSerializer.Serialize(writer, character.Shadowlands, options); // 45
-        JsonSerializer.Serialize(writer, character.Weekly, options); // 46
+        JsonSerializer.Serialize(writer, character.Auras, options); // 28
+        JsonSerializer.Serialize(writer, character.EquippedItems, options); // 29
+        JsonSerializer.Serialize(writer, character.Garrisons, options); // 30
+        JsonSerializer.Serialize(writer, character.GarrisonTrees, options); // 31
+        JsonSerializer.Serialize(writer, character.HighestItemLevel, options); // 32
+        JsonSerializer.Serialize(writer, character.KnownSpells, options); // 33
+        JsonSerializer.Serialize(writer, character.Lockouts, options); // 34
+        JsonSerializer.Serialize(writer, character.MythicPlus, options); // 35
+        JsonSerializer.Serialize(writer, character.MythicPlusAddon, options); // 36
+        JsonSerializer.Serialize(writer, character.MythicPlusSeasons, options); // 37
+        JsonSerializer.Serialize(writer, character.Paragons, options); // 38
+        JsonSerializer.Serialize(writer, character.PatronOrders, options); // 39
+        JsonSerializer.Serialize(writer, character.Professions, options); // 40
+        JsonSerializer.Serialize(writer, character.ProfessionCooldowns, options); // 41
+        JsonSerializer.Serialize(writer, character.ProfessionSpecializations, options); // 42
+        JsonSerializer.Serialize(writer, character.ProfessionTraits, options); // 43
+        JsonSerializer.Serialize(writer, character.RaiderIo, options); // 44
+        JsonSerializer.Serialize(writer, character.Reputations, options); // 45
+        JsonSerializer.Serialize(writer, character.Shadowlands, options); // 46
+        JsonSerializer.Serialize(writer, character.Weekly, options); // 47
 
-        JsonSerializer.Serialize(writer, character.RawCurrencies, options); // 47
-        JsonSerializer.Serialize(writer, character.RawItems, options); // 48
-        JsonSerializer.Serialize(writer, character.RawMythicPlusWeeks, options); // 49
-        JsonSerializer.Serialize(writer, character.RawSpecializations, options); // 50
-        JsonSerializer.Serialize(writer, character.RawStatistics, options); // 51
+        JsonSerializer.Serialize(writer, character.RawCurrencies, options); // 48
+        JsonSerializer.Serialize(writer, character.RawItems, options); // 49
+        JsonSerializer.Serialize(writer, character.RawMythicPlusWeeks, options); // 50
+        JsonSerializer.Serialize(writer, character.RawSpecializations, options); // 51
+        JsonSerializer.Serialize(writer, character.RawStatistics, options); // 52
 
         writer.WriteEndArray();
     }

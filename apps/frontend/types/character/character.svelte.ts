@@ -125,6 +125,8 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public lastSeenAddonUnix = $state(0);
     public scannedCurrencies: DateTime = $state<DateTime>(undefined);
     public scannedCurrenciesUnix = $state(0);
+    public transferredCurrencies: DateTime = $state<DateTime>(undefined);
+    public transferredCurrenciesUnix = $state(0);
 
     public quests = $state<CharacterQuests>(undefined);
 
@@ -194,6 +196,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         dailyResetUnix: number,
         weeklyResetUnix: number,
         scannedCurrenciesUnix: number,
+        transferredCurrenciesUnix: number,
 
         configuration: CharacterConfiguration,
 
@@ -252,6 +255,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         this.lastApiUpdateUnix = lastApiUpdateUnix;
         this.lastSeenAddonUnix = lastSeenAddonUnix;
         this.scannedCurrenciesUnix = scannedCurrenciesUnix;
+        this.transferredCurrenciesUnix = transferredCurrenciesUnix;
 
         this.configuration = configuration;
         this.auras = auras;
@@ -488,6 +492,10 @@ export class Character implements ContainsItems, HasNameAndRealm {
         if (scannedCurrenciesUnix && scannedCurrenciesUnix > Constants.defaultUnixTime) {
             this.scannedCurrencies = DateTime.fromSeconds(scannedCurrenciesUnix);
         }
+
+        if (transferredCurrenciesUnix && transferredCurrenciesUnix > Constants.defaultUnixTime) {
+            this.transferredCurrencies = DateTime.fromSeconds(transferredCurrenciesUnix);
+        }
     }
 
     hidden = $derived.by(
@@ -543,7 +551,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
     public currencies = $derived.by(() => {
         const ret: Record<number, CharacterCurrency> = {};
-        const now = timeState.slowTime;
+        const now = timeState.time;
 
         for (const characterCurrency of Object.values(this.currencyObjects)) {
             let newCurrency = characterCurrency;

@@ -33,6 +33,7 @@ public class ApiUserCharacter
     public DateTime? DailyReset { get; set; }
     public DateTime? WeeklyReset { get; set; }
     public DateTime? ScannedCurrencies { get; set; }
+    public DateTime? TransferredCurrencies { get; set; }
     public WowFaction Faction { get; set; }
     public WowGender Gender { get; set; }
 
@@ -128,15 +129,8 @@ public class ApiUserCharacter
         ProfessionCooldowns = character.AddonData?.ProfessionCooldowns;
         ProfessionTraits = character.AddonData?.ProfessionTraits;
 
-        var currenciesScanned = character.AddonData?.CurrenciesScannedAt;
-        if (currenciesScanned == null ||
-            (character.AddonData?.CurrenciesTransferredAt != null &&
-             character.AddonData?.CurrenciesTransferredAt > currenciesScanned)
-        )
-        {
-            currenciesScanned = character.AddonData?.CurrenciesTransferredAt;
-        }
-        ScannedCurrencies = currenciesScanned;
+        ScannedCurrencies = character.AddonData?.CurrenciesScannedAt;
+        TransferredCurrencies = character.AddonData?.CurrenciesTransferredAt;
 
         Professions = character.Professions?.Professions;
         ProfessionSpecializations = character.Professions?.ProfessionSpecializations ?? new();
