@@ -5,14 +5,13 @@
     import { professionMoxie } from '@/data/professions/moxie';
     import { Region } from '@/enums/region';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { timeState } from '@/shared/state/time.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { componentTooltip } from '@/shared/utils/tooltips/component-tooltip.svelte';
-    import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
     import type { CharacterSubProfession } from '@/types';
     import type { CharacterProps } from '@/types/props';
 
+    import Currency from '@/shared/components/currencies/Currency.svelte';
     import Tooltip from '@/components/tooltips/professions/TooltipProfessions.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
@@ -43,28 +42,9 @@
     let concCurrency = $derived(
         wowthingData.static.currencyById.get(concentrationData[profession.id])
     );
-    let concData = $derived(
-        concCurrency && getCurrencyData(timeState.slowTime, character, concCurrency)
-    );
-
     let moxieCurrency = $derived(
         wowthingData.static.currencyById.get(professionMoxie[profession.id])
     );
-    let moxieData = $derived(
-        moxieCurrency && getCurrencyData(timeState.slowTime, character, moxieCurrency)
-    );
-
-    function statusClass(fullIsBad: boolean, percent: number) {
-        if (percent >= 100) {
-            return fullIsBad ? 'status-fail' : 'status-success';
-        } else if (percent >= 75) {
-            return fullIsBad ? 'status-warn' : 'status-shrug';
-        } else if (percent > 25 && percent < 75) {
-            return fullIsBad ? 'status-shrug' : 'status-warn';
-        } else {
-            return fullIsBad ? 'status-success' : 'status-fail';
-        }
-    }
 </script>
 
 <style lang="scss">
@@ -88,17 +68,6 @@
         color: var(--color-body-text);
         display: flex;
         justify-content: space-between;
-    }
-    .concentration,
-    .moxie {
-        align-items: center;
-        display: flex;
-        gap: 0.2rem;
-        justify-content: space-between;
-
-        &:not(:first-child) {
-            --image-margin-top: 0;
-        }
     }
 </style>
 
@@ -128,29 +97,14 @@
     {#if current}
         {#each fields as field (field)}
             {#if field === 'concentration' && showConcentration}
-                {#if concData}
-                    {@const { amount, percent, tooltip } = concData}
-                    {@const status = statusClass(
-                        settingsState.value.professions.fullConcentrationIsBad,
-                        percent
-                    )}
-                    <div class="concentration {status}" data-tooltip={tooltip}>
-                        <WowthingImage name="currency/{concCurrency.id}" size={20} border={1} />
-                        <span>{amount}</span>
-                    </div>
-                {:else}
-                    <div class="concentration"></div>
-                {/if}
+                <Currency
+                    {character}
+                    currency={concCurrency}
+                    fullIsBad={settingsState.value.professions.fullConcentrationIsBad}
+                    useStatusClass={true}
+                />
             {:else if field === 'moxie' && showMoxie}
-                {#if moxieData}
-                    {@const { amount, tooltip } = moxieData}
-                    <div class="moxie" data-tooltip={tooltip}>
-                        <WowthingImage name="currency/{moxieCurrency.id}" size={20} border={1} />
-                        <span>{amount}</span>
-                    </div>
-                {:else}
-                    <div class="moxie"></div>
-                {/if}
+                <Currency {character} currency={moxieCurrency} />
             {/if}
         {/each}
     {/if}

@@ -2,16 +2,13 @@
     import sortBy from 'lodash/sortBy';
 
     import { Constants } from '@/data/constants';
-    import { imageStrings } from '@/data/icons';
     import { expansionProfessionConcentration } from '@/data/professions/cooldowns';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { timeStore } from '@/shared/stores/time';
-    import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import { getProfessionSortKey } from '@/utils/professions';
     import type { CharacterProps } from '@/types/props';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import Currency from '@/shared/components/currencies/Currency.svelte';
 
     type Props = CharacterProps & { expansion: number };
     let { character, expansion }: Props = $props();
@@ -33,18 +30,6 @@
             (prof) => getProfessionSortKey(prof)
         )
     );
-
-    function statusClass(fullIsBad: boolean, percent: number) {
-        if (percent >= 100) {
-            return fullIsBad ? 'status-fail' : 'status-success';
-        } else if (percent >= 75) {
-            return fullIsBad ? 'status-warn' : 'status-shrug';
-        } else if (percent > 25 && percent < 75) {
-            return fullIsBad ? 'status-shrug' : 'status-warn';
-        } else {
-            return fullIsBad ? 'status-success' : 'status-fail';
-        }
-    }
 </script>
 
 <style lang="scss">
@@ -76,22 +61,13 @@
 
 <td>
     <div class="flex-wrapper">
-        {#each professions as profession}
-            {@const { amount, percent, tooltip } = getCurrencyData(
-                $timeStore,
-                character,
-                wowthingData.static.currencyById.get(concentrationData[profession.id])
-            )}
-            <div
-                class="concentration {statusClass(
-                    settingsState.value.professions.fullConcentrationIsBad,
-                    percent
-                )}"
-                data-tooltip={tooltip}
-            >
-                <WowthingImage name={imageStrings[profession.slug]} size={20} border={1} />
-                <span>{amount}</span>
-            </div>
+        {#each professions as profession, index (index)}
+            <Currency
+                {character}
+                currency={wowthingData.static.currencyById.get(concentrationData[profession.id])}
+                fullIsBad={settingsState.value.professions.fullConcentrationIsBad}
+                useStatusClass={true}
+            />
         {/each}
     </div>
 </td>
