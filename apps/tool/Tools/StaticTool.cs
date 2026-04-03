@@ -297,8 +297,9 @@ public class StaticTool
         _reagents = await LoadProfessionReagents();
         var professions = await LoadProfessions(traits);
 
+        // 33388 is a riding skill
         cacheData.ItemToRequiredAbility = _itemMap.Values
-            .Where(item => item.RequiredAbility > 0)
+            .Where(item => item.RequiredAbility > 0 && item.RequiredAbility != 33388)
             .ToDictionary(
                 item => item.Id,
                 item => item.RequiredAbility
@@ -309,7 +310,8 @@ public class StaticTool
         {
             if (cacheData.ItemToRequiredAbility.ContainsKey(kvp.Key))
             {
-                ToolContext.Logger.Warning("ItemToRequiredAbility already exists: {key} {value}", kvp.Key, kvp.Value);
+                ToolContext.Logger.Warning("ItemToRequiredAbility already exists: {key} = {current} !! {value}",
+                    kvp.Key, cacheData.ItemToRequiredAbility[kvp.Key], kvp.Value);
             }
             else
             {
@@ -602,10 +604,10 @@ public class StaticTool
         // skipping weird test artifacts
         foreach (var artifact in artifacts.Where(artifact => artifact.ID is not (74 or 80 or 81 or 82)))
         {
-            ToolContext.Logger.Information("artifact {id} {name}", artifact.ID, artifact.Name);
+            // ToolContext.Logger.Information("artifact {id} {name}", artifact.ID, artifact.Name);
             if (!artifactAppearanceSetsByArtifact.TryGetValue(artifact.ID, out var appearanceSets))
             {
-                ToolContext.Logger.Warning("- no appearance sets!");
+                // ToolContext.Logger.Warning("- no appearance sets!");
                 continue;
             }
 
@@ -613,10 +615,10 @@ public class StaticTool
 
             foreach (var appearanceSet in appearanceSets.OrderBy(appearanceSet => appearanceSet.DisplayIndex))
             {
-                ToolContext.Logger.Information("- set {id} {name}", appearanceSet.ID, appearanceSet.Name);
+                // ToolContext.Logger.Information("- set {id} {name}", appearanceSet.ID, appearanceSet.Name);
                 if (!artifactAppearancesBySet.TryGetValue(appearanceSet.ID, out var appearances))
                 {
-                    ToolContext.Logger.Warning("- - no appearances!");
+                    // ToolContext.Logger.Warning("- - no appearances!");
                     continue;
                 }
 
@@ -625,7 +627,7 @@ public class StaticTool
                 var seenModifiers = new HashSet<int>();
                 foreach (var appearance in appearances.OrderBy(appearance => appearance.DisplayIndex))
                 {
-                    ToolContext.Logger.Information("- - appearance {id} {name} => modifier {mod}", appearance.ID, appearance.Name, appearance.ItemAppearanceModifierID);
+                    // ToolContext.Logger.Information("- - appearance {id} {name} => modifier {mod}", appearance.ID, appearance.Name, appearance.ItemAppearanceModifierID);
 
                     if (!seenModifiers.Add(appearance.ItemAppearanceModifierID))
                     {
@@ -699,7 +701,7 @@ public class StaticTool
         {
             if (!decorIdToSubcategoryId.TryGetValue(houseDecor.ID, out var outSubcategoryIds))
             {
-                ToolContext.Logger.Warning("Decor {d} has no sub-category ids!", houseDecor.ID);
+                // ToolContext.Logger.Warning("Decor {d} has no sub-category ids!", houseDecor.ID);
                 continue;
             }
 
@@ -876,7 +878,7 @@ public class StaticTool
             {
                 if (!categoriesByProfession.TryGetValue(professionId, out var professionCategories))
                 {
-                    ToolContext.Logger.Warning("No profession categories for profession {id}", professionId);
+                    // ToolContext.Logger.Warning("No profession categories for profession {id}", professionId);
                     continue;
                 }
 
@@ -1560,12 +1562,12 @@ public class StaticTool
 
         foreach ((int skillLineId, var dumpTrees) in skillLineIdToTraitTrees.OrderBy(kvp => kvp.Key))
         {
-            ToolContext.Logger.Information("SkillLine {id}", skillLineId);
+            // ToolContext.Logger.Information("SkillLine {id}", skillLineId);
 
             var outTrees = ret[skillLineId] = new();
             foreach (var dumpTree in dumpTrees)
             {
-                ToolContext.Logger.Information("  Tree {tree}", dumpTree.ID);
+                // ToolContext.Logger.Information("  Tree {tree}", dumpTree.ID);
 
                 if (dumpTree.FirstTraitNodeID == 0)
                 {
@@ -1584,7 +1586,7 @@ public class StaticTool
                 while (nodeIdQueue.Count > 0)
                 {
                     int nodeId = nodeIdQueue.Dequeue();
-                    ToolContext.Logger.Information("    Node: {id}", nodeId);
+                    // ToolContext.Logger.Information("    Node: {id}", nodeId);
 
                     var traitNode = traitNodeById[nodeId];
 
@@ -1631,7 +1633,7 @@ public class StaticTool
                         }
                         else
                         {
-                            ToolContext.Logger.Warning("        No TraitCond->TraitNode for {cond}", cond.ID);
+                            // ToolContext.Logger.Warning("        No TraitCond->TraitNode for {cond}", cond.ID);
                         }
                     }
                 }
