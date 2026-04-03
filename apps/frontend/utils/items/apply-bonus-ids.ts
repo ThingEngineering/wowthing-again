@@ -10,6 +10,7 @@ export function applyBonusIds(bonusIds: number[], { itemLevel, quality }: Props)
     const ret = {
         itemLevel: itemLevel || 0,
         quality: quality || 0,
+        bonusStars: 0,
     };
 
     for (const bonusId of bonusIds) {
@@ -25,9 +26,24 @@ export function applyBonusIds(bonusIds: number[], { itemLevel, quality }: Props)
                 ret.quality = bonus[1];
             } else if (bonus[0] === ItemBonusType.BaseItemLevel) {
                 ret.itemLevel = bonus[1];
+            } else if (bonus[0] === ItemBonusType.ScaleConfig) {
+                if (scaleConfigToItemLevel[bonus[1]]) {
+                    ret.itemLevel = scaleConfigToItemLevel[bonus[1]];
+                }
+            } else if (bonus[0] === ItemBonusType.ScaleCrafted) {
+                // TODO: fix for non-profession items?
+                if (bonus[2] === 2) {
+                    ret.itemLevel += bonus[1];
+                    ret.bonusStars = bonus[3];
+                }
             }
         }
     }
 
     return ret;
 }
+
+// I don't want to deal with all of the item scaling dumps, hardcode it for now
+const scaleConfigToItemLevel: Record<number, number> = {
+    266: 206,
+};
