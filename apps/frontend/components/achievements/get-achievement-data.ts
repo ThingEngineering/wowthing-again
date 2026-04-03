@@ -181,7 +181,7 @@ export function getAchievementStatus(
 
     recurse(null, ret.rootCriteriaTree, true, true);
 
-    ret.reputation =
+    ret.reputation ||=
         ret.criteriaTrees.length === 1 &&
         ret.criteriaTrees[0].length === 1 &&
         achievementData.criteriaById.get(ret.criteriaTrees[0][0].criteriaId)?.type ===
