@@ -5,6 +5,7 @@
     import { Region } from '@/enums/region';
     import { wowthingData } from '@/shared/stores/data';
     import { leftPad } from '@/utils/formatting';
+    import { applyBonusIds } from '@/utils/items/apply-bonus-ids';
 
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
@@ -41,7 +42,11 @@
     }
     .quantity {
         text-align: right;
-        width: 5.5rem;
+        width: 3.5rem;
+    }
+    .level {
+        text-align: right;
+        width: 3rem;
     }
     .price {
         text-align: right;
@@ -54,7 +59,8 @@
         <thead>
             <tr>
                 <th>Realm</th>
-                <th>Lvl/Qty</th>
+                <th>Qty</th>
+                <th>Lvl</th>
                 <!-- {#if auctions[0]?.connectedRealmId < 100000}
                     <th>Bid</th>
                 {/if} -->
@@ -66,6 +72,7 @@
                 <tr>
                     <td class="realm">L O A D I N G . . .</td>
                     <td class="quantity"></td>
+                    <td class="level"></td>
                     <td class="price"></td>
                 </tr>
             {:then auctions}
@@ -89,12 +96,24 @@
                             {realm.displayText}
                         </td>
                         <td class="quantity">
+                            {auction.quantity.toLocaleString()}
+                        </td>
+                        <td class="level">
                             {#if auction.petSpeciesId}
                                 <span class="quality{auction.petQuality}">
                                     {auction.petLevel}
                                 </span>
                             {:else}
-                                {auction.quantity.toLocaleString()}
+                                {@const item = wowthingData.items.items[auction.itemId]}
+                                {#if item}
+                                    {@const { itemLevel, quality } = applyBonusIds(
+                                        auction.bonusIds,
+                                        { itemLevel: item.itemLevel, quality: item.quality }
+                                    )}
+                                    <span class="quality{quality}">
+                                        {itemLevel}
+                                    </span>
+                                {/if}
                             {/if}
                         </td>
                         <!-- {#if auctions[0]?.connectedRealmId < 100000}

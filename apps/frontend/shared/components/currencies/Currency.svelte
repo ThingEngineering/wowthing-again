@@ -1,11 +1,11 @@
 <script lang="ts">
+    import { currencyIconOverride } from '@/data/currencies';
     import { timeState } from '@/shared/state/time.svelte';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import type { StaticDataCurrency } from '@/shared/stores/static/types';
     import type { CharacterProps } from '@/types/props';
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { currencyIconOverride } from '@/data/currencies';
 
     type Props = CharacterProps & {
         currency: StaticDataCurrency;

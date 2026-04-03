@@ -10,7 +10,7 @@ class SpecificStore {
 
     async search(
         auctionAppState: AuctionsAppState,
-        groupKey: string,
+        groupKey: string
     ): Promise<UserAuctionDataAuction[]> {
         let things: UserAuctionDataAuction[] = [];
 
@@ -51,7 +51,7 @@ class SpecificStore {
                 const responseData = (await response.json()) as UserAuctionDataAuctionArray[];
 
                 things = responseData.map(
-                    (auctionArray) => new UserAuctionDataAuction(...auctionArray),
+                    (auctionArray) => new UserAuctionDataAuction(...auctionArray)
                 );
                 things.sort((a, b) => a.buyoutPrice - b.buyoutPrice);
 
