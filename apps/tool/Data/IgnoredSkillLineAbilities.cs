@@ -14,6 +14,8 @@ public static partial class Hardcoded
         46628,
         46629,
         46630,
+
+        50551, // Rockslide Shake that doesn't exist
     ];
 
     public static readonly HashSet<int> IgnoredSkillLineAbilitySpells =
