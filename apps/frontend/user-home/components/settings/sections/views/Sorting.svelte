@@ -23,6 +23,7 @@
         { id: 'gold', name: 'Gold' },
         { id: 'itemlevel', name: 'Item level' },
         { id: 'level', name: 'Level' },
+        { id: 'levelBand', name: 'Level Band (9x > 8x > 7x)' },
         { id: 'seen', name: 'Last seen' },
     ];
 
