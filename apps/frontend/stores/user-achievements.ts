@@ -88,8 +88,10 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
             }
 
             const categoryIds = [achievement.categoryId];
-            if (wowthingData.achievements.achievementToCategory[achievement.id]) {
-                categoryIds.push(wowthingData.achievements.achievementToCategory[achievement.id]);
+            if (wowthingData.achievements.achievementToCategoryIds[achievement.id]) {
+                categoryIds.push(
+                    ...wowthingData.achievements.achievementToCategoryIds[achievement.id]
+                );
             }
 
             for (const categoryId of categoryIds) {

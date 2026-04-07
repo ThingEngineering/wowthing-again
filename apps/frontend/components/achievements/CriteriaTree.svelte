@@ -39,9 +39,21 @@
         description = criteriaTree.description;
 
         if (achievement.isAccountWide) {
-            const maxCharacter =
-                criteriaCharacters?.[criteriaTree?.criteriaId || -1]?.[0]?.[1] || 0;
-            have = maxCharacter > 0 && maxCharacter >= criteriaTree.amount;
+            if (criteriaTree?.operator === CriteriaTreeOperator.Any) {
+                let anyCount = 0;
+                for (const childCriteriaTreeId of criteriaTree.children) {
+                    const childCriteriaTree =
+                        wowthingData.achievements.criteriaTreeById.get(childCriteriaTreeId);
+                    const childMaxCharacter =
+                        criteriaCharacters?.[childCriteriaTree?.criteriaId || -1]?.[0]?.[1] || 0;
+                    anyCount += childMaxCharacter;
+                }
+                have = anyCount >= criteriaTree.amount;
+            } else {
+                const maxCharacter =
+                    criteriaCharacters?.[criteriaTree?.criteriaId || -1]?.[0]?.[1] || 0;
+                have = maxCharacter > 0 && maxCharacter >= criteriaTree.amount;
+            }
         } else {
             let maybeCriteria: number[][];
             maybeCriteria = criteriaCharacters[criteria?.id] || [[0, 0]];

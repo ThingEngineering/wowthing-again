@@ -23,5 +23,5 @@ export class DataAchievements {
     public criteriaTreeById = new Map<number, AchievementDataCriteriaTree>();
     public isHidden: Record<number, boolean> = {};
 
-    public achievementToCategory: Record<number, number> = {};
+    public achievementToCategoryIds: Record<number, number[]> = {};
 }
