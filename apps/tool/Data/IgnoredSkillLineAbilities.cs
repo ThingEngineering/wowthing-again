@@ -214,6 +214,7 @@ public static partial class Hardcoded
         1261938, // Mid ??
 
         // Inscription
+        127475, // MoP Incarnadine Ink
         130407, // MoP Mystery of the Mists
         176513, // WoD Draenor Merchant Order
         178550, // WoD Borrow Draenic Mortar
@@ -222,7 +223,10 @@ public static partial class Hardcoded
         1230063, // Mid ??
 
         // Jewelcrafting
-        25614, // Silver Rose Pendant
+        25614, // TBC Silver Rose Pendant
+        26918, // TBC Arcanite Sword Pendant
+        26920, // TBC Blood Crown
+        32810, // TBC Primal Stone Statue
         407161, // Immaculate Coalescing Dracothyst (temporary legendary craft)
 
         // Leatherworking

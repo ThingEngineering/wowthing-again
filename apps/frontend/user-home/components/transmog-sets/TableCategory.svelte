@@ -162,7 +162,7 @@
         word-spacing: -0.2ch;
     }
     .percent-cell {
-        --width: 2.8rem;
+        --width: 3.4rem;
 
         border-right: 1px solid var(--border-color);
         text-align: right;

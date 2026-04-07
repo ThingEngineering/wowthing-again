@@ -321,7 +321,7 @@ class AchievementProcessor {
     }
 }
 
-const debugId = 42315;
+const debugId = 13638;
 
 export function getAccountData(
     achievementData: AchievementData,

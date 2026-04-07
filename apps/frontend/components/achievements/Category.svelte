@@ -176,7 +176,7 @@
                 >
             </button>
 
-            {#if category && userState.achievements.categories[category.id].totalPoints}
+            {#if category && userState.achievements.categories[category.id]?.totalPoints}
                 <div class="progress-bar new-group">
                     <ProgressBar
                         title="Points"

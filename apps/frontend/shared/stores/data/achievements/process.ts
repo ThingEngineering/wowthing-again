@@ -110,11 +110,15 @@ export function processAchievementsData(rawData: RawAchievements): DataAchieveme
                     childSlug = childSlugOverride;
                 }
 
+                const childAchievementIds = child.achievementIds || [];
+
                 category.children.push({
-                    id: childCat2.id,
+                    id: child.onlyAchievementIds ? categoryId++ : childCat2.id,
                     name: childName,
                     slug: childSlug,
-                    achievementIds: (child.achievementIds || []).concat(childCat2.achievementIds),
+                    achievementIds: child.onlyAchievementIds
+                        ? childAchievementIds
+                        : childAchievementIds.concat(childCat2.achievementIds),
                     children: [],
                 });
             } else {
@@ -712,7 +716,7 @@ export function processAchievementsData(rawData: RawAchievements): DataAchieveme
         name: '[TWW] Worldsoul-Searching',
         slug: 'worldsoul-searching',
         achievementIds: [
-            19458, // Worldsoul-Searching
+            61451, // Worldsoul-Searching
 
             40244, // Nerub-ar Palace
             41222, // Liberation of Undermine
@@ -754,10 +758,10 @@ export function processAchievementsData(rawData: RawAchievements): DataAchieveme
             41133, // You Xal Not Pass > Isle Remember You
 
             40231, // The War Within Pathfinder
-            20118, // The War Within Pathfinder > The Isle of Dorn
-            19560, // The War Within Pathfinder > The Ringing Deeps
-            20598, // The War Within Pathfinder > Hallowfall
-            19559, // The War Within Pathfinder > Azj-Kahet
+            // 20118, // The War Within Pathfinder > The Isle of Dorn
+            // 19560, // The War Within Pathfinder > The Ringing Deeps
+            // 20598, // The War Within Pathfinder > Hallowfall
+            // 19559, // The War Within Pathfinder > Azj-Kahet
             40790, // The War Within Pathfinder > Khaz Algar Explorer
 
             // Glory of the Delver
@@ -807,12 +811,19 @@ export function processAchievementsData(rawData: RawAchievements): DataAchieveme
 
     for (const category of ret.categories.filter((cat) => cat?.id >= 100000)) {
         for (const maybeArray of category.achievementIds) {
-            if (Array.isArray(maybeArray)) {
-                for (const achievementId of maybeArray) {
-                    ret.achievementToCategory[achievementId] ||= category.id;
+            const achievementIds = Array.isArray(maybeArray) ? maybeArray : [maybeArray];
+            for (const achievementId of achievementIds) {
+                (ret.achievementToCategoryIds[achievementId] ||= []).push(category.id);
+            }
+        }
+
+        const validChildren = (category.children || []).filter((cat) => cat?.id > 100_000);
+        for (const child of validChildren) {
+            for (const maybeArray of child.achievementIds) {
+                const achievementIds = Array.isArray(maybeArray) ? maybeArray : [maybeArray];
+                for (const achievementId of achievementIds) {
+                    (ret.achievementToCategoryIds[achievementId] ||= []).push(child.id);
                 }
-            } else {
-                ret.achievementToCategory[maybeArray] ||= category.id;
             }
         }
     }

@@ -24,7 +24,9 @@ class ActiveViewTasks {
             // Any task with required holidays needs at least one active
             if (
                 task.requiredHolidays?.length > 0 &&
-                !task.requiredHolidays.some((holidayId) => !!activeHolidays.value[holidayId])
+                !task.requiredHolidays.some(
+                    (holidayId) => activeHolidays.value[holidayId]?.soon === false
+                )
             ) {
                 continue;
             }

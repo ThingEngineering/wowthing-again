@@ -90,8 +90,10 @@ export class DataUserAchievements {
             }
 
             const categoryIds = [achievement.categoryId];
-            if (wowthingData.achievements.achievementToCategory[achievement.id]) {
-                categoryIds.push(wowthingData.achievements.achievementToCategory[achievement.id]);
+            if (wowthingData.achievements.achievementToCategoryIds[achievement.id]) {
+                categoryIds.push(
+                    ...wowthingData.achievements.achievementToCategoryIds[achievement.id]
+                );
             }
 
             for (const categoryId of categoryIds) {
@@ -152,6 +154,9 @@ export class DataUserAchievements {
         all.reverse();
 
         console.timeEnd('DataUserAchievements._derivedStats');
+
+        // console.log(cheevs);
+        // console.log(wowthingData.achievements.achievementToCategoryIds);
 
         return {
             categories: cheevs,

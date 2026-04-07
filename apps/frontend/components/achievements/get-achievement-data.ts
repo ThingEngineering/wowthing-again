@@ -14,7 +14,7 @@ import type {
 import type { UserQuestData } from '@/types/data';
 import type { AchievementStatus } from './types';
 
-const debugId = 42315;
+const debugId = 13638;
 
 export function getAchievementStatus(
     userAchievementData: UserAchievementData,

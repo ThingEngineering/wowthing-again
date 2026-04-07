@@ -83,6 +83,7 @@ type ExtraAchievementCategory = {
         targetSlug: string;
 
         achievementIds?: (number | number[])[];
+        onlyAchievementIds?: boolean;
         overrideName?: string;
         overrideSlug?: string;
     }[];
@@ -356,7 +357,45 @@ export const extraCategories: ExtraAchievementCategory[] = [
                 ],
             },
             null,
-            { targetSlug: 'expansion-features/skyriding', nameType: 2 },
+            {
+                targetSlug: 'expansion-features/skyriding',
+                nameType: 2,
+                onlyAchievementIds: true,
+                achievementIds: [
+                    // Meta
+                    19478,
+                    // Glyph Hunter
+                    16575, 16576, 16577, 16578, 17411,
+                    // Waking Shores
+                    15915, 15916, 15917, 15927, 15928, 15929, 17195, 17196, 17197,
+                    // Ohn'ahran Plains
+                    15918, 15919, 15920, 15930, 15931, 15932, 17198, 17199, 17200,
+                    // Azure Span
+                    15921, 15922, 15923, 15933, 15934, 15935, 17201, 17202, 17203,
+                    // Thaldraszus
+                    15924, 15925, 15926, 15936, 15937, 15938, 17204, 17205, 17206,
+                    // Completionist
+                    15939, 15940, 15941, 17330, 17331, 17332,
+                    // Forbidden Reach
+                    17279, 17280, 17281, 17284, 17286, 17287, 17288, 17289, 17290,
+                    // Forbidden Reach Completionist
+                    17294, 17296, 17298,
+                    // Zaralek Cavern
+                    17483, 17484, 17485, 17486, 17487, 17488, 17489, 17490, 17491,
+                    // Zaralek Cavern Completionist
+                    17492, 17493, 17494,
+                    // Zaralek Cavern Glyph Hunter
+                    18150,
+                    // Challenge
+                    18790, 18791, 18792,
+                    // Emerald Dream
+                    19109, 19110, 19111, 19112, 19113, 19114, 19115, 19116, 19117,
+                    // Emerald Dream Completionist
+                    19127, 19128, 19129,
+                    // Emerald Dream Glyph Hunter
+                    19306,
+                ],
+            },
             {
                 targetSlug: 'collections/dragon-isle-drake-cosmetics',
                 nameType: 3,
@@ -399,6 +438,30 @@ export const extraCategories: ExtraAchievementCategory[] = [
                     40232, // Glory of the Nerub-ar Raider
                     41286, // Glory of the Liberation of Undermine Raider
                     41597, // Glory of the Omega Raider
+                ],
+            },
+            null,
+            {
+                targetSlug: 'expansion-features/skyriding',
+                nameType: 2,
+                onlyAchievementIds: true,
+                achievementIds: [
+                    // Glyph Hunter
+                    40702, 40166, 40703, 40704, 40705, 42727,
+                    // Isle of Dorn
+                    40316, 40317, 40318, 40139, 40320, 40321, 40322, 40323, 40324,
+                    // Ringing Deeps
+                    40325, 40326, 40327, 40328, 40329, 40330, 40331, 40332, 40333,
+                    // Hallowfall
+                    40334, 40335, 40336, 40337, 40338, 40339, 40340, 40341, 40342,
+                    // Azj-Kahet
+                    40343, 40344, 40345, 40346, 40347, 40348, 40349, 40350, 40351,
+                    // Khaz Algar Completionist
+                    40352, 40353, 40354,
+                    // Undermine Skyrocketing
+                    40936, 40937, 40938,
+                    // Undermine Breaknecking
+                    41081, 41083, 41084,
                 ],
             },
         ],

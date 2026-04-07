@@ -20,6 +20,42 @@ export const midDelves: Task = {
             questReset: DbResetType.Weekly,
             questIds: [93784],
         },
+        {
+            key: 'repAmani',
+            name: 'Rep: {faction:2696}',
+            minimumLevel: 90,
+            accountWide: true,
+            alwaysStarted: true,
+            questReset: DbResetType.Weekly,
+            questIds: [93819],
+        },
+        {
+            key: 'repHarati',
+            name: 'Rep: {faction:2704}',
+            minimumLevel: 90,
+            accountWide: true,
+            alwaysStarted: true,
+            questReset: DbResetType.Weekly,
+            questIds: [93822],
+        },
+        {
+            key: 'repSilvermoon',
+            name: 'Rep: {faction:2710}',
+            minimumLevel: 90,
+            accountWide: true,
+            alwaysStarted: true,
+            questReset: DbResetType.Weekly,
+            questIds: [93821],
+        },
+        {
+            key: 'repSingularity',
+            name: 'Rep: {faction:2699}',
+            minimumLevel: 90,
+            accountWide: true,
+            alwaysStarted: true,
+            questReset: DbResetType.Weekly,
+            questIds: [93820],
+        },
         null,
         {
             key: 'bounty',
@@ -31,19 +67,14 @@ export const midDelves: Task = {
             questReset: DbResetType.Weekly,
             questResetForced: true,
             questIds: [86371],
-            // This seems wrong, I got no tracking quest for using the map or looting the box
-            // subChores: [
-            //     {
-            //         key: 'get',
-            //         name: 'Get Bounty',
-            //         questIds: [86371],
-            //     },
-            //     {
-            //         key: 'use',
-            //         name: 'Use Bounty',
-            //         questIds: [92887],
-            //     },
-            // ],
+        },
+        {
+            key: 'nullaeus',
+            name: 'Nullaeus Invasion',
+            minimumLevel: 90,
+            alwaysStarted: true,
+            questIds: [92887],
+            questReset: DbResetType.Weekly,
         },
         {
             key: 'gilded',
@@ -65,13 +96,5 @@ export const midDelves: Task = {
                 },
             ],
         },
-        // {
-        //     key: 'nullaeus',
-        //     name: "Nullaeus Invasion",
-        //     minimumLevel: 90,
-        //     alwaysStarted: true,
-        //     questIds: [], // ??
-        //     questReset: DbResetType.Weekly,
-        // },
     ],
 };
