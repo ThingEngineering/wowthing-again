@@ -276,6 +276,7 @@ const professionSlugMap: Record<string, string> = {
     herb: 'herbalism',
     insc: 'inscription',
     jc: 'jewelcrafting',
+    jewel: 'jewelcrafting',
     mine: 'mining',
     scribe: 'inscription',
     skin: 'skinning',
