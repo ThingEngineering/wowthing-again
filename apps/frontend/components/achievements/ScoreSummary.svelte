@@ -17,6 +17,11 @@
                 nulls++;
                 continue;
             }
+
+            if (category.slug.endsWith('-hidden')) {
+                continue;
+            }
+
             if (nulls === 0) {
                 retNormal.push(category);
             } else if (nulls === 1) {
