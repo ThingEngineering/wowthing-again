@@ -48,17 +48,9 @@ export function processAchievementsData(rawData: RawAchievements): DataAchieveme
     for (const extraCategory of extraCategories) {
         const reputations = ret.categories.find((cat) => cat?.slug === 'reputation');
         let slugCat: AchievementDataCategory;
-        if (extraCategory.slug === 'prepatch-midnight') {
+        if (extraCategory.slug === 'outland-cup') {
             slugCat = {
                 id: 1_000_001,
-                name: 'Prepatch: Midnight ',
-                slug: 'prepatch-midnight',
-                achievementIds: [],
-                children: [],
-            };
-        } else if (extraCategory.slug === 'outland-cup') {
-            slugCat = {
-                id: 1_000_002,
                 name: 'Outland Cup',
                 slug: 'outland-cup-hidden',
                 achievementIds: [],
