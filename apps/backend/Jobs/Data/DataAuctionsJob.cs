@@ -166,7 +166,8 @@ COPY wow_auction_commodity_hourly (
         Dictionary<int, List<ApiDataAuctionsAuction>> commodities;
         await using (var writer = await connection.BeginBinaryImportAsync(string.Format(CopyAuctions, tableName)))
         {
-            (auctionsByAppearanceId, auctionsByAppearanceSource, commodities) = await WriteAuctionData(writer, _connectedRealmId, result.Data.Auctions);
+            (auctionsByAppearanceId, auctionsByAppearanceSource, commodities) =
+                await WriteAuctionData(writer, _connectedRealmId, result.Data.Auctions);
         }
 
         timer.AddPoint("Copy");
@@ -182,6 +183,7 @@ COPY wow_auction_commodity_hourly (
                 await Task.Delay(100);
             }
         }
+
         timer.AddPoint("Lock");
 
         // Get current partitions
@@ -300,9 +302,9 @@ COPY wow_auction_commodity_hourly (
 
     private async Task<
         (
-            Dictionary<int, List<ApiDataAuctionsAuction>> appearanceIds,
-            Dictionary<string, List<ApiDataAuctionsAuction>> appearanceSources,
-            Dictionary<int, List<ApiDataAuctionsAuction>> commodities
+        Dictionary<int, List<ApiDataAuctionsAuction>> appearanceIds,
+        Dictionary<string, List<ApiDataAuctionsAuction>> appearanceSources,
+        Dictionary<int, List<ApiDataAuctionsAuction>> commodities
         )
     > WriteAuctionData(NpgsqlBinaryImporter writer, int connectedRealmId, List<ApiDataAuctionsAuction> dataAuctions)
     {
@@ -342,16 +344,19 @@ COPY wow_auction_commodity_hourly (
 
                 if (!Hardcoded.IgnoredAuctionItemIds.Contains(auction.Item.Id))
                 {
-                    if (!_itemModifiedAppearances.ItemIdAndModifierToAppearanceId.TryGetValue((auction.Item.Id, modifier),
-                            out int actualAppearanceId))
+                    int actualAppearanceId = 0;
+
+                    if (_itemModifiedAppearances.ByItemIdAndModifier.TryGetValue((auction.Item.Id, modifier),
+                            out var record))
                     {
-                        if (_itemModifiedAppearances.ModifiersByItemId.TryGetValue(auction.Item.Id,
+                        actualAppearanceId = record.AppearanceId;
+                    }
+                    else  if (_itemModifiedAppearances.ModifiersByItemId.TryGetValue(auction.Item.Id,
                                 out short[] possibleModifiers))
-                        {
-                            modifier = possibleModifiers[0];
-                            actualAppearanceId =
-                                _itemModifiedAppearances.ItemIdAndModifierToAppearanceId[(auction.Item.Id, modifier)];
-                        }
+                    {
+                        modifier = possibleModifiers[0];
+                        record = _itemModifiedAppearances.ByItemIdAndModifier[(auction.Item.Id, modifier)];
+                        actualAppearanceId = record?.AppearanceId ?? 0;
                     }
 
                     if (actualAppearanceId > 0)

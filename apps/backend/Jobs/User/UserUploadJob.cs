@@ -488,14 +488,14 @@ public class UserUploadJob : JobBase
                 var itemModifiedAppearanceIds = SquishUtilities.Unsquish(parsed.TransmogSourcesSquishV2);
                 foreach (int itemModifiedAppearanceId in itemModifiedAppearanceIds)
                 {
-                    if (imaCache.IdToItemIdAndModifier.TryGetValue(itemModifiedAppearanceId, out var itemIdAndModifier))
+                    if (imaCache.ById.TryGetValue(itemModifiedAppearanceId, out var itemModifiedAppearance))
                     {
-                        if (imaCache.ItemIdAndModifierToAppearanceId.TryGetValue(itemIdAndModifier, out int appearanceId))
+                        if (itemModifiedAppearance.AppearanceId > 0)
                         {
-                            ids.Add(appearanceId);
+                            ids.Add(itemModifiedAppearance.AppearanceId);
                         }
 
-                        sources.Add($"{itemIdAndModifier.Item1}_{itemIdAndModifier.Item2}");
+                        sources.Add($"{itemModifiedAppearance.ItemId}_{itemModifiedAppearance.Modifier}");
                     }
                     else
                     {
