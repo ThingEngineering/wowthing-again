@@ -39,7 +39,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 0.2rem 0.4rem;
-        max-width: calc(0.2rem + (5 * 36px) + (4 * 0.4rem) + 2px);
+        max-width: calc(0.2rem + (5 * 50px) + (4 * 0.4rem) + 2px);
         position: absolute;
 
         :global(> .world-quest) {
