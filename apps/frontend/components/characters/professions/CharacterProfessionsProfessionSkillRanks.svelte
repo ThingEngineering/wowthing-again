@@ -32,7 +32,7 @@
         class:status-shrug={userHas && currentRank < totalRanks}
         class:status-fail={!userHas}
     >
-        {#each { length: 3 }, index}
+        {#each { length: Math.max(totalRanks, 3) }, index}
             <WowheadLink
                 id={index === 0 ? ability.spellId : ability.extraRanks[index - 1][1]}
                 type="spell"
