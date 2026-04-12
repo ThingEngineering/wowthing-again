@@ -90,8 +90,9 @@ $table-striped-hl-bg: lighten($table-hl-bg, 3%);
         border-left: 1px solid var(--border-color);
         border-right-width: 0 !important;
         border-top-width: 0 !important;
-        min-width: 3rem;
-        width: 3rem;
+        padding-right: 0.1rem;
+        min-width: 2rem;
+        width: 2rem;
     }
 }
 

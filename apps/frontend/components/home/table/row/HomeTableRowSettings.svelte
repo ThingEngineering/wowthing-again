@@ -43,11 +43,12 @@
     .settings-icon {
         cursor: pointer;
         position: relative;
+        width: 24px;
     }
     .options-connector {
-        border-top: 1px solid #ddd;
+        border-top: 1px solid var(--border-color);
         height: 1px;
-        left: 15px;
+        left: 9px;
         position: absolute;
         top: 50%;
         transform: translateX(100%);
@@ -58,7 +59,7 @@
         padding: 0.2rem 0.4rem;
         position: absolute;
         top: 0;
-        right: 0;
+        right: -8px;
         transform: translateX(100%);
     }
 </style>
