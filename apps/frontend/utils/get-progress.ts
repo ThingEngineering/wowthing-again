@@ -150,6 +150,13 @@ export default function getProgress(
                     datas = group.data[factionIdMap[character.faction]];
                     break;
 
+                case 'faction-class':
+                    datas =
+                        group.data[
+                            `${factionIdMap[character.faction]}-${wowthingData.static.characterClassById.get(character.classId).slug}`
+                        ];
+                    break;
+
                 case 'race':
                     datas = group.data[characterRace.slug];
                     break;

@@ -1,11 +1,12 @@
-﻿using Wowthing.Lib.Models.Wow;
+﻿using Wowthing.Lib.Enums;
+using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Backend.Models.Cache;
 
 public class ItemModifiedAppearanceCache
 {
-    public readonly Dictionary<int, (int, short)> IdToItemIdAndModifier = new();
-    public readonly Dictionary<(int, short), int> ItemIdAndModifierToAppearanceId = new();
+    public readonly Dictionary<int, ItemModifiedAppearance> ById = new();
+    public readonly Dictionary<(int, short), ItemModifiedAppearance> ByItemIdAndModifier = new();
     public readonly Dictionary<int, short[]> ModifiersByItemId;
 
     public ItemModifiedAppearanceCache(WowItemModifiedAppearance[] itemModifiedAppearances)
@@ -14,8 +15,15 @@ public class ItemModifiedAppearanceCache
 
         foreach (var ima in itemModifiedAppearances)
         {
-            IdToItemIdAndModifier[ima.Id] = (ima.ItemId, ima.Modifier);
-            ItemIdAndModifierToAppearanceId[(ima.ItemId, ima.Modifier)] = ima.AppearanceId;
+            var record = new ItemModifiedAppearance(
+                ima.AppearanceId,
+                ima.ItemId,
+                ima.Modifier,
+                ima.SourceType != TransmogSourceType.CantCollect &&
+                ima.SourceType != TransmogSourceType.NotValidForTransmog
+            );
+            ById[ima.Id] = record;
+            ByItemIdAndModifier[(ima.ItemId, ima.Modifier)] = record;
 
             if (!tempModifiers.TryGetValue(ima.ItemId, out var modifiers))
             {
@@ -31,4 +39,6 @@ public class ItemModifiedAppearanceCache
                 kvp => kvp.Value.Order().ToArray()
             );
     }
+
+    public record ItemModifiedAppearance(int AppearanceId, int ItemId, short Modifier, bool Collectable);
 }
