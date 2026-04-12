@@ -10,9 +10,9 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let slug2: string;
+    let { slug2 }: { slug2: string } = $props();
 
-    $: itemId = parseInt(slug2);
+    let itemId = $derived(parseInt(slug2));
 </script>
 
 <style lang="scss">
