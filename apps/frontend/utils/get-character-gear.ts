@@ -1,10 +1,6 @@
 import { Constants } from '@/data/constants';
-import {
-    heirloomSlots,
-    slotOrder,
-    specialValidEnchants,
-    validEnchants,
-} from '@/data/inventory-slot';
+import { specialValidEnchants, validEnchants } from '@/data/enchants';
+import { heirloomSlots, slotOrder } from '@/data/inventory-slot';
 import { InventorySlot } from '@/enums/inventory-slot';
 import { ItemBonusType } from '@/enums/item-bonus-type';
 import { ItemClass } from '@/enums/item-class';
