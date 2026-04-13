@@ -58,7 +58,7 @@ export const holidayIds: Record<number, [number[], number[]?]> = {
     [Holiday.BonusArenaSkirmish]: [[238]],
     [Holiday.BonusBattleground]: [[236]],
     [Holiday.BonusDelve]: [[442]],
-    [Holiday.BonusDungeon]: [[441]], // changes each expansion
+    [Holiday.BonusDungeon]: [[459]], // changes each expansion
     [Holiday.BonusPetBattle]: [[234]],
     [Holiday.BonusWorldQuest]: [[244]],
 
