@@ -34,7 +34,7 @@ export function useCharacterFilter(
                 partArrays = _cache[filterLower] = [];
             }
         }
-        // console.log(char.name, partArrays)
+        // console.log(char.name, partArrays);
 
         if (partArrays.length === 0) {
             return true;
