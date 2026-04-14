@@ -168,7 +168,7 @@
             if (item) {
                 // Midnight qualities are 13 and 14 for some reason, pretend they're normal
                 if (item.craftingQuality) {
-                    return `<span class="quality${item.quality}">${item.name} <span data-crafted-quality="${item.craftingQuality % 12}"></span></span>`;
+                    return `<span class="quality${item.quality}">${item.name} <span data-crafted-quality="${item.craftingQuality % 11}"></span></span>`;
                 } else {
                     return `<span class="quality${item.quality}">${item.name}</span>`;
                 }
