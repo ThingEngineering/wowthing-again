@@ -534,28 +534,6 @@ export class DataUserDerived {
             }
 
             for (const questId of questIds) {
-                // is the quest in progress?
-                const questProgress = characterQuests?.progressQuestByKey?.get(`q${questId}`);
-                if (
-                    questProgress &&
-                    (!resetForced ||
-                        questProgress.expires > timeState.slowTime.toUnixInteger() ||
-                        expiresAt > timeState.slowTime)
-                ) {
-                    charChore.quest = questProgress;
-                    charChore.quest.expires ||= expiresAt.toUnixInteger();
-                    charChore.status = questProgress.status;
-
-                    if (
-                        questProgress.status === QuestStatus.InProgress &&
-                        questProgress.objectives?.length > 0
-                    ) {
-                        charChore.statusTexts = this.getObjectivesText(questProgress.objectives);
-                    }
-
-                    break;
-                }
-
                 // is the quest completed?
                 const questCompleted = chore.accountWide
                     ? accountWeeklyQuestIds.has(questId)
@@ -575,6 +553,26 @@ export class DataUserDerived {
                     completedCount++;
                     if (!chore.questCount || completedCount >= chore.questCount) {
                         break;
+                    }
+                }
+
+                // is the quest in progress?
+                const questProgress = characterQuests?.progressQuestByKey?.get(`q${questId}`);
+                if (
+                    questProgress &&
+                    (!resetForced ||
+                        questProgress.expires > timeState.slowTime.toUnixInteger() ||
+                        expiresAt > timeState.slowTime)
+                ) {
+                    charChore.quest = questProgress;
+                    charChore.quest.expires ||= expiresAt.toUnixInteger();
+                    charChore.status = questProgress.status;
+
+                    if (
+                        questProgress.status === QuestStatus.InProgress &&
+                        questProgress.objectives?.length > 0
+                    ) {
+                        charChore.statusTexts = this.getObjectivesText(questProgress.objectives);
                     }
                 }
             }
