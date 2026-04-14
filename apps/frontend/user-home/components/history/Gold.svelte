@@ -50,8 +50,9 @@
         x: DateTime;
         y: number;
     };
+    type DateTimeTuple = [DateTime, number];
 
-    let chart: Chart<'line', DateTimePoint[]>;
+    let chart: Chart<'line', DateTimeTuple[]>;
     let ready: boolean;
     $: {
         if (ready) {
@@ -82,7 +83,7 @@
             chart.destroy();
         }
 
-        const data: ChartData<'line', DateTimePoint[]> = {
+        const data: ChartData<'line', DateTimeTuple[]> = {
             datasets: [],
         };
         const stacked = historyState.chartType === 'area-stacked';
@@ -105,6 +106,7 @@
         const pointMap: Record<number, DateTime> = {};
 
         let minTime: DateTime = DateTime.now().minus({ years: 10 });
+        let minTimeIso = minTime.toUTC().toISO();
         if (historyState.timeFrame === '1week') {
             minTime = DateTime.now().minus({ weeks: 1 });
         } else if (historyState.timeFrame === '1month') {
@@ -119,6 +121,7 @@
 
         let firstRealmId = -1;
         const timeCache: Record<string, DateTime> = {};
+        const tempKeyCache: Record<string, string> = {};
         for (let realmIndex = 0; realmIndex < realms.length; realmIndex++) {
             const [realmName, realmId] = realms[realmIndex];
             if (firstRealmId === -1 && realmId > 0) {
@@ -130,18 +133,20 @@
 
             const color = colors[(realmIndex + 1) * 2];
 
-            let points: DateTimePoint[];
+            let points: DateTimeTuple[];
             if (historyState.interval === 'hour') {
+                // it's faster to compare the time string than parse->compare
                 points = userHistoryData.gold[realmId]
-                    .map((point) => ({
-                        x: parseApiTime(point[0]),
-                        y: point[1],
-                    }))
-                    .filter(({ x }) => x >= minTime);
+                    // .filter(([x]) => x >= minTimeIso)
+                    .map(([pointTime, pointValue]) => {
+                        const parsedTime = (timeCache[pointTime] ||= parseApiTime(pointTime));
+                        return [parsedTime, pointValue] as DateTimeTuple;
+                    })
+                    .filter(([x]) => x >= minTime);
             } else {
                 const temp: Record<string, [DateTime, number]> = {};
                 for (const [time, value] of userHistoryData.gold[realmId]) {
-                    let fakeTime: DateTime = timeCache[time];
+                    let fakeTime = timeCache[time];
                     if (fakeTime === undefined) {
                         const parsedTime = parseApiTime(time);
                         if (historyState.interval === 'day') {
@@ -199,22 +204,21 @@
                     }
 
                     if (fakeTime >= minTime) {
-                        // console.log(fakeTime.toISODate(), fakeTime.toISOTime())
-                        temp[`${fakeTime.toISODate()} ${fakeTime.toISOTime()}`] = [fakeTime, value];
+                        const tempKey = (tempKeyCache[time] ||=
+                            `${fakeTime.toISODate()} ${fakeTime.toISOTime()}`);
+                        temp[tempKey] = [fakeTime, value];
                     }
                 }
 
-                points = sortBy(Object.entries(temp), ([date]) => date).map(
-                    ([, [time, value]]) => ({
-                        x: time,
-                        y: value,
-                    })
-                );
+                points = sortBy(Object.entries(temp), ([date]) => date).map(([, [time, value]]) => [
+                    time,
+                    value,
+                ]);
             }
 
             for (const point of points) {
-                if (point.x instanceof DateTime) {
-                    pointMap[point.x.toUnixInteger()] = point.x;
+                if (point[0] instanceof DateTime) {
+                    pointMap[point[0].toUnixInteger()] = point[0];
                 }
             }
 
@@ -232,8 +236,8 @@
 
         // Pad out each dataset with data for all time periods
         console.time('redrawChart.datasets');
-        const smalls: Record<number, DateTimePoint> = {};
-        const totals: Record<number, DateTimePoint> = {};
+        const smalls: Record<number, DateTimeTuple> = {};
+        const totals: Record<number, DateTimeTuple> = {};
 
         const allPoints: [number, DateTime][] = Object.entries(pointMap).map(([a, b]) => [
             parseInt(a),
@@ -242,13 +246,10 @@
         allPoints.sort();
 
         for (const dataset of data.datasets) {
-            const oldMap: Record<number, DateTimePoint> = Object.fromEntries(
-                dataset.data.map((dataPoint: DateTimePoint) => [
-                    dataPoint.x.toUnixInteger(),
-                    dataPoint,
-                ])
+            const oldMap: Record<number, DateTimeTuple> = Object.fromEntries(
+                dataset.data.map((dataPoint) => [dataPoint[0].toUnixInteger(), dataPoint])
             );
-            const newData: DateTimePoint[] = [];
+            const newData: DateTimeTuple[] = [];
 
             for (let pointIndex = 0; pointIndex < allPoints.length; pointIndex++) {
                 const [ts, dateTime] = allPoints[pointIndex];
@@ -256,22 +257,21 @@
                     newData.push(oldMap[ts]);
                 } else {
                     if (pointIndex === 0) {
-                        newData.push({ x: dateTime, y: 0 });
+                        newData.push([dateTime, 0]);
                     } else {
-                        newData.push({ x: dateTime, y: newData[pointIndex - 1].y });
+                        newData.push([dateTime, newData[pointIndex - 1][1]]);
                     }
                 }
 
                 if (totals[ts] === undefined) {
-                    smalls[ts] = { x: dateTime, y: 0 };
-                    totals[ts] = { x: dateTime, y: 0 };
+                    totals[ts] = smalls[ts] = [dateTime, 0];
                 }
 
-                const newValue = newData[pointIndex].y;
-                totals[ts].y += newValue;
+                const newValue = newData[pointIndex][1];
+                totals[ts][1] += newValue;
 
                 if (historyState.tooltipCombineSmall && newValue < 10000) {
-                    smalls[ts].y += newValue;
+                    smalls[ts][1] += newValue;
                 }
             }
 
@@ -280,16 +280,17 @@
         console.timeEnd('redrawChart.datasets');
 
         console.time('redrawChart.sort');
-        data.datasets.sort((a, b) => b.data[b.data.length - 1].y - a.data[a.data.length - 1].y);
+        data.datasets.sort((a, b) => b.data[b.data.length - 1][1] - a.data[a.data.length - 1][1]);
         console.timeEnd('redrawChart.sort');
 
         console.time('redrawChart.line');
         if (historyState.chartType === 'line' && firstRealmId >= 0) {
             if (historyState.tooltipCombineSmall) {
-                const anyUseful = Object.values(smalls).filter((value) => value.y > 0).length > 0;
+                const anyUseful =
+                    Object.values(smalls).filter(([, pointValue]) => pointValue > 0).length > 0;
                 if (anyUseful) {
-                    const smallPoints = sortBy(Object.values(smalls), (point: DateTimePoint) =>
-                        point.x.toUnixInteger()
+                    const smallPoints = sortBy(Object.values(smalls), ([pointTime]) =>
+                        pointTime.toUnixInteger()
                     );
 
                     data.datasets.push({
@@ -304,7 +305,9 @@
                 }
             }
 
-            const totalPoints = sortBy(Object.values(totals), (point) => point.x.toUnixInteger());
+            const totalPoints = sortBy(Object.values(totals), ([pointTime]) =>
+                pointTime.toUnixInteger()
+            );
 
             data.datasets.push({
                 backgroundColor: colors[0],
