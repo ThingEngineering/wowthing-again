@@ -1,4 +1,4 @@
-import { brannHack, valeeraHack } from '@/components/tooltips/reputation/delve-hacks';
+import { brannHack, valeeraHack } from '@/components/tooltips/reputation/hacks';
 import { Constants } from '@/data/constants';
 import { wowthingData } from '@/shared/stores/data';
 import { userState } from '@/user-home/state/user';

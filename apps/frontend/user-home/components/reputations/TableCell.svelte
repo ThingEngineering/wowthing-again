@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { nazjatarHack } from '@/components/tooltips/reputation/hacks';
+    import { Constants } from '@/data/constants';
     import { wowthingData } from '@/shared/stores/data';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';
@@ -76,7 +78,16 @@
                 }
 
                 if (characterRep.value >= 0) {
-                    cls = `reputation${repTier.tier}`;
+                    if (
+                        Constants.reputations.nazjatarFriends.includes(
+                            reputation.alliance?.id || reputation.horde?.id
+                        )
+                    ) {
+                        const hack = nazjatarHack(repTier.name);
+                        cls = `reputation${hack}`;
+                    } else {
+                        cls = `reputation${repTier.tier}`;
+                    }
                 } else {
                     const sigh = tiers.minValues.length - repTier.tier;
                     cls = ['status-fail', 'status-warn', 'status-shrug'][Math.min(2, sigh)];
