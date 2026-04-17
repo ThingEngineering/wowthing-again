@@ -217,6 +217,7 @@ public static partial class Hardcoded
         127475, // MoP Incarnadine Ink
         130407, // MoP Mystery of the Mists
         176513, // WoD Draenor Merchant Order
+        178240, // WoD War Paints
         178550, // WoD Borrow Draenic Mortar
         343687, // Shadowlands ??
         422337, // Lydaria's Binding Rune (temporary legendary craft)
