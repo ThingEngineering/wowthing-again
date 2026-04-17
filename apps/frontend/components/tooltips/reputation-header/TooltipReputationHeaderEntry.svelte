@@ -25,7 +25,8 @@
         !set.paragon
             ? 0
             : userState.general.activeCharacters.reduce(
-                  (a: number, b: Character) => a + (b.paragons?.[reputation.id]?.received ?? 0),
+                  (a: number, b: Character) =>
+                      a + Math.max(0, b.paragons?.[reputation.id]?.received ?? 0),
                   0
               )
     );

@@ -67,7 +67,7 @@
                 if (i % 5 !== 4 && (foundIndex === -1 || foundBase !== indexBase)) {
                     continue;
                 } else {
-                    if (foundIndex === -1 || indexBase > foundBase + 1) {
+                    if (foundIndex === -1 || indexBase > foundBase) {
                         minValue = tiers.minValues[i - 4];
                     }
                 }
