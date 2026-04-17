@@ -14,5 +14,7 @@ export function getEnchantmentText(id: number, enchant: StaticDataEnchantment): 
         }
     }
 
+    console.log(text, values);
+
     return text;
 }
