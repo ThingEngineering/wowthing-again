@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { currencyIconOverride } from '@/data/currencies';
+    import { currencyGood, currencyIconOverride } from '@/data/currencies';
     import { timeState } from '@/shared/state/time.svelte';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import type { StaticDataCurrency } from '@/shared/stores/static/types';
@@ -24,14 +24,21 @@
     let data = $derived(currency && getCurrencyData(timeState.slowTime, character, currency));
 
     function statusClass(percent: number) {
-        if (percent >= 100) {
-            return fullIsBad ? 'status-fail' : 'status-success';
-        } else if (percent >= 75) {
-            return fullIsBad ? 'status-warn' : 'status-shrug';
-        } else if (percent > 25 && percent < 75) {
-            return fullIsBad ? 'status-shrug' : 'status-warn';
+        if (useStatusClass) {
+            if (percent >= 100) {
+                return fullIsBad ? 'status-fail' : 'status-success';
+            } else if (percent >= 75) {
+                return fullIsBad ? 'status-warn' : 'status-shrug';
+            } else if (percent > 25 && percent < 75) {
+                return fullIsBad ? 'status-shrug' : 'status-warn';
+            } else {
+                return fullIsBad ? 'status-success' : 'status-fail';
+            }
         } else {
-            return fullIsBad ? 'status-success' : 'status-fail';
+            const goodValue = currencyGood[currency.id];
+            if (goodValue && data.amountRaw >= goodValue) {
+                return 'status-success';
+            }
         }
     }
 </script>
@@ -47,7 +54,7 @@
 
 {#if data}
     {@const { amount, percent, tooltip } = data}
-    {@const status = useStatusClass ? statusClass(percent) : ''}
+    {@const status = statusClass(percent)}
     {@const icon = useIconOverride ? currencyIconOverride[currency.id] : ''}
     <div class="currency {status}" data-tooltip={tooltip}>
         <WowthingImage name={icon || `currency/${currency.id}`} size={20} border={1} />
