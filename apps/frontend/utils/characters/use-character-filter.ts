@@ -1,6 +1,10 @@
 import { classByArmorType } from '@/data/character-class';
 import { Constants } from '@/data/constants';
-import { isGatheringProfession, isCraftingProfession } from '@/data/professions';
+import {
+    isGatheringProfession,
+    isCraftingProfession,
+    professionSlugToId,
+} from '@/data/professions';
 import { ArmorType } from '@/enums/armor-type';
 import { Faction } from '@/enums/faction';
 import { QuestStatus } from '@/enums/quest-status';
@@ -48,6 +52,10 @@ export function useCharacterFilter(
                     (partCache[outerPart] ||=
                         (function (part: string) {
                             if (char.name.toLocaleLowerCase().indexOf(part) >= 0) {
+                                return true;
+                            }
+
+                            if (part === 'any') {
                                 return true;
                             }
 
@@ -242,6 +250,14 @@ export function useCharacterFilter(
                                 return Object.values(
                                     settingsState.value.professions.collectingCharactersV2 || {}
                                 ).some((characterIds) => characterIds.includes(char.id));
+                            }
+
+                            match = part.match(/^collector:(\S+)$/);
+                            if (match) {
+                                const professionId = professionSlugToId[match[1].toString()];
+                                return settingsState.value.professions.collectingCharactersV2[
+                                    professionId
+                                ]?.includes(char.id);
                             }
 
                             // Work orders available?

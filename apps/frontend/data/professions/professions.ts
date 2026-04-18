@@ -1,6 +1,7 @@
 import sortBy from 'lodash/sortBy';
 
 import { Profession } from '@/enums/profession';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { toIndexRecord } from '@/utils/to-index-record';
 import type { TaskProfession } from '@/types/data';
 
@@ -47,6 +48,9 @@ export const professionIdToSlug: Record<number, string> = {
     [Profession.Cooking]: 'cooking',
     [Profession.Fishing]: 'fishing',
 };
+export const professionSlugToId: Record<string, number> = Object.fromEntries(
+    getNumberKeyedEntries(professionIdToSlug).map(([id, slug]) => [slug, id])
+);
 
 export const isGatheringProfession: Record<number, boolean> = {
     182: true, // Herbalism
