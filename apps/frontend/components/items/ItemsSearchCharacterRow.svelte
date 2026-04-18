@@ -1,4 +1,7 @@
 <script lang="ts">
+    import type { Snippet } from 'svelte';
+
+    import type { ItemBinding } from '@/enums/item-binding';
     import { ItemLocation } from '@/enums/item-location';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
@@ -14,11 +17,12 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
     type Props = {
+        bindType: Snippet<[ItemBinding, boolean]>;
         itemId: number;
         characterItem?: ItemSearchResponseCharacter;
         guildBankItem?: ItemSearchResponseGuildBank;
     };
-    let { itemId, characterItem, guildBankItem }: Props = $props();
+    let { bindType, itemId, characterItem, guildBankItem }: Props = $props();
 
     let item: ItemSearchResponseCommon = $derived(characterItem || guildBankItem);
     let show = $derived($itemSearchState.minimumQuality <= item.quality);
@@ -27,6 +31,7 @@
 {#if show}
     <tr class:highlight={!!guildBankItem}>
         <td class="item text-overflow" colspan={settingsState.useAccountTags ? 2 : 1}>
+            {@render bindType(characterItem.bindType, characterItem.bound)}
             <a
                 class="quality{item.quality || wowthingData.items.items[itemId].quality || 0}"
                 href={getItemUrlSearch(itemId, item)}

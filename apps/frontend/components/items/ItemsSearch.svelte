@@ -17,6 +17,9 @@
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte';
     import Select from '@/shared/components/forms/Select.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
+    import { ItemBinding } from '@/enums/item-binding';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
+    import { iconLibrary } from '@/shared/icons';
 
     let response: ItemSearchResponseItem[] = $state([]);
 
@@ -109,6 +112,22 @@
 
 <svelte:window on:resize={debouncedResize} />
 
+{#snippet bindType(bindType: ItemBinding, bound: boolean)}
+    {#if bound}
+        <IconifyWrapper
+            icon={iconLibrary.gamePadlock}
+            cls="status-warn"
+            tooltip="Bound to character"
+        />
+    {:else if [ItemBinding.BindToBnetAccount, ItemBinding.BindToAccountUntilEquipped].includes(bindType)}
+        <IconifyWrapper
+            icon={iconLibrary.gameLockedHeart}
+            cls="status-shrug"
+            tooltip="Bound to account"
+        />
+    {/if}
+{/snippet}
+
 <div class="wrapper-column" bind:this={containerElement}>
     <div class="thing-container" bind:this={resizeableElement}>
         <form onsubmit={onSubmit}>
@@ -182,9 +201,9 @@
         {#if response !== undefined}
             <div class="results-container">
                 {#if $itemSearchState.groupBy === 'character'}
-                    <CharacterTable {response} />
+                    <CharacterTable {response} {bindType} />
                 {:else}
-                    <ItemTable {response} />
+                    <ItemTable {response} {bindType} />
                 {/if}
             </div>
         {/if}

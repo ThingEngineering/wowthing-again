@@ -10,7 +10,10 @@
     import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import Row from './ItemsSearchCharacterRow.svelte';
+    import type { Snippet } from 'svelte';
+    import type { ItemBinding } from '@/enums/item-binding';
 
+    export let bindType: Snippet<[ItemBinding, boolean]>;
     export let response: ItemSearchResponseItem[];
 
     type CharacterItem = ItemSearchResponseCharacter & { itemId: number };
@@ -80,7 +83,7 @@
 
         <tbody>
             {#each items as characterItem (characterItem)}
-                <Row itemId={characterItem.itemId} {characterItem} />
+                <Row itemId={characterItem.itemId} {characterItem} {bindType} />
             {/each}
             <!--
             {#each (item.guildBanks || []) as guildBankItem}

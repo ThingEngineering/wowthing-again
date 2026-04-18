@@ -1,8 +1,9 @@
 <script lang="ts">
+    import type { Snippet } from 'svelte';
+
     import { ItemBinding } from '@/enums/item-binding';
     import { ItemLocation } from '@/enums/item-location';
     import { Region } from '@/enums/region';
-    import { iconLibrary } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
@@ -19,15 +20,15 @@
     } from '@/types/items';
 
     import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
-    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     type Props = {
+        bindType: Snippet<[ItemBinding, boolean]>;
         itemId: number;
         characterItem?: ItemSearchResponseCharacter;
         guildBankItem?: ItemSearchResponseGuildBank;
         warbankItem?: ItemSearchResponseWarbank;
     };
-    let { itemId, characterItem, guildBankItem, warbankItem }: Props = $props();
+    let { bindType, itemId, characterItem, guildBankItem, warbankItem }: Props = $props();
 
     let { character, guild, item, realmName } = $derived.by(() => {
         const ret: Partial<{
@@ -58,22 +59,6 @@
         return ret;
     });
 </script>
-
-{#snippet bindType(bindType: ItemBinding, bound: boolean)}
-    {#if bound}
-        <IconifyWrapper
-            icon={iconLibrary.gamePadlock}
-            cls="status-warn"
-            tooltip="Bound to character"
-        />
-    {:else if [ItemBinding.BindToBnetAccount, ItemBinding.BindToAccountUntilEquipped].includes(bindType)}
-        <IconifyWrapper
-            icon={iconLibrary.gameLockedHeart}
-            cls="status-shrug"
-            tooltip="Bound to account"
-        />
-    {/if}
-{/snippet}
 
 <tr class:highlight={!!guildBankItem}>
     {#if warbankItem}

@@ -1,4 +1,7 @@
 <script lang="ts">
+    import type { Snippet } from 'svelte';
+
+    import type { ItemBinding } from '@/enums/item-binding';
     import { itemSearchState } from '@/stores';
     import { toNiceNumber } from '@/utils/formatting';
     import { settingsState } from '@/shared/state/settings.svelte';
@@ -8,7 +11,12 @@
     import Row from './ItemsSearchItemRow.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    let { response }: { response: ItemSearchResponseItem[] } = $props();
+    type Props = {
+        bindType: Snippet<[ItemBinding, boolean]>;
+        response: ItemSearchResponseItem[];
+    };
+
+    let { bindType, response }: Props = $props();
 
     type Sigh = {
         characterItems: ItemSearchResponseCharacter[];
@@ -57,15 +65,15 @@
 
             <tbody>
                 {#each characterItems as characterItem}
-                    <Row itemId={item.itemId} {characterItem} />
+                    <Row itemId={item.itemId} {characterItem} {bindType} />
                 {/each}
 
                 {#each item.guildBanks || [] as guildBankItem}
-                    <Row itemId={item.itemId} {guildBankItem} />
+                    <Row itemId={item.itemId} {guildBankItem} {bindType} />
                 {/each}
 
                 {#each item.warbank || [] as warbankItem}
-                    <Row itemId={item.itemId} {warbankItem} />
+                    <Row itemId={item.itemId} {warbankItem} {bindType} />
                 {/each}
             </tbody>
         </table>

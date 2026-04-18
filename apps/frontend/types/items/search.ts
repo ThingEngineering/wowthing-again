@@ -1,4 +1,4 @@
-import type { BindType } from '@/enums/bind-type';
+import type { ItemBinding } from '@/enums/item-binding';
 import type { ItemLocation } from '@/enums/item-location';
 import type { ItemQuality } from '@/enums/item-quality';
 import type { Region } from '@/enums/region';
@@ -13,7 +13,7 @@ export interface ItemSearchResponseItem {
 }
 
 export interface ItemSearchResponseCommon {
-    bindType: BindType;
+    bindType: ItemBinding;
     bound: boolean;
     count: number;
     itemLevel: number;
