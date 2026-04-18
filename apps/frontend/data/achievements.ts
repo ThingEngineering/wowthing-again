@@ -464,6 +464,12 @@ export const extraCategories: ExtraAchievementCategory[] = [
                     41081, 41083, 41084,
                 ],
             },
+            {
+                targetSlug: 'expansion-features/visions-of-nzoth-revisited',
+                nameType: 3,
+                overrideName: 'Visions Revisited',
+                overrideSlug: 'visions-revisited',
+            },
         ],
     },
     {
