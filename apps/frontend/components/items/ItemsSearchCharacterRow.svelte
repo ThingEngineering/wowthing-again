@@ -13,16 +13,15 @@
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let characterItem: ItemSearchResponseCharacter = null;
-    export let guildBankItem: ItemSearchResponseGuildBank = null;
-    export let itemId: number;
+    type Props = {
+        itemId: number;
+        characterItem?: ItemSearchResponseCharacter;
+        guildBankItem?: ItemSearchResponseGuildBank;
+    };
+    let { itemId, characterItem, guildBankItem }: Props = $props();
 
-    let item: ItemSearchResponseCommon;
-    let show: boolean;
-    $: {
-        item = characterItem || guildBankItem;
-        show = $itemSearchState.minimumQuality <= item.quality;
-    }
+    let item: ItemSearchResponseCommon = $derived(characterItem || guildBankItem);
+    let show = $derived($itemSearchState.minimumQuality <= item.quality);
 </script>
 
 {#if show}

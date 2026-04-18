@@ -55,6 +55,14 @@
     }
 </script>
 
+<style lang="scss">
+    table {
+        :global(.item) {
+            --width: 19.5rem;
+        }
+    }
+</style>
+
 {#each characters as [character, items] (character.id)}
     <table class="table table-striped search-table">
         <thead>
@@ -74,7 +82,7 @@
             {#each items as characterItem (characterItem)}
                 <Row itemId={characterItem.itemId} {characterItem} />
             {/each}
-            <!-- 
+            <!--
             {#each (item.guildBanks || []) as guildBankItem}
                 <Row
                     itemId={item.itemId}
