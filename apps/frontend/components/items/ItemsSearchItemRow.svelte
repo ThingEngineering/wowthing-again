@@ -1,6 +1,8 @@
 <script lang="ts">
+    import { ItemBinding } from '@/enums/item-binding';
     import { ItemLocation } from '@/enums/item-location';
     import { Region } from '@/enums/region';
+    import { iconLibrary } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
@@ -8,49 +10,75 @@
     import { getItemUrlSearch } from '@/utils/get-item-url';
     import type { StaticDataRealm } from '@/shared/stores/static/types';
     import type { Character } from '@/types';
+    import type { Guild } from '@/types/guild';
     import type {
         ItemSearchResponseCharacter,
         ItemSearchResponseCommon,
         ItemSearchResponseGuildBank,
         ItemSearchResponseWarbank,
     } from '@/types/items';
-    import type { Guild } from '@/types/guild';
 
     import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
+    import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
-    export let characterItem: ItemSearchResponseCharacter = null;
-    export let guildBankItem: ItemSearchResponseGuildBank = null;
-    export let warbankItem: ItemSearchResponseWarbank = null;
-    export let itemId: number;
+    type Props = {
+        itemId: number;
+        characterItem?: ItemSearchResponseCharacter;
+        guildBankItem?: ItemSearchResponseGuildBank;
+        warbankItem?: ItemSearchResponseWarbank;
+    };
+    let { itemId, characterItem, guildBankItem, warbankItem }: Props = $props();
 
-    let character: Character;
-    let guild: Guild;
-    let item: ItemSearchResponseCommon;
-    let realm: StaticDataRealm;
-    let region: Region;
-    $: {
-        character = undefined;
-        guild = undefined;
-        realm = undefined;
+    let { character, guild, item, realmName } = $derived.by(() => {
+        const ret: Partial<{
+            character: Character;
+            guild: Guild;
+            item: ItemSearchResponseCommon;
+            realmName: string;
+        }> = {};
+
+        let realm: StaticDataRealm;
+        let region: Region;
 
         if (characterItem) {
-            character = userState.general.characterById[characterItem.characterId];
-            item = characterItem;
-            realm = character.realm;
+            ret.character = userState.general.characterById[characterItem.characterId];
+            ret.item = characterItem;
+            realm = ret.character.realm;
         } else if (guildBankItem) {
-            guild = userState.general.guildById[guildBankItem.guildId];
-            item = guildBankItem;
-            realm = guild.realm;
+            ret.guild = userState.general.guildById[guildBankItem.guildId];
+            ret.item = guildBankItem;
+            realm = ret.guild.realm;
         } else if (warbankItem) {
-            item = warbankItem;
+            ret.item = warbankItem;
             region = warbankItem.region;
         }
-    }
+
+        ret.realmName = realm ? `${Region[realm.region]}-${realm.name}` : Region[region];
+
+        return ret;
+    });
 </script>
+
+{#snippet bindType(bindType: ItemBinding, bound: boolean)}
+    {#if bound}
+        <IconifyWrapper
+            icon={iconLibrary.gamePadlock}
+            cls="status-warn"
+            tooltip="Bound to character"
+        />
+    {:else if [ItemBinding.BindToBnetAccount, ItemBinding.BindToAccountUntilEquipped].includes(bindType)}
+        <IconifyWrapper
+            icon={iconLibrary.gameLockedHeart}
+            cls="status-shrug"
+            tooltip="Bound to account"
+        />
+    {/if}
+{/snippet}
 
 <tr class:highlight={!!guildBankItem}>
     {#if warbankItem}
         <td class="guild-name text-overflow" colspan={settingsState.useAccountTags ? 2 : 1}>
+            {@render bindType(warbankItem.bindType, warbankItem.bound)}
             <a
                 class="quality{item.quality || wowthingData.items.items[itemId].quality || 0}"
                 href={getItemUrlSearch(itemId, item)}
@@ -61,6 +89,7 @@
     {:else if character}
         <CharacterTag {character} />
         <td class="name text-overflow">
+            {@render bindType(characterItem.bindType, characterItem.bound)}
             <a class="class-{character.classId}" href={getItemUrlSearch(itemId, item)}>
                 {character.name}
             </a>
@@ -76,12 +105,8 @@
         </td>
     {/if}
 
-    <td class="realm text-overflow">
-        {#if realm}
-            {Region[realm.region]}-{realm.name}
-        {:else}
-            {Region[region]}
-        {/if}
+    <td class="realm text-overflow" data-tooltip={realmName}>
+        {realmName}
     </td>
     <td class="location quality{item.quality || wowthingData.items.items[itemId].quality || 0}">
         {#if characterItem}

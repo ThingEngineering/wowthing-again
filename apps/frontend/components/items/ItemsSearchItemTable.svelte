@@ -8,7 +8,7 @@
     import Row from './ItemsSearchItemRow.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let response: ItemSearchResponseItem[];
+    let { response }: { response: ItemSearchResponseItem[] } = $props();
 
     type Sigh = {
         characterItems: ItemSearchResponseCharacter[];
