@@ -25,6 +25,7 @@
             homeProfessionsV2: [],
             homeProgress: [],
             homeTasks: [],
+            choreFilters: {},
             disabledChores: {},
         };
 

@@ -449,6 +449,7 @@ public class ApplicationUserSettingsView
     public List<string> HomeProgress { get; set; } = new();
     public List<string> HomeTasks { get; set; } = new();
 
+    public Dictionary<string, string> ChoreFilters { get; set; } = new();
     public Dictionary<string, List<string>> DisabledChores { get; set; } = new();
 }
 #nullable restore

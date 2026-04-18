@@ -18,6 +18,7 @@ import {
     ManualDataSetGroup,
     type ManualDataSetGroupArray,
 } from '@/types/data/manual';
+import { useCharacterFilter } from '@/utils/characters';
 import { getNextDailyResetFromTime, getNextWeeklyResetFromTime } from '@/utils/get-next-reset';
 import type { UserQuestDataCharacterProgressObjective } from '@/types/data';
 import type { Chore, Task } from '@/types/tasks';
@@ -495,6 +496,22 @@ export class DataUserDerived {
             !chore.requiredHolidays.some((holidayId) => activeHolidays.value[holidayId])
         ) {
             return null;
+        }
+
+        // Any chore with filters is scary
+        const filter =
+            settingsState.activeView.choreFilters?.[`${task.key}_${chore.key}`] ||
+            settingsState.activeView.choreFilters?.[task.key];
+        if (filter && filter !== 'any') {
+            const validForFilter = useCharacterFilter(
+                settingsState.value,
+                () => true,
+                character,
+                filter
+            );
+            if (!validForFilter) {
+                return null;
+            }
         }
 
         const charChore = new CharacterChore(chore.key, undefined);
