@@ -33,6 +33,10 @@
             ret.characterItems.push(...(item.equipped || []));
         }
 
+        if (!$itemSearchState.includeSoulbound) {
+            ret.characterItems = ret.characterItems.filter((ci) => !ci.bound);
+        }
+
         ret.itemCount =
             ret.characterItems.reduce((a, b) => a + b.count, 0) +
             (item.guildBanks?.reduce((a, b) => a + b.count, 0) || 0) +

@@ -171,6 +171,10 @@
                 >Include equipped</Checkbox
             >
 
+            <Checkbox name="include_soulbound" bind:value={$itemSearchState.includeSoulbound}
+                >Include soulbound</Checkbox
+            >
+
             <div class="option">
                 <span>Min quality:</span>
                 <Select

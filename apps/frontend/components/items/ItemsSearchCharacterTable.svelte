@@ -24,11 +24,13 @@
         // let guildBanks = {}
         for (const item of response) {
             for (const character of item.characters || []) {
-                characterMap[character.characterId] ||= [];
-                characterMap[character.characterId].push({
-                    itemId: item.itemId,
-                    ...character,
-                });
+                if ($itemSearchState.includeSoulbound || !character.bound) {
+                    characterMap[character.characterId] ||= [];
+                    characterMap[character.characterId].push({
+                        itemId: item.itemId,
+                        ...character,
+                    });
+                }
             }
 
             if ($itemSearchState.includeEquipped) {
