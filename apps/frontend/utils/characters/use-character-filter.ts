@@ -5,6 +5,7 @@ import { ArmorType } from '@/enums/armor-type';
 import { Faction } from '@/enums/faction';
 import { QuestStatus } from '@/enums/quest-status';
 import { Role } from '@/enums/role';
+import { settingsState } from '@/shared/state/settings.svelte';
 import { wowthingData } from '@/shared/stores/data';
 import { parseBooleanQuery } from '@/shared/utils/boolean-parser';
 import { userState } from '@/user-home/state/user';
@@ -234,6 +235,13 @@ export function useCharacterFilter(
                                 return Object.keys(char.professions || {}).some(
                                     (professionId) => isGatheringProfession[parseInt(professionId)]
                                 );
+                            }
+
+                            // Profession collector
+                            if (part === 'collector') {
+                                return Object.values(
+                                    settingsState.value.professions.collectingCharactersV2 || {}
+                                ).some((characterIds) => characterIds.includes(char.id));
                             }
 
                             // Work orders available?
