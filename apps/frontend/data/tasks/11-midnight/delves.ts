@@ -81,7 +81,6 @@ export const midDelves: Task = {
             name: 'Gilded Stash',
             icon: iconLibrary.gameCutDiamond,
             minimumLevel: 90,
-            alwaysStarted: true,
             questReset: DbResetType.Weekly,
             questResetForced: true,
             showQuestName: true,
@@ -89,6 +88,7 @@ export const midDelves: Task = {
                 {
                     key: 'stashes',
                     name: '{currency:3290}',
+                    alwaysStarted: true,
                     progressFunc: (char) => ({
                         have: char.weekly?.delveGilded || 0,
                         need: 4,
