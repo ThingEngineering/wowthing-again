@@ -1,3 +1,8 @@
+export function nazjatarHack(levelString: string): number {
+    const level = parseInt(levelString.split(' ')[1]);
+    return level === 30 ? 1 : 7 - Math.max(1, Math.floor(level / 5));
+}
+
 export function brannHack(levelString: string): number {
     const level = parseInt(levelString);
     if (level >= 91) {

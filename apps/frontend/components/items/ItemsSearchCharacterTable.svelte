@@ -10,7 +10,10 @@
     import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import Row from './ItemsSearchCharacterRow.svelte';
+    import type { Snippet } from 'svelte';
+    import type { ItemBinding } from '@/enums/item-binding';
 
+    export let bindType: Snippet<[ItemBinding, boolean]>;
     export let response: ItemSearchResponseItem[];
 
     type CharacterItem = ItemSearchResponseCharacter & { itemId: number };
@@ -21,11 +24,13 @@
         // let guildBanks = {}
         for (const item of response) {
             for (const character of item.characters || []) {
-                characterMap[character.characterId] ||= [];
-                characterMap[character.characterId].push({
-                    itemId: item.itemId,
-                    ...character,
-                });
+                if ($itemSearchState.includeSoulbound || !character.bound) {
+                    characterMap[character.characterId] ||= [];
+                    characterMap[character.characterId].push({
+                        itemId: item.itemId,
+                        ...character,
+                    });
+                }
             }
 
             if ($itemSearchState.includeEquipped) {
@@ -55,6 +60,14 @@
     }
 </script>
 
+<style lang="scss">
+    table {
+        :global(.item) {
+            --width: 19.5rem;
+        }
+    }
+</style>
+
 {#each characters as [character, items] (character.id)}
     <table class="table table-striped search-table">
         <thead>
@@ -72,9 +85,9 @@
 
         <tbody>
             {#each items as characterItem (characterItem)}
-                <Row itemId={characterItem.itemId} {characterItem} />
+                <Row itemId={characterItem.itemId} {characterItem} {bindType} />
             {/each}
-            <!-- 
+            <!--
             {#each (item.guildBanks || []) as guildBankItem}
                 <Row
                     itemId={item.itemId}

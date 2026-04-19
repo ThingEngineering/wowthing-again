@@ -12,21 +12,20 @@
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
     import Options from './Options.svelte';
 
-    export let expansionSlug: string;
-    export let professionSlug: string;
+    type Props = {
+        expansionSlug: string;
+        professionSlug: string;
+    };
+    let { expansionSlug, professionSlug }: Props = $props();
 
-    // let allKnown: Set<number>
-    let category: StaticDataProfessionCategory;
-    let subCategories: [StaticDataProfessionCategory, UserCount][];
-    $: {
+    let [category, subCategories] = $derived.by(() => {
         const expansionId = expansionSlugMap[expansionSlug].id;
         const professionId = wowthingData.static.professionBySlug.get(professionSlug).id;
-
         const profession = wowthingData.static.professionById.get(professionId);
 
-        category = profession.expansionCategory[expansionId].children[0];
-        subCategories = [];
-        for (const subCategory of category.children) {
+        const retCategory = profession.expansionCategory[expansionId].children[0];
+        const retSubCategories: [StaticDataProfessionCategory, UserCount][] = [];
+        for (const subCategory of retCategory.children) {
             if (subCategory.abilities.length === 0) {
                 continue;
             }
@@ -55,10 +54,12 @@
             }
 
             if (anyShown) {
-                subCategories.push([subCategory, subStats]);
+                retSubCategories.push([subCategory, subStats]);
             }
         }
-    }
+
+        return [retCategory, retSubCategories];
+    });
 </script>
 
 <style lang="scss">

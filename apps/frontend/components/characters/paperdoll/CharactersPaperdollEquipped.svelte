@@ -62,13 +62,8 @@
             if (wowthingData.items.itemBonusCurrentSeason.has(bonusId)) {
                 const upgrades = wowthingData.items.itemBonusToUpgrade[bonusId];
                 if (upgrades) {
-                    console.log('uppies', upgrades);
                     return upgrades;
-                } else {
-                    console.log('no uppies');
                 }
-            } else {
-                console.log('not current?', bonusId);
             }
         }
     };

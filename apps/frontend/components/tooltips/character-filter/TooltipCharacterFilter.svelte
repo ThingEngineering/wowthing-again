@@ -95,7 +95,17 @@
 
             <dt>Profession</dt>
             <dd>
-                <code>alchemy | blacksmithing | ...</code>
+                <code>alchemy | cooking | ...</code>
+            </dd>
+
+            <dt>Prof. Collector</dt>
+            <dd>
+                <code>collector</code>
+            </dd>
+
+            <dt>Prof. Type</dt>
+            <dd>
+                <code>craft | gather</code>
             </dd>
 
             <dt>Account tag</dt>

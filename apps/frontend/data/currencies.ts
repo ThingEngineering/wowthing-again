@@ -795,4 +795,17 @@ export const pvpCurrencies = new Set<number>([
 
 export const currencyGood: Record<number, number> = {
     [Constants.currencies.honor]: 2000,
+
+    // Midnight - Crafting Moxie
+    3256: 600, // Alchemy
+    3257: 600, // Blacksmithing
+    3258: 600, // Enchanting
+    3259: 600, // Engineering
+    3260: 600, // Herbalism
+    3261: 600, // Inscription
+    3262: 600, // Jewelcrafting
+    3263: 600, // Leatherworking
+    3264: 600, // Mining
+    3265: 600, // Skinning
+    3266: 600, // Tailoring
 };

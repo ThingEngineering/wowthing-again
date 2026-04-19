@@ -31,6 +31,8 @@ export abstract class Constants {
     };
 
     static readonly reputations = {
+        nazjatarFriends: [2377, 2389, 2376, 2388, 2375, 2390],
+
         artisansConsortium: 2544,
         loammNiffen: 2564,
         delveBrann: 2640,

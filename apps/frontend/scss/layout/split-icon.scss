@@ -16,11 +16,11 @@
     }
 
     img:nth-child(2) {
-        border: 2px solid var(--horde-border);
+        border: 2px solid var(--color-horde-border);
         clip-path: polygon(100% 100%, 0 100%, 100% 0);
         position: absolute;
-        bottom: 4px;
-        right: 2px;
+        bottom: 0;
+        right: 0;
         //margin-top: -64px;
     }
 }

@@ -8,7 +8,7 @@
     } from '@/shared/stores/static/types';
     import type { Character, CharacterReputationParagon } from '@/types';
     import type { ManualDataReputationSet } from '@/types/data/manual';
-    import { brannHack, valeeraHack } from './delve-hacks';
+    import { brannHack, nazjatarHack, valeeraHack } from './hacks';
 
     import RenownTooltip from './TooltipReputationRenown.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
@@ -61,6 +61,16 @@
                         minValue = tiers.minValues[i - 9];
                     }
                 }
+            } else if (Constants.reputations.nazjatarFriends.includes(dataRep.id)) {
+                const foundBase = Math.floor((foundIndex + 1) / 5);
+                const indexBase = Math.floor((i + 1) / 5);
+                if (i % 5 !== 4 && (foundIndex === -1 || foundBase !== indexBase)) {
+                    continue;
+                } else {
+                    if (foundIndex === -1 || indexBase > foundBase) {
+                        minValue = tiers.minValues[i - 4];
+                    }
+                }
             }
 
             reps.push({
@@ -83,12 +93,18 @@
                 badCount++;
             } else if (
                 dataRep.id === Constants.reputations.delveBrann ||
-                dataRep.id === Constants.reputations.delveValeera
+                dataRep.id === Constants.reputations.delveValeera ||
+                Constants.reputations.nazjatarFriends.includes(dataRep.id)
             ) {
-                const levelMatch = reps[i].name.match(/(\d\d\d?)/);
+                const levelMatch = reps[i].name.match(/ (\d{1,3})/);
                 if (levelMatch) {
-                    reps[i].cls =
-                        `reputation${dataRep.id === Constants.reputations.delveBrann ? brannHack(levelMatch[1]) : valeeraHack(levelMatch[1])}`;
+                    if (dataRep.id === Constants.reputations.delveBrann) {
+                        reps[i].cls = `reputation${brannHack(levelMatch[1])}`;
+                    } else if (dataRep.id === Constants.reputations.delveValeera) {
+                        reps[i].cls = `reputation${valeeraHack(levelMatch[1])}`;
+                    } else {
+                        reps[i].cls = `reputation${nazjatarHack(reps[i].name)}`;
+                    }
                 }
             } else if (i >= setClass) {
                 reps[i].cls = `reputation${start - i + 1}`;

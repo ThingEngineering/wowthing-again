@@ -64,12 +64,7 @@
 
     {#each taskList as task (task.key)}
         {#if task.chores.length > 1 && view.homeTasks.indexOf(task.key) >= 0}
-            <div class="settings-block">
-                <div>
-                    <h3>{task.name}</h3>
-                    <TaskOptions bind:view {task} />
-                </div>
-            </div>
+            <TaskOptions bind:view {task} />
         {/if}
     {/each}
 {/if}

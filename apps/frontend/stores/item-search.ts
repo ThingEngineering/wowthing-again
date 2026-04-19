@@ -15,6 +15,7 @@ type ItemSearchGroupBy = 'character' | 'item';
 export class ItemSearchState {
     public groupBy: ItemSearchGroupBy = 'item';
     public includeEquipped = false;
+    public includeSoulbound = true;
     public location = ItemLocation.Any;
     public minimumQuality = ItemQuality.Uncommon;
     public searchTerms = '';

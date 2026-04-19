@@ -8,8 +8,12 @@
 </script>
 
 <style lang="scss">
+    div :global(table:first-child) {
+        border-bottom: 1px solid var(--border-color);
+    }
     div :global(table + table) {
-        margin-top: 1rem;
+        border-top: 1px solid var(--border-color);
+        margin-top: 0.5rem;
     }
 </style>
 

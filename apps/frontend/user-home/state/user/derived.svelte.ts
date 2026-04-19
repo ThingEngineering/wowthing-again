@@ -18,6 +18,7 @@ import {
     ManualDataSetGroup,
     type ManualDataSetGroupArray,
 } from '@/types/data/manual';
+import { useCharacterFilter } from '@/utils/characters';
 import { getNextDailyResetFromTime, getNextWeeklyResetFromTime } from '@/utils/get-next-reset';
 import type { UserQuestDataCharacterProgressObjective } from '@/types/data';
 import type { Chore, Task } from '@/types/tasks';
@@ -497,6 +498,22 @@ export class DataUserDerived {
             return null;
         }
 
+        // Any chore with filters is scary
+        const filter =
+            settingsState.activeView.choreFilters?.[`${task.key}_${chore.key}`] ||
+            settingsState.activeView.choreFilters?.[task.key];
+        if (filter && filter !== 'any') {
+            const validForFilter = useCharacterFilter(
+                settingsState.value,
+                () => true,
+                character,
+                filter
+            );
+            if (!validForFilter) {
+                return null;
+            }
+        }
+
         const charChore = new CharacterChore(chore.key, undefined);
         if (chore.questCount) {
             charChore.progressTotal = chore.questCount;
@@ -534,28 +551,6 @@ export class DataUserDerived {
             }
 
             for (const questId of questIds) {
-                // is the quest in progress?
-                const questProgress = characterQuests?.progressQuestByKey?.get(`q${questId}`);
-                if (
-                    questProgress &&
-                    (!resetForced ||
-                        questProgress.expires > timeState.slowTime.toUnixInteger() ||
-                        expiresAt > timeState.slowTime)
-                ) {
-                    charChore.quest = questProgress;
-                    charChore.quest.expires ||= expiresAt.toUnixInteger();
-                    charChore.status = questProgress.status;
-
-                    if (
-                        questProgress.status === QuestStatus.InProgress &&
-                        questProgress.objectives?.length > 0
-                    ) {
-                        charChore.statusTexts = this.getObjectivesText(questProgress.objectives);
-                    }
-
-                    break;
-                }
-
                 // is the quest completed?
                 const questCompleted = chore.accountWide
                     ? accountWeeklyQuestIds.has(questId)
@@ -575,6 +570,26 @@ export class DataUserDerived {
                     completedCount++;
                     if (!chore.questCount || completedCount >= chore.questCount) {
                         break;
+                    }
+                }
+
+                // is the quest in progress?
+                const questProgress = characterQuests?.progressQuestByKey?.get(`q${questId}`);
+                if (
+                    questProgress &&
+                    (!resetForced ||
+                        questProgress.expires > timeState.slowTime.toUnixInteger() ||
+                        expiresAt > timeState.slowTime)
+                ) {
+                    charChore.quest = questProgress;
+                    charChore.quest.expires ||= expiresAt.toUnixInteger();
+                    charChore.status = questProgress.status;
+
+                    if (
+                        questProgress.status === QuestStatus.InProgress &&
+                        questProgress.objectives?.length > 0
+                    ) {
+                        charChore.statusTexts = this.getObjectivesText(questProgress.objectives);
                     }
                 }
             }

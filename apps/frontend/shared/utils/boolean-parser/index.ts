@@ -38,10 +38,10 @@ function injectOperatorBetweenTerms(searchPhrase: string): string {
 
     // replace all spaces with ' AND ', then remove any extra ANDs
     searchPhrase = searchPhrase.replace(/ /gi, ' AND ');
-    searchPhrase = searchPhrase.replace(/ AND AND AND /gi, ' AND ');
-    searchPhrase = searchPhrase.replace(/ AND OR AND /gi, ' OR ');
-    searchPhrase = searchPhrase.replace(/\( AND /gi, '(');
-    searchPhrase = searchPhrase.replace(/ AND \)/gi, ')');
+    searchPhrase = searchPhrase.replace(/ (?:AND|&) (?:AND|&) (?:AND|&) /gi, ' AND ');
+    searchPhrase = searchPhrase.replace(/ (?:AND|&) (?:OR|\|) (?:AND|&) /gi, ' OR ');
+    searchPhrase = searchPhrase.replace(/\( (?:AND|&) /gi, '(');
+    searchPhrase = searchPhrase.replace(/ (?:AND|&) \)/gi, ')');
 
     return searchPhrase;
 }
@@ -104,13 +104,13 @@ function _parseBooleanQuery(searchPhrase: string): string[][] {
     // Split the phrase on the term 'OR', but don't do this on 'OR' that's in
     // between brackets. EX: a OR (b OR c) should not parse the `OR` in between b
     // and c.
-    const ors = splitRoot('OR', searchPhrase);
+    const ors = splitRoot(/ (?:OR|\|) /, 'OR', searchPhrase);
 
     // Each parsed string returns a parsed array in this map function.
     const orPath = ors.map(function (andQuery) {
         // Split on the word 'AND'. Yet again, don't split `AND` that's written in
         // between brackets. We'll parse those later recursively.
-        const ands = splitRoot('AND', andQuery);
+        const ands = splitRoot(/ (?:AND|&) /, 'AND', andQuery);
 
         // All nested parsed queries will be stored in `nestedPaths`.
         // Nested means 'in between brackets'.
@@ -125,6 +125,7 @@ function _parseBooleanQuery(searchPhrase: string): string[][] {
         for (const andString of ands) {
             // If the string contains brackets, parse it recursively, and add it to
             // `nestedPaths`.
+
             if (containsBrackets(andString)) {
                 nestedPaths.push(_parseBooleanQuery(andString));
             }
@@ -300,8 +301,8 @@ function containsBrackets(str: string): boolean {
 // folling string from the `split` results. And stop doing that when we counted
 // as many opening brackets as closing brackets. Then append that string to the
 // results as a single string.
-function splitRoot(splitTerm: string, phrase: string): string[] {
-    const termSplit = phrase.split(' ' + splitTerm + ' ');
+function splitRoot(splitRe: RegExp, splitTerm: string, phrase: string): string[] {
+    const termSplit = phrase.split(splitRe);
     const result: string[] = [];
     let tempNested: string[] = [];
     for (let i = 0; i < termSplit.length; i++) {

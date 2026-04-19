@@ -19,5 +19,6 @@ export interface SettingsView {
     homeProgress: string[];
     homeTasks: string[];
 
+    choreFilters: Record<string, string>;
     disabledChores: Record<string, string[]>;
 }

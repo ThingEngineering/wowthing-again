@@ -45,7 +45,7 @@
 
 <style lang="scss">
     td {
-        --profession-width: 3.5rem;
+        --profession-width: 3.6rem;
 
         padding-left: 0;
         padding-right: 0;
