@@ -78,7 +78,7 @@
                 <CheckboxInput
                     name="ignore-work-orders-{character.id}"
                     bind:value={ignoreWorkOrders}
-                    on:change={ignoreWorkOrdersChanged}>Ignore work orders</CheckboxInput
+                    onChange={ignoreWorkOrdersChanged}>Ignore work orders</CheckboxInput
                 >
                 {#each settingsState.value.tags || [] as tag}
                     {@const mask = 1 << tag.id}
@@ -87,7 +87,7 @@
                         value={((settingsState.value.characters.flags?.[character.id] || 0) &
                             mask) ===
                             mask}
-                        on:change={() => toggleTag(mask)}>Tag: {tag.name}</CheckboxInput
+                        onChange={() => toggleTag(mask)}>Tag: {tag.name}</CheckboxInput
                     >
                 {/each}
             </div>
