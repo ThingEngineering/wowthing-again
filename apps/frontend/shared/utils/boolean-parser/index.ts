@@ -38,10 +38,10 @@ function injectOperatorBetweenTerms(searchPhrase: string): string {
 
     // replace all spaces with ' AND ', then remove any extra ANDs
     searchPhrase = searchPhrase.replace(/ /gi, ' AND ');
-    searchPhrase = searchPhrase.replace(/ (?:AND|\&) (?:AND|\&) (?:AND|\&) /gi, ' AND ');
-    searchPhrase = searchPhrase.replace(/ (?:AND|\&) (?:OR|\|) (?:AND|\&) /gi, ' OR ');
-    searchPhrase = searchPhrase.replace(/\( (?:AND|\&) /gi, '(');
-    searchPhrase = searchPhrase.replace(/ (?:AND|\&) \)/gi, ')');
+    searchPhrase = searchPhrase.replace(/ (?:AND|&) (?:AND|&) (?:AND|&) /gi, ' AND ');
+    searchPhrase = searchPhrase.replace(/ (?:AND|&) (?:OR|\|) (?:AND|&) /gi, ' OR ');
+    searchPhrase = searchPhrase.replace(/\( (?:AND|&) /gi, '(');
+    searchPhrase = searchPhrase.replace(/ (?:AND|&) \)/gi, ')');
 
     return searchPhrase;
 }
@@ -110,7 +110,7 @@ function _parseBooleanQuery(searchPhrase: string): string[][] {
     const orPath = ors.map(function (andQuery) {
         // Split on the word 'AND'. Yet again, don't split `AND` that's written in
         // between brackets. We'll parse those later recursively.
-        const ands = splitRoot(/ (?:AND|\&) /, 'AND', andQuery);
+        const ands = splitRoot(/ (?:AND|&) /, 'AND', andQuery);
 
         // All nested parsed queries will be stored in `nestedPaths`.
         // Nested means 'in between brackets'.
