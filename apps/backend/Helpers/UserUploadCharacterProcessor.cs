@@ -1342,14 +1342,16 @@ public class UserUploadCharacterProcessor
         _character.Reputations.ExtraReputationIds = new();
         _character.Reputations.ExtraReputationValues = new();
 
-        var reputations = _characterData.Reputations
-            .EmptyIfNull()
-            .OrderBy(kvp => kvp.Key)
-            .ToList();
-        foreach (var (id, value) in reputations)
+        foreach (string repString in _characterData.ReputationsV2.EmptyIfNull())
         {
-            _character.Reputations.ExtraReputationIds.Add(id);
-            _character.Reputations.ExtraReputationValues.Add(value);
+            string[] parts = repString.Split(":");
+            if (parts.Length == 2 &&
+                int.TryParse(parts[0], out int factionId) &&
+                int.TryParse(parts[1], out int value))
+            {
+                _character.Reputations.ExtraReputationIds.Add(factionId);
+                _character.Reputations.ExtraReputationValues.Add(value);
+            }
         }
 
         _character.Reputations.Paragons = new();
