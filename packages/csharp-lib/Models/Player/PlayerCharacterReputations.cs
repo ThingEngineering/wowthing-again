@@ -14,7 +14,7 @@ public class PlayerCharacterReputations
 
     public List<int> ExtraReputationIds { get; set; }
     public List<int> ExtraReputationValues { get; set; }
-        
+
     [Column(TypeName = "jsonb")]
     public Dictionary<int, PlayerCharacterReputationsParagon> Paragons { get; set; }
 }

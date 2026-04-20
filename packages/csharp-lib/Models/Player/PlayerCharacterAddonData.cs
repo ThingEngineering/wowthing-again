@@ -28,6 +28,7 @@ public class PlayerCharacterAddonData(int characterId)
     public DateTime GarrisonTreesScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime MythicPlusScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime PatronOrdersScannedAt { get; set; } = MiscConstants.DefaultDateTime;
+    public DateTime ReputationsScannedAt { get; set; } = MiscConstants.DefaultDateTime;
 
     public List<int> KnownSpells { get; set; } = new();
 
@@ -59,6 +60,9 @@ public class PlayerCharacterAddonData(int characterId)
     public Dictionary<int, List<PlayerCharacterAddonDataMythicPlusRun>> MythicPlusWeeks { get; set; } = new();
 
     [Column(TypeName = "jsonb")]
+    public Dictionary<int, PlayerCharacterAddonDataParagon> Paragons { get; set; }
+
+    [Column(TypeName = "jsonb")]
     public Dictionary<int, List<PlayerCharacterAddonDataPatronOrder>> PatronOrders { get; set; } = new();
 
     [Column(TypeName = "jsonb")]
@@ -69,6 +73,9 @@ public class PlayerCharacterAddonData(int characterId)
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, Dictionary<int, int>> ProfessionTraits { get; set; } = new();
+
+    [Column(TypeName = "jsonb")]
+    public Dictionary<int, int> Reputations { get; set; } = new();
 }
 
 public class PlayerCharacterAddonDataAura
@@ -136,6 +143,14 @@ public class PlayerCharacterAddonDataMythicPlusRun
     public int Level { get; set; }
     public int MapId { get; set; }
     public int Score { get; set; }
+}
+
+public class PlayerCharacterAddonDataParagon
+{
+    public bool RewardAvailable { get; set; }
+    public int Current { get; set; }
+    public int Max { get; set; }
+    public int Received { get; set; }
 }
 
 public class PlayerCharacterAddonDataPatronOrder
