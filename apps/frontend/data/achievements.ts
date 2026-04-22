@@ -502,6 +502,8 @@ export const extraCategories: ExtraAchievementCategory[] = [
             },
             null,
             { targetSlug: 'expansion-features/prey', nameType: 2 },
+            { targetSlug: 'expansion-features/ritual-sites', nameType: 2 },
+            { targetSlug: 'expansion-features/void-assaults', nameType: 2 },
         ],
     },
     {
