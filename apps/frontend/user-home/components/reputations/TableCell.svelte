@@ -117,13 +117,13 @@
         class={cls}
         use:componentTooltip={{
             component: TooltipReputation,
-            props: {
+            propsFunc: () => ({
                 characterRep: characterRep.value,
                 character,
                 dataRep,
                 paragon,
                 reputation,
-            },
+            }),
         }}
     >
         {#if paragon}

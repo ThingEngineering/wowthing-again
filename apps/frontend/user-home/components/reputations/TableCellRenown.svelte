@@ -47,13 +47,13 @@
         class:status-fail={characterParagon?.rewardAvailable}
         use:componentTooltip={{
             component: Tooltip,
-            props: {
+            propsFunc: () => ({
                 characterRep: characterRep.value,
                 character,
                 characterParagon,
                 dataRep,
                 reputation,
-            },
+            }),
         }}
     >
         {renownLevel}
