@@ -448,6 +448,16 @@ public class ApiController : Controller
         var raiderIoScoreTiers = await _cacheService.GetRaiderIoTiers();
         timer.AddPoint("RaiderIO");
 
+        // Reputations
+        var reputations = new Dictionary<int, int>();
+        foreach (var account in accounts.Where(account => account.AddonData?.Reputations != null).OrderByDescending(account => account.AddonData.ReputationsScannedAt))
+        {
+            foreach ((int factionId, int value) in account.AddonData.Reputations)
+            {
+                reputations[factionId] = value;
+            }
+        }
+
         // Objects
         var accountMap = accounts.ToDictionary(k => k.Id, v => new ApiUserAccount(v));
 
@@ -515,6 +525,7 @@ public class ApiController : Controller
             Images = images,
             Public = apiResult.Public,
             RaiderIoScoreTiers = raiderIoScoreTiers,
+            Reputations = reputations,
             WarbankGold = apiResult.Public ? 0 : (int)((addonData?.WarbankCopper ?? 0) / 10000),
             WarbankScannedAt = addonData?.WarbankUpdatedAt,
 

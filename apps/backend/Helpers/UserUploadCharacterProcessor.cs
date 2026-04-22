@@ -113,7 +113,6 @@ public class UserUploadCharacterProcessor
         HandleProfessionCooldowns();
         HandleProfessionTraits();
         HandleQuests();
-        HandleReputations();
         // HandleTransmog();
         HandleWeekly();
 
@@ -549,11 +548,60 @@ public class UserUploadCharacterProcessor
             }
         }
 
+        // Reputations
+        if (_characterData.ReputationsV2 != null &&
+            _characterData.ScanTimes.TryGetValue("reputations", out int reputationsTimestamp))
+        {
+            var scanTime = reputationsTimestamp.AsUtcDateTime();
+            if (scanTime > _character.AddonData.ReputationsScannedAt)
+            {
+                _character.AddonData.ReputationsScannedAt = scanTime;
+
+                _character.AddonData.Reputations = new();
+                foreach (string repString in _characterData.ReputationsV2.EmptyIfNull())
+                {
+                    string[] parts = repString.Split(":");
+                    if (parts.Length == 2 &&
+                        int.TryParse(parts[0], out int factionId) &&
+                        int.TryParse(parts[1], out int value) &&
+                        value != 0)
+                    {
+                        _character.AddonData.Reputations[factionId] = value;
+                    }
+                }
+
+                _character.AddonData.Paragons = new();
+                foreach (var (paragonId, paragonString) in _characterData.Paragons.EmptyIfNull())
+                {
+                    var parts = paragonString.Split(":");
+                    if (parts.Length != 3)
+                    {
+                        _logger.Warning("Invalid paragon string: {String}", paragonString);
+                        continue;
+                    }
+
+                    var total = int.Parse(parts[0]);
+                    var max = int.Parse(parts[1]);
+                    var rewardAvailable = parts[2] == "1";
+
+                    _character.AddonData.Paragons[paragonId] = new PlayerCharacterAddonDataParagon
+                    {
+                        Current = total % max,
+                        Max = max,
+                        Received = total / max,
+                        RewardAvailable = rewardAvailable,
+                    };
+                }
+            }
+        }
+
         // Change detection for this is obnoxious, just update it
         var entry = _context.Entry(_character.AddonData);
         entry.Property(ad => ad.Garrisons).IsModified = true;
         entry.Property(ad => ad.MythicPlusSeasons).IsModified = true;
         entry.Property(ad => ad.MythicPlusWeeks).IsModified = true;
+        entry.Property(ad => ad.Paragons).IsModified = true;
+        entry.Property(ad => ad.Reputations).IsModified = true;
     }
 
     private void HandleAchievements()
@@ -1329,52 +1377,6 @@ public class UserUploadCharacterProcessor
                     _result.WorldQuestReports.Add(reportKey, reportQuest);
                 }
             }
-        }
-    }
-
-    private void HandleReputations()
-    {
-        if (_character.Reputations == null)
-        {
-            return;
-        }
-
-        _character.Reputations.ExtraReputationIds = new();
-        _character.Reputations.ExtraReputationValues = new();
-
-        foreach (string repString in _characterData.ReputationsV2.EmptyIfNull())
-        {
-            string[] parts = repString.Split(":");
-            if (parts.Length == 2 &&
-                int.TryParse(parts[0], out int factionId) &&
-                int.TryParse(parts[1], out int value))
-            {
-                _character.Reputations.ExtraReputationIds.Add(factionId);
-                _character.Reputations.ExtraReputationValues.Add(value);
-            }
-        }
-
-        _character.Reputations.Paragons = new();
-        foreach (var (paragonId, paragonString) in _characterData.Paragons.EmptyIfNull())
-        {
-            var parts = paragonString.Split(":");
-            if (parts.Length != 3)
-            {
-                _logger.Warning("Invalid paragon string: {String}", paragonString);
-                continue;
-            }
-
-            var total = int.Parse(parts[0]);
-            var max = int.Parse(parts[1]);
-            var rewardAvailable = parts[2] == "1";
-
-            _character.Reputations.Paragons[paragonId] = new PlayerCharacterReputationsParagon
-            {
-                Current = total % max,
-                Max = max,
-                Received = total / max,
-                RewardAvailable = rewardAvailable,
-            };
         }
     }
 

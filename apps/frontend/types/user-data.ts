@@ -24,6 +24,7 @@ export interface UserData {
     heirlooms: Record<number, number>;
     illusionIds: number[];
     raiderIoScoreTiers: Record<number, UserDataRaiderIoScoreTiers>;
+    reputations: Record<number, number>;
     warbankItems: WarbankItem[];
 
     honorCurrent: number;
