@@ -74,6 +74,7 @@
         112: 'Normal Prey',
         115: 'Hard Prey',
         116: 'Nightmare Prey',
+        157: 'Ritual Site',
     };
 
     function getRunCount(index: number): number {
