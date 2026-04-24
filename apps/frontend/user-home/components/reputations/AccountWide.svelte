@@ -76,8 +76,8 @@
                 {@const {
                     characterParagon,
                     characterRep,
-                    dataRep,
                     cls,
+                    dataRep,
                     renownCurrent,
                     renownMax,
                     repTier,
@@ -117,7 +117,7 @@
                             </div>
                         </div>
 
-                        {#if characterParagon}
+                        {#if renownMax && renownCurrent === renownMax && characterParagon}
                             <ProgressBar
                                 title="Paragon"
                                 have={characterParagon.current}

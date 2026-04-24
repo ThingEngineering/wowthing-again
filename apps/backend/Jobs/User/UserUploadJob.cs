@@ -440,6 +440,16 @@ public class UserUploadJob : JobBase
                 _resetQuestCache = true;
             }
 
+            // Reputations
+            try
+            {
+                await HandleAccountReputations(accountAddonData, parsed.ScanTimes.EmptyIfNull(), parsed.Reputations);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "HandleAccountReputations failed!");
+            }
+
             // Toys
             // var accountToys = await Context.PlayerAccountToys.FindAsync(accountId);
             // if (accountToys == null)
@@ -694,6 +704,42 @@ public class UserUploadJob : JobBase
         await JobRepository.ReleaseLockAsync(lockKey, lockValue);
     }
 
+    private async Task HandleAccountReputations(
+        PlayerAccountAddonData accountAddonData,
+        Dictionary<string, int> globalScanTimes,
+        List<string> reputations
+    ) {
+        var localContext = Context;
+
+        if (globalScanTimes.TryGetValue("reputations", out int reputationsTimestamp))
+        {
+            var reputationsScannedAt = reputationsTimestamp.AsUtcDateTime();
+            if (reputationsScannedAt > accountAddonData.ReputationsScannedAt)
+            {
+                accountAddonData.ReputationsScannedAt = reputationsScannedAt;
+                accountAddonData.Reputations ??= new();
+
+                foreach (string repString in reputations)
+                {
+                    string[] parts = repString.Split(":");
+                    if (parts.Length == 2 &&
+                        int.TryParse(parts[0], out int factionId) &&
+                        int.TryParse(parts[1], out int value))
+                    {
+                        accountAddonData.Reputations[factionId] = value;
+                    }
+                }
+
+                // Change detection for this is obnoxious, just update it
+                localContext.Entry(accountAddonData)
+                    .Property(aad => aad.Reputations)
+                    .IsModified = true;
+
+                await localContext.SaveChangesAsync(CancellationToken);
+            }
+        }
+    }
+
     private async Task HandleDecor(PlayerAccountAddonData accountAddonData, Dictionary<string, int> globalScanTimes, Dictionary<int, string> decorData)
     {
         var localContext = Context;
@@ -728,7 +774,6 @@ public class UserUploadJob : JobBase
             }
         }
     }
-
 
     private async Task HandleGuildItems(WowDbContext localContext, PlayerGuild guild, UploadGuild guildData)
     {

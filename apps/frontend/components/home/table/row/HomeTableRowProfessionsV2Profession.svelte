@@ -97,13 +97,15 @@
     {#if current}
         {#each fields as field (field)}
             {#if field === 'concentration' && showConcentration}
-                <Currency
-                    {character}
-                    currency={concCurrency}
-                    fullIsBad={settingsState.value.professions.fullConcentrationIsBad}
-                    useIconOverride={false}
-                    useStatusClass={true}
-                />
+                <span class:faded={currentSkill < 50}>
+                    <Currency
+                        {character}
+                        currency={concCurrency}
+                        fullIsBad={settingsState.value.professions.fullConcentrationIsBad}
+                        useIconOverride={false}
+                        useStatusClass={true}
+                    />
+                </span>
             {:else if field === 'moxie' && showMoxie}
                 <Currency {character} currency={moxieCurrency} useIconOverride={false} />
             {/if}

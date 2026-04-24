@@ -59,7 +59,7 @@ public class UploadCharacter
     public List<string> ProfessionCooldowns { get; set; }
     public List<string> ProfessionOrders { get; set; }
     public List<string> ProfessionTraits { get; set; }
-    public Dictionary<int, int> Reputations { get; set; }
+    public List<string> ReputationsV2 { get; set; }
     public Dictionary<string, int> ScanTimes { get; set; }
     public string Transmog { get; set; }
 

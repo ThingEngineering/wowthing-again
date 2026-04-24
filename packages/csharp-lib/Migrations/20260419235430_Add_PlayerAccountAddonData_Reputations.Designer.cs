@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260419235430_Add_PlayerAccountAddonData_Reputations")]
+    partial class Add_PlayerAccountAddonData_Reputations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -951,10 +954,6 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("jsonb")
                         .HasColumnName("mythic_plus_weeks");
 
-                    b.Property<Dictionary<int, PlayerCharacterAddonDataParagon>>("Paragons")
-                        .HasColumnType("jsonb")
-                        .HasColumnName("paragons");
-
                     b.Property<Dictionary<int, List<PlayerCharacterAddonDataPatronOrder>>>("PatronOrders")
                         .HasColumnType("jsonb")
                         .HasColumnName("patron_orders");
@@ -974,14 +973,6 @@ namespace Wowthing.Lib.Migrations
                     b.Property<Dictionary<int, PlayerCharacterProfessionTier>>("Professions")
                         .HasColumnType("jsonb")
                         .HasColumnName("professions");
-
-                    b.Property<Dictionary<int, int>>("Reputations")
-                        .HasColumnType("jsonb")
-                        .HasColumnName("reputations");
-
-                    b.Property<DateTime>("ReputationsScannedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("reputations_scanned_at");
 
                     b.Property<DateTime>("WeeklyReset")
                         .HasColumnType("timestamp with time zone")

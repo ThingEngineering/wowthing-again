@@ -30,6 +30,7 @@
     let dataRep: StaticDataReputation;
     let paragon: CharacterReputationParagon;
     let repTier: ReputationTier;
+    let skipPercent: boolean;
 
     // characterRep={character.reputationData[slug].sets[reputationsIndex][reputationSetsIndex]}
 
@@ -85,6 +86,13 @@
                     ) {
                         const hack = nazjatarHack(repTier.name);
                         cls = `reputation${hack}`;
+                        // 30 => 1, 20 => 11, 10 => 11
+                        if (repTier.maxValue > 0) {
+                            const completedTiers = 30 - repTier.tier + 1;
+                            const tierPercent = Math.floor((repTier.value / repTier.maxValue) * 10);
+                            repTier.percent = `${completedTiers}.${tierPercent}`;
+                            skipPercent = true;
+                        }
                     } else {
                         cls = `reputation${repTier.tier}`;
                     }
@@ -109,13 +117,13 @@
         class={cls}
         use:componentTooltip={{
             component: TooltipReputation,
-            props: {
+            propsFunc: () => ({
                 characterRep: characterRep.value,
                 character,
                 dataRep,
                 paragon,
                 reputation,
-            },
+            }),
         }}
     >
         {#if paragon}
@@ -125,7 +133,7 @@
                 {repTier.percent}%
             {/if}
         {:else}
-            {repTier.percent}%
+            {repTier.percent}{skipPercent ? '' : '%'}
         {/if}
     </td>
 {:else}

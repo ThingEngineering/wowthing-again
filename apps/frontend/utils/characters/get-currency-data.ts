@@ -7,10 +7,10 @@ import {
     currencyShowRemaining,
 } from '@/data/currencies';
 import { wowthingData } from '@/shared/stores/data';
+import { userStore } from '@/stores/user';
 import { CharacterCurrency, type Character } from '@/types/character';
 import { userState } from '@/user-home/state/user';
 import type { StaticDataCurrency } from '@/shared/stores/static/types';
-import { userStore } from '@/stores/user';
 
 interface CharacterCurrencyData {
     amount: string;

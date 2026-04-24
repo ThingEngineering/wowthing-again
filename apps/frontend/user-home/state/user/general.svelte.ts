@@ -45,6 +45,7 @@ export class DataUserGeneral {
     public decor: Record<number, [number, number]> = $state({});
     public guildById: Record<number, Guild> = $state({});
     public petsById: Record<number, UserDataPet[]> = $state({});
+    public reputations: Record<number, number> = $state({});
     public warbankItems: WarbankItem[] = $state([]);
     public warbankItemsByItemId: Record<number, WarbankItem[]> = $state.raw({});
 
@@ -200,6 +201,7 @@ export class DataUserGeneral {
                 .filter(([, [a, b]]) => a + b > 0)
                 .map(([decorId]) => decorId)
         );
+        this.reputations = cloneDeep(userData.reputations || {});
 
         this.honorCurrent = userData.honorCurrent;
         this.honorLevel = userData.honorLevel;

@@ -55,7 +55,10 @@ export function getRenownData({
 
     ret.characterRep =
         actualCharacter.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
-    const repValue = ret.characterRep.value === -1 ? 0 : ret.characterRep.value;
+    const repValue =
+        (ret.dataRep.accountWide
+            ? userState.general.reputations[ret.dataRep.id]
+            : ret.characterRep.value) || 0;
     if (ret.dataRep.renownCurrencyId > 0) {
         const currency = wowthingData.static.currencyById.get(ret.dataRep.renownCurrencyId);
         ret.renownMax = currency.maxTotal;

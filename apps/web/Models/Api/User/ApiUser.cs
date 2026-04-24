@@ -32,7 +32,7 @@ public class ApiUser
     public Dictionary<int, int> Heirlooms { get; set; }
     public Dictionary<string, string> Images { get; set; }
     public Dictionary<int, RedisRaiderIoScoreTiers> RaiderIoScoreTiers { get; set; }
-    public PlayerWarbankItem[] RawWarbankItems { get; set; }
+    public Dictionary<int, int> Reputations { get; set; }
 
     public Dictionary<int, List<UserPetDataPet>> PetsRaw { get; set; }
 
@@ -42,4 +42,5 @@ public class ApiUser
     public List<short> IllusionIds { get; set; }
     public List<int> RawAppearanceIds { get; set; }
     public Dictionary<int, List<int>> RawAppearanceSources { get; set; }
+    public PlayerWarbankItem[] RawWarbankItems { get; set; }
 }

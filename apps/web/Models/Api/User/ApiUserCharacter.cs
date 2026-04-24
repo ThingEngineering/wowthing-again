@@ -266,14 +266,19 @@ public class ApiUserCharacter
         if (character.Reputations?.ReputationIds != null && character.Reputations?.ReputationValues != null)
         {
             Reputations = character.Reputations.ReputationIds
-                .Concat(character.Reputations.ExtraReputationIds.EmptyIfNull())
-                .Zip(character.Reputations.ReputationValues.Concat(character.Reputations.ExtraReputationValues
-                    .EmptyIfNull()))
-                .GroupBy(k => k.First)
+                .Zip(character.Reputations.ReputationValues)
                 .ToDictionary(
-                    group => group.Key,
-                    group => group.OrderByDescending(k => k.Second).First().Second
+                    group => group.First,
+                    group => group.Second
                 );
+
+            if (character.AddonData?.Reputations != null)
+            {
+                foreach ((int factionId, int value) in character.AddonData.Reputations)
+                {
+                    Reputations[factionId] = value;
+                }
+            }
         }
 
         // Shadowlands
