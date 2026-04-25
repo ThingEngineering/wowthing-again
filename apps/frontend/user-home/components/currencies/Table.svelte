@@ -140,7 +140,7 @@
         <svelte:fragment slot="rowExtra" let:character>
             <td class="spacer"></td>
             {#key slugKey}
-                {#each currencies as currency (currency)}
+                {#each currencies as currency, currencyIndex (currencyIndex)}
                     {#if !currency}
                         <td class="spacer"></td>
                     {:else}

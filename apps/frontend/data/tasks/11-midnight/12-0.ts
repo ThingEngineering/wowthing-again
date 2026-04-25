@@ -66,7 +66,7 @@ const specialAssignmentExpiry: Chore['customExpiryFunc'] = (char, scannedAt, que
     return worldQuest?.expires || Constants.defaultTime;
 };
 
-export const midChores12_0_0: Task = {
+export const midChores12_0: Task = {
     key: 'midChores12_0',
     name: '[Mid] 12.0.x',
     shortName: '12.0',
@@ -273,6 +273,16 @@ export const midChores12_0_0: Task = {
                 92034, // Thorm'belan
             ],
         },
-        // 94446, A Nightmarish Task, weekly?
+        {
+            key: 'voidAssaults',
+            name: 'Void Assaults',
+            icon: iconLibrary.gameAbstract024,
+            minimumLevel: 80,
+            questReset: DbResetType.Weekly,
+            questIds: [
+                94385, // Void Assaults: Eversong Woods
+                94386, // Void Assaults: Zul'Aman
+            ],
+        },
     ],
 };

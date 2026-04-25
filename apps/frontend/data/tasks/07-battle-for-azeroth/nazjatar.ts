@@ -9,21 +9,6 @@ export const bfaNazjatar: Task = {
     showSeparate: true,
     chores: [
         {
-            key: 'ancientBark',
-            name: '{item:170184}',
-            icon: iconLibrary.gameTreeFace,
-            alwaysStarted: true,
-            questReset: DbResetType.Weekly,
-            questIds: [57140],
-        },
-        {
-            key: 'mardivas',
-            name: 'Laboritory of Mardivas',
-            icon: iconLibrary.gameFizzingFlask,
-            questReset: DbResetType.Weekly,
-            questIds: [55121],
-        },
-        {
             key: 'friend',
             name: 'Friend',
             icon: iconLibrary.gameGoblinHead,
@@ -57,6 +42,31 @@ export const bfaNazjatar: Task = {
                         56370,
                     ],
                 },
+            ],
+        },
+        {
+            key: 'ancientBark',
+            name: '{item:170184}',
+            icon: iconLibrary.gameTreeFace,
+            alwaysStarted: true,
+            questReset: DbResetType.Weekly,
+            questIds: [57140],
+        },
+        {
+            key: 'mardivas',
+            name: 'Laboritory of Mardivas',
+            icon: iconLibrary.gameFizzingFlask,
+            questReset: DbResetType.Weekly,
+            questIds: [55121],
+        },
+        {
+            key: 'worldBoss',
+            name: 'World Boss',
+            icon: iconLibrary.gameSpikedDragonHead,
+            questReset: DbResetType.Weekly,
+            questIds: [
+                56056, // Wekemara
+                56057, // Ulmath, the Soulbinder
             ],
         },
     ],
