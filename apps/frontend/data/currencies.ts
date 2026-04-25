@@ -194,6 +194,7 @@ export const currencyExtra: Record<number, number[]> = {
         3310, // Coffer Key Shards
         3028, // Restored Coffer Key
         3356, // Untainted Mana-Crystals
+        3418, // Nebulous Voidcore
         null,
         3378, // Dawnlight Manaflux
         3383, // Adventurer Dawncrest
