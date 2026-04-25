@@ -1,6 +1,6 @@
-import { midChores12_0_0 } from './12-0-0';
+import { midChores12_0 } from './12-0';
 import { midDelves } from './delves';
 import { midPrey } from './prey';
 import { midProfessions } from './professions';
 
-export const midTasks = [midChores12_0_0, midDelves, midPrey, midProfessions];
+export const midTasks = [midChores12_0, midDelves, midPrey, midProfessions];
