@@ -9,7 +9,18 @@
 
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
-    export let selected: string;
+    let { selected }: { selected: string } = $props();
+
+    const statModifier: Record<number, string> = {
+        75: 'Inspiration',
+        76: 'Resourcefulness',
+        77: 'Finesse',
+        78: 'Deftness',
+        79: 'Perception',
+        80: 'Crafting Speed',
+        81: 'Multicraft',
+        82: 'Ingenuity',
+    };
 
     function formatPrice(price: number): string {
         price = price / 100;
@@ -52,6 +63,9 @@
         text-align: right;
         width: 9.5rem;
     }
+    .stat {
+        color: var(--color-shrug);
+    }
 </style>
 
 <div class="selected">
@@ -80,6 +94,7 @@
                     {@const realm = wowthingData.static.connectedRealmById.get(
                         auction.connectedRealmId
                     )}
+                    {@const statIndex = auction.modifierTypes.indexOf(29)}
                     <tr>
                         <td class="realm text-overflow" data-tooltip={realm.displayText}>
                             <!-- <code>[{Region[realm.region]}]</code> -->
@@ -126,6 +141,11 @@
                         <td class="price">
                             <code>{@html formatPrice(auction.buyoutPrice)}</code>
                         </td>
+                        {#if statIndex >= 0}
+                            <td class="stat">
+                                {statModifier[auction.modifierValues[statIndex]]}
+                            </td>
+                        {/if}
                     </tr>
                 {:else}
                     <tr>

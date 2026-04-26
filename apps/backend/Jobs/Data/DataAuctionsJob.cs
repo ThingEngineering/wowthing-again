@@ -24,6 +24,7 @@ public class DataAuctionsJob : JobBase
 
     private int _connectedRealmId;
     private Dictionary<int, WowItemBonus> _itemAppearanceBonuses;
+    private Dictionary<int, WowItemBonus> _itemScalingBonuses;
     private ItemModifiedAppearanceCache _itemModifiedAppearances;
     private WowRegion _region;
 
@@ -146,6 +147,17 @@ COPY wow_auction_commodity_hourly (
 
         var itemBonuses = await MemoryCacheService.GetItemBonuses();
         _itemAppearanceBonuses = itemBonuses.ByType[WowItemBonusType.SetItemAppearanceModifier];
+
+        _itemScalingBonuses = [];
+        foreach (var bonus in itemBonuses.ByType.GetValueOrDefault(WowItemBonusType.ScaleConfig))
+        {
+            _itemScalingBonuses[bonus.Key] = bonus.Value;
+        }
+        foreach (var bonus in itemBonuses.ByType.GetValueOrDefault(WowItemBonusType.ScaleCrafted))
+        {
+            _itemScalingBonuses[bonus.Key] = bonus.Value;
+        }
+
         _itemModifiedAppearances = await MemoryCacheService.GetItemModifiedAppearances();
 
         await using var connection = Context.GetConnection();
@@ -316,6 +328,7 @@ COPY wow_auction_commodity_hourly (
         {
             int? appearanceId = null;
             string appearanceSource = null;
+            short itemLevel = 0;
 
             if (connectedRealmId < 100000)
             {
@@ -323,20 +336,32 @@ COPY wow_auction_commodity_hourly (
                 int priority = 999;
                 foreach (int bonusId in auction.Item.BonusLists.EmptyIfNull())
                 {
-                    if (!_itemAppearanceBonuses.TryGetValue(bonusId, out var itemBonus))
+                    if (_itemAppearanceBonuses.TryGetValue(bonusId, out var itemBonus))
                     {
-                        continue;
+                        foreach (var bonus in itemBonus.Bonuses)
+                        {
+                            if (bonus[0] == (int)WowItemBonusType.SetItemAppearanceModifier)
+                            {
+                                int bonusPriority = bonus.Count >= 3 ? bonus[2] : 0;
+                                if (bonusPriority < priority)
+                                {
+                                    modifier = (short)bonus[1];
+                                    priority = bonusPriority;
+                                }
+                            }
+                        }
                     }
 
-                    foreach (var bonus in itemBonus.Bonuses)
+                    if (_itemScalingBonuses.TryGetValue(bonusId, out itemBonus))
                     {
-                        if (bonus[0] == (int)WowItemBonusType.SetItemAppearanceModifier)
+                        foreach (var bonus in itemBonus.Bonuses)
                         {
-                            int bonusPriority = bonus.Count >= 3 ? bonus[2] : 0;
-                            if (bonusPriority < priority)
+                            if (bonus[0] == (int)WowItemBonusType.ScaleConfig && bonus[1] == 266)
                             {
-                                modifier = (short)bonus[1];
-                                priority = bonusPriority;
+                                itemLevel = 206;
+                            } else if (bonus[0] == (int)WowItemBonusType.ScaleCrafted)
+                            {
+                                itemLevel += (short)bonus[1];
                             }
                         }
                     }
@@ -392,11 +417,11 @@ COPY wow_auction_commodity_hourly (
             }
             else if (!string.IsNullOrWhiteSpace(appearanceSource))
             {
-                groupKey = $"source:{appearanceSource}";
+                groupKey = $"source:{appearanceSource}:{itemLevel}";
             }
             else
             {
-                groupKey = $"item:{auction.Item.Id}";
+                groupKey = $"item:{auction.Item.Id}:{itemLevel}";
             }
 
             await writer.StartRowAsync();
