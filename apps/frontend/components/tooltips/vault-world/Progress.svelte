@@ -28,6 +28,10 @@
 </script>
 
 <style lang="scss">
+    .level {
+        text-align: right;
+        white-space: nowrap;
+    }
     .map-level {
         display: flex;
         gap: 0.2rem;
@@ -35,7 +39,7 @@
 </style>
 
 <tr class={cls}>
-    <td>
+    <td class="level">
         {#if progress.level > 0}
             {progress.level}
         {/if}

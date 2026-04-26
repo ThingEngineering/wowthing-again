@@ -40,7 +40,8 @@
         const ret = new AuctionInfo();
 
         if (groupKey.startsWith('item:')) {
-            const itemId = parseInt(groupKey.split(':')[1]);
+            const parts = groupKey.split(':');
+            const itemId = parseInt(parts[1]);
             const item = wowthingData.items.items[itemId];
 
             if (item.allianceOnly) {
@@ -50,7 +51,7 @@
             }
 
             ret.icon = `item/${itemId}`;
-            ret.itemLevel = item?.itemLevel || 1;
+            ret.itemLevel = parseInt(parts[2]) || item?.itemLevel || 1;
             ret.name = `{${groupKey}}`;
         } else if (groupKey.startsWith('pet:')) {
             const pet = wowthingData.static.petById.get(parseInt(groupKey.split(':')[1]));
@@ -58,7 +59,8 @@
             ret.itemLevel = 1;
             ret.name = pet.name;
         } else if (groupKey.startsWith('source:')) {
-            const sourceParts = groupKey.split(':')[1].split('_');
+            const parts = groupKey.split(':');
+            const sourceParts = parts[1].split('_');
             const itemId = parseInt(sourceParts[0]);
             const item = wowthingData.items.items[itemId];
 
@@ -69,7 +71,7 @@
             }
 
             ret.icon = `item/${sourceParts.slice(0, sourceParts[1] === '0' ? 1 : 2).join('_')}`;
-            ret.itemLevel = item?.itemLevel || 1;
+            ret.itemLevel = parseInt(parts[2]) || item?.itemLevel || 1;
             ret.name = `{item:${itemId}}`;
             if (sourceParts[1] !== '0') {
                 const modifier = itemModifierMap[parseInt(sourceParts[1])];

@@ -14,6 +14,7 @@ class SpecificStore {
     ): Promise<UserAuctionDataAuction[]> {
         let things: UserAuctionDataAuction[] = [];
 
+        console.log(groupKey);
         const cacheKey = [auctionAppState.region, groupKey].join('--');
 
         if (this.cache[cacheKey]) {
@@ -25,15 +26,18 @@ class SpecificStore {
                 region: auctionAppState.region,
                 appearanceSource: '',
                 itemId: 0,
+                itemLevel: 0,
                 petSpeciesId: 0,
             };
 
             if (groupKeyParts[0] === 'item') {
                 data.itemId = parseInt(groupKeyParts[1]);
+                data.itemLevel = parseInt(groupKeyParts[2]) || 0;
             } else if (groupKeyParts[0] === 'pet') {
                 data.petSpeciesId = parseInt(groupKeyParts[1]);
             } else if (groupKeyParts[0] === 'source') {
                 data.appearanceSource = groupKeyParts[1];
+                data.itemLevel = parseInt(groupKeyParts[2]) || 0;
             }
 
             const xsrf = document.getElementById('app').getAttribute('data-xsrf');

@@ -27,12 +27,12 @@
         html = text || '';
 
         html = html.replace(
-            /(- )?\|A:Professions-ChatIcon-Quality-Tier(\d):20:20\|a/,
+            /(- )?\|A:Professions-ChatIcon-Quality-Tier(\d+):20:20\|a/,
             '{craftedQuality:$2}'
         );
         // TODO: fix with Midnight tier icons later
         html = html.replace(
-            /(- )?\|A:Professions-Icon-Quality-12-Tier(\d)-Small[:\d]+\|a/,
+            /(- )?\|A:Professions-(?:ChatIcon|Icon)-Quality-12-Tier(\d+)(?:-Small)?[:\d]+\|a/,
             '{craftedQuality:$2}'
         );
 

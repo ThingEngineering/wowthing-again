@@ -110,7 +110,13 @@ public class AuctionService
         return auctions;
     }
 
-    public async Task<WowAuction[]> Specific(WowRegion region, string appearanceSource, int itemId, int petSpeciesId)
+    public async Task<WowAuction[]> Specific(
+        WowRegion region,
+        string appearanceSource,
+        int itemId,
+        int itemLevel,
+        int petSpeciesId
+    )
     {
         var connectedRealmIds = await _context.WowRealm
             .Where(realm => realm.Region == region)
@@ -135,6 +141,11 @@ public class AuctionService
         else if (petSpeciesId > 0)
         {
             auctionQuery = auctionQuery.Where(auction => auction.PetSpeciesId == petSpeciesId);
+        }
+
+        if (itemLevel > 0)
+        {
+            auctionQuery = auctionQuery.Where(auction => auction.GroupKey.EndsWith($":{itemLevel}"));
         }
 
         var auctions = await auctionQuery

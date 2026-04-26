@@ -103,7 +103,13 @@ public class AuctionsController : Controller
 
         var timer = new JankTimer();
 
-        var data = await _auctionService.Specific(form.Region, form.AppearanceSource, form.ItemId, form.PetSpeciesId);
+        var data = await _auctionService.Specific(
+            form.Region,
+            form.AppearanceSource,
+            form.ItemId,
+            form.ItemLevel,
+            form.PetSpeciesId
+        );
 
         timer.AddPoint("Data");
 

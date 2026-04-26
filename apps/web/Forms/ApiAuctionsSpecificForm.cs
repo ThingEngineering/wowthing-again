@@ -6,6 +6,7 @@ public class ApiAuctionsSpecificForm
 {
     public string AppearanceSource { get; set; }
     public int ItemId { get; set; }
+    public int ItemLevel { get; set; }
     public int PetSpeciesId { get; set; }
     public WowRegion Region { get; set; }
 }
