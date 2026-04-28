@@ -52,7 +52,7 @@
 
             ret.icon = `item/${itemId}`;
             ret.itemLevel = parseInt(parts[2]) || item?.itemLevel || 1;
-            ret.name = `{${groupKey}}`;
+            ret.name = `{item:${itemId}}`;
         } else if (groupKey.startsWith('pet:')) {
             const pet = wowthingData.static.petById.get(parseInt(groupKey.split(':')[1]));
             ret.icon = `npc/${pet.creatureId}`;

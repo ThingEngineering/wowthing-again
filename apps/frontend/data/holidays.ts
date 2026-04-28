@@ -109,7 +109,7 @@ export const fancyHolidays: FancyHoliday[] = [
     },
     {
         holiday: Holiday.ChildrensWeek,
-        shortName: 'Children',
+        shortName: '👶',
         everything: 'childrens-week',
     },
     {

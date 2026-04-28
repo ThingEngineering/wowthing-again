@@ -51,7 +51,7 @@ public class ApiUserCharacter
     public ApiUserCharacterMythicPlus MythicPlus { get; }
     public Dictionary<int, ApiUserCharacterAddonDataMythicPlus> MythicPlusAddon { get; }
     public Dictionary<int, Dictionary<int, PlayerCharacterAddonDataMythicPlusMap>> MythicPlusSeasons { get; set; }
-    public Dictionary<int, PlayerCharacterReputationsParagon> Paragons { get; }
+    public Dictionary<int, PlayerCharacterAddonDataParagon> Paragons { get; }
     public Dictionary<int, List<PlayerCharacterAddonDataPatronOrder>> PatronOrders { get; set; }
     public Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>> Professions { get; }
     public Dictionary<string, List<int>> ProfessionCooldowns { get; set; }
@@ -157,7 +157,7 @@ public class ApiUserCharacter
         RawSpecializations = character.Specializations?.Specializations;
 
         Configuration = new ApiUserCharacterConfiguration(character.Configuration);
-        Paragons = character.Reputations?.Paragons ?? new Dictionary<int, PlayerCharacterReputationsParagon>();
+        Paragons = character.AddonData?.Paragons ?? new Dictionary<int, PlayerCharacterAddonDataParagon>();
 
         RawItems = items;
         // Bags = bagItems
