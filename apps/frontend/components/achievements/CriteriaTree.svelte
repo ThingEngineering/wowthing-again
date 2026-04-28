@@ -120,8 +120,9 @@
                 linkType = 'achievement';
                 linkId = criteria.asset;
 
-                const earned = userState.achievements.achievementEarnedById.has(criteria.asset);
+                const earned = userState.achievements.achievementEarnedById.get(criteria.asset);
                 if (earned) {
+                    have = true;
                     linkParams['who'] = 'You';
                     linkParams['when'] = earned.toString() + '000';
                 }
