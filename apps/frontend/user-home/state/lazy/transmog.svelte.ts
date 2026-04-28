@@ -66,10 +66,17 @@ export function doTransmog(): LazyTransmog {
 
         const hasSource = overrideHas || hasAppearanceBySource.has(itemId * 1000 + modifier);
         const hasAppearance = hasSource || overrideHas || hasAppearanceById.has(appearanceId);
+        const hasCompletionist = completionistMode ? hasSource : hasAppearance;
 
         slotData[actualSlot] ||= [false, []];
-        slotData[actualSlot][0] ||= completionistMode ? hasSource : hasAppearance;
-        slotData[actualSlot][1].push([hasAppearance, hasSource, itemId, modifier, appearanceId]);
+        slotData[actualSlot][0] ||= hasCompletionist;
+        slotData[actualSlot][1].push([
+            hasAppearance,
+            hasCompletionist,
+            itemId,
+            modifier,
+            appearanceId,
+        ]);
     };
 
     const completionistMode = settingsState.value.transmog.completionistMode;
