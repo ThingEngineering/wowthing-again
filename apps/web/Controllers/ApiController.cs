@@ -450,7 +450,10 @@ public class ApiController : Controller
 
         // Reputations
         var reputations = new Dictionary<int, int>();
-        foreach (var account in accounts.Where(account => account.AddonData?.Reputations != null).OrderByDescending(account => account.AddonData.ReputationsScannedAt))
+        var repAccounts = accounts
+            .Where(account => account.AddonData?.Reputations != null)
+            .OrderBy(account => account.AddonData.ReputationsScannedAt);
+        foreach (var account in repAccounts)
         {
             foreach ((int factionId, int value) in account.AddonData.Reputations)
             {
