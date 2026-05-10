@@ -70,7 +70,7 @@
 
         if (byThing.length === 0) {
             byThing = ['---'];
-        } else if (byThing.length === 6) {
+        } else if (byThing.length === 7) {
             byThing = ['ALL'];
         }
 
