@@ -135,7 +135,7 @@
     <h4>{character?.name || `Unknown Character #${characterId}`}</h4>
     <h5>{task?.name || `Unknown Task "${taskName}"`}</h5>
 
-    {#each choreSets as choreSet (choreSet)}
+    {#each choreSets.filter((s) => s.length > 0) as choreSet (choreSet)}
         <table class="table-striped">
             <tbody>
                 {#each choreSet as charTaskChore (charTaskChore)}
