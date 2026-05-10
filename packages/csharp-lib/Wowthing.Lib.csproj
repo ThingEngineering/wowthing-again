@@ -18,7 +18,7 @@
     <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="10.0.7" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
     <PackageReference Include="SluggyUnidecode" Version="2.0.1" />
-    <PackageReference Include="StackExchange.Redis" Version="2.8.37" />
+    <PackageReference Include="StackExchange.Redis" Version="2.12.14" />
   </ItemGroup>
 
 </Project>
