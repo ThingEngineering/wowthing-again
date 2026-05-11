@@ -40,7 +40,7 @@ public static class DatabaseExtensions
 
     public static async Task<bool> JsonSetAsync<T>(this IDatabase db, string key, T obj, TimeSpan? expiry = null)
     {
-        return await db.StringSetAsync(key, JsonSerializer.Serialize(obj), expiry);
+        return await db.StringSetAsync(key, JsonSerializer.Serialize(obj), TimeSpanToExpiration(expiry));
     }
 
     public static async Task<string[]> StringMultiGetAsync(this IDatabase db, IEnumerable<string> keys)
@@ -52,7 +52,7 @@ public static class DatabaseExtensions
 
     public static async Task StringMultiSetAsync(this IDatabase db, IEnumerable<string> keys, string value, TimeSpan? expiry = null)
     {
-        var tasks = keys.Select(k => db.StringSetAsync(k, value, expiry));
+        var tasks = keys.Select(k => db.StringSetAsync(k, value, TimeSpanToExpiration(expiry)));
         await Task.WhenAll(tasks);
     }
 
@@ -71,6 +71,11 @@ public static class DatabaseExtensions
     public static async Task<bool> CompressedStringSetAsync(this IDatabase db, string key, string value, TimeSpan? expiry = null)
     {
         byte[] data = LZ4Pickler.Pickle(Encoding.UTF8.GetBytes(value));
-        return await db.StringSetAsync(key, data, expiry);
+        return await db.StringSetAsync(key, data, TimeSpanToExpiration(expiry));
+    }
+
+    private static Expiration TimeSpanToExpiration(TimeSpan? expiry)
+    {
+        return expiry != null ? new Expiration((TimeSpan)expiry) : Expiration.Default;
     }
 }

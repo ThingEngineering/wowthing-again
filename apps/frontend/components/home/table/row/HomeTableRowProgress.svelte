@@ -15,6 +15,8 @@
 <style lang="scss">
     td {
         --width: 2rem;
+
+        word-spacing: -0.2ch;
     }
 </style>
 
@@ -43,6 +45,8 @@
             >
                 {#if data.have > 0 && data.have === data.total}
                     <IconifyWrapper icon={uiIcons.starFull} />
+                {:else if data.inProgress}
+                    {data.have}+{data.inProgress} / {data.total}
                 {:else}
                     {data.have} / {data.total}
                 {/if}

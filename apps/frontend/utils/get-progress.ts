@@ -25,7 +25,8 @@ export default function getProgress(
     group: ManualDataProgressGroup,
     countAccountWide = true
 ): ProgressInfo {
-    let have: number = 0;
+    let have = 0;
+    let inProgress = 0;
     let missingRequired = false;
     let showCurrency = 0;
     let total = 0;
@@ -193,11 +194,24 @@ export default function getProgress(
                 }
 
                 let haveThis = false;
-                if (
-                    (group.type === 'quest' && checkCharacterQuestIds(character.id, data.ids)) ||
-                    (group.type === 'accountQuest' && checkAccountQuestIds(data.ids))
-                ) {
-                    haveThis = true;
+                if (group.type === 'quest' || group.type === 'accountQuest') {
+                    haveThis =
+                        (group.type === 'quest' &&
+                            checkCharacterQuestIds(character.id, data.ids)) ||
+                        (group.type === 'accountQuest' && checkAccountQuestIds(data.ids));
+
+                    if (group.name === 'Delves') {
+                        const progressQuest = userState.quests.characterById
+                            .get(character.id)
+                            ?.progressQuestByKey?.get(`q${data.ids[0]}`);
+                        if (
+                            progressQuest &&
+                            progressQuest.objectives[0] &&
+                            progressQuest.objectives[0].have === progressQuest.objectives[0].need
+                        ) {
+                            inProgress++;
+                        }
+                    }
 
                     if (group.name === 'Brewfest Intro Quests') {
                         showCurrency = 1037829; // Cyphers of the First Ones
@@ -504,6 +518,7 @@ export default function getProgress(
         have,
         haveIndexes,
         icon,
+        inProgress,
         missingRequired,
         nameOverride,
         showCurrency,
@@ -549,6 +564,7 @@ export interface ProgressInfo {
     have: number;
     haveIndexes: number[];
     icon: string;
+    inProgress: number;
     missingRequired: boolean;
     nameOverride: Record<number, string>;
     showCurrency: number;

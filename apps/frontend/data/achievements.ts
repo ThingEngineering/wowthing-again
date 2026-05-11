@@ -500,6 +500,35 @@ export const extraCategories: ExtraAchievementCategory[] = [
                     61380, // Glory of the Midnight Raider
                 ],
             },
+            {
+                targetSlug: 'player-vs-player/world',
+                nameType: 1,
+                onlyAchievementIds: true,
+                achievementIds: [
+                    61446, // Slayer's Mastery
+                    61464, // Spark in the Night
+                    61465, // Spark in the Night
+                    61447, // Partake in the Rise
+                    61448, // Frequent the Rise
+                    61449, // Customary Rise
+                    61265, // Spectral Capture
+                    61266, // Spectral Stocker
+                    61234, // Hunt in the Night
+                    61238, // Midnight Bounty
+                    61231, // Midnight Loot
+                    61232, // Midnight Treasures
+                    61230, // Remains in the Rise
+                    61227, // Entering the Void
+                    61228, // Embracing the Void
+                    61229, // Dedication in the Void
+                    61225, // Investigating the Rise
+                    61226, // Uprising
+                    61221, // Tour of Duty: Eversong Woods
+                    61222, // Tour of Duty: Zul'Aman
+                    61223, // Tour of Duty: Harandar
+                    61224, // Tour of Duty: Voidstorm
+                ],
+            },
             null,
             { targetSlug: 'expansion-features/prey', nameType: 2 },
             { targetSlug: 'expansion-features/ritual-sites', nameType: 2 },

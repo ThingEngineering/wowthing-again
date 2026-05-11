@@ -3,7 +3,7 @@ import type { StaticDataReputationTier } from '@/shared/stores/static/types';
 
 export default function findReputationTier(
     tiers: StaticDataReputationTier,
-    characterRep: number,
+    characterRep: number
 ): ReputationTier | undefined {
     for (let i = tiers.minValues.length - 1; i >= 0; i--) {
         const finalTier = i === tiers.minValues.length - 1;
@@ -37,8 +37,17 @@ export default function findReputationTier(
                 tiers.minValues.length - i,
                 maxValue,
                 value,
-                percent,
+                percent
             );
         }
     }
+
+    console.warn('invalid value for findReputationTier', tiers.id, characterRep);
+    return new ReputationTier(
+        tiers.names[0],
+        1,
+        tiers.minValues[1] - tiers.minValues[0],
+        tiers.minValues[0],
+        '0.0'
+    );
 }

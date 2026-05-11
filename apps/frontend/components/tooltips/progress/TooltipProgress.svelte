@@ -180,7 +180,7 @@
 
     {#if showCurrencies?.length > 0 && !(showCurrencies.length === 1 && showCurrencies[0] === 0)}
         <div class="bottom">
-            {#each showCurrencies as currencyId}
+            {#each showCurrencies as currencyId (currencyId)}
                 <span>
                     {#if currencyId > 1000000}
                         <WowthingImage name="item/{currencyId - 1000000}" size={20} border={1} />
