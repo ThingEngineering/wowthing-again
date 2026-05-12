@@ -19,9 +19,8 @@
                 modifiedAppearance.itemId.toString(),
                 ...(modifiedAppearance.modifier > 0
                     ? [modifiedAppearance.modifier.toString()]
-                    : []
-                ).join('_'),
-            ]
+                    : []),
+            ].join('_')
     );
 
     let [difficulty, difficultyShort, bonusId] = $derived(
@@ -53,6 +52,7 @@
     class="appearance-item quality{modifiedAppearance.quality}"
     class:missing={(has && $appearanceState.highlightMissing) ||
         (!has && !$appearanceState.highlightMissing)}
+    data-modifier={modifiedAppearance.modifier}
 >
     <WowheadLink
         id={modifiedAppearance.itemId}
