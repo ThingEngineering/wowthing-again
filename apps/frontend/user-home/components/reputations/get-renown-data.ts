@@ -88,7 +88,6 @@ export function getRenownData({
             ret.dataRep.id === Constants.reputations.delveBrann ||
             ret.dataRep.id === Constants.reputations.delveValeera
         ) {
-            console.log(ret);
             const levelMatch = ret.repTier.name.match(/(\d{1,3})$/);
             if (levelMatch) {
                 const oof =
