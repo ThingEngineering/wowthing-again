@@ -45,7 +45,7 @@ class ActiveViewTasks {
                 if (chore.requiredHolidays?.length > 0) {
                     if (
                         chore.requiredHolidays.some(
-                            (holidayId) => !!activeHolidays.value[holidayId]
+                            (holidayId) => activeHolidays.value[holidayId]?.soon === false
                         )
                     ) {
                         activeChores.push(chore);
