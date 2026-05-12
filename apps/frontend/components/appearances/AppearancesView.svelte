@@ -51,7 +51,7 @@
             <SectionTitle count={lazyState.appearances.stats[dataSlug]} title={name} />
 
             <div class="collection-v2-section">
-                {#each sets as set}
+                {#each sets as set (set.name)}
                     <Set slug={`${dataSlug}--${set.name}`} {set} />
                 {/each}
             </div>
