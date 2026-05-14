@@ -2,6 +2,7 @@
     import sortBy from 'lodash/sortBy';
 
     import { Constants } from '@/data/constants';
+    import { currencyGood } from '@/data/currencies';
     import { imageStrings } from '@/data/icons';
     import { professionMoxie } from '@/data/professions/moxie';
     import { wowthingData } from '@/shared/stores/data';
@@ -62,12 +63,18 @@
 <td>
     <div class="flex-wrapper">
         {#each professions as profession}
-            {@const { amount, tooltip } = getCurrencyData(
+            {@const currencyId = professionMoxie[profession.id]}
+            {@const { amount, amountRaw, tooltip } = getCurrencyData(
                 $timeStore,
                 character,
-                wowthingData.static.currencyById.get(professionMoxie[profession.id])
+                wowthingData.static.currencyById.get(currencyId)
             )}
-            <div class="moxie" data-tooltip={tooltip}>
+            {@const good = currencyGood[currencyId] || 0}
+            <div
+                class="moxie"
+                class:status-success={good && amountRaw >= good}
+                data-tooltip={tooltip}
+            >
                 <WowthingImage name={imageStrings[profession.slug]} size={20} border={1} />
                 <span>{amount}</span>
             </div>
