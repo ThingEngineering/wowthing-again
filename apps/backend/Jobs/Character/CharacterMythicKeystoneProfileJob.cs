@@ -119,11 +119,6 @@ public class CharacterMythicKeystoneProfileJob : JobBase
                 await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMythicKeystoneProfileSeason, data[0], apiSeason.ToString());
             }
 
-            // HACK for RaiderIO + Remix: Legion
-            if (apiSeasons.Contains(15))
-            {
-                apiSeasons.Insert(0, 1001);
-            }
             await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterRaiderIo, data[0], JsonSerializer.Serialize(apiSeasons));
         }
     }
