@@ -5,6 +5,7 @@
     import { imageStrings } from '@/data/icons';
     import { uiIcons } from '@/shared/icons';
     import { professionIdToSlug } from '@/data/professions';
+    import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { getNameForFaction } from '@/utils/get-name-for-faction';
     import { getProfessionEquipment, getProfessionSortKey } from '@/utils/professions';
@@ -16,9 +17,8 @@
 
     import Empty from '../../items/ItemsEmpty.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
-    import Item from '../../items/ItemsItem.svelte';
+    import Item from '@/components/items/ItemsItem.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { settingsState } from '@/shared/state/settings.svelte';
 
     let { character, professionId, slug }: CharacterProps & { professionId: number; slug: string } =
         $props();

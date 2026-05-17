@@ -218,6 +218,8 @@
                 data-tooltip="Profession Cooldowns"
                 onclick={() => setSortState()}>CDs</td
             >
+        {:else if field === 'professionEquipment'}
+            <td>Equip</td>
         {:else if field === 'professionMoxie'}
             <td>Moxie</td>
         {:else if field === 'professionWorkOrders'}

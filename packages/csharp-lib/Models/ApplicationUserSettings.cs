@@ -108,6 +108,7 @@ public class ApplicationUserSettings
         "professionConcentrationTWW",
         "professionConcentrationDF",
         "professionCooldowns",
+        "professionEquipment",
         "professionMoxie",
         "professionWorkOrders",
         "professions",

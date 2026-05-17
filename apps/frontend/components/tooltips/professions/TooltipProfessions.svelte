@@ -11,6 +11,7 @@
 
     export let character: Character;
     export let profession: StaticDataProfession;
+    export let showLevels = true;
 
     let name: string;
     let subProfessions: [string, number, number][];
@@ -55,7 +56,8 @@
         text-align: center;
     }
     .equipment {
-        margin: 0.5rem 0;
+        margin: 0.25rem 0;
+        padding: 0 0.25rem;
     }
 </style>
 
@@ -70,22 +72,26 @@
         {name}
     </h5>
 
-    <table class="table-striped">
-        <tbody>
-            {#each subProfessions as [name, current, max]}
-                <tr>
-                    <td class="name">{name}</td>
-                    {#if max > 0}
-                        <td class="number {getPercentClass((current / max) * 100)}">{current}</td>
-                        <td class="separator">/</td>
-                        <td class="number {getPercentClass((current / max) * 100)}">{max}</td>
-                    {:else}
-                        <td class="status-fail" colspan="3">--------</td>
-                    {/if}
-                </tr>
-            {/each}
-        </tbody>
-    </table>
+    {#if showLevels}
+        <table class="table-striped">
+            <tbody>
+                {#each subProfessions as [name, current, max]}
+                    <tr>
+                        <td class="name">{name}</td>
+                        {#if max > 0}
+                            <td class="number {getPercentClass((current / max) * 100)}"
+                                >{current}</td
+                            >
+                            <td class="separator">/</td>
+                            <td class="number {getPercentClass((current / max) * 100)}">{max}</td>
+                        {:else}
+                            <td class="status-fail" colspan="3">--------</td>
+                        {/if}
+                    </tr>
+                {/each}
+            </tbody>
+        </table>
+    {/if}
 
     <div class="equipment">
         <Equipment {character} {profession} />
