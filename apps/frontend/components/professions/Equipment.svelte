@@ -7,8 +7,8 @@
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    type Props = CharacterProps & { profession: StaticDataProfession };
-    let { character, profession }: Props = $props();
+    type Props = CharacterProps & { profession: StaticDataProfession; size?: number };
+    let { character, profession, size = 48 }: Props = $props();
 
     let equippedItems = $derived(getProfessionEquipment(character, profession.id));
     let length = $derived(
@@ -26,9 +26,9 @@
         justify-content: center;
     }
     .item {
-        height: 52px;
+        height: calc(var(--size) + 4px);
         position: relative;
-        width: 52px;
+        width: calc(var(--size) + 4px);
     }
     .item-level {
         bottom: 2px;
@@ -43,18 +43,18 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 52px;
-        width: 52px;
+        height: calc(var(--size) + 4px);
+        width: calc(var(--size) + 4px);
     }
 </style>
 
-<div class="item-container">
+<div class="item-container" style:--size={`${size}px`}>
     {#each { length }, index}
         {@const equippedItem = equippedItems[index]}
         {#if equippedItem}
             <div class="item quality{equippedItem.quality}">
                 <a href={getItemUrl(equippedItem)}>
-                    <WowthingImage name="item/{equippedItem.itemId}" size={48} border={2} />
+                    <WowthingImage name="item/{equippedItem.itemId}" {size} border={2} />
 
                     <span class="item-level pill abs-center">{equippedItem.itemLevel}</span>
 

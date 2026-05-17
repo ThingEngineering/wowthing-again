@@ -28,6 +28,7 @@
     import RowProfessions from './table/row/HomeTableRowProfessions.svelte';
     import RowProfessionConcentration from './table/row/HomeTableRowProfessionConcentration.svelte';
     import RowProfessionCooldowns from './table/row/HomeTableRowProfessionCooldowns.svelte';
+    import RowProfessionEquipment from './table/row/HomeTableRowProfessionEquipment.svelte';
     import RowProfessionMoxie from './table/row/HomeTableRowProfessionMoxie.svelte';
     import RowProfessionsV2 from './table/row/HomeTableRowProfessionsV2.svelte';
     import RowProfessionWorkOrders from './table/row/HomeTableRowProfessionWorkOrders.svelte';
@@ -124,6 +125,8 @@
                     <RowProfessionConcentration {character} expansion={9} />
                 {:else if field === 'professionCooldowns'}
                     <RowProfessionCooldowns {character} />
+                {:else if field === 'professionEquipment'}
+                    <RowProfessionEquipment {character} />
                 {:else if field === 'professionMoxie'}
                     <RowProfessionMoxie {character} />
                 {:else if field === 'professionWorkOrders'}
