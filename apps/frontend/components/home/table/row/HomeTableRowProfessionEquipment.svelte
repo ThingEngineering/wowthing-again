@@ -3,7 +3,7 @@
 
     import { Constants } from '@/data/constants';
     import { imageStrings } from '@/data/icons';
-    import { isCraftingProfession, professionIdToSlug } from '@/data/professions';
+    import { isSecondaryProfession, professionIdToSlug } from '@/data/professions';
     import { wowthingData } from '@/shared/stores/data';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { getNumberKeys } from '@/utils/get-number-keyed-entries';
@@ -19,7 +19,7 @@
     let primaryProfessions = $derived(
         sortBy(
             getNumberKeys(character.professions).filter(
-                (professionId) => isCraftingProfession[professionId]
+                (professionId) => !isSecondaryProfession[professionId]
             ),
             (professionId) =>
                 getProfessionSortKey(wowthingData.static.professionById.get(professionId))
