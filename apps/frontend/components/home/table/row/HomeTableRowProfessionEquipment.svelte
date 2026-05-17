@@ -33,20 +33,18 @@
         padding-left: var(--padding-size);
         padding-right: var(--padding-size);
     }
-    .flex-wrapper {
-        // --image-margin-top: -4px !important;
-    }
     .profession {
         align-items: center;
         display: flex;
-        gap: 0.1rem;
 
         &:not(:first-child) {
             border-left: 1px solid var(--border-color);
             margin-left: var(--padding-size);
             padding-left: var(--padding-size);
         }
-        > * {
+        :global(> *) {
+            margin-left: 0.2rem;
+            text-align: center;
             width: 1.2rem;
         }
     }
@@ -54,12 +52,7 @@
         border: 2px solid var(--image-border-color);
         border-radius: var(--border-radius);
         line-height: 1;
-        padding: 2px 0;
-        text-align: center;
-
-        &:nth-child(2) {
-            margin-left: 0.1rem;
-        }
+        padding: 1px 0;
     }
 </style>
 
