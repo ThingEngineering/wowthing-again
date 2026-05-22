@@ -164,12 +164,12 @@
             class="profession-knowledge status-{zoneData.status}"
             use:componentTooltip={{
                 component: Tooltip,
-                props: {
+                propsFunc: () => ({
                     character,
                     reputationId: 0,
                     zoneData,
                     zoneName: zone.name,
-                },
+                }),
             }}
         >
             {zoneData.have} / {zoneData.total}
