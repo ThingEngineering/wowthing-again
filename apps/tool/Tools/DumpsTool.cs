@@ -723,6 +723,8 @@ public class DumpsTool
 
             dbHouseDecor.ItemId = houseDecor.ItemID;
             dbHouseDecor.Type = houseDecor.Type;
+
+            _teachDecorByItemId.GetOrNew(houseDecor.ItemID).Add(houseDecor.ID);
         }
 
         _timer.AddPoint("Decor");
@@ -1036,8 +1038,8 @@ public class DumpsTool
 
             dbItem.Sockets = itemSparse.SocketTypes.Where(socketType => socketType > 0).ToArray();
 
-            dbItem.TeachesDecorIds = _teachDecorByItemId.GetValueOrDefault(item.ID, []).Order().ToArray();
-            dbItem.TeachesSpellIds = _teachSpellByItemId.GetValueOrDefault(item.ID, []).Order().ToArray();
+            dbItem.TeachesDecorIds = _teachDecorByItemId.GetValueOrDefault(item.ID, []).Distinct().Order().ToArray();
+            dbItem.TeachesSpellIds = _teachSpellByItemId.GetValueOrDefault(item.ID, []).Distinct().Order().ToArray();
             dbItem.TeachesTransmogIllusionIds = _teachTransmogIllusionByItemId.GetValueOrDefault(item.ID, []).Order().ToArray();
             dbItem.TeachesTransmogSetIds = _teachTransmogSetByItemId.GetValueOrDefault(item.ID, []).Order().ToArray();
 
