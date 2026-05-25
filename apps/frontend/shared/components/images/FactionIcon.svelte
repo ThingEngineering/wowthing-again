@@ -1,20 +1,18 @@
 <script lang="ts">
-    import { imageStrings } from '@/data/icons'
-    import { Faction } from '@/enums/faction'
+    import { imageStrings } from '@/data/icons';
+    import { Faction } from '@/enums/faction';
 
-    import WowthingImage from './sources/WowthingImage.svelte'
+    import WowthingImage from './sources/WowthingImage.svelte';
 
-    export let faction: Faction
-    export let size = 20
-    export let border = 1
-    export let useTooltip = true
+    type Props = {
+        faction: Faction;
+        border?: number;
+        size?: number;
+        useTooltip?: boolean;
+    };
+    let { faction, border = 1, size = 20, useTooltip }: Props = $props();
 
-    let tooltip: string
-    $: {
-        if (useTooltip) {
-            tooltip = Faction[faction]
-        }
-    }
+    let tooltip = $derived(useTooltip ? Faction[faction] : undefined);
 </script>
 
 <WowthingImage

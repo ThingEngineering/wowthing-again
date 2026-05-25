@@ -1,16 +1,15 @@
 <script lang="ts">
     import { wowthingData } from '@/shared/stores/data';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     //import Talents from './CharacterSpecializationsTalents.svelte'
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 
-    let specIds: number[];
-    $: {
-        specIds = wowthingData.static.characterClassById.get(character.classId).specializationIds;
-    }
+    let specIds = $derived(
+        wowthingData.static.characterClassById.get(character.classId).specializationIds
+    );
 </script>
 
 <style lang="scss">
@@ -24,7 +23,7 @@
 
 <div class="specializations">
     <UnderConstruction />
-    {#each specIds as specializationId}
+    {#each specIds as specializationId (specializationId)}
         {specializationId}
         <!--<Talents
             {character}

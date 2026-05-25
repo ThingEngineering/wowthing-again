@@ -1,13 +1,16 @@
 <script lang="ts">
+    import type { Snippet } from 'svelte';
+
     import { settingsState } from '@/shared/state/settings.svelte';
 
-    export let cls = '';
-    export let id: number;
+    type Props = {
+        children?: Snippet;
+        cls?: string;
+        id: number;
+    };
+    let { children, cls = '', id }: Props = $props();
 
-    let url: string;
-    $: {
-        url = `https://${settingsState.wowheadBaseUrl}/transmog-set=${id}`;
-    }
+    let url = $derived(`https://${settingsState.wowheadBaseUrl}/transmog-set=${id}`);
 </script>
 
 <style lang="scss">
@@ -17,5 +20,5 @@
 </style>
 
 <a href={url} class={cls}>
-    <slot />
+    {@render children?.()}
 </a>

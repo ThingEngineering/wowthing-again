@@ -8,28 +8,28 @@
     import CharacterTable from '@/components/character-table/CharacterTable.svelte';
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte';
     import Profession from './TableProfession.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import ProfessionSpecializationIcon from '@/shared/components/icons/ProfessionSpecializationIcon.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let characterIds: number[] = undefined;
-    export let profession: StaticDataProfession;
+    type Props = {
+        characterIds?: number[];
+        profession: StaticDataProfession;
+    };
+    let { characterIds, profession }: Props = $props();
 
-    let filterFunc: (char: Character) => boolean;
-    let sortFunc: (char: Character) => string;
-    $: {
-        if (profession) {
-            filterFunc = (char) =>
-                !!char.professions?.[profession.id] &&
-                (!characterIds || characterIds.includes(char.id));
-        } else {
-            filterFunc = () => false;
-        }
+    let filterFunc = $derived(
+        (profession
+            ? (char) =>
+                  !!char.professions?.[profession.id] &&
+                  (!characterIds || characterIds.includes(char.id))
+            : () => false) as (char: Character) => boolean
+    );
 
-        sortFunc =
-            characterIds?.length > 0
-                ? (char) => leftPad(characterIds.indexOf(char.id), 2, '0')
-                : undefined;
-    }
+    let sortFunc = $derived(
+        (characterIds?.length > 0
+            ? (char) => leftPad(characterIds.indexOf(char.id), 2, '0')
+            : undefined) as (char: Character) => string
+    );
 </script>
 
 <style lang="scss">
@@ -62,7 +62,7 @@
             {#if profession.slug === 'archaeology'}
                 <th class="profession-head">Ugh</th>
             {:else}
-                {#each settingsState.expansions as expansion}
+                {#each settingsState.expansions as expansion (expansion.id)}
                     <th class="profession-head">{expansion.shortName}</th>
                 {/each}
             {/if}
@@ -73,7 +73,7 @@
         </CharacterTableHead>
 
         <svelte:fragment slot="rowExtra" let:character>
-            {#each settingsState.expansions as expansion}
+            {#each settingsState.expansions as expansion (expansion.id)}
                 <Profession
                     primaryId={profession.id}
                     subId={profession.expansionSubProfession[expansion.id]?.id}

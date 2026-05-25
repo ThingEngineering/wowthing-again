@@ -6,9 +6,8 @@
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
 
-    let categories: SidebarItem[];
-    $: {
-        categories = [
+    let categories = $derived.by(() => {
+        const ret: SidebarItem[] = [
             {
                 name: 'All',
                 slug: 'all',
@@ -26,22 +25,21 @@
         ]);
 
         for (const profession of sorted.filter((prof) => prof.type === 0)) {
-            categories.push({
+            ret.push({
                 name: profession.name.split('|')[0],
                 slug: profession.slug,
             });
         }
-        categories.push(null);
+        ret.push(null);
         for (const profession of sorted.filter((prof) => prof.type === 1)) {
-            categories.push({
+            ret.push({
                 name: profession.name.split('|')[0],
                 slug: profession.slug,
             });
         }
-    }
-</script>
 
-<style lang="scss">
-</style>
+        return ret;
+    });
+</script>
 
 <Sidebar baseUrl="/professions/overview" items={categories} width="10rem"></Sidebar>
