@@ -23,6 +23,7 @@ public class PlayerAccount
     public PlayerAccountAddonData AddonData { get; set; }
     public List<PlayerCharacter> Characters { get; set; }
     public PlayerAccountHeirlooms Heirlooms { get; set; }
+    public PlayerAccountMounts Mounts { get; set; }
     public PlayerAccountPets Pets { get; set; }
     public PlayerAccountToys Toys { get; set; }
     public PlayerAccountTransmogIds TransmogIds { get; set; }
