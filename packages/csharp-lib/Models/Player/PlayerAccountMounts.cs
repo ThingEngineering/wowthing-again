@@ -12,4 +12,9 @@ public class PlayerAccountMounts
     public DateTime UpdatedAt { get; set; }
 
     public List<int> MountIds { get; set; }
+
+    public PlayerAccountMounts(int accountId)
+    {
+        AccountId = accountId;
+    }
 }

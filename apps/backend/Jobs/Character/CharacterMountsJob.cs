@@ -19,6 +19,31 @@ public class CharacterMountsJob : JobBase
 
     public override async Task Run(string[] data)
     {
+        if (_query?.AccountId == null)
+        {
+            throw new InvalidDataException("AccountId is null");
+        }
+
+        int accountId = _query.AccountId.Value;
+
+        string lockKey = $"account_mounts:{accountId}";
+        string lockValue = Guid.NewGuid().ToString("N");
+        try
+        {
+            // Attempt to get exclusive scheduler lock
+            bool lockSuccess = await JobRepository.AcquireLockAsync(lockKey, lockValue, TimeSpan.FromMinutes(1));
+            if (!lockSuccess)
+            {
+                Logger.Debug("Skipping pets, lock failed");
+                return;
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.Error(ex, "Kaboom!");
+            return;
+        }
+
         // Fetch API data
         ApiCharacterMounts resultData;
         var uri = GenerateUri(_query, ApiPath);
@@ -39,27 +64,31 @@ public class CharacterMountsJob : JobBase
         }
 
         // Fetch character data
-        var pcMounts = await Context.PlayerCharacterMounts.FindAsync(_query.CharacterId);
-        if (pcMounts == null)
+        var paMounts = await Context.PlayerAccountMounts.FindAsync(accountId);
+        if (paMounts == null)
         {
-            pcMounts = new PlayerCharacterMounts
-            {
-                CharacterId = _query.CharacterId,
-            };
-            Context.PlayerCharacterMounts.Add(pcMounts);
+            paMounts = new PlayerAccountMounts(accountId);
+            Context.PlayerAccountMounts.Add(paMounts);
         }
 
-        var mounts = resultData.Mounts
-            .Select(mount => mount.Mount.Id)
+        var apiMounts = resultData.Mounts
+            .Select(mount => mount.Mount.Id);
+
+        var allMounts = paMounts.MountIds.EmptyIfNull()
+            .Concat(apiMounts)
             .OrderBy(mountId => mountId)
+            .Distinct()
             .ToList();
 
-        if (pcMounts.Mounts == null || !mounts.SequenceEqual(pcMounts.Mounts))
+        if (paMounts.MountIds == null || !allMounts.SequenceEqual(paMounts.MountIds))
         {
-            pcMounts.Mounts = mounts;
+            paMounts.MountIds = allMounts;
+            paMounts.UpdatedAt = DateTime.UtcNow;
+
+            await Context.SaveChangesAsync(CancellationToken);
         }
 
-        await Context.SaveChangesAsync(CancellationToken);
+        await JobRepository.ReleaseLockAsync(lockKey, lockValue);
     }
 
     public override async Task Finally()
