@@ -27,6 +27,7 @@ const skippedIds = new Set<number>([
     243060, // Luminant Flux
     245882, // Thalassian Songwater
     253302, // Malleable Wireframe
+    253303, // Pile of Junk
 ]);
 
 export function getCharacterCommodities(
