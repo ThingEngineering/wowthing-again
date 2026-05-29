@@ -41,4 +41,5 @@ export const durationAuras: [number, string, boolean?][] = [
 export const staticAuras: [number, string][] = [
     [306715, 'XP gain disabled'],
     [1246363, "Delver's Bounty"],
+    [1254631, "Trovehunter's Bounty"],
 ];
