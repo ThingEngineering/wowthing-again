@@ -1,21 +1,20 @@
 <script lang="ts">
     import { currencyGood } from '@/data/currencies';
-    import { timeStore } from '@/shared/stores/time';
+    import { timeState } from '@/shared/state/time.svelte';
     import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import type { StaticDataCurrency } from '@/shared/stores/static/types';
-    import type { Character } from '@/types/character';
+    import type { CharacterProps } from '@/types/props';
 
-    export let character: Character;
-    export let currency: StaticDataCurrency = undefined;
-    export let itemId = 0;
-    export let sortingBy: boolean;
+    type Props = CharacterProps & {
+        sortingBy: boolean;
+        currency?: StaticDataCurrency;
+        itemId?: number;
+    };
+    let { character, sortingBy, currency, itemId }: Props = $props();
 
-    $: ({ amount, amountRaw, percent, tooltip } = getCurrencyData(
-        $timeStore,
-        character,
-        currency,
-        itemId
-    ));
+    let { amount, amountRaw, percent, tooltip } = $derived(
+        getCurrencyData(timeState.slowTime, character, currency, itemId)
+    );
 </script>
 
 <style lang="scss">
@@ -36,8 +35,8 @@
     <td
         class:alt={sortingBy}
         class:status-success={good && amountRaw >= good}
-        class:status-shrug={percent > 50}
-        class:status-warn={percent >= 90}
+        class:status-shrug={percent > 50 && percent < 90}
+        class:status-warn={percent >= 90 && percent < 100}
         class:status-fail={percent >= 100}
         class:faded={amount === '0' && percent === 0}
         data-tooltip={tooltip}

@@ -7,20 +7,29 @@
 
     import WowthingImage from './sources/WowthingImage.svelte';
 
-    export let character: Character = undefined;
-    export let characterRace: StaticDataCharacterRace = undefined;
-    export let gender = 0;
-    export let raceId = 0;
-    export let size = 20;
-    export let border = 1;
+    type Props = {
+        border?: number;
+        size?: number;
+        character?: Character;
+        characterRace?: StaticDataCharacterRace;
+        gender?: number;
+        raceId?: number;
+    };
+    let {
+        border = 1,
+        size = 20,
+        gender = 0,
+        raceId = 0,
+        character,
+        characterRace,
+    }: Props = $props();
 
-    let race: StaticDataCharacterRace;
-    let tooltip: string;
-    $: {
-        race =
-            characterRace || wowthingData.static.characterRaceById.get(character?.raceId || raceId);
-        tooltip = `${Gender[character?.gender || gender]} ${getGenderedName(race?.name ?? 'Unknown', character?.gender ?? 0)}`;
-    }
+    let race = $derived(
+        characterRace || wowthingData.static.characterRaceById.get(character?.raceId || raceId)
+    );
+    let tooltip = $derived(
+        `${Gender[character?.gender || gender]} ${getGenderedName(race?.name ?? 'Unknown', character?.gender ?? 0)}`
+    );
 </script>
 
 <WowthingImage name="race_{race.id}_{character?.gender ?? 0}" {size} {border} {tooltip} />

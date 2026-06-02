@@ -23,6 +23,11 @@ const skippedIds = new Set<number>([
     108300, // Mithril Ore Nugget
     190452, // Primal Flux
     194784, // Glittering Parchment
+    240991, // Sunglass Vial 2
+    243060, // Luminant Flux
+    245882, // Thalassian Songwater
+    253302, // Malleable Wireframe
+    253303, // Pile of Junk
 ]);
 
 export function getCharacterCommodities(

@@ -14,7 +14,6 @@ class SpecificStore {
     ): Promise<UserAuctionDataAuction[]> {
         let things: UserAuctionDataAuction[] = [];
 
-        console.log(groupKey);
         const cacheKey = [auctionAppState.region, groupKey].join('--');
 
         if (this.cache[cacheKey]) {

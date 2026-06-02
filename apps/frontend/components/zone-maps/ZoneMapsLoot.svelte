@@ -48,8 +48,6 @@
             }
         }
 
-        console.log({ groupedLoot, groupedGroups });
-
         // groupedGroups is now farmIds->dropTypeAndIds
         for (const [farmIdString, dropKeys] of Object.entries(groupedGroups)) {
             const dropIndexes: number[] = [];

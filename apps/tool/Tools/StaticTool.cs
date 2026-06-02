@@ -701,7 +701,7 @@ public class StaticTool
         {
             if (!decorIdToSubcategoryId.TryGetValue(houseDecor.ID, out var outSubcategoryIds))
             {
-                // ToolContext.Logger.Warning("Decor {d} has no sub-category ids!", houseDecor.ID);
+                ToolContext.Logger.Warning("Decor {d}/{i} has no sub-category ids!", houseDecor.ID, houseDecor.ItemID);
                 continue;
             }
 

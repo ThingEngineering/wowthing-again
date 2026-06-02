@@ -67,24 +67,24 @@ public class CharacterPetsJob : JobBase
         }
 
         // Fetch character data
-        var pets = await Context.PlayerAccountPets.FindAsync(accountId);
-        if (pets == null)
+        var paPets = await Context.PlayerAccountPets.FindAsync(accountId);
+        if (paPets == null)
         {
-            pets = new PlayerAccountPets(accountId);
-            Context.PlayerAccountPets.Add(pets);
+            paPets = new PlayerAccountPets(accountId);
+            Context.PlayerAccountPets.Add(paPets);
         }
 
-        pets.Pets ??= new();
+        paPets.Pets ??= new();
 
         bool madeChanges = false;
-        var existingIds = new HashSet<long>(pets.Pets.Keys);
+        var existingIds = new HashSet<long>(paPets.Pets.Keys);
         var seenIds = new HashSet<long>();
 
         foreach (var apiPet in resultData.Pets)
         {
-            if (!pets.Pets.TryGetValue(apiPet.Id, out var dbPet))
+            if (!paPets.Pets.TryGetValue(apiPet.Id, out var dbPet))
             {
-                dbPet = pets.Pets[apiPet.Id] = new PlayerAccountPetsPet();
+                dbPet = paPets.Pets[apiPet.Id] = new PlayerAccountPetsPet();
                 madeChanges = true;
             }
 
@@ -107,19 +107,19 @@ public class CharacterPetsJob : JobBase
         // Remove any that we didn't see and were NOT added via addon data
         foreach (long unseenId in existingIds.Except(seenIds))
         {
-            if (!pets.Pets[unseenId].FromAddon)
+            if (!paPets.Pets[unseenId].FromAddon)
             {
-                pets.Pets.Remove(unseenId);
+                paPets.Pets.Remove(unseenId);
                 madeChanges = true;
             }
         }
 
         if (madeChanges)
         {
-            var entry = Context.Entry(pets);
+            var entry = Context.Entry(paPets);
             entry.Property(pap => pap.Pets).IsModified = true;
 
-            pets.UpdatedAt = DateTime.UtcNow;
+            paPets.UpdatedAt = DateTime.UtcNow;
 
             await Context.SaveChangesAsync(CancellationToken);
         }

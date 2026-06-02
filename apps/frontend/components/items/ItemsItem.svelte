@@ -9,14 +9,15 @@
     import { iconStrings } from '@/data/icons';
     import { wowthingData } from '@/shared/stores/data';
     import { getItemUrl } from '@/utils/get-item-url';
+    import { getBonusIdCraftingStat } from '@/utils/items/get-bonus-id-crafting-stat';
     import type { Character, CharacterGear } from '@/types';
     import type { ItemDataItem } from '@/types/data/item';
     import type { CharacterProps } from '@/types/props';
+    import type { ConvertibleCategoryUpgrade } from './convertible/types';
 
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import type { ConvertibleCategoryUpgrade } from './convertible/types';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
 
     type Props = Partial<CharacterProps> & {
@@ -61,7 +62,7 @@
                 } else if (upgrade[0] === Constants.upgradeTiers.myth) {
                     tiers = [currentUpgrade4, null];
                 } else {
-                    console.log(upgrade);
+                    console.log('Unknown upgrade data', upgrade);
                 }
 
                 if (upgrade[1] < 4 && tiers[0]) {
@@ -95,6 +96,16 @@
                 }
             }
         }
+    };
+
+    const statModifiers: Record<number, string> = {
+        76: 'R',
+        77: 'F',
+        78: 'D',
+        79: 'P',
+        80: 'S',
+        81: 'M',
+        82: 'I',
     };
 </script>
 
@@ -176,6 +187,14 @@
             --image-border-color: #bbb;
         }
     }
+    .crafted-modifier {
+        font-size: 90%;
+        pointer-events: none;
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        width: 1.2rem;
+    }
     .crafted-quality {
         pointer-events: none;
         position: absolute;
@@ -248,6 +267,13 @@
                     {/if}
                 </div>
             {:else if gear.equipped.craftedQuality > 0 || forceCrafted || item?.craftingQuality}
+                {@const statModifier = getBonusIdCraftingStat(gear.equipped.bonusIds || [])}
+                {#if statModifiers[statModifier]}
+                    <div class="pill crafted-modifier">
+                        {statModifiers[statModifier]}
+                    </div>
+                {/if}
+
                 <div class="crafted-quality">
                     <CraftedQualityIcon
                         quality={Math.max(

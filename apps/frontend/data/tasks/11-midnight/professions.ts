@@ -8,5 +8,6 @@ export const midProfessions: Task = {
     name: '[Mid] Professions',
     shortName: '🔨Mid',
     minimumLevel: 80,
+    sumChores: true,
     chores: buildProfessionChores(11, midnightProfessions),
 };

@@ -70,6 +70,7 @@
         --width: 5rem;
 
         text-align: right;
+        white-space: nowrap;
     }
 </style>
 

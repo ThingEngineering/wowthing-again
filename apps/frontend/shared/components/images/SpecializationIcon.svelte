@@ -6,20 +6,20 @@
 
     import WowthingImage from './sources/WowthingImage.svelte';
 
-    export let character: Character = undefined;
-    export let characterSpec: StaticDataCharacterSpecialization = undefined;
-    export let specId = 0;
-    export let size = 20;
-    export let border = 1;
+    type Props = {
+        border?: number;
+        size?: number;
+        character?: Character;
+        characterSpec?: StaticDataCharacterSpecialization;
+        specId?: number;
+    };
+    let { border = 1, size = 20, character, characterSpec, specId }: Props = $props();
 
-    let spec: StaticDataCharacterSpecialization;
-    let tooltip: string;
-    $: {
-        spec =
-            characterSpec ||
-            wowthingData.static.characterSpecializationById.get(character?.activeSpecId || specId);
-        tooltip = getGenderedName(spec?.name ?? 'Unknown', character?.gender ?? 0);
-    }
+    let spec = $derived(
+        characterSpec ||
+            wowthingData.static.characterSpecializationById.get(character?.activeSpecId || specId)
+    );
+    let tooltip = $derived(getGenderedName(spec?.name ?? 'Unknown', character?.gender ?? 0));
 </script>
 
 <WowthingImage name="spec/{spec?.id ?? 0}" {size} {border} {tooltip} />

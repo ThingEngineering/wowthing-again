@@ -107,11 +107,6 @@ public class CharacterJob : JobBase
             jobs.Add(JobType.CharacterAchievementStatistics);
         }
 
-        if (apiCharacter.CollectionsLink?.Href != null)
-        {
-            jobs.Add(JobType.CharacterMounts);
-        }
-
         // Replaced with addon data but use as fallback/initial load
         if (apiCharacter.EquipmentLink?.Href != null)
         {
@@ -167,6 +162,7 @@ public class CharacterJob : JobBase
         if (_query.AccountId.HasValue)
         {
             jobs.Add(JobType.CharacterHeirlooms);
+            jobs.Add(JobType.CharacterMounts);
             jobs.Add(JobType.CharacterPets);
             jobs.Add(JobType.CharacterToys);
         }

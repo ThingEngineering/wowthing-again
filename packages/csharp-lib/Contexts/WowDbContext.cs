@@ -65,6 +65,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<PlayerAccountAddonData> PlayerAccountAddonData { get; set; }
     public DbSet<PlayerAccountGoldSnapshot> PlayerAccountGoldSnapshot { get; set; }
     public DbSet<PlayerAccountHeirlooms> PlayerAccountHeirlooms { get; set; }
+    public DbSet<PlayerAccountMounts> PlayerAccountMounts { get; set; }
     public DbSet<PlayerAccountPets> PlayerAccountPets { get; set; }
     public DbSet<PlayerAccountToys> PlayerAccountToys { get; set; }
     public DbSet<PlayerAccountTransmogIds> PlayerAccountTransmogIds { get; set; }
