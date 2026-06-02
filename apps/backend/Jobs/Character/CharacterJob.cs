@@ -29,7 +29,7 @@ public class CharacterJob : JobBase
             await Context.PlayerCharacter
                 .Where(c => c.Id == _query.CharacterId)
                 .ExecuteUpdateAsync(s => s
-                    .SetProperty(pc => pc.ShouldUpdate, pc => false),
+                    .SetProperty(pc => pc.ShouldUpdate, false),
                     CancellationToken
                 );
             return;
@@ -62,7 +62,7 @@ public class CharacterJob : JobBase
                 await Context.PlayerCharacter
                     .Where(c => c.Id == _query.CharacterId)
                     .ExecuteUpdateAsync(s => s
-                        .SetProperty(pc => pc.ShouldUpdate, pc => false),
+                        .SetProperty(pc => pc.ShouldUpdate, false),
                         CancellationToken
                     );
             }
