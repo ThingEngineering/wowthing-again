@@ -62,7 +62,7 @@
                 } else if (upgrade[0] === Constants.upgradeTiers.myth) {
                     tiers = [currentUpgrade4, null];
                 } else {
-                    console.log(upgrade);
+                    console.log('Unknown upgrade data', upgrade);
                 }
 
                 if (upgrade[1] < 4 && tiers[0]) {

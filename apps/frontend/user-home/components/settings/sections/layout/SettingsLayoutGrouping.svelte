@@ -21,7 +21,6 @@
     };
 
     const setActive = (groupId: string) => {
-        console.log(groupId);
         browserState.current.settings.selectedGroup = groupId;
     };
 </script>

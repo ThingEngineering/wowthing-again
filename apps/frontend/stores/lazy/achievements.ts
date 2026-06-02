@@ -105,7 +105,6 @@ class AchievementProcessor {
         }
 
         console.timeEnd('AchievementProcessor.process');
-        console.log(this.data);
         return this.data;
     }
 
@@ -472,8 +471,6 @@ export function getAccountData(
                     ...userData.characters.map((char) => char.reputations?.[criteria.asset] || 0)
                 );
             } else if (criteria?.type === CriteriaType.HonorMaybe) {
-                console.log(criteria);
-                console.log(childTree);
                 ret.have[childId] = userData.honorLevel || 0;
             } else {
                 checkCriteria = true;

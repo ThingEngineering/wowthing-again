@@ -69,7 +69,7 @@
                 }
             }
         } else {
-            console.log(LookupType[lookupType], lookupId);
+            console.log('Unknown lookup type', lookupType, LookupType[lookupType], lookupId);
         }
 
         if (ret.linkType === 'item') {

@@ -177,8 +177,6 @@ export function doJournal(): LazyJournal {
                     for (const item of filteredItems) {
                         let allCollected = true;
 
-                        if (item.id === 143517 || item.id === 143521) console.log(item);
-
                         for (const appearance of item.appearances) {
                             let appearanceKey: string;
                             let oppositeKey: string;
