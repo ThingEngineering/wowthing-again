@@ -287,6 +287,10 @@ public class CacheService
         // Mounts
         var userBulk = await context.UserBulkData.FindAsync(userId);
 
+        var accountMounts = await context.PlayerAccountMounts
+            .Where(pam => pam.Account.UserId == userId)
+            .ToArrayAsync();
+
         var mounts = await context.MountQuery
             .FromSqlRaw(MountQuery.UserQuery, userId)
             .SingleAsync();
@@ -296,8 +300,11 @@ public class CacheService
         {
             allMountIds.AddRange(userBulk.MountIds);
         }
+
         allMountIds.AddRange(mounts.AddonMounts.EmptyIfNull().Select(n => (short)n));
         allMountIds.AddRange(mounts.Mounts.EmptyIfNull().Select(n => (short)n));
+
+        allMountIds.AddRange(accountMounts.SelectMany(pam => pam.MountIds).Select(n => (short)n));
 
         var sortedMountIds = allMountIds
             .Distinct()
