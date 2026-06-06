@@ -23,6 +23,8 @@ public class ImageJob : JobBase
             return;
         }
 
+        string sha256 = result.Data.Sha256();
+
         var image = await Context.Image.FindAsync(type, id, format);
         if (image == null)
         {
@@ -31,8 +33,13 @@ public class ImageJob : JobBase
                 Type = type,
                 Id = id,
                 Format = format,
+                Sha256 = sha256,
             };
             Context.Image.Add(image);
+        } else if (image.Sha256 == sha256)
+        {
+            Logger.Debug("Hash matches");
+            return;
         }
 
         if (
@@ -71,15 +78,6 @@ public class ImageJob : JobBase
         }
 
         timer.AddPoint("Convert");
-
-        var sha256 = image.Data.Sha256();
-        if (sha256 == image.Sha256)
-        {
-            Logger.Debug("Hash matches");
-            return;
-        }
-
-        image.Sha256 = sha256;
 
         await Context.SaveChangesAsync(CancellationToken);
 
