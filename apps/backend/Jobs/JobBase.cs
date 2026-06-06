@@ -33,6 +33,7 @@ public abstract class JobBase : IJob, IDisposable
     internal JobRepository JobRepository;
     internal JsonSerializerOptions JsonSerializerOptions;
     internal MemoryCacheService MemoryCacheService;
+    internal S3Service S3Service;
     internal StateService StateService;
 
     internal long UserId;

@@ -146,6 +146,7 @@ public class Program
         // Services
         services.AddSingleton<CacheService>();
         services.AddSingleton<MemoryCacheService>();
+        services.AddSingleton<S3Service>();
         services.AddSingleton<StateService>();
 
         services.AddHostedService<AuthorizationService>();

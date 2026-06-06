@@ -15,5 +15,7 @@ public class Image
 
     public byte[] Data { get; set; }
 
-    public string Url => $"/image/{(int)Type}/{Sha256}.{Format.ToString().ToLower()}";
+    public string Url => Data == null ? $"/{S3Path}" : $"/image/{(int)Type}/{Sha256}.{Format.ToString().ToLower()}";
+
+    public string S3Path => $"{(int)Type}/{Sha256[0]}/{Sha256[1]}/{Sha256}.{Format.ToString().ToLower()}";
 }

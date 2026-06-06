@@ -10,10 +10,14 @@ services:
       BattleNet__ClientID: $BattleNet__ClientID
       BattleNet__ClientSecret: $BattleNet__ClientSecret
       SENTRY_DSN: ${SENTRY_DSN-}
-#    logging:
-#      options:
-#        max-size: "1m"
-#        max-file: "5"
+      WowthingBackend__ImageAccessKeyId: ${WowthingBackend__ImageAccessKeyId-}
+      WowthingBackend__ImageSecretAccessKey: ${WowthingBackend__ImageSecretAccessKey-}
+      WowthingBackend__ImageEndpoint: ${WowthingBackend__ImageEndpoint-}
+      WowthingBackend__ImageBucket: ${WowthingBackend__ImageBucket-}
+    #    logging:
+    #      options:
+    #        max-size: "1m"
+    #        max-file: "5"
     networks:
       - wowthing
     volumes:
@@ -31,10 +35,11 @@ services:
     environment:
       BattleNet__ClientID: $BattleNet__ClientID
       BattleNet__ClientSecret: $BattleNet__ClientSecret
-#    logging:
-#      options:
-#        max-size: "1m"
-#        max-file: "5"
+      WowthingWeb__ImageUrl: ${WowthingWeb__ImageUrl-}
+    #    logging:
+    #      options:
+    #        max-size: "1m"
+    #        max-file: "5"
     networks:
       - wowthing
     ports:
@@ -49,10 +54,10 @@ services:
     build:
       context: .
       dockerfile: apps/frontend/development.Dockerfile
-#    logging:
-#      options:
-#        max-size: "1m"
-#        max-file: "5"
+    #    logging:
+    #      options:
+    #        max-size: "1m"
+    #        max-file: "5"
     networks:
       - wowthing
     ports:

@@ -1,40 +1,38 @@
 <script lang="ts">
+    import { backgroundMap } from '@/data/backgrounds';
     import { InventorySlot } from '@/enums/inventory-slot';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
     import { userStore } from '@/stores';
-    import type { BackgroundImage, Character } from '@/types';
+    import type { BackgroundImage } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import Configure from './CharactersPaperdollConfigure.svelte';
     import Equipped from './CharactersPaperdollEquipped.svelte';
     import Stats from './CharactersPaperdollStats.svelte';
-    import { backgroundMap } from '@/data/backgrounds';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 
-    let selected = character.configuration.backgroundId;
+    let selected = $state(character.configuration.backgroundId);
 
-    let backgroundImage: BackgroundImage;
-    let characterImage: string;
-    let filter: string;
-    $: {
-        backgroundImage =
+    let { backgroundImage, filter } = $derived.by(() => {
+        const retBackgroundImage =
             backgroundMap[
                 selected === -1 ? settingsState.value.characters.defaultBackgroundId : selected
             ];
-        characterImage = $userStore.images[`${character.id}-2`];
 
-        if (backgroundImage) {
+        let retFilter: string = null;
+        if (retBackgroundImage) {
             const filterParts: string[] = [];
 
             const brightness =
                 character.configuration.backgroundBrightness !== -1
                     ? character.configuration.backgroundBrightness
-                    : backgroundImage.defaultBrightness;
+                    : retBackgroundImage.defaultBrightness;
             const saturation =
                 character.configuration.backgroundSaturation !== -1
                     ? character.configuration.backgroundSaturation
-                    : backgroundImage.defaultSaturate;
+                    : retBackgroundImage.defaultSaturate;
 
             if (brightness != 10) {
                 filterParts.push(`brightness(${brightness / 10})`);
@@ -42,9 +40,17 @@
             if (saturation != 10) {
                 filterParts.push(`saturate(${saturation / 10})`);
             }
-            filter = filterParts.join(' ');
+            retFilter = filterParts.join(' ');
         }
-    }
+
+        return { backgroundImage: retBackgroundImage, filter: retFilter };
+    });
+
+    let characterImage = $derived.by(() => {
+        const imagePath = $userStore.images[`${character.id}-2`];
+        const imageUrl = document.getElementById('app').getAttribute('data-image-url');
+        return imageUrl ? `${imageUrl}${imagePath}` : imagePath;
+    });
 
     const leftSide: InventorySlot[] = [
         InventorySlot.Head,

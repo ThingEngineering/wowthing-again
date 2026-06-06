@@ -46,7 +46,9 @@
 }
 
 <div id="app"
+     data-xsrf="@GetAntiXsrfRequestToken()"
      data-base-uri="@UriService.BaseUri"
+     data-image-url="@UriService.ImageUrl"
      data-modified="@Model.ModifiedJson"
      data-settings="@Model.SettingsJson"
      data-achievements="@Url.Action("CachedJson", "CachedData", new { type = "achievement", languageCode = "zzZZ", hash = Model.AchievementHash })"
@@ -58,5 +60,4 @@
      data-static="@Url.Action("CachedJson", "CachedData", new { type = "static", languageCode = "zzZZ", hash = Model.StaticHash })"
      data-item-bebop="@Url.Action("CachedBebop", "CachedData", new { type = "item", languageCode = "zzZZ", hash = Model.ItemHash })"
      data-user="@Url.Action("UserData", "Api", new { username = Model.User.UserName, access = Model.IsPrivate ? "private" : "public", modified="0" })"
-     data-xsrf="@GetAntiXsrfRequestToken()"
 ></div>
