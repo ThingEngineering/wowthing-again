@@ -7,11 +7,13 @@
     } from './convertible/data';
     import { Constants } from '@/data/constants';
     import { iconStrings } from '@/data/icons';
+    import { iconLibrary } from '@/shared/icons';
     import { wowthingData } from '@/shared/stores/data';
     import { getItemUrl } from '@/utils/get-item-url';
     import { getBonusIdCraftingStat } from '@/utils/items/get-bonus-id-crafting-stat';
     import type { Character, CharacterGear } from '@/types';
     import type { ItemDataItem } from '@/types/data/item';
+    import type { Icon } from '@/types/icons';
     import type { CharacterProps } from '@/types/props';
     import type { ConvertibleCategoryUpgrade } from './convertible/types';
 
@@ -25,6 +27,7 @@
         character?: Character;
         forceCrafted?: boolean;
         tierPieces?: number[];
+        showItemLevel?: boolean;
         useHighlighting?: boolean;
         useItemCount?: boolean;
         failStateFunc?: (item: ItemDataItem) => boolean;
@@ -34,6 +37,7 @@
         gear,
         character,
         forceCrafted,
+        showItemLevel = true,
         tierPieces,
         useHighlighting,
         useItemCount,
@@ -98,14 +102,14 @@
         }
     };
 
-    const statModifiers: Record<number, string> = {
-        76: 'R',
-        77: 'F',
-        78: 'D',
-        79: 'P',
-        80: 'S',
-        81: 'M',
-        82: 'I',
+    const statModifiers: Record<number, Icon> = {
+        76: iconLibrary.mdiLetterR, // Resourcefulness
+        77: iconLibrary.mdiLetterF, // Finesse
+        78: iconLibrary.mdiLetterD, // Deftness
+        79: iconLibrary.mdiLetterP, // Perception
+        80: iconLibrary.mdiLetterS, // Speed
+        81: iconLibrary.mdiLetterM, // Multicrafting
+        82: iconLibrary.mdiLetterI, // Ingenuity
     };
 </script>
 
@@ -188,12 +192,16 @@
         }
     }
     .crafted-modifier {
-        font-size: 90%;
+        --image-margin-top: -6px;
+        --scale: 1.2;
+
+        border-radius: 50%;
         pointer-events: none;
         position: absolute;
-        left: 2px;
-        top: 2px;
-        width: 1.2rem;
+        left: 0px;
+        top: 1px;
+        height: 23px;
+        width: 23px;
     }
     .crafted-quality {
         pointer-events: none;
@@ -231,7 +239,7 @@
                     {:else if (gear.equipped.count || 0) > 1}
                         <span class="item-level left">x{gear.equipped.count}</span>
                     {/if}
-                {:else}
+                {:else if showItemLevel}
                     <span class="item-level">{gear.equipped.itemLevel}</span>
                 {/if}
             </a>
@@ -269,8 +277,8 @@
             {:else if gear.equipped.craftedQuality > 0 || forceCrafted || item?.craftingQuality}
                 {@const statModifier = getBonusIdCraftingStat(gear.equipped.bonusIds || [])}
                 {#if statModifiers[statModifier]}
-                    <div class="pill crafted-modifier">
-                        {statModifiers[statModifier]}
+                    <div class="crafted-modifier drop-shadow2">
+                        <IconifyWrapper icon={statModifiers[statModifier]} />
                     </div>
                 {/if}
 
