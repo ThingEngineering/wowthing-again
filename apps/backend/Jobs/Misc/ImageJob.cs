@@ -23,6 +23,7 @@ public class ImageJob : JobBase
             return;
         }
 
+        bool useS3 = S3Service.IsEnabled;
         string sha256 = result.Data.Sha256();
 
         var image = await Context.Image.FindAsync(type, id, format);
@@ -36,12 +37,12 @@ public class ImageJob : JobBase
             };
             Context.Image.Add(image);
         }
-        else if (image.Sha256 == sha256)
+        else if (image.Sha256 == sha256 && ((useS3 && image.Data == null) || (!useS3 && image.Data != null)))
         {
             Logger.Debug("Hash matches");
             return;
         }
-        else if (S3Service.IsEnabled)
+        else if (useS3)
         {
             // Hash is changing, delete the old file if a single row references it
             int rowCount = await Context.Image
@@ -94,7 +95,7 @@ public class ImageJob : JobBase
         timer.AddPoint("Convert");
 
         // Upload the file instead if we're using S3
-        if (S3Service.IsEnabled)
+        if (useS3)
         {
             bool uploadOk = await S3Service.UploadImageAsync(image, CancellationToken);
             if (uploadOk)
