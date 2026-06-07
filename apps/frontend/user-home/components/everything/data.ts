@@ -77,6 +77,56 @@ export const everythingData: Record<string, EverythingData> = {
         achievementsKey: ['world-events', 'winter-veil'],
         vendorsKey: ['world-events', 'winter-veil'],
     },
+
+    // Timewalking
+    'timewalking-classic': {
+        name: 'Classic Timewalking',
+        tag: 'event:timewalking-classic',
+        vendorsKey: ['classic', 'timewalking'],
+    },
+    'timewalking-tbc': {
+        name: 'TBC Timewalking',
+        tag: 'event:timewalking-tbc',
+        vendorsKey: ['burning-crusade', 'timewalking'],
+    },
+    'timewalking-wotlk': {
+        name: 'WotLK Timewalking',
+        tag: 'event:timewalking-wotlk',
+    },
+    'timewalking-cata': {
+        name: 'Cata Timewalking',
+        tag: 'event:timewalking-cata',
+        vendorsKey: ['cataclysm', 'timewalking'],
+    },
+    'timewalking-mop': {
+        name: 'MoP Timewalking',
+        tag: 'event:timewalking-mop',
+        vendorsKey: ['mists-of-pandaria', 'timewalking'],
+    },
+    'timewalking-wod': {
+        name: 'WoD Timewalking',
+        tag: 'event:timewalking-wod',
+        vendorsKey: ['warlords-of-draenor', 'timewalking'],
+    },
+    'timewalking-legion': {
+        name: 'Legion Timewalking',
+        tag: 'event:timewalking-legion',
+        vendorsKey: ['legion', 'timewalking'],
+    },
+    'timewalking-bfa': {
+        name: 'BfA Timewalking',
+        tag: 'event:timewalking-bfa',
+        vendorsKey: ['battle-for-azeroth', 'timewalking'],
+    },
+    'timewalking-sl': {
+        name: 'SL Timewalking',
+        tag: 'event:timewalking-sl',
+    },
+    'timewalking-df': {
+        name: 'DF Timewalking',
+        tag: 'event:timewalking-df',
+    },
+
     //
     'cup-outland': {
         name: 'Outland Cup',
@@ -90,11 +140,5 @@ export const everythingData: Record<string, EverythingData> = {
         tag: 'event:anniversary',
         achievementsKey: ['world-events', 'anniversary-celebration'],
         vendorsKey: ['world-events', 'anniversary'],
-    },
-    'remix-legion': {
-        name: 'Remix: Legion',
-        tag: 'event:remix-legion',
-        achievementsKey: ['legion-remix'],
-        vendorsKey: ['remix', 'legion'],
     },
 };

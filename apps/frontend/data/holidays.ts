@@ -93,7 +93,6 @@ export const holidayIds: Record<number, [number[], number[]?]> = {
     [Holiday.CupBrokenIsles]: [[433]], // Legion
 
     [Holiday.PrepatchMidnight]: [[450]],
-    [Holiday.RemixLegion]: [[447]],
 };
 
 export type FancyHoliday = {
@@ -162,6 +161,59 @@ export const fancyHolidays: FancyHoliday[] = [
         shortName: '🎅',
         everything: 'winter-veil',
     },
+
+    // Timewalking
+    {
+        holiday: Holiday.TimewalkingClassic,
+        shortName: '⏳Classic',
+        everything: 'timewalking-classic',
+    },
+    {
+        holiday: Holiday.TimewalkingTbc,
+        shortName: '⏳TBC',
+        everything: 'timewalking-tbc',
+    },
+    {
+        holiday: Holiday.TimewalkingWotlk,
+        shortName: '⏳WotLK',
+        everything: 'timewalking-wotlk',
+    },
+    {
+        holiday: Holiday.TimewalkingCata,
+        shortName: '⏳Cata',
+        everything: 'timewalking-cata',
+    },
+    {
+        holiday: Holiday.TimewalkingMop,
+        shortName: '⏳MoP',
+        everything: 'timewalking-mop',
+    },
+    {
+        holiday: Holiday.TimewalkingWod,
+        shortName: '⏳WoD',
+        everything: 'timewalking-wod',
+    },
+    {
+        holiday: Holiday.TimewalkingLegion,
+        shortName: '⏳Legion',
+        everything: 'timewalking-legion',
+    },
+    {
+        holiday: Holiday.TimewalkingBfa,
+        shortName: '⏳BfA',
+        everything: 'timewalking-bfa',
+    },
+    {
+        holiday: Holiday.TimewalkingSl,
+        shortName: '⏳SL',
+        everything: 'timewalking-sl',
+    },
+    {
+        holiday: Holiday.TimewalkingDf,
+        shortName: '⏳DF',
+        everything: 'timewalking-df',
+    },
+
     // Flying Cups
     {
         holiday: Holiday.CupEasternKingdoms, // Classic
@@ -199,15 +251,5 @@ export const fancyHolidays: FancyHoliday[] = [
         holiday: Holiday.Anniversary,
         shortName: 'Anni',
         everything: 'anniversary',
-    },
-    {
-        holiday: Holiday.PrepatchMidnight,
-        shortName: 'Prepatch',
-        everything: 'prepatch-midnight',
-    },
-    {
-        holiday: Holiday.RemixLegion,
-        shortName: 'Lemix',
-        everything: 'remix-legion',
     },
 ];

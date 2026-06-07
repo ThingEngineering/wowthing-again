@@ -35,13 +35,15 @@
             stats.total += dropStats.overall.total;
         }
 
-        const vendorStats = lazyState.vendors.stats[everything.vendorsKey.join('--')];
-        if (vendorStats) {
-            stats.have += vendorStats.have;
-            stats.total += vendorStats.total;
+        if (everything?.vendorsKey?.length > 0) {
+            const vendorStats = lazyState.vendors.stats[everything?.vendorsKey.join('--')];
+            if (vendorStats) {
+                stats.have += vendorStats.have;
+                stats.total += vendorStats.total;
+            }
         }
 
-        if (everything.achievementsKey?.length > 0) {
+        if (everything?.achievementsKey?.length > 0) {
             let cat = wowthingData.achievements.categories?.find(
                 (cat) => cat?.slug === everything.achievementsKey[0]
             );
