@@ -31,13 +31,11 @@ public class UriService
         _webOptions = webOptions.Value;
     }
 
-    private Uri _baseUri;
-
     public Uri BaseUri
     {
         get
         {
-            if (_baseUri == null)
+            if (field == null)
             {
                 var host = _httpContextAccessor.HttpContext.Request.Host.Host;
                 var builder = new UriBuilder();
@@ -60,13 +58,15 @@ public class UriService
 
                 builder.Scheme = _httpContextAccessor.HttpContext.Request.Scheme;
 
-                _baseUri = builder.Uri;
-                _logger.LogDebug("Base URI is {Uri}", _baseUri);
+                field = builder.Uri;
+                _logger.LogDebug("Base URI is {Uri}", field);
             }
 
-            return _baseUri;
+            return field;
         }
     }
+
+    public string ImageUrl => _webOptions.ImageUrl;
 
     public string GetBaseAction(string controller, string action, object values = null)
     {

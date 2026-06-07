@@ -139,6 +139,7 @@
             <Item
                 failStateFunc={(item) => item.expansion !== Constants.expansion}
                 forceCrafted={true}
+                showItemLevel={false}
                 {gear}
             />
         {:else if !userHas}

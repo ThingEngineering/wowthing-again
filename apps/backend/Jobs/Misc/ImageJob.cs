@@ -23,6 +23,9 @@ public class ImageJob : JobBase
             return;
         }
 
+        bool useS3 = S3Service.IsEnabled;
+        string sha256 = result.Data.Sha256();
+
         var image = await Context.Image.FindAsync(type, id, format);
         if (image == null)
         {
@@ -34,6 +37,27 @@ public class ImageJob : JobBase
             };
             Context.Image.Add(image);
         }
+        else if (image.Sha256 == sha256 && ((useS3 && image.Data == null) || (!useS3 && image.Data != null)))
+        {
+            Logger.Debug("Hash matches");
+            return;
+        }
+        else if (useS3)
+        {
+            // Hash is changing, delete the old file if a single row references it
+            int rowCount = await Context.Image
+                .Where(img => img.Type == image.Type &&
+                              img.Sha256 == image.Sha256 &&
+                              img.Format == image.Format)
+                .CountAsync(CancellationToken);
+            if (rowCount == 1)
+            {
+                await S3Service.DeleteImageAsync(image,  CancellationToken);
+                timer.AddPoint("S3Delete");
+            }
+        }
+
+        image.Sha256 = sha256;
 
         if (
             (format == ImageFormat.Jpeg && (url.EndsWith(".jpg") || url.EndsWith(".jpeg"))) ||
@@ -55,14 +79,12 @@ public class ImageJob : JobBase
                     .InProcessAsync();
 
                 var convertedBytes = converted.First.TryGetBytes();
-                if (convertedBytes.HasValue)
-                {
-                    image.Data = convertedBytes.Value.ToArray();
-                }
-                else
+                if (!convertedBytes.HasValue)
                 {
                     throw new Exception($"Image conversion failed: type={type} id={id} format={format} url={url}");
                 }
+
+                image.Data = convertedBytes.Value.ToArray();
             }
         }
         else
@@ -72,14 +94,20 @@ public class ImageJob : JobBase
 
         timer.AddPoint("Convert");
 
-        var sha256 = image.Data.Sha256();
-        if (sha256 == image.Sha256)
+        // Upload the file instead if we're using S3
+        if (useS3)
         {
-            Logger.Debug("Hash matches");
-            return;
+            bool uploadOk = await S3Service.UploadImageAsync(image, CancellationToken);
+            if (uploadOk)
+            {
+                image.Data = null;
+            }
+            else
+            {
+                Logger.Warning("Upload failed: {path}", image.S3Path);
+            }
+            timer.AddPoint("S3Upload");
         }
-
-        image.Sha256 = sha256;
 
         await Context.SaveChangesAsync(CancellationToken);
 

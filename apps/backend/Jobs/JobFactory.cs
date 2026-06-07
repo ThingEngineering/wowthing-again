@@ -19,6 +19,7 @@ public class JobFactory
     private readonly JobRepository _jobRepository;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly MemoryCacheService _memoryCacheService;
+    private readonly S3Service _s3Service;
     private readonly StateService _stateService;
 
     private readonly ConnectionMultiplexer _redis;
@@ -31,6 +32,7 @@ public class JobFactory
         JobRepository jobRepository,
         JsonSerializerOptions jsonSerializerOptions,
         MemoryCacheService memoryCacheService,
+        S3Service s3Service,
         StateService stateService,
         string redisConnectionString)
     {
@@ -42,6 +44,7 @@ public class JobFactory
         _jsonSerializerOptions = jsonSerializerOptions;
         _logger = logger;
         _memoryCacheService = memoryCacheService;
+        _s3Service = s3Service;
         _stateService = stateService;
 
         _redis = RedisUtilities.GetConnection(redisConnectionString);
@@ -56,6 +59,7 @@ public class JobFactory
         obj.JsonSerializerOptions = _jsonSerializerOptions;
         obj.Logger = _logger;
         obj.Redis = _redis;
+        obj.S3Service = _s3Service;
         obj.StateService = _stateService;
 
         obj.CancellationToken = cancellationToken;

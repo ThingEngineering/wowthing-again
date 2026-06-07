@@ -45,6 +45,7 @@ public class WorkerService : BackgroundService
         JobRepository jobRepository,
         JsonSerializerOptions jsonSerializerOptions,
         MemoryCacheService memoryCacheService,
+        S3Service s3Service,
         StateService stateService,
         JobMetrics jobMetrics
     )
@@ -69,6 +70,7 @@ public class WorkerService : BackgroundService
             jobRepository,
             jsonSerializerOptions,
             memoryCacheService,
+            s3Service,
             stateService,
             redisConnectionString
         );
