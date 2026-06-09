@@ -12,6 +12,14 @@ export const uiIcons = {
     starHalf: iconLibrary.mdiStarHalfFull,
     starFull: iconLibrary.mdiStarFace,
     yes: iconLibrary.mdiCheck,
+
+    circleD: iconLibrary.mynauiLetterDCircle,
+    circleF: iconLibrary.mynauiLetterFCircle,
+    circleI: iconLibrary.mynauiLetterICircle,
+    circleM: iconLibrary.mynauiLetterMCircle,
+    circleP: iconLibrary.mynauiLetterPCircle,
+    circleR: iconLibrary.mynauiLetterRCircle,
+    circleS: iconLibrary.mynauiLetterSCircle,
 };
 
 export const aliasedIcons = {
