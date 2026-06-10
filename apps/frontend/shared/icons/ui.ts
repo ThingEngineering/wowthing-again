@@ -20,6 +20,13 @@ export const uiIcons = {
     circleP: iconLibrary.mynauiLetterPCircle,
     circleR: iconLibrary.mynauiLetterRCircle,
     circleS: iconLibrary.mynauiLetterSCircle,
+    squareA: iconLibrary.mynauiLetterASquare,
+    squareC: iconLibrary.mynauiLetterCSquare,
+    squareD: iconLibrary.mynauiLetterDSquare,
+    squareL: iconLibrary.mynauiLetterLSquare,
+    squareM: iconLibrary.mynauiLetterMSquare,
+    squareP: iconLibrary.mynauiLetterPSquare,
+    squareW: iconLibrary.mynauiLetterWSquare,
 };
 
 export const aliasedIcons = {

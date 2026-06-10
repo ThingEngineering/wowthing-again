@@ -1,17 +1,14 @@
-import * as iconLibrary from '../library';
 import { ArmorType } from '@/enums/armor-type';
 import type { Icon } from '@/types/icons';
+import * as iconLibrary from '../library';
+import { uiIcons } from '../ui';
 
 export const armorTypeIcons: Record<ArmorType, Icon> = {
     [ArmorType.Cloak]: iconLibrary.gameCape,
-    [ArmorType.Cloth]: iconLibrary.mynauiLetterCSquare,
-    [ArmorType.Leather]: iconLibrary.mynauiLetterLSquare,
-    [ArmorType.Mail]: iconLibrary.mynauiLetterMSquare,
-    [ArmorType.Plate]: iconLibrary.mynauiLetterPSquare,
-    // [ArmorType.Cloth]: iconLibrary.mdiLetterC,
-    // [ArmorType.Leather]: iconLibrary.mdiLetterL,
-    // [ArmorType.Mail]: iconLibrary.mdiLetterM,
-    // [ArmorType.Plate]: iconLibrary.mdiLetterP,
+    [ArmorType.Cloth]: uiIcons.squareC,
+    [ArmorType.Leather]: uiIcons.squareL,
+    [ArmorType.Mail]: uiIcons.squareM,
+    [ArmorType.Plate]: uiIcons.squareP,
     [ArmorType.Tabard]: null,
     [ArmorType.None]: null,
 };
