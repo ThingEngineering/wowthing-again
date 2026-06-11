@@ -9,7 +9,6 @@ public class DumpItemSparse
     public int ID { get; set; }
 
     public int AllowableClass { get; set; }
-    public long AllowableRace { get; set; }
     public WowBindType Bonding { get; set; }
     public short ContainerSlots { get; set; }
     public short ExpansionID { get; set; }
@@ -28,6 +27,13 @@ public class DumpItemSparse
 
     [Name("Display_lang")]
     public string Name { get; set; } = string.Empty;
+
+    [Name("AllowableRaces[0]")]
+    public int AllowableRaces0 { get; set; }
+    [Name("AllowableRaces[1]")]
+    public int AllowableRaces1 { get; set; }
+
+    public long AllowableRace => AllowableRaces0 & (AllowableRaces1 > 0 ? (long)AllowableRaces1 << 32 : 0);
 
     [Name("Flags[0]")]
     public WowItemFlags1 Flags1 { get; set; }
