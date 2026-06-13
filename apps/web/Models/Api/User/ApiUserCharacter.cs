@@ -25,6 +25,7 @@ public class ApiUserCharacter
     public int RealmId { get; set; }
     public int RestedExperience { get; set; }
     public long Gold { get; }
+    public short BankTabs { get; set; }
     public string CurrentLocation { get; set; }
     public string HearthLocation { get; set; }
     public string Name { get; set; }
@@ -121,6 +122,7 @@ public class ApiUserCharacter
         }
 
         Auras = character.AddonData?.Auras;
+        BankTabs = character.AddonData?.BankTabs ?? 0;
         Garrisons = character.AddonData?.Garrisons;
         GarrisonTrees = character.AddonData?.GarrisonTrees;
         HighestItemLevel = character.AddonData?.HighestItemLevel;

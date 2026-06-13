@@ -47,4 +47,4 @@ export const characterBagSlots: number[] = [
     5, // Reagent bag
 ];
 
-export const bankBagSlots: number[] = [6, 7, 8, 9, 10, 11, 12];
+export const bankBagSlots: number[] = [6, 7, 8, 9, 10, 11];

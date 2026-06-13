@@ -103,6 +103,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
     // Reactive
     public activeSpecId = $state(0);
+    public bankTabs = $state(0);
     public equippedItemLevel = $state(0);
     public gold = $state(0);
     public level = $state(0);
@@ -189,6 +190,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         realmId: number,
         restedExperience: number,
         gold: number,
+        bankTabs: number,
         currentLocation: string,
         hearthLocation: string,
         lastApiUpdateUnix: number,
@@ -250,6 +252,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         this.realmId = realmId;
         this.restedExperience = restedExperience;
         this.gold = gold;
+        this.bankTabs = bankTabs;
         this.currentLocation = currentLocation;
         this.hearthLocation = hearthLocation;
         this.lastApiUpdateUnix = lastApiUpdateUnix;
