@@ -76,12 +76,17 @@
     form {
         align-items: center;
         display: flex;
+        flex-wrap: wrap;
         gap: 0.8rem;
     }
     .option {
         align-items: center;
         display: flex;
         gap: 0.2rem;
+
+        > span {
+            white-space: nowrap;
+        }
     }
     .results-container {
         column-count: max(2, var(--column-count, 1));

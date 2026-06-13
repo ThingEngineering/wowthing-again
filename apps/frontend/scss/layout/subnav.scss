@@ -3,6 +3,7 @@
 
     // border: 1px solid var(--border-color);
     display: flex;
+    flex-wrap: wrap;
     overflow: hidden;
     padding: 0;
     width: 100%;
@@ -14,6 +15,7 @@
         border-top: 1px solid var(--border-color);
         display: inline-block;
         padding: 0.25rem 1rem;
+        white-space: nowrap;
 
         &:first-child {
             border-left: 1px solid var(--border-color);
