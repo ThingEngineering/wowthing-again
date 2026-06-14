@@ -172,6 +172,7 @@ public class UserUploadCharacterProcessor
 
     private void HandleAddonData()
     {
+        _character.AddonData.BankTabs = _characterData.BankTabs;
         _character.AddonData.Level = _characterData.Level;
         _character.AddonData.LevelXp = _characterData.LevelXp;
 

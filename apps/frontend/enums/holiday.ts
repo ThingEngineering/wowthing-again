@@ -30,6 +30,7 @@ export enum Holiday {
     TimewalkingLegion,
     TimewalkingBfa,
     TimewalkingSl,
+    TimewalkingDf,
 
     BrawlArathiBlizzard,
     BrawlClassicAshran,
@@ -53,7 +54,6 @@ export enum Holiday {
 
     // Temporary
     PrepatchMidnight,
-    RemixLegion,
 }
 
 export const timewalkingHolidays = [

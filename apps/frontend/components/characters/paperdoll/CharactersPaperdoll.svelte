@@ -48,6 +48,10 @@
 
     let characterImage = $derived.by(() => {
         const imagePath = $userStore.images[`${character.id}-2`];
+        if (!imagePath) {
+            return undefined;
+        }
+
         const imageUrl = document.getElementById('app').getAttribute('data-image-url');
         return imageUrl ? `${imageUrl}${imagePath}` : imagePath;
     });

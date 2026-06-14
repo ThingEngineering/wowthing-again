@@ -155,6 +155,7 @@ export { default as mdiLetterM } from '~icons/mdi/alpha-m-circle-outline';
 export { default as mdiLetterP } from '~icons/mdi/alpha-p-circle-outline';
 export { default as mdiLetterR } from '~icons/mdi/alpha-r-circle-outline';
 export { default as mdiLetterS } from '~icons/mdi/alpha-s-circle-outline';
+export { default as mdiLetterX } from '~icons/mdi/alpha-x-circle-outline';
 export { default as mdiLightningBoltOutline } from '~icons/mdi/lightning-bolt-outline';
 export { default as mdiListStatus } from '~icons/mdi/list-status';
 export { default as mdiLockOutline } from '~icons/mdi/lock-outline';
@@ -200,10 +201,17 @@ export { default as mdiWizardHat } from '~icons/mdi/wizard-hat';
 
 export { default as mynauiLetterASquare } from '~icons/mynaui/letter-a-square';
 export { default as mynauiLetterCSquare } from '~icons/mynaui/letter-c-square';
+export { default as mynauiLetterDCircle } from '~icons/mynaui/letter-d-circle';
 export { default as mynauiLetterDSquare } from '~icons/mynaui/letter-d-square';
+export { default as mynauiLetterFCircle } from '~icons/mynaui/letter-f-circle';
+export { default as mynauiLetterICircle } from '~icons/mynaui/letter-i-circle';
 export { default as mynauiLetterLSquare } from '~icons/mynaui/letter-l-square';
+export { default as mynauiLetterMCircle } from '~icons/mynaui/letter-m-circle';
 export { default as mynauiLetterMSquare } from '~icons/mynaui/letter-m-square';
+export { default as mynauiLetterPCircle } from '~icons/mynaui/letter-p-circle';
 export { default as mynauiLetterPSquare } from '~icons/mynaui/letter-p-square';
+export { default as mynauiLetterRCircle } from '~icons/mynaui/letter-r-circle';
+export { default as mynauiLetterSCircle } from '~icons/mynaui/letter-s-circle';
 export { default as mynauiLetterWSquare } from '~icons/mynaui/letter-w-square';
 
 export { default as notoAngryFaceWithHorns } from '~icons/noto/angry-face-with-horns';

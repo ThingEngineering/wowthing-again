@@ -556,6 +556,17 @@ public class UserUploadJob : JobBase
                 }
             }
 
+            try
+            {
+                await HandleMiscReports(accountRegion.Value, parsed);
+            }
+            catch (Exception ex)
+            {
+                {
+                    Logger.Error(ex, "HandleBattlePets failed!");
+                }
+            }
+
             _timer.AddPoint("Account");
         }
 
@@ -1038,6 +1049,76 @@ public class UserUploadJob : JobBase
                 .Where(pgi => deleteItemIds.Contains(pgi.Id))
                 .ExecuteDeleteAsync();
         }
+    }
+
+    private async Task HandleMiscReports(WowRegion accountRegion, Upload parsedData)
+    {
+        if (parsedData.Delves == null)
+        {
+            return;
+        }
+
+        await using var localContext = await ContextFactory.CreateDbContextAsync();
+
+        var reportMap = await localContext.MiscReport
+            .Where(mr => mr.UserId == _userId && mr.Region == (short)accountRegion)
+            .ToDictionaryAsync(mr => mr.ReportType);
+
+        long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        DateTime? expiresAt = null;
+        List<(int, string)> delves = [];
+        foreach (string delveString in parsedData.Delves)
+        {
+            string[] parts = delveString.Split(":");
+            if (parts.Length != 3)
+            {
+                continue;
+            }
+
+            // unixTimestamp:poiId:story
+            int.TryParse(parts[0], out int validUntil);
+            int.TryParse(parts[1], out int poiId);
+            if (validUntil < currentTimestamp || poiId == 0 || string.IsNullOrWhiteSpace(parts[2]))
+            {
+                // log
+                continue;
+            }
+
+            expiresAt ??= validUntil.AsUtcDateTime();
+
+            delves.Add((poiId, parts[2]));
+        }
+
+        if (expiresAt != null && delves.Count > 0)
+        {
+            List<object[]> dataParts = [];
+            foreach ((int poiId, string story) in delves.OrderBy(tup => tup.Item1))
+            {
+                dataParts.Add([poiId, story]);
+            }
+
+            string data = JsonSerializer.Serialize(dataParts);
+
+            if (reportMap.TryGetValue(MiscReportType.Delve, out var dbReport))
+            {
+                dbReport.Data = data;
+            }
+            else
+            {
+                dbReport = new MiscReport
+                {
+                    UserId = _userId,
+                    ExpiresAt = expiresAt.Value,
+                    ReportedAt = DateTime.UtcNow,
+                    ReportType = MiscReportType.Delve,
+                    Region = (short)accountRegion,
+                    Data = data,
+                };
+                localContext.MiscReport.Add(dbReport);
+            }
+        }
+
+        await localContext.SaveChangesAsync();
     }
 
     private async Task HandleWorldQuestReports(WowRegion accountRegion,

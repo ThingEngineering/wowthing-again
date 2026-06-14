@@ -12,6 +12,7 @@ public class PlayerCharacterAddonData(int characterId)
 
     public PlayerCharacter Character { get; set; }
 
+    public short BankTabs { get; set; }
     public short Level { get; set; }
     public int LevelXp { get; set; }
 

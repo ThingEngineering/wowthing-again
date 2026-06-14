@@ -112,6 +112,8 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<UserGoldSnapshot> UserGoldSnapshot { get; set; }
     public DbSet<UserLeaderboardSnapshot> UserLeaderboardSnapshot { get; set; }
 
+    public DbSet<MiscAggregate> MiscAggregate { get; set; }
+    public DbSet<MiscReport> MiscReport { get; set; }
     public DbSet<WorldQuestAggregate> WorldQuestAggregate { get; set; }
     public DbSet<WorldQuestReport> WorldQuestReport { get; set; }
 
@@ -177,6 +179,9 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
 
         builder.Entity<GlobalDailies>()
             .HasKey(gd => new { gd.Expansion, gd.Region });
+
+        builder.Entity<MiscAggregate>()
+            .HasKey(ma => new { ma.Region, ma.ReportType });
 
         builder.Entity<PlayerCharacterMythicPlusSeason>()
             .HasKey(mps => new { mps.CharacterId, mps.Season });

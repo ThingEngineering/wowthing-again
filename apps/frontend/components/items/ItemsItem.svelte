@@ -7,7 +7,8 @@
     } from './convertible/data';
     import { Constants } from '@/data/constants';
     import { iconStrings } from '@/data/icons';
-    import { iconLibrary } from '@/shared/icons';
+    import { InventoryType } from '@/enums/inventory-type';
+    import { iconLibrary, uiIcons } from '@/shared/icons';
     import { wowthingData } from '@/shared/stores/data';
     import { getItemUrl } from '@/utils/get-item-url';
     import { getBonusIdCraftingStat } from '@/utils/items/get-bonus-id-crafting-stat';
@@ -102,14 +103,20 @@
         }
     };
 
+    const statEnchants: Record<number, Icon> = {
+        7977: uiIcons.circleR, // Resourcefulness
+        8005: uiIcons.circleM, // Multicrafting
+        8035: uiIcons.circleI, // Ingenuity
+    };
+
     const statModifiers: Record<number, Icon> = {
-        76: iconLibrary.mdiLetterR, // Resourcefulness
-        77: iconLibrary.mdiLetterF, // Finesse
-        78: iconLibrary.mdiLetterD, // Deftness
-        79: iconLibrary.mdiLetterP, // Perception
-        80: iconLibrary.mdiLetterS, // Speed
-        81: iconLibrary.mdiLetterM, // Multicrafting
-        82: iconLibrary.mdiLetterI, // Ingenuity
+        76: uiIcons.circleR, // Resourcefulness
+        77: uiIcons.circleF, // Finesse
+        78: uiIcons.circleD, // Deftness
+        79: uiIcons.circleP, // Perception
+        80: uiIcons.circleS, // Speed
+        81: uiIcons.circleM, // Multicrafting
+        82: uiIcons.circleI, // Ingenuity
     };
 </script>
 
@@ -191,17 +198,22 @@
             --image-border-color: #bbb;
         }
     }
-    .crafted-modifier {
-        --image-margin-top: -6px;
+    .crafted-modifier,
+    .crafted-enchant {
         --scale: 1.2;
 
         border-radius: 50%;
         pointer-events: none;
         position: absolute;
-        left: 0px;
-        top: 1px;
         height: 23px;
+        left: 0px;
         width: 23px;
+    }
+    .crafted-modifier {
+        top: -1px;
+    }
+    .crafted-enchant {
+        bottom: 2px;
     }
     .crafted-quality {
         pointer-events: none;
@@ -290,6 +302,19 @@
                         )}
                     />
                 </div>
+
+                {#if item?.inventoryType === InventoryType.ProfessionTool}
+                    {@const statEnchantIcon = statEnchants[gear.equipped.enchantmentIds[0]]}
+                    {#if statEnchantIcon}
+                        <div class="crafted-enchant drop-shadow2">
+                            <IconifyWrapper icon={statEnchantIcon} />
+                        </div>
+                    {:else}
+                        <div class="crafted-enchant status-warn drop-shadow">
+                            <IconifyWrapper icon={iconLibrary.mdiLetterX} />
+                        </div>
+                    {/if}
+                {/if}
             {:else}
                 {@const upgradeData = getUpgradeData()}
                 {#if upgradeData?.[0] > 0}

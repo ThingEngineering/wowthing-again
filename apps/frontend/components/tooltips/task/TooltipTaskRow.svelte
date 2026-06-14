@@ -2,7 +2,7 @@
     import { Strings } from '@/data/constants';
     import { taskChoreMap, taskMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
-    import { iconLibrary, uiIcons } from '@/shared/icons';
+    import { uiIcons } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { DbResetType } from '@/shared/stores/db/enums';
     import { userState } from '@/user-home/state/user';
@@ -151,21 +151,12 @@
                                 class:status-shrug={charTaskChore.status === QuestStatus.Error}
                             >
                                 {#if chore.questReset === DbResetType.Daily && settingsState.value.tasks.showDailyIcon}
-                                    <IconifyWrapper
-                                        icon={iconLibrary.mynauiLetterDSquare}
-                                        cls="quality3"
-                                    />
+                                    <IconifyWrapper icon={uiIcons.squareD} cls="quality3" />
                                 {:else if chore.questReset === DbResetType.Weekly && settingsState.value.tasks.showWeeklyIcon}
-                                    <IconifyWrapper
-                                        icon={iconLibrary.mynauiLetterWSquare}
-                                        cls="quality3"
-                                    />
+                                    <IconifyWrapper icon={uiIcons.squareW} cls="quality3" />
                                 {/if}
                                 {#if chore.accountWide && settingsState.value.tasks.showAccountIcon}
-                                    <IconifyWrapper
-                                        icon={iconLibrary.mynauiLetterASquare}
-                                        cls="status-shrug"
-                                    />
+                                    <IconifyWrapper icon={uiIcons.squareA} cls="status-shrug" />
                                 {/if}
 
                                 <ParsedText text={charTaskChore.name} />
@@ -239,13 +230,13 @@
     {#if settingsState.value.tasks.showIconLegend}
         <div class="bottom" style:--scale="1.2">
             <span>
-                <IconifyWrapper icon={iconLibrary.mynauiLetterDSquare} cls="quality3" /> Daily
+                <IconifyWrapper icon={uiIcons.squareD} cls="quality3" /> Daily
             </span>
             <span>
-                <IconifyWrapper icon={iconLibrary.mynauiLetterWSquare} cls="quality3" /> Weekly
+                <IconifyWrapper icon={uiIcons.squareW} cls="quality3" /> Weekly
             </span>
             <span>
-                <IconifyWrapper icon={iconLibrary.mynauiLetterASquare} cls="status-shrug" /> Account
+                <IconifyWrapper icon={uiIcons.squareA} cls="status-shrug" /> Account
             </span>
         </div>
     {/if}

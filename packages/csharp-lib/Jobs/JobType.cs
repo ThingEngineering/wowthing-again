@@ -50,6 +50,7 @@ public enum JobType : short
     DataQuest = 1022,
 
     MagicAggregateWorldQuests = 1100,
+    MagicAggregateMiscReports = 1101,
 
     MaintenanceUnlinkCharacters = 2000,
     // MaintenanceDeleteAchievements = 2001,
@@ -58,4 +59,5 @@ public enum JobType : short
     MaintenanceBackfillUserCache = 2004,
     MaintenanceDeleteCharacters = 2005,
     MaintenanceAggregateHourlyAuctionData = 2006,
+    MaintenanceDeleteMiscReports = 2007,
 }

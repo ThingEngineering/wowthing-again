@@ -74,16 +74,6 @@
                     >Collected</CheckboxInput
                 >
             </button>
-
-            {#if slug === 'remix-legion'}
-                <button>
-                    <CheckboxInput
-                        name="show_transfers"
-                        bind:value={browserState.current.everything.showTransfers}
-                        >Transferrable</CheckboxInput
-                    >
-                </button>
-            {/if}
         </div>
     </div>
 
@@ -118,7 +108,7 @@
                 </div>
             </SectionTitle>
 
-            <div class="collection-section drops" class:drops-grid={slug === 'remix-legion'}>
+            <div class="collection-section drops">
                 {#each dbThings as dbThing}
                     <Thing thingData={dbThing} />
                 {/each}

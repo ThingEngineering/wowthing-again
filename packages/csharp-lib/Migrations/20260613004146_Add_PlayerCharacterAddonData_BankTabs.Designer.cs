@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260613004146_Add_PlayerCharacterAddonData_BankTabs")]
+    partial class Add_PlayerCharacterAddonData_BankTabs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -458,73 +461,6 @@ namespace Wowthing.Lib.Migrations
                         .HasDatabaseName("ix_language_string_language_type_id");
 
                     b.ToTable("language_string", (string)null);
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.MiscAggregate", b =>
-                {
-                    b.Property<short>("Region")
-                        .HasColumnType("smallint")
-                        .HasColumnName("region");
-
-                    b.Property<short>("ReportType")
-                        .HasColumnType("smallint")
-                        .HasColumnName("report_type");
-
-                    b.Property<string>("JsonData")
-                        .HasColumnType("text")
-                        .HasColumnName("json_data");
-
-                    b.HasKey("Region", "ReportType")
-                        .HasName("pk_misc_aggregate");
-
-                    b.ToTable("misc_aggregate", (string)null);
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.MiscReport", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Data")
-                        .HasMaxLength(1024)
-                        .HasColumnType("character varying(1024)")
-                        .HasColumnName("data");
-
-                    b.Property<DateTime>("ExpiresAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("expires_at");
-
-                    b.Property<short>("Region")
-                        .HasColumnType("smallint")
-                        .HasColumnName("region");
-
-                    b.Property<short>("ReportType")
-                        .HasColumnType("smallint")
-                        .HasColumnName("report_type");
-
-                    b.Property<DateTime>("ReportedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("reported_at");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("user_id");
-
-                    b.HasKey("Id")
-                        .HasName("pk_misc_report");
-
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_misc_report_user_id");
-
-                    b.HasIndex("ReportType", "Region", "ExpiresAt")
-                        .IsDescending(false, false, true)
-                        .HasDatabaseName("ix_misc_report_report_type_region_expires_at");
-
-                    b.ToTable("misc_report", (string)null);
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerAccount", b =>
@@ -3867,18 +3803,6 @@ namespace Wowthing.Lib.Migrations
                         .HasConstraintName("fk_background_image_roles_role_id");
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.MiscReport", b =>
-                {
-                    b.HasOne("Wowthing.Lib.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_misc_report_application_user_user_id");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerAccount", b =>

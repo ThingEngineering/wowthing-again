@@ -12,6 +12,21 @@ export const uiIcons = {
     starHalf: iconLibrary.mdiStarHalfFull,
     starFull: iconLibrary.mdiStarFace,
     yes: iconLibrary.mdiCheck,
+
+    circleD: iconLibrary.mynauiLetterDCircle,
+    circleF: iconLibrary.mynauiLetterFCircle,
+    circleI: iconLibrary.mynauiLetterICircle,
+    circleM: iconLibrary.mynauiLetterMCircle,
+    circleP: iconLibrary.mynauiLetterPCircle,
+    circleR: iconLibrary.mynauiLetterRCircle,
+    circleS: iconLibrary.mynauiLetterSCircle,
+    squareA: iconLibrary.mynauiLetterASquare,
+    squareC: iconLibrary.mynauiLetterCSquare,
+    squareD: iconLibrary.mynauiLetterDSquare,
+    squareL: iconLibrary.mynauiLetterLSquare,
+    squareM: iconLibrary.mynauiLetterMSquare,
+    squareP: iconLibrary.mynauiLetterPSquare,
+    squareW: iconLibrary.mynauiLetterWSquare,
 };
 
 export const aliasedIcons = {

@@ -4,4 +4,5 @@ export const someProfessions = [
     Profession.Alchemy,
     Profession.Enchanting,
     Profession.Jewelcrafting,
+    Profession.Tailoring,
 ];

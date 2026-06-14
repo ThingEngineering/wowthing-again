@@ -2,7 +2,6 @@
     import xor from 'lodash/xor';
 
     import { Constants, MAX_TASKS } from '@/data/constants';
-    import { iconLibrary } from '@/shared/icons';
     import { uiIcons } from '@/shared/icons/ui';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { DbResetType } from '@/shared/stores/db/enums';
@@ -110,7 +109,7 @@
             name="tasks_show_account_icon"
             bind:value={settingsState.value.tasks.showAccountIcon}
         >
-            <IconifyWrapper icon={iconLibrary.mynauiLetterASquare} cls="status-shrug" />
+            <IconifyWrapper icon={uiIcons.squareA} cls="status-shrug" />
             Show account icon
         </CheckboxInput>
 
@@ -118,7 +117,7 @@
             name="tasks_show_daily_icon"
             bind:value={settingsState.value.tasks.showDailyIcon}
         >
-            <IconifyWrapper icon={iconLibrary.mynauiLetterDSquare} cls="quality3" />
+            <IconifyWrapper icon={uiIcons.squareD} cls="quality3" />
             Show daily icon
         </CheckboxInput>
 
@@ -126,7 +125,7 @@
             name="tasks_show_weekly_icon"
             bind:value={settingsState.value.tasks.showWeeklyIcon}
         >
-            <IconifyWrapper icon={iconLibrary.mynauiLetterWSquare} cls="quality3" />
+            <IconifyWrapper icon={uiIcons.squareW} cls="quality3" />
             Show weekly icon
         </CheckboxInput>
     </div>

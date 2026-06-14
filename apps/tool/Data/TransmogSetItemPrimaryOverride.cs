@@ -26,5 +26,8 @@ public static partial class Hardcoded
         // The War Within - Liberation of Undermine - Rogue Normal
         { 73806, 0x0 }, // Hitman's Holster (wrong belt)
         { 73807, 0x1 }, // Spectral Gambler's ? (correct belt)
+        // Midnight - The Voidspire - Monk Heroic
+        { 101896, 0x0 }, // Power Stance Breeches (wrong legs)
+        { 101895, 0x1 }, // Swiftsweepers of Ra-den's Chosen (correct legs)
     };
 }
