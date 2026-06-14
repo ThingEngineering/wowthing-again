@@ -105,9 +105,9 @@ export class DataUserGeneral {
             const existed = !!character;
 
             if (existed) {
-                const lastApiUpdateUnix = characterArray[21];
-                const lastSeenAddonUnix = characterArray[22];
-                const lastScannedCurrencies = characterArray[25];
+                const lastApiUpdateUnix = characterArray[22];
+                const lastSeenAddonUnix = characterArray[23];
+                const lastScannedCurrencies = characterArray[26];
                 if (
                     lastApiUpdateUnix > character.lastApiUpdateUnix ||
                     lastSeenAddonUnix > character.lastSeenAddonUnix ||
