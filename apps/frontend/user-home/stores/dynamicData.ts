@@ -25,7 +25,7 @@ class DynamicData {
 }
 
 class DynamicDataStore {
-    private static url = '/api/world-quests/active';
+    private static url = '/api/dynamic-data';
     private cache: Record<number, DynamicData> = {};
     private questsCache: Record<number, ApiWorldQuest[]> = {};
 
