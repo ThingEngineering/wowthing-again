@@ -4,9 +4,11 @@ using Microsoft.Extensions.Caching.Memory;
 using StackExchange.Redis;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
+using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Services;
+using Wowthing.Web.Models.Api;
 
 namespace Wowthing.Web.Services;
 
@@ -109,18 +111,37 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
         _memoryCache.Remove(string.Format(MemoryCacheKeys.AuctionCommodities, region));
     }
 
-    public async Task<Dictionary<int, BackgroundImage>> GetBackgroundImages()
+    public async Task<ApiDynamicData> GetDynamicDataForRegion(short region)
     {
         return await _memoryCache.GetOrCreateAsync(
-            MemoryCacheKeys.BackgroundImages,
-            cacheEntry =>
+            string.Format(MemoryCacheKeys.DynamicData, region),
+            async cacheEntry =>
             {
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
 
-                return _context.BackgroundImage
+                var worldQuestAggregates = await _context.WorldQuestAggregate
                     .AsNoTracking()
-                    .Where(bi => bi.Role == null)
-                    .ToDictionaryAsync(bi => bi.Id);
+                    .Where(wqa => wqa.Region == region)
+                    .OrderBy(wqa => wqa.ZoneId)
+                    .ThenBy(wqa => wqa.QuestId)
+                    .ToArrayAsync();
+
+                var miscAggregates = await _context.MiscAggregate
+                    .AsNoTracking()
+                    .Where(ma => ma.Region == region)
+                    .ToArrayAsync();
+
+                var delveAggregate = miscAggregates.FirstOrDefault(ma => ma.ReportType == MiscReportType.Delve);
+                object[] delveJson = delveAggregate != null
+                    ? JsonSerializer.Deserialize<object[]>(delveAggregate.JsonData)
+                    : [];
+
+                return new ApiDynamicData
+                {
+                    Region = (WowRegion)region,
+                    Delves = delveJson,
+                    WorldQuests = worldQuestAggregates.ToGroupedDictionary(wqa => wqa.ZoneId),
+                };
             }
         );
     }

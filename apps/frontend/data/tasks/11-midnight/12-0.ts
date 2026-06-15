@@ -2,7 +2,7 @@ import { Constants } from '@/data/constants';
 import { aliasedIcons, iconLibrary } from '@/shared/icons';
 import { timeState } from '@/shared/state/time.svelte';
 import { DbResetType } from '@/shared/stores/db/enums';
-import { worldQuestStore } from '@/user-home/components/world-quests/store';
+import { dynamicDataStore } from '@/user-home/stores/dynamicData';
 import type { Character } from '@/types';
 import type { Chore, Task } from '@/types/tasks';
 
@@ -35,7 +35,7 @@ const specialAssignmentQuestToUnlock: Record<number, number> = Object.fromEntrie
 const specialAssignmentFunc = (index: number, isQuest: boolean) => {
     return (char: Character, chore: Chore) => {
         const now = timeState.slowTime;
-        const allWorldQuests = worldQuestStore.getCachedQuests(char.region);
+        const allWorldQuests = dynamicDataStore.getCachedQuests(char.region);
         const questIdIndexes = Object.fromEntries(
             allWorldQuests
                 .filter((worldQuest) => worldQuest.expires > now)
@@ -60,7 +60,7 @@ const specialAssignmentFunc = (index: number, isQuest: boolean) => {
 };
 
 const specialAssignmentExpiry: Chore['customExpiryFunc'] = (char, scannedAt, questIds) => {
-    const allWorldQuests = worldQuestStore.getCachedQuests(char.region);
+    const allWorldQuests = dynamicDataStore.getCachedQuests(char.region);
     const findQuestId = specialAssignmentQuestToUnlock[questIds[0]] || questIds[0];
     const worldQuest = allWorldQuests.find((wq) => wq.questId === findQuestId);
     return worldQuest?.expires || Constants.defaultTime;

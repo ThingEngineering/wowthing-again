@@ -1,5 +1,8 @@
-﻿namespace Wowthing.Lib.Models;
+﻿using Wowthing.Lib.Converters;
 
+namespace Wowthing.Lib.Models;
+
+[JsonConverter(typeof(WorldQuestAggregateConverter))]
 public class WorldQuestAggregate
 {
     // 4 bytes

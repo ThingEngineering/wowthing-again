@@ -3,7 +3,7 @@
 
     import { wowthingData } from '@/shared/stores/data';
     import { leftPad } from '@/utils/formatting';
-    import type { ApiWorldQuest, WorldQuestZone } from './types';
+    import type { ApiWorldQuest, WorldQuestZone } from '@/types/world-quests';
 
     import WorldQuest from './WorldQuest.svelte';
 

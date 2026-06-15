@@ -1,25 +1,28 @@
 ﻿using System.Net.Mime;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
+using Wowthing.Web.Services;
 
 namespace Wowthing.Web.Controllers.API;
 
-[Route("api/world-quests")]
-public class WorldQuestsController : Controller
+public class DynamicDataController : Controller
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions;
+    private readonly MemoryCacheService _memoryCacheService;
     private readonly WowDbContext _context;
 
-    public WorldQuestsController(
+    public DynamicDataController(
         JsonSerializerOptions jsonSerializerOptions,
+        MemoryCacheService memoryCacheService,
         WowDbContext context
     )
     {
         _jsonSerializerOptions = jsonSerializerOptions;
+        _memoryCacheService = memoryCacheService;
         _context = context;
     }
 
-    [HttpGet("active/{region:int}")]
+    [HttpGet("api/dynamic-data/{region:int}")]
     public async Task<IActionResult> Active([FromRoute] int region)
     {
         if (!Enum.IsDefined(typeof(WowRegion), region))
@@ -27,13 +30,8 @@ public class WorldQuestsController : Controller
             return BadRequest();
         }
 
-        var results = await _context.WorldQuestAggregate
-            .Where(wqa => wqa.Region == (short)(region & 0x7FFF))
-            .OrderBy(wqa => wqa.ZoneId)
-            .ThenBy(wqa => wqa.QuestId)
-            .ToArrayAsync();
-
-        string json = JsonSerializer.Serialize(results, _jsonSerializerOptions);
+        var result = await _memoryCacheService.GetDynamicDataForRegion((short)(region & 0x7FFF));
+        string json = JsonSerializer.Serialize(result, _jsonSerializerOptions);
         return Content(json, MediaTypeNames.Application.Json);
     }
 }

@@ -6,9 +6,9 @@
     import { userState } from '@/user-home/state/user';
     import { toNiceDuration } from '@/utils/formatting';
     import type { Character } from '@/types/character';
+    import type { ApiWorldQuest } from '@/types/world-quests';
 
     import { worldQuestPrereqs } from './data';
-    import type { ApiWorldQuest } from './types';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';

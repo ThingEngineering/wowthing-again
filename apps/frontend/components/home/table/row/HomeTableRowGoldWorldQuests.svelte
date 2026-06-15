@@ -5,11 +5,11 @@
     import { timeState } from '@/shared/state/time.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { zoneMap } from '@/user-home/components/world-quests/data';
-    import { worldQuestStore } from '@/user-home/components/world-quests/store';
+    import { dynamicDataStore } from '@/user-home/stores/dynamicData';
     import { userState } from '@/user-home/state/user';
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
     import type { CharacterProps } from '@/types/props';
-    import type { ApiWorldQuest } from '@/user-home/components/world-quests/types';
+    import type { ApiWorldQuest } from '@/types/world-quests';
 
     import Tooltip from '@/components/tooltips/GoldWorldQuests.svelte';
 
@@ -93,10 +93,10 @@
 
 <td class="b-l">
     {#if goldWorldQuests?.length > 0}
-        {#await worldQuestStore.fetch(character.realm.region)}
+        {#await dynamicDataStore.fetch(character.realm.region)}
             ...
-        {:then worldQuests}
-            {@const [count, active] = processQuests(worldQuests, questMap)}
+        {:then dynamicData}
+            {@const [count, active] = processQuests(dynamicData.worldQuests, questMap)}
             <div
                 use:componentTooltip={{
                     component: Tooltip,
