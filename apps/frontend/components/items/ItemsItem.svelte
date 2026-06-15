@@ -104,8 +104,11 @@
     };
 
     const statEnchants: Record<number, Icon> = {
+        7975: uiIcons.circleP, // Perception
         7977: uiIcons.circleR, // Resourcefulness
+        8003: uiIcons.circleF, // Finesse
         8005: uiIcons.circleM, // Multicrafting
+        8033: uiIcons.circleD, // Deftness
         8035: uiIcons.circleI, // Ingenuity
     };
 
