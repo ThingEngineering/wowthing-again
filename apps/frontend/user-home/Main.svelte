@@ -9,8 +9,8 @@
     import { timeStore } from '@/shared/stores/time';
     import { delegateBasicTooltips } from '@/shared/utils/tooltips';
     import { userAchievementStore, userQuestStore, userStore } from '@/stores';
-    import { worldQuestStore } from '@/user-home/components/world-quests/store';
     import { userState } from '@/user-home/state/user';
+    import { dynamicDataStore } from '@/user-home/stores/dynamicData';
     import { hashObject } from '@/utils/hash-object.svelte';
     import parseApiTime from '@/utils/parse-api-time';
     import type { Settings } from '@/shared/stores/settings/types/settings';
@@ -41,8 +41,8 @@
             userAchievementStore.fetch(),
             userQuestStore.fetch(),
             userStore.fetch(),
-            worldQuestStore.fetch(Region.US),
-            worldQuestStore.fetch(Region.EU),
+            dynamicDataStore.fetch(Region.US),
+            dynamicDataStore.fetch(Region.EU),
         ]);
 
         userStore.setup(settingsState.value, $userStore);

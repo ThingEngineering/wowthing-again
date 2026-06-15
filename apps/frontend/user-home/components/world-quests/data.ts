@@ -1,5 +1,5 @@
 import { QuestInfoType } from '@/shared/stores/static/enums';
-import type { WorldQuestZone } from './types';
+import type { WorldQuestZone } from '@/types/world-quests';
 
 export const zoneData: WorldQuestZone[] = [
     {

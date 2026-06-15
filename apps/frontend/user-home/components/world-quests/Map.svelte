@@ -2,9 +2,9 @@
     import find from 'lodash/find';
 
     import { zoneData } from './data';
-    import { worldQuestStore } from './store';
     import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { dynamicDataStore } from '@/user-home/stores/dynamicData';
 
     import ContinentBox from './ContinentBox.svelte';
     import Image from '@/shared/components/images/Image.svelte';
@@ -44,13 +44,16 @@
             height={1000}
         />
 
-        {#await worldQuestStore.fetch(browserState.current.worldQuests.region)}
+        {#await dynamicDataStore.fetch(browserState.current.worldQuests.region)}
             L O A D I N G . . .
-        {:then worldQuests}
+        {:then dynamicData}
             {#each (zone.children || []).filter((zone) => zone?.continentPoint) as childZone (childZone.id)}
-                <ContinentBox zone={childZone} worldQuests={worldQuests[childZone.id]} />
+                <ContinentBox
+                    zone={childZone}
+                    worldQuests={dynamicData.worldQuests[childZone.id]}
+                />
             {:else}
-                {#each worldQuests[zone.id] || [] as worldQuest (worldQuest.questId)}
+                {#each dynamicData.worldQuests[zone.id] || [] as worldQuest (worldQuest.questId)}
                     <WorldQuest {worldQuest} />
                 {/each}
             {/each}

@@ -7,6 +7,7 @@
     import { sharedState } from '@/shared/state/shared.svelte';
     import { userState } from '@/user-home/state/user';
 
+    import Delves from './Delves.svelte';
     import Holidays from './Holidays.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParagonQuests from '../table/paragon/ParagonQuests.svelte';
@@ -118,5 +119,7 @@
         <ParagonQuests />
 
         <Holidays />
+
+        <Delves />
     </div>
 </div>

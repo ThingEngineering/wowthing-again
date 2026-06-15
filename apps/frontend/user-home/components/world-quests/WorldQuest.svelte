@@ -7,9 +7,9 @@
     import { QuestInfoFlags, QuestInfoType } from '@/shared/stores/static/enums';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { toNiceNumber } from '@/utils/formatting/to-nice-number';
+    import type { ApiWorldQuest } from '@/types/world-quests';
 
     import { questInfoIcon } from './data';
-    import type { ApiWorldQuest } from './types';
 
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
