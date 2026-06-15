@@ -1,11 +1,11 @@
 <script lang="ts">
     import { FarmIdType } from '@/enums/farm-id-type';
     import { FarmType } from '@/enums/farm-type';
-    import { Region } from '@/enums/region';
     import { timeStore } from '@/shared/stores/time';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { userQuestStore } from '@/stores';
     import { zoneMapState } from '@/stores/local-storage/zone-map';
+    import { userState } from '@/user-home/state/user';
     import { dynamicDataStore } from '@/user-home/stores/dynamicData';
     import { getInstanceFarm } from '@/utils/get-instance-farm';
     import { getFarmIcon } from '@/utils/zone-maps';
@@ -73,7 +73,11 @@
 
         worldQuestAvailable = 0;
         if (farm.worldQuestId) {
-            if (dynamicDataStore.getCached(Region.US).worldQuests[farm.worldQuestId]) {
+            if (
+                dynamicDataStore.getCached(userState.general.allRegions[0]).worldQuests[
+                    farm.worldQuestId
+                ]
+            ) {
                 classes.push('highlight');
                 worldQuestAvailable = 1;
             } else {
