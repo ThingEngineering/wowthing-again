@@ -133,7 +133,7 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
 
                 var delveAggregate = miscAggregates.FirstOrDefault(ma => ma.ReportType == MiscReportType.Delve);
                 object[] delveJson = delveAggregate != null
-                    ? JsonSerializer.Deserialize<object[]>(delveAggregate.JsonData)
+                    ? JsonSerializer.Deserialize<object[]>(delveAggregate.JsonData ?? "[]")
                     : [];
 
                 return new ApiDynamicData
