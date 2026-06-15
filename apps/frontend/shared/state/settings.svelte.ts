@@ -5,7 +5,7 @@ import { router } from 'svelte-spa-router';
 // WARNING: do NOT import any of the other stores!
 import { Constants } from '@/data/constants';
 import { expansionOrder } from '@/data/expansion';
-import { professionCooldowns } from '@/data/professions/cooldowns';
+import { professionCooldowns, professionWorkOrders } from '@/data/professions/cooldowns';
 import { Language } from '@/enums/language';
 import { sharedState } from '@/shared/state/shared.svelte';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
@@ -120,7 +120,7 @@ function createSettingsState() {
                 settingsHash = hashObject(newSettings, []);
             }
 
-            for (const professionCooldown of professionCooldowns) {
+            for (const professionCooldown of [...professionCooldowns, ...professionWorkOrders]) {
                 if (newSettings.professions.cooldowns[professionCooldown.key] === undefined) {
                     newSettings.professions.cooldowns[professionCooldown.key] = true;
                 }
