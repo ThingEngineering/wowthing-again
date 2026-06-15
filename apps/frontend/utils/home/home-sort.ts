@@ -19,33 +19,33 @@ import type { Character } from '@/types';
 
 const MAX_TIME = 2 ** 31 * 1000;
 
-export function homeSort(char: Character, sortBy: string): string {
-    if (sortBy === 'gold') {
+export function homeSort(char: Character, sortingBy: string): string {
+    if (sortingBy === 'gold') {
         return leftPad(10_000_000 - char.gold, 8, '0');
-    } else if (sortBy === 'bagSpace') {
+    } else if (sortingBy === 'bagSpace') {
         return leftPad(1000 - char.bagSlotsFree, 4, '0');
-    } else if (sortBy === 'bestItemLevel') {
+    } else if (sortingBy === 'bestItemLevel') {
         return leftPad(
             10000 -
                 Math.floor(parseFloat(char.bestItemLevels?.[char.activeSpecId]?.[0] || '0.0') * 10),
             5,
             '0'
         );
-    } else if (sortBy === 'itemLevel') {
+    } else if (sortingBy === 'itemLevel') {
         return leftPad(
             10000 - Math.floor(parseFloat(char.calculatedItemLevel || '0.0') * 10),
             5,
             '0'
         );
-    } else if (sortBy === 'lastSeenAddon') {
+    } else if (sortingBy === 'lastSeenAddon') {
         return leftPad(MAX_TIME - (char.lastSeenAddon?.toMillis() || 0), 13, '0');
-    } else if (sortBy === 'currentLocation') {
+    } else if (sortingBy === 'currentLocation') {
         // adding two spaces makes it sort before " > blah"
         return char.currentLocation + '  ' || 'ZZZZZ';
-    } else if (sortBy === 'hearthLocation') {
+    } else if (sortingBy === 'hearthLocation') {
         // adding two spaces makes it sort before " > blah"
         return char.hearthLocation + '  ' || 'ZZZZZ';
-    } else if (sortBy === 'keystone') {
+    } else if (sortingBy === 'keystone') {
         if (char.level === Constants.characterMaxLevel && char.weekly?.keystoneScannedAt) {
             const resetTime = getNextWeeklyReset(char.weekly.keystoneScannedAt, char.realm.region);
             if (resetTime > timeState.slowTime) {
@@ -57,11 +57,11 @@ export function homeSort(char: Character, sortBy: string): string {
         }
 
         return '100|ZZ';
-    } else if (sortBy === 'mythicPlusScore') {
+    } else if (sortingBy === 'mythicPlusScore') {
         const season = Constants.mythicPlusSeason;
         const rating = char.mythicPlusSeasonScores?.[season] || char.raiderIo?.[season]?.all || 0;
         return leftPad(Math.floor(100000 - rating * 10), 6, '0');
-    } else if (sortBy === 'professionCooldowns') {
+    } else if (sortingBy === 'professionCooldowns') {
         const cooldownData = get(lazyStore).characters[char.id].professionCooldowns;
         return leftPad(
             100 - (cooldownData.total > 0 ? (cooldownData.have / cooldownData.total) * 100 : -1),
@@ -71,16 +71,16 @@ export function homeSort(char: Character, sortBy: string): string {
         // } else if (sortBy === 'professionWorkOrders') {
         //     const orderData = lazyStore.characters[char.id].professionWorkOrders;
         //     return leftPad(10 - (orderData.total > 0 ? orderData.have : -1), 3, '0');
-    } else if (sortBy === 'restedExperience') {
+    } else if (sortingBy === 'restedExperience') {
         if (char.level === Constants.characterMaxLevel) {
             return '999';
         } else {
             const [rested] = getCharacterRested(timeState.time, char);
             return leftPad(999 - parseInt(rested), 3, '0');
         }
-    } else if (sortBy === 'statsSpeed') {
+    } else if (sortingBy === 'statsSpeed') {
         return leftPad(99999 - char.movementSpeed.total * 100, 5, '0');
-    } else if (sortBy === 'vaultMythicPlus') {
+    } else if (sortingBy === 'vaultMythicPlus') {
         if (char.weekly?.vault?.generatedRewards) {
             return '000|000|000';
         } else if (char.weekly?.vault?.availableRewards) {
@@ -98,7 +98,7 @@ export function homeSort(char: Character, sortBy: string): string {
             leftPad(900 - levels[1], 3, '0'),
             leftPad(900 - levels[2], 3, '0'),
         ].join('|');
-    } else if (sortBy === 'vaultRaid') {
+    } else if (sortingBy === 'vaultRaid') {
         if (char.weekly?.vault?.generatedRewards) {
             return '000|000|000';
         } else if (char.weekly?.vault?.availableRewards) {
@@ -111,7 +111,7 @@ export function homeSort(char: Character, sortBy: string): string {
             leftPad(900 - getRaidVaultItemLevel(progress?.[1])[0], 3, '0'),
             leftPad(900 - getRaidVaultItemLevel(progress?.[2])[0], 3, '0'),
         ].join('|');
-    } else if (sortBy === 'vaultWorld') {
+    } else if (sortingBy === 'vaultWorld') {
         if (char.weekly?.vault?.generatedRewards) {
             return '000|000|000';
         } else if (char.weekly?.vault?.availableRewards) {
@@ -129,18 +129,18 @@ export function homeSort(char: Character, sortBy: string): string {
             leftPad(900 - levels[1], 3, '0'),
             leftPad(900 - levels[2], 3, '0'),
         ].join('|');
-    } else if (sortBy.startsWith('currencies:')) {
-        const currencyId = parseInt(sortBy.split(':')[1]);
+    } else if (sortingBy.startsWith('currencies:')) {
+        const currencyId = parseInt(sortingBy.split(':')[1]);
         const value =
             currencyId > 1_000_000
                 ? char.getItemCount(currencyId - 1_000_000)
                 : char.currencies?.[currencyId]?.quantity || 0;
         return leftPad(100_000_000 - value, 9, '0');
-    } else if (sortBy.startsWith('items:')) {
-        const itemId = parseInt(sortBy.split(':')[1]);
+    } else if (sortingBy.startsWith('items:')) {
+        const itemId = parseInt(sortingBy.split(':')[1]);
         return leftPad(1000000 - char.getItemCount(itemId), 7, '0');
-    } else if (sortBy.startsWith('lockouts:')) {
-        const lockoutKey = sortBy.split(':')[1];
+    } else if (sortingBy.startsWith('lockouts:')) {
+        const lockoutKey = sortingBy.split(':')[1];
         const lockout = char.lockouts?.[lockoutKey];
         if (lockout?.locked === true) {
             return [
@@ -150,9 +150,9 @@ export function homeSort(char: Character, sortBy: string): string {
         } else {
             return '999|999';
         }
-    } else if (sortBy.startsWith('progress:')) {
+    } else if (sortingBy.startsWith('progress:')) {
         let value = -1;
-        const progressParts = sortBy.split(':')[1].split('|');
+        const progressParts = sortingBy.split(':')[1].split('|');
         const category = wowthingData.manual.progressSets.find(
             (p) => p?.[0]?.slug === progressParts[0]
         );
@@ -170,8 +170,9 @@ export function homeSort(char: Character, sortBy: string): string {
             }
         }
         return leftPad(10_000 - value, 5, '0');
-    } else if (sortBy.startsWith('tasks:')) {
-        const fullTaskName = sortBy.split(':')[1];
+    } else if (sortingBy.startsWith('tasks:')) {
+        console.log(sortingBy);
+        const fullTaskName = sortingBy.split(':').splice(1).join(':');
         const [, choreName] = fullTaskName.split('|', 2);
         const charTask = userState.activeViewTasks[char.id]?.[fullTaskName];
         const charChore = charTask?.chores?.[choreName];
