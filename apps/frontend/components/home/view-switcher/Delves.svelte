@@ -2,11 +2,11 @@
     import { delveMap } from '@/data/delve';
     import { iconLibrary } from '@/shared/icons';
     import { componentTooltip } from '@/shared/utils/tooltips';
+    import { userState } from '@/user-home/state/user';
     import { dynamicDataStore } from '@/user-home/stores/dynamicData';
 
     import DelvesTooltip from './DelvesTooltip.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
-    import { userState } from '@/user-home/state/user';
 
     let delves = $derived(dynamicDataStore.getCached(userState.general.allRegions[0]).delves);
 </script>
