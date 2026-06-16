@@ -12,6 +12,7 @@ export interface Settings {
     activeView: string;
     customGroups: SettingsCustomGroup[];
     customTasks: SettingsTask[];
+    delveRankings: Record<string, number>;
     guildNames: Record<number, string>;
     tags: SettingsTag[];
     views: SettingsView[];

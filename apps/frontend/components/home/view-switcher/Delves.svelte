@@ -1,5 +1,7 @@
 <script lang="ts">
-    import { delveMap } from '@/data/delve';
+    import sortBy from 'lodash/sortBy';
+
+    import { delveMap, type Delve } from '@/data/delve';
     import { iconLibrary } from '@/shared/icons';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { userState } from '@/user-home/state/user';
@@ -7,8 +9,19 @@
 
     import DelvesTooltip from './DelvesTooltip.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
+    import { settingsState } from '@/shared/state/settings.svelte';
 
-    let delves = $derived(dynamicDataStore.getCached(userState.general.allRegions[0]).delves);
+    let delves = $derived.by(() => {
+        const dynamicDelves = dynamicDataStore.getCached(userState.general.allRegions[0]).delves;
+        return sortBy(
+            dynamicDelves.map(({ poiId, story }) => [
+                delveMap[poiId],
+                story,
+                settingsState.value.delveRankings[`${poiId}:${story}`],
+            ]) as [Delve, string, number][],
+            ([delve, , ranking]) => `${9 - ranking}:${delve.shortName}`
+        );
+    });
 </script>
 
 <style lang="scss">
@@ -35,12 +48,9 @@
     }}
 >
     <IconifyWrapper icon={iconLibrary.faDungeon} />
-    {#each delves as { poiId, story } (poiId)}
-        {@const delve = delveMap[poiId]}
-        {#if delve}
-            <div class="delve quality{delve.storyRanks[story] ?? 3}">
-                {delve.shortName}
-            </div>
-        {/if}
+    {#each delves as [delve, , ranking] (delve)}
+        <div class="delve quality{ranking}">
+            {delve.shortName}
+        </div>
     {/each}
 </div>

@@ -8,6 +8,7 @@
     import AuctionsCustom from './sections/SettingsAuctionsCustom.svelte';
     import Account from './sections/SettingsAccount.svelte';
     import Collections from './sections/SettingsCollections.svelte';
+    import Delves from './sections/SettingsDelves.svelte';
     import History from './sections/SettingsHistory.svelte';
     import HomeTable from '@/components/home/HomeTable.svelte';
     import Layout from './sections/SettingsLayout.svelte';
@@ -33,6 +34,7 @@
         '/auctions/custom': AuctionsCustom,
         '/auctions': Auctions,
         '/collections': Collections,
+        '/delves': Delves,
         '/history': History,
         '/leaderboard': Leaderboard,
         '/privacy': Privacy,

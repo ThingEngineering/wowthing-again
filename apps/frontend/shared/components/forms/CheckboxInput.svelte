@@ -38,7 +38,7 @@
             {name}
             type="checkbox"
             bind:checked={value}
-            onchange={(event) => onChange((event.target as HTMLInputElement).checked)}
+            onchange={(event) => onChange?.((event.target as HTMLInputElement).checked)}
             {disabled}
         />
         <IconifyWrapper

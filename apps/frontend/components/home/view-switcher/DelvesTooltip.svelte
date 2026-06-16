@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { delveMap } from '@/data/delve';
+    import type { Delve } from '@/data/delve';
 
-    let { delves }: { delves: { poiId: number; story: string }[] } = $props();
+    let { delves }: { delves: [Delve, string, number][] } = $props();
 </script>
 
 <style lang="scss">
@@ -12,10 +12,10 @@
         text-align: left;
     }
     .name {
-        width: 12rem;
+        width: 11rem;
     }
     .story {
-        width: 12rem;
+        width: 13rem;
     }
 </style>
 
@@ -23,14 +23,11 @@
     <h4>Bountiful Delves</h4>
     <table class="table table-striped">
         <tbody>
-            {#each delves as { poiId, story } (poiId)}
-                {@const delve = delveMap[poiId]}
-                {#if delve}
-                    <tr>
-                        <td class="name text-overflow">{delve.name}</td>
-                        <td class="story quality{delve.storyRanks[story] ?? 3}">{story}</td>
-                    </tr>
-                {/if}
+            {#each delves as [delve, story, ranking] (story)}
+                <tr>
+                    <td class="name text-overflow">{delve.name}</td>
+                    <td class="story text-overflow quality{ranking}">{story}</td>
+                </tr>
             {/each}
         </tbody>
     </table>

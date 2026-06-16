@@ -27,6 +27,7 @@ public class ApplicationUserSettings
     public Dictionary<int, ApplicationUserSettingsAccount> Accounts { get; set; } = new();
     public List<ApplicationUserSettingsCustomGroup>? CustomGroups { get; set; } = new();
     public List<ApplicationUserSettingsCustomTask>? CustomTasks { get; set; } = new();
+    public Dictionary<string, int> DelveRankings { get; set; } = new();
     public Dictionary<int, string> GuildNames { get; set; } = new();
     public List<ApplicationUserSettingsTag>? Tags { get; set; } = new();
     public List<ApplicationUserSettingsView>? Views { get; set; } = new();
@@ -141,6 +142,7 @@ public class ApplicationUserSettings
 
         CustomGroups ??= new List<ApplicationUserSettingsCustomGroup>();
         CustomTasks ??= new();
+        DelveRankings ??= new Dictionary<string, int>();
         Views ??= new List<ApplicationUserSettingsView>();
 
         if (Views.Count == 0)
