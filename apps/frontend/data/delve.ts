@@ -4,6 +4,7 @@ export type Delve = {
     storyRanks: Record<string, number>;
 };
 
+// Defaults, only used for initial settings creation
 export const delveMap: Record<number, Delve> = {
     8426: {
         name: 'Collegiate Calamity',
