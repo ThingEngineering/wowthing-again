@@ -73,6 +73,10 @@
             slug: 'collections',
         },
         {
+            name: 'Delves',
+            slug: 'delves',
+        },
+        {
             name: 'History',
             slug: 'history',
         },

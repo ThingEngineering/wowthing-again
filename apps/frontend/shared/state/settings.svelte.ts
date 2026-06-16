@@ -16,6 +16,7 @@ import type { Task } from '@/types/tasks';
 
 import { browserState } from './browser.svelte';
 import type { Settings } from '../stores/settings/types';
+import { delveMap } from '@/data/delve';
 
 const languageToSubdomain: Record<Language, string> = {
     [Language.deDE]: 'de',
@@ -123,6 +124,15 @@ function createSettingsState() {
             for (const professionCooldown of [...professionCooldowns, ...professionWorkOrders]) {
                 if (newSettings.professions.cooldowns[professionCooldown.key] === undefined) {
                     newSettings.professions.cooldowns[professionCooldown.key] = true;
+                }
+            }
+
+            for (const [poiId, delve] of getNumberKeyedEntries(delveMap)) {
+                for (const [story, defaultRanking] of Object.entries(delve.storyRanks)) {
+                    const storyKey = `${poiId}:${story}`;
+                    if (newSettings.delveRankings[storyKey] === undefined) {
+                        newSettings.delveRankings[storyKey] = defaultRanking;
+                    }
                 }
             }
 
