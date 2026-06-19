@@ -113,16 +113,6 @@ export const midChores12_0: Task = {
                 },
             ],
         },
-        // {
-        //     key: 'midDelves',
-        //     name: '[Dor] Delves',
-        //     minimumLevel: 80,
-        //     icon: iconLibrary.gameDigDug,
-        //     questReset: DbResetType.Weekly,
-        //     questIds: [
-        //         93909, // Delves: Worldwide Research
-        //     ],
-        // },
         {
             key: 'midAbundance',
             name: 'Abundance',
@@ -217,8 +207,16 @@ export const midChores12_0: Task = {
             ],
         },
         {
+            key: 'midEchoesRekindled',
+            name: '[Har] Echoes Rekindled',
+            icon: iconLibrary.gameSmallFire,
+            minimumLevel: 83,
+            questReset: DbResetType.Weekly,
+            questIds: [92713],
+        },
+        {
             key: 'midLostLegends',
-            name: 'Lost Legends',
+            name: '[Har] Lost Legends',
             icon: iconLibrary.gameSecretBook,
             minimumLevel: 83,
             accountWide: true,
