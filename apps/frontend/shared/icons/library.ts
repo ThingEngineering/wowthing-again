@@ -78,6 +78,7 @@ export { default as gameSecretBook } from '~icons/game-icons/secret-book';
 export { default as gameShield } from '~icons/game-icons/shield';
 export { default as gameShirt } from '~icons/game-icons/shirt';
 export { default as gameShurikenAperture } from '~icons/game-icons/shuriken-aperture';
+export { default as gameSmallFire } from '~icons/game-icons/small-fire';
 export { default as gameSpellBook } from '~icons/game-icons/spell-book';
 export { default as gameSpiderFace } from '~icons/game-icons/spider-face';
 export { default as gameSpikedDragonHead } from '~icons/game-icons/spiked-dragon-head';
