@@ -210,7 +210,7 @@ export const midChores12_0: Task = {
             key: 'midEchoesRekindled',
             name: '[Har] Echoes Rekindled',
             icon: iconLibrary.gameSmallFire,
-            minimumLevel: 83,
+            minimumLevel: 80,
             questReset: DbResetType.Weekly,
             questIds: [92713],
         },
