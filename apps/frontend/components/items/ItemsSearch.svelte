@@ -119,17 +119,19 @@
 
 {#snippet bindType(bindType: ItemBinding, bound: boolean)}
     {#if bound}
-        <IconifyWrapper
-            icon={iconLibrary.gamePadlock}
-            cls="status-warn"
-            tooltip="Bound to character"
-        />
-    {:else if [ItemBinding.BindToBnetAccount, ItemBinding.BindToAccountUntilEquipped].includes(bindType)}
-        <IconifyWrapper
-            icon={iconLibrary.gameLockedHeart}
-            cls="status-shrug"
-            tooltip="Bound to account"
-        />
+        {#if [ItemBinding.BindToBnetAccount, ItemBinding.BindToAccountUntilEquipped].includes(bindType)}
+            <IconifyWrapper
+                icon={iconLibrary.gameLockedHeart}
+                cls="status-shrug"
+                tooltip="Bound to account"
+            />
+        {:else}
+            <IconifyWrapper
+                icon={iconLibrary.gamePadlock}
+                cls="status-warn"
+                tooltip="Bound to character"
+            />
+        {/if}
     {/if}
 {/snippet}
 
