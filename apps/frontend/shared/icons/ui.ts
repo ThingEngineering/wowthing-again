@@ -23,8 +23,10 @@ export const uiIcons = {
     squareA: iconLibrary.mynauiLetterASquare,
     squareC: iconLibrary.mynauiLetterCSquare,
     squareD: iconLibrary.mynauiLetterDSquare,
+    squareH: iconLibrary.mynauiLetterHSquare,
     squareL: iconLibrary.mynauiLetterLSquare,
     squareM: iconLibrary.mynauiLetterMSquare,
+    squareN: iconLibrary.mynauiLetterNSquare,
     squareP: iconLibrary.mynauiLetterPSquare,
     squareW: iconLibrary.mynauiLetterWSquare,
 };

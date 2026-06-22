@@ -1,5 +1,5 @@
 import { Constants } from '@/data/constants';
-import { aliasedIcons, iconLibrary } from '@/shared/icons';
+import { aliasedIcons, iconLibrary, uiIcons } from '@/shared/icons';
 import { timeState } from '@/shared/state/time.svelte';
 import { DbResetType } from '@/shared/stores/db/enums';
 import { dynamicDataStore } from '@/user-home/stores/dynamicData';
@@ -280,6 +280,46 @@ export const midChores12_0: Task = {
             questIds: [
                 94385, // Void Assaults: Eversong Woods
                 94386, // Void Assaults: Zul'Aman
+            ],
+        },
+        {
+            key: 'showdownNormal',
+            name: 'Showdown: Normal',
+            icon: uiIcons.squareN,
+            minimumLevel: 80,
+            questReset: DbResetType.Weekly,
+            questResetForced: true,
+            subChores: [
+                {
+                    key: 'leveling',
+                    name: 'Leveling',
+                    maximumLevel: 89,
+                    questIds: [
+                        96716, // Showdown on Val
+                        96720, // Showdown on Naigtal
+                    ],
+                },
+                {
+                    key: 'max',
+                    name: 'Max Level',
+                    minimumLevel: 90,
+                    questIds: [
+                        96713, // Showdown on Val
+                        96717, // Showdown on Naigtal
+                    ],
+                },
+            ],
+        },
+        {
+            key: 'showdownHeroic',
+            name: 'Showdown: Heroic',
+            icon: uiIcons.squareH,
+            minimumLevel: 90,
+            questReset: DbResetType.Weekly,
+            questResetForced: true,
+            questIds: [
+                96714, // Showdown on Val: Heroic
+                96718, // Showdown on Naigtal: Heroic
             ],
         },
     ],
