@@ -66,4 +66,5 @@ export const timewalkingHolidays = [
     Holiday.TimewalkingLegion,
     Holiday.TimewalkingBfa,
     Holiday.TimewalkingSl,
+    Holiday.TimewalkingDf,
 ];
