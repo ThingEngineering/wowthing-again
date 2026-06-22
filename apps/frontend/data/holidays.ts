@@ -71,6 +71,7 @@ export const holidayIds: Record<number, [number[], number[]?]> = {
     [Holiday.TimewalkingLegion]: [timewalkingNameIds, [417]],
     [Holiday.TimewalkingBfa]: [timewalkingNameIds, [483]],
     [Holiday.TimewalkingSl]: [timewalkingNameIds, [492]],
+    [Holiday.TimewalkingDf]: [timewalkingNameIds, [493]],
 
     [Holiday.BrawlArathiBlizzard]: [[262]],
     [Holiday.BrawlClassicAshran]: [[398]],

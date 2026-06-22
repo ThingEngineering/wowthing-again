@@ -48,7 +48,7 @@
     <td
         class="sortable sorted-{getSortState(fullTaskName)} {customExpiry || ''}"
         data-task={taskName}
-        style:--scale="0.9"
+        style:--scale="1"
         onclick={() => setSortState(fullTaskName)}
         use:componentTooltip={{
             component: Tooltip,
