@@ -19,6 +19,9 @@
     <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="10.0.7" />
     <PackageReference Include="prometheus-net" Version="8.2.1" />
     <PackageReference Include="prometheus-net.AspNetCore" Version="8.2.1" />
+    <PackageReference Include="Sentry" Version="6.6.0" />
+    <PackageReference Include="Sentry.AspNetCore" Version="6.6.0" />
+    <PackageReference Include="Sentry.Profiling" Version="6.6.0" />
     <PackageReference Include="StackExchange.Redis" Version="2.12.14" />
   </ItemGroup>
 

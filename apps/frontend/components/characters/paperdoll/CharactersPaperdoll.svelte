@@ -4,7 +4,6 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
     import { userStore } from '@/stores';
-    import type { BackgroundImage } from '@/types';
     import type { CharacterProps } from '@/types/props';
 
     import Configure from './CharactersPaperdollConfigure.svelte';

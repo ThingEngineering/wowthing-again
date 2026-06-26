@@ -26,6 +26,7 @@ export const difficultyMap: Record<number, Difficulty> = {
     17: new Difficulty(17, 'Looking For Raid', 'L', InstanceType.Raid, 10, 30),
     18: new Difficulty(18, 'Event?', 'E', InstanceType.Raid, 40, 40),
     33: new Difficulty(33, 'Timewalking', 'T', InstanceType.Raid, 10, 30),
+    233: new Difficulty(233, 'Mythic Flex', 'MF', InstanceType.Raid, 15, 25),
 };
 
 export const dungeonDifficulties = Object.values(difficultyMap)

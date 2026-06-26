@@ -1,5 +1,6 @@
 <script lang="ts">
     import { browserState } from '@/shared/state/browser.svelte';
+    import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
     import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import type { Character } from '@/types';
@@ -9,7 +10,6 @@
     import HeadInstance from './LockoutsTableHeadInstance.svelte';
     import RowLockout from './LockoutsTableRowLockout.svelte';
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
-    import { wowthingData } from '@/shared/stores/data';
     import GroupedHead from './GroupedHead.svelte';
 
     const filterFunc = function (char: Character): boolean {

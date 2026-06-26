@@ -310,6 +310,7 @@ public class ApiController : Controller
         timer.AddPoint("Dailies");
 
         var images = await _context.Image
+            .AsNoTracking()
             .Where(image =>
                 (image.Type == ImageType.Character || image.Type == ImageType.CharacterFull) &&
                 characterIds.Contains(image.Id)
@@ -320,6 +321,7 @@ public class ApiController : Controller
                 Format = image.Format,
                 Sha256 = image.Sha256,
                 Type = image.Type,
+                Data = image.Data != null ? image.Data.Take(4).ToArray() : null,
             })
             .ToDictionaryAsync(
                 image => $"{image.Id.ToString()}-{((int)image.Type).ToString()}",

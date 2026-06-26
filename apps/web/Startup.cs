@@ -197,6 +197,7 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment env)
             app.UseExceptionHandler("/Error");
             app.UseForwardedHeaders();
             app.UseStaticFilesWithCaching();
+            app.UseSentryTracing();
         }
 
         app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");
