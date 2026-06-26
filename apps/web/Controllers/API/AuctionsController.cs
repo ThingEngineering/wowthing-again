@@ -331,9 +331,15 @@ public class AuctionsController : Controller
                     !accountPetIds.Contains(pet.Id))
                 .ToArrayAsync();
 
-            var petItemMap = missingPets
-                .Where(pet => pet.ItemIds.Count > 0)
-                .ToManyDictionary(pet => pet.ItemIds, pet => pet.CreatureId);
+            // ItemId -> CreatureId
+            var petItemMap = new Dictionary<int, int>();
+            foreach (var missingPet in missingPets.Where(pet => pet.ItemIds.Count > 0))
+            {
+                foreach (int itemId in missingPet.ItemIds)
+                {
+                    petItemMap.TryAdd(itemId, missingPet.CreatureId);
+                }
+            }
 
             var petSpeciesMap = missingPets
                 .ToDictionary(pet => pet.Id, pet => pet.CreatureId);
