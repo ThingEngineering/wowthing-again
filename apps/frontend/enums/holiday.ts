@@ -3,6 +3,7 @@ export enum Holiday {
     Brewfest,
     ChildrensWeek,
     DarkmoonFaire,
+    DarkspearDash,
     DayOfTheDead,
     HallowsEnd,
     LoveIsInTheAir,

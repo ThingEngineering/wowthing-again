@@ -24,6 +24,11 @@ export const everythingData: Record<string, EverythingData> = {
         achievementsKey: ['world-events', 'darkmoon-faire'],
         vendorsKey: ['world-events', 'darkmoon-faire'],
     },
+    'darkspear-dash': {
+        name: 'Darkspear Dash',
+        tag: 'event:darkspear-dash',
+        vendorsKey: ['world-events', 'darkspear-dash'],
+    },
     'day-of-the-dead': {
         name: 'Day of the Dead',
         tag: 'event:day-of-the-dead',
