@@ -1,10 +1,9 @@
 <script lang="ts">
-    import type { Snippet } from 'svelte';
+    import type { ChildrenProp } from '@/types/props';
 
     import { settingsState } from '@/shared/state/settings.svelte';
 
-    type Props = {
-        children: Snippet;
+    type Props = ChildrenProp & {
         id: number;
         itemLevel?: number;
     };
@@ -25,5 +24,5 @@
 </script>
 
 <a href={url}>
-    {@render children()}
+    {@render children?.()}
 </a>

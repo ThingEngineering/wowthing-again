@@ -78,7 +78,7 @@
 
 <CharacterTable skipGrouping={true} skipIgnored={true} {filterFunc} {sortFunc}>
     <CharacterTableHead slot="head">
-        <svelte:fragment slot="headText">
+        {#snippet headText()}
             <CheckboxInput
                 name="lockouts_grouped"
                 bind:value={browserState.current.lockouts.grouped}>Grouped</CheckboxInput
@@ -88,13 +88,13 @@
                 bind:value={browserState.current.lockouts.onlyWithLockout}
                 >ONLY characters with lockout</CheckboxInput
             >
-        </svelte:fragment>
+        {/snippet}
 
-        <svelte:fragment slot="headTop" let:colspan>
+        {#snippet headTop(colspan)}
             {#if browserState.current.lockouts.grouped}
                 <GroupedHead {colspan} {groupedLockouts} />
             {/if}
-        </svelte:fragment>
+        {/snippet}
 
         {#each allLockouts as instanceDifficulty, index (instanceDifficulty)}
             <HeadInstance

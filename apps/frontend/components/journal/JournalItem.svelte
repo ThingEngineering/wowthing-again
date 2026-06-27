@@ -202,7 +202,7 @@
                 </div>
             {/if}
 
-            {#if [BindType.NotBound, BindType.OnEquip].includes(dataItem.bindType)}
+            {#if [BindType.NotBound, BindType.OnEquip].includes(dataItem.bindType) && !dataItem.boundToAccount}
                 <div
                     class="overlay buyable iconify-icon drop-shadow"
                     class:status-success={appearance.userHas}

@@ -1,9 +1,8 @@
 <script lang="ts">
-    import type { Snippet } from 'svelte';
-
     import type { UserCount } from '@/types';
+    import type { ChildrenProp } from '@/types/props';
 
-    let { children, counts }: { children?: Snippet; counts: UserCount } = $props();
+    let { children, counts }: ChildrenProp & { counts: UserCount } = $props();
 
     let have = $derived(counts?.have ?? '??');
     let total = $derived(counts?.total ?? '??');

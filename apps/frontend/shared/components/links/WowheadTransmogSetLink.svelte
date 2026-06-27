@@ -1,10 +1,9 @@
 <script lang="ts">
-    import type { Snippet } from 'svelte';
+    import type { ChildrenProp } from '@/types/props';
 
     import { settingsState } from '@/shared/state/settings.svelte';
 
-    type Props = {
-        children?: Snippet;
+    type Props = ChildrenProp & {
         cls?: string;
         id: number;
     };

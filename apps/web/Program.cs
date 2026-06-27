@@ -14,7 +14,11 @@ public class Program
         Host.CreateDefaultBuilder(args)
             .ConfigureWebHostDefaults(webBuilder =>
             {
-                webBuilder.UseSentry();
+                if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("SENTRY_DSN")))
+                {
+                    webBuilder.UseSentry();
+                }
+
                 webBuilder.UseStartup<Startup>();
             });
 }

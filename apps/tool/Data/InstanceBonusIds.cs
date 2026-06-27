@@ -149,6 +149,12 @@ public static partial class Hardcoded
         { 17, 13470 }, // LFR
     };
 
+    private static readonly Dictionary<int, int> MidnightWorldBoss = new()
+    {
+        { 14, 13471 }, // Normal
+        { 15, 13472 }, // Heroic
+    };
+
     public static readonly Dictionary<int, Dictionary<int, int>> InstanceBonusIds = new()
     {
         { 369, MopSiege }, // Siege of Orgrimmar
@@ -233,6 +239,7 @@ public static partial class Hardcoded
         { 1302, WarWithinRaid }, // Manaforge Omega
 
         // Midnight
+        { 1312, MidnightWorldBoss },
         { 1314, MidnightRaid }, // The Dreamrift
         { 1307, MidnightRaid }, // The Voidspire
         { 1308, MidnightRaid }, // March on Quel'Danas

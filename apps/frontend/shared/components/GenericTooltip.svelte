@@ -1,10 +1,9 @@
 <script lang="ts">
-    import type { Snippet } from 'svelte';
+    import type { ChildrenProp } from '@/types/props';
 
     import ParsedText from './parsed-text/ParsedText.svelte';
 
-    type Props = {
-        children: Snippet;
+    type Props = ChildrenProp & {
         subTitle: string;
         title: string;
     };
@@ -24,7 +23,7 @@
 
     <table>
         <tbody>
-            {@render children()}
+            {@render children?.()}
         </tbody>
     </table>
 </div>
