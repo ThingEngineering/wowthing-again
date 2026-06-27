@@ -35,7 +35,7 @@
     <td
         class:alt={sortingBy}
         class:status-success={good && amountRaw >= good}
-        class:status-shrug={percent > 50 && percent < 90}
+        class:status-shrug={(percent > 50 && percent < 90) || (good && amountRaw >= good * 0.9)}
         class:status-warn={percent >= 90 && percent < 100}
         class:status-fail={percent >= 100}
         class:faded={amount === '0' && percent === 0}
