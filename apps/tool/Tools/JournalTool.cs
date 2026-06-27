@@ -357,6 +357,9 @@ public class JournalTool
                     OrderIndex = -i,
                 };
 
+                ToolContext.Logger.Information("[{instance}] Added extra encounter {id}/{name}",
+                    instanceId, encounterId, extraEncounter.Name);
+
                 if (extraEncounter.AfterEncounter.HasValue)
                 {
                     for (int j = 0; j < encountersByInstanceId[instanceId].Count; j++)

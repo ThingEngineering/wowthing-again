@@ -56,6 +56,9 @@ export class ItemDataItem {
         return this._appearances;
     }
 
+    get boundToAccount(): boolean {
+        return (this.flags & ItemFlags.BoundToAccount) > 0;
+    }
     get cosmetic(): boolean {
         return (this.flags & ItemFlags.Cosmetic) > 0;
     }

@@ -3,12 +3,13 @@
 [Flags]
 public enum WowItemFlags : short
 {
-    Cosmetic = 0b00_00_00_01,
-    CannotTransmogToThisItem = 0b00_00_00_10,
-    AllianceOnly = 0b00_00_01_00,
-    HordeOnly = 0b00_00_10_00,
-    LookingForRaidDifficulty = 0b00_01_00_00,
-    HeroicDifficulty = 0b00_10_00_00,
-    MythicDifficulty = 0b01_00_00_00,
-    Openable = 0b10_00_00_00,
+    Cosmetic                 = 0b0000_0000_0000_0001,
+    CannotTransmogToThisItem = 0b0000_0000_0000_0010,
+    AllianceOnly             = 0b0000_0000_0000_0100,
+    HordeOnly                = 0b0000_0000_0000_1000,
+    LookingForRaidDifficulty = 0b0000_0000_0001_0000,
+    HeroicDifficulty         = 0b0000_0000_0010_0000,
+    MythicDifficulty         = 0b0000_0000_0100_0000,
+    Openable                 = 0b0000_0000_1000_0000,
+    BoundToAccount           = 0b0000_0001_0000_0000,
 }

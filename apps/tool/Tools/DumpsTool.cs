@@ -1055,6 +1055,10 @@ public class DumpsTool
             {
                 dbItem.Flags |= WowItemFlags.Openable;
             }
+            if (itemSparse.Flags1.HasFlag(WowItemFlags1.BoundToAccount))
+            {
+                dbItem.Flags |= WowItemFlags.BoundToAccount;
+            }
             if (itemSparse.ItemNameDescriptionID is 1641 or 13932 or 14101)
             {
                 dbItem.Flags |= WowItemFlags.LookingForRaidDifficulty;
