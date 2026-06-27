@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type { Snippet } from 'svelte';
+    import type { ChildrenProp } from '@/types/props';
 
-    let { children }: { children: Snippet } = $props();
+    let { children }: ChildrenProp = $props();
 </script>
 
 <style lang="scss">

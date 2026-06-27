@@ -1,14 +1,12 @@
 <script lang="ts">
-    import type { Snippet } from 'svelte';
-
     import { iconLibrary } from '@/shared/icons';
+    import type { ChildrenProp } from '@/types/props';
 
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
-    type Props = {
+    type Props = ChildrenProp & {
         name: string;
         value?: boolean;
-        children?: Snippet;
         disabled?: boolean;
         onChange?: (newValue: boolean) => void;
         textClass?: string;

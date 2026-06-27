@@ -1,7 +1,13 @@
+import type { Snippet } from 'svelte';
+
 import type { Character } from './character';
 
 export type CharacterProps = {
     character: Character;
+};
+
+export type ChildrenProp = {
+    children?: Snippet;
 };
 
 export type SlugsProps = {

@@ -1,8 +1,7 @@
 <script lang="ts">
-    import type { Snippet } from 'svelte';
+    import type { ChildrenProp } from '@/types/props';
 
-    type Props = {
-        children: Snippet;
+    type Props = ChildrenProp & {
         padLeft?: string;
         padRight?: string;
     };

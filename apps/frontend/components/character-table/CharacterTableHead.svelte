@@ -1,9 +1,10 @@
 <script lang="ts">
-    import { settingsState } from '@/shared/state/settings.svelte';
     import type { Snippet } from 'svelte';
 
-    type Props = {
-        children?: Snippet;
+    import { settingsState } from '@/shared/state/settings.svelte';
+    import type { ChildrenProp } from '@/types/props';
+
+    type Props = ChildrenProp & {
         headText?: Snippet;
         headTop?: Snippet<[number]>;
     };
