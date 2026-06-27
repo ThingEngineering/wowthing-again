@@ -2,16 +2,12 @@
     import sortBy from 'lodash/sortBy';
 
     import { Constants } from '@/data/constants';
-    import { currencyGood } from '@/data/currencies';
-    import { imageStrings } from '@/data/icons';
     import { professionMoxie } from '@/data/professions/moxie';
     import { wowthingData } from '@/shared/stores/data';
-    import { timeStore } from '@/shared/stores/time';
-    import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import { getProfessionSortKey } from '@/utils/professions';
     import type { CharacterProps } from '@/types/props';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import Currency from '@/shared/components/currencies/Currency.svelte';
 
     let { character }: CharacterProps = $props();
 
@@ -35,7 +31,10 @@
 
 <style lang="scss">
     td {
-        --width: calc(var(--width-profession) * 2);
+        --padding-left: 0;
+        --padding-right: 0;
+        --profession-width: 3.6rem;
+        --width: calc(var(--profession-width) * 2);
 
         border-left: 1px solid var(--border-color);
         text-align: right;
@@ -43,6 +42,19 @@
     }
     .flex-wrapper {
         width: 100%;
+        align-items: center;
+        display: grid;
+        gap: 0.5rem;
+        grid-template-columns: repeat(2, var(--profession-width));
+        padding: 0 0.3rem;
+
+        :global(.currency) {
+            --image-margin-top: 0;
+
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+        }
     }
     .faded {
         opacity: 0.7;
@@ -62,22 +74,11 @@
 
 <td>
     <div class="flex-wrapper">
-        {#each professions as profession}
-            {@const currencyId = professionMoxie[profession.id]}
-            {@const { amount, amountRaw, tooltip } = getCurrencyData(
-                $timeStore,
-                character,
-                wowthingData.static.currencyById.get(currencyId)
+        {#each professions as profession (profession.id)}
+            {@const moxieCurrency = wowthingData.static.currencyById.get(
+                professionMoxie[profession.id]
             )}
-            {@const good = currencyGood[currencyId] || 0}
-            <div
-                class="moxie"
-                class:status-success={good && amountRaw >= good}
-                data-tooltip={tooltip}
-            >
-                <WowthingImage name={imageStrings[profession.slug]} size={20} border={1} />
-                <span>{amount}</span>
-            </div>
+            <Currency {character} currency={moxieCurrency} />
         {/each}
     </div>
 </td>

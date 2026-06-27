@@ -36,8 +36,12 @@
             }
         } else {
             const goodValue = currencyGood[currency.id];
-            if (goodValue && data.amountRaw >= goodValue) {
-                return 'status-success';
+            if (goodValue) {
+                if (data.amountRaw >= goodValue) {
+                    return 'status-success';
+                } else if (data.amountRaw >= goodValue * 0.9) {
+                    return 'status-shrug';
+                }
             }
         }
     }
