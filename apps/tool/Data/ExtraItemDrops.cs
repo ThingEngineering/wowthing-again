@@ -102,6 +102,23 @@ public static partial class Hardcoded
         new(87413, RaidDifficultiesNormalHeroic), // Plans: Gauntlets of Unbound Devotion
     ];
 
+    private static readonly List<ExtraItemDrop> NaigtalValWorldBosses =
+    [
+        new(275221, RaidDifficultiesNormal), // Beast Collector's Cudgel [1h mace]
+        new(275220, RaidDifficultiesNormal), // Imperator's Voidedged Cutlass [1h sword]
+        new(275217, RaidDifficultiesNormal), // Nexus-Captain's Phaseblade [1h sword]
+        new(275216, RaidDifficultiesNormal), // Phaseblade's Edges [warglaive]
+        new(275222, RaidDifficultiesNormal), // Base Commander's Decapitator [2h sword]
+        new(275219, RaidDifficultiesNormal), // Pertinax's Beast Prod [stave]
+        new(275223, RaidDifficultiesNormal), // Phasebolt Thrower [gun]
+        new(275218, RaidDifficultiesNormal), // Mertei's Command Baton [wand]
+
+        new(275224, RaidDifficultiesNormalHeroic), // Mertei's Adjutant Leggings [cloth]
+        new(275225, RaidDifficultiesNormalHeroic), // Toxic Voidscythe Spaulders [leather]
+        new(275226, RaidDifficultiesNormalHeroic), // Shredclaw Handler's Grips [mail]
+        new(275227, RaidDifficultiesNormalHeroic), // Leth'ir's Dress Sabatons [plate]
+    ];
+
     /*
      * The first number in each block is the JournalEncounter ID. If the encounter has been added
      * via ExtraEncounters, the number should be 1_(4 digit instance ID)_(0-based encounter index).
@@ -2895,8 +2912,21 @@ public static partial class Hardcoded
                 new(232655, RaidDifficultiesAll), // Vatwork Janitor's Wasteband
             ]
         },
-
         #endregion
+
+        #region Midnight
+        // Midnight > Midnight > Nexus Captain Leth'ir
+        {
+            1_1312_0,
+            NaigtalValWorldBosses
+        },
+
+        // Midnight > Midnight > Imperator Pertinax
+        {
+            1_1312_1,
+            NaigtalValWorldBosses
+        },
+        #endregion Midnight
     };
 }
 

@@ -368,5 +368,23 @@ public static partial class Hardcoded
             }
         },
         #endregion Legion
+
+        #region Midnight
+        // Midnight > Midnight (world bosses)
+        {
+            1312,
+            new[]
+            {
+                new ExtraEncounter("Nexus Captain Leth'ir")
+                {
+                    AfterEncounter = 2782, // Cragpine
+                },
+                new ExtraEncounter("Imperator Pertinax")
+                {
+                    AfterEncounter = 2782, // Cragpine
+                },
+            }
+        },
+        #endregion Midnight
     };
 }
