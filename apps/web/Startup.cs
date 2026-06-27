@@ -194,7 +194,7 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment env)
         }
         else
         {
-            app.UseExceptionHandler("/Error");
+            app.UseExceptionHandler("/error");
             app.UseForwardedHeaders();
             app.UseStaticFilesWithCaching();
         }
