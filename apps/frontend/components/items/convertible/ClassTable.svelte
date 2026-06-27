@@ -72,7 +72,7 @@
 {#if data}
     <CharacterTable characterLimit={hasEverySlot ? 1 : 0} skipGrouping={true} {filterFunc}>
         <CharacterTableHead slot="head">
-            <svelte:fragment slot="headText">
+            {#snippet headText()}
                 <div class="flex-wrapper">
                     <span class="difficulty-text">
                         {#if modifier === AppearanceModifier.LookingForRaid}
@@ -85,7 +85,7 @@
                         {stats.percent.toFixed(0)} %
                     </span>
                 </div>
-            </svelte:fragment>
+            {/snippet}
 
             {#each convertibleTypes as inventoryType (inventoryType)}
                 <th class="item-slot">

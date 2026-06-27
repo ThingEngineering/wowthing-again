@@ -1,4 +1,8 @@
-<script lang="ts"></script>
+<script lang="ts">
+    import type { Snippet } from 'svelte';
+
+    let { children }: { children: Snippet } = $props();
+</script>
 
 <style lang="scss">
     .under-construction {
@@ -8,7 +12,9 @@
 </style>
 
 <div class="under-construction thing-container bg-fail border">
-    <slot>
+    {#if children}
+        {@render children()}
+    {:else}
         This area is under construction and probably doesn't work very well, please be patient!
-    </slot>
+    {/if}
 </div>

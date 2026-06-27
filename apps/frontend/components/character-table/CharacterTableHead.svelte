@@ -1,5 +1,13 @@
 <script lang="ts">
     import { settingsState } from '@/shared/state/settings.svelte';
+    import type { Snippet } from 'svelte';
+
+    type Props = {
+        children?: Snippet;
+        headText?: Snippet;
+        headTop?: Snippet<[number]>;
+    };
+    let { children, headText, headTop }: Props = $props();
 
     let commonFields = $derived(settingsState.value.views[0].commonFields);
     let colspan = $derived(
@@ -17,12 +25,13 @@
 </style>
 
 <thead>
-    <slot name="headTop" {colspan}></slot>
+    {@render headTop?.(colspan)}
+
     <tr>
         <th class="head-text" {colspan}>
-            <slot name="headText" />
+            {@render headText?.()}
         </th>
 
-        <slot />
+        {@render children?.()}
     </tr>
 </thead>

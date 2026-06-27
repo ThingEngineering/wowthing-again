@@ -1,11 +1,12 @@
 <script lang="ts">
-    export let padLeft = 'unset';
-    export let padRight = 'unset';
+    import type { Snippet } from 'svelte';
 
-    $: {
-        padLeft = padLeft ?? 'unset';
-        padRight = padRight ?? 'unset';
-    }
+    type Props = {
+        children: Snippet;
+        padLeft?: string;
+        padRight?: string;
+    };
+    let { children, padLeft, padRight }: Props = $props();
 </script>
 
 <style lang="scss">
@@ -16,6 +17,6 @@
     }
 </style>
 
-<td style="--padding-left:{padLeft};--padding-right:{padRight};">
-    <slot />
+<td style:--padding-left={padLeft} style:--padding-right={padRight}>
+    {@render children?.()}
 </td>

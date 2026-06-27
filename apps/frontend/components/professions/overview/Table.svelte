@@ -54,10 +54,10 @@
 {#if profession}
     <CharacterTable {filterFunc} {sortFunc}>
         <CharacterTableHead slot="head">
-            <svelte:fragment slot="headText">
+            {#snippet headText()}
                 <WowthingImage name={imageStrings[profession.slug]} size={20} border={1} />
                 {profession.name.split('|')[0]}
-            </svelte:fragment>
+            {/snippet}
 
             {#if profession.slug === 'archaeology'}
                 <th class="profession-head">Ugh</th>
