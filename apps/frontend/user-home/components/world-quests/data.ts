@@ -9,6 +9,19 @@ export const zoneData: WorldQuestZone[] = [
         mapName: '11-midnight/quelthalas',
         children: [
             {
+                id: 2600,
+                name: 'Naigtal',
+                slug: 'naigtal',
+                mapName: '11-midnight/naigtal',
+            },
+            {
+                id: 2599,
+                name: 'Val',
+                slug: 'val',
+                mapName: '11-midnight/val',
+            },
+            null,
+            {
                 id: 2395,
                 name: 'Eversong Woods',
                 slug: 'eversong-woods',
