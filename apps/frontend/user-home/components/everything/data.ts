@@ -126,10 +126,12 @@ export const everythingData: Record<string, EverythingData> = {
     'timewalking-sl': {
         name: 'SL Timewalking',
         tag: 'event:timewalking-sl',
+        vendorsKey: ['shadowlands', 'timewalking'],
     },
     'timewalking-df': {
         name: 'DF Timewalking',
         tag: 'event:timewalking-df',
+        vendorsKey: ['dragonflight', 'timewalking'],
     },
 
     //
