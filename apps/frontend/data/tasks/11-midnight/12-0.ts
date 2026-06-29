@@ -285,7 +285,7 @@ export const midChores12_0: Task = {
         {
             key: 'showdownNormal',
             name: 'Showdown: Normal',
-            icon: uiIcons.squareN,
+            icon: 'S:squareN:',
             minimumLevel: 80,
             questReset: DbResetType.Weekly,
             questResetForced: true,
@@ -313,13 +313,37 @@ export const midChores12_0: Task = {
         {
             key: 'showdownHeroic',
             name: 'Showdown: Heroic',
-            icon: uiIcons.squareH,
+            icon: 'S:squareH:',
             minimumLevel: 90,
             questReset: DbResetType.Weekly,
             questResetForced: true,
             questIds: [
                 96714, // Showdown on Val: Heroic
                 96718, // Showdown on Naigtal: Heroic
+            ],
+        },
+        {
+            key: 'naigtalValWorldBossNormal',
+            name: 'Naigtal/Val World Boss [N]',
+            icon: 'B:squareN:',
+            minimumLevel: 80,
+            questReset: DbResetType.Weekly,
+            questResetForced: true,
+            questIds: [
+                96522, // Naigtal
+                96295, // Val
+            ],
+        },
+        {
+            key: 'naigtalValWorldBossHeroic',
+            name: 'Naigtal/Val World Boss [H]',
+            icon: 'B:squareH:',
+            minimumLevel: 90,
+            questReset: DbResetType.Weekly,
+            questResetForced: true,
+            questIds: [
+                96942, // Naigtal
+                96941, // Val
             ],
         },
     ],

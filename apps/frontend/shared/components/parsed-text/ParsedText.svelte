@@ -254,7 +254,7 @@
                                 libraryMaybe ||
                                 iconStrings[dataString] ||
                                 iconStrings.question,
-                            scale: '0.75',
+                            scale: 'var(--scale, 0.75)',
                             dropShadow,
                         },
                     });
