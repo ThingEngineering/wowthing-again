@@ -106,9 +106,12 @@
         white-space: nowrap;
     }
     .status {
+        --scale: 1;
+
         //padding-left: 0;
         //padding-right: 0;
         text-align: center;
+        white-space: nowrap;
         width: 1rem;
     }
     .error-text {
@@ -168,7 +171,11 @@
                                     ]}"
                                 >
                                     {#if chore?.icon}
-                                        <IconifyWrapper icon={chore.icon} scale="1" />
+                                        {#if typeof chore.icon === 'string'}
+                                            <ParsedText text={chore.icon} />
+                                        {:else}
+                                            <IconifyWrapper icon={chore.icon} />
+                                        {/if}
                                     {:else}
                                         <IconifyWrapper
                                             icon={[

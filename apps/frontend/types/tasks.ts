@@ -22,7 +22,7 @@ export type Task = {
 export type Chore = {
     key: string;
     name: string;
-    icon?: Icon;
+    icon?: Icon | string;
     accountWide?: boolean;
     alwaysStarted?: boolean;
     noAlone?: boolean;

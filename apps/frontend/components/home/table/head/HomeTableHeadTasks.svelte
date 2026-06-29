@@ -61,7 +61,11 @@
     >
         {#if chore}
             {#if chore.icon}
-                <IconifyWrapper icon={chore.icon} />
+                {#if typeof chore.icon === 'string'}
+                    <ParsedText text={chore.icon} />
+                {:else}
+                    <IconifyWrapper icon={chore.icon} />
+                {/if}
             {/if}
         {:else}
             <ParsedText text={task.shortName} />
