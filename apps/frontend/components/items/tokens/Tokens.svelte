@@ -15,6 +15,7 @@
 
     let tiers = $derived.by(() => {
         const lookup = new Set(wowthingData.journal.tokenEncounters);
+        lookup.add('396'); // Battle for Azeroth
         // const itemsById = $state.snapshot(userState.general.itemsById);
 
         const ret: TierData = [];
@@ -59,27 +60,36 @@
                     }
                 }
 
-                if (items.size > 0) {
-                    const itemsArray = Array.from(items);
-                    itemsArray.sort((a, b) => {
-                        const aParts = a.split('|').map((s) => parseInt(s));
-                        const bParts = b.split('|').map((s) => parseInt(s));
+                addItems(instances, instance, items);
+            }
 
-                        const aItem = wowthingData.items.items[aParts[0]];
-                        const bItem = wowthingData.items.items[bParts[0]];
+            // Benthic token hack
+            if (tier.id === 396) {
+                const items = new Set<string>();
 
-                        if (aItem.name !== bItem.name) {
-                            return aItem.name.localeCompare(bItem.name);
+                for (const itemId of [
+                    169477, 169478, 169479, 169480, 169481, 169482, 169483, 169484, 169485,
+                ]) {
+                    const haveItems = userState.general.itemsById[itemId];
+                    for (const [, userItems] of haveItems || []) {
+                        for (const userItem of userItems) {
+                            const modifier = getBonusIdModifier(userItem.bonusIds);
+                            items.add(`${itemId}|${modifier}|${userItem.bonusIds.join(',')}`);
                         }
-
-                        return (
-                            (itemModifierOrder[aParts[1]] || 0) -
-                            (itemModifierOrder[bParts[1]] || 0)
-                        );
-                    });
-
-                    instances.push([instance, itemsArray]);
+                    }
                 }
+
+                addItems(
+                    instances,
+                    {
+                        id: 3960001,
+                        name: 'Benthic Armor',
+                        slug: 'benthic-armor',
+                        encounters: [],
+                        encountersRaw: [],
+                    },
+                    items
+                );
             }
 
             if (instances.length > 0) {
@@ -89,6 +99,31 @@
 
         return ret;
     });
+
+    const addItems = (
+        instances: InstanceData,
+        instance: JournalDataInstance,
+        items: Set<string>
+    ) => {
+        if (items.size > 0) {
+            const itemsArray = Array.from(items);
+            itemsArray.sort((a, b) => {
+                const aParts = a.split('|').map((s) => parseInt(s));
+                const bParts = b.split('|').map((s) => parseInt(s));
+
+                const aItem = wowthingData.items.items[aParts[0]];
+                const bItem = wowthingData.items.items[bParts[0]];
+
+                if (aItem.name !== bItem.name) {
+                    return aItem.name.localeCompare(bItem.name);
+                }
+
+                return (itemModifierOrder[aParts[1]] || 0) - (itemModifierOrder[bParts[1]] || 0);
+            });
+
+            instances.push([instance, itemsArray]);
+        }
+    };
 
     let containerElement = $state<HTMLElement>(null);
     let resizeableElement = $state<HTMLElement>(null);

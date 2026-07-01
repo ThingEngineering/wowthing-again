@@ -244,7 +244,7 @@
                                     <CollectedIcon />
                                 {/if}
 
-                                {#if showItemIcon}
+                                {#if showItemIcon || !classId}
                                     <WowthingImage
                                         name={`item/${expandedItemId}`}
                                         size={48}
@@ -252,8 +252,6 @@
                                     />
                                 {:else if classId}
                                     <ClassIcon {classId} size={48} border={2} />
-                                {:else}
-                                    <WowthingImage name="/invalid" size={48} border={2} />
                                 {/if}
 
                                 {#if classId && !showItemIcon}
