@@ -29,13 +29,20 @@ import { leftPad } from '@/utils/formatting';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { sharedState } from '@/shared/state/shared.svelte';
 import { WarbankItem } from '@/types/items';
-import type { Faction } from '@/enums/faction';
+import { getBonusIdModifier } from '@/utils/items/get-bonus-id-modifier';
 import { logErrors } from '@/utils/log-errors';
+import type { Faction } from '@/enums/faction';
+import type { ContainsItems } from '@/types/shared/contains-items';
 import type { HasNameAndRealm } from '@/types/shared/has-name-and-realm';
 import type { UserItem } from '@/types/shared/user-item';
 import type { CharacterQuests } from './types';
 
 type GeneralProcessFunc = (generalState: DataUserGeneral) => void;
+type ItemsByStuff = {
+    byAppearanceId: Record<number, [HasNameAndRealm, UserItem[]][]>;
+    byAppearanceSource: Record<string, [HasNameAndRealm, UserItem[]][]>;
+    byId: Record<number, [HasNameAndRealm, UserItem[]][]>;
+};
 
 export class DataUserGeneral {
     public accountById: Record<number, Account> = $state({});
@@ -70,7 +77,9 @@ export class DataUserGeneral {
     public charactersByConnectedRealmId = $derived.by(() => this._charactersByConnectedRealmId());
     public charactersByRealmId = $derived.by(() => this._charactersByRealmId());
     public homeLockouts = $derived.by(() => this._homeLockouts());
-    public itemsById = $derived.by(() => logErrors(() => this._itemsById()));
+    public itemsByAppearanceId = $derived.by(() => this._itemsByStuff.byAppearanceId);
+    public itemsByAppearanceSource = $derived.by(() => this._itemsByStuff.byAppearanceSource);
+    public itemsById = $derived.by(() => this._itemsByStuff.byId);
     public visibleCharacters = $derived.by(() => this._visibleCharacters());
 
     private _warbankScannedAt: string;
@@ -417,25 +426,86 @@ export class DataUserGeneral {
         return homeLockouts;
     }
 
-    private _itemsById() {
-        const ret: Record<number, [HasNameAndRealm, UserItem[]][]> = {};
+    private _itemsByStuff = $derived.by(() =>
+        logErrors(() => {
+            const ret: ItemsByStuff = {
+                byAppearanceId: {},
+                byAppearanceSource: {},
+                byId: {},
+            };
+            const warbankTemp: {
+                byAppearanceId: Record<number, UserItem[]>;
+                byAppearanceSource: Record<string, UserItem[]>;
+            } = {
+                byAppearanceId: {},
+                byAppearanceSource: {},
+            };
 
-        for (const character of this.activeCharacters) {
-            for (const [itemId, items] of getNumberKeyedEntries(character.itemsById)) {
-                (ret[itemId] ||= []).push([character, items]);
+            for (const character of this.activeCharacters) {
+                this.setAppearanceData(ret, character);
             }
-        }
 
-        for (const [itemId, items] of getNumberKeyedEntries(this.warbankItemsByItemId)) {
-            (ret[itemId] ||= []).push([null, items]);
-        }
-
-        for (const guild of Object.values(this.guildById)) {
-            for (const [itemId, items] of getNumberKeyedEntries(guild.itemsById)) {
-                (ret[itemId] ||= []).push([guild, items]);
+            for (const guild of Object.values(this.guildById)) {
+                this.setAppearanceData(ret, guild);
             }
+
+            for (const [itemId, items] of getNumberKeyedEntries(this.warbankItemsByItemId)) {
+                (ret.byId[itemId] ||= []).push([null, items]);
+
+                for (const warbankItem of items) {
+                    const item = wowthingData.items.items[warbankItem.itemId];
+                    if (Object.values(item?.appearances || {}).length === 0) {
+                        continue;
+                    }
+
+                    let modifier = getBonusIdModifier(warbankItem.bonusIds);
+
+                    warbankItem.appearanceId = item.appearances[modifier]?.appearanceId;
+                    if (warbankItem.appearanceId === undefined && modifier > 0) {
+                        modifier = 0;
+                        warbankItem.appearanceId = item.appearances[modifier]?.appearanceId;
+                    }
+                    warbankItem.appearanceModifier = modifier;
+                    warbankItem.appearanceSource = `${warbankItem.itemId}_${modifier}`;
+
+                    if (warbankItem.appearanceId !== undefined) {
+                        (warbankTemp.byAppearanceId[warbankItem.appearanceId] ||= []).push(
+                            warbankItem
+                        );
+                        (warbankTemp.byAppearanceSource[warbankItem.appearanceSource] ||= []).push(
+                            warbankItem
+                        );
+                    }
+                }
+            }
+
+            for (const [appearanceId, warbankItems] of getNumberKeyedEntries(
+                warbankTemp.byAppearanceId
+            )) {
+                (ret.byAppearanceId[appearanceId] ||= []).push([null, warbankItems]);
+            }
+
+            for (const [appearanceSource, warbankItems] of Object.entries(
+                warbankTemp.byAppearanceSource
+            )) {
+                (ret.byAppearanceSource[appearanceSource] ||= []).push([null, warbankItems]);
+            }
+
+            return ret;
+        })
+    );
+
+    private setAppearanceData(data: ItemsByStuff, owner: HasNameAndRealm & ContainsItems): void {
+        for (const [itemId, items] of getNumberKeyedEntries(owner.itemsById)) {
+            (data.byId[itemId] ||= []).push([owner, items]);
         }
 
-        return ret;
+        for (const [appearanceId, items] of getNumberKeyedEntries(owner.itemsByAppearanceId)) {
+            (data.byAppearanceId[appearanceId] ||= []).push([owner, items]);
+        }
+
+        for (const [appearanceSource, items] of Object.entries(owner.itemsByAppearanceSource)) {
+            (data.byAppearanceSource[appearanceSource] ||= []).push([owner, items]);
+        }
     }
 }

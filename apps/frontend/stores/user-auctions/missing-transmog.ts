@@ -15,6 +15,7 @@ import type { Settings } from '@/shared/stores/settings/types';
 
 import type { AuctionState } from '../local-storage';
 import type { UserAuctionEntry } from '../user-auctions';
+import type { DataUserGeneral } from '@/user-home/state/user/general.svelte';
 
 export class UserAuctionMissingTransmogDataStore {
     private static url = '/api/auctions/missing-appearance-';
@@ -23,7 +24,7 @@ export class UserAuctionMissingTransmogDataStore {
     async search(
         settings: Settings,
         auctionState: AuctionState,
-        userData: UserData,
+        userData: DataUserGeneral,
         searchType: string
     ): Promise<[UserAuctionEntry[], Record<number, number>]> {
         let things: UserAuctionEntry[] = [];
