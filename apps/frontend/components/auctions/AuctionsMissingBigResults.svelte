@@ -13,7 +13,6 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { userStore } from '@/stores';
     import { auctionState } from '@/stores/local-storage';
     import { userState } from '@/user-home/state/user';
     import {
@@ -49,7 +48,7 @@
                 userAuctionMissingTransmogStore.search(
                     settingsState.value,
                     $auctionState,
-                    $userStore,
+                    userState.general,
                     slug1.replace('missing-appearance-', '')
                 );
         }

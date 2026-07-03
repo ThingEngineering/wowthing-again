@@ -284,7 +284,7 @@ export const midChores12_0: Task = {
         },
         {
             key: 'showdownNormal',
-            name: 'Showdown: Normal',
+            name: 'Showdown [N]',
             icon: 'S:squareN:',
             minimumLevel: 80,
             questReset: DbResetType.Weekly,
@@ -312,7 +312,7 @@ export const midChores12_0: Task = {
         },
         {
             key: 'showdownHeroic',
-            name: 'Showdown: Heroic',
+            name: 'Showdown [H]',
             icon: 'S:squareH:',
             minimumLevel: 90,
             questReset: DbResetType.Weekly,
