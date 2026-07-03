@@ -34,8 +34,10 @@ export const durationAuras: [number, string, boolean?][] = [
     [471544, 'Mastery of Timeways II'],
     [1229052, 'Knowledge of Timeways III'],
     [1229050, 'Mastery of Timeways III'],
-    [1229052, 'Knowledge of Timeways III'],
+    [1258529, 'Knowledge of Timeways IV'],
     [1258528, 'Mastery of Timeways IV'],
+    [1269517, 'Knowledge of Timeways V'],
+    [1269518, 'Mastery of Timeways V'],
 ];
 
 export const staticAuras: [number, string][] = [
