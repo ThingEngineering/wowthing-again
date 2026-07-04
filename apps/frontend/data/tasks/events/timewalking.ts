@@ -13,6 +13,7 @@ export const eventTimewalking: Task = {
         {
             key: 'dungeons',
             name: 'Dungeons',
+            icon: ':time::dungeon:',
             minimumLevel: 10,
             requiredHolidays: timewalkingHolidays,
             questReset: DbResetType.Weekly,
@@ -50,6 +51,7 @@ export const eventTimewalking: Task = {
         {
             key: 'dungeonItem',
             name: 'Dungeon Item',
+            icon: ':time::item:',
             requiredHolidays: timewalkingHolidays,
             questReset: DbResetType.Weekly,
             questIds: [

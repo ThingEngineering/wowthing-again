@@ -39,6 +39,7 @@ export const imageStrings: Record<string, string> = {
 };
 
 export const iconStrings: Record<string, Icon> = {
+    dungeon: iconLibrary.faDungeon,
     exclamation: iconLibrary.mdiExclamationThick,
     fire: iconLibrary.mdiFire,
     item: iconLibrary.mdiGiftOutline,

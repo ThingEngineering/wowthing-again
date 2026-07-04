@@ -11,6 +11,7 @@ export const uiIcons = {
     starEmpty: iconLibrary.mdiStarOutline,
     starHalf: iconLibrary.mdiStarHalfFull,
     starFull: iconLibrary.mdiStarFace,
+    time: iconLibrary.mdiHourglass,
     yes: iconLibrary.mdiCheck,
 
     circleD: iconLibrary.mynauiLetterDCircle,
