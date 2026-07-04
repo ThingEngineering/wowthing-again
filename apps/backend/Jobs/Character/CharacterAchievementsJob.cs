@@ -125,7 +125,7 @@ public class CharacterAchievementsJob : JobBase
             .Select(kvp => kvp.Value)
             .ToList();
 
-        var compressedAchievementIds = SerializationUtilities.SerializeToBitmap(achievementIds);
+        byte[] compressedAchievementIds = SerializationUtilities.SerializeToBitmap(achievementIds);
 
         if (paAchievements.CompressedAchievementIds == null || !compressedAchievementIds.SequenceEqual(paAchievements.CompressedAchievementIds))
         {
@@ -152,9 +152,12 @@ public class CharacterAchievementsJob : JobBase
             .Select(kvp => kvp.Value.Item2)
             .ToList();
 
-        if (pcAchievements.CriteriaIds == null || !criteriaIds.SequenceEqual(pcAchievements.CriteriaIds))
+        byte[] compressedCriteriaIds = SerializationUtilities.SerializeToBitmap(criteriaIds);
+
+        if (pcAchievements.CompressedCriteriaIds == null || !compressedCriteriaIds.SequenceEqual(pcAchievements.CompressedCriteriaIds))
         {
-            pcAchievements.CriteriaIds = criteriaIds;
+            pcAchievements.CriteriaIds = null;
+            pcAchievements.CompressedCriteriaIds = compressedCriteriaIds;
         }
 
         if (pcAchievements.CriteriaAmounts == null || !criteriaAmounts.SequenceEqual(pcAchievements.CriteriaAmounts))
