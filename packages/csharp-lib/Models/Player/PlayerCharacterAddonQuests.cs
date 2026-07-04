@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Wowthing.Lib.Constants;
+using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Lib.Models.Player;
 
@@ -17,8 +18,8 @@ public class PlayerCharacterAddonQuests(int characterId)
     public DateTime WorldQuestsScannedAt { get; set; } = MiscConstants.DefaultDateTime;
 
     public List<int> CompletedQuests { get; set; }
-    public List<int> DailyQuests { get; set; }
-    public List<int> OtherQuests { get; set; }
+    // RoaringBitmap compressed data
+    public byte[] CompressedCompletedIds { get; set; }
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, List<List<int>>> Dailies { get; set; }
@@ -29,6 +30,11 @@ public class PlayerCharacterAddonQuests(int characterId)
 
     [Column(TypeName = "jsonb")]
     public Dictionary<string, PlayerCharacterAddonQuestsProgress> ProgressQuests { get; set; }
+
+    [NotMapped]
+    public List<int> UsableCompletedIds => CompressedCompletedIds != null
+        ? SerializationUtilities.DeserializeFromBitmap(CompressedCompletedIds)
+        : CompletedQuests;
 }
 
 public class PlayerCharacterAddonQuestsProgress

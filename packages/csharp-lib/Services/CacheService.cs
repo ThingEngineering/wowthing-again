@@ -406,17 +406,35 @@ public class CacheService
             })
             .ToArrayAsync();
 
-        var characterData = characters.ToDictionary(
-            c => c.Id,
-            c => new ApiUserQuestsCharacter(
-                c.AddonQuests,
-                SerializationUtilities.AsDiffedList(
-                    (c.Quests?.CompletedIds ?? [])
-                        .Union(c.AddonQuests?.OtherQuests ?? [])
-                        .Union(c.AddonQuests?.CompletedQuests ?? [])
-                )
-            )
-        );
+        var characterData = new Dictionary<int, ApiUserQuestsCharacter>();
+        foreach (var character in characters)
+        {
+            List<int> questIds = null;
+
+            bool hasQuests = character.Quests?.ScannedAt != null;
+            bool hasAddonQuests = character.AddonQuests?.CompletedQuestsScannedAt != null;
+            if (hasQuests && hasAddonQuests)
+            {
+                // Only use API quests if they're at least an hour newer than addon data, API sucks
+                var difference = character.Quests.ScannedAt - character.AddonQuests.CompletedQuestsScannedAt;
+                questIds = difference.TotalHours < 1
+                    ? character.AddonQuests.UsableCompletedIds
+                    : character.Quests.UsableCompletedIds;
+            }
+            else if (hasQuests)
+            {
+                questIds = character.Quests.UsableCompletedIds;
+            }
+            else if (hasAddonQuests)
+            {
+                questIds = character.AddonQuests.UsableCompletedIds;
+            }
+
+            characterData[character.Id] = new ApiUserQuestsCharacter(
+                character.AddonQuests,
+                SerializationUtilities.AsDiffedList(questIds ?? [])
+            );
+        }
 
         timer.AddPoint("Database");
 
