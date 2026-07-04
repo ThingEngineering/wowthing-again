@@ -10,4 +10,5 @@ public class PlayerCharacterQuests
     public PlayerCharacter Character { get; set; }
 
     public List<int> CompletedIds { get; set; }
+    public byte[] CompressedCompletedIds { get; set; }
 }
