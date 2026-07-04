@@ -23,6 +23,31 @@ public class CharacterAchievementsJob : JobBase
     {
         var timer = new JankTimer();
 
+        if (_query?.AccountId == null)
+        {
+            throw new InvalidDataException("AccountId is null");
+        }
+
+        int accountId = _query.AccountId.Value;
+
+        string lockKey = string.Format(RedisKeys.AccountAchievements, accountId);
+        string lockValue = Guid.NewGuid().ToString("N");
+        try
+        {
+            // Attempt to get exclusive scheduler lock
+            bool lockSuccess = await JobRepository.AcquireLockAsync(lockKey, lockValue, TimeSpan.FromMinutes(1));
+            if (!lockSuccess)
+            {
+                Logger.Debug("Skipping achievements, lock failed");
+                return;
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.Error(ex, "Kaboom!");
+            return;
+        }
+
         // Fetch API data
         ApiCharacterAchievements resultData;
         var uri = GenerateUri(_query, ApiPath);
@@ -41,6 +66,17 @@ public class CharacterAchievementsJob : JobBase
         {
             Logger.Error("HTTP {0}", e.Message);
             return;
+        }
+
+        // Fetch account data
+        var paAchievements = await Context.PlayerAccountAchievements.FindAsync(accountId);
+        if (paAchievements == null)
+        {
+            paAchievements = new PlayerAccountAchievements
+            {
+                AccountId = accountId,
+            };
+            Context.PlayerAccountAchievements.Add(paAchievements);
         }
 
         // Fetch character data
@@ -78,6 +114,7 @@ public class CharacterAchievementsJob : JobBase
             RecurseCriteria(criteria, dataAchievement.Criteria?.ChildCriteria);
         }
 
+        // Achievements go in account data
         var sortedAchievements = cheevs
             .OrderBy(kvp => kvp.Key)
             .ToArray();
@@ -88,16 +125,19 @@ public class CharacterAchievementsJob : JobBase
             .Select(kvp => kvp.Value)
             .ToList();
 
-        if (pcAchievements.AchievementIds == null || !achievementIds.SequenceEqual(pcAchievements.AchievementIds))
+        var compressedAchievementIds = SerializationUtilities.SerializeToBitmap(achievementIds);
+
+        if (paAchievements.CompressedAchievementIds == null || !compressedAchievementIds.SequenceEqual(paAchievements.CompressedAchievementIds))
         {
-            pcAchievements.AchievementIds = achievementIds;
+            paAchievements.CompressedAchievementIds = compressedAchievementIds;
         }
 
-        if (pcAchievements.AchievementTimestamps == null || !achievementTimestamps.SequenceEqual(pcAchievements.AchievementTimestamps))
+        if (paAchievements.AchievementTimestamps == null || !achievementTimestamps.SequenceEqual(paAchievements.AchievementTimestamps))
         {
-            pcAchievements.AchievementTimestamps = achievementTimestamps;
+            paAchievements.AchievementTimestamps = achievementTimestamps;
         }
 
+        // Criteria go in character data
         var sortedCriteria = criteria
             .Where(kvp => kvp.Value.Item2 || kvp.Value.Item1 > 0)
             .OrderBy(kvp => kvp.Key)
