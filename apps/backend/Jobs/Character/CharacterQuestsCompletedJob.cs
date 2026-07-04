@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using Equativ.RoaringBitmaps;
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Models.Player;
@@ -54,12 +55,22 @@ public class CharacterQuestsCompletedJob : JobBase
         var completedIds = resultData.Quests
             .EmptyIfNull()
             .Select(quest => quest.Id)
-            .OrderBy(id => id)
+            .Order()
             .ToList();
 
-        if (pcQuests.CompletedIds == null || !completedIds.SequenceEqual(pcQuests.CompletedIds))
+        bool questIdsChanged = pcQuests.CompletedIds == null || !completedIds.SequenceEqual(pcQuests.CompletedIds);
+        if (questIdsChanged)
         {
             pcQuests.CompletedIds = completedIds;
+        }
+
+        if (pcQuests.CompressedCompletedIds == null || questIdsChanged)
+        {
+            var bitmap = RoaringBitmap.Create(completedIds);
+
+            using var stream = new MemoryStream();
+            RoaringBitmap.Serialize(bitmap, stream);
+            pcQuests.CompressedCompletedIds = stream.ToArray();
         }
 
         int updated = await Context.SaveChangesAsync(CancellationToken);
