@@ -1,4 +1,5 @@
 ﻿using System.Buffers.Binary;
+using Equativ.RoaringBitmaps;
 
 namespace Wowthing.Lib.Utilities;
 
@@ -51,5 +52,20 @@ public static class SerializationUtilities
         }
 
         return ret;
+    }
+
+    public static byte[] SerializeToBitmap(IEnumerable<int> values)
+    {
+        var bitmap = RoaringBitmap.Create(values);
+        using var stream = new MemoryStream();
+        RoaringBitmap.Serialize(bitmap, stream);
+        return stream.ToArray();
+    }
+
+    public static List<int> DeserializeFromBitmap(byte[] data)
+    {
+        using var stream = new MemoryStream(data);
+        var bitmap = RoaringBitmap.Deserialize(stream);
+        return bitmap.ToArray();
     }
 }

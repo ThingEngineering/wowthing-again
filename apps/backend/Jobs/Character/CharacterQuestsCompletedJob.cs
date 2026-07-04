@@ -1,8 +1,11 @@
 ﻿using System.Net.Http;
+using Equativ.RoaringBitmaps;
+using Wowthing.Backend.Models;
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
+using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs.Character;
 
@@ -21,18 +24,16 @@ public class CharacterQuestsCompletedJob : JobBase
     public override async Task Run(string[] data)
     {
         // Fetch API data
-        ApiCharacterQuestsCompleted resultData;
+        JobHttpResult<ApiCharacterQuestsCompleted> result;
         var uri = GenerateUri(_query, ApiPath);
         try
         {
-            var result = await GetUriAsJsonAsync<ApiCharacterQuestsCompleted>(uri, useLastModified: false);
+            result = await GetUriAsJsonAsync<ApiCharacterQuestsCompleted>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();
                 return;
             }
-
-            resultData = result.Data;
         }
         catch (HttpRequestException e)
         {
@@ -51,15 +52,20 @@ public class CharacterQuestsCompletedJob : JobBase
             Context.PlayerCharacterQuests.Add(pcQuests);
         }
 
-        var completedIds = resultData.Quests
+        pcQuests.ScannedAt = result.LastModified;
+
+        var completedIds = result.Data.Quests
             .EmptyIfNull()
             .Select(quest => quest.Id)
-            .OrderBy(id => id)
+            .Order()
             .ToList();
 
-        if (pcQuests.CompletedIds == null || !completedIds.SequenceEqual(pcQuests.CompletedIds))
+        byte[] compressedCompletedIds = SerializationUtilities.SerializeToBitmap(completedIds);
+
+        if (pcQuests.CompressedCompletedIds == null || !compressedCompletedIds.SequenceEqual(pcQuests.CompressedCompletedIds))
         {
-            pcQuests.CompletedIds = completedIds;
+            pcQuests.CompletedIds = null;
+            pcQuests.CompressedCompletedIds = compressedCompletedIds;
         }
 
         int updated = await Context.SaveChangesAsync(CancellationToken);

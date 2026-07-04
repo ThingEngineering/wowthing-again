@@ -63,8 +63,6 @@ public class UploadCharacter
     public Dictionary<string, int> ScanTimes { get; set; }
     public string Transmog { get; set; }
 
-    public List<int> DailyQuests { get; set; }
-    public List<int> OtherQuests { get; set; }
     public List<string> ProgressQuests { get; set; }
     public Dictionary<short, Dictionary<int, string[]>> WorldQuests { get; set; }
 

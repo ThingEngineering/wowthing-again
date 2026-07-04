@@ -1219,7 +1219,10 @@ public class UserUploadCharacterProcessor
             if (scanTime >= _character.AddonQuests.CompletedQuestsScannedAt)
             {
                 _character.AddonQuests.CompletedQuestsScannedAt = scanTime;
-                _character.AddonQuests.CompletedQuests = SquishUtilities.Unsquish(_characterData.CompletedQuestsSquish);
+
+                var completedQuestIds = SquishUtilities.Unsquish(_characterData.CompletedQuestsSquish);
+                _character.AddonQuests.CompressedCompletedIds = SerializationUtilities.SerializeToBitmap(completedQuestIds);
+                _character.AddonQuests.CompletedQuests = null;
             }
         }
 
@@ -1231,9 +1234,6 @@ public class UserUploadCharacterProcessor
             if (scanTime >= _character.AddonQuests.QuestsScannedAt)
             {
                 _character.AddonQuests.QuestsScannedAt = scanTime;
-
-                _character.AddonQuests.DailyQuests = _characterData.DailyQuests.EmptyIfNull();
-                _character.AddonQuests.OtherQuests = _characterData.OtherQuests.EmptyIfNull();
 
                 _character.AddonQuests.ProgressQuests = new();
                 foreach (string packedProgress in _characterData.ProgressQuests.EmptyIfNull())

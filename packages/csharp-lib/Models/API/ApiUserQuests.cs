@@ -14,7 +14,6 @@ public class ApiUserQuestsCharacter
     public DateTime ScannedAt { get; set; }
 
     public Dictionary<int, List<List<int>>> Dailies { get; set; }
-    public List<int> DailyQuestList { get; set; }
     public List<List<int>> GoldWorldQuests { get; set; }
     public List<int> QuestList { get; set; } = new();
 
@@ -24,7 +23,6 @@ public class ApiUserQuestsCharacter
     {
         ScannedAt = addonQuests?.QuestsScannedAt ?? MiscConstants.DefaultDateTime;
         Dailies = addonQuests?.Dailies.EmptyIfNull();
-        DailyQuestList = addonQuests?.DailyQuests ?? [];
         GoldWorldQuests = addonQuests?.GoldWorldQuests ?? [];
         RawProgressQuests = addonQuests?.ProgressQuests.EmptyIfNull();
         QuestList = quests;

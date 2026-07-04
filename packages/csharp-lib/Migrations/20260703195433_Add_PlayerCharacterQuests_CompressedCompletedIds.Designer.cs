@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260703195433_Add_PlayerCharacterQuests_CompressedCompletedIds")]
+    partial class Add_PlayerCharacterQuests_CompressedCompletedIds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1122,17 +1125,21 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("completed_quests_scanned_at");
 
-                    b.Property<byte[]>("CompressedCompletedIds")
-                        .HasColumnType("bytea")
-                        .HasColumnName("compressed_completed_ids");
-
                     b.Property<Dictionary<int, List<List<int>>>>("Dailies")
                         .HasColumnType("jsonb")
                         .HasColumnName("dailies");
 
+                    b.PrimitiveCollection<List<int>>("DailyQuests")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("daily_quests");
+
                     b.Property<List<List<int>>>("GoldWorldQuests")
                         .HasColumnType("jsonb")
                         .HasColumnName("gold_world_quests");
+
+                    b.PrimitiveCollection<List<int>>("OtherQuests")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("other_quests");
 
                     b.Property<Dictionary<string, PlayerCharacterAddonQuestsProgress>>("ProgressQuests")
                         .HasColumnType("jsonb")
@@ -1442,10 +1449,6 @@ namespace Wowthing.Lib.Migrations
                     b.Property<byte[]>("CompressedCompletedIds")
                         .HasColumnType("bytea")
                         .HasColumnName("compressed_completed_ids");
-
-                    b.Property<DateTime>("ScannedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("scanned_at");
 
                     b.HasKey("CharacterId")
                         .HasName("pk_player_character_quests");

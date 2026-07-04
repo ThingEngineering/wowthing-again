@@ -24,6 +24,8 @@ services:
       - ./:/app/
       - /app/apps/backend/bin/container/
       - /app/apps/backend/obj/container/
+      - /app/packages/csharp-lib/bin/container/
+      - /app/packages/csharp-lib/obj/container/
 
   web:
     build:
@@ -49,6 +51,8 @@ services:
       - ./:/app/
       - /app/apps/web/bin/container/
       - /app/apps/web/obj/container/
+      - /app/packages/csharp-lib/bin/container/
+      - /app/packages/csharp-lib/obj/container/
 
   frontend:
     build:
