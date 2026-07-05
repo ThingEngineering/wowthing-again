@@ -95,12 +95,24 @@ public class CharacterAchievementsJob : JobBase
         // Parse API data
         var cheevs = new Dictionary<int, int>();
         var criteria = new Dictionary<int, (long, bool)>();
+
+        if (paAchievements.CompressedAchievementIds != null)
+        {
+            var currentAchievements = SerializationUtilities.DeserializeFromBitmap(paAchievements.CompressedAchievementIds);
+            for (int i = 0; i < currentAchievements.Count; i++)
+            {
+                cheevs[currentAchievements[i]] = paAchievements.AchievementTimestamps[i];
+            }
+        }
+
         foreach (var dataAchievement in resultData.Achievements.EmptyIfNull())
         {
             if (dataAchievement.CompletedTimestamp.HasValue)
             {
                 // Blizzard provides timestamps with 000 milliseconds for some reason
-                cheevs[dataAchievement.Id] = (int)(dataAchievement.CompletedTimestamp / 1000);
+                int newTimestamp = (int)(dataAchievement.CompletedTimestamp / 1000);
+                // Only use this value if it's new or earlier than the existing
+                cheevs[dataAchievement.Id] = Math.Min(cheevs.GetValueOrDefault(dataAchievement.Id, int.MaxValue), newTimestamp);
             }
 
             if (dataAchievement.Criteria != null)
