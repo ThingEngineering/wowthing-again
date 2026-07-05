@@ -1,4 +1,5 @@
 <script lang="ts">
+    import cloneDeep from 'lodash/cloneDeep';
     import { onMount } from 'svelte';
 
     import { settingsState } from '@/shared/state/settings.svelte';
@@ -17,12 +18,36 @@
 
     let { params }: { params: { viewId: string } } = $props();
 
+    let copied = $state(false);
+
     let view = $derived.by(() =>
         (settingsState.value.views || []).find((view) => view.id === params.viewId)
     );
 
     const onHomeFieldsUpdated = (e: Event) => {
         view.homeFields = (e as CustomEvent<string[]>).detail;
+    };
+
+    const copyView = () => {
+        const copy = cloneDeep(view);
+
+        copy.id = '';
+        copy.choreFilters = {};
+
+        // Reset disabledChores for any non-active tasks
+        const tasks = Object.keys(copy.homeTasks).map((key) => key.split('|')[0]);
+        const taskKeys = Object.keys(copy.disabledChores);
+        for (const taskKey of taskKeys) {
+            if (!tasks.includes(taskKey)) {
+                delete copy.disabledChores[taskKey];
+            }
+        }
+
+        const json = JSON.stringify(copy);
+        navigator.clipboard.writeText(json);
+
+        copied = true;
+        setTimeout(() => (copied = false), 5000);
     };
 
     onMount(() => {
@@ -44,6 +69,15 @@
             background: var(--color-highlight-background);
         }
     }
+    button {
+        background: #0f2f0f;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        display: block;
+        font-size: 1.2rem;
+        margin: 1rem auto 0;
+    }
 </style>
 
 {#if view}
@@ -63,6 +97,15 @@
                     }}
                     bind:value={view.characterFilter}
                 />
+            </div>
+            <div class="export">
+                <button disabled={copied} onclick={copyView}>
+                    {#if copied}
+                        Copied to clipboard!
+                    {:else}
+                        Copy view to clipboard
+                    {/if}
+                </button>
             </div>
         </div>
 

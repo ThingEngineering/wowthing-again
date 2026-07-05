@@ -4,11 +4,50 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import type { SettingsView } from '@/shared/stores/settings/types';
 
+    import Button from '@/shared/components/forms/Button.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
+    import TextArea from '@/shared/components/forms/TextArea.svelte';
 
     let deleting = $state<string>(null);
+    let importJson = $state<string>('');
 
-    const newView = () => {
+    let importEnabled = $derived.by(() => {
+        if (!importJson) {
+            return false;
+        }
+
+        let parsed: SettingsView;
+        try {
+            parsed = JSON.parse(importJson);
+        } catch {
+            return false;
+        }
+
+        return (
+            parsed &&
+            typeof parsed === 'object' &&
+            typeof parsed.name === 'string' &&
+            typeof parsed.characterFilter === 'string' &&
+            typeof parsed.showCompletedUntrackedChores === 'boolean' &&
+            typeof parsed.choreFilters === 'object' &&
+            typeof parsed.disabledChores === 'object' &&
+            [
+                'groups',
+                'groupBy',
+                'sortBy',
+                'commonFields',
+                'homeCurrencies',
+                'homeFields',
+                'homeItems',
+                'homeLockouts',
+                'homeProfessionsV2',
+                'homeProgress',
+                'homeTasks',
+            ].every((k) => Array.isArray(parsed[k as keyof SettingsView]))
+        );
+    });
+
+    const newView = (changeView = true) => {
         const view: SettingsView = {
             id: crypto.randomUUID(),
             name: 'NEW',
@@ -18,8 +57,8 @@
             groupBy: [],
             sortBy: [],
             commonFields: settingsState.value.views[0].commonFields,
-            homeFields: [],
             homeCurrencies: [],
+            homeFields: [],
             homeItems: [],
             homeLockouts: [],
             homeProfessionsV2: [],
@@ -33,7 +72,34 @@
         newCustomViews.push(view);
 
         settingsState.value.views = newCustomViews;
-        browserState.current.settings.selectedView = view.id;
+
+        if (changeView) {
+            browserState.current.settings.selectedView = view.id;
+        }
+
+        return view;
+    };
+
+    const importView = () => {
+        const parsed = JSON.parse(importJson);
+
+        const view = newView(false);
+        view.name = `${parsed.name} [IMPORT]`;
+        view.characterFilter = parsed.characterFilter;
+        view.showCompletedUntrackedChores = parsed.showCompletedUntrackedChores;
+        view.groups = parsed.groups;
+        view.groupBy = parsed.groupBy;
+        view.sortBy = parsed.sortBy;
+        view.commonFields = parsed.commonFields;
+        view.homeCurrencies = parsed.homeCurrencies;
+        view.homeFields = parsed.homeFields;
+        view.homeItems = parsed.homeItems;
+        view.homeLockouts = parsed.homeLockouts;
+        view.homeProfessionsV2 = parsed.homeProfessionsV2;
+        view.homeProgress = parsed.homeProgress;
+        view.homeTasks = parsed.homeTasks;
+        view.choreFilters = parsed.choreFilters;
+        view.disabledChores = parsed.disabledChores;
     };
 
     const moveUpClick = (index: number) => {
@@ -94,15 +160,11 @@
             cursor: pointer;
         }
     }
-    button {
-        cursor: pointer;
-        margin-top: 0.75rem;
-    }
 </style>
 
-<div class="settings-block">
-    <h3>Views</h3>
+<h2>Views</h2>
 
+<div class="settings-block">
     <p>
         The first View will be used as your default grouping/sorting on pages other than Home, don't
         set it to anything that will annoy you.
@@ -166,4 +228,13 @@
             New View
         </button>
     {/if}
+</div>
+
+<div class="settings-block">
+    <TextArea placeholder="Paste view JSON here" rows={8} bind:value={importJson} />
+    <Button
+        cls={importEnabled ? 'bg-success border-success' : 'bg-warn border-warn'}
+        disabled={!importEnabled}
+        onclick={importView}>Import View</Button
+    >
 </div>
