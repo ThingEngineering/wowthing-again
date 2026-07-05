@@ -224,7 +224,7 @@
     </table>
 
     {#if settingsState.value.views.length < 10}
-        <button class="group-entry bg-success border b-success b-radius" onclick={newView}>
+        <button class="group-entry bg-success border b-success b-radius" onclick={() => newView()}>
             New View
         </button>
     {/if}
