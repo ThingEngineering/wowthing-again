@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260704213450_Add_PlayerAccountAchievements")]
+    partial class Add_PlayerAccountAchievements
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -922,9 +925,13 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("character_id");
 
-                    b.Property<byte[]>("CompressedCriteriaIds")
-                        .HasColumnType("bytea")
-                        .HasColumnName("compressed_criteria_ids");
+                    b.PrimitiveCollection<List<int>>("AchievementIds")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("achievement_ids");
+
+                    b.PrimitiveCollection<List<int>>("AchievementTimestamps")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("achievement_timestamps");
 
                     b.PrimitiveCollection<List<long>>("CriteriaAmounts")
                         .HasColumnType("bigint[]")

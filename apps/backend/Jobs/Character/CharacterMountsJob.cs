@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.Character;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
@@ -26,7 +27,7 @@ public class CharacterMountsJob : JobBase
 
         int accountId = _query.AccountId.Value;
 
-        string lockKey = $"account_mounts:{accountId}";
+        string lockKey = string.Format(RedisKeys.AccountMounts, accountId);
         string lockValue = Guid.NewGuid().ToString("N");
         try
         {
@@ -34,7 +35,7 @@ public class CharacterMountsJob : JobBase
             bool lockSuccess = await JobRepository.AcquireLockAsync(lockKey, lockValue, TimeSpan.FromMinutes(1));
             if (!lockSuccess)
             {
-                Logger.Debug("Skipping pets, lock failed");
+                Logger.Debug("Skipping mounts, lock failed");
                 return;
             }
         }
@@ -63,7 +64,7 @@ public class CharacterMountsJob : JobBase
             return;
         }
 
-        // Fetch character data
+        // Fetch account data
         var paMounts = await Context.PlayerAccountMounts.FindAsync(accountId);
         if (paMounts == null)
         {

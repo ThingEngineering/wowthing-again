@@ -62,6 +62,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<GlobalDailies> GlobalDailies { get; set; }
 
     public DbSet<PlayerAccount> PlayerAccount { get; set; }
+    public DbSet<PlayerAccountAchievements> PlayerAccountAchievements { get; set; }
     public DbSet<PlayerAccountAddonData> PlayerAccountAddonData { get; set; }
     public DbSet<PlayerAccountGoldSnapshot> PlayerAccountGoldSnapshot { get; set; }
     public DbSet<PlayerAccountHeirlooms> PlayerAccountHeirlooms { get; set; }

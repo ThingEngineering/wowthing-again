@@ -136,62 +136,72 @@ public class CacheService
     {
         var criteriaCache = await GetCriteriaCacheAsync(db);
 
-        var achievementsCompleted = await context.CompletedAchievementsQuery
-            .FromSqlRaw(CompletedAchievementsQuery.UserQuery, userId)
-            .ToDictionaryAsync(
-                caq => caq.AchievementId,
-                caq => caq.Timestamp
-            );
+        var userAccountAchievements = await context.PlayerAccountAchievements
+            .AsNoTracking()
+            .Where(paa => paa.Account.UserId == userId)
+            .ToArrayAsync();
+
+        var achievementsCompleted = new Dictionary<int, int>();
+        foreach (var accountAchievements in userAccountAchievements)
+        {
+            var achievementIds = SerializationUtilities.DeserializeFromBitmap(accountAchievements.CompressedAchievementIds);
+            for (int i = 0; i < achievementIds.Count; i++)
+            {
+                int achievementId = achievementIds[i];
+                int achievementTimestamp = accountAchievements.AchievementTimestamps[i];
+
+                if (!achievementsCompleted.TryGetValue(achievementId, out int currentTimestamp) ||
+                    currentTimestamp > achievementTimestamp)
+                {
+                    achievementsCompleted[achievementId] = achievementTimestamp;
+                }
+            }
+        }
 
         timer.AddPoint("Achievements");
 
-        var criterias = await context.PlayerCharacterAchievements
+        var userCharacterAchievements = await context.PlayerCharacterAchievements
             .AsNoTracking()
             .Where(pca => pca.Character.Account.UserId == userId)
-            .Select(pca => new
-            {
-                pca.CharacterId,
-                pca.CriteriaAmounts,
-                pca.CriteriaIds,
-            })
             .ToArrayAsync();
 
         timer.AddPoint("Criteria1b");
 
         var groupedCriteria = new Dictionary<int, Dictionary<int, List<int>>>();
-        foreach (var characterCriteria in criterias.EmptyIfNull())
+        foreach (var characterAchievements in userCharacterAchievements.EmptyIfNull())
         {
-            if (characterCriteria.CriteriaAmounts == null || characterCriteria.CriteriaIds == null)
+            var criteriaIds = characterAchievements.UsableCriteriaIds;
+            if (characterAchievements.CriteriaAmounts == null || criteriaIds == null)
             {
                 continue;
             }
 
-            for (int i = 0; i < characterCriteria.CriteriaIds.Count; i++)
+            for (int i = 0; i < criteriaIds.Count; i++)
             {
-                int criteriaAmount = (int)characterCriteria.CriteriaAmounts[i];
+                int criteriaAmount = (int)characterAchievements.CriteriaAmounts[i];
                 if (criteriaAmount == 0)
                 {
                     continue;
                 }
 
-                int criteriaId = characterCriteria.CriteriaIds[i];
-                if (!groupedCriteria.ContainsKey(criteriaId))
+                int criteriaId = criteriaIds[i];
+                if (!groupedCriteria.TryGetValue(criteriaId, out var criteriaData))
                 {
-                    groupedCriteria[criteriaId] = new();
+                    criteriaData = groupedCriteria[criteriaId] = new();
                 }
 
-                if (!groupedCriteria[criteriaId].ContainsKey(criteriaAmount))
+                if (!criteriaData.TryGetValue(criteriaAmount, out var amountData))
                 {
-                    groupedCriteria[criteriaId][criteriaAmount] = new();
+                    amountData = criteriaData[criteriaAmount] = new();
                 }
 
-                groupedCriteria[criteriaId][criteriaAmount].Add(characterCriteria.CharacterId);
+                amountData.Add(characterAchievements.CharacterId);
             }
         }
 
         timer.AddPoint("Criteria2b");
 
-        foreach (var (criteriaId, amounts) in groupedCriteria)
+        foreach ((int criteriaId, var amounts) in groupedCriteria)
         {
             if (!criteriaCache.Character.Contains(criteriaId))
             {
@@ -235,8 +245,7 @@ public class CacheService
             Achievements = achievementsCompleted,
             AddonAchievements = addonAchievements,
             RawCriteria = groupedCriteria,
-            Statistics = statistics
-                .ToGroupedDictionary(stat => stat.StatisticId),
+            Statistics = statistics.ToGroupedDictionary(stat => stat.StatisticId),
         }, _jsonSerializerOptions);
 
         timer.AddPoint("JSON", true);

@@ -7,6 +7,9 @@ public static class RedisKeys
     public const string AuctionsLock = "lock:auctions";
     public const string CheckedAuctions = "checked_auctions";
 
+    public const string AccountAchievements = "account:{0}:achievements";
+    public const string AccountMounts = "account:{0}:mounts";
+
     public const string CharacterJobCounter = "character:{0}:jobs";
 
     public const string UserAchievements = "user:{0}:achievements";
