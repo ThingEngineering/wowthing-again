@@ -8,6 +8,7 @@ export const uiIcons = {
     no: iconLibrary.mdiClose,
     plus: iconLibrary.mdiPlus,
     question: iconLibrary.mdiQuestionMark,
+    random: iconLibrary.gameDiceRandom,
     starEmpty: iconLibrary.mdiStarOutline,
     starHalf: iconLibrary.mdiStarHalfFull,
     starFull: iconLibrary.mdiStarFace,
