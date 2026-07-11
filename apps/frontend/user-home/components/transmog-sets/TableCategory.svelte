@@ -3,6 +3,7 @@
     import { Constants } from '@/data/constants';
     import { transmogSets } from '@/data/transmog';
     import { iconLibrary, uiIcons } from '@/shared/icons';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { userStore } from '@/stores';
     import { transmogSetsState } from '@/stores/local-storage';
@@ -15,6 +16,7 @@
 
     import { tradingPostKeys } from './data';
 
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
@@ -35,6 +37,11 @@
         lazyState.transmog.stats[`${slugs[0]}--${category.slug}`].percent
     );
     let setKey = $derived(slugs.join('--'));
+
+    let raidWithMythic = $derived(
+        (category.name === 'Raids' || slugs.includes('raids')) &&
+            category.groups.some((group) => group.sets.includes('Mythic'))
+    );
 
     const getTransmogSets = function (group: ManualDataTransmogGroup): TransmogSetData[] {
         if (group.type === 'multi') {
@@ -157,9 +164,7 @@
         color: var(--color-success);
     }
     .percent {
-        position: absolute;
-        right: 0.5rem;
-        word-spacing: -0.2ch;
+        word-spacing: -0.3ch;
     }
     .percent-cell {
         --width: 3.4rem;
@@ -193,13 +198,23 @@
 
         <tr class="sticky">
             <td class="category-name" colspan="2">
-                {category.name}
+                <div class="flex-wrapper">
+                    <span>{category.name}</span>
 
-                {#if showPercent}
-                    <span class="drop-shadow percent {getPercentClass(categoryPercent)}">
-                        {Math.floor(categoryPercent).toFixed(0)} %
-                    </span>
-                {/if}
+                    {#if raidWithMythic}
+                        <CheckboxInput
+                            name="mythic_only"
+                            bind:value={browserState.current.transmogSets.mythicOnly}
+                            >Mythic only</CheckboxInput
+                        >
+                    {/if}
+
+                    {#if showPercent}
+                        <span class="drop-shadow percent {getPercentClass(categoryPercent)}">
+                            {Math.floor(categoryPercent).toFixed(0)} %
+                        </span>
+                    {/if}
+                </div>
             </td>
 
             {#if currentType === 'covenant'}
@@ -363,7 +378,7 @@
     {/if}
 
     {#if isExpanded}
-        {#each getFilteredSets(settingsState.value, $userStore, group) as [setShow, setName], setIndex}
+        {#each getFilteredSets(settingsState.value, $userStore, group, raidWithMythic) as [setShow, setName], setIndex}
             {#if setShow}
                 {@const setPercent = getPercent(groupIndex, setIndex)}
                 <tr class:faded={setName.endsWith('*')}>
