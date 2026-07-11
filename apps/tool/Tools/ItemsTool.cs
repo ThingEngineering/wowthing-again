@@ -42,6 +42,7 @@ public class ItemsTool
         454, // Specify Perception
         455, // Specify Deftness
         517, // 11.0 Professions - Modifying Reagent - Shared - Pacing - Season 1 Spark
+        519, // 12.0 Professions - Shared Reagent - Pacing - Warband - Starter - Spark
         591, // 11.0 Optional Reagent - Season 1 - Enchanted Crests
         660, // Algari Missive of the Aurora
         661, // Algari Missive of the Feverflare
@@ -60,6 +61,7 @@ public class ItemsTool
         735, // 11.1 Optional Reagent - Season 2 - Enchanted Crests
         736, // 11.2 Professions - Modifying Reagent - Shared - Pacing - Season 3 Spark
         737, // 11.2 Optional Reagent - Season 3 - Enchanted Crests
+        740, // 12.0 Professions - Modifying Reagent - Shared - Pacing - Season 1 Spark
         761, // 11.1.5 Optional Reagent - Season 2 - Augmentation Matrix - Mythic
         764, // 11.1.5 Optional Reagent - Season 2 - Augmentation Matrix - Heroic
         901, // 12.0 Optional Reagent - Season 1 - Crests
