@@ -17,7 +17,7 @@
             dynamicDelves.map(({ poiId, story }) => [
                 delveMap[poiId],
                 story,
-                settingsState.value.delveRankings[`${poiId}:${story}`],
+                settingsState.value.delveRankings[`${poiId}:${story}`] || 0,
             ]) as [Delve, string, number][],
             ([delve, , ranking]) => `${9 - ranking}:${delve.shortName}`
         );
