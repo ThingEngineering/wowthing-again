@@ -125,6 +125,9 @@ interface BrowserStateIdk {
         showCollected: boolean;
         showUncollected: boolean;
     };
+    transmogSets: {
+        mythicOnly: boolean;
+    };
     vendors: {
         filtersExpanded: boolean;
 
@@ -281,6 +284,9 @@ const initialState: BrowserStateIdk = {
         highlightMissing: true,
         showCollected: true,
         showUncollected: true,
+    },
+    transmogSets: {
+        mythicOnly: false,
     },
     vendors: {
         filtersExpanded: false,
