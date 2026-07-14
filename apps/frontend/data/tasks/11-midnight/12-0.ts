@@ -103,10 +103,13 @@ export const midChores12_0: Task = {
                         93911, // Midnight: Dungeons
                         93769, // Midnight: Housing
                         93891, // Midnight: Legends of the Haranir
+                        96727, // Midnight: Offworld Showdowns
                         93910, // Midnight: Prey
                         93912, // Midnight: Raid
+                        95843, // Midnight: Ritual Sites
                         93889, // Midnight: Saltheril's Soiree
                         93892, // Midnight: Stormarion Assault
+                        95842, // Midnight: Void Assaults
                         93913, // Midnight: World Boss
                         93766, // Midnight: World Quests
                     ],
