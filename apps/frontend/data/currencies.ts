@@ -467,6 +467,7 @@ export const currencyItems: Record<number, number[]> = {
     // Midnight - Season 1
     126411: [
         232875, // Spark of Radiance
+        258556, // Thalassian Token of Merit
     ],
 
     // Player vs Player
