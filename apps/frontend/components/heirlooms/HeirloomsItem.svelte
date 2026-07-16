@@ -53,7 +53,11 @@
         </WowheadLink>
 
         {#if level !== undefined}
-            <div class="pill {getPercentClass((level / heirloom.upgradeItemIds.length) * 100)}">
+            <div
+                class="pill {getPercentClass(
+                    ((level + (6 - heirloom.upgradeItemIds.length)) / 6) * 100
+                )}"
+            >
                 {level} / {heirloom.upgradeBonusIds.length}
             </div>
 
