@@ -5,7 +5,7 @@
     import type { ManualDataHeirloomGroup } from '@/types/data/manual';
 
     import Count from '@/components/collectible/CollectibleCount.svelte';
-    import Item from './HeirloomsItem.svelte';
+    import Item from './Item.svelte';
 
     let { group }: { group: ManualDataHeirloomGroup } = $props();
 
@@ -30,7 +30,7 @@
         </h4>
 
         <div class="collection-objects">
-            {#each group.items as item}
+            {#each group.items as item (item.itemId)}
                 <Item {isUnavailable} {item} />
             {/each}
         </div>
