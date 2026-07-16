@@ -12,12 +12,16 @@
 
     let { character }: CharacterProps = $props();
 
-    let selected = $state(character.configuration.backgroundId);
+    let backgroundId = $state(character.configuration.backgroundId);
+    let backgroundBrightness = $state(character.configuration.backgroundBrightness);
+    let backgroundSaturation = $state(character.configuration.backgroundSaturation);
 
     let { backgroundImage, filter } = $derived.by(() => {
         const retBackgroundImage =
             backgroundMap[
-                selected === -1 ? settingsState.value.characters.defaultBackgroundId : selected
+                backgroundId === -1
+                    ? settingsState.value.characters.defaultBackgroundId
+                    : backgroundId
             ];
 
         let retFilter: string = null;
@@ -25,13 +29,17 @@
             const filterParts: string[] = [];
 
             const brightness =
-                character.configuration.backgroundBrightness !== -1
-                    ? character.configuration.backgroundBrightness
-                    : retBackgroundImage.defaultBrightness;
+                backgroundBrightness !== -1
+                    ? backgroundBrightness
+                    : settingsState.value.characters.defaultBackgroundBrightness !== -1
+                      ? settingsState.value.characters.defaultBackgroundBrightness
+                      : retBackgroundImage.defaultBrightness;
             const saturation =
-                character.configuration.backgroundSaturation !== -1
-                    ? character.configuration.backgroundSaturation
-                    : retBackgroundImage.defaultSaturate;
+                backgroundSaturation !== -1
+                    ? backgroundSaturation
+                    : settingsState.value.characters.defaultBackgroundSaturation !== -1
+                      ? settingsState.value.characters.defaultBackgroundSaturation
+                      : retBackgroundImage.defaultSaturate;
 
             if (brightness != 10) {
                 filterParts.push(`brightness(${brightness / 10})`);
@@ -53,6 +61,13 @@
 
         const imageUrl = document.getElementById('app').getAttribute('data-image-url');
         return imageUrl ? `${imageUrl}${imagePath}` : imagePath;
+    });
+
+    $effect(() => {
+        character.configuration.backgroundBrightness = backgroundBrightness;
+    });
+    $effect(() => {
+        character.configuration.backgroundSaturation = backgroundSaturation;
     });
 
     const leftSide: InventorySlot[] = [
@@ -207,13 +222,13 @@
     {/if}
 
     <div class="equipped left">
-        {#each leftSide as inventorySlot}
+        {#each leftSide as inventorySlot (inventorySlot)}
             <Equipped {character} {inventorySlot} />
         {/each}
     </div>
 
     <div class="equipped right">
-        {#each rightSide as inventorySlot}
+        {#each rightSide as inventorySlot (inventorySlot)}
             <Equipped {character} {inventorySlot} leftSide={true} />
         {/each}
     </div>
@@ -237,9 +252,9 @@
 
 {#if !sharedState.public}
     <Configure
-        bind:backgroundBrightness={character.configuration.backgroundBrightness}
-        bind:backgroundSaturation={character.configuration.backgroundSaturation}
-        bind:selected
+        bind:backgroundBrightness
+        bind:backgroundSaturation
+        bind:selected={backgroundId}
         {character}
     />
 {/if}
