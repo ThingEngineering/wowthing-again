@@ -87,6 +87,10 @@ export const specializationData: Record<number, SpecializationData> = {
     255: {
         primaryStat: PrimaryStat.Agility,
         weaponTypes: [
+            WeaponSubclass.Dagger,
+            WeaponSubclass.Fist,
+            WeaponSubclass.OneHandedAxe,
+            WeaponSubclass.OneHandedSword,
             WeaponSubclass.Polearm,
             WeaponSubclass.Staff,
             WeaponSubclass.TwoHandedAxe,
