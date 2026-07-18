@@ -78,10 +78,14 @@ class LazyVendorsProcessor {
                 (armorType === ArmorType.Plate && vendorState.showPlate)
             ) {
                 for (const playableClass of playableClasses) {
-                    armorClassMask |=
+                    const playableClassMask =
                         PlayableClassMask[
                             PlayableClass[playableClass] as keyof typeof PlayableClassMask
                         ];
+
+                    if ((classMask & playableClassMask) > 0) {
+                        armorClassMask |= playableClassMask;
+                    }
                 }
             }
         }
