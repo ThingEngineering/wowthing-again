@@ -694,6 +694,7 @@ const skipCurrencies: number[] = [
     3264, // Mining
     3265, // Skinning
     3266, // Tailoring
+    3319, // Twilight's Blade Insignia
     3349, // [DNT][PH]
     3394, // Latent Arcana
 

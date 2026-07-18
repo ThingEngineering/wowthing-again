@@ -33,6 +33,17 @@ export const specializationData: Record<number, SpecializationData> = {
             WeaponSubclass.TwoHandedSword,
         ],
     },
+    // Demon Hunter - Devourer
+    1480: {
+        dualWield: true,
+        primaryStat: PrimaryStat.Intellect,
+        weaponTypes: [
+            WeaponSubclass.Fist,
+            WeaponSubclass.OneHandedAxe,
+            WeaponSubclass.OneHandedSword,
+            WeaponSubclass.Warglaive,
+        ],
+    },
     // Demon Hunter - Havoc
     577: {
         dualWield: true,
@@ -87,6 +98,10 @@ export const specializationData: Record<number, SpecializationData> = {
     255: {
         primaryStat: PrimaryStat.Agility,
         weaponTypes: [
+            WeaponSubclass.Dagger,
+            WeaponSubclass.Fist,
+            WeaponSubclass.OneHandedAxe,
+            WeaponSubclass.OneHandedSword,
             WeaponSubclass.Polearm,
             WeaponSubclass.Staff,
             WeaponSubclass.TwoHandedAxe,
@@ -273,7 +288,6 @@ export const specializationData: Record<number, SpecializationData> = {
 };
 
 specializationData[252] = specializationData[250]; // Death Knight - Unholy = Blood
-specializationData[1480] = specializationData[577]; // Demon Hunter - Devourer = Havoc
 specializationData[581] = specializationData[577]; // Demon Hunter - Vengeance = Havoc
 specializationData[104] = specializationData[103]; // Druid - Guardian = Feral
 specializationData[105] = specializationData[102]; // Druid - Restoration = Balance

@@ -38,14 +38,14 @@ public static partial class Hardcoded
             Mask = WowCharacterClassMask.DemonHunter,
             ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
             {
-                (WowArmorSubclass.Cloak, StatAgility),
+                (WowArmorSubclass.Cloak, StatAgilityIntellect),
             },
             WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
             {
-                (WowWeaponSubclass.OneHandedAxe, StatAgility),
-                (WowWeaponSubclass.OneHandedSword, StatAgility),
-                (WowWeaponSubclass.Fist, StatAgility),
-                (WowWeaponSubclass.Warglaive, StatAgility),
+                (WowWeaponSubclass.OneHandedAxe, StatAgilityIntellect),
+                (WowWeaponSubclass.OneHandedSword, StatAgilityIntellect),
+                (WowWeaponSubclass.Fist, StatAgilityIntellect),
+                (WowWeaponSubclass.Warglaive, StatAgilityIntellect),
 
                 (WowWeaponSubclass.OffHand, StatAgility),
             },
@@ -102,6 +102,10 @@ public static partial class Hardcoded
             },
             WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
             {
+                (WowWeaponSubclass.OneHandedAxe, StatAgility),
+                (WowWeaponSubclass.OneHandedSword, StatAgility),
+                (WowWeaponSubclass.Dagger, StatAgility),
+                (WowWeaponSubclass.Fist, StatAgility),
                 (WowWeaponSubclass.TwoHandedAxe, StatAgility),
                 (WowWeaponSubclass.TwoHandedSword, StatAgility),
                 (WowWeaponSubclass.Polearm, StatAgility),
@@ -109,11 +113,6 @@ public static partial class Hardcoded
                 (WowWeaponSubclass.Bow, StatAgility),
                 (WowWeaponSubclass.Crossbow, StatAgility),
                 (WowWeaponSubclass.Gun, StatAgility),
-
-                (WowWeaponSubclass.OneHandedAxe, StatTransmogOnly),
-                (WowWeaponSubclass.OneHandedSword, StatTransmogOnly),
-                (WowWeaponSubclass.Dagger, StatTransmogOnly),
-                (WowWeaponSubclass.Fist, StatTransmogOnly),
 
                 (WowWeaponSubclass.OffHand, StatAgility),
             },

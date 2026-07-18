@@ -1,11 +1,13 @@
 <script lang="ts">
     import getPercentClass from '@/utils/get-percent-class';
     import type { UserCount } from '@/types';
+    import type { ChildrenProp } from '@/types/props';
 
     import Count from '@/components/collectible/CollectibleCount.svelte';
     import ParsedText from '../../shared/components/parsed-text/ParsedText.svelte';
 
-    let { count, title }: { count?: UserCount; title: string } = $props();
+    type Props = ChildrenProp & { count?: UserCount; title: string };
+    let { children, count, title }: Props = $props();
 
     let percent = $derived(Math.floor(((count?.have ?? 0) / (count?.total ?? 1)) * 100));
 </script>
@@ -43,5 +45,5 @@
     {#if count}
         <Count counts={count} />
     {/if}
-    <slot />
+    {@render children?.()}
 </div>

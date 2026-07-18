@@ -1623,6 +1623,11 @@ public class DumpsTool
                 context.WowQuestLine.Add(dbQuestLine);
             }
 
+            if (Hardcoded.IgnoredQuestLineEntries.TryGetValue(questLineId, out int[] ignoredQuestIds))
+            {
+                questIds.RemoveAll(questId => ignoredQuestIds.Contains(questId));
+            }
+
             if (dbQuestLine.QuestIds == null || !questIds.SequenceEqual(dbQuestLine.QuestIds))
             {
                 dbQuestLine.QuestIds = questIds;
