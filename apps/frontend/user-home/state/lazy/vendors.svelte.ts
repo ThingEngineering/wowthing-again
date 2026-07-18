@@ -150,15 +150,17 @@ class LazyVendorsProcessor {
 
                 const appearanceMap: Record<number, ManualDataVendorItem> = {};
 
-                for (const item of group.sells) {
+                for (const groupItem of group.sells) {
                     // item.sortedCosts ||= getCurrencyCosts(item.costs);
+                    const sharedItem = wowthingData.items.items[groupItem.id];
+                    const groupItemClassMask = groupItem.classMask || sharedItem?.classMask || 0;
 
-                    if (item.classMask > 0 && (item.classMask & classMask) === 0) {
+                    if (groupItemClassMask > 0 && (groupItemClassMask & classMask) === 0) {
                         continue;
                     }
 
                     // Transmog sets are annoying
-                    const transmogSetId = wowthingData.items.teachesTransmog[item.id];
+                    const transmogSetId = wowthingData.items.teachesTransmog[groupItem.id];
                     if (transmogSetId) {
                         const transmogSet = wowthingData.static.transmogSetById.get(transmogSetId);
                         if (
@@ -200,22 +202,20 @@ class LazyVendorsProcessor {
                         }
                     }
 
-                    const sharedItem = wowthingData.items.items[item.id];
-
-                    if (sharedItem && transmogTypes.has(item.type)) {
+                    if (sharedItem && transmogTypes.has(groupItem.type)) {
                         if (sharedItem.allianceOnly) {
-                            item.faction = Faction.Alliance;
+                            groupItem.faction = Faction.Alliance;
                         } else if (sharedItem.hordeOnly) {
-                            item.faction = Faction.Horde;
+                            groupItem.faction = Faction.Horde;
                         }
                     }
 
                     if (masochist) {
-                        item.extraAppearances = 0;
-                    } else if (transmogTypes.has(item.type)) {
+                        groupItem.extraAppearances = 0;
+                    } else if (transmogTypes.has(groupItem.type)) {
                         const appearanceId =
-                            item.appearanceIds?.length === 1
-                                ? item.appearanceIds[0]
+                            groupItem.appearanceIds?.length === 1
+                                ? groupItem.appearanceIds[0]
                                 : sharedItem?.appearances?.[0]?.appearanceId || 0;
                         if (appearanceId) {
                             const existingItem = appearanceMap[appearanceId];
@@ -224,24 +224,24 @@ class LazyVendorsProcessor {
 
                                 if (
                                     existingItem.faction !== Faction.Both &&
-                                    item.faction !== existingItem.faction
+                                    groupItem.faction !== existingItem.faction
                                 ) {
                                     existingItem.faction = Faction.Both;
                                 }
 
                                 continue;
                             } else {
-                                appearanceMap[appearanceId] = item;
-                                item.extraAppearances = 0;
+                                appearanceMap[appearanceId] = groupItem;
+                                groupItem.extraAppearances = 0;
                             }
                         }
                     }
 
                     // Skip filtered things
                     const [lookupType, lookupId] = rewardToLookup(
-                        item.type,
-                        item.id,
-                        item.trackingQuestId
+                        groupItem.type,
+                        groupItem.id,
+                        groupItem.trackingQuestId
                     );
 
                     if (
@@ -251,15 +251,15 @@ class LazyVendorsProcessor {
                         (!vendorState.showPets && lookupType === LookupType.Pet) ||
                         (!vendorState.showRecipes && lookupType === LookupType.Recipe) ||
                         (!vendorState.showToys && lookupType === LookupType.Toy) ||
-                        (!vendorState.showCosmetics && item.type === RewardType.Cosmetic) ||
+                        (!vendorState.showCosmetics && groupItem.type === RewardType.Cosmetic) ||
                         (!vendorState.showDragonriding &&
-                            wowthingData.manual.dragonridingItemToQuest.has(item.id)) ||
-                        (item.type === RewardType.Armor &&
-                            ((item.subType === 1 && !vendorState.showCloth) ||
-                                (item.subType === 2 && !vendorState.showLeather) ||
-                                (item.subType === 3 && !vendorState.showMail) ||
-                                (item.subType === 4 && !vendorState.showPlate))) ||
-                        (item.type === RewardType.Weapon && !vendorState.showWeapons) ||
+                            wowthingData.manual.dragonridingItemToQuest.has(groupItem.id)) ||
+                        (groupItem.type === RewardType.Armor &&
+                            ((groupItem.subType === 1 && !vendorState.showCloth) ||
+                                (groupItem.subType === 2 && !vendorState.showLeather) ||
+                                (groupItem.subType === 3 && !vendorState.showMail) ||
+                                (groupItem.subType === 4 && !vendorState.showPlate))) ||
+                        (groupItem.type === RewardType.Weapon && !vendorState.showWeapons) ||
                         (lookupType === LookupType.Transmog &&
                             sharedItem?.classId === ItemClass.Armor &&
                             ((sharedItem.subclassId === ArmorSubclass.Cloth &&
@@ -283,22 +283,22 @@ class LazyVendorsProcessor {
                     }
 
                     const hasDrop = userHasLookup(snapshot, lookupType, lookupId, {
-                        appearanceIds: item.appearanceIds,
+                        appearanceIds: groupItem.appearanceIds,
                         completionist: masochist,
-                        modifier: item.appearanceModifier,
+                        modifier: groupItem.appearanceModifier,
                     });
 
                     // Skip unavailable illusions
                     if (
                         lookupType === LookupType.Illusion &&
-                        item.appearanceIds?.length > 0 &&
-                        unavailableIllusions.indexOf(item.appearanceIds[0]) >= 0 &&
+                        groupItem.appearanceIds?.length > 0 &&
+                        unavailableIllusions.indexOf(groupItem.appearanceIds[0]) >= 0 &&
                         !hasDrop
                     ) {
                         continue;
                     }
 
-                    const thingKey = `${item.type}|${item.id}|${(item.bonusIds || []).join(',')}`;
+                    const thingKey = `${groupItem.type}|${groupItem.id}|${(groupItem.bonusIds || []).join(',')}`;
                     userHas[thingKey] = [hasDrop, lookupType, lookupId];
 
                     if (!seen[thingKey]) {
@@ -334,7 +334,7 @@ class LazyVendorsProcessor {
                         continue;
                     }
 
-                    sellsFiltered.push(item);
+                    sellsFiltered.push(groupItem);
                 } // item of group.sells
 
                 sellsFiltered.sort((a, b) => {
