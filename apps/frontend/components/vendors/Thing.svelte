@@ -83,7 +83,7 @@
         position: absolute;
     }
     .icon-class {
-        left: -2px;
+        left: 0;
         top: -1px;
     }
     .icon-class2 {
