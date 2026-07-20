@@ -2855,6 +2855,13 @@ public static partial class Hardcoded
                 new(199227, RaidDifficultiesAll), // Schematic: Sophisticated Problem Solver
             ]
         },
+        // Amirdrassil, the Dream's Hope > Tindral Sageswift
+        {
+            2565,
+            [
+                new(211280, RaidDifficultiesAll), // Feather of the Smoke Red Moon [Druid]
+            ]
+        },
         // Amirdrassil, the Dream's Hope > Trash
         {
             1001207,
@@ -2874,7 +2881,7 @@ public static partial class Hardcoded
         {
             2001207,
             [
-                new(210490, RaidDifficultiesAll), // Vantus Rune
+                new(210490, RaidDifficultiesAll), // Technique: Vantus Rune
             ]
         },
 
