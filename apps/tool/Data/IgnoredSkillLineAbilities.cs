@@ -213,6 +213,9 @@ public static partial class Hardcoded
         1229929, // Mid ??
         1261938, // Mid ??
 
+        // Fishing
+        1231090, // Mid Rootland Crab Lure
+
         // Inscription
         127475, // MoP Incarnadine Ink
         130407, // MoP Mystery of the Mists
@@ -228,6 +231,8 @@ public static partial class Hardcoded
         26918, // TBC Arcanite Sword Pendant
         26920, // TBC Blood Crown
         32810, // TBC Primal Stone Statue
+        73233, // Cata Mystic Alicite
+        73259, // Cata Resolute Hessonite
         407161, // Immaculate Coalescing Dracothyst (temporary legendary craft)
 
         // Leatherworking
