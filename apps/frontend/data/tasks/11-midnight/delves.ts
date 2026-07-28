@@ -99,7 +99,7 @@ export const midDelves: Task = {
                             char
                         );
                         const have =
-                            expiresAt > timeState.slowTime ? 0 : char.weekly?.delveGilded || 0;
+                            expiresAt < timeState.slowTime ? 0 : char.weekly?.delveGilded || 0;
                         return { have, need: 4 };
                     },
                 },
