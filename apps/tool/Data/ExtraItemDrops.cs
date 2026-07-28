@@ -112,11 +112,6 @@ public static partial class Hardcoded
         new(275219, RaidDifficultiesNormal), // Pertinax's Beast Prod [stave]
         new(275223, RaidDifficultiesNormal), // Phasebolt Thrower [gun]
         new(275218, RaidDifficultiesNormal), // Mertei's Command Baton [wand]
-
-        new(275224, RaidDifficultiesNormalHeroic), // Mertei's Adjutant Leggings [cloth]
-        new(275225, RaidDifficultiesNormalHeroic), // Toxic Voidscythe Spaulders [leather]
-        new(275226, RaidDifficultiesNormalHeroic), // Shredclaw Handler's Grips [mail]
-        new(275227, RaidDifficultiesNormalHeroic), // Leth'ir's Dress Sabatons [plate]
     ];
 
     /*
@@ -2855,6 +2850,13 @@ public static partial class Hardcoded
                 new(199227, RaidDifficultiesAll), // Schematic: Sophisticated Problem Solver
             ]
         },
+        // Amirdrassil, the Dream's Hope > Tindral Sageswift
+        {
+            2565,
+            [
+                new(211280, RaidDifficultiesAll), // Feather of the Smoke Red Moon [Druid]
+            ]
+        },
         // Amirdrassil, the Dream's Hope > Trash
         {
             1001207,
@@ -2874,7 +2876,7 @@ public static partial class Hardcoded
         {
             2001207,
             [
-                new(210490, RaidDifficultiesAll), // Vantus Rune
+                new(210490, RaidDifficultiesAll), // Technique: Vantus Rune
             ]
         },
 
@@ -2915,16 +2917,22 @@ public static partial class Hardcoded
         #endregion
 
         #region Midnight
-        // Midnight > Midnight > Nexus Captain Leth'ir
+        // Midnight > Midnight > Nexus Captain Leth'ir (Naigtal)
         {
             1_1312_0,
-            NaigtalValWorldBosses
+            NaigtalValWorldBosses.Concat([
+                new(275224, RaidDifficultiesNoLfr), // Mertei's Adjutant Leggings [cloth]
+                new(275227, RaidDifficultiesNoLfr), // Leth'ir's Dress Sabatons [plate]
+            ]).ToList()
         },
 
-        // Midnight > Midnight > Imperator Pertinax
+        // Midnight > Midnight > Imperator Pertinax (Val)
         {
             1_1312_1,
-            NaigtalValWorldBosses
+            NaigtalValWorldBosses.Concat([
+                new(275225, RaidDifficultiesNoLfr), // Toxic Voidscythe Spaulders [leather]
+                new(275226, RaidDifficultiesNoLfr), // Shredclaw Handler's Grips [mail]
+            ]).ToList()
         },
         #endregion Midnight
     };

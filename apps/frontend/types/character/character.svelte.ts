@@ -688,6 +688,13 @@ export class Character implements ContainsItems, HasNameAndRealm {
             .flat();
     });
 
+    public hasVaultRewards = $derived(
+        this.weekly?.vault?.availableRewards ||
+            (this.weekly?.vault?.anyThreshold &&
+                this.weeklyReset < timeState.slowTime &&
+                this.weeklyReset > this.weekly.vaultScannedTime)
+    );
+
     public movementSpeed = $derived.by(() => {
         const ret: CharacterMovementSpeed = {
             enchants: 0,

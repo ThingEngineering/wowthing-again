@@ -11,7 +11,7 @@ public class MagicAggregateMiscReportsJob : JobBase, IScheduledJob
     {
         Type = JobType.MagicAggregateMiscReports,
         Priority = JobPriority.High,
-        Interval = TimeSpan.FromMinutes(1),
+        Interval = TimeSpan.FromMinutes(10),
         Version = 1,
     };
 

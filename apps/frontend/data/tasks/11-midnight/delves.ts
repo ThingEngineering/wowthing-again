@@ -1,5 +1,8 @@
+import { Region } from '@/enums/region';
 import { iconLibrary } from '@/shared/icons';
+import { timeState } from '@/shared/state/time.svelte';
 import { DbResetType } from '@/shared/stores/db/enums';
+import { getNextWeeklyResetFromTime } from '@/utils/get-next-reset';
 import type { Task } from '@/types/tasks';
 
 export const midDelves: Task = {
@@ -89,10 +92,16 @@ export const midDelves: Task = {
                     key: 'stashes',
                     name: '{currency:3290}',
                     alwaysStarted: true,
-                    progressFunc: (char) => ({
-                        have: char.weekly?.delveGilded || 0,
-                        need: 4,
-                    }),
+                    progressFunc: (char) => {
+                        const expiresAt = getNextWeeklyResetFromTime(
+                            char.lastSeenAddon,
+                            char.realm?.region || Region.US,
+                            char
+                        );
+                        const have =
+                            expiresAt < timeState.slowTime ? 0 : char.weekly?.delveGilded || 0;
+                        return { have, need: 4 };
+                    },
                 },
             ],
         },
