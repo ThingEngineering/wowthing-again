@@ -4,7 +4,7 @@
     type Props = ChildrenProp & {
         cls?: string;
         disabled?: boolean;
-        onclick?: (e: Event) => void;
+        onclick?: (e: MouseEvent) => void;
     };
     let { children, cls, disabled, onclick }: Props = $props();
 </script>
