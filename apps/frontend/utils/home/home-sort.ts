@@ -83,8 +83,8 @@ export function homeSort(char: Character, sortingBy: string): string {
     } else if (sortingBy === 'vaultMythicPlus') {
         if (char.weekly?.vault?.generatedRewards) {
             return '000|000|000';
-        } else if (char.weekly?.vault?.availableRewards) {
-            return '001|001|001';
+        } else if (char.hasVaultRewards) {
+            return '000|000|001';
         }
 
         const progress = char.isMaxLevel ? char.weekly?.vault?.dungeonProgress : [];
@@ -101,8 +101,8 @@ export function homeSort(char: Character, sortingBy: string): string {
     } else if (sortingBy === 'vaultRaid') {
         if (char.weekly?.vault?.generatedRewards) {
             return '000|000|000';
-        } else if (char.weekly?.vault?.availableRewards) {
-            return '001|001|001';
+        } else if (char.hasVaultRewards) {
+            return '000|000|001';
         }
 
         const progress = char.isMaxLevel ? char.weekly?.vault?.raidProgress : [];
@@ -114,8 +114,8 @@ export function homeSort(char: Character, sortingBy: string): string {
     } else if (sortingBy === 'vaultWorld') {
         if (char.weekly?.vault?.generatedRewards) {
             return '000|000|000';
-        } else if (char.weekly?.vault?.availableRewards) {
-            return '001|001|001';
+        } else if (char.hasVaultRewards) {
+            return '000|000|001';
         }
 
         const progress = char.isMaxLevel ? char.weekly?.vault?.worldProgress : [];
