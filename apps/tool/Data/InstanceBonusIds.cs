@@ -153,6 +153,7 @@ public static partial class Hardcoded
     {
         { 14, 13471 }, // Normal
         { 15, 13472 }, // Heroic
+        { 16, 13473 }, // Mythic
     };
 
     public static readonly Dictionary<int, Dictionary<int, int>> InstanceBonusIds = new()
