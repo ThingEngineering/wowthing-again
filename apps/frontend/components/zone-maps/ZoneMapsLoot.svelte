@@ -4,9 +4,11 @@
 
     import { weaponSubclassToString } from '@/data/weapons';
     import { ArmorType } from '@/enums/armor-type';
+    import { LookupType } from '@/enums/lookup-type';
     import { RewardType } from '@/enums/reward-type';
     import { farmTypeIcons } from '@/shared/icons/mappings';
     import { leftPad } from '@/utils/formatting';
+    import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
     import { getDropData, getDropIcon } from '@/utils/zone-maps';
     import type { ManualDataZoneMapFarm } from '@/types/data/manual';
 
@@ -142,7 +144,12 @@
                             {:else if drop.type === RewardType.Weapon}
                                 {weaponSubclassToString[drop.subType].toLowerCase()}
                             {:else}
-                                {RewardType[drop.type].toLowerCase()}
+                                {@const [lookupType] = rewardToLookup(drop.type, drop.id)}
+                                {#if lookupType !== LookupType.None}
+                                    {LookupType[lookupType].toLowerCase()}
+                                {:else}
+                                    {RewardType[drop.type].toLowerCase()}
+                                {/if}
                             {/if}
                         </div>
                     {/each}
