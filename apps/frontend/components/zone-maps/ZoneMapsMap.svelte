@@ -149,8 +149,11 @@
                             if (
                                 drop.type === RewardType.Item &&
                                 !(
+                                    wowthingData.manual.dragonridingItemToQuest.has(drop.id) ||
                                     wowthingData.manual.druidFormItemToQuest.has(drop.id) ||
-                                    wowthingData.manual.dragonridingItemToQuest.has(drop.id)
+                                    wowthingData.static.mountByItemId.has(drop.id) ||
+                                    wowthingData.static.petByItemId.has(drop.id) ||
+                                    wowthingData.static.toyByItemId.has(drop.id)
                                 )
                             ) {
                                 continue;

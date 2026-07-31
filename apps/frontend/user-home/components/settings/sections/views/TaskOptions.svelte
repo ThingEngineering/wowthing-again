@@ -88,9 +88,9 @@
     }
 </style>
 
-{#snippet choiceCheckbox(choice: SettingsChoice)}
+{#snippet choiceCheckbox(choice: SettingsChoice, choiceKey: string)}
     <GroupedCheckbox
-        name="choice_{choice.id}"
+        name="choice_{choiceKey}"
         tooltip={choice.name}
         value={choice.id}
         bind:bindGroup={taskActive}
@@ -113,7 +113,7 @@
             {#each taskChoices as choice (choice.id)}
                 {@const choiceKey = `${task.key}_${choice.id}`}
                 <div>
-                    {@render choiceCheckbox(choice)}
+                    {@render choiceCheckbox(choice, choiceKey)}
                     {#if taskActive.includes(choice.id)}
                         <TextInput
                             name="task_{choiceKey}_filter"
@@ -127,7 +127,8 @@
     {:else}
         <div class="multi-tasks">
             {#each taskChoices as choice (choice.id)}
-                {@render choiceCheckbox(choice)}
+                {@const choiceKey = `${task.key}_${choice.id}`}
+                {@render choiceCheckbox(choice, choiceKey)}
             {/each}
         </div>
     {/if}

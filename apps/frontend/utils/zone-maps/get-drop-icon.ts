@@ -39,7 +39,10 @@ export function getDropIcon(drop: ManualDataZoneMapDrop, isCriteria: boolean): I
             icon = rewardTypeIcons[RewardType.Mount];
         } else if (wowthingData.static.petByItemId.has(drop.id)) {
             icon = rewardTypeIcons[RewardType.Pet];
-        } else if (wowthingData.items.teachesSpell[drop.id]) {
+        } else if (
+            wowthingData.items.teachesSpell[drop.id] &&
+            wowthingData.static.itemToSkillLine[drop.id]
+        ) {
             const [skillLineId] = wowthingData.static.itemToSkillLine[drop.id];
             const [profession] = wowthingData.static.professionBySkillLineId.get(skillLineId);
             icon = professionSlugIcons[profession.slug];
