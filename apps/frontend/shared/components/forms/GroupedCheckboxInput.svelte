@@ -1,9 +1,10 @@
 <script lang="ts">
     import { iconLibrary } from '@/shared/icons';
+    import type { ChildrenProp } from '@/types/props';
 
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
-    type Props = {
+    type Props = ChildrenProp & {
         bindGroup: string[];
         name: string;
         disabled?: boolean;
@@ -11,7 +12,15 @@
         tooltip?: string;
         value?: string;
     };
-    let { bindGroup = $bindable(), disabled, name, textClass, tooltip, value }: Props = $props();
+    let {
+        bindGroup = $bindable(),
+        children,
+        disabled,
+        name,
+        textClass,
+        tooltip,
+        value,
+    }: Props = $props();
 
     let checked = $state(bindGroup.includes(value));
 
@@ -51,6 +60,8 @@
         <IconifyWrapper
             icon={checked ? iconLibrary.mdiCheckboxOutline : iconLibrary.mdiCheckboxBlankOutline}
         />
-        <span class="text {textClass || ''}"><slot /></span>
+        <span class="text {textClass || ''}">
+            {@render children?.()}
+        </span>
     </label>
 </fieldset>
