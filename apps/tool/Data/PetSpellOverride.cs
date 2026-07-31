@@ -12,5 +12,6 @@ public static partial class Hardcoded
         { 1511, 171118 }, // Lovebird Hatchling
         { 1949, 227964 }, // Igneous Flameling
         { 2584, 291547 }, // Spirit of the Spring
+        { 5073, 1297417 }, // Frosticus Maximus
     };
 }
