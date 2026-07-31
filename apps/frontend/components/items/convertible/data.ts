@@ -72,6 +72,23 @@ export const convertibleCategories: ConvertibleCategory[] = [
                 highUpgrade: currentUpgrade1,
             },
         ],
+        purchases: [
+            {
+                costId: 3405, // Field Accolade
+                costAmount: {
+                    [InventoryType.Head]: 750,
+                    [InventoryType.Shoulders]: 750,
+                    [InventoryType.Back]: 750,
+                    [InventoryType.Chest]: 750,
+                    [InventoryType.Wrist]: 750,
+                    [InventoryType.Hands]: 750,
+                    [InventoryType.Waist]: 750,
+                    [InventoryType.Legs]: 750,
+                    [InventoryType.Feet]: 750,
+                },
+                upgradeTier: 3,
+            },
+        ],
     },
     {
         id: 11,
