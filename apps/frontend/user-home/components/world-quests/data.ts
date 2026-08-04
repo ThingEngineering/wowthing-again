@@ -9,6 +9,13 @@ export const zoneData: WorldQuestZone[] = [
         mapName: '11-midnight/quelthalas',
         children: [
             {
+                id: 2635,
+                name: 'Gnarldor Isle',
+                slug: 'gnarldor-isle',
+                mapName: '11-midnight/gnarldor_isle',
+            },
+            null,
+            {
                 id: 2600,
                 name: 'Naigtal',
                 slug: 'naigtal',
