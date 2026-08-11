@@ -99,25 +99,53 @@ export const raidDifficulties = Object.values(difficultyMap)
     .filter((diff) => diff.instanceType === InstanceType.Raid)
     .map((diff) => diff.id);
 
+export const difficultyWorld = [Difficulty.WorldBoss, Difficulty.RaidWorld];
+export const difficultyLookingForRaid = [
+    Difficulty.RaidLegacyLookingForRaid,
+    Difficulty.RaidLookingForRaid,
+];
+export const difficultyNormal = [
+    Difficulty.DungeonNormal,
+    Difficulty.RaidLegacy10Normal,
+    Difficulty.RaidLegacy25Normal,
+    Difficulty.RaidLegacy40,
+    Difficulty.RaidNormal,
+];
+export const difficultyHeroic = [
+    Difficulty.DungeonHeroic,
+    Difficulty.RaidLegacy10Heroic,
+    Difficulty.RaidLegacy25Heroic,
+    Difficulty.RaidHeroic,
+];
+export const difficultyMythic = [
+    Difficulty.DungeonMythic,
+    Difficulty.DungeonMythicKeystone,
+    Difficulty.RaidMythic,
+    Difficulty.RaidMythicFlex,
+];
+export const difficultyTimewalking = [Difficulty.DungeonTimewalking, Difficulty.RaidTimewalking];
+
 export const journalDifficultyOrder: number[] = [
-    1, // Dungeon Normal
-    2, // Dungeon Heroic
-    23, // Dungeon Mythic
-    8, // Dungeon Mythic Keystone
-    24, // Dungeon Timewalking
+    Difficulty.DungeonNormal,
+    Difficulty.DungeonHeroic,
+    Difficulty.DungeonMythic,
+    Difficulty.DungeonMythicKeystone,
+    Difficulty.DungeonTimewalking,
 
-    7, // Legacy LFR
-    3, // Legacy 10 Normal
-    5, // Legacy 10 Heroic
-    4, // Legacy 25 Normal
-    6, // Legacy 25 Heroic
-    9, // Legacy 40 Player
+    Difficulty.RaidLegacyLookingForRaid,
+    Difficulty.RaidLegacy10Normal,
+    Difficulty.RaidLegacy10Heroic,
+    Difficulty.RaidLegacy25Normal,
+    Difficulty.RaidLegacy25Heroic,
+    Difficulty.RaidLegacy40,
 
-    17, // Raid LFR
-    14, // Raid Normal
-    15, // Raid Heroic
-    16, // Raid Mythic
-    33, // Raid Timewalking
+    Difficulty.RaidLookingForRaid,
+    Difficulty.RaidWorld,
+    Difficulty.RaidNormal,
+    Difficulty.RaidHeroic,
+    Difficulty.RaidMythic,
+    Difficulty.RaidMythicFlex,
+    Difficulty.RaidTimewalking,
 ];
 
 export const journalDifficultyMap: Record<number, number> = Object.fromEntries(
@@ -125,22 +153,23 @@ export const journalDifficultyMap: Record<number, number> = Object.fromEntries(
 );
 
 export const lockoutDifficultyOrder: number[] = [
-    16, // Raid Mythic
-    15, // Raid Heroic
-    6, // Legacy 25 Heroic
-    5, // Legacy 10 Heroic
-    14, // Raid Normal
-    9, // Legacy 40 Player
-    4, // Legacy 25 Normal
-    3, // Legacy 10 Normal
-    17, // Raid LFR
-    7, // Legacy LFR
+    Difficulty.RaidMythic,
+    Difficulty.RaidMythicFlex,
+    Difficulty.RaidHeroic,
+    Difficulty.RaidLegacy25Heroic,
+    Difficulty.RaidLegacy10Heroic,
+    Difficulty.RaidNormal,
+    Difficulty.RaidLegacy25Normal,
+    Difficulty.RaidLegacy10Normal,
+    Difficulty.RaidWorld,
+    Difficulty.RaidLookingForRaid,
+    Difficulty.RaidLegacyLookingForRaid,
 
-    23, // Dungeon Mythic
-    2, // Dungeon Heroic
-    1, // Dungeon Normal
+    Difficulty.DungeonMythic,
+    Difficulty.DungeonHeroic,
+    Difficulty.DungeonNormal,
 
-    0, // World Boss
+    Difficulty.WorldBoss,
 ];
 
 export const lockoutDifficultyOrderMap: Record<number, number> = Object.fromEntries(

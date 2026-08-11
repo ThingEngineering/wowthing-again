@@ -156,6 +156,14 @@ public static partial class Hardcoded
         { 16, 13473 }, // Mythic
     };
 
+    private static readonly Dictionary<int, int> MidnightWorldBoss2 = new()
+    {
+        { 14, 13471 }, // Normal
+        { 15, 13472 }, // Heroic
+        { 233, 13473 }, // Mythic Flex
+        { 250, 13470 }, // World
+    };
+
     public static readonly Dictionary<int, Dictionary<int, int>> InstanceBonusIds = new()
     {
         { 369, MopSiege }, // Siege of Orgrimmar
@@ -245,7 +253,7 @@ public static partial class Hardcoded
         { 1307, MidnightRaid }, // The Voidspire
         { 1308, MidnightRaid }, // March on Quel'Danas
         { 1305, MidnightRaid }, // Sporefall
-        { 1317, MidnightRaid }, // The Tidebound Grotto (world boss lair)
+        { 1317, MidnightWorldBoss2 }, // The Tidebound Grotto (world boss lair)
         { 1320, MidnightRaid }, // The Venomous Abyss
     };
 }

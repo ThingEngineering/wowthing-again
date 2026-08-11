@@ -43,10 +43,12 @@ public class JournalTool
         5, // 25 Normal
         6, // 25 Heroic
         9, // 40 Player
+        250, // Raid World
         17, // Raid LFR
         14, // Raid Normal
         15, // Raid Heroic
         16, // Raid Mythic
+        233, // Raid Mythic Flex
         33, // Raid Timewalking
     };
 
@@ -75,6 +77,12 @@ public class JournalTool
         StringType.WowJournalEncounterName,
         StringType.WowJournalInstanceName,
         StringType.WowJournalTierName,
+    };
+
+    private readonly Dictionary<int, short> _modifierFallback = new()
+    {
+        { 233, 3 }, // Raid: Mythic Flex => Mythic
+        { 250, 4 }, // Raid: World => LFR
     };
 
     private static readonly HashSet<int> InstanceTimewalkingOverride =
@@ -950,7 +958,13 @@ public class JournalTool
                                         instanceData.BonusIds != null &&
                                         instanceData.BonusIds.TryGetValue(difficultyId, out int bonusId) &&
                                         bonusAppearanceModifiers.TryGetValue(bonusId, out int modifierId) &&
-                                        appearances.TryGetValue((short)modifierId, out int appearanceId)
+                                        (
+                                            appearances.TryGetValue((short)modifierId, out int appearanceId) ||
+                                            (
+                                                _modifierFallback.TryGetValue(modifierId, out short fallbackModifierId) &&
+                                                appearances.TryGetValue(fallbackModifierId, out appearanceId)
+                                            )
+                                        )
                                     ))
                                 {
                                     var first = appearances

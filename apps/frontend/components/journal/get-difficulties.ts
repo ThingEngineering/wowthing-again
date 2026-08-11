@@ -1,4 +1,13 @@
-import { difficultyMap } from '@/data/difficulty';
+import {
+    difficultyHeroic,
+    difficultyLookingForRaid,
+    difficultyMap,
+    difficultyMythic,
+    difficultyNormal,
+    difficultyTimewalking,
+    difficultyWorld,
+} from '@/data/difficulty';
+import { Difficulty } from '@/enums/difficulty';
 import type { JournalDataEncounterItemAppearance, JournalDataInstance } from '@/types/data/journal';
 
 const raidSizeInstances: Set<number> = new Set([
@@ -15,7 +24,7 @@ const raidSizeInstances: Set<number> = new Set([
 
 export function getDifficulties(
     instance: JournalDataInstance,
-    appearance: JournalDataEncounterItemAppearance,
+    appearance: JournalDataEncounterItemAppearance
 ): [string[], string[]] {
     if (!appearance.difficulties) {
         return [[], []];
@@ -23,10 +32,10 @@ export function getDifficulties(
 
     const ret: [string[], string[]] = [[], []];
     if (raidSizeInstances.has(instance.id)) {
-        const normal10 = appearance.difficulties.includes(3);
-        const normal25 = appearance.difficulties.includes(4);
-        const heroic10 = appearance.difficulties.includes(5);
-        const heroic25 = appearance.difficulties.includes(6);
+        const normal10 = appearance.difficulties.includes(Difficulty.RaidLegacy10Normal);
+        const normal25 = appearance.difficulties.includes(Difficulty.RaidLegacy10Heroic);
+        const heroic10 = appearance.difficulties.includes(Difficulty.RaidLegacy25Normal);
+        const heroic25 = appearance.difficulties.includes(Difficulty.RaidLegacy25Heroic);
 
         if (normal10 && normal25 && heroic10 && heroic25) {
             ret[0].push('N', 'H');
@@ -57,30 +66,29 @@ export function getDifficulties(
             ret[1].push('25 Heroic');
         }
     } else {
-        // LFR Legacy, LFR Raid
-        if ([7, 17].some((id) => appearance.difficulties.indexOf(id) >= 0)) {
-            ret[0].push(difficultyMap[17].shortName);
-            ret[1].push(difficultyMap[17].name);
+        if (difficultyWorld.some((id) => appearance.difficulties.includes(id))) {
+            ret[0].push(difficultyMap[Difficulty.RaidWorld].shortName);
+            ret[1].push(difficultyMap[Difficulty.RaidWorld].name);
         }
-        // Normal Dungeon, 10 Normal, 25 Normal, 40 Normal, Normal Raid
-        if ([1, 3, 4, 9, 14].some((id) => appearance.difficulties.indexOf(id) >= 0)) {
-            ret[0].push(difficultyMap[14].shortName);
-            ret[1].push(difficultyMap[14].name);
+        if (difficultyLookingForRaid.some((id) => appearance.difficulties.includes(id))) {
+            ret[0].push(difficultyMap[Difficulty.RaidLookingForRaid].shortName);
+            ret[1].push(difficultyMap[Difficulty.RaidLookingForRaid].name);
         }
-        // Heroic Dungeon, 10 Heroic, 25 Heroic, Heroic Raid
-        if ([2, 5, 6, 15].some((id) => appearance.difficulties.indexOf(id) >= 0)) {
-            ret[0].push(difficultyMap[15].shortName);
-            ret[1].push(difficultyMap[15].name);
+        if (difficultyNormal.some((id) => appearance.difficulties.includes(id))) {
+            ret[0].push(difficultyMap[Difficulty.RaidNormal].shortName);
+            ret[1].push(difficultyMap[Difficulty.RaidNormal].name);
         }
-        // Mythic Dungeon, Mythic Keystone, Mythic Raid
-        if ([23, 8, 16].some((id) => appearance.difficulties.indexOf(id) >= 0)) {
-            ret[0].push(difficultyMap[16].shortName);
-            ret[1].push(difficultyMap[16].name);
+        if (difficultyHeroic.some((id) => appearance.difficulties.includes(id))) {
+            ret[0].push(difficultyMap[Difficulty.RaidHeroic].shortName);
+            ret[1].push(difficultyMap[Difficulty.RaidHeroic].name);
         }
-        // Timewalking Dungeon, Timewalking Raid
-        if ([24, 33].some((id) => appearance.difficulties.indexOf(id) >= 0)) {
-            ret[0].push(difficultyMap[33].shortName);
-            ret[1].push(difficultyMap[33].name);
+        if (difficultyMythic.some((id) => appearance.difficulties.includes(id))) {
+            ret[0].push(difficultyMap[Difficulty.RaidMythic].shortName);
+            ret[1].push(difficultyMap[Difficulty.RaidMythic].name);
+        }
+        if (difficultyTimewalking.some((id) => appearance.difficulties.includes(id))) {
+            ret[0].push(difficultyMap[Difficulty.RaidTimewalking].shortName);
+            ret[1].push(difficultyMap[Difficulty.RaidTimewalking].name);
         }
     }
     return ret;
