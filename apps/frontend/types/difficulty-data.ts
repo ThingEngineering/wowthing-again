@@ -1,12 +1,12 @@
 import type { InstanceType } from '@/enums/instance-type';
 
-export class Difficulty {
+export class DifficultyData {
     constructor(
         public id: number,
         public name: string,
         public shortName: string,
         public instanceType: InstanceType,
         public minPlayers: number,
-        public maxPlayers: number,
+        public maxPlayers: number
     ) {}
 }

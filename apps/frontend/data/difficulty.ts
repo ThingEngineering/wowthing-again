@@ -1,33 +1,95 @@
+import { Difficulty } from '@/enums/difficulty';
 import { InstanceType } from '@/enums/instance-type';
-import { Difficulty } from '@/types';
+import { DifficultyData } from '@/types';
 
-export const difficultyMap: Record<number, Difficulty> = {
-    0: new Difficulty(0, 'World Boss', 'WB', InstanceType.Raid, 1, 40),
+export const difficulties: DifficultyData[] = [
+    new DifficultyData(Difficulty.WorldBoss, 'World Boss', 'WB', InstanceType.Raid, 1, 40),
 
     // Dungeons
-    1: new Difficulty(1, 'Normal', 'N', InstanceType.Dungeon, 5, 5),
-    2: new Difficulty(2, 'Heroic', 'H', InstanceType.Dungeon, 5, 5),
-    8: new Difficulty(8, 'Mythic Keystone', 'M', InstanceType.Dungeon, 5, 5),
-    23: new Difficulty(23, 'Mythic', 'M', InstanceType.Dungeon, 5, 5),
-    24: new Difficulty(24, 'Timewalking', 'T', InstanceType.Dungeon, 5, 5),
+    new DifficultyData(Difficulty.DungeonNormal, 'Normal', 'N', InstanceType.Dungeon, 5, 5),
+    new DifficultyData(Difficulty.DungeonHeroic, 'Heroic', 'H', InstanceType.Dungeon, 5, 5),
+    new DifficultyData(
+        Difficulty.DungeonMythicKeystone,
+        'Mythic Keystone',
+        'M',
+        InstanceType.Dungeon,
+        5,
+        5
+    ),
+    new DifficultyData(Difficulty.DungeonMythic, 'Mythic', 'M', InstanceType.Dungeon, 5, 5),
+    new DifficultyData(
+        Difficulty.DungeonTimewalking,
+        'Timewalking',
+        'T',
+        InstanceType.Dungeon,
+        5,
+        5
+    ),
 
     // Legacy Raids
-    3: new Difficulty(3, '10 Normal', '10N', InstanceType.Raid, 10, 10),
-    4: new Difficulty(4, '25 Normal', '25N', InstanceType.Raid, 25, 25),
-    5: new Difficulty(5, '10 Heroic', '10H', InstanceType.Raid, 10, 10),
-    6: new Difficulty(6, '25 Heroic', '25H', InstanceType.Raid, 25, 25),
-    7: new Difficulty(7, 'Looking For Raid', 'L', InstanceType.Raid, 25, 25),
-    9: new Difficulty(9, '40 Player', '40', InstanceType.Raid, 40, 40),
+    new DifficultyData(
+        Difficulty.RaidLegacy10Normal,
+        '10 Normal',
+        '10N',
+        InstanceType.Raid,
+        10,
+        10
+    ),
+    new DifficultyData(
+        Difficulty.RaidLegacy25Normal,
+        '25 Normal',
+        '25N',
+        InstanceType.Raid,
+        25,
+        25
+    ),
+    new DifficultyData(
+        Difficulty.RaidLegacy10Heroic,
+        '10 Heroic',
+        '10H',
+        InstanceType.Raid,
+        10,
+        10
+    ),
+    new DifficultyData(
+        Difficulty.RaidLegacy25Heroic,
+        '25 Heroic',
+        '25H',
+        InstanceType.Raid,
+        25,
+        25
+    ),
+    new DifficultyData(
+        Difficulty.RaidLegacyLookingForRaid,
+        'Looking For Raid',
+        'L',
+        InstanceType.Raid,
+        25,
+        25
+    ),
+    new DifficultyData(Difficulty.RaidLegacy40, '40 Player', '40', InstanceType.Raid, 40, 40),
 
     // Raids
-    14: new Difficulty(14, 'Normal', 'N', InstanceType.Raid, 10, 30),
-    15: new Difficulty(15, 'Heroic', 'H', InstanceType.Raid, 10, 30),
-    16: new Difficulty(16, 'Mythic', 'M', InstanceType.Raid, 20, 20),
-    17: new Difficulty(17, 'Looking For Raid', 'L', InstanceType.Raid, 10, 30),
-    18: new Difficulty(18, 'Event?', 'E', InstanceType.Raid, 40, 40),
-    33: new Difficulty(33, 'Timewalking', 'T', InstanceType.Raid, 10, 30),
-    233: new Difficulty(233, 'Mythic Flex', 'MF', InstanceType.Raid, 15, 25),
-};
+    new DifficultyData(Difficulty.RaidNormal, 'Normal', 'N', InstanceType.Raid, 10, 30),
+    new DifficultyData(Difficulty.RaidHeroic, 'Heroic', 'H', InstanceType.Raid, 10, 30),
+    new DifficultyData(Difficulty.RaidMythic, 'Mythic', 'M', InstanceType.Raid, 20, 20),
+    new DifficultyData(
+        Difficulty.RaidLookingForRaid,
+        'Looking For Raid',
+        'L',
+        InstanceType.Raid,
+        10,
+        30
+    ),
+    new DifficultyData(Difficulty.RaidEvent, 'Event?', 'E', InstanceType.Raid, 40, 40),
+    new DifficultyData(Difficulty.RaidTimewalking, 'Timewalking', 'T', InstanceType.Raid, 10, 30),
+    new DifficultyData(Difficulty.RaidMythicFlex, 'Mythic Flex', 'MF', InstanceType.Raid, 15, 25),
+    new DifficultyData(Difficulty.RaidWorld, 'World', 'W', InstanceType.Raid, 5, 40),
+];
+
+export const difficultyMap: Record<number, DifficultyData> = Object.fromEntries(
+    difficulties.map((data) => [data.id, data])
+);
 
 export const dungeonDifficulties = Object.values(difficultyMap)
     .filter((diff) => diff.instanceType === InstanceType.Dungeon)
