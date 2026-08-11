@@ -237,10 +237,26 @@ public static partial class Hardcoded
 
         // Leatherworking
         10550, // Nightscape Cloak
+        10619, // Classic Dragonscale Gauntlets
+        10621, // Classic Wolfshead Helm
         19106, // Onyxia Scale Breastplate
+        35575, // TBC Ebon Netherscale Breastplate
+        35576, // TBC Ebon Netherscale Belt
+        35577, // TBC Ebon Netherscale Bracers
+        35580, // TBC Netherstrike Breastplate
+        35582, // TBC Netherstrike Belt
+        35584, // TBC Netherstrike Bracers
+        35585, // TBC Windhawk Hauberk
+        35587, // TBC Windhawk Belt
+        35588, // TBC Windhawk Bracers
+        35589, // TBC Primalstrike Vest
+        35590, // TBC Primalstrike Belt
+        35591, // TBC Primalstrike Bracers
+        44359, // TBC Quiver of a Thousand Feathers
         102366, // Mist-Touched Leather (combining 5 pieces?)
         171713, // Burnished Leather (dupe for max results?)
         173416, // Small Football (never implemented?)
+        293135, // Legion Drum of Primal Night (quest?)
         422330, // Erden's Glowspore Grip (temporary legendary craft)
 
         // Mining
