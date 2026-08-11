@@ -244,6 +244,9 @@ public static partial class Hardcoded
         { 1314, MidnightRaid }, // The Dreamrift
         { 1307, MidnightRaid }, // The Voidspire
         { 1308, MidnightRaid }, // March on Quel'Danas
+        { 1305, MidnightRaid }, // Sporefall
+        { 1317, MidnightRaid }, // The Tidebound Grotto (world boss lair)
+        { 1320, MidnightRaid }, // The Venomous Abyss
     };
 }
 
