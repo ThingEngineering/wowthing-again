@@ -1,4 +1,4 @@
-import type { Difficulty } from '@/types/difficulty';
+import type { DifficultyData } from '@/types/difficulty-data';
 import type { TippyProps } from '@/shared/utils/tooltips/types';
 
 export class Dungeon {
@@ -11,7 +11,7 @@ export class Dungeon {
         public name: string,
         public abbreviation: string,
         public icon: string,
-        timerMinutes: number,
+        timerMinutes: number
     ) {
         this.timer1 = timerMinutes * 60 * 1000;
         this.timer2 = this.timer1 * 0.8;
@@ -58,7 +58,7 @@ export interface DungeonTimedResult {
 }
 
 export interface InstanceDifficulty {
-    difficulty: Difficulty;
+    difficulty: DifficultyData;
     instanceId: number;
     key: string;
 }

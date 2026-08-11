@@ -1,6 +1,7 @@
 <script lang="ts">
     import IntersectionObserver from 'svelte-intersection-observer';
 
+    import { pvpCurrencies } from '@/data/currencies';
     import { AppearanceModifier } from '@/enums/appearance-modifier';
     import { Faction } from '@/enums/faction';
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
@@ -9,6 +10,7 @@
     import { wowthingData } from '@/shared/stores/data';
     import { ThingData } from '@/types/vendors';
     import { lazyState } from '@/user-home/state/lazy';
+    import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
     import getPercentClass from '@/utils/get-percent-class';
     import { applyBonusIds } from '@/utils/items/apply-bonus-ids';
     import type { ManualDataVendorGroup } from '@/types/data/manual';
@@ -49,93 +51,103 @@
         let anyHorde = false;
         let anyNormal = false;
 
-        for (const thing of showAll ? group.sells : group.sellsFiltered) {
-            const bonusIds = thing.bonusIds || [];
-            const thingKey = `${thing.type}|${thing.id}|${bonusIds.join(',')}`;
-            const [userHas, lookupType, lookupId] = lazyState.vendors.userHas[thingKey] || [];
-            if (showAll || (useShowCollected && userHas) || (useShowUncollected && !userHas)) {
-                const thingData = new ThingData(thing, userHas, lookupId, lookupType);
+        const hideGroup =
+            !browserState.current.vendors.showPvp &&
+            group.sells.some((vendorItem) =>
+                getNumberKeyedEntries(vendorItem.costs).some(([currencyId]) =>
+                    pvpCurrencies.has(currencyId)
+                )
+            );
 
-                thingData.bonusIds = bonusIds;
-                thingData.quality =
-                    thing.quality || wowthingData.items.items[thing.id]?.quality || 0;
+        if (!hideGroup) {
+            for (const thing of showAll ? group.sells : group.sellsFiltered) {
+                const bonusIds = thing.bonusIds || [];
+                const thingKey = `${thing.type}|${thing.id}|${bonusIds.join(',')}`;
+                const [userHas, lookupType, lookupId] = lazyState.vendors.userHas[thingKey] || [];
+                if (showAll || (useShowCollected && userHas) || (useShowUncollected && !userHas)) {
+                    const thingData = new ThingData(thing, userHas, lookupId, lookupType);
 
-                if (thing.type === RewardType.Mount) {
-                    thingData.linkType = 'spell';
-                    thingData.linkId = wowthingData.static.mountById.get(thing.id)?.spellId;
-                } else if (thing.type === RewardType.Pet) {
-                    thingData.linkType = 'npc';
-                    thingData.linkId = wowthingData.static.petById.get(thing.id)?.creatureId;
-                } else {
-                    thingData.linkType = 'item';
-                    thingData.linkId = thing.id;
+                    thingData.bonusIds = bonusIds;
+                    thingData.quality =
+                        thing.quality || wowthingData.items.items[thing.id]?.quality || 0;
 
-                    if (bonusIds.length > 0) {
-                        thingData.extraParams['bonus'] = bonusIds
-                            .filter((bonusId) => bonusId < 999999)
-                            .map((bonusId) => bonusId.toString())
-                            .join(':');
-                    }
-
-                    if (thing.classMask in PlayableClassMask) {
-                        thingData.classId =
-                            PlayableClass[
-                                PlayableClassMask[thing.classMask] as keyof typeof PlayableClass
-                            ];
+                    if (thing.type === RewardType.Mount) {
+                        thingData.linkType = 'spell';
+                        thingData.linkId = wowthingData.static.mountById.get(thing.id)?.spellId;
+                    } else if (thing.type === RewardType.Pet) {
+                        thingData.linkType = 'npc';
+                        thingData.linkId = wowthingData.static.petById.get(thing.id)?.creatureId;
                     } else {
-                        thingData.classId = 0;
+                        thingData.linkType = 'item';
+                        thingData.linkId = thing.id;
+
+                        if (bonusIds.length > 0) {
+                            thingData.extraParams['bonus'] = bonusIds
+                                .filter((bonusId) => bonusId < 999999)
+                                .map((bonusId) => bonusId.toString())
+                                .join(':');
+                        }
+
+                        if (thing.classMask in PlayableClassMask) {
+                            thingData.classId =
+                                PlayableClass[
+                                    PlayableClassMask[thing.classMask] as keyof typeof PlayableClass
+                                ];
+                        } else {
+                            thingData.classId = 0;
+                        }
+
+                        const item = wowthingData.items.items[thingData.linkId];
+                        if (!item) {
+                            console.warn('Invalid item', group.name, thingData.linkId);
+                            continue;
+                        }
+
+                        const withBonusIds = applyBonusIds(bonusIds, {
+                            itemLevel: item.itemLevel,
+                            quality: thingData.quality,
+                        });
+                        thingData.quality = withBonusIds.quality;
+
+                        const appearanceKeys = Object.keys(item?.appearances || {}).map((n) =>
+                            parseInt(n)
+                        );
+                        let modifier = thing.appearanceModifier;
+                        if (appearanceKeys.length === 1 || !appearanceKeys.includes(modifier)) {
+                            modifier = appearanceKeys[0];
+                        }
+
+                        if (group.overrideDifficulty === 14) {
+                            modifier = AppearanceModifier.Normal;
+                        } else if (group.overrideDifficulty === 15) {
+                            modifier = AppearanceModifier.Heroic;
+                        } else if (group.overrideDifficulty === 16) {
+                            modifier = AppearanceModifier.Mythic;
+                        } else if (group.overrideDifficulty === 17) {
+                            modifier = AppearanceModifier.LookingForRaid;
+                        }
+
+                        if (modifier === AppearanceModifier.Mythic) {
+                            thingData.difficulty = 'M';
+                        } else if (modifier === AppearanceModifier.Heroic) {
+                            thingData.difficulty = 'H';
+                        } else if (modifier === AppearanceModifier.LookingForRaid) {
+                            thingData.difficulty = 'L';
+                        } else if (modifier === AppearanceModifier.Normal && group.showNormalTag) {
+                            thingData.difficulty = 'N';
+                        }
                     }
 
-                    const item = wowthingData.items.items[thingData.linkId];
-                    if (!item) {
-                        console.warn('Invalid item', group.name, thingData.linkId);
-                        continue;
+                    if (thing.faction === Faction.Alliance) {
+                        anyAlliance = true;
+                    } else if (thing.faction === Faction.Horde) {
+                        anyHorde = true;
+                    } else {
+                        anyNormal = true;
                     }
 
-                    const withBonusIds = applyBonusIds(bonusIds, {
-                        itemLevel: item.itemLevel,
-                        quality: thingData.quality,
-                    });
-                    thingData.quality = withBonusIds.quality;
-
-                    const appearanceKeys = Object.keys(item?.appearances || {}).map((n) =>
-                        parseInt(n)
-                    );
-                    let modifier = thing.appearanceModifier;
-                    if (appearanceKeys.length === 1 || !appearanceKeys.includes(modifier)) {
-                        modifier = appearanceKeys[0];
-                    }
-
-                    if (group.overrideDifficulty === 14) {
-                        modifier = AppearanceModifier.Normal;
-                    } else if (group.overrideDifficulty === 15) {
-                        modifier = AppearanceModifier.Heroic;
-                    } else if (group.overrideDifficulty === 16) {
-                        modifier = AppearanceModifier.Mythic;
-                    } else if (group.overrideDifficulty === 17) {
-                        modifier = AppearanceModifier.LookingForRaid;
-                    }
-
-                    if (modifier === AppearanceModifier.Mythic) {
-                        thingData.difficulty = 'M';
-                    } else if (modifier === AppearanceModifier.Heroic) {
-                        thingData.difficulty = 'H';
-                    } else if (modifier === AppearanceModifier.LookingForRaid) {
-                        thingData.difficulty = 'L';
-                    } else if (modifier === AppearanceModifier.Normal && group.showNormalTag) {
-                        thingData.difficulty = 'N';
-                    }
+                    retThings.push(thingData);
                 }
-
-                if (thing.faction === Faction.Alliance) {
-                    anyAlliance = true;
-                } else if (thing.faction === Faction.Horde) {
-                    anyHorde = true;
-                } else {
-                    anyNormal = true;
-                }
-
-                retThings.push(thingData);
             }
         }
 

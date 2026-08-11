@@ -2,9 +2,9 @@
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty';
     import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
-    import type { Difficulty } from '@/types';
+    import type { DifficultyData } from '@/types';
 
-    let { difficulty, instanceId }: { difficulty: Difficulty; instanceId: number } = $props();
+    let { difficulty, instanceId }: { difficulty: DifficultyData; instanceId: number } = $props();
 
     let instance = $derived(wowthingData.static.instanceById.get(instanceId));
 

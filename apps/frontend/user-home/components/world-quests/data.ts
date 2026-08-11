@@ -9,6 +9,19 @@ export const zoneData: WorldQuestZone[] = [
         mapName: '11-midnight/quelthalas',
         children: [
             {
+                id: 2512,
+                name: 'The Coiled Isle',
+                slug: 'coiled-isle',
+                mapName: '11-midnight/the_coiled_isle',
+            },
+            {
+                id: 2509,
+                name: "Vaults of Atal'Utek",
+                slug: 'vaults-of-atalutek',
+                mapName: '11-midnight/vaults_of_atalutek',
+            },
+            null,
+            {
                 id: 2600,
                 name: 'Naigtal',
                 slug: 'naigtal',

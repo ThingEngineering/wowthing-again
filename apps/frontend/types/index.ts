@@ -3,7 +3,7 @@ export * from './achievement-data';
 export * from './background-image';
 export * from './character-race';
 export * from './covenant';
-export * from './difficulty';
+export * from './difficulty-data';
 export * from './dungeon';
 export * from './expansion';
 export * from './fancy-store';
