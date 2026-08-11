@@ -69,6 +69,11 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
             name: 'Season 1',
             slug: 'season-1',
         },
+        {
+            id: 126412,
+            name: 'Season 2',
+            slug: 'season-2',
+        },
     ],
 
     // The War Within
@@ -136,6 +141,7 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
 };
 
 export const currencyExtra: Record<number, number[]> = {
+    264: [3393],
     // Midnight - Crafting Concentration
     126401: [
         3161, // Alchemy,
@@ -191,17 +197,34 @@ export const currencyExtra: Record<number, number[]> = {
     ],
     // Midnight - Season 1
     126411: [
-        3310, // Coffer Key Shards
-        3028, // Restored Coffer Key
         3356, // Untainted Mana-Crystals
         3418, // Nebulous Voidcore
         null,
-        3378, // Dawnlight Manaflux
         3383, // Adventurer Dawncrest
         3341, // Veteran Dawncrest
         3343, // Champion Dawncrest
         3345, // Hero Dawncrest
         3347, // Myth Dawncrest
+        null,
+        3378, // Dawnlight Manaflux
+        3212, // Radiant Spark Dust (spark tracker)
+    ],
+    // Midnight - Season 2
+    126412: [
+        3310, // Coffer Key Shards
+        3028, // Restored Coffer Key
+        2803, // Undercoin
+        3356, // Untainted Mana-Crystals
+        3513, // Nebulous Voidcore (new?)
+        null,
+        3442, // Adventurer Mistcrest
+        3443, // Veteran Mistcrest
+        3444, // Champion Mistcrest
+        3445, // Hero Mistcrest
+        3446, // Myth Mistcrest
+        null,
+        3465, // Venomblight Manaflux
+        3509, // Tidal Spark Dust (spark tracker)
     ],
     // The War Within - Crafting Concentration
     126001: [
@@ -239,13 +262,6 @@ export const currencyExtra: Record<number, number[]> = {
     // The War Within - Season 3
     126013: [
         3269, // Ethereal Voidsplinter
-        2803, // Undercoins
-        3008, // Valorstones
-        3284, // Weathered Ethereal Crest
-        3286, // Carved Ethereal Crest
-        3288, // Runed Ethereal Crest
-        3290, // Gilded Ethereal Crest
-        3028, // Restored Coffer Key
     ],
 
     // Dragonflight
@@ -275,21 +291,11 @@ export const currencyExtra: Record<number, number[]> = {
     125013: [
         2796, // Renascent Dream
         2797, // Trophy of Strife
-        null,
-        2706, // Whelpling's Dreaming Crests
-        2707, // Drake's Dreaming Crests
-        2708, // Wyrm's Dreaming Crests
-        2709, // Aspect's Dreaming Crests
     ],
     // Dragonflight - Season 4
     125014: [
         2245, // Flightstones
         2912, // Renascent Awakening
-        null,
-        2806, // Whelpling's Awakened Crest
-        2807, // Drake's Awakened Crest
-        2809, // Wyrm's Awakened Crest
-        2812, // Aspect's Awakened Crest
     ],
     // Miscellaneous > World Events
     100102: [
@@ -384,19 +390,6 @@ export const currencyItems: Record<number, number[]> = {
         204717, // Splintered Spark of Shadowflame
         204440, // Spark of Shadowflame
         205225, // Aspects' Token of Merit
-        null,
-        204075, // Whelpling's Shadowflame Crest Fragment
-        204193, // Whelpling's Shadowflame Crest
-        204076, // Drake's Shadowflame Crest Fragment
-        204195, // Drake's Shadowflame Crest
-        204077, // Wyrm's Shadowflame Crest Fragment
-        204196, // Wyrm's Shadowflame Crest
-        204078, // Aspect's Shadowflame Crest Fragment
-        204194, // Aspect's Shadowflame Crest
-        null,
-        204681, // Enchanted Whelpling's Shadowflame Crest
-        204682, // Enchanted Wyrm's Shadowflame Crest
-        204697, // Enchanted Aspect's Shadowflame Crest
     ],
     // Dragonflight > Season 3
     125013: [
@@ -428,29 +421,18 @@ export const currencyItems: Record<number, number[]> = {
     126011: [
         211297, // Fractured Spark of Omens
         211296, // Spark of Omens
-        224069, // Enchanted Weathered Harbinger Crest
-        224072, // Enchanted Runed Harbinger Crest
-        224073, // Enchanted Gilded Harbinger Crest
     ],
     // The War Within - Season 2
     126012: [
         237578, // Counterfeit Dealer's Chip
         230905, // Fractured Spark of Fortunes
         230906, // Spark of Fortunes
-        230937, // Enchanted Weathered Undermine Crest
-        230936, // Enchanted Runed Undermine Crest
-        230935, // Enchanted Gilded Undermine Crest
     ],
     // The War Within - Season 3
     126013: [
-        245653, // Coffer Key Shard
         246771, // Radiant Echo
-        248242, // Algari Token of Merit
         231757, // Fractured Spark of Starlight
         231756, // Spark of Starlight
-        231767, // Enchanted Weathered Ethereal Crest
-        231769, // Enchanted Runed Ethereal Crest
-        231768, // Enchanted Gilded Ethereal Crest
     ],
 
     // Midnight
@@ -468,6 +450,11 @@ export const currencyItems: Record<number, number[]> = {
     126411: [
         232875, // Spark of Radiance
         258556, // Thalassian Token of Merit
+    ],
+    // Midnight - Season 2
+    126412: [
+        274476, // Spark of Tides
+        269862, // Thalassian Token of Merit
     ],
 
     // Player vs Player
