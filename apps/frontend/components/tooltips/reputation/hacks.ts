@@ -22,15 +22,15 @@ export function brannHack(levelString: string): number {
 
 export function valeeraHack(levelString: string): number {
     const level = parseInt(levelString);
-    if (level >= 51) {
+    if (level >= 71) {
         return 1;
-    } else if (level >= 41) {
+    } else if (level >= 61) {
         return 2;
-    } else if (level >= 31) {
+    } else if (level >= 51) {
         return 3;
-    } else if (level >= 21) {
+    } else if (level >= 41) {
         return 4;
-    } else if (level >= 11) {
+    } else if (level >= 31) {
         return 5;
     } else {
         return 6;
