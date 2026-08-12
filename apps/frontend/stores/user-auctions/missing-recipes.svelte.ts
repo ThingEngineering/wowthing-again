@@ -115,7 +115,12 @@ export class UserAuctionMissingRecipeDataStore {
             const meetsDontHave = auctionState.showDontHave || thing.hasItems.length > 0;
             const meetsHave = auctionState.showHave || thing.hasItems.length === 0;
 
-            const [skillLineId] = wowthingData.static.itemToSkillLine[item.id];
+            const [skillLineId] = wowthingData.static.itemToSkillLine[item.id] || [];
+            if (!skillLineId) {
+                console.warn('missing itemToSkillLine for item', item.id);
+                return false;
+            }
+
             const [profession, skillLineExpansion] =
                 wowthingData.static.professionBySkillLineId.get(skillLineId);
 
