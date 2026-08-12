@@ -12,39 +12,67 @@ export const modifierToTier: Record<number, number> = {
 
 export const currentUpgrade1: ConvertibleCategoryUpgrade[] = [
     {
-        upgradeId: 3341,
+        upgradeId: 3443,
         upgradeCost: 20,
-        achievementId: 42767, // Veteran of the Dawn
+        achievementId: 62411, // Veteran of the Mist
         achievementUpgradeCost: 10,
     },
 ];
 export const currentUpgrade2: ConvertibleCategoryUpgrade[] = [
     {
-        upgradeId: 3343,
+        upgradeId: 3444,
         upgradeCost: 20,
-        achievementId: 42768, // Champion of the Dawn
+        achievementId: 62412, // Champion of the Mist
         achievementUpgradeCost: 10,
     },
 ];
 export const currentUpgrade3: ConvertibleCategoryUpgrade[] = [
     {
-        upgradeId: 3345,
+        upgradeId: 3445,
         upgradeCost: 20,
-        achievementId: 42769, // Hero of the Dawn
+        achievementId: 62414, // Hero of the Mist
         achievementUpgradeCost: 10,
     },
 ];
 export const currentUpgrade4: ConvertibleCategoryUpgrade[] = [
     {
-        upgradeId: 3347,
+        upgradeId: 3446,
         upgradeCost: 20,
-        achievementId: 42770, // Myth of the Dawn
+        achievementId: 62416, // Myth of the Mist
         achievementUpgradeCost: 10,
     },
 ];
 
 // ID = ItemConversion.db2
 export const convertibleCategories: ConvertibleCategory[] = [
+    {
+        id: 13,
+        minimumLevel: 90,
+        name: '[Mid] Season 2',
+        slug: 'mid-season-2',
+        conversionCurrencyId: 3465, // Venomblight Manaflux
+        tiers: [
+            {
+                itemLevel: 318,
+                highUpgrade: currentUpgrade4,
+                lowUpgrade: currentUpgrade3,
+            },
+            {
+                itemLevel: 305,
+                highUpgrade: currentUpgrade3,
+                lowUpgrade: currentUpgrade2,
+            },
+            {
+                itemLevel: 292,
+                highUpgrade: currentUpgrade2,
+                lowUpgrade: currentUpgrade1,
+            },
+            {
+                itemLevel: 279,
+                highUpgrade: currentUpgrade1,
+            },
+        ],
+    },
     {
         id: 12,
         minimumLevel: 90,
@@ -54,22 +82,15 @@ export const convertibleCategories: ConvertibleCategory[] = [
         tiers: [
             {
                 itemLevel: 272,
-                highUpgrade: currentUpgrade4,
-                lowUpgrade: currentUpgrade3,
             },
             {
                 itemLevel: 259,
-                highUpgrade: currentUpgrade3,
-                lowUpgrade: currentUpgrade2,
             },
             {
                 itemLevel: 246,
-                highUpgrade: currentUpgrade2,
-                lowUpgrade: currentUpgrade1,
             },
             {
                 itemLevel: 233,
-                highUpgrade: currentUpgrade1,
             },
         ],
         purchases: [
