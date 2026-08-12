@@ -45,6 +45,22 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
     // Midnight
     264: [
         {
+            id: 283,
+            name: 'Zones',
+            slug: 'zones',
+        },
+        {
+            id: 126411,
+            name: 'Season 1',
+            slug: 'season-1',
+        },
+        {
+            id: 126412,
+            name: 'Season 2',
+            slug: 'season-2',
+        },
+        null,
+        {
             id: 126401,
             name: 'Crafting Concentration',
             slug: 'crafting-concentration',
@@ -63,16 +79,6 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
             id: 126404,
             name: 'Crafting Catchup',
             slug: 'crafting-catchup',
-        },
-        {
-            id: 126411,
-            name: 'Season 1',
-            slug: 'season-1',
-        },
-        {
-            id: 126412,
-            name: 'Season 2',
-            slug: 'season-2',
         },
     ],
 
@@ -141,7 +147,11 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
 };
 
 export const currencyExtra: Record<number, number[]> = {
-    264: [3393],
+    264: [
+        3405, // Field Accolade
+        3393, // Illusionary Coin
+        3392, // Remnant of Anguish
+    ],
     // Midnight - Crafting Concentration
     126401: [
         3161, // Alchemy,
@@ -197,14 +207,7 @@ export const currencyExtra: Record<number, number[]> = {
     ],
     // Midnight - Season 1
     126411: [
-        3356, // Untainted Mana-Crystals
         3418, // Nebulous Voidcore
-        null,
-        3383, // Adventurer Dawncrest
-        3341, // Veteran Dawncrest
-        3343, // Champion Dawncrest
-        3345, // Hero Dawncrest
-        3347, // Myth Dawncrest
         null,
         3378, // Dawnlight Manaflux
         3212, // Radiant Spark Dust (spark tracker)
@@ -449,7 +452,6 @@ export const currencyItems: Record<number, number[]> = {
     // Midnight - Season 1
     126411: [
         232875, // Spark of Radiance
-        258556, // Thalassian Token of Merit
     ],
     // Midnight - Season 2
     126412: [
