@@ -44,26 +44,26 @@ export abstract class Constants {
         midnightSilvermoon: 2710,
     };
 
-    // static JSON -> itemBonusListGroups -> match upgradeTiers IDs
+    // item JSON -> itemBonusListGroups -> match upgradeTiers IDs
     static readonly seasonItemBonusListGroups = new Set<number>([
-        607,
-        608,
-        609,
-        610,
-        611,
-        612, // first set
+        // 607,
+        // 608,
+        // 609,
+        // 610,
+        // 611,
+        // 612, // first set
         613,
         614,
         615,
         616,
         617,
         618, // second set
-        619,
-        626,
-        627,
-        628,
-        629,
-        630, // third set
+        // 619,
+        // 626,
+        // 627,
+        // 628,
+        // 629,
+        // 630, // third set
     ]);
 
     static readonly upgradeTiers = {
