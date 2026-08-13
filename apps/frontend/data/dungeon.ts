@@ -1,11 +1,12 @@
 import { Dungeon } from '@/types';
 import type { StaticDataInstance } from '@/shared/stores/static/types';
 import { convertibleCategories } from '@/components/items/convertible/data';
+import { MapChallengeMode } from '@/enums/map-challenge-mode';
 
 // MapChallengeMode.db2
 export const dungeons: Dungeon[] = [
     // Wrath of the Lich King
-    new Dungeon(556, 'Pit of Saron', 'PIT', '', 1860 / 60),
+    new Dungeon(556, 'Pit of Saron', 'PIT', 'achievement/61271', 1860 / 60),
 
     // Cataclysm
     new Dungeon(438, 'The Vortex Pinnacle', 'VP', 'achievement/4847', 1800 / 60),
@@ -115,10 +116,63 @@ export const dungeons: Dungeon[] = [
     new Dungeon(542, "Eco-Dome Al'dani", 'EDA', 'achievement/42782', 1860 / 60),
 
     // Midnight
-    new Dungeon(557, 'Windrunner Spire', 'WS', 'achievement/41288', 2010 / 60),
-    new Dungeon(558, "Magister's Terrace", 'MT', 'achievement/61213', 2010 / 60),
-    new Dungeon(559, 'Nexus-Point Xenas', 'NPX', 'achievement/61646', 1770 / 60),
-    new Dungeon(560, 'Maisara Caverns', 'MC', 'achievement/61644', 1980 / 60),
+    new Dungeon(
+        MapChallengeMode.AltarOfFangs,
+        'Altar of Fangs',
+        'AoF',
+        'achievement/62284',
+        1800 / 60
+    ),
+    new Dungeon(
+        MapChallengeMode.DenOfNalorakk,
+        'Den of Nalorakk',
+        'DoN',
+        'achievement/61643',
+        1920 / 60
+    ),
+    new Dungeon(
+        MapChallengeMode.MagistersTerrace,
+        "Magister's Terrace",
+        'MT',
+        'achievement/61213',
+        2010 / 60
+    ),
+    new Dungeon(
+        MapChallengeMode.MaisaraCaverns,
+        'Maisara Caverns',
+        'MC',
+        'achievement/61644',
+        1980 / 60
+    ),
+    new Dungeon(MapChallengeMode.MurderRow, 'Murder Row', 'MR', 'achievement/41962', 2040 / 60),
+    new Dungeon(
+        MapChallengeMode.NexusPointXenas,
+        'Nexus-Point Xenas',
+        'NPX',
+        'achievement/61646',
+        1770 / 60
+    ),
+    new Dungeon(
+        MapChallengeMode.TheBlindingVale,
+        'The Blinding Vale',
+        'TBV',
+        'achievement/61649',
+        1800 / 60
+    ),
+    new Dungeon(
+        MapChallengeMode.VoidscarArena,
+        'Voidscar Arena',
+        'VA',
+        'achievement/61510',
+        1800 / 60
+    ),
+    new Dungeon(
+        MapChallengeMode.WindrunnerSpire,
+        'Windrunner Spire',
+        'WS',
+        'achievement/41288',
+        2010 / 60
+    ),
 ];
 
 export const dungeonMap: Record<number, Dungeon> = Object.fromEntries(
