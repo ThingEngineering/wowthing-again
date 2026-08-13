@@ -12,7 +12,7 @@ export abstract class Constants {
     static readonly maxRenown: number = 80;
     static readonly restedDuration: number = 10 * 24 * 60 * 60; // 10 days
 
-    static readonly mythicPlusSeason: number = 17;
+    static readonly mythicPlusSeason: number = 18;
 
     static readonly defaultUnixTime = 946684800;
     static readonly defaultTime = DateTime.fromSeconds(Constants.defaultUnixTime);
@@ -44,26 +44,26 @@ export abstract class Constants {
         midnightSilvermoon: 2710,
     };
 
-    // static JSON -> itemBonusListGroups -> match upgradeTiers IDs
+    // item JSON -> itemBonusListGroups -> match upgradeTiers IDs
     static readonly seasonItemBonusListGroups = new Set<number>([
-        607,
-        608,
-        609,
-        610,
-        611,
-        612, // first set
+        // 607,
+        // 608,
+        // 609,
+        // 610,
+        // 611,
+        // 612, // first set
         613,
         614,
         615,
         616,
         617,
         618, // second set
-        619,
-        626,
-        627,
-        628,
-        629,
-        630, // third set
+        // 619,
+        // 626,
+        // 627,
+        // 628,
+        // 629,
+        // 630, // third set
     ]);
 
     static readonly upgradeTiers = {

@@ -1,3 +1,4 @@
+import { MapChallengeMode } from '@/enums/map-challenge-mode';
 import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
 import { MythicPlusSeason } from '@/types';
 
@@ -126,14 +127,25 @@ const orderWarWithinS3: number[] = [
 ];
 
 const orderMidnightS1: number[] = [
-    558, // Magister's Terrace
-    560, // Maisara Caverns
-    559, // Nexus-Point Xenas
-    557, // Windrunner Spire
-    402, // Algeth'ar Academy [DF]
-    239, // Seat (other seat?) [Legion]
-    161, // Skyreach [WoD]
-    556, // Pit of Saron [WotLK]
+    MapChallengeMode.MagistersTerrace,
+    MapChallengeMode.MaisaraCaverns,
+    MapChallengeMode.NexusPointXenas,
+    MapChallengeMode.WindrunnerSpire,
+    MapChallengeMode.AlgetharAcademy, // DF
+    MapChallengeMode.SeatOfTheTriumvirate, // Legion
+    MapChallengeMode.Skyreach, // WoD
+    MapChallengeMode.PitOfSaron, // WotLK
+];
+
+const orderMidnightS2: number[] = [
+    MapChallengeMode.AltarOfFangs,
+    MapChallengeMode.DenOfNalorakk,
+    MapChallengeMode.MurderRow,
+    MapChallengeMode.TheBlindingVale,
+    MapChallengeMode.VoidscarArena,
+    MapChallengeMode.RubyLifePools, // DF
+    MapChallengeMode.KingsRest, // BfA
+    MapChallengeMode.TempleOfSethraliss, // BfA
 ];
 
 const orderRemixLegion: number[] = [
@@ -154,6 +166,16 @@ const orderRemixLegion: number[] = [
 
 export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
     [
+        new MythicPlusSeason({
+            id: 18,
+            name: '[Mid] Season 2',
+            slug: 'midnight-2',
+            minLevel: 90,
+            orders: [orderMidnightS2],
+            portalLevel: 10,
+            scoreType: MythicPlusScoreType.WarWithin,
+            startPeriod: 1077, // 2026-08-19
+        }),
         new MythicPlusSeason({
             id: 17,
             name: '[Mid] Season 1',
