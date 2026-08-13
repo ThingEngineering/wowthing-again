@@ -18,12 +18,6 @@ export class Dungeon {
         this.timer3 = this.timer1 * 0.6;
     }
 
-    getTooltip(): TippyProps {
-        return {
-            content: `${this.name}`,
-        };
-    }
-
     getTimed(ms: number): DungeonTimedResult {
         if (ms < this.timer3) {
             return {

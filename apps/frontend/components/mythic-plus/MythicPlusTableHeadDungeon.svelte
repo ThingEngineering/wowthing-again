@@ -37,7 +37,7 @@
 </style>
 
 {#if dungeon !== undefined}
-    <th data-tooltip={dungeon.getTooltip()}>
+    <th data-tooltip={dungeon.name}>
         <WowthingImage name={dungeon.icon} size={48} />
         <span class="text-overlay">{dungeon.abbreviation}</span>
     </th>
