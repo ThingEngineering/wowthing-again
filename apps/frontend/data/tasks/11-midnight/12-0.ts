@@ -26,13 +26,18 @@ const specialAssignmentUnlockToQuest: Record<number, number> = {
     94391: 93013, // Special Assignment: Push Back the Light
     94795: 93244, // Special Assignment: Agents of the Shield
     94743: 93438, // Special Assignment: Precision Excision
+
+    // Coiled Isle
+    96492: 95921, // Special Assignment: Demand and Supply
+    96029: 95922, // Special Assignment: Face the Swarm
+    96307: 95918, // Special Assignment: Wraith Wrath
 };
 
 const specialAssignmentQuestToUnlock: Record<number, number> = Object.fromEntries(
     Object.entries(specialAssignmentUnlockToQuest).map(([k, v]) => [v, parseInt(k)])
 );
 
-const specialAssignmentFunc = (index: number, isQuest: boolean) => {
+export const specialAssignmentFunc = (unlocks: number[], index: number, isQuest: boolean) => {
     return (char: Character, chore: Chore) => {
         const now = timeState.slowTime;
         const allWorldQuests = dynamicDataStore.getCachedQuests(char.region);
@@ -42,7 +47,7 @@ const specialAssignmentFunc = (index: number, isQuest: boolean) => {
                 .map((worldQuest, index) => [worldQuest.questId, index])
         );
 
-        const activeQuests = specialAssignmentUnlocks
+        const activeQuests = unlocks
             .filter((questId) => questIdIndexes[questId])
             .map((questId) => [questIdIndexes[questId], questId]);
         activeQuests.sort((a, b) => a[0] - b[0]);
@@ -54,12 +59,12 @@ const specialAssignmentFunc = (index: number, isQuest: boolean) => {
                     : activeQuests[index][1],
             ];
         } else {
-            return specialAssignmentUnlocks;
+            return unlocks;
         }
     };
 };
 
-const specialAssignmentExpiry: Chore['customExpiryFunc'] = (char, scannedAt, questIds) => {
+export const specialAssignmentExpiry: Chore['customExpiryFunc'] = (char, scannedAt, questIds) => {
     const allWorldQuests = dynamicDataStore.getCachedQuests(char.region);
     const findQuestId = specialAssignmentQuestToUnlock[questIds[0]] || questIds[0];
     const worldQuest = allWorldQuests.find((wq) => wq.questId === findQuestId);
@@ -170,7 +175,7 @@ export const midChores12_0: Task = {
                     name: 'World Quests',
                     alwaysStarted: true,
                     overrideNeed: 3,
-                    questIds: specialAssignmentFunc(0, false),
+                    questIds: specialAssignmentFunc(specialAssignmentUnlocks, 0, false),
                     customExpiryFunc: specialAssignmentExpiry,
                 },
                 {
@@ -178,7 +183,7 @@ export const midChores12_0: Task = {
                     name: 'Assignment',
                     alwaysStarted: true,
                     showQuestName: true,
-                    questIds: specialAssignmentFunc(0, true),
+                    questIds: specialAssignmentFunc(specialAssignmentUnlocks, 0, true),
                     customExpiryFunc: specialAssignmentExpiry,
                 },
             ],
@@ -196,7 +201,7 @@ export const midChores12_0: Task = {
                     name: 'World Quests',
                     alwaysStarted: true,
                     overrideNeed: 3,
-                    questIds: specialAssignmentFunc(1, false),
+                    questIds: specialAssignmentFunc(specialAssignmentUnlocks, 1, false),
                     customExpiryFunc: specialAssignmentExpiry,
                 },
                 {
@@ -204,7 +209,7 @@ export const midChores12_0: Task = {
                     name: 'Assignment',
                     alwaysStarted: true,
                     showQuestName: true,
-                    questIds: specialAssignmentFunc(1, true),
+                    questIds: specialAssignmentFunc(specialAssignmentUnlocks, 1, true),
                     customExpiryFunc: specialAssignmentExpiry,
                 },
             ],
