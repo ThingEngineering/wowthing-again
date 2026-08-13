@@ -48,6 +48,7 @@
                 // Hacky, ugh
                 categoryIds.push(
                     ...categoryChildren[categoryId]
+                        .filter((c) => !!c)
                         .map((c) => c.id)
                         .filter((c) => [125001, 125011, 125012].indexOf(c) === -1)
                 );
