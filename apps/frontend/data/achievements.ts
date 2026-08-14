@@ -527,6 +527,7 @@ export const extraCategories: ExtraAchievementCategory[] = [
                     61222, // Tour of Duty: Zul'Aman
                     61223, // Tour of Duty: Harandar
                     61224, // Tour of Duty: Voidstorm
+                    63167, // Tour of Duty: The Coiled Isle
                 ],
             },
             null,
