@@ -9,3 +9,7 @@ export enum ItemQuality {
     Heirloom = 7,
     Token = 8,
 }
+
+export const itemQualities = Object.values(ItemQuality).filter(
+    (value) => typeof value === 'number' && value !== ItemQuality.Token
+);

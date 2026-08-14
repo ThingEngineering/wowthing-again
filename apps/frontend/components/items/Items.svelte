@@ -17,6 +17,7 @@
     import RowItems from './ItemsTableRowItems.svelte';
     import RowUpgrades from './ItemsTableRowUpgrades.svelte';
     import Search from './ItemsSearch.svelte';
+    import SearchV2 from './search/Search.svelte';
     import Tokens from './tokens/Tokens.svelte';
 
     let { params }: ParamsSlugsProps = $props();
@@ -81,6 +82,8 @@
         <GuildBanks slug1={params.slug2} slug2={params.slug3} />
     {:else if params.slug1 === 'search'}
         <Search />
+    {:else if params.slug1 === 'search-v2'}
+        <SearchV2 />
     {:else if params.slug1 === 'tokens'}
         <Tokens />
     {:else}
