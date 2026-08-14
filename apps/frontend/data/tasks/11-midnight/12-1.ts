@@ -2,7 +2,7 @@ import { iconLibrary } from '@/shared/icons';
 import { DbResetType } from '@/shared/stores/db/enums';
 import type { Chore, Task } from '@/types/tasks';
 
-import { specialAssignmentExpiry, specialAssignmentFunc } from './12-0';
+import { specialAssignmentFunc } from './12-0';
 
 const specialAssignmentUnlocks = [
     96492, // Special Assignment: Demand and Supply
@@ -17,12 +17,11 @@ export const midChores12_1: Task = {
     showSeparate: true,
     chores: [
         {
-            key: 'midSpecial1',
-            name: 'Special Assignment 1',
-            icon: iconLibrary.mdiNumeric1CircleOutline,
+            key: 'specialAssignment',
+            name: 'Special Assignment',
+            icon: ':island:S',
             showQuestName: true,
-            questReset: DbResetType.Custom,
-            customExpiryFunc: specialAssignmentExpiry,
+            questReset: DbResetType.Weekly,
             subChores: [
                 {
                     key: 'unlock',
@@ -30,15 +29,14 @@ export const midChores12_1: Task = {
                     alwaysStarted: true,
                     overrideNeed: 3,
                     questIds: specialAssignmentFunc(specialAssignmentUnlocks, 0, false),
-                    customExpiryFunc: specialAssignmentExpiry,
                 },
                 {
                     key: 'assignment',
                     name: 'Assignment',
                     alwaysStarted: true,
                     showQuestName: true,
+                    overrideNeed: 1,
                     questIds: specialAssignmentFunc(specialAssignmentUnlocks, 0, true),
-                    customExpiryFunc: specialAssignmentExpiry,
                 },
             ],
         },

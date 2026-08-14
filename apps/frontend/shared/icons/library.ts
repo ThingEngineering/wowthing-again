@@ -148,6 +148,7 @@ export { default as mdiHammerWrench } from '~icons/mdi/hammer-wrench';
 export { default as mdiHomeOutline } from '~icons/mdi/home-outline';
 export { default as mdiHourglass } from '~icons/mdi/hourglass';
 export { default as mdiImageBrokenVariant } from '~icons/mdi/image-broken-variant';
+export { default as mdiIsland } from '~icons/mdi/island';
 export { default as mdiLetterC } from '~icons/mdi/alpha-c-circle-outline';
 export { default as mdiLetterD } from '~icons/mdi/alpha-d-circle-outline';
 export { default as mdiLetterF } from '~icons/mdi/alpha-f-circle-outline';

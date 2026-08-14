@@ -40,6 +40,7 @@ export const aliasedIcons = {
     cloud: iconLibrary.notoCloud,
     devil: iconLibrary.mdiEmoticonDevilOutline,
     ice: iconLibrary.notoIce,
+    island: iconLibrary.mdiIsland,
     pinkHeart: iconLibrary.notoPinkHeart,
     planet: iconLibrary.mdiPlanet,
     rose: iconLibrary.notoRose,
