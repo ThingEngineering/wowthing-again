@@ -44,7 +44,7 @@ export function searchItems(): SearchItemsResult {
                 for (const character of userState.general.activeCharacters) {
                     for (const charItem of character.itemsByLocation[location]) {
                         if (!!charItem && itemIds.has(charItem.itemId)) {
-                            ret.results.push([location, character.id, charItem.itemId]);
+                            ret.results.push([location, character.id, charItem]);
                         }
                     }
                     // check for bag/bank items
@@ -52,19 +52,20 @@ export function searchItems(): SearchItemsResult {
                 break;
 
             case ItemLocation.Equipped:
-                for (const character of userState.general.activeCharacters) {
-                    for (const equippedItem of Object.values(character.equippedItems || {})) {
-                        if (!!equippedItem && itemIds.has(equippedItem.itemId)) {
-                            ret.results.push([location, character.id, equippedItem.itemId]);
-                        }
-                    }
-                }
+                // TODO: equipped items should implement UserItem
+                // for (const character of userState.general.activeCharacters) {
+                //     for (const equippedItem of Object.values(character.equippedItems || {})) {
+                //         if (!!equippedItem && itemIds.has(equippedItem.itemId)) {
+                //             ret.results.push([location, character.id, equippedItem]);
+                //         }
+                //     }
+                // }
                 break;
 
             case ItemLocation.WarbandBank:
                 for (const warbankItem of userState.general.warbankItems) {
                     if (itemIds.has(warbankItem.itemId)) {
-                        ret.results.push([location, 0, warbankItem.itemId]);
+                        ret.results.push([location, 0, warbankItem]);
                     }
                 }
                 break;
