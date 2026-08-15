@@ -713,6 +713,9 @@ export class DataUserDerived {
 
         if (chore.showQuestName || chore.subChores?.length > 0) {
             charChore.name = charChore.quest?.name;
+            if (!charChore.name && questIds.length === 1) {
+                charChore.name = wowthingData.static.questNameById.get(questIds[0]);
+            }
         } else if (questNameOverride[charChore.quest?.id]) {
             charChore.name = questNameOverride[charChore.quest.id];
         } else if (questIds.length === 1 && questNameOverride[questIds[0]]) {
