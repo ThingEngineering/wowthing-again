@@ -124,6 +124,7 @@ export const midChores12_0: Task = {
                         95843, // Midnight: Ritual Sites
                         93889, // Midnight: Saltheril's Soiree
                         93892, // Midnight: Stormarion Assault
+                        98232, // Midnight: Vaults of Atal'Utek
                         95842, // Midnight: Void Assaults
                         93913, // Midnight: World Boss
                         93766, // Midnight: World Quests
