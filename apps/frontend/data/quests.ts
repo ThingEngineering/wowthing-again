@@ -60,6 +60,9 @@ export const questNameOverride: Record<number, string> = {
     94743: 'Voidstorm WQs', // Special Assignment: Precision Excision
     94865: "Zul'Aman WQs", // Special Assignment: What Remains of a Temple Broken
     94866: "Zul'Aman WQs", // Special Assignment: Ours Once More!
+    96492: 'Coiled Isle WQs', // Special Assignment: Demand and Supply
+    96029: 'Coiled Isle WQs', // Special Assignment: Face the Swarm
+    96307: 'Coiled Isle WQs', // Special Assignment: Wraith Wrath
 };
 
 export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEntries(

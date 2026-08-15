@@ -67,7 +67,6 @@ export const midDelves: Task = {
             icon: iconLibrary.gameTreasureMap,
             minimumLevel: 90,
             alwaysStarted: true,
-            subChoresAnyOrder: true,
             questReset: DbResetType.Weekly,
             questResetForced: true,
             questIds: [86371],
