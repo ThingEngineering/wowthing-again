@@ -7,8 +7,8 @@
 {#if searchState.inProgress}
     Searching...
 {:else if searchState.results !== null}
-    {#each searchState.results as [location, entityId, itemId]}
-        {@const item = wowthingData.items.items[itemId]}
+    {#each searchState.results as [location, entityId, userItem]}
+        {@const item = wowthingData.items.items[userItem.itemId]}
         <div>
             <div>
                 {ItemLocation[location]}
