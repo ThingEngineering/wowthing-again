@@ -4,6 +4,7 @@ import { timeState } from '@/shared/state/time.svelte';
 import { DbResetType } from '@/shared/stores/db/enums';
 import { getNextWeeklyResetFromTime } from '@/utils/get-next-reset';
 import type { Task } from '@/types/tasks';
+import { Constants } from '@/data/constants';
 
 export const midDelves: Task = {
     key: 'midDelves',
@@ -62,11 +63,10 @@ export const midDelves: Task = {
         null,
         {
             key: 'bounty',
-            name: '{item:252415}', // Trovehunter's Bounty [Season 1]
+            name: `{item:${Constants.items.trovehuntersBounty}}`, // Trovehunter's Bounty [Season 2]
             icon: iconLibrary.gameTreasureMap,
             minimumLevel: 90,
             alwaysStarted: true,
-            subChoresAnyOrder: true,
             questReset: DbResetType.Weekly,
             questResetForced: true,
             questIds: [86371],

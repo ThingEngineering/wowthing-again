@@ -1,6 +1,7 @@
 export { default as carbonScatterMatrix } from '~icons/carbon/scatter-matrix';
 
 export { default as emojiConstruction } from '~icons/emojione-monotone/construction';
+export { default as emojiDoubleExclamationMark } from '~icons/emojione-monotone/double-exclamation-mark';
 export { default as emojiWorldMap } from '~icons/emojione-monotone/world-map';
 export { default as emojiZzz } from '~icons/emojione-monotone/zzz';
 
@@ -37,6 +38,7 @@ export { default as gameCompanionCube } from '~icons/game-icons/companion-cube';
 export { default as gameCrossbow } from '~icons/game-icons/crossbow';
 export { default as gameCrossedSwords } from '~icons/game-icons/crossed-swords';
 export { default as gameCrownedSkull } from '~icons/game-icons/crowned-skull';
+export { default as gameCursedStar } from '~icons/game-icons/cursed-star';
 export { default as gameCurvyKnife } from '~icons/game-icons/curvy-knife';
 export { default as gameCutDiamond } from '~icons/game-icons/cut-diamond';
 export { default as gameDeathSkull } from '~icons/game-icons/death-skull';
@@ -141,6 +143,7 @@ export { default as mdiDuck } from '~icons/mdi/duck';
 export { default as mdiEmoticonDevilOutline } from '~icons/mdi/emoticon-devil-outline';
 export { default as mdiExclamationThick } from '~icons/mdi/exclamation-thick';
 export { default as mdiFire } from '~icons/mdi/fire';
+export { default as mdiFootPrint } from '~icons/mdi/foot-print';
 export { default as mdiFormatListCheckbox } from '~icons/mdi/format-list-checkbox';
 export { default as mdiGiftOutline } from '~icons/mdi/gift-outline';
 export { default as mdiGhost } from '~icons/mdi/ghost';
@@ -148,6 +151,7 @@ export { default as mdiHammerWrench } from '~icons/mdi/hammer-wrench';
 export { default as mdiHomeOutline } from '~icons/mdi/home-outline';
 export { default as mdiHourglass } from '~icons/mdi/hourglass';
 export { default as mdiImageBrokenVariant } from '~icons/mdi/image-broken-variant';
+export { default as mdiIsland } from '~icons/mdi/island';
 export { default as mdiLetterC } from '~icons/mdi/alpha-c-circle-outline';
 export { default as mdiLetterD } from '~icons/mdi/alpha-d-circle-outline';
 export { default as mdiLetterF } from '~icons/mdi/alpha-f-circle-outline';

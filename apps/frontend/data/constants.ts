@@ -28,6 +28,7 @@ export abstract class Constants {
 
     static readonly items = {
         petCage: 82800,
+        trovehuntersBounty: 274374, // Midnight Season 2
     };
 
     static readonly reputations = {

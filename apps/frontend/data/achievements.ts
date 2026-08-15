@@ -18,6 +18,7 @@ export const forceSupersededBy: Record<number, number> = {
     5327: 5328, // In Service of the Alliance -> Veteran of the Alliance
     13701: 13702, // Battlefield Brawler -> Battlefield Tactician
     13702: 13703, // Battlefield Tactician -> Battlefield Master
+    63434: 63435, // Buddy System VII: Valeera -> Buddy System VIII: Valeera
 };
 
 export const forceShowCriteriaTree: Set<number> = new Set<number>([
@@ -527,6 +528,7 @@ export const extraCategories: ExtraAchievementCategory[] = [
                     61222, // Tour of Duty: Zul'Aman
                     61223, // Tour of Duty: Harandar
                     61224, // Tour of Duty: Voidstorm
+                    63167, // Tour of Duty: The Coiled Isle
                 ],
             },
             null,

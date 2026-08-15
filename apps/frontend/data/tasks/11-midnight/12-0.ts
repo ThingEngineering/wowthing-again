@@ -47,9 +47,19 @@ export const specialAssignmentFunc = (unlocks: number[], index: number, isQuest:
                 .map((worldQuest, index) => [worldQuest.questId, index])
         );
 
-        const activeQuests = unlocks
-            .filter((questId) => questIdIndexes[questId])
-            .map((questId) => [questIdIndexes[questId], questId]);
+        const activeQuests: [number, number][] = [];
+        for (const unlockQuestId of unlocks) {
+            if (questIdIndexes[unlockQuestId]) {
+                activeQuests.push([questIdIndexes[unlockQuestId], unlockQuestId]);
+            } else {
+                // Midnight 12.1 world quests have the actual quest as active, not the unlock
+                const actualQuestId = specialAssignmentUnlockToQuest[unlockQuestId];
+                if (actualQuestId && questIdIndexes[actualQuestId]) {
+                    activeQuests.push([questIdIndexes[actualQuestId], unlockQuestId]);
+                }
+            }
+        }
+
         activeQuests.sort((a, b) => a[0] - b[0]);
 
         if (activeQuests[index]) {
@@ -114,6 +124,7 @@ export const midChores12_0: Task = {
                         95843, // Midnight: Ritual Sites
                         93889, // Midnight: Saltheril's Soiree
                         93892, // Midnight: Stormarion Assault
+                        98232, // Midnight: Vaults of Atal'Utek
                         95842, // Midnight: Void Assaults
                         93913, // Midnight: World Boss
                         93766, // Midnight: World Quests

@@ -60,6 +60,11 @@ interface BrowserStateIdk {
         itemLevelValue: number;
         minimumBagSize: number;
     };
+    itemsSearch: {
+        name: string;
+        locations: string[];
+        qualities: string[];
+    };
     journal: {
         filtersExpanded: boolean;
 
@@ -219,6 +224,11 @@ const initialState: BrowserStateIdk = {
         itemLevelSlot: 0,
         itemLevelValue: 0,
         minimumBagSize: 0,
+    },
+    itemsSearch: {
+        name: '',
+        locations: ['1', '2', '4', '5', '100'],
+        qualities: ['0', '1', '2', '3', '4', '5', '6', '7'],
     },
     journal: {
         filtersExpanded: false,
