@@ -38,7 +38,7 @@ export const everythingData: Record<string, EverythingData> = {
     'free-tshirt-day': {
         name: 'Free T-Shirt Day',
         tag: 'event:free-tshirt-day',
-        vendorsKey: ['world-events', 'free-tshirt-day'],
+        vendorsKey: ['world-events', 'free-t-shirt-day'],
     },
     'hallows-end': {
         name: "Hallow's End",
