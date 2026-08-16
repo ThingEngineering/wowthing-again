@@ -894,7 +894,7 @@ public class DumpsTool
             if (validDates.Length == 1)
             {
                 dbHoliday.StartDates = new();
-                var startDate = DateTimeUtilities.ParseBlizzardDateTime(holiday.Dates[0]);
+                var startDate = DateTimeUtilities.ParseBlizzardDateTime(validDates[0]);
                 // A year mask of 11111 (31) is "every year on this date"
                 if (startDate.Year == 2031)
                 {
