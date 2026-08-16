@@ -457,6 +457,8 @@ export const currencyItems: Record<number, number[]> = {
     126412: [
         274476, // Spark of Tides
         269862, // Thalassian Token of Merit
+        273000, // Corrosive Soul
+        279382, // Venom-Cursed Fragment
     ],
 
     // Player vs Player
@@ -785,6 +787,8 @@ export const pvpCurrencies = new Set<number>([
 
 export const currencyGood: Record<number, number> = {
     [Constants.currencies.honor]: 2000,
+
+    1279382: 2, // Venom-Cursed Fragment
 
     // Midnight - Crafting Moxie
     3256: 600, // Alchemy

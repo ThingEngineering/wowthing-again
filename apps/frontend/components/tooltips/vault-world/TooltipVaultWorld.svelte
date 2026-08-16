@@ -75,6 +75,10 @@
         115: 'Hard Prey',
         116: 'Nightmare Prey',
         157: 'Ritual Site',
+        // Midnight S2 added new IDs for some reason
+        248: 'World Activity',
+        249: 'Delve',
+        258: 'Purging the Vaults',
     };
 
     function getRunCount(index: number): number {

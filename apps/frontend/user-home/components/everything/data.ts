@@ -35,6 +35,11 @@ export const everythingData: Record<string, EverythingData> = {
         achievementsKey: ['world-events', 'day-of-the-dead'],
         vendorsKey: ['world-events', 'day-of-the-dead'],
     },
+    'free-tshirt-day': {
+        name: 'Free T-Shirt Day',
+        tag: 'event:free-tshirt-day',
+        vendorsKey: ['world-events', 'free-t-shirt-day'],
+    },
     'hallows-end': {
         name: "Hallow's End",
         tag: 'event:hallows-end',
