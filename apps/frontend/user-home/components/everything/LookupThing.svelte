@@ -74,7 +74,9 @@
 
         if (ret.linkType === 'item') {
             ret.linkQuality =
-                quality || wowthingData.items.items[ret.linkId]?.quality || ItemQuality.Poor;
+                quality >= 0
+                    ? quality
+                    : wowthingData.items.items[ret.linkId]?.quality || ItemQuality.Poor;
         }
 
         return ret;
