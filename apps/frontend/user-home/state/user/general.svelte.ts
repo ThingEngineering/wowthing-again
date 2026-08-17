@@ -4,6 +4,7 @@ import sortBy from 'lodash/sortBy';
 import uniq from 'lodash/uniq';
 import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 
+import { Constants } from '@/data/constants';
 import {
     difficultyMap,
     lockoutDifficultyOrder,
@@ -406,9 +407,11 @@ export class DataUserGeneral {
             }
 
             if (!found) {
-                if (instanceId >= 10000000) {
-                    const actualDifficulty = Math.floor(instanceId / 10000000);
-                    const actualInstanceId = instanceId % 10000000;
+                if (instanceId >= Constants.lockoutDifficultyMultiplier) {
+                    const actualDifficulty = Math.floor(
+                        instanceId / Constants.lockoutDifficultyMultiplier
+                    );
+                    const actualInstanceId = instanceId % Constants.lockoutDifficultyMultiplier;
                     homeLockouts.push({
                         difficulty: difficultyMap[actualDifficulty],
                         instanceId: actualInstanceId,

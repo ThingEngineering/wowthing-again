@@ -16,6 +16,7 @@ const vaultDailies = [
     96641, // Relentless Strikes
     96642, // Decisive Incursions
     96643, // From Whence it Came
+    96644, // Essence of Malice
     98419, // Shoulder to Shoulder
     98420, // What's Out There?
 ];
