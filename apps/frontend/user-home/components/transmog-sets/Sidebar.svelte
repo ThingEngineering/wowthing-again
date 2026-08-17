@@ -27,7 +27,7 @@
     };
 </script>
 
-<Sidebar baseUrl="/sets" items={categories} scrollable={true} width="16rem" {percentFunc}>
+<Sidebar baseUrl="/sets" items={categories} scrollable={true} width="18rem" {percentFunc}>
     <svelte:fragment slot="before">
         <div>
             <ProgressBar title="Overall" have={overall.have} total={overall.total} />
