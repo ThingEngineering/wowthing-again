@@ -1,6 +1,7 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
+    import { Constants } from '@/data/constants';
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty';
     import { ignoredLockoutInstances } from '@/data/dungeon';
     import { expansionMap } from '@/data/expansion';
@@ -54,7 +55,7 @@
                     ) {
                         const difficultyName = difficultyMap[difficulty].shortName;
                         ret.push({
-                            id: `${difficulty * 10000000 + instance.id}`,
+                            id: `${difficulty * Constants.lockoutDifficultyMultiplier + instance.id}`,
                             name: `[${expansionName}] [${difficultyName}] ${instance.name}`,
                         });
                     }

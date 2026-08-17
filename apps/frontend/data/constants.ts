@@ -9,6 +9,7 @@ export abstract class Constants {
     static readonly charactersPerAccount: number = 70;
     static readonly expansion: number = 11;
     static readonly guildBankTabItems = 98;
+    static readonly lockoutDifficultyMultiplier = 1_000_000;
     static readonly maxRenown: number = 80;
     static readonly restedDuration: number = 10 * 24 * 60 * 60; // 10 days
 
