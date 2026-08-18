@@ -1,4 +1,4 @@
-import { worldVaultItemLevel } from '@/data/dungeon';
+import { worldVaultItemLevel } from '@/data/vault';
 
 export function getWorldTier(tier: number): [number, number] {
     for (const [tierLevel, tierItemLevel, tierQuality] of worldVaultItemLevel) {
