@@ -96,4 +96,22 @@ export const delveMap: Record<number, Delve> = {
             'Totem Annihilation': 3,
         },
     },
+    8760: {
+        name: 'The Ring of Glory',
+        shortName: 'RG',
+        storyRanks: {
+            "Minchi's Osseous Adventure": 3,
+            'Olds and Ends': 3,
+            'Speaking THeir Language': 3,
+        },
+    },
+    8763: {
+        name: 'Gnarldor Isle',
+        shortName: 'GI',
+        storyRanks: {
+            'Adopt-a-thon': 3,
+            'Game Day': 3,
+            'Open Night': 3,
+        },
+    },
 };
