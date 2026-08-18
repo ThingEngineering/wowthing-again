@@ -19,9 +19,7 @@ export const raidVaultItemLevel: Record<number, Array<number>> = {
 };
 
 export const worldVaultItemLevel: Array<Array<number>> = [
-    // [13, 315, 4], // Hero 4 (ritual 5?)
-    // [12, 308, 4], // Hero 2 (ritual 4?)
-    // [8, 298, 4], // Hero 1
+    [8, 305, 4], // Hero 1
     [7, 298, 3], // Champion 3
     [6, 295, 3], // Champion 2
     [5, 292, 3], // Champion 1
