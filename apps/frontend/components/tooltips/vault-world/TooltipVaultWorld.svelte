@@ -2,7 +2,7 @@
     import sortBy from 'lodash/sortBy';
 
     import { timeStore } from '@/shared/stores/time';
-    import { worldVaultItemLevel } from '@/data/dungeon';
+    import { worldVaultItemLevel } from '@/data/vault';
     import { leftPad } from '@/utils/formatting';
     import { getNextWeeklyResetFromTime } from '@/utils/get-next-reset';
     import { getWorldTier } from '@/utils/vault/get-world-tier';
