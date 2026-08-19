@@ -1,4 +1,4 @@
-import { raidVaultItemLevel } from '@/data/dungeon';
+import { raidVaultItemLevel } from '@/data/vault';
 import type { CharacterWeeklyProgress } from '@/types';
 
 export default function getRaidVaultItemLevel(progress?: CharacterWeeklyProgress): number[] {

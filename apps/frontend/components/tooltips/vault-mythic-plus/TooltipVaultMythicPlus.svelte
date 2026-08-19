@@ -1,7 +1,7 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
-    import { keyVaultItemLevel } from '@/data/dungeon';
+    import { keyVaultItemLevel } from '@/data/vault';
     import { timeStore } from '@/shared/stores/time';
     import { userStore } from '@/stores';
     import { getVaultQualityByItemLevel } from '@/utils/mythic-plus';
@@ -22,7 +22,7 @@
         const currentPeriod = userStore.getCurrentPeriodForCharacter($timeStore, character);
         runs = sortBy(
             character.mythicPlusWeeks?.[currentPeriod.endTime.toUnixInteger()] || [],
-            (run: CharacterMythicPlusAddonRun) => -run.level,
+            (run: CharacterMythicPlusAddonRun) => -run.level
         );
 
         const firstLevel = getDungeonLevel(progress[0]);

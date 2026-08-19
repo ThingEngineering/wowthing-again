@@ -1,4 +1,4 @@
-import { keyVaultItemLevel } from '@/data/dungeon';
+import { keyVaultItemLevel } from '@/data/vault';
 
 export function getVaultItemLevel(keyLevel: number): number[] {
     for (const [tierKeyLevel, tierItemLevel, tierQuality] of keyVaultItemLevel) {

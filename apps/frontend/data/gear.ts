@@ -1,4 +1,20 @@
 export const currentTier: number[] = [
+    2055, // Baleful Grave-Knight's Crucible [Death Knight]
+    2056, // Abyssal Doomhound's Pursuit [Demon Hunter]
+    2057, // Bark of the Enigmatic Dreamwatcher [Druid]
+    2058, // Echo of Calamity [Evoker]
+    2059, // Skulking Viper's Ambush [Hunter]
+    2060, // Primal Leywarden's Attire [Mage]
+    2061, // Guile of the Monkey King [Monk]
+    2062, // Radiance of the Consecrated Flame [Paladin]
+    2063, // Cosmic Penitent's Raiment [Priest]
+    2064, // Chosen Bloodslayer's Hexweave [Rogue]
+    2065, // Ophidian Oracle's Prophecy [Shaman]
+    2066, // Damned Necrolyte's Shattered Restraints [Warlock]
+    2067, // Jade Warlord's Dominion [Warrior]
+];
+
+export const previousTier: number[] = [
     1978, // Relentless Rider's Lament [Death Knight]
     1979, // Devouring Reaver's Sheathe [Demon Hunter]
     1980, // Sprouts of the Luminous Bloom [Druid]
@@ -13,5 +29,3 @@ export const currentTier: number[] = [
     1989, // Reign of the Abyssal Immolator [Warlock]
     1990, // Rage of the Night Ender [Warrior]
 ];
-
-export const previousTier: number[] = [];

@@ -29,6 +29,7 @@ interface BrowserStateIdk {
     explore: {
         achievementId: number;
         bonusIds: string;
+        modifierTreeId: number;
         questId: number;
         transmogSetId: number;
     };
@@ -194,6 +195,7 @@ const initialState: BrowserStateIdk = {
     explore: {
         achievementId: 0,
         bonusIds: '',
+        modifierTreeId: 0,
         questId: 0,
         transmogSetId: 0,
     },

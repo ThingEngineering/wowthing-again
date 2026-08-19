@@ -25,7 +25,7 @@
         <tbody>
             {#each delves as [delve, story, ranking] (story)}
                 <tr>
-                    <td class="name text-overflow">{delve.name}</td>
+                    <td class="name text-overflow">{delve?.name ?? 'UNKNOWN DELVE'}</td>
                     <td class="story text-overflow quality{ranking}">{story}</td>
                 </tr>
             {/each}

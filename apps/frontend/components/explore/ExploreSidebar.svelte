@@ -13,20 +13,25 @@
             slug: 'bonus-ids',
         },
         {
-            name: 'CHETT',
-            slug: 'chett',
-        },
-        {
             name: 'Icons',
             slug: 'icons',
         },
         {
-            name: 'Quests',
-            slug: 'quests',
+            name: 'Modifier Trees',
+            slug: 'modifier-trees',
         },
         {
             name: 'Transmog Sets',
             slug: 'transmog',
+        },
+        null,
+        {
+            name: 'CHETT',
+            slug: 'chett',
+        },
+        {
+            name: 'Quests',
+            slug: 'quests',
         },
     ];
 </script>

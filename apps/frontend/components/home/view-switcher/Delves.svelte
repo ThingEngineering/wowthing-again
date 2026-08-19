@@ -19,7 +19,7 @@
                 story,
                 settingsState.value.delveRankings[`${poiId}:${story}`] || 0,
             ]) as [Delve, string, number][],
-            ([delve, , ranking]) => `${9 - ranking}:${delve.shortName}`
+            ([delve, , ranking]) => `${9 - ranking}:${delve?.shortName || '??'}`
         );
     });
 </script>
@@ -50,7 +50,7 @@
     <IconifyWrapper icon={iconLibrary.faDungeon} />
     {#each delves as [delve, , ranking] (delve)}
         <div class="delve quality{ranking}">
-            {delve.shortName}
+            {delve?.shortName ?? '??'}
         </div>
     {/each}
 </div>
