@@ -109,7 +109,7 @@ export const delveMap: Record<number, Delve> = {
         name: 'Gnarldor Isle',
         shortName: 'GI',
         storyRanks: {
-            'Adopt-a-thon': 3,
+            'Adopt-a-thon': 1, // killing the boss twice??
             'Game Day': 3,
             'Open Night': 3,
         },
