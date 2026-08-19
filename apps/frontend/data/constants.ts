@@ -24,7 +24,6 @@ export abstract class Constants {
         catalyst: 3465, // Venomblight Manaflux [Mid S2]
         conquest: 1602,
         honor: 1792,
-        itemUpgrade: 3008, // Valorstones
     };
 
     static readonly items = {

@@ -5,7 +5,6 @@
         currentUpgrade3,
         currentUpgrade4,
     } from './convertible/data';
-    import { Constants } from '@/data/constants';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import type { CharacterProps } from '@/types/props';
 
@@ -21,18 +20,6 @@
 </script>
 
 <style lang="scss">
-    .flightstones {
-        --image-margin-top: 0;
-
-        border-left: 1px solid var(--border-color);
-        padding: 0 0.4rem 0 0.2rem;
-    }
-    .flightstones-wrapper {
-        align-items: center;
-        display: flex;
-        gap: 4px;
-        justify-content: space-between;
-    }
     .crests {
         border-left: 1px solid var(--border-color);
         padding: 0 0.4rem 0 0.2rem;
@@ -57,13 +44,6 @@
 </style>
 
 <td class="spacer"></td>
-
-<td class="flightstones">
-    <div class="flightstones-wrapper">
-        <WowthingImage border={1} name="currency/{Constants.currencies.itemUpgrade}" size={24} />
-        {(character.currencies?.[Constants.currencies.itemUpgrade]?.quantity || 0).toLocaleString()}
-    </div>
-</td>
 
 {#each currencies as currencyIds}
     <td class="crests">
