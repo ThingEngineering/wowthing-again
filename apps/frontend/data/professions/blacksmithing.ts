@@ -30,6 +30,11 @@ export const midnightBlacksmithing: TaskProfession = {
             questId: 93795,
             source: 'TS 9', // The Singularity
         },
+        {
+            itemId: 274515, // Demystifyin'
+            questId: 96511,
+            source: 'ZF 6', // Zul'jarra's Forces
+        },
     ],
 };
 

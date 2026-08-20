@@ -61,6 +61,12 @@ export const midnightZones: ProfessionZone[] = [
         shortName: 'TS',
         reputationId: 2699,
     },
+    {
+        name: "Zul'jarra's Forces Books",
+        icon: 'achievement/62297',
+        shortName: 'ZF',
+        reputationId: 2772,
+    },
 ];
 
 export const warWithinZones: ProfessionZone[] = [

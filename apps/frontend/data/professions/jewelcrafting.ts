@@ -30,6 +30,11 @@ export const midnightJewelcrafting: TaskProfession = {
             questId: 93222,
             source: 'SC 6',
         },
+        {
+            itemId: 274510, // Demystifyin'
+            questId: 96516,
+            source: 'ZF 6', // Zul'jarra's Forces
+        },
     ],
 };
 

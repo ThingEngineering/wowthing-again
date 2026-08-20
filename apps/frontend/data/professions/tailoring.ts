@@ -30,6 +30,11 @@ export const midnightTailoring: TaskProfession = {
             questId: 93201,
             source: 'SC 6',
         },
+        {
+            itemId: 274512, // Demystifyin'
+            questId: 96520,
+            source: 'ZF 6', // Zul'jarra's Forces
+        },
     ],
 };
 

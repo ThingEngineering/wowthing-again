@@ -73,6 +73,11 @@ export const midnightEnchanting: TaskProfession = {
             questId: 92374,
             source: 'SC 6',
         },
+        {
+            itemId: 274511, // Demystifyin'
+            questId: 96512,
+            source: 'ZF 6', // Zul'jarra's Forces
+        },
     ],
 };
 

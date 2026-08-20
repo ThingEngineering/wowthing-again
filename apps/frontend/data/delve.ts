@@ -10,6 +10,7 @@ export const delveMap: Record<number, Delve> = {
         name: 'Collegiate Calamity',
         shortName: 'CC',
         storyRanks: {
+            'Academic Antitoxin': 3, // 12.1
             'Academy Under Siege': 4,
             'Faculty of Fear': 3,
             'Invasive Glow': 5,
@@ -20,6 +21,7 @@ export const delveMap: Record<number, Delve> = {
         shortName: 'PP',
         storyRanks: {
             'Bombing Run': 0,
+            'Caustic Crush': 3, // 12.1
             'Holding the Line': 4,
             'March of the Arcane Brigade': 0,
         },
@@ -37,6 +39,7 @@ export const delveMap: Record<number, Delve> = {
         name: 'Shadowguard Point',
         shortName: 'SP',
         storyRanks: {
+            'Basilisk Blitz': 3, // 12.1
             Calamitous: 3,
             'Captured Wildlife': 0,
             'Stolen Mana': 0,
@@ -48,6 +51,7 @@ export const delveMap: Record<number, Delve> = {
         storyRanks: {
             'Arena Champion': 3,
             'Dastardly Rotstalk': 3,
+            'Fungal Pharmacon': 3, // 12.1
             'Lightbloom Invasion': 3,
         },
     },
@@ -64,6 +68,7 @@ export const delveMap: Record<number, Delve> = {
         name: 'The Shadow Enclave',
         shortName: 'SE',
         storyRanks: {
+            'Basilisk Blitz': 3, // 12.1
             'Mirror Shine': 0,
             'Shadowy Supplies': 3,
             "Traitor's Due": 3,
@@ -85,6 +90,7 @@ export const delveMap: Record<number, Delve> = {
             'Loosed Loa': 3,
             'Party Crasher': 3,
             'Trapped!': 3,
+            "Why'd It Have to Be Snakes?": 3, // 12.1
         },
     },
     8444: {
@@ -94,6 +100,7 @@ export const delveMap: Record<number, Delve> = {
             'Ritual Interrupted': 3,
             'Toadly Unbecoming': 3,
             'Totem Annihilation': 3,
+            'Venomous Vapors': 3, // 12.1
         },
     },
     8760: {

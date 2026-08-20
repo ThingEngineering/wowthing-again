@@ -63,6 +63,11 @@ export const midnightHerbalism: TaskProfession = {
             questId: 93411,
             source: 'HT 6',
         },
+        {
+            itemId: 274513, // Demystifyin'
+            questId: 96514,
+            source: 'ZF 6', // Zul'jarra's Forces
+        },
     ],
 };
 

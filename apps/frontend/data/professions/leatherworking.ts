@@ -30,6 +30,11 @@ export const midnightLeatherworking: TaskProfession = {
             questId: 92371,
             source: 'AT 6',
         },
+        {
+            itemId: 274507, // Demystifyin'
+            questId: 96517,
+            source: 'ZF 6', // Zul'jarra's Forces
+        },
     ],
 };
 

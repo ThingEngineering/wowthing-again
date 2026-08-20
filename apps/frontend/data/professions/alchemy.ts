@@ -30,6 +30,11 @@ export const midnightAlchemy: TaskProfession = {
             questId: 93794,
             source: 'TS 9', // The Singularity
         },
+        {
+            itemId: 274500, // Demystifyin'
+            questId: 96459,
+            source: 'ZF 6', // Zul'jarra's Forces
+        },
     ],
 };
 
