@@ -6,10 +6,8 @@ import { twwChoresChett } from './chett';
 import { twwDelves } from './delves';
 import { twwHorrificVisions } from './horrific-visions';
 import { twwProfessions } from './professions';
-import { twwVeteranCaches } from './veteran-caches';
 
 export const twwTasks = [
-    twwVeteranCaches,
     twwDelves,
     twwProfessions,
     twwChores11_0_0,
