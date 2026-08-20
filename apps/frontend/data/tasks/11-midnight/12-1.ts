@@ -13,6 +13,7 @@ const specialAssignmentUnlocks = [
 
 const vaultDailies = [
     96639, // Patrolling the Temple
+    96640, // Bounty of the Cursed
     96641, // Relentless Strikes
     96642, // Decisive Incursions
     96643, // From Whence it Came

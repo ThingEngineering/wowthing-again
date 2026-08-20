@@ -23,9 +23,6 @@
         if (season.conversionCurrencyId) {
             first.push([season.conversionCurrencyId, 1]);
         }
-        if (seasonTier.lowUpgrade || seasonTier.highUpgrade) {
-            first.push([Constants.currencies.itemUpgrade, 1]);
-        }
         ret.push(first);
 
         if (season.id === 3) {
