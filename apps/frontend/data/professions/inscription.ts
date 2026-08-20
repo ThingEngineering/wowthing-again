@@ -30,6 +30,11 @@ export const midnightInscription: TaskProfession = {
             questId: 93412,
             source: 'HT 6',
         },
+        {
+            itemId: 274514, // Demystifyin'
+            questId: 96515,
+            source: 'ZF 6', // Zul'jarra's Forces
+        },
     ],
 };
 

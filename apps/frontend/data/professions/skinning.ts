@@ -65,6 +65,11 @@ export const midnightSkinning: TaskProfession = {
             questId: 92373,
             source: 'AT 6',
         },
+        {
+            itemId: 274508, // Demystifyin'
+            questId: 96519,
+            source: 'ZF 6', // Zul'jarra's Forces
+        },
     ],
 };
 

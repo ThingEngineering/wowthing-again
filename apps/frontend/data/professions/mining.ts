@@ -63,6 +63,11 @@ export const midnightMining: TaskProfession = {
             questId: 92372,
             source: 'AT 6',
         },
+        {
+            itemId: 274509, // Demystifyin'
+            questId: 96518,
+            source: 'ZF 6', // Zul'jarra's Forces
+        },
     ],
 };
 
