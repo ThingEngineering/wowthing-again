@@ -56,9 +56,18 @@ export function processAchievementsData(rawData: RawAchievements): DataAchieveme
                 achievementIds: [],
                 children: [],
             };
+        } else if (extraCategory.slug === 'northrend-cup') {
+            slugCat = {
+                id: 1_000_002,
+                name: 'Northrend Cup',
+                slug: 'northrend-cup-hidden',
+                achievementIds: [],
+                children: [],
+            };
         } else {
             slugCat = reputations?.children.find((child) => child.slug === extraCategory.slug);
         }
+
         if (!slugCat) {
             console.log('uh oh', extraCategory);
             continue;

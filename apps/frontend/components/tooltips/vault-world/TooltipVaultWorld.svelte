@@ -78,7 +78,9 @@
         // Midnight S2 added new IDs for some reason
         248: 'World Activity',
         249: 'Delve',
+        250: 'Normal Prey', // probably
         251: 'Hard Prey',
+        252: 'Nightmare Prey',
         258: 'Purging the Vaults',
     };
 

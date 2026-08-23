@@ -12,10 +12,10 @@ export const keyVaultItemLevel: Array<Array<number>> = [
 ];
 
 export const raidVaultItemLevel: Record<number, Array<number>> = {
-    16: [convertibleCategories[0].tiers[0].itemLevel, 5], // Mythic
-    15: [convertibleCategories[0].tiers[1].itemLevel, 4], // Heroic
-    14: [convertibleCategories[0].tiers[2].itemLevel, 3], // Normal
-    17: [convertibleCategories[0].tiers[3].itemLevel, 2], // LFR
+    16: [convertibleCategories[0].tiers[0].itemLevel + 16, 5], // Mythic = 6/6 Myth loot?
+    15: [convertibleCategories[0].tiers[0].itemLevel, 5], // Heroic = Myth 1
+    14: [convertibleCategories[0].tiers[1].itemLevel, 4], // Normal = Hero 1
+    17: [convertibleCategories[0].tiers[2].itemLevel, 3], // LFR = Champion 1
 };
 
 export const worldVaultItemLevel: Array<Array<number>> = [

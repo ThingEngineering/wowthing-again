@@ -552,4 +552,11 @@ export const extraCategories: ExtraAchievementCategory[] = [
         ],
         children: [],
     },
+    {
+        slug: 'northrend-cup',
+        achievementIds: [
+            19674, 19675, 19676, 19677, 19679, 19681, 19682, 19683, 19684, 19721, 19722, 19723,
+        ],
+        children: [],
+    },
 ];
