@@ -102,6 +102,7 @@ export const everythingData: Record<string, EverythingData> = {
     'timewalking-wotlk': {
         name: 'WotLK Timewalking',
         tag: 'event:timewalking-wotlk',
+        vendorsKey: ['wrath-of-the-lich-king', 'timewalking'],
     },
     'timewalking-cata': {
         name: 'Cata Timewalking',
