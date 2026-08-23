@@ -30,6 +30,9 @@
             padding-top: 0.1rem;
         }
     }
+    .flex-wrapper {
+        height: 1.8rem;
+    }
 </style>
 
 <div class="settings-block">
@@ -40,6 +43,7 @@
             {@const stories = sortBy(Object.keys(delve.storyRanks))}
             <div class="delve">
                 <h3>{delve.name}</h3>
+
                 {#each stories as story (story)}
                     {@const storyKey = `${poiId}:${story}`}
                     <div class="flex-wrapper">
@@ -56,6 +60,10 @@
                         </div>
                     </div>
                 {/each}
+
+                {#if stories.length < 4}
+                    <div class="flex-wrapper">&nbsp;</div>
+                {/if}
             </div>
         {/each}
     </div>

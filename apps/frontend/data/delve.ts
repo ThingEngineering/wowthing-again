@@ -68,7 +68,7 @@ export const delveMap: Record<number, Delve> = {
         name: 'The Shadow Enclave',
         shortName: 'SE',
         storyRanks: {
-            'Basilisk Blitz': 3, // 12.1
+            'Infiltrate and Ameliorate': 3, // 12.1
             'Mirror Shine': 0,
             'Shadowy Supplies': 3,
             "Traitor's Due": 3,
@@ -109,7 +109,7 @@ export const delveMap: Record<number, Delve> = {
         storyRanks: {
             "Minchi's Osseous Adventure": 3,
             'Olds and Ends': 3,
-            'Speaking THeir Language': 3,
+            'Speaking Their Language': 3,
         },
     },
     8763: {

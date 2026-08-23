@@ -48,6 +48,7 @@
     }}
 >
     <IconifyWrapper icon={iconLibrary.faDungeon} />
+
     {#each delves as [delve, , ranking] (delve)}
         <div class="delve quality{ranking}">
             {delve?.shortName ?? '??'}
