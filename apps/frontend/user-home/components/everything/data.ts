@@ -140,11 +140,17 @@ export const everythingData: Record<string, EverythingData> = {
     },
 
     //
+    'cup-northrend': {
+        name: 'Northrend Cup',
+        tag: 'event:skyriding-cup',
+        achievementsKey: ['northrend-cup-hidden'],
+        vendorsKey: ['world-events', 'skyriding-cups'],
+    },
     'cup-outland': {
         name: 'Outland Cup',
-        tag: 'event:outland-cup',
+        tag: 'event:skyriding-cup',
         achievementsKey: ['outland-cup-hidden'],
-        vendorsKey: ['world-events', 'outland-cup'],
+        vendorsKey: ['world-events', 'skyriding-cups'],
     },
     //
     anniversary: {
