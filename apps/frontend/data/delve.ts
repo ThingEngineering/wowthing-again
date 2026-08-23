@@ -109,7 +109,7 @@ export const delveMap: Record<number, Delve> = {
         storyRanks: {
             "Minchi's Osseous Adventure": 3,
             'Olds and Ends': 3,
-            'Speaking THeir Language': 3,
+            'Speaking Their Language': 3,
         },
     },
     8763: {
