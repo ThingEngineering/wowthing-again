@@ -516,6 +516,7 @@ export const currencyItems: Record<number, number[]> = {
     ],
     // Miscellaneous > Decor
     100104: [
+        269010, // Essence of Lumber
         245586, // Ironwood Lumber [Classic]
         242691, // Olemba Lumber [TBC]
         251762, // Coldwind Lumber [WotLK]
