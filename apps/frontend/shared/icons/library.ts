@@ -60,6 +60,7 @@ export { default as gameHeartNecklace } from '~icons/game-icons/heart-necklace';
 export { default as gameHeartPlus } from '~icons/game-icons/heart-plus';
 export { default as gameHouse } from '~icons/game-icons/house';
 export { default as gameJigsawBox } from '~icons/game-icons/jigsaw-box';
+export { default as gameKey } from '~icons/game-icons/key';
 export { default as gameKnapsack } from '~icons/game-icons/knapsack';
 export { default as gameLabradorHead } from '~icons/game-icons/labrador-head';
 export { default as gameLockedFortress } from '~icons/game-icons/locked-fortress';

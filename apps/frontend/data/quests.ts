@@ -63,6 +63,19 @@ export const questNameOverride: Record<number, string> = {
     96492: 'Coiled Isle WQs', // Special Assignment: Demand and Supply
     96029: 'Coiled Isle WQs', // Special Assignment: Face the Swarm
     96307: 'Coiled Isle WQs', // Special Assignment: Wraith Wrath
+    // Midnight delves
+    91182: 'Parhelion Plaza',
+    91183: 'Sunkiller Sanctum',
+    91184: 'Shadowguard Point',
+    91185: 'The Grudge Pit',
+    91186: 'Collegiate Calamity',
+    91187: 'The Gulf of Memory',
+    91188: "Atal'Aman",
+    91189: 'The Shadow Enclave',
+    91190: 'Twilight Crypts',
+    92444: 'The Darkway',
+    95715: 'Gnarldor Isle',
+    95716: 'Ring of Glory',
 };
 
 export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEntries(
