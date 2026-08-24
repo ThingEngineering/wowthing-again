@@ -39,7 +39,11 @@
 </script>
 
 <style lang="scss">
+    .wowthing-tooltip {
+        max-width: 22rem;
+    }
     .flex-wrapper {
+        align-items: flex-start;
         gap: 1rem;
     }
     table {
@@ -47,9 +51,10 @@
         margin-bottom: -1px;
     }
     .slot {
-        --width: 5rem;
+        --width: 5.5rem;
 
         text-align: left;
+        white-space: nowrap;
     }
     .item-level {
         --max-width: 4rem;
@@ -126,7 +131,7 @@
     {#if maxCharges}
         <div class="bottom">
             <div>
-                {haveCharges} / {maxCharges} charges
+                {haveCharges} / {maxCharges} catalyst charges
             </div>
         </div>
     {/if}
