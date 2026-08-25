@@ -15,4 +15,4 @@
     }
 </style>
 
-<textarea {disabled} {placeholder} {rows} {onclick} bind:value />
+<textarea {disabled} {placeholder} {rows} {onclick} bind:value></textarea>
