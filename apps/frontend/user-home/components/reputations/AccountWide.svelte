@@ -91,13 +91,10 @@
                     class="account-rep {cls} flex-wrapper"
                     use:componentTooltip={{
                         component: TooltipReputation,
-                        props: {
+                        propsFunc: () => ({
                             characterRep: characterRep.value,
-                            // character,
                             dataRep,
-                            // paragon,
-                            // reputation,
-                        },
+                        }),
                     }}
                 >
                     <div class="icon">
