@@ -523,6 +523,23 @@ export class DataUserDerived {
         const choreReset = chore.questReset || parent?.questReset;
         const resetForced = chore.questResetForced === true || parent?.questResetForced === true;
 
+        let expiresAt: DateTime;
+        if (choreReset === DbResetType.Weekly) {
+            expiresAt = getNextWeeklyResetFromTime(
+                charScanned,
+                character.realm?.region || Region.US,
+                character
+            );
+        } else if (choreReset === DbResetType.Never) {
+            expiresAt = timeState.slowTime.plus({ days: 30 });
+        } else {
+            expiresAt = getNextDailyResetFromTime(
+                charScanned,
+                character.realm?.region || Region.US,
+                character
+            );
+        }
+
         let completedCount = 0;
         let questIds: number[] = [];
         if (chore.questIds) {
@@ -531,23 +548,8 @@ export class DataUserDerived {
                     ? chore.questIds(character, chore)
                     : chore.questIds;
 
-            let expiresAt: DateTime;
-            if (choreReset === DbResetType.Weekly) {
-                expiresAt = getNextWeeklyResetFromTime(
-                    charScanned,
-                    character.realm?.region || Region.US,
-                    character
-                );
-            } else if (choreReset === DbResetType.Custom) {
+            if (choreReset === DbResetType.Custom) {
                 expiresAt = chore.customExpiryFunc(character, charScanned, questIds);
-            } else if (choreReset === DbResetType.Never) {
-                expiresAt = timeState.slowTime.plus({ days: 30 });
-            } else {
-                expiresAt = getNextDailyResetFromTime(
-                    charScanned,
-                    character.realm?.region || Region.US,
-                    character
-                );
             }
 
             for (const questId of questIds) {
@@ -649,7 +651,10 @@ export class DataUserDerived {
             }
         } else if (chore.progressFunc) {
             const { have, need } = chore.progressFunc(character);
-            charChore.progressCurrent = have;
+
+            if (!resetForced || expiresAt > timeState.slowTime) {
+                charChore.progressCurrent = have;
+            }
             charChore.progressTotal = need;
 
             if (charChore.progressCurrent === charChore.progressTotal) {
