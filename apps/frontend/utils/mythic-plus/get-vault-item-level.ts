@@ -1,7 +1,7 @@
-import { keyVaultItemLevel } from '@/data/vault';
+import { dungeonVaultItemLevel } from '@/data/vault';
 
 export function getVaultItemLevel(keyLevel: number): number[] {
-    for (const [tierKeyLevel, tierItemLevel, tierQuality] of keyVaultItemLevel) {
+    for (const [tierKeyLevel, tierItemLevel, tierQuality] of dungeonVaultItemLevel) {
         if (keyLevel >= tierKeyLevel) {
             return [tierItemLevel, tierQuality];
         }

@@ -100,6 +100,49 @@ export abstract class Constants {
     };
 }
 
+export abstract class ItemLevels {
+    static readonly Adventurer = {
+        1: 266,
+        2: 269,
+        3: 272,
+        4: 276,
+        5: 279,
+        6: 282,
+    };
+    static readonly Veteran = {
+        1: 279,
+        2: 282,
+        3: 285,
+        4: 289,
+        5: 292,
+        6: 295,
+    };
+    static readonly Champion = {
+        1: 292,
+        2: 295,
+        3: 298,
+        4: 302,
+        5: 305,
+        6: 308,
+    };
+    static readonly Hero = {
+        1: 305,
+        2: 308,
+        3: 311,
+        4: 315,
+        5: 318,
+        6: 321,
+    };
+    static readonly Myth = {
+        1: 318,
+        2: 321,
+        3: 324,
+        4: 328,
+        5: 331,
+        6: 334,
+    };
+}
+
 export abstract class Strings {
     static readonly doUnlockQuests = 'Do unlock quests!';
 }

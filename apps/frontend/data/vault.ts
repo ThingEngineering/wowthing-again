@@ -1,30 +1,31 @@
-import { convertibleCategories } from '@/components/items/convertible/data';
+import { ItemLevels } from './constants';
+import { Difficulty } from '@/enums/difficulty';
 
 // [key level, item level] first match >= key is used
-export const keyVaultItemLevel: Array<Array<number>> = [
-    [10, 318, 5], // Myth 1
-    [7, 315, 4], // Hero 4
-    [6, 311, 4], // Hero 3
-    [4, 308, 4], // Hero 2
-    [2, 305, 4], // Hero 1
-    [1, 302, 3], // [0] Champion 4
-    [0, 289, 2], // [H] Veteran 4
+export const dungeonVaultItemLevel: Array<Array<number>> = [
+    [10, ItemLevels.Myth[1], 5], // Mythic+ 10+
+    [7, ItemLevels.Hero[4], 4], // Mythic+ 7-9
+    [6, ItemLevels.Hero[3], 4], // Mythic+ 6
+    [4, ItemLevels.Hero[2], 4], // Mythic+ 4-5
+    [2, ItemLevels.Hero[1], 4], // Mythic+ 2-3
+    [1, ItemLevels.Champion[4], 3], // Mythic
+    [0, ItemLevels.Veteran[4], 2], // Heroic
 ];
 
 export const raidVaultItemLevel: Record<number, Array<number>> = {
-    16: [convertibleCategories[0].tiers[0].itemLevel + 16, 5], // Mythic = 6/6 Myth loot?
-    15: [convertibleCategories[0].tiers[0].itemLevel, 5], // Heroic = Myth 1
-    14: [convertibleCategories[0].tiers[1].itemLevel, 4], // Normal = Hero 1
-    17: [convertibleCategories[0].tiers[2].itemLevel, 3], // LFR = Champion 1
+    [Difficulty.RaidMythic]: [ItemLevels.Myth[6], 5],
+    [Difficulty.RaidHeroic]: [ItemLevels.Myth[1], 5],
+    [Difficulty.RaidNormal]: [ItemLevels.Hero[1], 4],
+    [Difficulty.RaidLookingForRaid]: [ItemLevels.Champion[1], 3],
 };
 
 export const worldVaultItemLevel: Array<Array<number>> = [
-    [8, 305, 4], // Hero 1
-    [7, 298, 3], // Champion 3
-    [6, 295, 3], // Champion 2
-    [5, 292, 3], // Champion 1
-    [4, 289, 2], // Veteran 4
-    [3, 285, 2], // Veteran 3
-    [2, 282, 2], // Veteran 2
-    [1, 279, 2], // Veteran 1
+    [8, ItemLevels.Hero[1], 4],
+    [7, ItemLevels.Champion[3], 3],
+    [6, ItemLevels.Champion[2], 3],
+    [5, ItemLevels.Champion[1], 3],
+    [4, ItemLevels.Veteran[4], 2],
+    [3, ItemLevels.Veteran[3], 2],
+    [2, ItemLevels.Veteran[2], 2],
+    [1, ItemLevels.Veteran[1], 2],
 ];

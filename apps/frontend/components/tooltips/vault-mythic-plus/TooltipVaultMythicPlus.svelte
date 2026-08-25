@@ -1,7 +1,7 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
-    import { keyVaultItemLevel } from '@/data/vault';
+    import { dungeonVaultItemLevel } from '@/data/vault';
     import { timeStore } from '@/shared/stores/time';
     import { userStore } from '@/stores';
     import { getVaultQualityByItemLevel } from '@/utils/mythic-plus';
@@ -26,7 +26,7 @@
         );
 
         const firstLevel = getDungeonLevel(progress[0]);
-        const betterOptions = keyVaultItemLevel.filter(([level]) => level > firstLevel);
+        const betterOptions = dungeonVaultItemLevel.filter(([level]) => level > firstLevel);
         improve = [];
         for (let i = betterOptions.length - 1; i >= 0; i--) {
             const [keyLevel] = betterOptions[i];

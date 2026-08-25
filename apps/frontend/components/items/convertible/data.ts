@@ -1,3 +1,4 @@
+import { ItemLevels } from '@/data/constants';
 import { AppearanceModifier } from '@/enums/appearance-modifier';
 import { ArmorType } from '@/enums/armor-type';
 import { InventoryType } from '@/enums/inventory-type';
@@ -53,22 +54,22 @@ export const convertibleCategories: ConvertibleCategory[] = [
         conversionCurrencyId: 3465, // Venomblight Manaflux
         tiers: [
             {
-                itemLevel: 318,
+                itemLevel: ItemLevels.Myth[1],
                 highUpgrade: currentUpgrade4,
                 lowUpgrade: currentUpgrade3,
             },
             {
-                itemLevel: 305,
+                itemLevel: ItemLevels.Hero[1],
                 highUpgrade: currentUpgrade3,
                 lowUpgrade: currentUpgrade2,
             },
             {
-                itemLevel: 292,
+                itemLevel: ItemLevels.Champion[1],
                 highUpgrade: currentUpgrade2,
                 lowUpgrade: currentUpgrade1,
             },
             {
-                itemLevel: 279,
+                itemLevel: ItemLevels.Veteran[1],
                 highUpgrade: currentUpgrade1,
             },
         ],
