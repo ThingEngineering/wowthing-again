@@ -2,10 +2,7 @@
     import { Constants } from '@/data/constants';
     import { wowthingData } from '@/shared/stores/data';
     import { toNiceNumber } from '@/utils/formatting';
-    import type {
-        StaticDataReputation,
-        StaticDataReputationTier,
-    } from '@/shared/stores/static/types';
+    import type { StaticDataReputation } from '@/shared/stores/static/types';
     import type { Character, CharacterReputationParagon } from '@/types';
     import type { ManualDataReputationSet } from '@/types/data/manual';
     import { brannHack, nazjatarHack, valeeraHack } from './hacks';
@@ -13,27 +10,30 @@
     import RenownTooltip from './TooltipReputationRenown.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let bottom: string = undefined;
-    export let character: Character = undefined;
-    export let characterRep: number;
-    export let dataRep: StaticDataReputation;
-    export let paragon: CharacterReputationParagon = undefined;
-    export let reputation: ManualDataReputationSet = undefined;
+    type Props = {
+        characterRep: number;
+        dataRep: StaticDataReputation;
+        bottom?: string;
+        character?: Character;
+        paragon?: CharacterReputationParagon;
+        reputation?: ManualDataReputationSet;
+    };
+    let { characterRep, dataRep, bottom, character, paragon, reputation }: Props = $props();
 
-    let reps: {
-        cls: string;
-        maxValue: number;
-        minValue: number;
-        name: string;
-        thisOne: boolean;
-    }[];
+    let tiers = $derived(
+        wowthingData.static.reputationTierById.get(dataRep.tierId) ||
+            wowthingData.static.reputationTierById.get(0)
+    );
 
-    $: {
-        const tiers: StaticDataReputationTier =
-            wowthingData.static.reputationTierById.get(dataRep.tierId) ||
-            wowthingData.static.reputationTierById.get(0);
+    let reps = $derived.by(() => {
+        const ret: {
+            cls: string;
+            maxValue: number;
+            minValue: number;
+            name: string;
+            thisOne: boolean;
+        }[] = [];
 
-        reps = [];
         let foundIndex = -1;
         for (let i = 0; i < tiers.names.length; i++) {
             let minValue = tiers.minValues[i];
@@ -73,7 +73,7 @@
                 }
             }
 
-            reps.push({
+            ret.push({
                 cls: 'quality0',
                 maxValue,
                 minValue,
@@ -83,44 +83,44 @@
         }
 
         // Apply quality colours to the bottom 5 tiers
-        const start = Math.max(0, reps.length - 1);
+        const start = Math.max(0, ret.length - 1);
         const setClass = Math.max(0, start - 5);
         let seenThisOne = false;
         let badCount = 0;
         for (let i = start; i >= 0; i--) {
-            if (reps[i].maxValue <= 0) {
-                reps[i].cls = ['status-shrug', 'status-warn', 'status-fail'][Math.min(2, badCount)];
+            if (ret[i].maxValue <= 0) {
+                ret[i].cls = ['status-shrug', 'status-warn', 'status-fail'][Math.min(2, badCount)];
                 badCount++;
             } else if (
                 dataRep.id === Constants.reputations.delveBrann ||
                 dataRep.id === Constants.reputations.delveValeera ||
                 Constants.reputations.nazjatarFriends.includes(dataRep.id)
             ) {
-                const levelMatch = reps[i].name.match(/ (\d{1,3})/);
+                const levelMatch = ret[i].name.match(/ (\d{1,3})/);
                 if (levelMatch) {
                     if (dataRep.id === Constants.reputations.delveBrann) {
-                        reps[i].cls = `reputation${brannHack(levelMatch[1])}`;
+                        ret[i].cls = `reputation${brannHack(levelMatch[1])}`;
                     } else if (dataRep.id === Constants.reputations.delveValeera) {
-                        reps[i].cls = `reputation${valeeraHack(levelMatch[1])}`;
+                        ret[i].cls = `reputation${valeeraHack(levelMatch[1])}`;
                     } else {
-                        reps[i].cls = `reputation${nazjatarHack(reps[i].name)}`;
+                        ret[i].cls = `reputation${nazjatarHack(ret[i].name)}`;
                     }
                 }
             } else if (i >= setClass) {
-                reps[i].cls = `reputation${start - i + 1}`;
+                ret[i].cls = `reputation${start - i + 1}`;
             }
 
-            if (reps[i].thisOne) {
+            if (ret[i].thisOne) {
                 if (!seenThisOne) {
                     seenThisOne = true;
                 } else {
-                    reps[i].thisOne = false;
+                    ret[i].thisOne = false;
                 }
             }
         }
 
         if (paragon) {
-            reps.push({
+            ret.push({
                 cls: 'quality6',
                 maxValue: 10000,
                 minValue: 0,
@@ -128,7 +128,9 @@
                 thisOne: false,
             });
         }
-    }
+
+        return ret;
+    });
 </script>
 
 <style lang="scss">

@@ -15,7 +15,7 @@ const renownFunc = (renown?: number) => {
     }
 
     const repCharacter =
-        userState.general.characterById[userState.reputations[PREY_REPUTATION_ID]?.[1]];
+        userState.general.characterById[userState.reputations[PREY_REPUTATION_ID]?.characterId];
     return repCharacter?.reputationData?.['midnight']?.sets?.[2]?.[2]?.value >= renown * 4000;
 };
 
