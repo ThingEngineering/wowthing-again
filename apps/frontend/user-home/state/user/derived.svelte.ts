@@ -297,22 +297,44 @@ export class DataUserDerived {
     public doReputations(allCharacters: Character[]) {
         console.time('doReputations');
 
-        const maxReps: Record<number, [number, number]> = {};
+        const maxReps: Record<
+            number,
+            { value: number; characterId: number; characterScanned: number }
+        > = {};
         const hasParagons = new Set<number>();
         for (const character of allCharacters) {
             for (const expansion of Object.values(character.reputationData)) {
                 for (const reputationSet of expansion.sets) {
                     for (const { reputationId, value } of reputationSet) {
-                        const maxRep = maxReps[reputationId]?.[0] || -99999;
+                        const currentMax = maxReps[reputationId];
+                        if (
+                            currentMax &&
+                            character.lastSeenAddonUnix < currentMax.characterScanned
+                        ) {
+                            continue;
+                        }
+
+                        const maxRep = currentMax?.value || -99999;
+                        let setMax = false;
                         if (value > maxRep) {
-                            maxReps[reputationId] = [value, character.id];
+                            if (!currentMax || character.lastSeenAddonUnix) {
+                                setMax = true;
+                            }
                         } else if (
                             value === maxRep &&
                             !hasParagons.has(reputationId) &&
                             character.paragons?.[reputationId]
                         ) {
                             hasParagons.add(reputationId);
-                            maxReps[reputationId] = [value, character.id];
+                            setMax = true;
+                        }
+
+                        if (setMax) {
+                            maxReps[reputationId] = {
+                                value,
+                                characterId: character.id,
+                                characterScanned: character.lastSeenAddonUnix,
+                            };
                         }
                     }
                 }
@@ -523,6 +545,23 @@ export class DataUserDerived {
         const choreReset = chore.questReset || parent?.questReset;
         const resetForced = chore.questResetForced === true || parent?.questResetForced === true;
 
+        let expiresAt: DateTime;
+        if (choreReset === DbResetType.Weekly) {
+            expiresAt = getNextWeeklyResetFromTime(
+                charScanned,
+                character.realm?.region || Region.US,
+                character
+            );
+        } else if (choreReset === DbResetType.Never) {
+            expiresAt = timeState.slowTime.plus({ days: 30 });
+        } else {
+            expiresAt = getNextDailyResetFromTime(
+                charScanned,
+                character.realm?.region || Region.US,
+                character
+            );
+        }
+
         let completedCount = 0;
         let questIds: number[] = [];
         if (chore.questIds) {
@@ -531,23 +570,8 @@ export class DataUserDerived {
                     ? chore.questIds(character, chore)
                     : chore.questIds;
 
-            let expiresAt: DateTime;
-            if (choreReset === DbResetType.Weekly) {
-                expiresAt = getNextWeeklyResetFromTime(
-                    charScanned,
-                    character.realm?.region || Region.US,
-                    character
-                );
-            } else if (choreReset === DbResetType.Custom) {
+            if (choreReset === DbResetType.Custom) {
                 expiresAt = chore.customExpiryFunc(character, charScanned, questIds);
-            } else if (choreReset === DbResetType.Never) {
-                expiresAt = timeState.slowTime.plus({ days: 30 });
-            } else {
-                expiresAt = getNextDailyResetFromTime(
-                    charScanned,
-                    character.realm?.region || Region.US,
-                    character
-                );
             }
 
             for (const questId of questIds) {
@@ -649,7 +673,10 @@ export class DataUserDerived {
             }
         } else if (chore.progressFunc) {
             const { have, need } = chore.progressFunc(character);
-            charChore.progressCurrent = have;
+
+            if (!resetForced || expiresAt > timeState.slowTime) {
+                charChore.progressCurrent = have;
+            }
             charChore.progressTotal = need;
 
             if (charChore.progressCurrent === charChore.progressTotal) {

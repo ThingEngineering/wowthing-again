@@ -163,6 +163,13 @@ export function processStaticData(rawData: RawStatic): DataStatic {
         data.keystoneAffixBySlug.set(keystoneAffix.slug, keystoneAffix);
     }
 
+    data.reputationByParagonId = new Map<number, StaticDataReputation>();
+    for (const reputation of data.reputationById.values()) {
+        if (reputation.paragonId) {
+            data.reputationByParagonId.set(reputation.paragonId, reputation);
+        }
+    }
+
     for (const mount of data.mountById.values()) {
         for (const itemId of mount.itemIds) {
             data.mountByItemId.set(itemId, mount);

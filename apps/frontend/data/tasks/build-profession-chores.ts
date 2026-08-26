@@ -152,6 +152,8 @@ function buildGatherSubChores(gatherQuests: TaskProfessionQuest[]): Chore[] {
         key: `gather${index}`,
         name: `{item:${itemId}}`,
         alwaysStarted: true,
+        questReset: DbResetType.Weekly,
+        questResetForced: true,
         showQuestName: true,
         progressFunc: (char) => ({
             have: byItem[itemId].filter((gatherQuest) =>

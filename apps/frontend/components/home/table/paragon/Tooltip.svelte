@@ -15,13 +15,14 @@
             getNumberKeyedEntries(
                 groupBy(
                     getNumberKeyedEntries(paragonQuests),
-                    ([repId]) => wowthingData.static.reputationById.get(repId)?.expansion || 0
+                    ([repId]) =>
+                        wowthingData.static.reputationByParagonId.get(repId)?.expansion || 0
                 )
             ).map(([expansion, reputations]) => [
                 expansion,
                 sortBy(
                     reputations,
-                    ([repId]) => wowthingData.static.reputationById.get(repId)?.name || 'ZZZ'
+                    ([repId]) => wowthingData.static.reputationByParagonId.get(repId)?.name || 'ZZZ'
                 ),
             ]),
             ([expansion]) => expansion
@@ -54,7 +55,8 @@
         <table class="table table-striped">
             <tbody>
                 {#each reputations as [reputationId, characterIds]}
-                    {@const reputation = wowthingData.static.reputationById.get(reputationId)}
+                    {@const reputation =
+                        wowthingData.static.reputationByParagonId.get(reputationId)}
                     {@const characters = sortBy(
                         characterIds
                             .map((id) => userState.general.characterById[id])

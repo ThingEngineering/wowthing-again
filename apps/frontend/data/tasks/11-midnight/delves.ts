@@ -1,10 +1,37 @@
+import { Constants } from '@/data/constants';
 import { Region } from '@/enums/region';
 import { iconLibrary } from '@/shared/icons';
 import { timeState } from '@/shared/state/time.svelte';
 import { DbResetType } from '@/shared/stores/db/enums';
 import { getNextWeeklyResetFromTime } from '@/utils/get-next-reset';
-import type { Task } from '@/types/tasks';
-import { Constants } from '@/data/constants';
+import type { Character } from '@/types';
+import type { Chore, Task } from '@/types/tasks';
+
+const bountifulQuestIds = [
+    91182, // Parhelion Plaza
+    91183, // Sunkiller Sanctum
+    91184, // Shadowguard Point
+    91185, // The Grudge Pit
+    91186, // Collegiate Calamity
+    91187, // The Gulf of Memory
+    91188, // Atal'Aman
+    91189, // The Shadow Enclave
+    91190, // Twilight Crypts
+    92444, // The Darkway
+    95715, // Gnarldor Isle
+    95716, // Ring of Glory
+];
+
+export const bountifulFunc = (index: number) => {
+    return (char: Character, chore: Chore) => {
+        const completedQuestIds = bountifulQuestIds.filter((questId) =>
+            char.quests?.hasQuestById?.has(questId)
+        );
+        completedQuestIds.sort();
+
+        return completedQuestIds[index] ? [completedQuestIds[index]] : [];
+    };
+};
 
 export const midDelves: Task = {
     key: 'midDelves',
@@ -78,6 +105,21 @@ export const midDelves: Task = {
             alwaysStarted: true,
             questIds: [92887],
             questReset: DbResetType.Weekly,
+        },
+        {
+            key: 'bountiful',
+            name: 'Bountiful Delves',
+            icon: iconLibrary.gameKey,
+            minimumLevel: 90,
+            questReset: DbResetType.Daily,
+            questResetForced: true,
+            alwaysStarted: true,
+            subChores: [0, 1, 2, 3].map((n) => ({
+                key: `bountiful${n}`,
+                name: `Bountiful ${n + 1}`,
+                alwaysStarted: true,
+                questIds: bountifulFunc(n),
+            })),
         },
         {
             key: 'gilded',

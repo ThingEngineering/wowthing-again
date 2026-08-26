@@ -50,7 +50,7 @@ export function getRenownData({
     ret.dataRep = wowthingData.static.reputationById.get(ret.characterRep.reputationId);
 
     const actualCharacter = ret.dataRep.accountWide
-        ? userState.general.characterById[userState.reputations[ret.dataRep.id]?.[1]]
+        ? userState.general.characterById[userState.reputations[ret.dataRep.id]?.characterId]
         : character;
 
     ret.characterRep =

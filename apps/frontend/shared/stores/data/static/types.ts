@@ -134,6 +134,7 @@ export class DataStatic {
     public questLineById: Map<number, StaticDataQuestLine>;
     public realmById: Map<number, StaticDataRealm>;
     public reputationById: Map<number, StaticDataReputation>;
+    public reputationByParagonId: Map<number, StaticDataReputation>;
     public toyById: Map<number, StaticDataToy>;
     public transmogSetById: Map<number, StaticDataTransmogSet>;
     public worldQuestById: Map<number, StaticDataWorldQuest>;
