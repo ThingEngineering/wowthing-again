@@ -136,7 +136,7 @@ export const midDelves: Task = {
                     alwaysStarted: true,
                     progressFunc: (char) => {
                         const expiresAt = getNextWeeklyResetFromTime(
-                            char.lastSeenAddon,
+                            char.lastSeenAddon || timeState.slowTime,
                             char.realm?.region || Region.US,
                             char
                         );
