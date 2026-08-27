@@ -34,7 +34,7 @@ export const midPrey: Task = {
             accountWide: true,
             alwaysStarted: true,
             questCount: 4,
-            questIds: [95000, 95001, 95002, 95003],
+            questIds: [98547, 98548, 98549, 98550],
             questReset: DbResetType.Weekly,
         },
         {
