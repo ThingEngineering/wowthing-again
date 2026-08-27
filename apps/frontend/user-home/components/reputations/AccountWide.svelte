@@ -94,6 +94,8 @@
                         propsFunc: () => ({
                             characterRep: characterRep.value,
                             dataRep,
+                            renownCurrent,
+                            renownMax,
                         }),
                     }}
                 >

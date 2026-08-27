@@ -11,27 +11,21 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
     type Props = CharacterProps & {
-        characterRep: number;
         dataRep: StaticDataReputation;
         characterParagon?: CharacterReputationParagon;
+        renownCurrent?: number;
+        renownMax?: number;
         reputation?: ManualDataReputationSet;
     };
-    let { character, characterRep, dataRep, characterParagon, reputation }: Props = $props();
+    let { character, dataRep, characterParagon, renownCurrent, renownMax, reputation }: Props =
+        $props();
 
-    let maxRenown = $derived(
-        wowthingData.static.currencyById.get(dataRep.renownCurrencyId)?.maxTotal || 1
-    );
     let renownValue = $derived(dataRep.maxValues[0] || 2500);
-    let tier = $derived(Math.floor(characterRep / renownValue));
     let progress = $derived(
-        tier < maxRenown ? characterRep % renownValue : characterParagon?.current || 0
+        renownCurrent < renownMax ? Math.floor((renownCurrent % 1) * renownValue) : 0
     );
 
-    let upcomingRewards = $derived(
-        (wowthingData.static.renownRewards[dataRep.id] || []).filter(
-            (reward) => reward.level > tier
-        )
-    );
+    let rewards = $derived(wowthingData.static.renownRewards[dataRep.id] || []);
 </script>
 
 <style lang="scss">
@@ -43,7 +37,7 @@
     }
 </style>
 
-<div class="wowthing-tooltip" style:width={upcomingRewards.length > 0 ? '25rem' : '15rem'}>
+<div class="wowthing-tooltip" style:width={rewards.length > 0 ? '25rem' : '15rem'}>
     <h4 class="text-overflow">
         {#if reputation?.both === undefined && character}
             <WowthingImage
@@ -59,16 +53,16 @@
     {/if}
 
     <div class="tooltip-body">
-        <p>Renown {tier} / {maxRenown}</p>
+        <p>Renown {Math.floor(renownCurrent)} / {renownMax}</p>
 
         <ProgressBar
             have={progress}
-            total={tier < maxRenown ? renownValue : characterParagon?.max}
+            total={renownCurrent < renownMax ? renownValue : characterParagon?.max}
             shortText={true}
         />
 
-        {#if upcomingRewards.length > 0}
-            <RenownRewards reputationId={dataRep.id} rewards={upcomingRewards} />
+        {#if rewards.length > 0}
+            <RenownRewards reputationId={dataRep.id} {renownCurrent} {rewards} />
         {/if}
     </div>
 </div>
