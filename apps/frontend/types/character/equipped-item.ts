@@ -15,6 +15,8 @@ export class CharacterEquippedItem {
         public gemIds: number[]
     ) {
         this._itemLevel = itemLevel;
+
+        this.bonusIds.sort((a, b) => a - b);
     }
 
     get count(): number {
@@ -23,14 +25,13 @@ export class CharacterEquippedItem {
 
     get itemLevel(): number {
         // the addon API is returning 0 sometimes for random equipped items 🙄
-        if (true || this._itemLevel === 0) {
+        if (this._itemLevel === 0) {
             const item = wowthingData.items.items[this.itemId];
             if (!!item) {
                 const calculatedItemLevel = applyBonusIds(this.bonusIds, {
-                    itemLevel: item.itemLevel,
                     quality: this.quality,
                 });
-                console.log(this._itemLevel, calculatedItemLevel);
+                this._itemLevel = calculatedItemLevel.itemLevel;
             }
         }
 
