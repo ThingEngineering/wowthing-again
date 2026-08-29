@@ -1,8 +1,7 @@
-import { wowthingData } from '@/shared/stores/data';
 import { applyBonusIds } from '@/utils/items/apply-bonus-ids';
 
 export class CharacterEquippedItem {
-    private _itemLevel: number;
+    #itemLevel?: number;
 
     constructor(
         public context: number,
@@ -14,7 +13,7 @@ export class CharacterEquippedItem {
         public enchantmentIds: number[],
         public gemIds: number[]
     ) {
-        this._itemLevel = itemLevel;
+        this.#itemLevel = itemLevel;
 
         this.bonusIds.sort((a, b) => a - b);
     }
@@ -25,14 +24,14 @@ export class CharacterEquippedItem {
 
     get itemLevel(): number {
         // the addon API is returning 0 sometimes for random equipped items 🙄
-        if (this._itemLevel === 0) {
+        if (this.#itemLevel === 0) {
             const calculatedItemLevel = applyBonusIds(this.bonusIds, {
                 quality: this.quality,
             });
-            this._itemLevel = calculatedItemLevel.itemLevel;
+            this.#itemLevel = calculatedItemLevel.itemLevel;
         }
 
-        return this._itemLevel;
+        return this.#itemLevel;
     }
 }
 export type CharacterEquippedItemArray = ConstructorParameters<typeof CharacterEquippedItem>;
