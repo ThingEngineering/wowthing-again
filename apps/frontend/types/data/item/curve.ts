@@ -23,3 +23,24 @@ export class DataCurvePoint {
         public value: number
     ) {}
 }
+
+export class DataItemOffsetCurve {
+    constructor(
+        public id: number,
+        public curveId: number,
+        public offset: number
+    ) {}
+}
+export type DataItemOffsetCurveArray = ConstructorParameters<typeof DataItemOffsetCurve>;
+
+export class DataItemScalingConfig {
+    constructor(
+        public id: number,
+        public flags: number,
+        public itemSquishEraId: number,
+        public itemOffsetCurveId: number,
+        public itemLevel: number,
+        public requiredLevel: number
+    ) {}
+}
+export type DataItemScalingConfigArray = ConstructorParameters<typeof DataItemScalingConfig>;

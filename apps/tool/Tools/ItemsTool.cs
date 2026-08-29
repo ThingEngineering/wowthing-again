@@ -257,6 +257,8 @@ public class ItemsTool
             TeachesTransmog = teachesTransmogSetMap,
 
             RawCurves = await LoadCurves(),
+            RawItemOffsetCurves = await LoadItemOffsetCurves(),
+            RawItemScalingConfigs = await LoadItemScalingConfigs(),
 
             RawItemBonuses = _itemBonusMap.Values
                 .Where(itemBonus => itemBonus.Bonuses.Count > 0)
@@ -518,6 +520,16 @@ public class ItemsTool
         }
 
         return outCurves;
+    }
+
+    private async Task<List<DumpItemOffsetCurve>> LoadItemOffsetCurves()
+    {
+        return await DataUtilities.LoadDumpCsvAsync<DumpItemOffsetCurve>("itemoffsetcurve");
+    }
+
+    private async Task<List<DumpItemScalingConfig>> LoadItemScalingConfigs()
+    {
+        return await DataUtilities.LoadDumpCsvAsync<DumpItemScalingConfig>("itemscalingconfig");
     }
 
     private async Task<Dictionary<int, int>> LoadItemSquishEras()

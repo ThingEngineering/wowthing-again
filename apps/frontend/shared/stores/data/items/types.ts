@@ -7,7 +7,14 @@ import type {
     DataItemBonus,
     DataItemSet,
 } from '@/types/data/item';
-import type { DataCurve, DataCurveArray } from '@/types/data/item/curve';
+import type {
+    DataCurve,
+    DataCurveArray,
+    DataItemOffsetCurve,
+    DataItemOffsetCurveArray,
+    DataItemScalingConfig,
+    DataItemScalingConfigArray,
+} from '@/types/data/item/curve';
 import type { DataItemModifiedCrafting } from '@/types/data/item/modified-crafting';
 
 export interface RawItems {
@@ -34,6 +41,9 @@ export interface RawItems {
     teachesTransmog: Record<number, number>;
 
     rawCurves: DataCurveArray[];
+    rawItemOffsetCurves: DataItemOffsetCurveArray[];
+    rawItemScalingConfigs: DataItemScalingConfigArray[];
+
     rawItems: ItemDataItemArray[];
     rawItemBonuses: DataItemBonusArray[];
     rawItemSets: DataItemSetArray[];
@@ -54,7 +64,6 @@ export class DataItems {
     public teachesTransmog: RawItems['teachesTransmog'];
 
     public appearanceToItems: Record<number, [number, number][]> = {};
-    public curveById = new Map<number, DataCurve>();
     public items: Record<number, ItemDataItem> = {};
     public itemBonuses: Record<number, DataItemBonus> = {};
     public itemBonusAvoidance: Set<number> = new Set();
@@ -68,6 +77,10 @@ export class DataItems {
     public openableItemIds: Set<number> = new Set();
     public oppositeFactionAppearance: Record<number, number[]>;
     public transmogSetToItems: Record<number, number[]> = {};
+
+    public curveById = new Map<number, DataCurve>();
+    public itemOffsetCurveById = new Map<number, DataItemOffsetCurve>();
+    public itemScalingConfigById = new Map<number, DataItemScalingConfig>();
 
     public currentTier: Record<number, InventoryType>;
     public previousTier: Record<number, InventoryType>;

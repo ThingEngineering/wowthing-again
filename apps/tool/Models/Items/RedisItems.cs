@@ -13,6 +13,7 @@ public class RedisItems
     public List<int> OppositeFactionIds { get; set; }
 
     public Dictionary<int, int> AppearanceMap { get; set; }
+    public Dictionary<int, RedisReagentBonus> BonusIdToModifiedCrafting { get; set; }
     public Dictionary<int, int[]> CompletesQuest { get; set; }
     public Dictionary<short, int[]> CraftingQualities { get; set; }
     public Dictionary<int, Dictionary<int, List<int>>> ItemBonusListGroups { get; set; }
@@ -27,9 +28,11 @@ public class RedisItems
     public Dictionary<int, int[]> TeachesSpell { get; set; }
     public Dictionary<int, int> TeachesTransmog { get; set; }
 
-    public List<StaticCurve> RawCurves { get; set; }
     public RedisItemData[]? RawItems { get; set; }
     public WowItemBonus[] RawItemBonuses { get; set; }
     public RedisItemSet[] RawItemSets { get; set; }
-    public Dictionary<int, RedisReagentBonus> BonusIdToModifiedCrafting { get; set; }
+
+    public List<StaticCurve> RawCurves { get; set; }
+    public List<DumpItemOffsetCurve> RawItemOffsetCurves { get; set; }
+    public List<DumpItemScalingConfig> RawItemScalingConfigs { get; set; }
 }
