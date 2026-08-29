@@ -4,6 +4,7 @@ using Serilog.Context;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Models;
+using Wowthing.Tool.Models.Curves;
 using Wowthing.Tool.Models.Items;
 using Wowthing.Tool.Models.Professions;
 
@@ -247,12 +248,17 @@ public class ItemsTool
             ItemBonusListGroups = listGroups,
             ItemConversionEntries = await LoadItemConversionEntries(),
             ItemRequiredSkills = requiredSkillMap,
+            ItemSquishEras = await LoadItemSquishEras(),
             LimitCategories = await LoadLimitCategories(),
             SpecOverrides = await LoadSpecOverrides(),
             TeachesDecor = teachesDecorMap,
             TeachesIllusion = teachesTransmogIllusionMap,
             TeachesSpell = teachesSpellMap,
             TeachesTransmog = teachesTransmogSetMap,
+
+            RawCurves = await LoadCurves(),
+            RawItemOffsetCurves = await LoadItemOffsetCurves(),
+            RawItemScalingConfigs = await LoadItemScalingConfigs(),
 
             RawItemBonuses = _itemBonusMap.Values
                 .Where(itemBonus => itemBonus.Bonuses.Count > 0)
@@ -490,6 +496,46 @@ public class ItemsTool
 
         _timer.AddPoint("Generate", true);
         ToolContext.Logger.Information("{0}", _timer.ToString());
+    }
+
+    private async Task<List<StaticCurve>> LoadCurves()
+    {
+        var curves = await DataUtilities.LoadDumpCsvAsync<DumpCurve>("curve");
+        var curvePoints = await DataUtilities.LoadDumpCsvAsync<DumpCurvePoint>("curvepoint");
+
+        var curvePointsByCurveId = curvePoints
+            .GroupBy(point => point.CurveID)
+            .ToDictionary(
+                group => group.Key,
+                group => group.OrderBy(point => point.OrderIndex).ToArray()
+            );
+
+        var outCurves = new List<StaticCurve>();
+        foreach (var dumpCurve in curves)
+        {
+            if (curvePointsByCurveId.TryGetValue(dumpCurve.ID, out var dumpCurvePoints))
+            {
+                outCurves.Add(new StaticCurve(dumpCurve, dumpCurvePoints));
+            }
+        }
+
+        return outCurves;
+    }
+
+    private async Task<List<DumpItemOffsetCurve>> LoadItemOffsetCurves()
+    {
+        return await DataUtilities.LoadDumpCsvAsync<DumpItemOffsetCurve>("itemoffsetcurve");
+    }
+
+    private async Task<List<DumpItemScalingConfig>> LoadItemScalingConfigs()
+    {
+        return await DataUtilities.LoadDumpCsvAsync<DumpItemScalingConfig>("itemscalingconfig");
+    }
+
+    private async Task<Dictionary<int, int>> LoadItemSquishEras()
+    {
+        var squishEras = await DataUtilities.LoadDumpCsvAsync<DumpItemSquishEra>("itemsquishera");
+        return squishEras.ToDictionary(era => era.ID, era => era.CurveID);
     }
 
     private async Task<Dictionary<int, Dictionary<int, List<int>>>> LoadItemBonusListGroups(WowDbContext context)

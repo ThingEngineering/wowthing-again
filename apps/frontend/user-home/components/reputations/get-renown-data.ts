@@ -53,6 +53,9 @@ export function getRenownData({
         ? userState.general.characterById[userState.reputations[ret.dataRep.id]?.characterId]
         : character;
 
+    if (ret.dataRep.name === "Preyhunter's Journey")
+        console.log(ret, userState.reputations[ret.dataRep.id], actualCharacter.name);
+
     ret.characterRep =
         actualCharacter.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
     const repValue =

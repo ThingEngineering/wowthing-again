@@ -5,6 +5,7 @@ import { currentTier, previousTier } from '@/data/gear';
 import { ItemBonusType } from '@/enums/item-bonus-type';
 import { StatType } from '@/enums/stat-type';
 import { ItemDataItem, DataItemBonus, DataItemSet } from '@/types/data/item';
+import { DataCurve, DataItemOffsetCurve, DataItemScalingConfig } from '@/types/data/item/curve';
 import { DataItems, type RawItems } from './types';
 
 export function processItemsData(rawData: RawItems): DataItems {
@@ -17,6 +18,7 @@ export function processItemsData(rawData: RawItems): DataItems {
     data.completesQuest = cloneDeep(rawData.completesQuest);
     data.itemConversionEntries = cloneDeep(rawData.itemConversionEntries);
     data.itemRequiredSkills = cloneDeep(rawData.itemRequiredSkills || {});
+    data.itemSquishEras = cloneDeep(rawData.itemSquishEras || {});
     data.limitCategories = cloneDeep(rawData.limitCategories);
     data.specOverrides = cloneDeep(rawData.specOverrides);
     data.teachesDecor = cloneDeep(rawData.teachesDecor);
@@ -96,6 +98,21 @@ export function processItemsData(rawData: RawItems): DataItems {
                 }
             }
         }
+    }
+
+    for (const curveArray of rawData.rawCurves) {
+        const obj = new DataCurve(...curveArray);
+        data.curveById.set(obj.id, obj);
+    }
+
+    for (const itemOffsetCurveArray of rawData.rawItemOffsetCurves) {
+        const obj = new DataItemOffsetCurve(...itemOffsetCurveArray);
+        data.itemOffsetCurveById.set(obj.id, obj);
+    }
+
+    for (const itemScalingConfigArray of rawData.rawItemScalingConfigs) {
+        const obj = new DataItemScalingConfig(...itemScalingConfigArray);
+        data.itemScalingConfigById.set(obj.id, obj);
     }
 
     for (const itemBonusArray of rawData.rawItemBonuses) {

@@ -16,9 +16,20 @@
         bottom?: string;
         character?: Character;
         paragon?: CharacterReputationParagon;
+        renownCurrent?: number;
+        renownMax?: number;
         reputation?: ManualDataReputationSet;
     };
-    let { characterRep, dataRep, bottom, character, paragon, reputation }: Props = $props();
+    let {
+        characterRep,
+        dataRep,
+        bottom,
+        character,
+        paragon,
+        renownCurrent,
+        renownMax,
+        reputation,
+    }: Props = $props();
 
     let tiers = $derived(
         wowthingData.static.reputationTierById.get(dataRep.tierId) ||
@@ -154,7 +165,7 @@
 </style>
 
 {#if dataRep.renownCurrencyId > 0}
-    <RenownTooltip {character} {characterRep} {dataRep} {reputation} />
+    <RenownTooltip {character} {dataRep} {renownCurrent} {renownMax} {reputation} />
 {:else}
     <div class="wowthing-tooltip">
         <h4>

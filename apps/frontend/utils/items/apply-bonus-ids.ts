@@ -19,22 +19,39 @@ export function applyBonusIds(bonusIds: number[], { itemLevel, quality }: Props)
             continue;
         }
 
-        for (const bonus of itemBonus.bonuses || []) {
-            if (bonus[0] === ItemBonusType.IncreaseItemLevel) {
-                ret.itemLevel += bonus[1];
-            } else if (bonus[0] === ItemBonusType.SetItemQuality) {
-                ret.quality = bonus[1];
-            } else if (bonus[0] === ItemBonusType.BaseItemLevel) {
-                ret.itemLevel = bonus[1];
-            } else if (bonus[0] === ItemBonusType.ScaleConfig) {
-                if (scaleConfigToItemLevel[bonus[1]]) {
-                    ret.itemLevel = scaleConfigToItemLevel[bonus[1]];
+        for (const [bonusType, ...bonusValues] of itemBonus.bonuses || []) {
+            if (bonusType === ItemBonusType.IncreaseItemLevel) {
+                ret.itemLevel += bonusValues[0];
+            } else if (bonusType === ItemBonusType.SetItemQuality) {
+                ret.quality = bonusValues[0];
+            } else if (bonusType === ItemBonusType.BaseItemLevel) {
+                ret.itemLevel = bonusValues[0];
+            } else if (bonusType === ItemBonusType.ScaleConfig) {
+                const scalingConfig = wowthingData.items.itemScalingConfigById.get(bonusValues[0]);
+                if (scalingConfig) {
+                    ret.itemLevel = scalingConfig.itemLevel;
+
+                    // debugging scaling config pain
+                    // const squishCurve = wowthingData.items.curveById.get(
+                    //     wowthingData.items.itemSquishEras[scalingConfig.itemSquishEraId] || 0
+                    // );
+                    // const offsetCurve = wowthingData.items.itemOffsetCurveById.get(
+                    //     scalingConfig.itemOffsetCurveId
+                    // );
+                    // const curve = wowthingData.items.curveById.get(offsetCurve?.curveId);
+                    // console.log('ScalingConfig', {
+                    //     value: bonusValues[0],
+                    //     squishCurve,
+                    //     scalingConfig,
+                    //     offsetCurve,
+                    //     curve,
+                    // });
                 }
-            } else if (bonus[0] === ItemBonusType.ScaleCrafted) {
+            } else if (bonusType === ItemBonusType.ScaleCrafted) {
                 // TODO: fix for non-profession items?
-                if (bonus[2] === 2) {
-                    ret.itemLevel += bonus[1];
-                    ret.bonusStars = bonus[3];
+                if (bonusValues[1] === 2) {
+                    ret.itemLevel += bonusValues[0];
+                    ret.bonusStars = bonusValues[2];
                 }
             }
         }
@@ -42,8 +59,3 @@ export function applyBonusIds(bonusIds: number[], { itemLevel, quality }: Props)
 
     return ret;
 }
-
-// I don't want to deal with all of the item scaling dumps, hardcode it for now
-const scaleConfigToItemLevel: Record<number, number> = {
-    266: 206,
-};

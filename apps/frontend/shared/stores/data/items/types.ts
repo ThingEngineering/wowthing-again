@@ -7,6 +7,14 @@ import type {
     DataItemBonus,
     DataItemSet,
 } from '@/types/data/item';
+import type {
+    DataCurve,
+    DataCurveArray,
+    DataItemOffsetCurve,
+    DataItemOffsetCurveArray,
+    DataItemScalingConfig,
+    DataItemScalingConfigArray,
+} from '@/types/data/item/curve';
 import type { DataItemModifiedCrafting } from '@/types/data/item/modified-crafting';
 
 export interface RawItems {
@@ -23,6 +31,7 @@ export interface RawItems {
     itemBonusListGroups: Record<number, Record<number, number[]>>;
     itemConversionEntries: Record<number, number[]>;
     itemRequiredSkills: Record<number, [number, number]>;
+    itemSquishEras: Record<number, number>;
     limitCategories: Record<number, number>;
     limitCategoryItems: Record<number, number[]>;
     specOverrides: Record<number, number[]>;
@@ -30,6 +39,10 @@ export interface RawItems {
     teachesIllusion: Record<number, number[]>;
     teachesSpell: Record<number, number[]>;
     teachesTransmog: Record<number, number>;
+
+    rawCurves: DataCurveArray[];
+    rawItemOffsetCurves: DataItemOffsetCurveArray[];
+    rawItemScalingConfigs: DataItemScalingConfigArray[];
 
     rawItems: ItemDataItemArray[];
     rawItemBonuses: DataItemBonusArray[];
@@ -42,6 +55,7 @@ export class DataItems {
     public completesQuest: RawItems['completesQuest'];
     public itemConversionEntries: RawItems['itemConversionEntries'];
     public itemRequiredSkills: RawItems['itemRequiredSkills'];
+    public itemSquishEras: RawItems['itemSquishEras'];
     public limitCategories: RawItems['limitCategories'];
     public specOverrides: RawItems['specOverrides'];
     public teachesDecor: RawItems['teachesDecor'];
@@ -63,6 +77,10 @@ export class DataItems {
     public openableItemIds: Set<number> = new Set();
     public oppositeFactionAppearance: Record<number, number[]>;
     public transmogSetToItems: Record<number, number[]> = {};
+
+    public curveById = new Map<number, DataCurve>();
+    public itemOffsetCurveById = new Map<number, DataItemOffsetCurve>();
+    public itemScalingConfigById = new Map<number, DataItemScalingConfig>();
 
     public currentTier: Record<number, InventoryType>;
     public previousTier: Record<number, InventoryType>;
