@@ -7,6 +7,7 @@ import type {
     DataItemBonus,
     DataItemSet,
 } from '@/types/data/item';
+import type { DataCurve, DataCurveArray } from '@/types/data/item/curve';
 import type { DataItemModifiedCrafting } from '@/types/data/item/modified-crafting';
 
 export interface RawItems {
@@ -23,6 +24,7 @@ export interface RawItems {
     itemBonusListGroups: Record<number, Record<number, number[]>>;
     itemConversionEntries: Record<number, number[]>;
     itemRequiredSkills: Record<number, [number, number]>;
+    itemSquishEras: Record<number, number>;
     limitCategories: Record<number, number>;
     limitCategoryItems: Record<number, number[]>;
     specOverrides: Record<number, number[]>;
@@ -31,6 +33,7 @@ export interface RawItems {
     teachesSpell: Record<number, number[]>;
     teachesTransmog: Record<number, number>;
 
+    rawCurves: DataCurveArray[];
     rawItems: ItemDataItemArray[];
     rawItemBonuses: DataItemBonusArray[];
     rawItemSets: DataItemSetArray[];
@@ -42,6 +45,7 @@ export class DataItems {
     public completesQuest: RawItems['completesQuest'];
     public itemConversionEntries: RawItems['itemConversionEntries'];
     public itemRequiredSkills: RawItems['itemRequiredSkills'];
+    public itemSquishEras: RawItems['itemSquishEras'];
     public limitCategories: RawItems['limitCategories'];
     public specOverrides: RawItems['specOverrides'];
     public teachesDecor: RawItems['teachesDecor'];
@@ -50,6 +54,7 @@ export class DataItems {
     public teachesTransmog: RawItems['teachesTransmog'];
 
     public appearanceToItems: Record<number, [number, number][]> = {};
+    public curveById = new Map<number, DataCurve>();
     public items: Record<number, ItemDataItem> = {};
     public itemBonuses: Record<number, DataItemBonus> = {};
     public itemBonusAvoidance: Set<number> = new Set();
