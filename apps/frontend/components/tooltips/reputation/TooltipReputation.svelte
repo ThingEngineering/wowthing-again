@@ -165,7 +165,7 @@
 </style>
 
 {#if dataRep.renownCurrencyId > 0}
-    <RenownTooltip {character} {characterRep} {dataRep} {renownCurrent} {renownMax} {reputation} />
+    <RenownTooltip {character} {dataRep} {renownCurrent} {renownMax} {reputation} />
 {:else}
     <div class="wowthing-tooltip">
         <h4>
