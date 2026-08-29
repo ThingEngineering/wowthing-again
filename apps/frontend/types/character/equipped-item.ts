@@ -26,13 +26,10 @@ export class CharacterEquippedItem {
     get itemLevel(): number {
         // the addon API is returning 0 sometimes for random equipped items 🙄
         if (this._itemLevel === 0) {
-            const item = wowthingData.items.items[this.itemId];
-            if (!!item) {
-                const calculatedItemLevel = applyBonusIds(this.bonusIds, {
-                    quality: this.quality,
-                });
-                this._itemLevel = calculatedItemLevel.itemLevel;
-            }
+            const calculatedItemLevel = applyBonusIds(this.bonusIds, {
+                quality: this.quality,
+            });
+            this._itemLevel = calculatedItemLevel.itemLevel;
         }
 
         return this._itemLevel;
