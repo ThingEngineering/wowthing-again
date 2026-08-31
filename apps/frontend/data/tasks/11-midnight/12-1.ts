@@ -53,6 +53,14 @@ export const midChores12_1: Task = {
             questIds: [95520],
         },
         {
+            key: 'ancientFoe',
+            name: 'Ancient Foe',
+            icon: iconLibrary.gameDeathSkull,
+            minimumLevel: 90,
+            questReset: DbResetType.Weekly,
+            questIds: [97768],
+        },
+        {
             key: 'vaultDailies',
             name: 'Vault Dailies',
             icon: iconLibrary.emojiDoubleExclamationMark,
