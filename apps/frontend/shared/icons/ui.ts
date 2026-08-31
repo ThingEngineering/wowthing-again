@@ -45,6 +45,8 @@ export const aliasedIcons = {
     planet: iconLibrary.mdiPlanet,
     rose: iconLibrary.notoRose,
     snowflake: iconLibrary.notoSnowflake,
+    stars: iconLibrary.gameStarsStack,
+    swords: iconLibrary.gameCrossedSwords,
     sun: iconLibrary.notoSunWithFace,
     water: iconLibrary.notoWaterWave,
 };
