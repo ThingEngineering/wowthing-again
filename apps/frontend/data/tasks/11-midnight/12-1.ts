@@ -4,6 +4,8 @@ import { nthActiveQuest } from '@/utils/tasks/nth-active-quest';
 import type { Task } from '@/types/tasks';
 
 import { specialAssignmentFunc } from './12-0';
+import { customResetPeriod } from '../custom-reset-period';
+import { twoWeekDecorator } from './utils';
 
 const specialAssignmentUnlocks = [
     96492, // Special Assignment: Demand and Supply
@@ -35,6 +37,8 @@ export const midChores12_1: Task = {
             minimumLevel: 90,
             questReset: DbResetType.Weekly,
             questIds: [98172],
+            customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1078, 2),
+            decorationFunc: twoWeekDecorator,
         },
         {
             key: 'curseSurge',
@@ -51,6 +55,14 @@ export const midChores12_1: Task = {
             minimumLevel: 90,
             questReset: DbResetType.Weekly,
             questIds: [95520],
+        },
+        {
+            key: 'ancientFoe',
+            name: 'Ancient Foe',
+            icon: iconLibrary.gameDeathSkull,
+            minimumLevel: 90,
+            questReset: DbResetType.Weekly,
+            questIds: [97768],
         },
         {
             key: 'vaultDailies',

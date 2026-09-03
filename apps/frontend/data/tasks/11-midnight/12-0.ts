@@ -5,6 +5,8 @@ import { DbResetType } from '@/shared/stores/db/enums';
 import { dynamicDataStore } from '@/user-home/stores/dynamicData';
 import type { Character } from '@/types';
 import type { Chore, Task } from '@/types/tasks';
+import { twoWeekDecorator } from './utils';
+import { customResetPeriod } from '../custom-reset-period';
 
 const specialAssignmentUnlocks = [
     94865, // Special Assignment: What Remains of a Temple Broken
@@ -92,6 +94,8 @@ export const midChores12_0: Task = {
             name: 'Hope/Unity',
             icon: aliasedIcons.planet,
             questReset: DbResetType.Weekly,
+            customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1079, 2),
+            decorationFunc: twoWeekDecorator,
             subChoresAnyOrder: true,
             subChores: [
                 {

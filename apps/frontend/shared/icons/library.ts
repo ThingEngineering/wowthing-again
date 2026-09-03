@@ -85,6 +85,7 @@ export { default as gameSmallFire } from '~icons/game-icons/small-fire';
 export { default as gameSpellBook } from '~icons/game-icons/spell-book';
 export { default as gameSpiderFace } from '~icons/game-icons/spider-face';
 export { default as gameSpikedDragonHead } from '~icons/game-icons/spiked-dragon-head';
+export { default as gameStarsStack } from '~icons/game-icons/stars-stack';
 export { default as gameStaryu } from '~icons/game-icons/staryu';
 export { default as gameStopwatch } from '~icons/game-icons/stopwatch';
 export { default as gameStrongbox } from '~icons/game-icons/strongbox';

@@ -50,6 +50,7 @@ export const pvpWeekly: Task = {
         {
             key: 'pvpSparks',
             name: '[PvP] Sparks of War',
+            icon: ':stars::swords:',
             questIds: [
                 93423, // Sparks of War: Eversong
                 93424, // Sparks of War: Zul'Aman

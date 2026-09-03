@@ -212,7 +212,7 @@ export const dragonflightMining: TaskProfession = {
             questId: 72164,
         },
         {
-            itemId: 198841, // Large Sample of Curious Hide
+            itemId: 201301, // Iridescent Ore
             questId: 72165,
         },
     ],
