@@ -62,7 +62,11 @@ export const midChores12_1: Task = {
             icon: iconLibrary.gameDeathSkull,
             minimumLevel: 90,
             questReset: DbResetType.Weekly,
-            questIds: [97768],
+            questIds: [
+                97768, // Congealed Malice
+                97769, // Khu'tulak
+                97770, // Susarikk
+            ],
         },
         {
             key: 'vaultDailies',
