@@ -35,7 +35,7 @@ export const midChores12_1: Task = {
             name: "Trailing Xal'atath",
             icon: iconLibrary.mdiFootPrint,
             minimumLevel: 90,
-            questReset: DbResetType.Weekly,
+            questReset: DbResetType.Custom,
             questIds: [98172],
             customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1078, 2),
             decorationFunc: twoWeekDecorator,
