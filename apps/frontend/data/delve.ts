@@ -104,21 +104,21 @@ export const delveMap: Record<number, Delve> = {
         },
     },
     8760: {
-        name: 'The Ring of Glory',
-        shortName: 'RG',
-        storyRanks: {
-            'Adopt-a-thon': 1, // killing the boss twice??
-            'Game Day': 3,
-            'Open Night': 3,
-        },
-    },
-    8763: {
         name: 'Gnarldor Isle',
         shortName: 'GI',
         storyRanks: {
             "Minchi's Osseous Adventure": 2,
             'Olds and Ends': 3,
             'Speaking Their Language': 3,
+        },
+    },
+    8763: {
+        name: 'The Ring of Glory',
+        shortName: 'RG',
+        storyRanks: {
+            'Adopt-a-thon': 1, // killing the boss twice??
+            'Game Day': 3,
+            'Open Night': 3,
         },
     },
 };

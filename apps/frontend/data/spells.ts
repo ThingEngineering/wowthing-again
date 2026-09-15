@@ -13,7 +13,7 @@ export const durationAuras: [number, string, boolean?][] = [
     [432452, 'Vicious Flask of the Wrecking Ball'],
     [432473, 'Flask of Saving Graces'],
     // misc consumables
-    [1221184, 'Bottle of Mysterious Wisdom'],
+    [1221184, 'Surge of Mysterious Wisdom'],
     // ??
     [24705, 'Grim Visage'],
     [26013, 'Deserter', true],

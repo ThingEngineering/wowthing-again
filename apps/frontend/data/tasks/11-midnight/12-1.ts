@@ -35,7 +35,7 @@ export const midChores12_1: Task = {
             name: "Trailing Xal'atath",
             icon: iconLibrary.mdiFootPrint,
             minimumLevel: 90,
-            questReset: DbResetType.Weekly,
+            questReset: DbResetType.Custom,
             questIds: [98172],
             customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1078, 2),
             decorationFunc: twoWeekDecorator,
@@ -62,7 +62,11 @@ export const midChores12_1: Task = {
             icon: iconLibrary.gameDeathSkull,
             minimumLevel: 90,
             questReset: DbResetType.Weekly,
-            questIds: [97768],
+            questIds: [
+                97768, // Congealed Malice
+                97769, // Khu'tulak
+                97770, // Susarikk
+            ],
         },
         {
             key: 'vaultDailies',
