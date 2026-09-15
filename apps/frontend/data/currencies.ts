@@ -449,6 +449,11 @@ export const currencyItems: Record<number, number[]> = {
         null,
         267051, // Dark Particle
     ],
+    // Midnight - Zones
+    283: [
+        273000, // Corrosive Soul
+        279382, // Venom-Cursed Fragment
+    ],
     // Midnight - Season 1
     126411: [
         232875, // Spark of Radiance
@@ -457,8 +462,10 @@ export const currencyItems: Record<number, number[]> = {
     126412: [
         274476, // Spark of Tides
         269862, // Thalassian Token of Merit
-        273000, // Corrosive Soul
-        279382, // Venom-Cursed Fragment
+        null,
+        276547, // Afflicted Soul
+        276548, // Tormented Soul
+        274422, // Ossified Relic
     ],
 
     // Player vs Player
