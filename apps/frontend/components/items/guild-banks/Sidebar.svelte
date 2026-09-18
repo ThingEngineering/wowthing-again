@@ -14,7 +14,7 @@
         const guildData: { characterCount: number; guild: Guild; maxTab: number }[] = [];
 
         const charactersByGuildId = groupBy(
-            userState.general.activeCharacters.filter((char) => !!char.guild),
+            userState.general.visibleCharacters.filter((char) => !!char.guild),
             (char) => char.guildId
         );
         for (const guild of Object.values(userState.general.guildById)) {

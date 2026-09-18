@@ -36,7 +36,7 @@ export function getCharacterCommodities(
 ): CharacterCommodities[] {
     let ret: CharacterCommodities[] = [];
 
-    for (const character of userState.general.activeCharacters) {
+    for (const character of userState.general.visibleCharacters) {
         const characterCommodities = new CharacterCommodities(character.id);
         const regionCommodities = commodities.regions[character.realm.region];
 
