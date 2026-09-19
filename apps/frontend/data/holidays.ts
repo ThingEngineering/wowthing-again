@@ -165,6 +165,11 @@ export const fancyHolidays: FancyHoliday[] = [
         everything: 'pilgrims-bounty',
     },
     {
+        holiday: Holiday.PiratesDay,
+        shortName: '🏴‍☠️',
+        everything: 'pirates-day',
+    },
+    {
         holiday: Holiday.TrialOfStyle,
         shortName: 'Trial of Style',
         everything: 'trial-of-style',

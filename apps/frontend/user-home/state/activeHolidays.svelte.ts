@@ -113,6 +113,7 @@ class ActiveHolidays {
         this.cachedActive[regionMask] = activeHolidays;
         this.cachedTime[regionMask] = currentTime;
 
+        console.log(regionMask, activeHolidays);
         console.timeEnd('activeHolidays');
         return activeHolidays;
     });
