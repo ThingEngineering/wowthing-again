@@ -100,11 +100,20 @@ export const midDelves: Task = {
         },
         {
             key: 'nullaeus',
-            name: 'Nullaeus Invasion',
+            name: 'Boss Invasion',
             minimumLevel: 90,
             alwaysStarted: true,
             questIds: [92887],
             questReset: DbResetType.Weekly,
+        },
+        {
+            key: 'abundant',
+            name: 'Abundantly Bountiful',
+            icon: iconLibrary.gameGoldStack,
+            minimumLevel: 90,
+            questReset: DbResetType.Weekly,
+            questResetForced: true,
+            questIds: [97064],
         },
         {
             key: 'bountiful',

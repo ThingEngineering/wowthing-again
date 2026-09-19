@@ -86,7 +86,7 @@ export function doConvertible(): LazyConvertible {
 
     const minimumLevel = convertibleCategories.at(-1).minimumLevel;
     const charactersByClassId: Record<number, [Character, WhateverItem[][]][]> = groupBy(
-        userState.general.activeCharacters
+        userState.general.visibleCharacters
             .filter((char) => char.level >= minimumLevel)
             .map((char) => [
                 char,

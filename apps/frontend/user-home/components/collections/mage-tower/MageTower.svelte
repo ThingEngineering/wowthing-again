@@ -14,7 +14,7 @@
             .filter((classId) => mageTowerByClass[classId])
             .map((classId) => {
                 const challenges = getNumberKeyedEntries(mageTowerByClass[classId]);
-                const validCharacters = userState.general.activeCharacters.filter(
+                const validCharacters = userState.general.visibleCharacters.filter(
                     (c) => c.classId === classId
                 );
                 return [

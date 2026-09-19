@@ -41,7 +41,7 @@ export function searchItems(): SearchItemsResult {
         switch (location) {
             case ItemLocation.Bags:
             case ItemLocation.Bank:
-                for (const character of userState.general.activeCharacters) {
+                for (const character of userState.general.visibleCharacters) {
                     for (const charItem of character.itemsByLocation[location]) {
                         if (!!charItem && itemIds.has(charItem.itemId)) {
                             ret.results.push([location, character.id, charItem]);
@@ -53,7 +53,7 @@ export function searchItems(): SearchItemsResult {
 
             case ItemLocation.Equipped:
                 // TODO: equipped items should implement UserItem
-                // for (const character of userState.general.activeCharacters) {
+                // for (const character of userState.general.visibleCharacters) {
                 //     for (const equippedItem of Object.values(character.equippedItems || {})) {
                 //         if (!!equippedItem && itemIds.has(equippedItem.itemId)) {
                 //             ret.results.push([location, character.id, equippedItem]);

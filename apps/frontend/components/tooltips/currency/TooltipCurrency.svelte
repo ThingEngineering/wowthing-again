@@ -48,7 +48,7 @@
                 ret.push([null, userState.general.warbankGold || 0]);
             }
 
-            for (const character of userState.general.activeCharacters) {
+            for (const character of userState.general.visibleCharacters) {
                 let quantity: number;
                 if (currency) {
                     quantity = character.currencies?.[currency.id]?.quantity || 0;

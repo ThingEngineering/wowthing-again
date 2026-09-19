@@ -17,7 +17,7 @@
         const ret: SidebarItem[] = [];
 
         const realmCharacters: Record<string, Character[]> = groupBy(
-            userState.general.activeCharacters,
+            userState.general.visibleCharacters,
             (char) => char.realmId
         );
 
@@ -47,7 +47,7 @@
         } else {
             const [region, realm] = splitOnce(parentEntries.slice(-1)[0].slug, '-');
             const character = find(
-                userState.general.activeCharacters,
+                userState.general.visibleCharacters,
                 (character: Character) =>
                     Region[character.realm.region].toLowerCase() === region &&
                     character.realm.slug === realm &&
