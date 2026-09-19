@@ -52,6 +52,7 @@ export { default as gameFrog } from '~icons/game-icons/frog';
 export { default as gameGauntlet } from '~icons/game-icons/gauntlet';
 export { default as gameGladius } from '~icons/game-icons/gladius';
 export { default as gameGoblinHead } from '~icons/game-icons/goblin-head';
+export { default as gameGoldStack } from '~icons/game-icons/gold-stack';
 export { default as gameGreaves } from '~icons/game-icons/greaves';
 export { default as gameHandBag } from '~icons/game-icons/hand-bag';
 export { default as gameHanger } from '~icons/game-icons/hanger';
