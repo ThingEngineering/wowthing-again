@@ -78,6 +78,7 @@ export const delveMap: Record<number, Delve> = {
         name: 'The Darkway',
         shortName: 'DW',
         storyRanks: {
+            'Eggsplosive Growth': 3, // 12.1
             'Focusers Under Pressure': 3,
             'Leyline Technician': 3,
             'Ogre Powered': 4,

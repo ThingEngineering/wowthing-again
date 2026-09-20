@@ -41,7 +41,7 @@ export const holidayMinimumLevel: Record<number, number> = {
 const timewalkingNameIds = [237, 239];
 export const holidayIds: Record<number, [number[], number[]?]> = {
     [Holiday.Anniversary]: [[242, 439]],
-    [Holiday.Brewfest]: [[19]],
+    [Holiday.Brewfest]: [[7]],
     [Holiday.ChildrensWeek]: [[13]],
     [Holiday.DarkmoonFaire]: [[1]],
     [Holiday.DarkspearDash]: [[458]],
