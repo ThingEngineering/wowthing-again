@@ -96,45 +96,28 @@ export const midChores12_0: Task = {
             questReset: DbResetType.Weekly,
             customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1079, 2),
             decorationFunc: twoWeekDecorator,
-            subChoresAnyOrder: true,
-            subChores: [
-                {
-                    key: 'hope',
-                    name: 'Hope in the Darkest Corners',
-                    minimumLevel: 80,
-                    maximumLevel: 89,
-                    icon: iconLibrary.gameCandleLight,
-                    questReset: DbResetType.Weekly,
-                    questIds: [95468],
-                },
-                {
-                    key: 'unity',
-                    name: 'Unity',
-                    minimumLevel: 90,
-                    showQuestName: true,
-                    icon: aliasedIcons.planet,
-                    questReset: DbResetType.Weekly, // TODO: weird 3 week garbage?
-                    questIds: [
-                        93890, // Midnight: Abundance
-                        93767, // Midnight: Arcantina
-                        94457, // Midnight: Battlegrounds
-                        93909, // Midnight: Delves
-                        93911, // Midnight: Dungeons
-                        93769, // Midnight: Housing
-                        93891, // Midnight: Legends of the Haranir
-                        96727, // Midnight: Offworld Showdowns
-                        93910, // Midnight: Prey
-                        93912, // Midnight: Raid
-                        95843, // Midnight: Ritual Sites
-                        93889, // Midnight: Saltheril's Soiree
-                        93892, // Midnight: Stormarion Assault
-                        98232, // Midnight: Vaults of Atal'Utek
-                        95842, // Midnight: Void Assaults
-                        93913, // Midnight: World Boss
-                        93766, // Midnight: World Quests
-                    ],
-                },
-            ],
+            questIds: (char) =>
+                char.level < 90
+                    ? [95468]
+                    : [
+                          93890, // Midnight: Abundance
+                          93767, // Midnight: Arcantina
+                          94457, // Midnight: Battlegrounds
+                          93909, // Midnight: Delves
+                          93911, // Midnight: Dungeons
+                          93769, // Midnight: Housing
+                          93891, // Midnight: Legends of the Haranir
+                          96727, // Midnight: Offworld Showdowns
+                          93910, // Midnight: Prey
+                          93912, // Midnight: Raid
+                          95843, // Midnight: Ritual Sites
+                          93889, // Midnight: Saltheril's Soiree
+                          93892, // Midnight: Stormarion Assault
+                          98232, // Midnight: Vaults of Atal'Utek
+                          95842, // Midnight: Void Assaults
+                          93913, // Midnight: World Boss
+                          93766, // Midnight: World Quests
+                      ],
         },
         {
             key: 'midAbundance',
