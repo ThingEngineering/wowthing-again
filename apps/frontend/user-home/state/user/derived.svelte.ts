@@ -697,9 +697,18 @@ export class DataUserDerived {
             charChore.status === QuestStatus.InProgress &&
             charChore.quest?.objectives?.length > 0
         ) {
-            const lastObjective = charChore.quest.objectives.at(-1);
-            charChore.progressCurrent = lastObjective.have;
-            charChore.progressTotal = lastObjective.need;
+            if (chore.sumObjectives) {
+                charChore.progressCurrent = 0;
+                charChore.progressTotal = 0;
+                for (const objective of charChore.quest.objectives) {
+                    charChore.progressCurrent += objective.have;
+                    charChore.progressTotal += objective.need;
+                }
+            } else {
+                const lastObjective = charChore.quest.objectives.at(-1);
+                charChore.progressCurrent = lastObjective.have;
+                charChore.progressTotal = lastObjective.need;
+            }
         }
 
         if (
@@ -721,9 +730,11 @@ export class DataUserDerived {
                     charChore.status === QuestStatus.InProgress &&
                     charChore.quest.objectives?.length > 0
                 ) {
-                    const lastObjective = charChore.quest.objectives.at(-1);
-                    charChore.progressCurrent = lastObjective.have;
-                    charChore.progressTotal = lastObjective.need;
+                    if (!charChore.progressTotal) {
+                        const lastObjective = charChore.quest.objectives.at(-1);
+                        charChore.progressCurrent = lastObjective.have;
+                        charChore.progressTotal = lastObjective.need;
+                    }
 
                     charChore.statusTexts = this.getObjectivesText(charChore.quest.objectives);
                 }
