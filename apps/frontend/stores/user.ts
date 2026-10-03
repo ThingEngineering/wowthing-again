@@ -613,4 +613,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     }
 }
 
+/**
+ * @deprecated use `userState`
+ */
 export const userStore = new UserDataStore();
