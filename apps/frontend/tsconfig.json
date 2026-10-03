@@ -4,13 +4,12 @@
     "exclude": ["**/.*", "node_modules", "tmp"],
     "compileOnSave": false,
     "compilerOptions": {
-        "baseUrl": ".",
         "rootDir": ".",
         "lib": ["es2022", "dom", "dom.iterable"],
         "module": "es2022",
         "moduleResolution": "bundler",
         "paths": {
-            "@/*": ["*"]
+            "@/*": ["./*"]
         },
         "target": "es2022",
         "declaration": false,
