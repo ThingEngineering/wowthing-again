@@ -19,11 +19,17 @@ public class DataConnectedRealmIndexJob : JobBase
             var uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath);
             var result = await GetUriAsJsonAsync<ApiDataConnectedRealmIndex>(uri, useLastModified: false);
 
+            var jobParams = new List<string[]>(result.Data.ConnectedRealms.Count);
             foreach (var href in result.Data.ConnectedRealms)
             {
                 var match = RealmIdRegex.Match(href.Href);
-                await JobRepository.AddJobAsync(JobPriority.Low, JobType.DataConnectedRealm, ((int)region).ToString(), match.Groups[1].Value);
+                jobParams.Add([
+                    ((int)region).ToString(),
+                    match.Groups[1].Value
+                ]);
             }
+
+            await JobRepository.AddJobsAsync(JobPriority.Low, JobType.DataConnectedRealm, jobParams);
         }
     }
 }

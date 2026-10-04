@@ -224,6 +224,12 @@ export default function getProgress(
                     haveThis = questStatuses.at(-1);
 
                     descriptionText[dataIndex] = `${haveQuests} / ${data.ids.length}`;
+
+                    // if there's only one campaign/questline, use its data for overall
+                    if (datas.length === 1) {
+                        total = data.ids.length;
+                        have = haveQuests - (haveThis ? 1 : 0);
+                    }
                 } else if (group.type === 'item') {
                     haveThis = data.ids.some((id) => character.getItemCount(id) > 0);
                 } else if (group.type === 'dragon-racing') {

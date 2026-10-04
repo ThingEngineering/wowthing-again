@@ -21,6 +21,7 @@ import type {
 } from '@/types/data/manual';
 
 export interface RawManual {
+    ignoredSkillLineAbilitySpells: number[];
     // TODO pack these
     progressSets: ManualDataProgressCategory[][];
 
@@ -65,4 +66,6 @@ export class DataManual {
     customizationCategories: ManualDataCustomizationCategory[][];
     progressSets: ManualDataProgressCategory[][];
     reputationSets: ManualDataReputationCategory[];
+
+    ignoredSkillLineAbilitySpellIds: Set<number>;
 }

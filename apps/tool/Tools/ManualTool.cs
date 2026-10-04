@@ -212,6 +212,9 @@ public class ManualTool
         cacheData.RawHeirloomGroups = LoadHeirlooms();
         _timer.AddPoint("Heirlooms");
 
+        cacheData.IgnoredSkillLineAbilitySpells = LoadIgnoredSkillLineAbilitySpells();
+        _timer.AddPoint("IgnoredSkillLineAbilitySpells");
+
         cacheData.RawIllusionGroups = LoadIllusions();
         _timer.AddPoint("Illusions");
 
@@ -684,6 +687,24 @@ public class ManualTool
                     Path.Join(DataUtilities.DataPath, "heirlooms", "heirlooms.yml")
                 )
             );
+    }
+
+    private List<int> LoadIgnoredSkillLineAbilitySpells()
+    {
+        var di = new DirectoryInfo(Path.Join(DataUtilities.DataPath, "professions", "ignored-spells"));
+        var files = di.GetFiles("*.yml", SearchOption.AllDirectories)
+            .OrderBy(file => file.FullName)
+            .ToArray();
+
+        var ret = new HashSet<int>();
+
+        foreach (var file in files)
+        {
+            int[] spellIds = DataUtilities.YamlDeserializer.Deserialize<int[]>(File.OpenText(file.FullName));
+            ret.UnionWith(spellIds);
+        }
+
+        return ret.Order().ToList();
     }
 
     private DataIllusionGroup[] LoadIllusions()

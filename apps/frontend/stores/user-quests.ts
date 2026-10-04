@@ -5,8 +5,8 @@ import type { DateTime } from 'luxon';
 import { userModifiedStore } from './user-modified';
 import { WritableFancyStore } from '@/types/fancy-store';
 import { UserQuestDataCharacterProgress, type UserQuestData } from '@/types/data';
-import parseApiTime from '@/utils/parse-api-time';
 import { userState } from '@/user-home/state/user';
+import parseApiTime from '@/utils/parse-api-time';
 
 export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
     get dataUrl(): string {
@@ -100,4 +100,7 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
     }
 }
 
+/**
+ * @deprecated use `userState`
+ */
 export const userQuestStore = new UserQuestDataStore();

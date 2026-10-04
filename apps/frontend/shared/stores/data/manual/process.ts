@@ -51,6 +51,8 @@ export function processManualData(rawData: RawManual): DataManual {
         (groupArray) => new ManualDataHeirloomGroup(...groupArray)
     );
 
+    data.ignoredSkillLineAbilitySpellIds = new Set<number>(rawData.ignoredSkillLineAbilitySpells);
+
     data.illusions = rawData.rawIllusionGroups.map(
         (groupArray) => new ManualDataIllusionGroup(...groupArray)
     );

@@ -35,17 +35,22 @@
 
             let anyShown = false;
             for (const ability of subCategory.abilities) {
+                const isIgnored = wowthingData.manual.ignoredSkillLineAbilitySpellIds.has(
+                    ability.spellId
+                );
+
                 const abilityIds = [
                     ability.id,
                     ...(ability.extraRanks || []).map(([abilityId]) => abilityId),
                 ];
 
                 const abilityUserHas = userState.recipes.hasAbility[ability.id];
+
                 abilityIds.forEach((_abilityId, index) => {
                     const userHas = abilityUserHas[index];
                     if (
                         (userHas && $recipesState.showCollected) ||
-                        (!userHas && $recipesState.showUncollected)
+                        (!userHas && $recipesState.showUncollected && !isIgnored)
                     ) {
                         anyShown = true;
                         return;

@@ -13,16 +13,15 @@ namespace Wowthing.Tool.Models.Manual;
 
 public class ManualCache
 {
-    public List<List<ManualCustomizationCategory?>?> RawCustomizationCategories { get; set; }
     public List<DataDragonridingCategory> Dragonriding { get; set; }
+    public List<int> IgnoredSkillLineAbilitySpells { get; set; }
+    public List<List<OutProgress>> ProgressSets { get; set; }
+
+    public List<List<ManualCustomizationCategory?>?> RawCustomizationCategories { get; set; }
     public DataHeirloomGroup[] RawHeirloomGroups { get; set; }
     public DataIllusionGroup[] RawIllusionGroups { get; set; }
     public List<List<OutCollectionCategory>> RawMountSets { get; set; }
     public List<List<OutCollectionCategory>> RawPetSets { get; set; }
-
-    //[JsonProperty("rawProgressSets")]
-    public List<List<OutProgress>> ProgressSets { get; set; }
-
     public List<ManualReputationCategory> RawReputationSets { get; set; }
     public List<List<OutCollectionCategory>> RawToySets { get; set; }
     public List<List<ManualTransmogCategory>> RawTransmogSets { get; set; }

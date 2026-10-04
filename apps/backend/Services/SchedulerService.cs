@@ -119,7 +119,8 @@ public sealed class SchedulerService : TimerService
                 if (characterResults.Length > 0)
                 {
                     var resultData = characterResults
-                        .Select(cr => JsonSerializer.Serialize(cr, _jsonSerializerOptions));
+                        .Select(cr => JsonSerializer.Serialize(cr, _jsonSerializerOptions))
+                        .ToList();
 
                     // Queue character jobs
                     Logger.Information("Queueing {0} character job(s)", characterResults.Length);

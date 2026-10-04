@@ -1,4 +1,5 @@
-﻿using StackExchange.Redis;
+﻿using System.Text;
+using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
@@ -24,17 +25,46 @@ VALUES ({priority}, {type}, {json}, {jsonHash})
 ON CONFLICT DO NOTHING");
     }
 
-    public async Task AddJobsAsync(JobPriority priority, JobType type, IEnumerable<string[]> datas)
+    public async Task AddJobsAsync(JobPriority priority, JobType type, List<string[]> jobParams)
     {
-        foreach (var data in datas)
+        await using var context = await contextFactory.CreateDbContextAsync();
+
+        // EF Core still doesn't have any way to handle insert conflicts, build a raw SQL string
+        // https://github.com/dotnet/efcore/issues/16949
+        var builder = new StringBuilder("INSERT INTO queued_job (priority, type, data, data_hash) VALUES ");
+        var parameters = new List<object>
         {
-            await AddJobAsync(priority, type, data);
+            priority,
+            type
+        };
+
+        for (int i = 0; i < jobParams.Count; i++)
+        {
+            string[] data = jobParams[i];
+
+            string json = JsonSerializer.Serialize(data.EmptyIfNull(), jsonSerializerOptions);
+            string jsonHash = json.Sha256();
+            parameters.Add(json);
+            parameters.Add(jsonHash);
+
+            // 0 => 2, 1 => 4, etc
+            int paramIndex = (i + 1) * 2;
+            builder.Append($"(@p0, @p1, @p{paramIndex}, @p{paramIndex + 1})");
+
+            if (i < jobParams.Count - 1)
+            {
+                builder.Append(", ");
+            }
         }
+
+        builder.Append(" ON CONFLICT DO NOTHING");
+
+        await context.Database.ExecuteSqlRawAsync(builder.ToString(), parameters);
     }
 
-    public async Task AddJobsAsync(JobPriority priority, JobType type, IEnumerable<string> datas)
+    public async Task AddJobsAsync(JobPriority priority, JobType type, List<string> jobParams)
     {
-        await AddJobsAsync(priority, type, datas.Select(d => new[] { d }));
+        await AddJobsAsync(priority, type, jobParams.Select(d => new[] { d }).ToList());
     }
 
     public async Task AddImageJobAsync(ImageType imageType, int id, ImageFormat format, string url)
@@ -70,6 +100,7 @@ ON CONFLICT DO NOTHING");
         {
             await db.StringSetAsync(key, DateTimeOffset.Now.ToString("O"), maximumAge);
         }
+
         return set;
     }
 

@@ -24,9 +24,9 @@ const config = <UserConfig>defineConfig({
             emitCss: production,
             preprocess: sveltePreprocess({
                 // it can't find the file in the same directrory otherwise, wtf
-                typescript: {
-                    tsconfigFile: 'tsconfig.json',
-                },
+                // typescript: {
+                //     tsconfigFile: `./apps/frontend/tsconfig.json`,
+                // },
                 // scss: {
                 //     prependData: `
                 // @import 'scss/mixins.scss';

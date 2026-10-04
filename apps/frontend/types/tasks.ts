@@ -25,18 +25,19 @@ export type Chore = {
     icon?: Icon | string;
     accountWide?: boolean;
     alwaysStarted?: boolean;
-    noAlone?: boolean;
-    showQuestName?: boolean;
-    minimumLevel?: number;
     maximumLevel?: number;
+    minimumLevel?: number;
+    noAlone?: boolean;
     overrideNeed?: number;
     questCount?: number;
     questIds?: number[] | ((char: Character, chore?: Chore) => number[]);
     questReset?: DbResetType;
     questResetForced?: boolean;
+    requiredHolidays?: Holiday[];
+    showQuestName?: boolean;
     subChoresAnyOrder?: boolean;
     subChores?: Chore[];
-    requiredHolidays?: Holiday[];
+    sumObjectives?: boolean;
 
     /**
      * Function to manually calculate progress
