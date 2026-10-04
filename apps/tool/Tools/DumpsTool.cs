@@ -1692,7 +1692,7 @@ public class DumpsTool
         foreach (var skillLineAbility in skillLineAbilities)
         {
             if (skillLineAbility.Spell == 0 ||
-                Hardcoded.IgnoredSkillLineAbilities.Contains(skillLineAbility.ID) ||
+                // Hardcoded.IgnoredSkillLineAbilities.Contains(skillLineAbility.ID) ||
                 !_teachSpellBySpellId.TryGetValue(skillLineAbility.Spell, out var recipeItemIds))
             {
                 continue;
@@ -1717,9 +1717,9 @@ public class DumpsTool
             }
         }
 
-        await context.WowProfessionRecipeItem
-            .Where(item => Hardcoded.IgnoredSkillLineAbilities.Contains(item.SkillLineAbilityId))
-            .ExecuteDeleteAsync();
+        // await context.WowProfessionRecipeItem
+        //     .Where(item => Hardcoded.IgnoredSkillLineAbilities.Contains(item.SkillLineAbilityId))
+        //     .ExecuteDeleteAsync();
 
         _timer.AddPoint("RecipeItems");
     }

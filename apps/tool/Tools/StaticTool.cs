@@ -762,8 +762,8 @@ public class StaticTool
 
         var skillLineAbilities = await DataUtilities.LoadDumpCsvAsync<DumpSkillLineAbility>(
             "skilllineability",
-            Language.enUS,
-            ability => !Hardcoded.IgnoredSkillLineAbilities.Contains(ability.ID)
+            Language.enUS
+            // ability => !Hardcoded.IgnoredSkillLineAbilities.Contains(ability.ID)
         );
 
         var professions = skillLines
@@ -909,8 +909,8 @@ public class StaticTool
 
                     var abilities = categoryAbilities
                         .GetValueOrDefault(category.ID, [])
-                        .Where(ability => ability.SupercedesSpell == 0 &&
-                                          !Hardcoded.IgnoredSkillLineAbilitySpells.Contains(ability.Spell))
+                        .Where(ability => ability.SupercedesSpell == 0)// &&
+                                          // !Hardcoded.IgnoredSkillLineAbilitySpells.Contains(ability.Spell))
                         .OrderByDescending(ability => ability.MinSkillLineRank)
                         //.ThenByDescending(ability => ability.TrivialSkillLineRankLow)
                         .ThenByDescending(ability => ability.TrivialSkillLineRankHigh)

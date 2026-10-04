@@ -1,9 +1,9 @@
 <script lang="ts">
     import { seasonMap } from '@/data/mythic-plus';
     import { Region } from '@/enums/region';
+    import { componentTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';
     import getRaiderIoColor from '@/utils/get-raider-io-color';
-    import { componentTooltip } from '@/shared/utils/tooltips';
     import type { MythicPlusSeason } from '@/types';
     import type { CharacterProps } from '@/types/props';
 

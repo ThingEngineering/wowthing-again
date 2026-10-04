@@ -265,6 +265,14 @@ export class DataUserDerived {
                             (have) => have
                         ).length;
 
+                        // don't add stats for ignored spells that the user doesn't know
+                        if (
+                            abilityHave === 0 &&
+                            wowthingData.manual.ignoredSkillLineAbilitySpellIds.has(ability.spellId)
+                        ) {
+                            continue;
+                        }
+
                         if (
                             !settingsState.value.collections.hideFuture ||
                             categoryIndex <= Constants.expansion
