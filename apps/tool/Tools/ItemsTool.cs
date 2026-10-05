@@ -67,6 +67,9 @@ public class ItemsTool
         764, // 11.1.5 Optional Reagent - Season 2 - Augmentation Matrix - Heroic
         901, // 12.0 Optional Reagent - Season 1 - Crests
         902, // 12.0 Optional Reagent - Outdoor Upgrade Dungeon - All
+        909, // 12.1 Professions - Modifying Reagent - Shared - Pacing - Season 2 Spark
+        911, // 12.1 Optional Reagent - Season 2 - Crests
+        912, // 12.1 Optional Reagent - Season 2 - Crests
     ];
 
     private static readonly HashSet<int> SkipReagentItems = [
