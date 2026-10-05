@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 
 import { Constants } from '@/data/constants';
 import { expansionMap, expansionOrder } from '@/data/expansion';
+import { hiddenSkillLineAbilitySpellIds } from '@/data/professions/hidden';
 import { questNameOverride } from '@/data/quests';
 import { taskMap } from '@/data/tasks';
 import { QuestStatus } from '@/enums/quest-status';
@@ -267,8 +268,11 @@ export class DataUserDerived {
 
                         // don't add stats for ignored spells that the user doesn't know
                         if (
-                            abilityHave === 0 &&
-                            wowthingData.manual.ignoredSkillLineAbilitySpellIds.has(ability.spellId)
+                            hiddenSkillLineAbilitySpellIds.has(ability.spellId) ||
+                            (abilityHave === 0 &&
+                                wowthingData.manual.ignoredSkillLineAbilitySpellIds.has(
+                                    ability.spellId
+                                ))
                         ) {
                             continue;
                         }

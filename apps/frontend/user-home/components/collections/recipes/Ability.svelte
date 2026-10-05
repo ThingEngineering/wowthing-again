@@ -1,6 +1,8 @@
 <script lang="ts">
+    import { hiddenSkillLineAbilitySpellIds } from '@/data/professions/hidden';
     import { Faction } from '@/enums/faction';
     import { uiIcons } from '@/shared/icons';
+    import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
     import type { StaticDataProfessionAbility } from '@/shared/stores/static/types';
 
@@ -12,7 +14,6 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
-    import { wowthingData } from '@/shared/stores/data';
 
     type Props = {
         ability: StaticDataProfessionAbility;
@@ -21,6 +22,7 @@
     let { ability, rank }: Props = $props();
 
     let spellId = $derived(userState.recipes.abilitySpells[ability.id][rank - 1]);
+    let isHidden = $derived(hiddenSkillLineAbilitySpellIds.has(ability.spellId));
     let isIgnored = $derived(wowthingData.manual.ignoredSkillLineAbilitySpellIds.has(spellId));
     let userHas = $derived(userState.recipes.hasAbility[ability.id][rank - 1]);
     let name = $derived(ability.name || `{item:${ability.itemIds[0]}}` || `Spell #${spellId}`);
@@ -68,7 +70,7 @@
     }
 </style>
 
-{#if (userHas && $recipesState.showCollected) || (!userHas && $recipesState.showUncollected && !isIgnored)}
+{#if !isHidden && ((userHas && $recipesState.showCollected) || (!userHas && $recipesState.showUncollected && !isIgnored))}
     <tr
         class:faded={(userHas && $recipesState.highlightMissing) ||
             (!userHas && !$recipesState.highlightMissing)}

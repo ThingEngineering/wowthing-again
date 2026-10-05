@@ -88,7 +88,7 @@
 <Options {category} {expansionSlug} {professionSlug} />
 
 <div class="wrapper">
-    {#each subCategories as [subCategory, subStats] (subCategory.id)}
+    {#each subCategories.filter(([_, subStats]) => subStats.total > 0) as [subCategory, subStats] (subCategory.id)}
         <table class="table table-striped" data-id={subCategory.id}>
             <thead>
                 <tr>
