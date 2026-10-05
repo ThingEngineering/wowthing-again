@@ -27,6 +27,7 @@ export { default as gameBlunderbuss } from '~icons/game-icons/blunderbuss';
 export { default as gameBracer } from '~icons/game-icons/bracer';
 export { default as gameBrassKnuckles } from '~icons/game-icons/brass-knuckles';
 export { default as gameBroadsword } from '~icons/game-icons/broadsword';
+export { default as gameBunkerAssault } from '~icons/game-icons/bunker-assault';
 export { default as gameCandleLight } from '~icons/game-icons/candle-light';
 export { default as gameCape } from '~icons/game-icons/cape';
 export { default as gameCash } from '~icons/game-icons/cash';

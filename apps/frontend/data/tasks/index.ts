@@ -1,1 +1,30 @@
-export * from './task-list';
+import { wodTasks } from './05-warlords-of-draenor';
+import { bfaTasks } from './07-battle-for-azeroth';
+import { slTasks } from './08-shadowlands';
+import { dfTasks } from './09-dragonflight';
+import { twwTasks } from './10-the-war-within';
+import { midTasks } from './11-midnight';
+import { eventTasks } from './events';
+import { pvpTasks } from './pvp';
+import type { Task } from '@/types/tasks';
+
+export const taskList: Task[] = [
+    ...eventTasks,
+    ...pvpTasks,
+    ...bfaTasks,
+    ...wodTasks,
+    ...slTasks,
+    ...dfTasks,
+    ...twwTasks,
+    ...midTasks,
+];
+
+export const taskMap: Record<string, Task> = Object.fromEntries(
+    taskList.map((task) => [task.key, task])
+);
+
+export const taskChoreMap = Object.fromEntries(
+    taskList.flatMap((task) =>
+        task.chores.filter((chore) => !!chore).map((chore) => [`${task.key}_${chore.key}`, chore])
+    )
+);
