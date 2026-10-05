@@ -126,7 +126,7 @@
         <code class="stats {getPercentClass(stats.percent)}">{stats.have}/{stats.total}</code>
         <span class="remaining">
             {activeHoliday.soon ? 'starts ' : 'ends '}
-            <code>{toNiceDuration(remainingTime, false, 7)}</code>
+            <code>{toNiceDuration(remainingTime, { maxDays: 7, useNbsp: false })}</code>
         </span>
     </div>
 {/snippet}

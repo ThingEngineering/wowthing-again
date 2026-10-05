@@ -136,7 +136,7 @@
     <div class="flex-wrapper" class:faded={notLearned}>
         <div class="remaining">
             <code class:status-warn={timeRemaining < 43200000}>
-                {@html toNiceDuration(timeRemaining, true)}
+                {@html toNiceDuration(timeRemaining)}
             </code>
         </div>
         <div class="quality border-left">
