@@ -140,18 +140,26 @@ public class ApiUserCharacter
         // Merge any addon data
         if (Professions != null && character.AddonData?.Professions != null)
         {
-            foreach (var (skillLineId, professionData) in character.AddonData.Professions)
+            foreach ((int skillLineId, var addonProfessionData) in character.AddonData.Professions)
             {
-                int parentId = 0;
-                // Pandaria Cooking Ways
-                if (skillLineId is >= 975 and <= 980)
+                // Pandaria Cooking Ways - API has no data so use it wholesale
+                if (skillLineId is >= 975 and <= 980 &&
+                         Professions.TryGetValue(185, out var cooking))
                 {
-                    parentId = 185;
+                    cooking[skillLineId] = addonProfessionData;
                 }
-
-                if (parentId > 0 && Professions.TryGetValue(parentId, out var parentProfession))
+                else
                 {
-                    parentProfession[skillLineId] = professionData;
+                    foreach ((int professionId, var professionData) in Professions)
+                    {
+                        if (professionData.TryGetValue(skillLineId, out var subProfessionData))
+                        {
+                            subProfessionData.KnownRecipes = subProfessionData.KnownRecipes
+                                .Concat(addonProfessionData.KnownRecipes)
+                                .Distinct()
+                                .ToList();
+                        }
+                    }
                 }
             }
         }

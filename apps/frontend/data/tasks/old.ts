@@ -36,81 +36,6 @@
 
 // const somethingDifferent = [47148];
 
-// function buildProfessionTasks(
-//     professions: TaskProfession[],
-//     expansion: number,
-//     prefix: string,
-//     minimumLevel: number
-// ): Chore[] {
-//     return professions.flatMap((profession) => {
-//         const name = Profession[profession.id];
-//         const tasks: Chore[] = [];
-
-//         if (prefix === 'df') {
-//             tasks.push({
-//                 key: `${prefix}Profession${name}Provide`,
-//                 name: `${name}: Provide`,
-//                 minimumLevel,
-//                 couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
-//                 canGetFunc: (char) =>
-//                     getExpansionSkill(char, profession.id, Constants.expansion, 45),
-//             });
-//         }
-
-//         if (profession.hasTasks === true) {
-//             tasks.push({
-//                 key: `${prefix}Profession${name}Task`,
-//                 name: `${name}: Task`,
-//                 minimumLevel: 60,
-//                 couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
-//                 canGetFunc: (char) =>
-//                     getExpansionSkill(
-//                         char,
-//                         profession.id,
-//                         expansion,
-//                         expansion === 9 && isGatheringProfession[profession.id] ? 45 : 25
-//                     ),
-//             });
-//         }
-
-//         tasks.push({
-//             key: `${prefix}Profession${name}Drop#`,
-//             name: `${name}: Drops`,
-//             minimumLevel,
-//             couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
-//             //canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
-//         });
-
-//         if (profession.hasOrders === true) {
-//             tasks.push({
-//                 key: `${prefix}Profession${name}Orders`,
-//                 name: `${name}: Orders`,
-//                 minimumLevel,
-//                 couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
-//                 canGetFunc: (char) =>
-//                     getExpansionSkill(char, profession.id, expansion, expansion === 9 ? 25 : 1),
-//             });
-//         }
-
-//         tasks.push({
-//             key: `${prefix}Profession${name}Treatise`,
-//             name: `${name}: Treatise`,
-//             minimumLevel,
-//             couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
-//         });
-
-//         return tasks;
-//     });
-// }
-
-// export const dragonflightProfessionTasks = buildProfessionTasks(
-//     dragonflightProfessions,
-//     9,
-//     'df',
-//     60
-// );
-// export const warWithinProfessionTasks = buildProfessionTasks(warWithinProfessions, 10, 'tww', 60);
-
 // export const taskList: Task[] = [
 //     // Events/Holidays/idk
 //     eventGreedyEmissaryTask,
@@ -124,65 +49,6 @@
 
 //     ...actualHolidayTasks,
 //     ...weeklyHolidayTasks,
-
-//     // PvP
-//     {
-//         key: 'pvpOverwhelmingOdds',
-//         name: '[PvP] Overwhelming Odds',
-//         shortName: 'WM',
-//     },
-//     {
-//         key: 'pvpBlitz',
-//         minimumLevel: 70,
-//         name: '[PvP] Battleground Blitz',
-//         shortName: 'Blitz',
-//         type: 'multi',
-//     },
-//     {
-//         key: 'pvpBrawl',
-//         name: '[PvP] Brawl',
-//         shortName: 'Brawl',
-//         type: 'multi',
-//     },
-//     {
-//         key: 'pvpSkirmishes',
-//         name: '[PvP] Arena Skirmishes',
-//         shortName: 'Skirm',
-//     },
-//     {
-//         key: 'pvpWar',
-//         name: '[PvP] Epic Battlegrounds',
-//         shortName: 'EBGs',
-//     },
-//     {
-//         key: 'pvpBattle',
-//         name: '[PvP] Random Battlegrounds',
-//         shortName: 'BGs',
-//     },
-//     {
-//         key: 'pvpArenas',
-//         name: '[PvP] Rated Arenas',
-//         shortName: 'RA',
-//     },
-//     {
-//         key: 'pvpTeamwork',
-//         name: '[PvP] Rated Battlegrounds',
-//         shortName: 'RBGs',
-//     },
-//     {
-//         key: 'pvpSolo',
-//         name: '[PvP] Solo Shuffle',
-//         shortName: 'Solo',
-//     },
-
-//     // Warlords of Draenor
-//     {
-//         key: 'wodGarrison',
-//         name: '[WoD] Garrison Invasions',
-//         shortName: 'GInv',
-//         type: 'multi',
-//         minimumLevel: 10,
-//     },
 
 //     // Legion
 //     {
@@ -236,13 +102,6 @@
 //         type: 'multi',
 //     },
 //     {
-//         key: 'dfProfessionWeeklies',
-//         name: '[DF] Profession Weeklies',
-//         shortName: 'DFP',
-//         type: 'multi',
-//         minimumLevel: 60,
-//     },
-//     {
 //         key: 'dfSparks',
 //         name: '[DF] Sparks of Life (PvP)',
 //         shortName: 'DF🌟',
@@ -270,50 +129,11 @@
 //         minimumLevel: 70,
 //     },
 
-//     // Misc
-// ];
-
-// export const taskMap: Record<string, Task> = Object.fromEntries(
-//     taskList.map((task) => [task.key, task])
-// );
-
-// function garrisonCouldGet(char: Character): boolean {
-//     return [36592, 36567].some((questId) =>
-//         userState.quests.characterById.get(char.id).hasQuestById.has(questId)
-//     );
-// }
-
 // // export const multiTaskMap: Record<string, Chore[]> = {
 // //     greedyEmissary: eventGreedyEmissaryChores,
 // //     turboBoost: eventsTurboBoost,
 // //     ...actualHolidayChores,
 // //     ...holidayTimewalkingChores,
-// //     wodGarrison: [
-// //         {
-// //             key: 'invasionBronze',
-// //             name: '{item:120320}', // Invader's Abandoned Sack
-// //             couldGetFunc: garrisonCouldGet,
-// //             minimumLevel: 10,
-// //         },
-// //         {
-// //             key: 'invasionSilver',
-// //             name: '{item:120319}', // Invader's Damaged Cache
-// //             couldGetFunc: garrisonCouldGet,
-// //             minimumLevel: 10,
-// //         },
-// //         {
-// //             key: 'invasionGold',
-// //             name: '{item:116980}', // Invader's Forgotten Treasure
-// //             couldGetFunc: garrisonCouldGet,
-// //             minimumLevel: 10,
-// //         },
-// //         {
-// //             key: 'invasionPlatinum',
-// //             name: '{item:122163}', // Routed Invader's Crate of Spoils
-// //             couldGetFunc: garrisonCouldGet,
-// //             minimumLevel: 10,
-// //         },
-// //     ],
 // //     dfCatchRelease: [
 // //         {
 // //             key: 'dfCatchAileron',
@@ -490,10 +310,6 @@
 // //         {
 // //             key: 'dfSuperbloom',
 // //             name: 'Superbloom',
-// //         },
-// //         {
-// //             key: 'dfBigDig',
-// //             name: 'The Big Dig',
 // //         },
 // //     ],
 // //     dfDungeonWeeklies: [
@@ -703,34 +519,3 @@
 // //         },
 // //     ],
 // // };
-
-// export const taskChoreMap = Object.fromEntries(
-//     Object.entries(multiTaskMap).flatMap(([taskKey, chores]) =>
-//         chores.filter((chore) => !!chore).map((chore) => [`${taskKey}_${chore.key}`, chore])
-//     )
-// );
-
-// export const questResetMap = Object.fromEntries(
-//     Object.values(taskChoreMap)
-//         .filter((chore) => chore.questIds && chore.questReset !== undefined)
-//         .flatMap((chore) => chore.questIds.map((questId) => [questId, chore.questReset]))
-// );
-
-// function couldGet(char: Character, professionId: number, subProfessionId: number): boolean {
-//     const profession = wowthingData.static.professionById.get(professionId);
-//     return !!char.professions?.[profession.id]?.subProfessions?.[subProfessionId];
-// }
-
-// function getExpansionSkill(
-//     char: Character,
-//     professionId: number,
-//     expansion: number,
-//     minSkill: number
-// ): string {
-//     const currentSubProfession =
-//         wowthingData.static.professionById.get(professionId).expansionSubProfession[expansion];
-//     const skill =
-//         char.professions[professionId].subProfessions[currentSubProfession?.id]?.skillCurrent ?? 0;
-
-//     return skill < minSkill ? `Need ${minSkill} skill` : '';
-// }

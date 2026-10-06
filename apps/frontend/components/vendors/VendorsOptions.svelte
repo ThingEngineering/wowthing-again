@@ -1,6 +1,8 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons';
+    import { uiIcons } from '@/shared/icons';
     import { browserState } from '@/shared/state/browser.svelte';
+    import { setAllCheckboxes } from '@/utils/html/set-all-checkboxes';
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
@@ -122,6 +124,22 @@
     }
 </style>
 
+{#snippet selectAllNone()}
+    <button
+        class="margin-left"
+        data-tooltip="Select All"
+        onclick={(event) => setAllCheckboxes(event.currentTarget, '.filters-container', true)}
+    >
+        <IconifyWrapper icon={uiIcons.selectAll} />
+    </button>
+    <button
+        data-tooltip="Select None"
+        onclick={(event) => setAllCheckboxes(event.currentTarget, '.filters-container', false)}
+    >
+        <IconifyWrapper icon={uiIcons.selectNone} />
+    </button>
+{/snippet}
+
 <div class="options-container">
     <button>
         <CheckboxInput
@@ -215,6 +233,8 @@
                 >Weapons</CheckboxInput
             >
         </button>
+
+        {@render selectAllNone()}
     </div>
 
     <div class="options-container filters-container">
@@ -264,6 +284,8 @@
                 >Toys</CheckboxInput
             >
         </button>
+
+        {@render selectAllNone()}
     </div>
 
     <div class="options-container filters-container">
@@ -287,5 +309,7 @@
                 bind:value={browserState.current.vendors.showAwakened}>Awakened</CheckboxInput
             >
         </button>
+
+        {@render selectAllNone()}
     </div>
 {/if}

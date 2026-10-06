@@ -17,7 +17,7 @@
 <td class="border-left" data-tooltip="Addon data processed for this character">
     {#if character.lastSeenAddon}
         {@const diff = timeState.slowTime.diff(character.lastSeenAddon).toMillis()}
-        <code>{@html toNiceDuration(diff)}</code>
+        <code>{@html toNiceDuration(diff, { includeZero: true })}</code>
     {:else}
         ???
     {/if}

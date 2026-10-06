@@ -9,6 +9,8 @@ export const uiIcons = {
     plus: iconLibrary.mdiPlus,
     question: iconLibrary.mdiQuestionMark,
     random: iconLibrary.gameDiceRandom,
+    selectAll: iconLibrary.fluentSelectAllOn,
+    selectNone: iconLibrary.fluentSelectAllOff,
     starEmpty: iconLibrary.mdiStarOutline,
     starHalf: iconLibrary.mdiStarHalfFull,
     starFull: iconLibrary.mdiStarFace,
