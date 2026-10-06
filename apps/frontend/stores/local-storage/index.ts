@@ -6,7 +6,6 @@ export * from './collecting-settings';
 export * from './currency';
 export * from './history';
 export * from './new-nav';
-export * from './professions-recipes';
 export * from './progress';
 export * from './sub-sidebar';
 export * from './transmog-sets';

@@ -5,9 +5,10 @@
     import { Faction } from '@/enums/faction';
     import { SkillSourceType } from '@/enums/skill-source-type';
     import { iconLibrary } from '@/shared/icons';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { newNavState, professionsRecipesState } from '@/stores/local-storage';
+    import { newNavState } from '@/stores/local-storage';
     import { userState } from '@/user-home/state/user';
     import { useCharacterFilter } from '@/utils/characters';
     import type { Character, ExpansionData } from '@/types';
@@ -26,54 +27,61 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 
-    export let expansion: ExpansionData;
-    export let profession: StaticDataProfession;
+    type Props = {
+        expansion: ExpansionData;
+        profession: StaticDataProfession;
+    };
 
-    let categoryChildren: StaticDataProfessionCategory[];
-    let characters: Character[];
-    let colspan: number;
-    let subProfession: StaticDataSubProfession;
-    $: {
-        categoryChildren = profession.expansionCategory[expansion.id].children[0].children.filter(
+    let { expansion, profession }: Props = $props();
+
+    let categoryChildren = $derived(
+        profession.expansionCategory[expansion.id].children[0].children.filter(
             (cat) => cat.abilities.length > 0
-        );
-        subProfession = profession.expansionSubProfession[expansion.id];
+        )
+    );
+    let subProfession = $derived(profession.expansionSubProfession[expansion.id]);
 
-        characters = [];
+    let characters = $derived.by(() => {
+        const ret: Character[] = [];
+
         const collectorIds =
             settingsState.value.professions.collectingCharactersV2?.[profession.id] || [];
         const validCollectors = collectorIds
             .map((collectorId) => userState.general.characterById[collectorId])
             .filter((char) => !!char);
         if (validCollectors.length > 0) {
-            characters.push(null);
-            characters.push(...validCollectors);
+            ret.push(null);
+            ret.push(...validCollectors);
         }
 
-        const professionCharacters = userState.general.visibleCharacters.filter((char) =>
-            useCharacterFilter(
-                settingsState.value,
-                (c) =>
-                    !collectorIds.includes(c.id) &&
-                    !!c.professions?.[profession.id]?.subProfessions?.[subProfession.id],
-                char,
-                $newNavState.characterFilter
-            )
-        );
-        if (professionCharacters.length > 0) {
-            characters.push(null);
+        if (!browserState.current.professions.recipesOnlyCollectors) {
+            const professionCharacters = userState.general.visibleCharacters.filter((char) =>
+                useCharacterFilter(
+                    settingsState.value,
+                    (c) =>
+                        !collectorIds.includes(c.id) &&
+                        !!c.professions?.[profession.id]?.subProfessions?.[subProfession.id],
+                    char,
+                    $newNavState.characterFilter
+                )
+            );
+            if (professionCharacters.length > 0) {
+                ret.push(null);
 
-            professionCharacters.sort((a, b) => {
-                if (a.level !== b.level) {
-                    return b.level - a.level;
-                }
-                return a.name.localeCompare(b.name);
-            });
-            characters.push(...professionCharacters);
+                professionCharacters.sort((a, b) => {
+                    if (a.level !== b.level) {
+                        return b.level - a.level;
+                    }
+                    return a.name.localeCompare(b.name);
+                });
+                ret.push(...professionCharacters);
+            }
         }
 
-        colspan = 3 + characters.length;
-    }
+        return ret;
+    });
+
+    let colspan = $derived(characters.length + 3);
 
     const getAbilities = (
         category: StaticDataProfessionCategory,
@@ -167,8 +175,13 @@
             <th colspan="3">
                 <Checkbox
                     name="include_trainer_recipes"
-                    bind:value={$professionsRecipesState.includeTrainerRecipes}
+                    bind:value={browserState.current.professions.recipesIncludeTrainer}
                     >Include discovered/trainer recipes</Checkbox
+                >
+                <Checkbox
+                    name="only_collectors"
+                    bind:value={browserState.current.professions.recipesOnlyCollectors}
+                    >Only collectors</Checkbox
                 >
             </th>
             {#each characters as character}
@@ -194,7 +207,7 @@
         {#each categoryChildren as category}
             {@const abilities = getAbilities(
                 category,
-                $professionsRecipesState.includeTrainerRecipes
+                browserState.current.professions.recipesIncludeTrainer
             )}
             {#if abilities.length > 0}
                 <tr class="spacer">
