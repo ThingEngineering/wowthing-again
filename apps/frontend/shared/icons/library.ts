@@ -7,6 +7,8 @@ export { default as emojiZzz } from '~icons/emojione-monotone/zzz';
 
 export { default as faDungeon } from '~icons/fa-solid/dungeon';
 
+export { default as fluentSelectAllOff } from '~icons/fluent/select-all-off-24-regular';
+export { default as fluentSelectAllOn } from '~icons/fluent/select-all-on-24-filled';
 export { default as fluentAngryFaceWithHorns } from '~icons/fluent-emoji-high-contrast/angry-face-with-horns';
 
 export { default as gameAbstract024 } from '~icons/game-icons/abstract-024';
