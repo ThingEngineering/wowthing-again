@@ -23,11 +23,13 @@ export function toNiceDuration(milliseconds: number, options?: Options): string 
         parts.push(`${duration.days}d`);
     }
     if (duration.days < maxDays) {
-        if (duration.hours > 0 || (includeZero && parts.length >= 1)) {
-            parts.push(`${duration.hours < 10 ? space : ''}${duration.hours}h`);
+        const hours = Math.max(0, duration.hours);
+        const minutes = Math.max(0, duration.minutes);
+        if (hours > 0 || (includeZero && parts.length >= 1)) {
+            parts.push(`${hours < 10 ? space : ''}${hours}h`);
         }
-        if (duration.minutes > 0 || includeZero) {
-            parts.push(`${duration.minutes < 10 ? space : ''}${duration.minutes}m`);
+        if (minutes > 0 || (includeZero && parts.length >= 1)) {
+            parts.push(`${minutes < 10 ? space : ''}${minutes}m`);
         }
     }
 
