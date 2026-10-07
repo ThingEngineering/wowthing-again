@@ -71,7 +71,18 @@ export function isRecipeKnown(
             });
         }
 
-        // TODO: different specialization
+        // TODO: fix this TBC hack to handle Aldor/Scryer split properly
+        for (const itemId of abilityInfo.itemIds) {
+            const item = wowthingData.items.items[itemId];
+            if (item?.expansion === 1) {
+                return collectorIds.slice(1).some((collectorId) => {
+                    const collectorData = isKnownRecipeData[collectorId];
+                    return collectorData?.[1].has(abilityInfo.abilityId);
+                });
+            }
+        }
+
+        // TODO: handle different specialization
     } else {
         return !!characterIdsByAbilityId[abilityInfo.abilityId];
     }
