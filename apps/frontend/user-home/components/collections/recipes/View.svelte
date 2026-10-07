@@ -26,12 +26,11 @@
         const retCategory = profession.expansionCategory[expansionId].children[0];
         const retSubCategories: [StaticDataProfessionCategory, UserCount][] = [];
         for (const subCategory of retCategory.children) {
-            if (subCategory.abilities.length === 0) {
-                continue;
-            }
-
             const subStats =
                 userState.recipes.stats[`${professionSlug}--${expansionSlug}--${subCategory.id}`];
+            if (!subStats || subStats.total === 0) {
+                continue;
+            }
 
             let anyShown = false;
             for (const ability of subCategory.abilities) {

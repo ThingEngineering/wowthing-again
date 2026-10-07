@@ -4,9 +4,13 @@
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
 
-    let categories: SidebarItem[];
-    $: {
-        categories = [
+    let categories = $derived.by(() => {
+        const ret: SidebarItem[] = [
+            {
+                name: 'Browse',
+                slug: 'browse',
+            },
+            null,
             {
                 name: 'Buy Missing',
                 slug: 'missing',
@@ -70,20 +74,22 @@
         ];
 
         if (settingsState.value.auctions.customCategories?.length > 0) {
-            categories.push(null);
+            ret.push(null);
             for (
                 let catIndex = 0;
                 catIndex < settingsState.value.auctions.customCategories.length;
                 catIndex++
             ) {
-                categories.push({
+                ret.push({
                     name: settingsState.value.auctions.customCategories[catIndex].name,
                     slug: `custom-${catIndex + 1}`,
                     forceWildcard: true,
                 });
             }
         }
-    }
+
+        return ret;
+    });
 </script>
 
 <Sidebar baseUrl="/auctions" items={categories} width="14rem" />

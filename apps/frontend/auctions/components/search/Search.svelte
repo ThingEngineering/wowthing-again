@@ -7,7 +7,10 @@
     import Results from '@/auctions/components/results/Results.svelte';
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
 
-    let { params }: ParamsSlugsProps = $props();
+    type Props = ParamsSlugsProps & {
+        baseUrlPrefix?: string;
+    };
+    let { baseUrlPrefix, params }: Props = $props();
 
     let searchString = $derived(params.slug2);
 </script>
@@ -39,7 +42,7 @@
         <Results
             loadFunc={async () => await searchStore.search($auctionsAppState, searchString)}
             selected={params.slug3}
-            url={`#/search/${params.slug1}/${searchString}`}
+            url={`#${baseUrlPrefix || ''}/search/${params.slug1}/${searchString}`}
         />
     {/if}
 </div>

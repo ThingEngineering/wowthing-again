@@ -10,12 +10,11 @@ import {
     type UserAuctionDataMissingTransmogAuctionArray,
     UserAuctionDataMissingTransmogAuction,
 } from '@/types/data';
-import type { UserData } from '@/types';
 import type { Settings } from '@/shared/stores/settings/types';
+import type { DataUserGeneral } from '@/user-home/state/user/general.svelte';
 
 import type { AuctionState } from '../local-storage';
 import type { UserAuctionEntry } from '../user-auctions';
-import type { DataUserGeneral } from '@/user-home/state/user/general.svelte';
 
 export class UserAuctionMissingTransmogDataStore {
     private static url = '/api/auctions/missing-appearance-';

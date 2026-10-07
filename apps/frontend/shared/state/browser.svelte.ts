@@ -118,6 +118,8 @@ interface BrowserStateIdk {
     };
     professions: {
         patronOrdersUnknown: boolean;
+        recipesIncludeTrainer: boolean;
+        recipesOnlyCollectors: boolean;
     };
     reputations: {
         sortOrder: Record<string, number[]>;
@@ -284,6 +286,8 @@ const initialState: BrowserStateIdk = {
     },
     professions: {
         patronOrdersUnknown: true,
+        recipesIncludeTrainer: true,
+        recipesOnlyCollectors: false,
     },
     reputations: {
         sortOrder: {},

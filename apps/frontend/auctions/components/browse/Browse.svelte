@@ -10,14 +10,18 @@
     import type { AuctionCategory } from '@/types/data/auction';
 
     import Results from '@/auctions/components/results/Results.svelte';
-    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
 
-    export let params: MultiSlugParams;
+    type Props = {
+        baseUrlPrefix?: string;
+        params: MultiSlugParams;
+    };
+    let { baseUrlPrefix, params }: Props = $props();
 
-    let categories: AuctionCategory[];
-    let category: AuctionCategory;
-    let selected: string;
-    $: {
+    let [categories, category, selected] = $derived.by(() => {
+        let retCategories: AuctionCategory[];
+        let retCategory: AuctionCategory;
+        let retSelected: string;
+
         const usefulParams = [params.slug2, params.slug3, params.slug4, params.slug5].filter(
             (slug) => !!slug
         );
@@ -44,18 +48,25 @@
         }
 
         if (
-            !categories ||
-            categories.map((c) => c.slug).join('|') !== newCategories.map((c) => c.slug).join('|')
+            !retCategories ||
+            retCategories.map((c) => c.slug).join('|') !==
+                newCategories.map((c) => c.slug).join('|')
         ) {
-            categories = newCategories;
+            retCategories = newCategories;
         }
-        if (newCategory?.id !== category?.id) {
-            category = newCategory;
+        if (newCategory?.id !== retCategory?.id) {
+            retCategory = newCategory;
         }
-        if (newSelected !== selected) {
-            selected = newSelected;
+        if (newSelected !== retSelected) {
+            retSelected = newSelected;
         }
-    }
+
+        return [retCategories, retCategory, retSelected];
+    });
+
+    let loadFunc = $derived(
+        async () => await browseStore.fetch($auctionsAppState, $auctionStore, category.id)
+    );
 
     onMount(() => {
         if (params.slug1) {
@@ -63,12 +74,14 @@
             const newRegion = Region[params.slug1.toUpperCase() as keyof typeof Region];
             if (oldRegion !== newRegion) {
                 $auctionsAppState.region = newRegion;
-                replace(
-                    router.location.replace(
-                        `/${Region[oldRegion].toLowerCase()}/`,
-                        `/${Region[newRegion].toLowerCase()}/`
-                    )
-                );
+                if (oldRegion) {
+                    replace(
+                        router.location.replace(
+                            `/${Region[oldRegion].toLowerCase()}/`,
+                            `/${Region[newRegion].toLowerCase()}/`
+                        )
+                    );
+                }
             }
         }
     });
@@ -86,15 +99,13 @@
 </style>
 
 <div class="wrapper-column">
-    <UnderConstruction />
-
     {#if category?.browseable}
         <div class="header">
             <span>
                 <code>[{Region[$auctionsAppState.region]}]</code>
-                Search
+                Browse
             </span>
-            {#each categories as category, categoryIndex}
+            {#each categories as category, categoryIndex (category.id)}
                 <span>&gt;</span>
                 <a
                     href="#/browse/{params.slug1}/{categories
@@ -108,9 +119,8 @@
         </div>
 
         <Results
-            loadFunc={async () =>
-                await browseStore.fetch($auctionsAppState, $auctionStore, category.id)}
-            url={`#/browse/${params.slug1}/${categories.map((c) => c.slug).join('/')}`}
+            url={`#${baseUrlPrefix || ''}/browse/${params.slug1}/${categories.map((c) => c.slug).join('/')}`}
+            {loadFunc}
             {selected}
         />
     {/if}
