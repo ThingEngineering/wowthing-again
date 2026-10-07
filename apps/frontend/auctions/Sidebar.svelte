@@ -10,12 +10,18 @@
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
 
+    let { baseUrlPrefix }: { baseUrlPrefix: string } = $props();
+
     let searchValue: string;
+
+    let baseUrl = $derived(
+        `${baseUrlPrefix || ''}/browse/${Region[$auctionsAppState.region].toLowerCase()}`
+    );
 
     const onSubmit = async function () {
         if (searchValue?.trim()?.length > 0) {
             replace(
-                `/search/${Region[$auctionsAppState.region].toLowerCase()}/${encodeURIComponent(searchValue)}`
+                `${baseUrlPrefix || ''}/search/${Region[$auctionsAppState.region].toLowerCase()}/${encodeURIComponent(searchValue)}`
             );
         }
     };
@@ -67,16 +73,10 @@
 </style>
 
 {#key $auctionsAppState.region}
-    <Sidebar
-        baseUrl={`/browse/${Region[$auctionsAppState.region].toLowerCase()}`}
-        items={$auctionStore.categories}
-        scrollable={true}
-        width="16rem"
-        {dataFunc}
-    >
+    <Sidebar {baseUrl} items={$auctionStore.categories} scrollable={true} width="16rem" {dataFunc}>
         <div slot="before" class="before">
             <div class="regions">
-                {#each ['us', 'eu', 'kr', 'tw'] as region}
+                {#each ['us', 'eu', 'kr', 'tw'] as region (region)}
                     <button
                         class="border"
                         class:active={Region[$auctionsAppState.region].toLowerCase() === region}

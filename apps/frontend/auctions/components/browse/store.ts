@@ -9,7 +9,7 @@ class BrowseStore {
     async fetch(
         auctionAppState: AuctionsAppState,
         auctionData: AuctionData,
-        categoryId: number,
+        categoryId: number
     ): Promise<AuctionEntry[]> {
         let things: AuctionEntry[] = [];
 

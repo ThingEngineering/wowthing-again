@@ -13,6 +13,7 @@
     import { userState } from '@/user-home/state/user';
     import type { MultiSlugParams } from '@/types';
 
+    import AuctionsMain from '@/auctions/Main.svelte';
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import Commodities from './commodities/Commodities.svelte';
     import Custom from './AuctionsCustom.svelte';
@@ -150,104 +151,108 @@
 </style>
 
 <div class="auctions" bind:this={auctionsContainer}>
-    <div class="options-container border">
-        <div class="options-group">
-            Sort:
-            <RadioGroup
-                bind:value={$auctionState.sortBy[`${params.slug1}-${params.slug2}`]}
-                name="sort_by"
-                options={[
-                    ['name_up', 'Name :arrow-up:'],
-                    ['name_down', 'Name :arrow-down:'],
-                    ['price_up', 'Price :arrow-up:'],
-                    ['price_down', 'Price :arrow-down:'],
-                ]}
-            />
-        </div>
-
-        <div class="options-group">
-            Region:
-            <RadioGroup bind:value={$auctionState.region} name="region" options={regions} />
-
-            {#if $auctionState.region === '3'}
-                <Checkbox name="include_russia" bind:value={$auctionState.includeRussia}
-                    >Include RU</Checkbox
-                >
-            {/if}
-        </div>
-
-        {#if params.slug1 === 'missing'}
+    {#if params.slug1 !== 'browse' && params.slug1 !== 'search'}
+        <div class="options-container border">
             <div class="options-group">
-                <Checkbox name="all_realms" bind:value={$auctionState.allRealms}
-                    >All realms</Checkbox
-                >
+                Sort:
+                <RadioGroup
+                    bind:value={$auctionState.sortBy[`${params.slug1}-${params.slug2}`]}
+                    name="sort_by"
+                    options={[
+                        ['name_up', 'Name :arrow-up:'],
+                        ['name_down', 'Name :arrow-down:'],
+                        ['price_up', 'Price :arrow-up:'],
+                        ['price_down', 'Price :arrow-down:'],
+                    ]}
+                />
             </div>
 
-            {#if params.slug2 && !params.slug2.startsWith('appearance-') && params.slug2 !== 'recipes'}
+            <div class="options-group">
+                Region:
+                <RadioGroup bind:value={$auctionState.region} name="region" options={regions} />
+
+                {#if $auctionState.region === '3'}
+                    <Checkbox name="include_russia" bind:value={$auctionState.includeRussia}
+                        >Include RU</Checkbox
+                    >
+                {/if}
+            </div>
+
+            {#if params.slug1 === 'missing'}
                 <div class="options-group">
-                    <Checkbox name="hide_ignored" bind:value={$auctionState.hideIgnored}
-                        >Hide ignored</Checkbox
+                    <Checkbox name="all_realms" bind:value={$auctionState.allRealms}
+                        >All realms</Checkbox
+                    >
+                </div>
+
+                {#if params.slug2 && !params.slug2.startsWith('appearance-') && params.slug2 !== 'recipes'}
+                    <div class="options-group">
+                        <Checkbox name="hide_ignored" bind:value={$auctionState.hideIgnored}
+                            >Hide ignored</Checkbox
+                        >
+                    </div>
+                {/if}
+            {/if}
+
+            {#if actualSlug.startsWith('missing-appearance-') || actualSlug === 'missing-recipes'}
+                <div class="options-group">
+                    <Checkbox
+                        name="limit_to_cheapest_realm"
+                        bind:value={$auctionState.limitToCheapestRealm}>Only cheapest</Checkbox
+                    >
+                </div>
+                <div class="options-group">
+                    <Checkbox name="show_dont_have" bind:value={$auctionState.showDontHave}
+                        >Don't have</Checkbox
+                    >
+
+                    <Checkbox name="show_have" bind:value={$auctionState.showHave}>Have</Checkbox>
+                </div>
+            {:else if actualSlug === 'sell-commodities'}
+                <div class="options-group">
+                    <Checkbox
+                        name="current_expansion"
+                        bind:value={browserState.current.auctions.commoditiesCurrentExpansion}
+                        >Current expansion only</Checkbox
+                    >
+                </div>
+            {:else}
+                <div class="options-group">
+                    <Checkbox name="include_bids" bind:value={$auctionState.includeBids}
+                        >Include bids</Checkbox
+                    >
+
+                    <Checkbox
+                        name="limit_to_best_realms"
+                        bind:value={$auctionState.limitToBestRealms}>Only top 5</Checkbox
                     >
                 </div>
             {/if}
-        {/if}
 
-        {#if actualSlug.startsWith('missing-appearance-') || actualSlug === 'missing-recipes'}
-            <div class="options-group">
-                <Checkbox
-                    name="limit_to_cheapest_realm"
-                    bind:value={$auctionState.limitToCheapestRealm}>Only cheapest</Checkbox
-                >
-            </div>
-            <div class="options-group">
-                <Checkbox name="show_dont_have" bind:value={$auctionState.showDontHave}
-                    >Don't have</Checkbox
-                >
+            {#if actualSlug === 'sell-extra-pets'}
+                <div class="options-group">
+                    Extra pets:
+                    <Checkbox
+                        name="extra_pets_ignore_journal"
+                        bind:value={$auctionState.extraPetsIgnoreJournal}>Ignore journal</Checkbox
+                    >
+                </div>
+            {:else if actualSlug === 'missing-pets'}
+                <div class="options-group">
+                    <Checkbox name="pets_max_level" bind:value={$auctionState.missingPetsMaxLevel}
+                        >Only level 25</Checkbox
+                    >
 
-                <Checkbox name="show_have" bind:value={$auctionState.showHave}>Have</Checkbox>
-            </div>
-        {:else if actualSlug === 'sell-commodities'}
-            <div class="options-group">
-                <Checkbox
-                    name="current_expansion"
-                    bind:value={browserState.current.auctions.commoditiesCurrentExpansion}
-                    >Current expansion only</Checkbox
-                >
-            </div>
-        {:else}
-            <div class="options-group">
-                <Checkbox name="include_bids" bind:value={$auctionState.includeBids}
-                    >Include bids</Checkbox
-                >
-
-                <Checkbox name="limit_to_best_realms" bind:value={$auctionState.limitToBestRealms}
-                    >Only top 5</Checkbox
-                >
-            </div>
-        {/if}
-
-        {#if actualSlug === 'sell-extra-pets'}
-            <div class="options-group">
-                Extra pets:
-                <Checkbox
-                    name="extra_pets_ignore_journal"
-                    bind:value={$auctionState.extraPetsIgnoreJournal}>Ignore journal</Checkbox
-                >
-            </div>
-        {:else if actualSlug === 'missing-pets'}
-            <div class="options-group">
-                <Checkbox name="pets_max_level" bind:value={$auctionState.missingPetsMaxLevel}
-                    >Only level 25</Checkbox
-                >
-
-                <Checkbox
-                    name="pets_need_max_level"
-                    disabled={!$auctionState.missingPetsMaxLevel}
-                    bind:value={$auctionState.missingPetsNeedMaxLevel}>If missing level 25</Checkbox
-                >
-            </div>
-        {/if}
-    </div>
+                    <Checkbox
+                        name="pets_need_max_level"
+                        disabled={!$auctionState.missingPetsMaxLevel}
+                        bind:value={$auctionState.missingPetsNeedMaxLevel}
+                        >If missing level 25</Checkbox
+                    >
+                </div>
+            {/if}
+        </div>
+    {/if}
 
     {#if actualSlug.startsWith('missing-appearance-')}
         <div class="options-wrapper">
@@ -474,11 +479,17 @@
         </div>
     {/if}
 
-    <svelte:component
-        this={componentMap[actualSlug]}
-        slug1={actualSlug}
-        slug2={params.slug3}
-        {auctionsContainer}
-        {page}
-    />
+    {#if params.slug1 === 'browse' || params.slug1 === 'search'}
+        <div class="view">
+            <AuctionsMain baseUrlPrefix="/auctions" />
+        </div>
+    {:else}
+        <svelte:component
+            this={componentMap[actualSlug]}
+            slug1={actualSlug}
+            slug2={params.slug3}
+            {auctionsContainer}
+            {page}
+        />
+    {/if}
 </div>

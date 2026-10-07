@@ -30,7 +30,7 @@
         '/table': HomeTable,
 
         // Larger/less used components are dynamically loaded for code-splitting
-        '/auctions/:slug1?/:slug2?/:slug3?': wrap({
+        '/auctions/:slug1?/:slug2?/:slug3?/:slug4?/:slug5?/:slug6?/:slug7?': wrap({
             asyncComponent: () => import('@/components/auctions/Auctions.svelte'),
         }),
         '/characters/:slug1?/:slug2?/:slug3?/:slug4?/:slug5?/:slug6?': wrap({

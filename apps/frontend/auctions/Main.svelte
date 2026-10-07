@@ -10,6 +10,8 @@
     import Routes from './Routes.svelte';
     import Sidebar from './Sidebar.svelte';
 
+    let { baseUrlPrefix }: { baseUrlPrefix?: string } = $props();
+
     let ready = $state(false);
 
     onMount(async () => {
@@ -34,6 +36,6 @@
 {#if !ready}
     <p>L O A D I N G</p>
 {:else}
-    <Sidebar />
-    <Routes />
+    <Sidebar {baseUrlPrefix} />
+    <Routes {baseUrlPrefix} />
 {/if}

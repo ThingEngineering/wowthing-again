@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { hiddenSkillLineAbilitySpellIds } from '@/data/professions/hidden';
     import { BindType } from '@/enums/bind-type';
     import { Faction } from '@/enums/faction';
     import { iconLibrary } from '@/shared/icons';
@@ -8,6 +9,7 @@
         StaticDataProfessionAbility,
         StaticDataSubProfession,
     } from '@/shared/stores/static/types';
+    import type { Character } from '@/types/character';
 
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
@@ -15,9 +17,6 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
-    import type { Character } from '@/types/character';
-    import { hiddenSkillLineAbilitySpellIds } from '@/data/professions/hidden';
-    import { userState } from '@/user-home/state/user';
 
     type Props = {
         ability: StaticDataProfessionAbility;
