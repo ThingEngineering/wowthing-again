@@ -40,6 +40,10 @@ export const everythingData: Record<string, EverythingData> = {
         tag: 'event:free-tshirt-day',
         vendorsKey: ['world-events', 'free-t-shirt-day'],
     },
+    'great-gnomeregan-run': {
+        name: 'Great Gnomeregan Run',
+        tag: 'event:great-gnomeregan-run',
+    },
     'hallows-end': {
         name: "Hallow's End",
         tag: 'event:hallows-end',
