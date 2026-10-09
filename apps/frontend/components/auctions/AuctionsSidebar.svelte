@@ -9,6 +9,7 @@
             {
                 name: 'Browse',
                 slug: 'browse',
+                forceWildcard: true,
             },
             null,
             {

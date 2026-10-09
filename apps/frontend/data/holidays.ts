@@ -47,6 +47,7 @@ export const holidayIds: Record<number, [number[], number[]?]> = {
     [Holiday.DarkspearDash]: [[458]],
     [Holiday.DayOfTheDead]: [[81]],
     [Holiday.FreeTshirtDay]: [[393]],
+    [Holiday.GreatGnomereganRun]: [[266]],
     [Holiday.HallowsEnd]: [[16]],
     [Holiday.LoveIsInTheAir]: [[9]],
     [Holiday.LunarFestival]: [[18]],
@@ -133,6 +134,11 @@ export const fancyHolidays: FancyHoliday[] = [
         holiday: Holiday.FreeTshirtDay,
         shortName: '👕',
         everything: 'free-tshirt-day',
+    },
+    {
+        holiday: Holiday.GreatGnomereganRun,
+        shortName: '🧙‍♂️',
+        everything: 'great-gnomeregan-run',
     },
     {
         holiday: Holiday.HallowsEnd,

@@ -6,6 +6,7 @@ export enum Holiday {
     DarkspearDash,
     DayOfTheDead,
     FreeTshirtDay,
+    GreatGnomereganRun,
     HallowsEnd,
     LoveIsInTheAir,
     LunarFestival,
