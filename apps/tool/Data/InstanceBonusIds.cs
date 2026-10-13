@@ -255,6 +255,7 @@ public static partial class Hardcoded
         { 1305, MidnightRaid }, // Sporefall
         { 1317, MidnightWorldBoss2 }, // The Tidebound Grotto (world boss lair)
         { 1320, MidnightRaid }, // The Venomous Abyss
+        { 1324, MidnightRaid }, // The Unbinding of Kith'ix
     };
 }
 
