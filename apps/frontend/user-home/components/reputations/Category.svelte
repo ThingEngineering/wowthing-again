@@ -18,7 +18,10 @@
         for (let setIndex = 0; setIndex < reputationSets.length; setIndex++) {
             const reputationSet = reputationSets[setIndex];
             const hasAccountWide = reputationSet.some(
-                (rep) => wowthingData.static.reputationById.get(rep.both?.id)?.accountWide
+                (rep) =>
+                    wowthingData.static.reputationById.get(
+                        rep.both?.id || rep.alliance?.id || rep.horde?.id
+                    )?.accountWide
             );
             (hasAccountWide ? accountRet : characterRet).push([reputationSet, setIndex]);
         }
