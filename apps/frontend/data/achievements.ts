@@ -441,6 +441,29 @@ export const extraCategories: ExtraAchievementCategory[] = [
                     41597, // Glory of the Omega Raider
                 ],
             },
+            {
+                targetSlug: 'player-vs-player/world',
+                nameType: 1,
+                onlyAchievementIds: true,
+                achievementIds: [
+                    40087, // Unbound Battle
+                    40097, // Ruffious's Bid
+                    40088, // A Champion's Tour: The War Within
+                    40086, // Tour of Duty: Azj-Kahet
+                    40085, // Tour of Duty: Hallowfall
+                    40084, // Tour of Duty: The Ringing Deeps
+                    40083, // Tour of Duty: Isle of Dorn
+                    40089, // Spoiled Goods 1
+                    40090, // Spoiled Goods 2
+                    40091, // Slightly Spoiled
+                    41522, // Tour of Duty: Undermine
+                    42131, // Tour of Duty: K'aresh
+                    40468, // Unbound Glory 1
+                    40466, // Unbound Glory 2
+                    40467, // Unbound Glory 3
+                    40465, // Unbound Bounty
+                ],
+            },
             null,
             {
                 targetSlug: 'expansion-features/skyriding',
@@ -483,14 +506,28 @@ export const extraCategories: ExtraAchievementCategory[] = [
             {
                 targetSlug: 'delves/midnight',
                 nameType: 1,
-                achievementIds: [],
+                achievementIds: [
+                    63718, // Lock and Key
+                    63719, // Lock and Key Master
+                    63720, // Happy Hexmask Collector
+                    63721, // The Labyrinth of Kindo'jan
+                    63722, // Whose Labyrinth?
+                    63723, // My Labyrinth
+                    63724, // Knock Knock
+                    63717, // Kindo'jan's Labyrinth Discoveries
+                    63727, // Treasures Upon Treasures
+                    63728, // A Few More Can't Hurt
+                ],
             },
             {
                 targetSlug: 'dungeons-raids/midnight-dungeon',
                 nameType: 3,
                 overrideName: 'Dungeons',
                 overrideSlug: 'dungeons',
-                achievementIds: [61567, 61568],
+                achievementIds: [
+                    61567, // Midnight Dungeon Hero
+                    61568, // Glory of the Midnight Hero
+                ],
             },
             {
                 targetSlug: 'dungeons-raids/midnight-raid',
@@ -499,6 +536,7 @@ export const extraCategories: ExtraAchievementCategory[] = [
                 overrideSlug: 'raids',
                 achievementIds: [
                     61380, // Glory of the Midnight Raider
+                    63254, // Glory of the Venomous Raider
                 ],
             },
             {
