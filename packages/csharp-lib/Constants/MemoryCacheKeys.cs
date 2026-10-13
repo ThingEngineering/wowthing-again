@@ -6,6 +6,7 @@ public static class MemoryCacheKeys
     public const string AuctionConnectedRealms = "auction-connected-realms";
     public const string AuctionHouseUpdatedTimes = "auction-house-updated-times";
     public const string BackgroundImages = "background-images";
+    public const string ConnectedRealmIds = "connected-realm-ids";
     public const string DecorItems = "decor-items";
     public const string DynamicData = "dynamic-data:{0}";
     public const string ItemBonuses = "item-bonuses";
@@ -15,6 +16,8 @@ public static class MemoryCacheKeys
     public const string Periods = "periods";
     public const string PetIds = "petIds";
     public const string ProfessionRecipeItems = "profession-recipe-items";
+    public const string RecipeAuctions = "recipe-auctions:{0}";
+    public const string RecipeIds = "recipe-ids";
     public const string TrustedRole = "trusted-role";
     public const string User = "user:{0}";
     public const string UserModified = "user-modified:{0}";

@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Net.Mime;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Memory;
 using StackExchange.Redis;
@@ -8,6 +9,7 @@ using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Services;
+using Wowthing.Web.Models;
 using Wowthing.Web.Models.Api;
 
 namespace Wowthing.Web.Services;
@@ -102,6 +104,33 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
                 }
 
                 return ret;
+            }
+        );
+    }
+
+    public async Task<Dictionary<WowRegion, int[]>> GetConnectedRealms()
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            MemoryCacheKeys.ConnectedRealmIds,
+            async cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(60);
+
+                var allRealms = await _context.WowRealm
+                    .AsNoTracking()
+                    .Where(realm => realm.ConnectedRealmId > 0)
+                    .ToArrayAsync();
+
+                return allRealms
+                    .GroupBy(realm => realm.Region)
+                    .ToDictionary(
+                        group => group.Key,
+                        group => group
+                            .Select(realm => realm.ConnectedRealmId)
+                            .Distinct()
+                            .Order()
+                            .ToArray()
+                    );
             }
         );
     }
@@ -234,6 +263,10 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
             });
     }
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <returns>A nested dictionary of { skillLineId, { skillLineAbilityId, itemIds } } </returns>
     public async Task<Dictionary<int, Dictionary<int, int[]>>> GetProfessionRecipeItems()
     {
         return await _memoryCache.GetOrCreateAsync(
@@ -348,5 +381,35 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
             task => Math.Max(0, task.Value.Result.Item2.ToUnixTimeSeconds())
         );
         return JsonSerializer.Serialize(times);
+    }
+
+    public async Task<UserAuctionData> GetRecipeAuctions(short regionId, int[] connectedRealmIds, HashSet<int> allRecipeItemIds)
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            string.Format(MemoryCacheKeys.RecipeAuctions, regionId),
+            async cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
+
+                var auctions = await _context.WowAuction
+                    .AsNoTracking()
+                    .Where(auction => connectedRealmIds.Contains(auction.ConnectedRealmId))
+                    .Where(auction => allRecipeItemIds.Contains(auction.ItemId))
+                    .ToArrayAsync();
+
+                return new UserAuctionData
+                {
+                    RawAuctions = auctions
+                        .GroupBy(auction => auction.ItemId)
+                        .ToDictionary(
+                            group => group.Key,
+                            group => group
+                                .Where(auction => auction.BuyoutPrice > 0)
+                                .OrderBy(auction => auction.BuyoutPrice)
+                                .Take(5)
+                                .ToList()
+                        )
+                };
+            });
     }
 }

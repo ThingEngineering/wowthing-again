@@ -21,6 +21,7 @@
     import Missing from './AuctionsMissing.svelte';
     import MissingBigResults from './AuctionsMissingBigResults.svelte';
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte';
+    import Recipes from './recipes/Recipes.svelte';
     import Select from '@/shared/components/forms/Select.svelte';
     import SpecificItem from './AuctionsSpecificItem.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
@@ -87,6 +88,7 @@
         'missing-recipes': MissingBigResults,
         'sell-commodities': Commodities,
         'sell-extra-pets': ExtraPets,
+        'sell-recipes': Recipes,
         'specific-item': SpecificItem,
     };
 

@@ -6,8 +6,7 @@ export class CommodityAuctionsStore {
     private static url = '/api/auctions/commodities';
     private cache: CommodityData = null;
 
-    async fetch() // auctionState: AuctionState
-    : Promise<CommodityData> {
+    async fetch(): Promise<CommodityData> {
         let ret: CommodityData;
 
         if (this.cache !== null) {
