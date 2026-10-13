@@ -87,6 +87,12 @@
                     reputationSetsIndex,
                     slug,
                 })}
+                {@const repId =
+                    reputationSet.both?.id || reputationSet.alliance?.id || reputationSet.horde?.id}
+                {@const repIcon =
+                    reputationSet.both?.icon ||
+                    reputationSet.alliance?.icon ||
+                    reputationSet.horde?.icon}
                 <div
                     class="account-rep {cls} flex-wrapper"
                     use:componentTooltip={{
@@ -100,8 +106,8 @@
                     }}
                 >
                     <div class="icon">
-                        <WowheadLink type="faction" id={reputationSet.both.id}>
-                            <WowthingImage name={reputationSet.both.icon} size={48} border={2} />
+                        <WowheadLink type="faction" id={repId}>
+                            <WowthingImage name={repIcon} size={48} border={2} />
                         </WowheadLink>
                     </div>
                     <div class="data">

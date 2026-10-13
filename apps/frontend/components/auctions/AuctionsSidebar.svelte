@@ -66,6 +66,10 @@
                         slug: 'commodities',
                     },
                     {
+                        name: 'Recipes',
+                        slug: 'recipes',
+                    },
+                    {
                         name: 'Extra Pets',
                         slug: 'extra-pets',
                         forceWildcard: true,

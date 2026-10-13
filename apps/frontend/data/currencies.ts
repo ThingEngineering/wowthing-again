@@ -218,7 +218,7 @@ export const currencyExtra: Record<number, number[]> = {
         3028, // Restored Coffer Key
         2803, // Undercoin
         3356, // Untainted Mana-Crystals
-        3513, // Nebulous Voidcore (new?)
+        3418, // Nebulous Voidcore
         null,
         3442, // Adventurer Mistcrest
         3443, // Veteran Mistcrest

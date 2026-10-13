@@ -227,6 +227,48 @@ public class AuctionService
         return data;
     }
 
+    public async Task<Dictionary<short, UserAuctionData>> RecipesDataForUser(ApplicationUser user, JankTimer timer = null)
+    {
+        int[] realmIds = await _context.PlayerCharacter
+            .AsNoTracking()
+            .Where(pc => pc.Account.UserId == user.Id &&
+                         pc.Account.Enabled)
+            .Select(pc => pc.RealmId)
+            .Distinct()
+            .ToArrayAsync();
+
+        short[] regions = await _context.WowRealm
+            .AsNoTracking()
+            .Where(wr => realmIds.Contains(wr.Id))
+            .Select(wr => (short)wr.Region)
+            .Distinct()
+            .ToArrayAsync();
+
+        var allRecipeItemIds = new HashSet<int>();
+        var recipeItems = await _memoryCacheService.GetProfessionRecipeItems();
+        var withoutMountsAndPets = recipeItems.Where(kvp => kvp.Key != 777 && kvp.Key != 778);
+        foreach (var (_, skillLineAbilities) in withoutMountsAndPets)
+        {
+            foreach (int[] itemIds in skillLineAbilities.Values)
+            {
+                allRecipeItemIds.UnionWith(itemIds);
+            }
+        }
+
+        var connectedRealms = await _memoryCacheService.GetConnectedRealms();
+
+        timer?.AddPoint("Setup");
+
+        var data = new Dictionary<short, UserAuctionData>();
+
+        foreach (short region in regions)
+        {
+            data[region] = await _memoryCacheService.GetRecipeAuctions(region, connectedRealms[(WowRegion)region], allRecipeItemIds);
+        }
+
+        return data;
+    }
+
     public async Task<UserAuctionData> ExtraPetDataForUser(ApplicationUser user, JankTimer timer = null)
     {
         var data = new UserAuctionData();

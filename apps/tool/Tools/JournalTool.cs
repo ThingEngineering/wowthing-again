@@ -3,6 +3,7 @@ using System.Numerics;
 using System.Reflection;
 using Serilog.Context;
 using Wowthing.Lib.Models.Wow;
+using Wowthing.Tool.Enums;
 using Wowthing.Tool.Models;
 using Wowthing.Tool.Models.Instances;
 using Wowthing.Tool.Models.Items;
@@ -661,24 +662,31 @@ public class JournalTool
                         {
                             foreach (var dataContent in dataInstanceEncounter.Contents.EmptyIfNull())
                             {
-                                var dropDifficultiesString = string.IsNullOrEmpty(dataContent.Difficulties)
-                                    ? dataInstance.Difficulties
-                                    : dataContent.Difficulties;
-                                var parts = dropDifficultiesString.Split('_');
-                                int[] dropDifficulties = parts.Skip(1)
-                                    .Select(part => _dataInstanceDifficulties[parts[0]][part])
-                                    .ToArray();
-                                difficultiesByEncounterItemId[1_000_000 + dataContent.ItemId] = dropDifficulties;
-
-                                encounterItems.Add(new DumpJournalEncounterItem
+                                if (dataContent.Action == InstanceContentAction.Add)
                                 {
-                                    ID = 1000000 + dataContent.ItemId,
-                                    DifficultyMask = 0,
-                                    FactionMask = 0,
-                                    Flags = 0,
-                                    ItemID = dataContent.ItemId,
-                                    JournalEncounterID = encounter.ID,
-                                });
+                                    var dropDifficultiesString = string.IsNullOrEmpty(dataContent.Difficulties)
+                                        ? dataInstance.Difficulties
+                                        : dataContent.Difficulties;
+                                    var parts = dropDifficultiesString.Split('_');
+                                    int[] dropDifficulties = parts.Skip(1)
+                                        .Select(part => _dataInstanceDifficulties[parts[0]][part])
+                                        .ToArray();
+
+                                    difficultiesByEncounterItemId[1_000_000 + dataContent.ItemId] = dropDifficulties;
+
+                                    encounterItems.Add(new DumpJournalEncounterItem
+                                    {
+                                        ID = 1000000 + dataContent.ItemId,
+                                        DifficultyMask = 0,
+                                        FactionMask = 0,
+                                        Flags = 0,
+                                        ItemID = dataContent.ItemId,
+                                        JournalEncounterID = encounter.ID,
+                                    });
+                                } else if (dataContent.Action == InstanceContentAction.Remove)
+                                {
+                                    encounterItems.RemoveAll(item => item.ItemID == dataContent.ItemId);
+                                }
                             }
                         }
 
