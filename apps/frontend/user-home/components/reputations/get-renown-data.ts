@@ -1,4 +1,4 @@
-import { brannHack, valeeraHack } from '@/components/tooltips/reputation/hacks';
+import { brannHack, nazjatarHack, valeeraHack } from '@/components/tooltips/reputation/hacks';
 import { Constants } from '@/data/constants';
 import { wowthingData } from '@/shared/stores/data';
 import { userState } from '@/user-home/state/user';
@@ -47,14 +47,16 @@ export function getRenownData({
     character ||= userState.general.characters[0];
 
     ret.characterRep = character.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
-    ret.dataRep = wowthingData.static.reputationById.get(ret.characterRep.reputationId);
+    ret.dataRep = wowthingData.static.reputationById.get(
+        ret.characterRep?.reputationId ||
+            reputation.both?.id ||
+            reputation.alliance?.id ||
+            reputation.horde?.id
+    );
 
     const actualCharacter = ret.dataRep.accountWide
         ? userState.general.characterById[userState.reputations[ret.dataRep.id]?.characterId]
         : character;
-
-    if (ret.dataRep.name === "Preyhunter's Journey")
-        console.log(ret, userState.reputations[ret.dataRep.id], actualCharacter.name);
 
     ret.characterRep =
         actualCharacter.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
@@ -88,15 +90,20 @@ export function getRenownData({
         ret.repTier = findReputationTier(tiers, repValue);
 
         if (
+            Constants.reputations.nazjatarFriends.includes(ret.dataRep.id) ||
             ret.dataRep.id === Constants.reputations.delveBrann ||
             ret.dataRep.id === Constants.reputations.delveValeera
         ) {
             const levelMatch = ret.repTier.name.match(/(\d{1,3})$/);
             if (levelMatch) {
-                const oof =
-                    ret.dataRep.id === Constants.reputations.delveBrann
-                        ? brannHack(levelMatch[1])
-                        : valeeraHack(levelMatch[1]);
+                let oof: number;
+                if (Constants.reputations.nazjatarFriends.includes(ret.dataRep.id)) {
+                    oof = nazjatarHack(levelMatch[1]);
+                } else if (ret.dataRep.id === Constants.reputations.delveBrann) {
+                    oof = brannHack(levelMatch[1]);
+                } else {
+                    oof = valeeraHack(levelMatch[1]);
+                }
                 ret.cls = `reputation${oof} reputation${oof}-border`;
 
                 // Brann hack to treat him as blocks of 10 levels
@@ -126,6 +133,13 @@ export function getRenownData({
                 }
             }
         }
+    }
+
+    if (
+        (ret.dataRep?.id >= 2375 && ret.dataRep?.id <= 2377) ||
+        (ret.dataRep?.id >= 2388 && ret.dataRep?.id < 2390)
+    ) {
+        console.log(ret);
     }
 
     return ret;

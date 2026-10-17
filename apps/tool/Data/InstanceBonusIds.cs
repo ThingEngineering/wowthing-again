@@ -143,10 +143,12 @@ public static partial class Hardcoded
 
     private static readonly Dictionary<int, int> MidnightRaid = new()
     {
-        { 14, 13471 }, // Normal
-        { 15, 13472 }, // Heroic
-        { 16, 13473 }, // Mythic
-        { 17, 13470 }, // LFR
+        { (int)WowDifficulty.RaidLookingForRaid, 13470 },
+        { (int)WowDifficulty.RaidWorld, 13470 },
+        { (int)WowDifficulty.RaidNormal, 13471 },
+        { (int)WowDifficulty.RaidHeroic, 13472 },
+        { (int)WowDifficulty.RaidMythic, 13473 },
+        { (int)WowDifficulty.RaidMythicFlex, 13473 },
     };
 
     private static readonly Dictionary<int, int> MidnightWorldBoss = new()
@@ -255,6 +257,7 @@ public static partial class Hardcoded
         { 1305, MidnightRaid }, // Sporefall
         { 1317, MidnightWorldBoss2 }, // The Tidebound Grotto (world boss lair)
         { 1320, MidnightRaid }, // The Venomous Abyss
+        { 1324, MidnightRaid }, // The Unbinding of Kith'ix
     };
 }
 

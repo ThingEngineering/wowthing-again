@@ -1,5 +1,5 @@
 export function nazjatarHack(levelString: string): number {
-    const level = parseInt(levelString.split(' ')[1]);
+    const level = parseInt(levelString.split(' ').at(-1));
     return level === 30 ? 0 : 6 - Math.max(0, Math.floor(level / 5));
 }
 

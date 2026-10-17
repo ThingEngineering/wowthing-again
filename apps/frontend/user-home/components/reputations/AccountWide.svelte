@@ -1,12 +1,14 @@
 <script lang="ts">
     import { getRenownData } from './get-renown-data';
+    import { Faction } from '@/enums/faction';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import type { ManualDataReputationSet } from '@/types/data/manual';
 
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import ProgressBar from '@/components/common/ProgressBar.svelte';
     import TooltipReputation from '@/components/tooltips/reputation/TooltipReputation.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import ProgressBar from '@/components/common/ProgressBar.svelte';
 
     type Props = {
         accountSets: [ManualDataReputationSet[], number][];
@@ -38,7 +40,14 @@
     .icon {
         flex-shrink: 0;
         height: 50px;
+        position: relative;
         width: 50px;
+
+        .faction {
+            top: -2px;
+            position: absolute;
+            left: 0;
+        }
     }
     .data {
         --bar-height: 1.25rem;
@@ -87,6 +96,8 @@
                     reputationSetsIndex,
                     slug,
                 })}
+                {@const hasAlliance = !!reputationSet.alliance}
+                {@const hasHorde = !!reputationSet.horde}
                 {@const repId =
                     reputationSet.both?.id || reputationSet.alliance?.id || reputationSet.horde?.id}
                 {@const repIcon =
@@ -95,6 +106,7 @@
                     reputationSet.horde?.icon}
                 <div
                     class="account-rep {cls} flex-wrapper"
+                    data-id={repId}
                     use:componentTooltip={{
                         component: TooltipReputation,
                         propsFunc: () => ({
@@ -109,6 +121,16 @@
                         <WowheadLink type="faction" id={repId}>
                             <WowthingImage name={repIcon} size={48} border={2} />
                         </WowheadLink>
+
+                        {#if hasAlliance && !hasHorde}
+                            <div class="faction drop-shadow">
+                                <FactionIcon faction={Faction.Alliance} border={2} />
+                            </div>
+                        {:else if !hasAlliance && hasHorde}
+                            <div class="faction drop-shadow">
+                                <FactionIcon faction={Faction.Horde} border={2} />
+                            </div>
+                        {/if}
                     </div>
                     <div class="data">
                         <div class="flex-wrapper {cls}">

@@ -208,7 +208,12 @@
                 </tr>
 
                 {#each abilities as ability (ability.id)}
-                    <AbilityRow {ability} {characters} {profession} {subProfession} />
+                    {@const ranks = [1].concat(
+                        ability.extraRanks.length > 0 ? ability.extraRanks.map((_, i) => i + 2) : []
+                    )}
+                    {#each ranks as rank}
+                        <AbilityRow {ability} {rank} {characters} {profession} {subProfession} />
+                    {/each}
                 {/each}
             {/if}
         {/each}

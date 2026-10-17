@@ -227,6 +227,10 @@ export { default as mynauiLetterPSquare } from '~icons/mynaui/letter-p-square';
 export { default as mynauiLetterRCircle } from '~icons/mynaui/letter-r-circle';
 export { default as mynauiLetterSCircle } from '~icons/mynaui/letter-s-circle';
 export { default as mynauiLetterWSquare } from '~icons/mynaui/letter-w-square';
+export { default as mynauiNumber1Circle } from '~icons/mynaui/one-circle';
+export { default as mynauiNumber2Circle } from '~icons/mynaui/two-circle';
+export { default as mynauiNumber3Circle } from '~icons/mynaui/three-circle';
+export { default as mynauiNumber4Circle } from '~icons/mynaui/four-circle';
 
 export { default as notoAngryFaceWithHorns } from '~icons/noto/angry-face-with-horns';
 export { default as notoBackpack } from '~icons/noto/backpack';
