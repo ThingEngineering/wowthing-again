@@ -24,7 +24,7 @@
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
-        "@iconify/json": "^2.2.537",
+        "@iconify/json": "^2.2.544",
         "@iconify/svelte": "^5.2.2",
         "@iconify/types": "^2.0.0",
         "@sveltejs/vite-plugin-svelte": "^7.3.1",
