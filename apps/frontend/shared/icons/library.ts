@@ -12,6 +12,7 @@ export { default as fluentSelectAllOn } from '~icons/fluent/select-all-on-24-fil
 export { default as fluentAngryFaceWithHorns } from '~icons/fluent-emoji-high-contrast/angry-face-with-horns';
 
 export { default as gameAbstract024 } from '~icons/game-icons/abstract-024';
+export { default as gameAlienBug } from '~icons/game-icons/alien-bug';
 export { default as gameAnimalHide } from '~icons/game-icons/animal-hide';
 export { default as gameAnvil } from '~icons/game-icons/anvil';
 export { default as gameBabyFace } from '~icons/game-icons/baby-face';

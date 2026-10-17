@@ -31,6 +31,14 @@ export const midChores12_1: Task = {
     showSeparate: true,
     chores: [
         {
+            key: 'aqirInvasion',
+            name: 'Aqir Invasion',
+            icon: iconLibrary.gameAlienBug,
+            minimumLevel: 90,
+            questReset: DbResetType.Weekly,
+            questIds: [97456],
+        },
+        {
             key: 'trailing',
             name: "Trailing Xal'atath",
             icon: iconLibrary.mdiFootPrint,
