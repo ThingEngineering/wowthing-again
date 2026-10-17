@@ -154,8 +154,8 @@ public class ApiUserCharacter
                     {
                         if (professionData.TryGetValue(skillLineId, out var subProfessionData))
                         {
-                            subProfessionData.KnownRecipes = subProfessionData.KnownRecipes
-                                .Concat(addonProfessionData.KnownRecipes)
+                            subProfessionData.KnownRecipes = subProfessionData.KnownRecipes.EmptyIfNull()
+                                .Concat(addonProfessionData.KnownRecipes.EmptyIfNull())
                                 .Distinct()
                                 .ToList();
                         }
