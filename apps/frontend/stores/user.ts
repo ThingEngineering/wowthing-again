@@ -202,7 +202,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         );
 
         // Initialize guilds
-        for (const guild of Object.values(userData.guildMap)) {
+        for (const guild of Object.values(userData.guildMap || {})) {
             this.initializeGuild(guild);
 
             guild.realm =
