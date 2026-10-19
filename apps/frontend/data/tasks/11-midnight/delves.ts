@@ -87,6 +87,15 @@ export const midDelves: Task = {
             questReset: DbResetType.Weekly,
             questIds: [93820],
         },
+        {
+            key: 'repZuljarra',
+            name: 'Rep: {faction:2772}',
+            minimumLevel: 90,
+            accountWide: true,
+            alwaysStarted: true,
+            questReset: DbResetType.Weekly,
+            questIds: [99222],
+        },
         null,
         {
             key: 'bounty',
