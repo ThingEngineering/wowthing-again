@@ -3,7 +3,12 @@ import { DateTime } from 'luxon';
 import parseApiTime from '@/utils/parse-api-time';
 
 import type { Account } from './account';
-import type { Character, CharacterArray, CharacterLockout } from './character';
+import type {
+    Character,
+    CharacterArray,
+    CharacterLockout,
+    CharacterReputationParagon,
+} from './character';
 import type { InstanceDifficulty } from './dungeon';
 import type { Guild, GuildArray } from './guild';
 import type { HasNameAndRealm, UserItem } from './shared';
@@ -119,6 +124,15 @@ export class UserDataParagon {
         public perLevel: number,
         public value: number
     ) {}
+
+    get asCharacterReputationParagon(): CharacterReputationParagon {
+        return {
+            rewardAvailable: false,
+            current: this.value,
+            max: this.perLevel,
+            received: this.count,
+        };
+    }
 }
 export type UserDataParagonArray = ConstructorParameters<typeof UserDataParagon>;
 
