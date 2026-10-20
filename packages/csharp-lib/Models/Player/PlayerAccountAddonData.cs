@@ -27,5 +27,8 @@ public class PlayerAccountAddonData
     public Dictionary<int, short> Heirlooms { get; set; }
 
     [Column(TypeName = "jsonb")]
+    public Dictionary<int, List<int>> Paragons { get; set; }
+
+    [Column(TypeName = "jsonb")]
     public Dictionary<int, int> Reputations { get; set; }
 }

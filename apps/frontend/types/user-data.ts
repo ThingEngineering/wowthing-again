@@ -3,7 +3,12 @@ import { DateTime } from 'luxon';
 import parseApiTime from '@/utils/parse-api-time';
 
 import type { Account } from './account';
-import type { Character, CharacterArray, CharacterLockout } from './character';
+import type {
+    Character,
+    CharacterArray,
+    CharacterLockout,
+    CharacterReputationParagon,
+} from './character';
 import type { InstanceDifficulty } from './dungeon';
 import type { Guild, GuildArray } from './guild';
 import type { HasNameAndRealm, UserItem } from './shared';
@@ -23,6 +28,7 @@ export interface UserData {
     guildsRaw: GuildArray[];
     heirlooms: Record<number, number>;
     illusionIds: number[];
+    paragons: Record<number, UserDataParagonArray>;
     raiderIoScoreTiers: Record<number, UserDataRaiderIoScoreTiers>;
     reputations: Record<number, number>;
     warbankItems: WarbankItem[];
@@ -111,6 +117,24 @@ export class UserDataCurrentPeriod {
         this._endTime = time;
     }
 }
+
+export class UserDataParagon {
+    constructor(
+        public count: number,
+        public perLevel: number,
+        public value: number
+    ) {}
+
+    get asCharacterReputationParagon(): CharacterReputationParagon {
+        return {
+            rewardAvailable: false,
+            current: this.value,
+            max: this.perLevel,
+            received: this.count,
+        };
+    }
+}
+export type UserDataParagonArray = ConstructorParameters<typeof UserDataParagon>;
 
 export class UserDataPet {
     constructor(

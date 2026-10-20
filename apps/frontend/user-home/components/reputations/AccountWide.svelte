@@ -144,7 +144,7 @@
                             </div>
                         </div>
 
-                        {#if renownMax && renownCurrent === renownMax && characterParagon}
+                        {#if characterParagon && ((renownMax && renownCurrent === renownMax) || repTier?.tier === 1)}
                             <ProgressBar
                                 title="Paragon"
                                 have={characterParagon.current}

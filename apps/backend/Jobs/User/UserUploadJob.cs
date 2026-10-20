@@ -443,7 +443,12 @@ public class UserUploadJob : JobBase
             // Reputations
             try
             {
-                await HandleAccountReputations(accountAddonData, parsed.ScanTimes.EmptyIfNull(), parsed.Reputations);
+                await HandleAccountReputations(
+                    accountAddonData,
+                    parsed.ScanTimes.EmptyIfNull(),
+                    parsed.Paragons,
+                    parsed.Reputations
+                );
             }
             catch (Exception ex)
             {
@@ -718,37 +723,59 @@ public class UserUploadJob : JobBase
     private async Task HandleAccountReputations(
         PlayerAccountAddonData accountAddonData,
         Dictionary<string, int> globalScanTimes,
+        Dictionary<int, string> paragons,
         List<string> reputations
     ) {
         var localContext = Context;
 
-        if (globalScanTimes.TryGetValue("reputations", out int reputationsTimestamp))
+        if (!globalScanTimes.TryGetValue("reputations", out int reputationsTimestamp))
         {
-            var reputationsScannedAt = reputationsTimestamp.AsUtcDateTime();
-            if (reputationsScannedAt > accountAddonData.ReputationsScannedAt)
+            return;
+        }
+
+        var reputationsScannedAt = reputationsTimestamp.AsUtcDateTime();
+        if (reputationsScannedAt <= accountAddonData.ReputationsScannedAt)
+        {
+            return;
+        }
+
+        accountAddonData.ReputationsScannedAt = reputationsScannedAt;
+
+        accountAddonData.Paragons ??= new();
+        foreach ((int factionId, string paragonString) in paragons.EmptyIfNull())
+        {
+            string[] parts = paragonString.Split(':');
+            if (parts.Length >= 2 &&
+                long.TryParse(parts[0], out long totalRep) &&
+                int.TryParse(parts[1], out int perLevel))
             {
-                accountAddonData.ReputationsScannedAt = reputationsScannedAt;
-                accountAddonData.Reputations ??= new();
-
-                foreach (string repString in reputations)
-                {
-                    string[] parts = repString.Split(":");
-                    if (parts.Length == 2 &&
-                        int.TryParse(parts[0], out int factionId) &&
-                        int.TryParse(parts[1], out int value))
-                    {
-                        accountAddonData.Reputations[factionId] = value;
-                    }
-                }
-
-                // Change detection for this is obnoxious, just update it
-                localContext.Entry(accountAddonData)
-                    .Property(aad => aad.Reputations)
-                    .IsModified = true;
-
-                await localContext.SaveChangesAsync(CancellationToken);
+                int count = (int)(totalRep / perLevel);
+                int remainder = (int)(totalRep % perLevel);
+                accountAddonData.Paragons[factionId] = [count, perLevel, remainder];
             }
         }
+
+        accountAddonData.Reputations ??= new();
+        foreach (string repString in reputations.EmptyIfNull())
+        {
+            string[] parts = repString.Split(":");
+            if (parts.Length == 2 &&
+                int.TryParse(parts[0], out int factionId) &&
+                int.TryParse(parts[1], out int value))
+            {
+                accountAddonData.Reputations[factionId] = value;
+            }
+        }
+
+        // Change detection for this is obnoxious, just update it
+        localContext.Entry(accountAddonData)
+            .Property(aad => aad.Paragons)
+            .IsModified = true;
+        localContext.Entry(accountAddonData)
+            .Property(aad => aad.Reputations)
+            .IsModified = true;
+
+        await localContext.SaveChangesAsync(CancellationToken);
     }
 
     private async Task HandleDecor(PlayerAccountAddonData accountAddonData, Dictionary<string, int> globalScanTimes, Dictionary<int, string> decorData)

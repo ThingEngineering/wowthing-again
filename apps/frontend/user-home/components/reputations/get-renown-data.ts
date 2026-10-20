@@ -71,7 +71,10 @@ export function getRenownData({
         ret.renownCurrent = repValue / (ret.dataRep.maxValues[0] || 2500);
         ret.cls = `quality${1 + Math.floor(ret.renownCurrent / (ret.renownMax / 4))}`;
 
-        ret.characterParagon = actualCharacter.paragons?.[ret.characterRep.reputationId];
+        ret.characterParagon = ret.dataRep.accountWide
+            ? userState.general.paragons[ret.characterRep.reputationId]
+                  ?.asCharacterReputationParagon
+            : actualCharacter.paragons?.[ret.characterRep.reputationId];
 
         let tier = ret.renownCurrent;
         if (ret.characterParagon) {
@@ -127,19 +130,15 @@ export function getRenownData({
             ret.renownLevel = `${ret.repTier.percent}%`;
 
             if (ret.dataRep.paragonId) {
-                ret.characterParagon = actualCharacter.paragons?.[ret.dataRep.id];
+                ret.characterParagon = ret.dataRep.accountWide
+                    ? userState.general.paragons[ret.characterRep.reputationId]
+                          ?.asCharacterReputationParagon
+                    : actualCharacter.paragons?.[ret.dataRep.id];
                 if (ret.repTier.tier === 1) {
                     ret.cls = 'reputation0 reputation0-border';
                 }
             }
         }
-    }
-
-    if (
-        (ret.dataRep?.id >= 2375 && ret.dataRep?.id <= 2377) ||
-        (ret.dataRep?.id >= 2388 && ret.dataRep?.id < 2390)
-    ) {
-        console.log(ret);
     }
 
     return ret;

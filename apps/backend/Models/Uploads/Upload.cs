@@ -22,6 +22,7 @@ public class Upload
     public Dictionary<int, string> Decor { get; set; }
     public List<string> Delves { get; set; }
     public List<int> Illusions { get; set; }
+    public Dictionary<int, string> Paragons { get; set; }
     public List<int> Quests { get; set; }
     public Dictionary<int, int> QuestsV2 { get; set; }
     public List<string> Reputations { get; set; }
