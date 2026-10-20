@@ -44,6 +44,7 @@ export const midChores12_1: Task = {
             icon: iconLibrary.mdiFootPrint,
             minimumLevel: 90,
             questReset: DbResetType.Custom,
+            questResetForced: true,
             questIds: [98172],
             customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1078, 2),
             decorationFunc: twoWeekDecorator,
