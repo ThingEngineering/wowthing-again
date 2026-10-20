@@ -448,6 +448,9 @@ export const currencyItems: Record<number, number[]> = {
         246951, // Stormarion Core
         null,
         267051, // Dark Particle
+        null,
+        285801, // Heroic Soul Fragment
+        285065, // Mythical Soul Fragment
     ],
     // Midnight - Zones
     283: [
