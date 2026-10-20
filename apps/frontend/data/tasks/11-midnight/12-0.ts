@@ -93,7 +93,7 @@ export const midChores12_0: Task = {
             key: 'midHopeUnity',
             name: 'Hope/Unity',
             icon: aliasedIcons.planet,
-            questReset: DbResetType.Weekly,
+            questReset: DbResetType.Custom,
             showQuestName: true,
             sumObjectives: true,
             customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1079, 2),
