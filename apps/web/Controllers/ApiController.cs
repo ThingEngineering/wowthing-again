@@ -451,13 +451,19 @@ public class ApiController : Controller
         timer.AddPoint("RaiderIO");
 
         // Reputations
+        var paragons = new Dictionary<int, List<int>>();
         var reputations = new Dictionary<int, int>();
         var repAccounts = accounts
             .Where(account => account.AddonData?.Reputations != null)
             .OrderBy(account => account.AddonData.ReputationsScannedAt);
         foreach (var account in repAccounts)
         {
-            foreach ((int factionId, int value) in account.AddonData.Reputations)
+            foreach ((int factionId, var values) in account.AddonData.Paragons.EmptyIfNull())
+            {
+                paragons[factionId] = values;
+            }
+
+            foreach ((int factionId, int value) in account.AddonData.Reputations.EmptyIfNull())
             {
                 reputations[factionId] = value;
             }
@@ -528,6 +534,7 @@ public class ApiController : Controller
             HonorLevel = maxHonorAccount?.AddonData?.HonorLevel ?? 0,
             HonorMax = maxHonorAccount?.AddonData?.HonorMax ?? 0,
             Images = images,
+            Paragons = paragons,
             Public = apiResult.Public,
             RaiderIoScoreTiers = raiderIoScoreTiers,
             Reputations = reputations,

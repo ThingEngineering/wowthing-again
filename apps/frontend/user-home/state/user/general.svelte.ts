@@ -18,6 +18,7 @@ import {
     Character,
     Guild,
     UserDataCurrentPeriod,
+    UserDataParagon,
     UserDataPet,
     type Account,
     type CharacterLockout,
@@ -52,6 +53,7 @@ export class DataUserGeneral {
     public currentPeriod: Record<number, UserDataCurrentPeriod> = $state({});
     public decor: Record<number, [number, number]> = $state({});
     public guildById: Record<number, Guild> = $state({});
+    public paragons: Record<number, UserDataParagon> = $state({});
     public petsById: Record<number, UserDataPet[]> = $state({});
     public reputations: Record<number, number> = $state({});
     public warbankItems: WarbankItem[] = $state([]);
@@ -210,6 +212,13 @@ export class DataUserGeneral {
             getNumberKeyedEntries(this.decor)
                 .filter(([, [a, b]]) => a + b > 0)
                 .map(([decorId]) => decorId)
+        );
+
+        this.paragons = Object.fromEntries(
+            getNumberKeyedEntries(userData.paragons || {}).map(([factionId, paragonArray]) => [
+                factionId,
+                new UserDataParagon(...paragonArray),
+            ])
         );
         this.reputations = cloneDeep(userData.reputations || {});
 

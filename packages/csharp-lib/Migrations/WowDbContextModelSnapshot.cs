@@ -623,6 +623,10 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer[]")
                         .HasColumnName("illusions");
 
+                    b.Property<Dictionary<int, List<int>>>("Paragons")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("paragons");
+
                     b.PrimitiveCollection<List<int>>("Quests")
                         .HasColumnType("integer[]")
                         .HasColumnName("quests");

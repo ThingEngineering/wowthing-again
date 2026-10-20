@@ -23,6 +23,7 @@ export interface UserData {
     guildsRaw: GuildArray[];
     heirlooms: Record<number, number>;
     illusionIds: number[];
+    paragons: Record<number, UserDataParagonArray>;
     raiderIoScoreTiers: Record<number, UserDataRaiderIoScoreTiers>;
     reputations: Record<number, number>;
     warbankItems: WarbankItem[];
@@ -111,6 +112,15 @@ export class UserDataCurrentPeriod {
         this._endTime = time;
     }
 }
+
+export class UserDataParagon {
+    constructor(
+        public count: number,
+        public perLevel: number,
+        public value: number
+    ) {}
+}
+export type UserDataParagonArray = ConstructorParameters<typeof UserDataParagon>;
 
 export class UserDataPet {
     constructor(
