@@ -82,6 +82,7 @@
         251: 'Hard Prey',
         252: 'Nightmare Prey',
         258: 'Purging the Vaults',
+        259: 'Labyrinth',
     };
 
     function getRunCount(index: number): number {
