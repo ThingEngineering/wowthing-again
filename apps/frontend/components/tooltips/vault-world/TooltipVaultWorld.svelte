@@ -83,6 +83,7 @@
         252: 'Nightmare Prey',
         258: 'Purging the Vaults',
         259: 'Labyrinth',
+        263: 'Labyrinth Boss',
     };
 
     function getRunCount(index: number): number {
