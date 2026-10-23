@@ -13,6 +13,8 @@ export const bfaNazjatar: Task = {
             name: 'Friend',
             icon: iconLibrary.gameGoblinHead,
             alwaysStarted: true,
+            questReset: DbResetType.Daily,
+            questResetForced: true,
             subChores: [
                 {
                     key: 'choose',
