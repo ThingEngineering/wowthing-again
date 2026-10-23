@@ -1,31 +1,46 @@
 <script lang="ts">
-    import { covenantFeatureCost } from '@/data/covenant';
+    // import { covenantFeatureCost } from '@/data/covenant';
     import { Faction } from '@/enums/faction';
     import { ProgressDataType } from '@/enums/progress-data-type';
-    import { wowthingData } from '@/shared/stores/data';
-    import { userAchievementStore } from '@/stores';
+    import { QuestStatus } from '@/enums/quest-status';
+    // import { wowthingData } from '@/shared/stores/data';
+    // import { userAchievementStore } from '@/stores';
     import { getNameForFaction } from '@/utils/get-name-for-faction';
-    import type { Character } from '@/types';
     import type { ManualDataProgressData, ManualDataProgressGroup } from '@/types/data/manual';
+    import type { CharacterProps } from '@/types/props';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import QuestStatusIcon from '@/shared/components/icons/QuestStatusIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 
-    export let character: Character;
-    export let datas: ManualDataProgressData[];
-    export let descriptionText: Record<number, string>;
-    export let group: ManualDataProgressGroup;
-    export let haveIndexes: number[];
-    export let iconOverride: string;
-    export let nameOverride: Record<number, string>;
-    export let showCurrencies: number[] = [];
+    type Props = CharacterProps & {
+        datas: ManualDataProgressData[];
+        descriptionText: Record<number, string>;
+        group: ManualDataProgressGroup;
+        iconOverride: string;
+        nameOverride: Record<number, string>;
+        statuses: QuestStatus[];
+        showCurrencies?: number[];
+    };
 
-    let cls: string;
-    let dataChunks: [ManualDataProgressData, number][][];
-    $: {
-        cls = (datas || []).some((data, i) => {
-            const desc = descriptionText[i] || data.description;
+    let {
+        character,
+        datas,
+        descriptionText: initialDescriptionText,
+        group,
+        iconOverride,
+        nameOverride,
+        statuses,
+        showCurrencies = [],
+    }: Props = $props();
+
+    let [cls, dataChunks, descriptionText] = $derived.by(() => {
+        let retCls: string;
+        let retDataChunks: [ManualDataProgressData, number][][] = [[]];
+        let retDescriptionText = initialDescriptionText;
+
+        retCls = (datas || []).some((data, i) => {
+            const desc = initialDescriptionText[i] || data.description;
             if (desc && desc.length > 20) {
                 return true;
             }
@@ -34,73 +49,76 @@
             : 'short';
 
         // Special cases
-        if (group.name === 'Valorous Appearances') {
-            const cheev = wowthingData.achievements.achievementById.get(datas[1].ids[0]);
-            const rootTree = wowthingData.achievements.criteriaTreeById.get(cheev.criteriaTreeId);
-            const charCheev = $userAchievementStore.addonAchievements[character.id]?.[cheev.id];
-            const newDesc = { ...descriptionText };
-            if (charCheev?.earned !== true) {
-                for (let childIndex = 0; childIndex < rootTree.children.length; childIndex++) {
-                    const childTree = wowthingData.achievements.criteriaTreeById.get(
-                        rootTree.children[childIndex]
-                    );
-                    newDesc[1] += `<br>${charCheev?.criteria?.[childIndex] > 0 ? '✔' : '❌'} ${childTree.description}`;
-                }
-            }
-            descriptionText = newDesc;
-        } else if (datas.length === 1 && datas[0].type === ProgressDataType.SlCovenant) {
-            const currentRank = parseInt(descriptionText[0].split(' ')[1].split('/')[0]);
-            const isSpecial = datas[0].value === 4;
-            const prices = covenantFeatureCost[datas[0].value];
+        // TODO: fix this better elsewhere
+        // if (group.name === 'Valorous Appearances') {
+        //     const cheev = wowthingData.achievements.achievementById.get(datas[1].ids[0]);
+        //     const rootTree = wowthingData.achievements.criteriaTreeById.get(cheev.criteriaTreeId);
+        //     const charCheev = $userAchievementStore.addonAchievements[character.id]?.[cheev.id];
+        //     const newDesc = { ...initialDescriptionText };
+        //     if (charCheev?.earned !== true) {
+        //         for (let childIndex = 0; childIndex < rootTree.children.length; childIndex++) {
+        //             const childTree = wowthingData.achievements.criteriaTreeById.get(
+        //                 rootTree.children[childIndex]
+        //             );
+        //             newDesc[1] += `<br>${charCheev?.criteria?.[childIndex] > 0 ? '✔' : '❌'} ${childTree.description}`;
+        //         }
+        //     }
+        //     retDescriptionText = newDesc;
+        // } else if (datas.length === 1 && datas[0].type === ProgressDataType.SlCovenant) {
+        //     const currentRank = parseInt(initialDescriptionText[0].split(' ')[1].split('/')[0]);
+        //     const isSpecial = datas[0].value === 4;
+        //     const prices = covenantFeatureCost[datas[0].value];
 
-            const newDatas: ManualDataProgressData[] = [];
-            const newDescriptionText: Record<number, string> = {};
-            const newHaveIndexes: number[] = [];
+        //     const newDatas: ManualDataProgressData[] = [];
+        //     const newDescriptionText: Record<number, string> = {};
+        //     const newHaveIndexes: number[] = [];
 
-            for (let rank = 1; rank <= (isSpecial ? 5 : 3); rank++) {
-                newDatas.push({
-                    ...datas[0],
-                    name: `Rank ${rank}`,
-                });
+        //     for (let rank = 1; rank <= (isSpecial ? 5 : 3); rank++) {
+        //         newDatas.push({
+        //             ...datas[0],
+        //             name: `Rank ${rank}`,
+        //         });
 
-                newDescriptionText[rank - 1] =
-                    `{priceShort:${prices[rank - 1][0]}|1810}&nbsp;&nbsp;{priceShort:${prices[rank - 1][1]}|1813}`;
+        //         newDescriptionText[rank - 1] =
+        //             `{priceShort:${prices[rank - 1][0]}|1810}&nbsp;&nbsp;{priceShort:${prices[rank - 1][1]}|1813}`;
 
-                if (currentRank >= rank) {
-                    newHaveIndexes.push(rank - 1);
-                }
-            }
+        //         if (currentRank >= rank) {
+        //             newHaveIndexes.push(rank - 1);
+        //         }
+        //     }
 
-            cls = 'short';
-            datas = newDatas;
-            descriptionText = newDescriptionText;
-            haveIndexes = newHaveIndexes;
-            showCurrencies = [1810, 1813];
-        } else {
-            showCurrencies = group.currencies || [];
-        }
+        //     retCls = 'short';
+        //     datas = newDatas;
+        //     retDescriptionText = newDescriptionText;
+        //     haveIndexes = newHaveIndexes;
+        //     showCurrencies = [1810, 1813];
+        // } else {
+        //     showCurrencies = group.currencies || [];
+        // }
 
         // Split data
-        dataChunks = [[]];
         for (let dataIndex = 0; dataIndex < datas.length; dataIndex++) {
             const data = datas[dataIndex];
             if (data.name === 'separator') {
-                dataChunks.push([]);
+                retDataChunks.push([]);
                 continue;
             }
 
-            dataChunks[dataChunks.length - 1].push([data, dataIndex]);
+            retDataChunks[retDataChunks.length - 1].push([data, dataIndex]);
         }
 
         // if (group.name.startsWith('Sojourner')) {
         //     console.log({group, dataChunks, descriptionText, haveIndexes, nameOverride});
         // }
-    }
 
-    $: groupName =
+        return [retCls, retDataChunks, retDescriptionText];
+    });
+
+    let groupName = $derived(
         group.lookup === 'faction'
             ? `:${Faction[character.faction].toLocaleLowerCase()}: ${getNameForFaction(group.name, character.faction)}`
-            : group.name;
+            : group.name
+    );
 </script>
 
 <style lang="scss">
@@ -153,21 +171,19 @@
             <tbody>
                 {#each dataChunk as [data, dataIndex]}
                     {@const description = descriptionText[dataIndex] || data.description}
+                    {@const status = statuses[dataIndex]}
                     <tr>
                         <td class="progress">
                             {#if iconOverride}
                                 <WowthingImage name={iconOverride} size={20} border={1} />
                             {:else}
-                                <YesNoIcon
-                                    state={haveIndexes.indexOf(dataIndex) >= 0}
-                                    useStatusColors={true}
-                                />
+                                <QuestStatusIcon {status} useStatusColors={true} />
                             {/if}
                         </td>
                         <td class="name">
                             <ParsedText text={nameOverride[dataIndex] || data.name} />
 
-                            {#if description && (haveIndexes.indexOf(dataIndex) === -1 || group.type === 'dragon-racing' || datas[0].type === ProgressDataType.GarrisonTree)}
+                            {#if description && (status !== QuestStatus.Completed || group.type === 'dragon-racing' || datas[0].type === ProgressDataType.GarrisonTree)}
                                 {#if cls === 'short'}&ndash;{/if}
                                 <ParsedText cls="description-{cls}" text={description} />
                             {/if}

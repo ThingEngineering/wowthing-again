@@ -13,6 +13,8 @@ export const bfaNazjatar: Task = {
             name: 'Friend',
             icon: iconLibrary.gameGoblinHead,
             alwaysStarted: true,
+            questReset: DbResetType.Daily,
+            questResetForced: true,
             subChores: [
                 {
                     key: 'choose',
@@ -50,6 +52,7 @@ export const bfaNazjatar: Task = {
             icon: iconLibrary.gameTreeFace,
             alwaysStarted: true,
             questReset: DbResetType.Weekly,
+            questResetForced: true,
             questIds: [57140],
         },
         {
@@ -57,6 +60,7 @@ export const bfaNazjatar: Task = {
             name: 'Laboritory of Mardivas',
             icon: iconLibrary.gameFizzingFlask,
             questReset: DbResetType.Weekly,
+            questResetForced: true,
             questIds: [55121],
         },
         {
@@ -64,6 +68,7 @@ export const bfaNazjatar: Task = {
             name: 'World Boss',
             icon: iconLibrary.gameSpikedDragonHead,
             questReset: DbResetType.Weekly,
+            questResetForced: true,
             questIds: [
                 56056, // Wekemara
                 56057, // Ulmath, the Soulbinder

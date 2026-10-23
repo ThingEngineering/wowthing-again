@@ -19,6 +19,20 @@ import type {
     ManualDataProgressGroup,
 } from '@/types/data/manual';
 
+export interface ProgressInfo {
+    datas: ManualDataProgressData[];
+    descriptionText: Record<number, string>;
+    have: number;
+    icon: string;
+    inProgress: number;
+    missingRequired: boolean;
+    nameOverride: Record<number, string>;
+    showCurrency: number;
+    showReputation: number;
+    statuses: QuestStatus[];
+    total: number;
+}
+
 export default function getProgress(
     character: Character,
     category: ManualDataProgressCategory,
@@ -34,8 +48,8 @@ export default function getProgress(
     const showReputation = 0;
 
     let datas: ManualDataProgressData[];
+    let statuses: QuestStatus[] = [];
     const descriptionText: Record<number, string> = {};
-    const haveIndexes: number[] = [];
     const nameOverride: Record<number, string> = {};
 
     const characterRace = wowthingData.static.characterRaceById.get(character.raceId);
@@ -181,7 +195,10 @@ export default function getProgress(
                 ).length;
             }
 
+            statuses = datas.map(() => QuestStatus.NotStarted);
             for (let dataIndex = 0; dataIndex < datas.length; dataIndex++) {
+                let status = QuestStatus.NotStarted;
+
                 const data = datas[dataIndex];
                 if (data.name === 'separator') {
                     continue;
@@ -200,21 +217,24 @@ export default function getProgress(
                             checkCharacterQuestIds(character.id, data.ids)) ||
                         (group.type === 'accountQuest' && checkAccountQuestIds(data.ids));
 
+                    const progressQuest = userState.quests.characterById
+                        .get(character.id)
+                        ?.progressQuestByKey?.get(`q${data.ids[0]}`);
+
+                    if (progressQuest) {
+                        status = QuestStatus.InProgress;
+                    }
+
+                    // `inProgress` isn't well named, it's really "completed but not turned in"
                     if (group.name === 'Delves') {
-                        const progressQuest = userState.quests.characterById
-                            .get(character.id)
-                            ?.progressQuestByKey?.get(`q${data.ids[0]}`);
                         if (
                             progressQuest &&
                             progressQuest.objectives[0] &&
                             progressQuest.objectives[0].have === progressQuest.objectives[0].need
                         ) {
                             inProgress++;
+                            status = QuestStatus.InProgress;
                         }
-                    }
-
-                    if (group.name === 'Brewfest Intro Quests') {
-                        showCurrency = 1037829; // Cyphers of the First Ones
                     }
                 } else if (group.type === 'campaign' || group.type === 'questline') {
                     const questStatuses = data.ids.map((questId) =>
@@ -507,13 +527,15 @@ export default function getProgress(
                 }
 
                 if (haveThis) {
-                    haveIndexes.push(dataIndex);
+                    status = QuestStatus.Completed;
                     if (countAccountWide || data.type !== ProgressDataType.AccountQuest) {
                         have++;
                     }
                 } else if (!haveThis && data.required === true) {
                     missingRequired = true;
                 }
+
+                statuses[dataIndex] = status;
             }
         }
     }
@@ -522,13 +544,13 @@ export default function getProgress(
         datas,
         descriptionText,
         have,
-        haveIndexes,
         icon,
         inProgress,
         missingRequired,
         nameOverride,
         showCurrency,
         showReputation,
+        statuses,
         total,
     };
 }
@@ -562,18 +584,4 @@ function getSpentCyphers(character: Character): number {
         return total;
     }
     return 0;
-}
-
-export interface ProgressInfo {
-    datas: ManualDataProgressData[];
-    descriptionText: Record<number, string>;
-    have: number;
-    haveIndexes: number[];
-    icon: string;
-    inProgress: number;
-    missingRequired: boolean;
-    nameOverride: Record<number, string>;
-    showCurrency: number;
-    showReputation: number;
-    total: number;
 }

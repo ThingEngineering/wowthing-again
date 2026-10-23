@@ -26,14 +26,14 @@
 
 <style lang="scss">
     .collection-v2-section {
-        width: calc((46px * 14) + (0.04rem * 13) + (0.75rem * 2));
+        width: calc((48px * 14) + (0.04rem * 13) + (0.75rem * 2));
     }
     .collection-objects {
         --item-empty-border: var(--border-color);
 
         flex-flow: column wrap;
         gap: 0.04rem;
-        height: calc((46px * 7) + (0.04rem * 6));
+        height: calc((48px * 7) + (0.04rem * 6));
     }
 </style>
 

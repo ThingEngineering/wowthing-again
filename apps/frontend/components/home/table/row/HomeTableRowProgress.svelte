@@ -34,10 +34,10 @@
                     propsFunc: () => ({
                         datas: data.datas,
                         descriptionText: data.descriptionText,
-                        haveIndexes: data.haveIndexes,
                         iconOverride: data.icon,
                         nameOverride: data.nameOverride,
                         showCurrencies: [] as number[],
+                        statuses: data.statuses,
                         character,
                         group,
                     }),

@@ -46,10 +46,10 @@
             propsFunc: () => ({
                 datas: progressData.datas,
                 descriptionText: progressData.descriptionText,
-                haveIndexes: progressData.haveIndexes,
                 iconOverride: progressData.icon,
                 nameOverride: progressData.nameOverride,
                 showCurrencies: [progressData.showCurrency],
+                statuses: progressData.statuses,
                 character,
                 group,
             }),
