@@ -91,8 +91,9 @@
                 {#each hasItems as [owner, items]}
                     {#each items as item}
                         <tr>
-                            <td class="location drop-shadow">
+                            <td class="location">
                                 <IconifyWrapper
+                                    cls="drop-shadow"
                                     icon={itemLocationIcons[item.location]}
                                     scale="0.9"
                                 />
