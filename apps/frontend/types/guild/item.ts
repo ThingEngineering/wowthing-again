@@ -1,6 +1,6 @@
 import { ItemLocation } from '@/enums/item-location';
 import type { ItemQuality } from '@/enums/item-quality';
-import type { UserItem } from '../shared';
+import type { UserItem } from '../shared/user-item';
 
 export class GuildItem implements UserItem {
     public bonusIds: number[];
@@ -23,7 +23,7 @@ export class GuildItem implements UserItem {
         public quality: ItemQuality,
         public suffix: number,
         bonusIds?: number[],
-        gemIds?: number[],
+        gemIds?: number[]
     ) {
         this.enchantmentIds = enchantId ? [enchantId] : [];
         this.bonusIds = bonusIds || [];

@@ -89,7 +89,7 @@
                 {/if}
 
                 {#if ability.extraRanks.length > 0}
-                    <IconifyWrapper cls="quality1" icon={rankIcons[rank]} scale="1.1" />
+                    <IconifyWrapper cls="quality1" icon={rankIcons[rank]} scale="1.2" />
                 {/if}
             </WowheadLink>
         </td>
