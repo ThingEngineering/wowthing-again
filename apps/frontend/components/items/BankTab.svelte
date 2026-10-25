@@ -1,27 +1,19 @@
 <script lang="ts">
-    import keyBy from 'lodash/keyBy';
-
     import { Constants } from '@/data/constants';
-    import type { Guild, GuildItem } from '@/types';
+    import type { groupBankItems } from '@/utils/items/group-bank-items';
 
     import Empty from '@/components/items/ItemsEmpty.svelte';
     import Item from '@/components/items/ItemsItem.svelte';
 
-    export let guild: Guild;
-    export let tab: number;
+    type Props = {
+        groupedItems: ReturnType<typeof groupBankItems>;
+        tab: number;
+        tabIndexOffByOne?: boolean;
+    };
 
-    let items: GuildItem[];
-    $: {
-        const itemBySlot = keyBy(
-            guild.items.filter((item) => item.tabId === tab),
-            (item) => item.slot
-        );
+    let { groupedItems, tab, tabIndexOffByOne }: Props = $props();
 
-        items = [];
-        for (let i = 0; i < Constants.guildBankTabItems; i++) {
-            items.push(itemBySlot[i + 1]);
-        }
-    }
+    let items = $derived(groupedItems[tabIndexOffByOne ? tab - 1 : tab] || []);
 </script>
 
 <style lang="scss">
@@ -42,7 +34,7 @@
         <h4>
             Tab {tab}
             <span class="slot-count">
-                ( {items.filter((i) => !!i).length} / {Constants.guildBankTabItems} )
+                ( {items.filter((i) => !!i).length} / {Constants.bankTabItems} )
             </span>
         </h4>
         <div class="collection-objects">

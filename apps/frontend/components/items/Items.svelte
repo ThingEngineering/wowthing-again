@@ -19,6 +19,7 @@
     import Search from './ItemsSearch.svelte';
     import SearchV2 from './search/Search.svelte';
     import Tokens from './tokens/Tokens.svelte';
+    import Warbank from './warbank/Warbank.svelte';
 
     let { params }: ParamsSlugsProps = $props();
 
@@ -56,12 +57,15 @@
             <a href="#/items/tokens" use:active={{ path: /^\/items\/tokens/ }}>Tokens</a>
 
             {#if !sharedState.public}
-                <a
-                    class="b-l m-l"
-                    href="#/items/guild-banks"
-                    use:active={{ path: /^\/items\/guild-banks/ }}>Guild Banks</a
+                <a class="b-l m-l" href="#/items/warbank" use:active={{ path: /^\/items\/warbank/ }}
+                    >Warbank</a
                 >
-                <a href="#/items/search" use:active={{ path: /^\/items\/search/ }}>Search</a>
+                <a href="#/items/guild-banks" use:active={{ path: /^\/items\/guild-banks/ }}
+                    >Guild Banks</a
+                >
+                <a class="b-l m-l" href="#/items/search" use:active={{ path: /^\/items\/search/ }}
+                    >Search</a
+                >
             {/if}
         </nav>
 
@@ -86,6 +90,8 @@
         <SearchV2 />
     {:else if params.slug1 === 'tokens'}
         <Tokens />
+    {:else if params.slug1 === 'warbank'}
+        <Warbank slug1={params.slug2} />
     {:else}
         <CharacterTable skipIgnored={params.slug1 !== 'bags'}>
             <div class="items-pre" slot="preTable">

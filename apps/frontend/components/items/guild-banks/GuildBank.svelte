@@ -1,28 +1,26 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte';
     import active from 'svelte-spa-router/active';
 
     import { userState } from '@/user-home/state/user';
     import getSavedRoute from '@/utils/get-saved-route';
-    import type { Guild } from '@/types';
+    import { groupBankItems } from '@/utils/items/group-bank-items';
+    import type { MultiSlugParams } from '@/types';
 
-    import Tab from './Tab.svelte';
+    import BankTab from '../BankTab.svelte';
 
-    export let slug1: string;
-    export let slug2: string;
+    let { slug1, slug2 }: MultiSlugParams = $props();
 
-    let guild: Guild;
-    let maxTab: number;
-    $: {
+    let guild = $derived.by(() => {
         const [realmSlug, guildSlug] = slug1.split('--', 2);
-        guild = Object.values(userState.general.guildById).find(
+        return Object.values(userState.general.guildById).find(
             (guild) => guild.realm.slug === realmSlug && guild.slug === guildSlug
         );
+    });
+    let guildItems = $derived(guild?.items || []);
+    let maxTab = $derived(Math.max(0, ...guildItems.map((item) => item.tabId)));
+    let groupedItems = $derived(groupBankItems(guildItems));
 
-        maxTab = Math.max(0, ...(guild?.items || []).map((item) => item.tabId));
-    }
-
-    afterUpdate(() => {
+    $effect(() => {
         getSavedRoute(`items/guild-banks/${slug1}`, slug2, null, null, 'guild-banks-subnav');
     });
 </script>
@@ -55,10 +53,10 @@
                     <div class="flex-wrapper">
                         {#if slug2 === 'all'}
                             {#each { length: maxTab }, tabIndex}
-                                <Tab {guild} tab={tabIndex + 1} />
+                                <BankTab {groupedItems} tab={tabIndex + 1} />
                             {/each}
                         {:else if slug2.startsWith('tab-')}
-                            <Tab {guild} tab={parseInt(slug2.split('-')[1])} />
+                            <BankTab {groupedItems} tab={parseInt(slug2.split('-')[1])} />
                         {/if}
                     </div>
                 {/if}
