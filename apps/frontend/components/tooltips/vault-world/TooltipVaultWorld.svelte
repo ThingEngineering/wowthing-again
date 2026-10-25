@@ -81,6 +81,7 @@
         250: 'Normal Prey', // probably
         251: 'Hard Prey',
         252: 'Nightmare Prey',
+        257: 'Ritual Site',
         258: 'Purging the Vaults',
         259: 'Labyrinth',
         263: 'Labyrinth Boss',
