@@ -1,7 +1,6 @@
 export * from './account';
 export * from './achievement-data';
 export * from './background-image';
-export * from './character-race';
 export * from './covenant';
 export * from './difficulty-data';
 export * from './dungeon';
