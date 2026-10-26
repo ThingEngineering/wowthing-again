@@ -158,6 +158,7 @@ export class DataStatic {
     public professionAbilityByAbilityId = new Map<number, StaticDataProfessionAbilityInfo>();
     public professionAbilityByItemId = new Map<number, StaticDataProfessionAbilityInfo>();
     public professionAbilityBySpellId = new Map<number, StaticDataProfessionAbilityInfo>();
+    public professionAbilityPreviousRank = new Map<number, [abilityId: number, spellId: number]>();
     public professionBySkillLineId = new Map<number, [StaticDataProfession, number]>();
     public professionBySlug = new Map<string, StaticDataProfession>();
     public requiredProfessionByItemId = new Map<number, number>();
@@ -238,6 +239,7 @@ export class DataStatic {
                 )
             );
 
+            let previousAbility: [number, number] = [ability.id, ability.spellId];
             for (const [extraAbilityId, extraSpellId] of ability.extraRanks || []) {
                 const extraItemId = spellToItem[extraSpellId];
                 if (extraItemId) {
@@ -251,6 +253,9 @@ export class DataStatic {
                             extraSpellId
                         )
                     );
+
+                    this.professionAbilityPreviousRank.set(extraAbilityId, previousAbility);
+                    previousAbility = [extraAbilityId, extraSpellId];
                 }
             }
         }
@@ -261,6 +266,11 @@ export class DataStatic {
 
             for (const itemId of abililtyInfo.itemIds || []) {
                 this.professionAbilityByItemId.set(itemId, abililtyInfo);
+            }
+
+            for (const [extraAbilityId, extraSpellId] of abililtyInfo.ability?.extraRanks || []) {
+                this.professionAbilityByAbilityId.set(extraAbilityId, abililtyInfo);
+                this.professionAbilityBySpellId.set(extraSpellId, abililtyInfo);
             }
         }
 

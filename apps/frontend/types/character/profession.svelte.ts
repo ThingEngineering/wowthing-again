@@ -72,6 +72,7 @@ export class CharacterProfession {
 
             syncSet(subProfession.knownRecipes, subKnownRecipes);
         }
+
         syncSet(this.knownRecipes, allKnownRecipes);
     }
 
