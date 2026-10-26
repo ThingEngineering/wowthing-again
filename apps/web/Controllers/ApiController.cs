@@ -208,6 +208,7 @@ public class ApiController : Controller
 
         timer.AddPoint("Accounts");
 
+        // Warbank
         PlayerWarbankItem[] warbankItems = [];
         if (!apiResult.Public)
         {
@@ -218,23 +219,7 @@ public class ApiController : Controller
 
         timer.AddPoint("Warbank");
 
-        var guilds = await _context.PlayerGuild
-            .Where(pg => pg.UserId == apiResult.User.Id)
-            .ToArrayAsync();
-
-        Dictionary<int, PlayerGuildItem[]> guildItemsMap = new();
-        if (!apiResult.Public)
-        {
-            int[] guildIds = guilds.Select(g => g.Id).ToArray();
-            var guildItems = await _context.PlayerGuildItem
-                .Where(pgi => guildIds.Contains(pgi.GuildId))
-                .ToArrayAsync();
-            guildItemsMap = guildItems
-                .ToGroupedDictionary(pgi => pgi.GuildId);
-        }
-
-        timer.AddPoint("Guilds");
-
+        // Characters
         var characterQuery = _context.PlayerCharacter
             .Where(c => c.Account.UserId == apiResult.User.Id)
             .Where(c => c.ClassId > 0 && c.RaceId > 0 && c.Level > 0);
@@ -284,7 +269,31 @@ public class ApiController : Controller
             .Select(character => character.Id)
             .ToArray();
 
+        var guildIds = characters
+            .Where(character => character.GuildId != null)
+            .Select(character => character.GuildId)
+            .Distinct()
+            .ToArray();
+
         timer.AddPoint("Characters");
+
+        // Guilds
+        var guilds = await _context.PlayerGuild
+            .Where(pg => pg.UserId == apiResult.User.Id &&
+                         guildIds.Contains(pg.Id))
+            .ToArrayAsync();
+
+        Dictionary<int, PlayerGuildItem[]> guildItemsMap = new();
+        if (!apiResult.Public)
+        {
+            var guildItems = await _context.PlayerGuildItem
+                .Where(pgi => guildIds.Contains(pgi.GuildId))
+                .ToArrayAsync();
+            guildItemsMap = guildItems
+                .ToGroupedDictionary(pgi => pgi.GuildId);
+        }
+
+        timer.AddPoint("Guilds");
 
         var itemQuery = _context.PlayerCharacterItem
             .AsNoTracking()
