@@ -1,10 +1,11 @@
 <script lang="ts">
     import type { ImageProps } from '@/types/props';
+    import type { MakeOptional } from '@/types/utility';
 
     import WowthingImage from './sources/WowthingImage.svelte';
 
-    type Props = ImageProps & { quality: number };
-    let { quality, ...imageProps }: Props = $props();
+    type Props = MakeOptional<ImageProps, 'size'> & { quality: number };
+    let { quality, size = 24, ...imageProps }: Props = $props();
 </script>
 
 <style lang="scss">
@@ -25,7 +26,7 @@
         cls="drop-shadow crafting-quality-{quality}"
         name="crafting_quality_{quality}"
         border={0}
-        size={24}
+        {size}
         --image-border-width={0}
         {...imageProps}
     />
