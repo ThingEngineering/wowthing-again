@@ -1,26 +1,23 @@
 <script lang="ts">
-    import Image from '../Image.svelte'
+    import type { ImageProps } from '@/types/props';
 
-    export let border = 0
-    export let cls: string = undefined
-    export let lazy = true
-    export let name: string
-    export let size: number
-    export let tooltip: string = undefined
+    import Image from '../Image.svelte';
 
-    const actualSize = size + (border * 2)
+    type Props = ImageProps & {
+        lazy?: boolean;
+        name: string;
+    };
 
-    $: {
-        if (name === 'currency/0') {
-            name = 'item/135464' // Bulging Sack of Gold
-        }
-    }
+    let { border = 0, cls, lazy = true, name, size, tooltip }: Props = $props();
+
+    let derivedName = $derived(name === 'currency/0' ? 'item/135464' : name);
+    let derivedSize = $derived(size + border * 2);
 </script>
 
 <Image
-    src="https://img.wowthing.org/{size}/{name}.webp"
+    src="https://img.wowthing.org/{size}/{derivedName}.webp"
     alt={name}
-    size={actualSize}
+    size={derivedSize}
     {cls}
     {lazy}
     {tooltip}
