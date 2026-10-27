@@ -30,3 +30,10 @@ export type SortableProps = {
     getSortState: (prefix?: string) => number;
     setSortState: (prefix?: string) => void;
 };
+
+export type ImageProps = {
+    size: number;
+    border?: number;
+    cls?: string;
+    tooltip?: string;
+};

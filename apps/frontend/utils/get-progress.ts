@@ -3,6 +3,7 @@ import find from 'lodash/find';
 import { covenantFeatureOrder, covenantMap } from '@/data/covenant';
 import { factionIdMap } from '@/data/faction';
 import { garrisonBuildingIcon, garrisonTrees, garrisonUnlockQuests } from '@/data/garrison';
+import { GarrisonType } from '@/enums/garrison-type';
 import { ProgressDataType } from '@/enums/progress-data-type';
 import { QuestStatus } from '@/enums/quest-status';
 import { wowthingData } from '@/shared/stores/data';
@@ -56,7 +57,7 @@ export default function getProgress(
 
     let skipRequiredQuests = false;
     if (category.name === 'Garrisons' && group.name === 'Pet Quest') {
-        const garrison = character.garrisons?.[2];
+        const garrison = character.garrisons?.[GarrisonType.WarlordsOfDraenor];
         if (garrison?.level === 3) {
             skipRequiredQuests = true;
         }
@@ -479,7 +480,8 @@ export default function getProgress(
                         }
 
                         case ProgressDataType.WodGarrison: {
-                            const garrison = character.garrisons?.[2];
+                            const garrison = character.garrisons?.[GarrisonType.WarlordsOfDraenor];
+                            if (character.name === 'Momokan') console.log(garrison);
 
                             // Garrison level
                             if (data.value === undefined) {
@@ -490,6 +492,7 @@ export default function getProgress(
                                     if (
                                         checkCharacterQuestIds(character.id, garrisonUnlockQuests)
                                     ) {
+                                        have = 1;
                                         total = 3;
                                     } else {
                                         have = -1;

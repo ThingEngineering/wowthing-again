@@ -27,9 +27,10 @@
     let race = $derived(
         characterRace || wowthingData.static.characterRaceById.get(character?.raceId || raceId)
     );
+    let derivedGender = $derived(character?.gender || gender || 0);
     let tooltip = $derived(
-        `${Gender[character?.gender || gender]} ${getGenderedName(race?.name ?? 'Unknown', character?.gender ?? 0)}`
+        `${Gender[derivedGender]} ${getGenderedName(race?.name ?? 'Unknown', derivedGender)}`
     );
 </script>
 
-<WowthingImage name="race_{race.id}_{character?.gender ?? 0}" {size} {border} {tooltip} />
+<WowthingImage name="race_{race.id}_{derivedGender}" {size} {border} {tooltip} />

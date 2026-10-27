@@ -673,6 +673,15 @@ export class Character implements ContainsItems, HasNameAndRealm {
         for (const profession of Object.values(this.professions)) {
             for (const abilityId of profession.knownRecipes) {
                 allKnown.add(abilityId);
+
+                let previousAbility: [number, number];
+                while (
+                    (previousAbility = wowthingData.static.professionAbilityPreviousRank.get(
+                        previousAbility?.[0] || abilityId
+                    ))
+                ) {
+                    allKnown.add(previousAbility[0]);
+                }
             }
         }
         return allKnown;
