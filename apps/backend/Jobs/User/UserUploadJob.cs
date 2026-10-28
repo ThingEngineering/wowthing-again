@@ -34,6 +34,13 @@ public class UserUploadJob : JobBase
     private static readonly Regex PlayerGuidRegex = new(@"^Player-\d+-([0-9A-Fa-f]+)$", RegexOptions.Compiled);
     private static readonly Regex ValidGuildRegex = new(@"^\d+/", RegexOptions.Compiled);
 
+    private static readonly Dictionary<int, MiscReportType> ExpansionToMiscReportType = new()
+    {
+        { 6, MiscReportType.LegionEmissaries },
+        { 7, MiscReportType.BattleForAzerothEmissaries },
+        { 8, MiscReportType.ShadowlandsCallings },
+    };
+
     private static readonly AsyncRetryPolicy<bool> LockRetryPolicy = Policy
         .HandleResult<bool>(r => r == false)
         .WaitAndRetryAsync(
@@ -1080,69 +1087,123 @@ public class UserUploadJob : JobBase
 
     private async Task HandleMiscReports(WowRegion accountRegion, Upload parsedData)
     {
-        if (parsedData.Delves == null)
-        {
-            return;
-        }
-
         await using var localContext = await ContextFactory.CreateDbContextAsync();
 
         var reportMap = await localContext.MiscReport
             .Where(mr => mr.UserId == _userId && mr.Region == (short)accountRegion)
             .ToDictionaryAsync(mr => mr.ReportType);
 
+        var now = DateTime.UtcNow;
         long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-        DateTime? expiresAt = null;
-        List<(int, string)> delves = [];
-        foreach (string delveString in parsedData.Delves)
+        var reports = new List<(MiscReportType ReportType, DateTime ExpiresAt, string Data)>();
+
+        // Delves
+        if (parsedData.Delves != null)
         {
-            string[] parts = delveString.Split(":");
-            if (parts.Length != 3)
+            DateTime? expiresAt = null;
+            List<(int, string)> delves = [];
+            foreach (string delveString in parsedData.Delves)
             {
-                continue;
+                string[] parts = delveString.Split(":");
+                if (parts.Length != 3)
+                {
+                    continue;
+                }
+
+                // unixTimestamp:poiId:story
+                if (!int.TryParse(parts[0], out int validUntil) ||
+                    !int.TryParse(parts[1], out int poiId) ||
+                    string.IsNullOrWhiteSpace(parts[2]) ||
+                    validUntil < currentTimestamp ||
+                    poiId == 0)
+                {
+                    // log
+                    continue;
+                }
+
+                expiresAt ??= validUntil.AsUtcDateTime();
+
+                delves.Add((poiId, parts[2]));
             }
 
-            // unixTimestamp:poiId:story
-            int.TryParse(parts[0], out int validUntil);
-            int.TryParse(parts[1], out int poiId);
-            if (validUntil < currentTimestamp || poiId == 0 || string.IsNullOrWhiteSpace(parts[2]))
+            if (expiresAt != null && delves.Count > 0)
             {
-                // log
-                continue;
+                List<object[]> dataParts = [];
+                foreach ((int poiId, string story) in delves.OrderBy(tup => tup.Item1))
+                {
+                    dataParts.Add([poiId, story]);
+                }
+
+                string data = JsonSerializer.Serialize(dataParts);
+
+                reports.Add((MiscReportType.Delve, expiresAt.Value, data));
             }
-
-            expiresAt ??= validUntil.AsUtcDateTime();
-
-            delves.Add((poiId, parts[2]));
         }
 
-        if (expiresAt != null && delves.Count > 0)
+        // Emissary Quests
+        if (parsedData.EmissaryQuests != null)
         {
-            List<object[]> dataParts = [];
-            foreach ((int poiId, string story) in delves.OrderBy(tup => tup.Item1))
+            foreach ((int expansion, var emissaryQuestStrings) in parsedData.EmissaryQuests)
             {
-                dataParts.Add([poiId, story]);
-            }
+                if (!ExpansionToMiscReportType.TryGetValue(expansion, out var reportType))
+                {
+                    // log
+                    continue;
+                }
 
-            string data = JsonSerializer.Serialize(dataParts);
+                List<(int QuestId, int ExpiresAt)> emissaryQuests = new();
+                foreach (string emissaryQuestString in emissaryQuestStrings)
+                {
+                    string[] parts = emissaryQuestString.Split(":");
+                    if (parts.Length != 2)
+                    {
+                        continue;
+                    }
 
-            if (reportMap.TryGetValue(MiscReportType.Delve, out var dbReport))
-            {
-                dbReport.Data = data;
+                    // questId:expires
+                    if (!int.TryParse(parts[0], out int questId) ||
+                        !int.TryParse(parts[1], out int validUntil) ||
+                        questId == 0 ||
+                        validUntil < currentTimestamp)
+                    {
+                        // log
+                        continue;
+                    }
+
+                    emissaryQuests.Add((questId, validUntil));
+                }
+
+                if (emissaryQuests.Count > 0)
+                {
+                    List<object[]> dataParts = [];
+                    foreach ((int questId, int expiresAt) in emissaryQuests.OrderBy(tup => tup.ExpiresAt))
+                    {
+                        dataParts.Add([questId, expiresAt]);
+                    }
+
+                    string data = JsonSerializer.Serialize(dataParts);
+
+                    reports.Add((reportType, emissaryQuests.Last().ExpiresAt.AsUtcDateTime(), data));
+                }
             }
-            else
+        }
+
+        foreach (var report in reports)
+        {
+            if (!reportMap.TryGetValue(report.ReportType, out var dbReport))
             {
                 dbReport = new MiscReport
                 {
                     UserId = _userId,
-                    ExpiresAt = expiresAt.Value,
-                    ReportedAt = DateTime.UtcNow,
-                    ReportType = MiscReportType.Delve,
+                    ReportedAt = now,
+                    ReportType = report.ReportType,
                     Region = (short)accountRegion,
-                    Data = data,
                 };
                 localContext.MiscReport.Add(dbReport);
             }
+
+            dbReport.Data = report.Data;
+            dbReport.ExpiresAt = report.ExpiresAt;
         }
 
         await localContext.SaveChangesAsync();
