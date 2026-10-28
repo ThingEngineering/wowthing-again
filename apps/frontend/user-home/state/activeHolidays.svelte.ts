@@ -1,11 +1,13 @@
-import type { DateTime } from 'luxon';
+import { DateTime } from 'luxon';
 
+import { holidayIds } from '@/data/holidays';
+import { emissaryQuestToHoliday } from '@/data/quests';
 import { timeState } from '@/shared/state/time.svelte';
 import { wowthingData } from '@/shared/stores/data';
 import { userState } from '@/user-home/state/user';
-import type { StaticDataHoliday } from '@/shared/stores/static/types';
-import { holidayIds } from '@/data/holidays';
+import { dynamicDataStore } from '@/user-home/stores/dynamicData';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
+import type { StaticDataHoliday } from '@/shared/stores/static/types';
 
 export type ActiveHoliday = {
     holiday: StaticDataHoliday;
@@ -105,6 +107,27 @@ class ActiveHolidays {
                         };
                         setActive(holiday, holidayData);
                         break;
+                    }
+                }
+            }
+        }
+
+        // fake holidays for emissary quests
+        for (const region of allRegions) {
+            const dynamicData = dynamicDataStore.getCached(region);
+            for (const emissaryQuests of Object.values(dynamicData.emissaryQuests)) {
+                const validEmissaryQuests = emissaryQuests.filter(
+                    (eq) => eq.expiresAt > currentTime
+                );
+                for (const emissaryQuest of validEmissaryQuests) {
+                    const emissaryHoliday = emissaryQuestToHoliday[emissaryQuest.questId];
+                    if (emissaryHoliday) {
+                        activeHolidays[emissaryHoliday] = {
+                            holiday: null,
+                            startDate: emissaryQuest.expiresAt.minus({ days: 1 }),
+                            endDate: emissaryQuest.expiresAt,
+                            soon: false,
+                        };
                     }
                 }
             }

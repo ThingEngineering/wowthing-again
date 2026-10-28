@@ -3,13 +3,14 @@ import sum from 'lodash/sum';
 import { DateTime } from 'luxon';
 
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
-import type { ApiWorldQuest, ApiWorldQuestReward } from '@/types/world-quests';
 import type { RewardType } from '@/enums/reward-type';
+import type { ApiWorldQuest, ApiWorldQuestReward } from '@/types/world-quests';
 
 interface ApiDynamicData {
     region: number;
     delves: [number, string][];
-    worldQuests: Record<number, [number, string][]>;
+    emissaryQuests: Record<number, [questId: number, expiresAt: number][]>;
+    worldQuests: Record<number, [questId: number, jsonData: string][]>;
 }
 
 interface ApiWorldQuestJson {
@@ -21,6 +22,7 @@ interface ApiWorldQuestJson {
 
 class DynamicData {
     public delves: { poiId: number; story: string }[] = [];
+    public emissaryQuests: Record<number, { questId: number; expiresAt: DateTime }[]> = {};
     public worldQuests: Record<number, ApiWorldQuest[]> = {};
 }
 
@@ -49,6 +51,21 @@ class DynamicDataStore {
                 // Delves
                 for (const [poiId, story] of responseData.delves) {
                     finalData.delves.push({ poiId, story });
+                }
+
+                // EmissaryQuests
+                for (const [expansion, emissaryQuests] of getNumberKeyedEntries(
+                    responseData.emissaryQuests
+                )) {
+                    finalData.emissaryQuests[expansion] = [];
+                    const expansionQuests = finalData.emissaryQuests[expansion];
+
+                    for (const [questId, expiresAt] of emissaryQuests) {
+                        expansionQuests.push({
+                            questId,
+                            expiresAt: DateTime.fromSeconds(expiresAt),
+                        });
+                    }
                 }
 
                 // World Quests

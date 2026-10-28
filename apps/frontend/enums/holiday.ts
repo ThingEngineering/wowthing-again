@@ -55,6 +55,13 @@ export enum Holiday {
     CupPandaria, // MoP
     CupBrokenIsles, // Legion
 
+    // BfA Emissaries
+    EmissaryProudmooreZandalari,
+    EmissaryEmbersVoldunai,
+    EmissaryStormsTalanjis,
+    EmissaryLegionHonorbound,
+    EmissaryWavebladeUnshackled,
+
     // Temporary
     PrepatchMidnight,
 }
