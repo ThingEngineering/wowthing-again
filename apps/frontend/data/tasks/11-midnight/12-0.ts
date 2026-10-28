@@ -76,7 +76,12 @@ export const specialAssignmentFunc = (unlocks: number[], index: number, isQuest:
     };
 };
 
-export const specialAssignmentExpiry: Chore['customExpiryFunc'] = (char, scannedAt, questIds) => {
+export const specialAssignmentExpiry: Chore['customExpiryFunc'] = (
+    chore,
+    char,
+    scannedAt,
+    questIds
+) => {
     const allWorldQuests = dynamicDataStore.getCachedQuests(char.region);
     const findQuestId = specialAssignmentQuestToUnlock[questIds[0]] || questIds[0];
     const worldQuest = allWorldQuests.find((wq) => wq.questId === findQuestId);
@@ -97,7 +102,8 @@ export const midChores12_0: Task = {
             questResetForced: true,
             showQuestName: true,
             sumObjectives: true,
-            customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1079, 2),
+            customExpiryFunc: (chore, char, scannedAt) =>
+                customResetPeriod(char, scannedAt, 1079, 2),
             decorationFunc: twoWeekDecorator,
             questIds: (char) =>
                 char.level < 90

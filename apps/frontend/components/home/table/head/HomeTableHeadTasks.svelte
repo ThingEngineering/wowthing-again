@@ -42,7 +42,7 @@
     {@const task = taskMap[taskName] || settingsState.customTaskMap[fullTaskName]}
     {@const chore = task.chores.find((task) => task?.key === choreName)}
     {@const customExpiry = chore?.decorationFunc?.(
-        chore?.customExpiryFunc(userState.general.characters[0], timeState.slowTime)
+        chore?.customExpiryFunc(chore, userState.general.characters[0], timeState.slowTime)
     )}
 
     <td

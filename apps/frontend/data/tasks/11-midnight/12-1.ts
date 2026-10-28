@@ -46,7 +46,8 @@ export const midChores12_1: Task = {
             questReset: DbResetType.Custom,
             questResetForced: true,
             questIds: [98172],
-            customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1078, 2),
+            customExpiryFunc: (chore, char, scannedAt) =>
+                customResetPeriod(char, scannedAt, 1078, 2),
             decorationFunc: twoWeekDecorator,
         },
         {

@@ -36,6 +36,20 @@ export const imageStrings: Record<string, string> = {
     'bronze-medal': 'achievement/8888',
     'silver-medal': 'achievement/8889', // Mechanized Mackerel
     'gold-medal': 'achievement/8890',
+
+    // BfA Alliance
+    'faction-7th-legion': 'achievement/12954',
+    'faction-order-of-embers': 'achievement/12952',
+    'faction-proudmoore-admiralty': 'achievement/12951',
+    'faction-storms-wake': 'achievement/12953',
+    'faction-waveblade-ankoan': 'achievement/13558',
+
+    // BfA Horde
+    'faction-talanjis-expedition': 'achievement/12948',
+    'faction-the-honorbound': 'achievement/12957',
+    'faction-the-unshackled': 'achievement/13559',
+    'faction-voldunai': 'achievement/12949',
+    'faction-zandalari-empire': 'achievement/12950',
 };
 
 export const iconStrings: Record<string, Icon> = {

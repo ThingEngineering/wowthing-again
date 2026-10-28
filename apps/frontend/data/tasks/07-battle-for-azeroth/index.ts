@@ -1,3 +1,4 @@
+import { bfaEmissaryQuests } from './emissaryQuests';
 import { bfaNazjatar } from './nazjatar';
 
-export const bfaTasks = [bfaNazjatar];
+export const bfaTasks = [bfaEmissaryQuests, bfaNazjatar];

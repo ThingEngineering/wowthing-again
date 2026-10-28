@@ -583,7 +583,7 @@ export class DataUserDerived {
                     : chore.questIds;
 
             if (choreReset === DbResetType.Custom) {
-                expiresAt = chore.customExpiryFunc(character, charScanned, questIds);
+                expiresAt = chore.customExpiryFunc(chore, character, charScanned, questIds);
             }
 
             for (const questId of questIds) {
