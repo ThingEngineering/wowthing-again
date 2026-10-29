@@ -877,7 +877,7 @@ function getExpiry(choreTask: Chore, character: Character, charScanned: DateTime
     if (choreTask.questReset === DbResetType.Weekly) {
         expiresAt = getNextWeeklyResetFromTime(charScanned, character.realm?.region || Region.US);
     } else if (choreTask.questReset === DbResetType.Custom) {
-        expiresAt = choreTask.customExpiryFunc(character, charScanned);
+        expiresAt = choreTask.customExpiryFunc(choreTask, character, charScanned);
     } else {
         expiresAt = getNextDailyResetFromTime(charScanned, character.realm?.region || Region.US);
     }

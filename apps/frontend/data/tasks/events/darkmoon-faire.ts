@@ -4,7 +4,7 @@ import { DbResetType } from '@/shared/stores/db/enums';
 import { userStore } from '@/stores';
 import type { Chore, Task } from '@/types/tasks';
 
-const customExpiryFunc: Chore['customExpiryFunc'] = (char, scannedAt) => {
+const customExpiryFunc: Chore['customExpiryFunc'] = (chore, char, scannedAt) => {
     const scannedPeriod = userStore.getPeriodForCharacter2(scannedAt, char);
     return scannedPeriod.endTime.plus({ days: 3 });
 };

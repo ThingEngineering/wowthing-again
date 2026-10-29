@@ -28,6 +28,7 @@ export type Chore = {
     maximumLevel?: number;
     minimumLevel?: number;
     noAlone?: boolean;
+    noTooltipIcon?: boolean;
     overrideNeed?: number;
     questCount?: number;
     questIds?: number[] | ((char: Character, chore?: Chore) => number[]);
@@ -54,7 +55,12 @@ export type Chore = {
     /**
      * Function to generate a custom expiry time
      */
-    customExpiryFunc?: (char: Character, scannedAt: DateTime, questIds?: number[]) => DateTime;
+    customExpiryFunc?: (
+        chore: Chore,
+        char: Character,
+        scannedAt: DateTime,
+        questIds?: number[]
+    ) => DateTime;
     /**
      * Function to ????
      */

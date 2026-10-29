@@ -1,3 +1,4 @@
+import { Holiday } from '@/enums/holiday';
 import { ItemQuality } from '@/enums/item-quality';
 import { QuestStatus } from '@/enums/quest-status';
 import { GlobalDailyQuest } from '@/types/data';

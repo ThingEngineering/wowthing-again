@@ -22,6 +22,13 @@ public class MemoryCacheService
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly WowDbContext _context;
 
+    private static readonly (int Expansion, MiscReportType ReportType)[] Emissaries =
+    [
+        (6, MiscReportType.LegionEmissaries),
+        (7, MiscReportType.BattleForAzerothEmissaries),
+        (8, MiscReportType.ShadowlandsCallings),
+    ];
+
     public MemoryCacheService(
         CacheService cacheService,
         IConnectionMultiplexer redis,
@@ -165,10 +172,20 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
                     ? JsonSerializer.Deserialize<object[]>(delveAggregate.JsonData ?? "[]")
                     : [];
 
+                var emissaryQuests = new Dictionary<int, object[]>();
+                foreach (var emissary in Emissaries)
+                {
+                    var emissaryAggregate = miscAggregates.FirstOrDefault(ma => ma.ReportType == emissary.ReportType);
+                    emissaryQuests[emissary.Expansion] = emissaryAggregate != null
+                        ? JsonSerializer.Deserialize<object[]>(emissaryAggregate.JsonData ?? "[]")
+                        : [];
+                }
+
                 return new ApiDynamicData
                 {
                     Region = (WowRegion)region,
                     Delves = delveJson,
+                    EmissaryQuests = emissaryQuests,
                     WorldQuests = worldQuestAggregates.ToGroupedDictionary(wqa => wqa.ZoneId),
                 };
             }

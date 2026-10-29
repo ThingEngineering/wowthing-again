@@ -35,7 +35,8 @@ export const twwChores11_0_0: Task = {
                     ? [82679] // Archives: Seeking History
                     : [82678], // Archives: The First Disc
             questReset: DbResetType.Custom,
-            customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1002, 3),
+            customExpiryFunc: (chore, char, scannedAt) =>
+                customResetPeriod(char, scannedAt, 1002, 3),
             decorationFunc: threeWeekDecorator,
         },
         {
@@ -54,7 +55,8 @@ export const twwChores11_0_0: Task = {
                 82706, // Delves: Worldwide Research
             ],
             questReset: DbResetType.Custom,
-            customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1003, 3),
+            customExpiryFunc: (chore, char, scannedAt) =>
+                customResetPeriod(char, scannedAt, 1003, 3),
             decorationFunc: threeWeekDecorator,
         },
         {
@@ -110,7 +112,8 @@ export const twwChores11_0_0: Task = {
                 82510, // Nerub-ar Palace [H]
             ],
             questReset: DbResetType.Custom,
-            customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1001, 3),
+            customExpiryFunc: (chore, char, scannedAt) =>
+                customResetPeriod(char, scannedAt, 1001, 3),
             decorationFunc: threeWeekDecorator,
         },
         {

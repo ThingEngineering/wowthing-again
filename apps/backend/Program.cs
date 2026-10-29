@@ -30,8 +30,6 @@ public class Program
 
     public static void Main(string[] args)
     {
-        ServicePointManager.DefaultConnectionLimit = 10;
-
         Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(Configuration)
             .Enrich.FromLogContext()
@@ -134,6 +132,10 @@ public class Program
         services.AddHttpClient("limited", client =>
             {
                 client.Timeout = TimeSpan.FromSeconds(120);
+            })
+            .ConfigurePrimaryHttpMessageHandler(() => new SocketsHttpHandler
+            {
+                MaxConnectionsPerServer = 10,
             })
             .AddPolicyHandler(rateLimitPolicy)
             .SetHandlerLifetime(Timeout.InfiniteTimeSpan);

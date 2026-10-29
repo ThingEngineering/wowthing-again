@@ -32,7 +32,8 @@ public class MagicAggregateMiscReportsJob : JobBase, IScheduledJob
                 var dataCounts = new Dictionary<string, int>();
                 var reportQuery = Context.MiscReport
                     .AsNoTracking()
-                    .Where(mr => mr.Region == (short)region &&
+                    .Where(mr => mr.ReportType == reportType &&
+                                 mr.Region == (short)region &&
                                  mr.ExpiresAt > DateTime.UtcNow)
                     .AsAsyncEnumerable();
                 await foreach (var report in reportQuery)
