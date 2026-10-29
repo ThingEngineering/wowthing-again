@@ -170,7 +170,7 @@
                                         charTaskChore.status
                                     ]}"
                                 >
-                                    {#if chore?.icon}
+                                    {#if chore?.icon && !chore.noTooltipIcon}
                                         {#if typeof chore.icon === 'string'}
                                             <ParsedText text={chore.icon} />
                                         {:else}

@@ -23,6 +23,7 @@ export const emissaryChoreData = (holiday: Holiday): Partial<Chore> => {
     const reputations = holidayToReputations[holiday] || [];
     return {
         alwaysStarted: true,
+        noTooltipIcon: true,
         overrideNeed: 4,
         questReset: DbResetType.Custom,
         questResetForced: true,

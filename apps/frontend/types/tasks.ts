@@ -28,6 +28,7 @@ export type Chore = {
     maximumLevel?: number;
     minimumLevel?: number;
     noAlone?: boolean;
+    noTooltipIcon?: boolean;
     overrideNeed?: number;
     questCount?: number;
     questIds?: number[] | ((char: Character, chore?: Chore) => number[]);
