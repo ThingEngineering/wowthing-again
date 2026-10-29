@@ -7,6 +7,7 @@ export const legionEmissaryQuests: Task = {
     name: '[Legion] Emissaries',
     shortName: 'Leg',
     showExpiry: true,
+    showRowStars: true,
     showSeparate: true,
     sortByExpiry: true,
     chores: [

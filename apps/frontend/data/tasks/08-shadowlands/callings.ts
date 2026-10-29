@@ -28,6 +28,7 @@ export const slCallings: Task = {
     shortName: 'SL',
     minimumLevel: 60,
     showExpiry: true,
+    showRowStars: true,
     showSeparate: true,
     sortByExpiry: true,
     chores: [
