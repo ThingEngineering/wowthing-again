@@ -54,12 +54,6 @@ export function getRenownData({
             reputation.horde?.id
     );
 
-    const actualCharacter = ret.dataRep.accountWide
-        ? userState.general.characterById[userState.reputations[ret.dataRep.id]?.characterId]
-        : character;
-
-    ret.characterRep =
-        actualCharacter.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
     const repValue =
         (ret.dataRep.accountWide
             ? userState.general.reputations[ret.dataRep.id]
@@ -74,7 +68,7 @@ export function getRenownData({
         ret.characterParagon = ret.dataRep.accountWide
             ? userState.general.paragons[ret.characterRep.reputationId]
                   ?.asCharacterReputationParagon
-            : actualCharacter.paragons?.[ret.characterRep.reputationId];
+            : character.paragons?.[ret.characterRep.reputationId];
 
         let tier = ret.renownCurrent;
         if (ret.characterParagon) {
@@ -133,7 +127,7 @@ export function getRenownData({
                 ret.characterParagon = ret.dataRep.accountWide
                     ? userState.general.paragons[ret.characterRep.reputationId]
                           ?.asCharacterReputationParagon
-                    : actualCharacter.paragons?.[ret.dataRep.id];
+                    : character.paragons?.[ret.dataRep.id];
                 if (ret.repTier.tier === 1) {
                     ret.cls = 'reputation0 reputation0-border';
                 }
