@@ -1,4 +1,5 @@
 import { Holiday } from '@/enums/holiday';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
 export const holidayMinimumLevel: Record<number, number> = {
     // Timewalking: TBC
@@ -299,3 +300,6 @@ export const callingQuestToHoliday: Record<number, Holiday> = {
     60407: Holiday.CallingTrainingMaldraxxus,
     60412: Holiday.CallingTrainingRevendreth,
 };
+export const holidayToCallingQuest = Object.fromEntries(
+    getNumberKeyedEntries(callingQuestToHoliday).map(([questId, holiday]) => [holiday, questId])
+);
