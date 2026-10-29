@@ -66,7 +66,7 @@ export enum Holiday {
     EmissaryArgussianReach,
     EmissaryArmyLight,
 
-    // BfA Emissaries
+    // Battle for Azeroth Emissaries
     EmissaryChampionsAzeroth,
     EmissaryTortollans,
     EmissaryProudmooreZandalari,
@@ -74,6 +74,27 @@ export enum Holiday {
     EmissaryStormsTalanjis,
     EmissaryLegionHonorbound,
     EmissaryWavebladeUnshackled,
+
+    // Shadowlands Callings
+    CallingAnimaSalvage,
+    CallingRareResources,
+    CallingStormTheMaw,
+    CallingAidingArdenweald,
+    CallingAidingBastion,
+    CallingAidingMaldraxxus,
+    CallingAidingRevendreth,
+    CallingCallArdenweald,
+    CallingCallBastion,
+    CallingCallMaldraxxus,
+    CallingCallRevendreth,
+    CallingChallengesArdenweald,
+    CallingChallengesBastion,
+    CallingChallengesMaldraxxus,
+    CallingChallengesRevendreth,
+    CallingTrainingArdenweald,
+    CallingTrainingBastion,
+    CallingTrainingMaldraxxus,
+    CallingTrainingRevendreth,
 
     // Temporary
     PrepatchMidnight,

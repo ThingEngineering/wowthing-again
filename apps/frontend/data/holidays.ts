@@ -277,3 +277,25 @@ export const fancyHolidays: FancyHoliday[] = [
         everything: 'anniversary',
     },
 ];
+
+export const callingQuestToHoliday: Record<number, Holiday> = {
+    60458: Holiday.CallingAnimaSalvage,
+    60415: Holiday.CallingRareResources,
+    60454: Holiday.CallingStormTheMaw,
+    60391: Holiday.CallingAidingArdenweald,
+    60392: Holiday.CallingAidingBastion,
+    60395: Holiday.CallingAidingMaldraxxus,
+    60400: Holiday.CallingAidingRevendreth,
+    60424: Holiday.CallingCallArdenweald,
+    60426: Holiday.CallingCallBastion,
+    60430: Holiday.CallingCallMaldraxxus,
+    60434: Holiday.CallingCallRevendreth,
+    60439: Holiday.CallingChallengesArdenweald,
+    60442: Holiday.CallingChallengesBastion,
+    60447: Holiday.CallingChallengesMaldraxxus,
+    60450: Holiday.CallingChallengesRevendreth,
+    60403: Holiday.CallingTrainingArdenweald,
+    60405: Holiday.CallingTrainingBastion,
+    60407: Holiday.CallingTrainingMaldraxxus,
+    60412: Holiday.CallingTrainingRevendreth,
+};
