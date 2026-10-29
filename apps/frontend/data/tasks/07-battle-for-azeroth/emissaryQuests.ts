@@ -1,6 +1,6 @@
 import type { DateTime } from 'luxon';
 
-import { emissaryQuestToHoliday } from '@/data/quests';
+import { emissaryQuestToHoliday, holidayToReputations } from '@/data/reputation';
 import { Expansion } from '@/enums/expansion';
 import { Holiday } from '@/enums/holiday';
 import { timeState } from '@/shared/state/time.svelte';
@@ -36,6 +36,14 @@ const emissaryChore: Partial<Chore> = {
     decorationFunc: threeDayDecorator,
 };
 
+const holidayData = (holiday: Holiday): Partial<Chore> => {
+    const reputations = holidayToReputations[holiday] || [];
+    return {
+        questIds: reputations.map((rep) => rep.emissaryQuestId),
+        requiredHolidays: [holiday],
+    };
+};
+
 export const bfaEmissaryQuests: Task = {
     key: 'bfaEmissaryQuests',
     name: '[BfA] Emissaries',
@@ -44,43 +52,52 @@ export const bfaEmissaryQuests: Task = {
     sumChores: true,
     chores: [
         {
+            key: 'champions',
+            name: 'Champions of Azeroth',
+            icon: '{factionIcon:BfaChampionsOfAzeroth}',
+            ...holidayData(Holiday.EmissaryChampionsAzeroth),
+            ...emissaryChore,
+        },
+        {
+            key: 'tortollans',
+            name: 'Tortollans',
+            icon: '{factionIcon:BfaTortollans}',
+            ...holidayData(Holiday.EmissaryTortollans),
+            ...emissaryChore,
+        },
+        {
             key: 'proudmooreZandalari',
             name: 'Proudmoore/Zandalari',
-            icon: ':faction-proudmoore-admiralty: :faction-zandalari-empire:',
-            questIds: [50599, 50598],
-            requiredHolidays: [Holiday.EmissaryProudmooreZandalari],
+            icon: '{factionIcon:BfaProudmooreAdmiralty} {factionIcon:BfaZandalariEmpire}',
+            ...holidayData(Holiday.EmissaryProudmooreZandalari),
             ...emissaryChore,
         },
         {
             key: 'embersVoldunai',
             name: 'Embers/Voldunai',
-            icon: ':faction-order-of-embers: :faction-voldunai:',
-            questIds: [50600, 50603],
-            requiredHolidays: [Holiday.EmissaryEmbersVoldunai],
+            icon: '{factionIcon:BfaOrderOfEmbers} {factionIcon:BfaVoldunai}',
+            ...holidayData(Holiday.EmissaryEmbersVoldunai),
             ...emissaryChore,
         },
         {
             key: 'stormsTalanjis',
             name: "Storm's/Talanji's",
-            icon: ':faction-storms-wake: :faction-talanjis-expedition:',
-            questIds: [50601, 50602],
-            requiredHolidays: [Holiday.EmissaryStormsTalanjis],
+            icon: '{factionIcon:BfaStormsWake} {factionIcon:BfaTalanjisExpedition}',
+            ...holidayData(Holiday.EmissaryStormsTalanjis),
             ...emissaryChore,
         },
         {
             key: 'legionHonorbound',
             name: 'Legion/Honorbound',
-            icon: ':faction-7th-legion: :faction-the-honorbound:',
-            questIds: [50605, 50606],
-            requiredHolidays: [Holiday.EmissaryLegionHonorbound],
+            icon: '{factionIcon:Bfa7thLegion} {factionIcon:BfaTheHonorbound}',
+            ...holidayData(Holiday.EmissaryLegionHonorbound),
             ...emissaryChore,
         },
         {
             key: 'wavebladeUnshackled',
             name: 'Waveblade/Unshackled',
-            icon: ':faction-waveblade-ankoan: :faction-the-unshackled:',
-            questIds: [56119, 56120],
-            requiredHolidays: [Holiday.EmissaryWavebladeUnshackled],
+            icon: '{factionIcon:BfaWavebladeAnkoan} {factionIcon:BfaTheUnshackled}',
+            ...holidayData(Holiday.EmissaryWavebladeUnshackled),
             ...emissaryChore,
         },
     ],

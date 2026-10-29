@@ -2,8 +2,10 @@
     import { afterUpdate, mount } from 'svelte';
 
     import { iconStrings, imageStrings } from '@/data/icons';
+    import { reputationMap } from '@/data/reputation';
     import { Faction } from '@/enums/faction';
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
+    import { Reputation } from '@/enums/reputation';
     import { RewardReputation } from '@/enums/reward-reputation';
     import { iconLibrary, aliasedIcons, uiIcons } from '@/shared/icons';
     import { wowthingData } from '@/shared/stores/data';
@@ -41,6 +43,12 @@
             const factionId = parseInt(factionIdString);
             const rep = wowthingData.static.reputationById.get(factionId);
             return rep?.name || `Faction #${factionId}`;
+        });
+
+        // {factionIcon:factionId}
+        html = html.replaceAll(/\{factionIcon:(\w+)\}/g, (_, factionEnumString: string) => {
+            const reputation = Reputation[factionEnumString as keyof typeof Reputation];
+            return `<span data-icon="${reputationMap[reputation]?.icon ?? 'unknonwn'}"></span>`;
         });
 
         // {reputation:amount|factionId}

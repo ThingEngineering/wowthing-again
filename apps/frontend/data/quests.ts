@@ -52,20 +52,6 @@ export const dailyQuestLevel: Record<number, number> = {
     8: 60,
 };
 
-export const emissaryQuestToHoliday: Record<number, Holiday> = {
-    // BfA
-    50598: Holiday.EmissaryProudmooreZandalari,
-    50599: Holiday.EmissaryProudmooreZandalari,
-    50600: Holiday.EmissaryEmbersVoldunai,
-    50603: Holiday.EmissaryEmbersVoldunai,
-    50601: Holiday.EmissaryStormsTalanjis,
-    50602: Holiday.EmissaryStormsTalanjis,
-    50605: Holiday.EmissaryLegionHonorbound,
-    50606: Holiday.EmissaryLegionHonorbound,
-    56119: Holiday.EmissaryWavebladeUnshackled,
-    56120: Holiday.EmissaryWavebladeUnshackled,
-};
-
 export const questNameOverride: Record<number, string> = {
     95435: 'Eversong WQs', // Special Assignment: Shade and Claw
     92848: 'Eversong WQs', // Special Assignment: The Grand Magister's Drink

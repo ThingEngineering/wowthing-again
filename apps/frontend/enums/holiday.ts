@@ -55,7 +55,20 @@ export enum Holiday {
     CupPandaria, // MoP
     CupBrokenIsles, // Legion
 
+    // Legion Emissaries
+    EmissaryCourtFarondis,
+    EmissaryDreamweavers,
+    EmissaryHighmountainTribes,
+    EmissaryNightfallen,
+    EmissaryValarjar,
+    EmissaryWardens,
+    EmissaryArmiesLegionfall,
+    EmissaryArgussianReach,
+    EmissaryArmyLight,
+
     // BfA Emissaries
+    EmissaryChampionsAzeroth,
+    EmissaryTortollans,
     EmissaryProudmooreZandalari,
     EmissaryEmbersVoldunai,
     EmissaryStormsTalanjis,

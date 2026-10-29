@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 
 import { holidayIds } from '@/data/holidays';
-import { emissaryQuestToHoliday } from '@/data/quests';
+import { emissaryQuestToHoliday } from '@/data/reputation';
 import { timeState } from '@/shared/state/time.svelte';
 import { wowthingData } from '@/shared/stores/data';
 import { userState } from '@/user-home/state/user';
