@@ -1,4 +1,6 @@
 <script lang="ts">
+    import sortBy from 'lodash/sortBy';
+
     import { taskMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
     import { uiIcons } from '@/shared/icons/ui';
@@ -7,6 +9,7 @@
     import type { CharacterProps } from '@/types/props';
 
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
+    import QuestStatusIcon from '@/shared/components/icons/QuestStatusIcon.svelte';
 
     type Props = CharacterProps & {
         fullTaskName: string;
@@ -23,6 +26,10 @@
                 const oof = task.chores.find((chore) => chore?.key === charChore.key);
                 return charChore.skipped || oof?.alwaysStarted === true || charChore?.status > 0;
             })
+    );
+
+    let sortedChores = $derived(
+        task.sortByExpiry && charTask && sortBy(charTask.chores, (chore) => chore.expiresAt)
     );
 </script>
 
@@ -66,6 +73,10 @@
             {:else}
                 Done
             {/if}
+        {:else if task.showRowStars}
+            {#each sortedChores as sortedChore}
+                <QuestStatusIcon status={sortedChore.status} useStatusColors={true} />
+            {/each}
         {:else}
             {charTask.countCompleted} / {charTask.countTotal}
         {/if}

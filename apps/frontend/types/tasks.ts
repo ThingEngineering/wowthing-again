@@ -15,6 +15,7 @@ export type Task = {
     requiredHolidays?: Holiday[];
     requiredQuestId?: number;
     showExpiry?: boolean;
+    showRowStars?: boolean;
     showSeparate?: boolean;
     sortByExpiry?: boolean;
     sumChores?: boolean;
