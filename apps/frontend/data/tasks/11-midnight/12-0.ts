@@ -82,6 +82,10 @@ export const specialAssignmentExpiry: Chore['customExpiryFunc'] = (
     scannedAt,
     questIds
 ) => {
+    if (!questIds || questIds?.length === 0) {
+        return Constants.defaultTime;
+    }
+
     const allWorldQuests = dynamicDataStore.getCachedQuests(char.region);
     const findQuestId = specialAssignmentQuestToUnlock[questIds[0]] || questIds[0];
     const worldQuest = allWorldQuests.find((wq) => wq.questId === findQuestId);
