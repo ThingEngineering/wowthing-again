@@ -12,11 +12,8 @@ export const commonChoices: SettingsChoice[] = [
 
 export const homeChoices: SettingsChoice[] = [
     { id: 'bagSpace', name: 'Bag Space' },
-    { id: 'callings', name: 'Callings' },
     { id: 'covenant', name: 'Covenant' },
     { id: 'currencies', name: 'Currencies' },
-    { id: 'emissariesBfa', name: 'Emissaries - BfA' },
-    { id: 'emissariesLegion', name: 'Emissaries - Legion' },
     { id: 'gear', name: 'Gear' },
     { id: 'gold', name: 'Gold' },
     { id: 'goldWorldQuests', name: 'Gold World Quests' },
@@ -50,3 +47,5 @@ export const homeChoices: SettingsChoice[] = [
     { id: 'vaultRaid', name: 'Vault - Raid' },
     { id: 'vaultWorld', name: 'Vault - World' },
 ];
+
+export const removedHomeChoices = new Set(['callings', 'emissariesBfa', 'emissariesLegion']);

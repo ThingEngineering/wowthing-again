@@ -6,7 +6,7 @@
     import { settingsState } from '@/shared/state/settings.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { userState } from '@/user-home/state/user';
-    import { dynamicDataStore } from '@/user-home/stores/dynamicData';
+    import { dynamicDataStore } from '@/user-home/stores/dynamicData.svelte';
 
     import DelvesTooltip from './DelvesTooltip.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';

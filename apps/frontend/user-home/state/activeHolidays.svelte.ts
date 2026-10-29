@@ -1,11 +1,12 @@
 import { DateTime } from 'luxon';
 
-import { holidayIds } from '@/data/holidays';
+import { callingQuestToHoliday, holidayIds } from '@/data/holidays';
 import { emissaryQuestToHoliday } from '@/data/reputation';
+import { Expansion } from '@/enums/expansion';
 import { timeState } from '@/shared/state/time.svelte';
 import { wowthingData } from '@/shared/stores/data';
 import { userState } from '@/user-home/state/user';
-import { dynamicDataStore } from '@/user-home/stores/dynamicData';
+import { dynamicDataStore } from '@/user-home/stores/dynamicData.svelte';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type { StaticDataHoliday } from '@/shared/stores/static/types';
 
@@ -22,19 +23,20 @@ class ActiveHolidays {
     private cachedTime: Record<number, DateTime> = {};
 
     value = $derived.by(() => {
-        console.time('activeHolidays');
         const allRegions = userState.general.allRegions || [];
         if (allRegions.length === 0) {
             return {} as ActiveHolidayMap;
         }
 
-        const currentTime = timeState.slowTime;
+        const currentTime = timeState.time;
         const fakeStartTime = currentTime.plus({ days: 2 });
 
         const regionMask = allRegions.reduce((a, b) => a + (1 << (b - 1)), 0);
         if (this.cachedTime[regionMask] === currentTime) {
             return this.cachedActive[regionMask];
         }
+
+        // console.time('activeHolidays');
 
         const filteredHolidays = Array.from(wowthingData.static.holidayById.values()).filter(
             (holiday) =>
@@ -115,12 +117,14 @@ class ActiveHolidays {
         // fake holidays for emissary quests
         for (const region of allRegions) {
             const dynamicData = dynamicDataStore.getCached(region);
-            for (const emissaryQuests of Object.values(dynamicData.emissaryQuests)) {
-                const validEmissaryQuests = emissaryQuests.filter(
-                    (eq) => eq.expiresAt > currentTime
-                );
-                for (const emissaryQuest of validEmissaryQuests) {
-                    const emissaryHoliday = emissaryQuestToHoliday[emissaryQuest.questId];
+            for (const [expansion, quests] of getNumberKeyedEntries(dynamicData.emissaryQuests)) {
+                const validQuests = quests.filter((eq) => eq.expiresAt > currentTime);
+
+                for (const emissaryQuest of validQuests) {
+                    const emissaryHoliday =
+                        expansion === Expansion.Shadowlands
+                            ? callingQuestToHoliday[emissaryQuest.questId]
+                            : emissaryQuestToHoliday[emissaryQuest.questId];
                     if (emissaryHoliday) {
                         activeHolidays[emissaryHoliday] = {
                             holiday: null,
@@ -128,6 +132,8 @@ class ActiveHolidays {
                             endDate: emissaryQuest.expiresAt,
                             soon: false,
                         };
+                    } else {
+                        console.warn('invalid holiday?', { emissaryQuest, emissaryHoliday });
                     }
                 }
             }
@@ -136,8 +142,7 @@ class ActiveHolidays {
         this.cachedActive[regionMask] = activeHolidays;
         this.cachedTime[regionMask] = currentTime;
 
-        console.log(regionMask, activeHolidays);
-        console.timeEnd('activeHolidays');
+        // console.timeEnd('activeHolidays');
         return activeHolidays;
     });
 }

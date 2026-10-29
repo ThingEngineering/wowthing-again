@@ -5,7 +5,7 @@
     import { timeState } from '@/shared/state/time.svelte';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { zoneMap } from '@/user-home/components/world-quests/data';
-    import { dynamicDataStore } from '@/user-home/stores/dynamicData';
+    import { dynamicDataStore } from '@/user-home/stores/dynamicData.svelte';
     import { userState } from '@/user-home/state/user';
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
     import type { CharacterProps } from '@/types/props';

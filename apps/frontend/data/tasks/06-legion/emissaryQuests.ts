@@ -6,7 +6,9 @@ export const legionEmissaryQuests: Task = {
     key: 'legionEmissaryQuests',
     name: '[Legion] Emissaries',
     shortName: 'Leg',
+    showExpiry: true,
     showSeparate: true,
+    sortByExpiry: true,
     chores: [
         {
             key: 'courtFarondis',

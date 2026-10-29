@@ -2,7 +2,7 @@ import { Constants } from '@/data/constants';
 import { aliasedIcons, iconLibrary, uiIcons } from '@/shared/icons';
 import { timeState } from '@/shared/state/time.svelte';
 import { DbResetType } from '@/shared/stores/db/enums';
-import { dynamicDataStore } from '@/user-home/stores/dynamicData';
+import { dynamicDataStore } from '@/user-home/stores/dynamicData.svelte';
 import type { Character } from '@/types';
 import type { Chore, Task } from '@/types/tasks';
 import { twoWeekDecorator } from './utils';

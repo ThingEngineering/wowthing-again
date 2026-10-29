@@ -11,6 +11,8 @@
 
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import { timeState } from '@/shared/state/time.svelte';
+    import { toNiceDuration } from '@/utils/formatting';
 
     type Props = {
         characterId: number;
@@ -45,6 +47,14 @@
                 }
             }
             ret.push(currentSet);
+        }
+
+        if (task.sortByExpiry) {
+            for (const choreSet of ret) {
+                choreSet.sort((a, b) => {
+                    return a.expiresAt.diff(b.expiresAt).toMillis();
+                });
+            }
         }
 
         return ret;
@@ -160,6 +170,13 @@
                                 {/if}
                                 {#if chore.accountWide && settingsState.value.tasks.showAccountIcon}
                                     <IconifyWrapper icon={uiIcons.squareA} cls="status-shrug" />
+                                {/if}
+
+                                {#if task.showExpiry}
+                                    {@const remaining = charTaskChore.expiresAt
+                                        .diff(timeState.slowTime)
+                                        .toMillis()}
+                                    <code>[{toNiceDuration(remaining, { useNbsp: false })}]</code>
                                 {/if}
 
                                 <ParsedText text={charTaskChore.name} />
