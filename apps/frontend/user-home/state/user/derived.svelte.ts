@@ -557,17 +557,16 @@ export class DataUserDerived {
         const choreReset = chore.questReset || parent?.questReset;
         const resetForced = chore.questResetForced === true || parent?.questResetForced === true;
 
-        let expiresAt: DateTime;
         if (choreReset === DbResetType.Weekly) {
-            expiresAt = getNextWeeklyResetFromTime(
+            charChore.expiresAt = getNextWeeklyResetFromTime(
                 charScanned,
                 character.realm?.region || Region.US,
                 character
             );
         } else if (choreReset === DbResetType.Never) {
-            expiresAt = timeState.slowTime.plus({ days: 30 });
+            charChore.expiresAt = timeState.slowTime.plus({ days: 30 });
         } else {
-            expiresAt = getNextDailyResetFromTime(
+            charChore.expiresAt = getNextDailyResetFromTime(
                 charScanned,
                 character.realm?.region || Region.US,
                 character
@@ -583,7 +582,12 @@ export class DataUserDerived {
                     : chore.questIds;
 
             if (choreReset === DbResetType.Custom) {
-                expiresAt = chore.customExpiryFunc(chore, character, charScanned, questIds);
+                charChore.expiresAt = chore.customExpiryFunc(
+                    chore,
+                    character,
+                    charScanned,
+                    questIds
+                );
             }
 
             for (const questId of questIds) {
@@ -592,10 +596,13 @@ export class DataUserDerived {
                     ? accountWeeklyQuestIds.has(questId)
                     : characterQuests?.hasQuestById?.has(questId);
                 if (questCompleted) {
-                    if (choreReset === DbResetType.Never || expiresAt > timeState.slowTime) {
+                    if (
+                        choreReset === DbResetType.Never ||
+                        charChore.expiresAt > timeState.slowTime
+                    ) {
                         charChore.progressCurrent++;
                         charChore.quest = {
-                            expires: expiresAt?.toUnixInteger(),
+                            expires: charChore.expiresAt?.toUnixInteger(),
                             id: questId,
                             name: wowthingData.static.questNameById.get(questId) || chore.name,
                             objectives: [],
@@ -615,10 +622,10 @@ export class DataUserDerived {
                     questProgress &&
                     (!resetForced ||
                         questProgress.expires > timeState.slowTime.toUnixInteger() ||
-                        expiresAt > timeState.slowTime)
+                        charChore.expiresAt > timeState.slowTime)
                 ) {
                     charChore.quest = questProgress;
-                    charChore.quest.expires ||= expiresAt.toUnixInteger();
+                    charChore.quest.expires ||= charChore.expiresAt.toUnixInteger();
                     charChore.status = questProgress.status;
 
                     if (
@@ -686,7 +693,7 @@ export class DataUserDerived {
         } else if (chore.progressFunc) {
             const { have, need } = chore.progressFunc(character);
 
-            if (!resetForced || expiresAt > timeState.slowTime) {
+            if (!resetForced || charChore.expiresAt > timeState.slowTime) {
                 charChore.progressCurrent = have;
             }
             charChore.progressTotal = need;

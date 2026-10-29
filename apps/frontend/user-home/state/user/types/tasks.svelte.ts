@@ -1,3 +1,5 @@
+import type { DateTime } from 'luxon';
+
 import { QuestStatus } from '@/enums/quest-status';
 import type { UserQuestDataCharacterProgress } from '@/types/data';
 import type { Task } from '@/types/tasks';
@@ -14,6 +16,7 @@ export class CharacterTask {
 }
 
 export class CharacterChore {
+    public expiresAt?: DateTime;
     public name: string;
     public skipped = false;
     public status: QuestStatus = QuestStatus.NotStarted;

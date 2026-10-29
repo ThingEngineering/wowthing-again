@@ -27,7 +27,9 @@ export const slCallings: Task = {
     name: '[SL] Callings',
     shortName: 'SL',
     minimumLevel: 60,
+    showExpiry: true,
     showSeparate: true,
+    sortByExpiry: true,
     chores: [
         {
             key: 'animaSalvage',
