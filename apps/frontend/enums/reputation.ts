@@ -43,4 +43,18 @@ export enum Reputation {
     BfaWavebladeAnkoan = 2400,
     BfaRajani = 2415,
     BfaUldumAccord = 2417,
+
+    SlTheAscended = 2407,
+    SlTheUndyingArmy = 2410,
+    SlCourtOfHarvesters = 2413,
+    SlVenari = 2432,
+    SlTheAvowed = 2439,
+    SlTheEmberCourt = 2445,
+    SlStitchmasters = 2462,
+    SlMarasmius = 2463,
+    SlCourtOfNight = 2464,
+    SlTheWildHunt = 2465,
+    SlDeathsAdvance = 2470,
+    SlTheArchivistsCodex = 2472,
+    SlTheEnlightened = 2478,
 }
