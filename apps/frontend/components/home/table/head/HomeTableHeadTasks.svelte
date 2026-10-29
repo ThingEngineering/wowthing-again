@@ -41,12 +41,15 @@
     {@const [taskName, choreName] = fullTaskName.split('|', 2)}
     {@const task = taskMap[taskName] || settingsState.customTaskMap[fullTaskName]}
     {@const chore = task.chores.find((task) => task?.key === choreName)}
-    {@const customExpiry = chore?.decorationFunc?.(
-        chore?.customExpiryFunc(chore, userState.general.characters[0], timeState.slowTime)
+    {@const customExpiry = chore?.customExpiryFunc?.(
+        chore,
+        userState.general.characters[0],
+        timeState.slowTime
     )}
+    {@const decoratorClass = chore?.decorationFunc?.(customExpiry)}
 
     <td
-        class="sortable sorted-{getSortState(fullTaskName)} {customExpiry || ''}"
+        class="sortable sorted-{getSortState(fullTaskName)} {decoratorClass || ''}"
         data-task={taskName}
         style:--scale="1"
         onclick={() => setSortState(fullTaskName)}
@@ -54,6 +57,7 @@
             component: Tooltip,
             props: {
                 chore,
+                expiresAt: customExpiry,
                 fullTaskName,
                 task,
             },

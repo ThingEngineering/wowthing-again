@@ -1,7 +1,11 @@
 <script lang="ts">
+    import { DateTime } from 'luxon';
+
     import { QuestStatus } from '@/enums/quest-status';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { timeState } from '@/shared/state/time.svelte';
     import { userState } from '@/user-home/state/user';
+    import { toNiceDuration } from '@/utils/formatting';
     import type { Chore, Task } from '@/types/tasks';
     import type { CharacterTask } from '@/user-home/state/user/types/tasks.svelte';
 
@@ -11,8 +15,9 @@
         chore: Chore;
         fullTaskName: string;
         task: Task;
+        expiresAt?: DateTime;
     };
-    let { chore, fullTaskName, task }: Props = $props();
+    let { chore, fullTaskName, task, expiresAt }: Props = $props();
 
     // TODO: get title from character quests?
 
@@ -115,4 +120,11 @@
             {/each}
         </tbody>
     </table>
+
+    {#if expiresAt}
+        {@const expiresIn = Math.floor(expiresAt.diff(timeState.time).toMillis())}
+        <div class="bottom">
+            Expires in {toNiceDuration(expiresIn, { useNbsp: false })}
+        </div>
+    {/if}
 </div>
