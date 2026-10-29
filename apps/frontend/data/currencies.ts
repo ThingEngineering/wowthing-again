@@ -464,6 +464,7 @@ export const currencyItems: Record<number, number[]> = {
     // Midnight - Season 2
     126412: [
         274476, // Spark of Tides
+        280562, // Ascendant Venomstone
         269862, // Thalassian Token of Merit
         null,
         276547, // Afflicted Soul
