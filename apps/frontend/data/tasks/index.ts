@@ -1,4 +1,5 @@
 import { wodTasks } from './05-warlords-of-draenor';
+import { legionTasks } from './06-legion';
 import { bfaTasks } from './07-battle-for-azeroth';
 import { slTasks } from './08-shadowlands';
 import { dfTasks } from './09-dragonflight';
@@ -11,8 +12,9 @@ import type { Task } from '@/types/tasks';
 export const taskList: Task[] = [
     ...eventTasks,
     ...pvpTasks,
-    ...bfaTasks,
     ...wodTasks,
+    ...legionTasks,
+    ...bfaTasks,
     ...slTasks,
     ...dfTasks,
     ...twwTasks,
