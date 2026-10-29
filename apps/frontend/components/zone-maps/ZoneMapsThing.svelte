@@ -6,7 +6,7 @@
     import { userQuestStore } from '@/stores';
     import { zoneMapState } from '@/stores/local-storage/zone-map';
     import { userState } from '@/user-home/state/user';
-    import { dynamicDataStore } from '@/user-home/stores/dynamicData';
+    import { dynamicDataStore } from '@/user-home/stores/dynamicData.svelte';
     import { getInstanceFarm } from '@/utils/get-instance-farm';
     import { getFarmIcon } from '@/utils/zone-maps';
     import type { FarmStatus } from '@/types';

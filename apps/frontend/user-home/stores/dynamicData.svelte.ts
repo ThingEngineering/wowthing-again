@@ -2,8 +2,9 @@ import sortBy from 'lodash/sortBy';
 import sum from 'lodash/sum';
 import { DateTime } from 'luxon';
 
-import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
+import { Region } from '@/enums/region';
 import type { RewardType } from '@/enums/reward-type';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type { ApiWorldQuest, ApiWorldQuestReward } from '@/types/world-quests';
 
 interface ApiDynamicData {
@@ -28,11 +29,21 @@ class DynamicData {
 
 class DynamicDataStore {
     private static url = '/api/dynamic-data';
-    private cache: Record<number, DynamicData> = {};
+    public cache: Record<number, DynamicData> = $state({});
     private questsCache: Record<number, ApiWorldQuest[]> = {};
+    private timer: ReturnType<typeof setInterval> = null;
 
-    async fetch(region: number) {
-        if (!this.cache[region]) {
+    async startFetchTimer() {
+        if (!this.timer) {
+            this.timer = setInterval(() => {
+                this.fetch(Region.US, true);
+                this.fetch(Region.EU, true);
+            }, 300_000);
+        }
+    }
+
+    async fetch(region: number, force: boolean = false) {
+        if (!this.cache[region] || force) {
             const xsrf = document.getElementById('app').getAttribute('data-xsrf');
 
             const response = await fetch(`${DynamicDataStore.url}/${region}`, {

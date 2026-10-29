@@ -1,5 +1,5 @@
 import { timeState } from '@/shared/state/time.svelte';
-import { dynamicDataStore } from '@/user-home/stores/dynamicData';
+import { dynamicDataStore } from '@/user-home/stores/dynamicData.svelte';
 import type { Character } from '@/types/character';
 import type { Chore } from '@/types/tasks';
 

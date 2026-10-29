@@ -5,7 +5,7 @@ import { emissaryQuestToHoliday } from '@/data/reputation';
 import { timeState } from '@/shared/state/time.svelte';
 import { wowthingData } from '@/shared/stores/data';
 import { userState } from '@/user-home/state/user';
-import { dynamicDataStore } from '@/user-home/stores/dynamicData';
+import { dynamicDataStore } from '@/user-home/stores/dynamicData.svelte';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type { StaticDataHoliday } from '@/shared/stores/static/types';
 
@@ -28,7 +28,7 @@ class ActiveHolidays {
             return {} as ActiveHolidayMap;
         }
 
-        const currentTime = timeState.slowTime;
+        const currentTime = timeState.time;
         const fakeStartTime = currentTime.plus({ days: 2 });
 
         const regionMask = allRegions.reduce((a, b) => a + (1 << (b - 1)), 0);
@@ -128,6 +128,8 @@ class ActiveHolidays {
                             endDate: emissaryQuest.expiresAt,
                             soon: false,
                         };
+                    } else {
+                        console.warn('invalid holiday?', { emissaryQuest, emissaryHoliday });
                     }
                 }
             }

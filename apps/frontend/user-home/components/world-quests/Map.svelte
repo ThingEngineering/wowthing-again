@@ -4,7 +4,7 @@
     import { zoneData } from './data';
     import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
-    import { dynamicDataStore } from '@/user-home/stores/dynamicData';
+    import { dynamicDataStore } from '@/user-home/stores/dynamicData.svelte';
 
     import ContinentBox from './ContinentBox.svelte';
     import Image from '@/shared/components/images/Image.svelte';
