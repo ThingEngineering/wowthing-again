@@ -7,7 +7,6 @@ export const legionEmissaryQuests: Task = {
     name: '[Legion] Emissaries',
     shortName: 'Leg',
     showSeparate: true,
-    sumChores: true,
     chores: [
         {
             key: 'courtFarondis',

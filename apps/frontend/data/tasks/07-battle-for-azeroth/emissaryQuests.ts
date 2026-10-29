@@ -7,7 +7,6 @@ export const bfaEmissaryQuests: Task = {
     name: '[BfA] Emissaries',
     shortName: 'BfA',
     showSeparate: true,
-    sumChores: true,
     chores: [
         {
             key: 'champions',
