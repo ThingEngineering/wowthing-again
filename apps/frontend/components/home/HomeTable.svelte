@@ -2,6 +2,7 @@
     import { Constants } from '@/data/constants';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
+    import { removedHomeChoices } from '@/user-home/components/settings/data';
     import { delegatedTooltips } from './utils/delegated-tooltips';
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte';
@@ -11,7 +12,6 @@
     import RowCovenant from './table/row/HomeTableRowCovenant.svelte';
     import RowCurrencies from './table/row/HomeTableRowCurrencies.svelte';
     import RowCurrentLocation from './table/row/HomeTableRowCurrentLocation.svelte';
-    import RowDailies from './table/row/HomeTableRowDailies.svelte';
     import RowGear from './table/row/HomeTableRowGear.svelte';
     import RowGold from './table/row/HomeTableRowGold.svelte';
     import RowGoldWorldQuests from './table/row/HomeTableRowGoldWorldQuests.svelte';
@@ -73,18 +73,12 @@
                     <RowBagSpace {character} />
                 {:else if field === 'bestItemLevel'}
                     <RowBestItemLevel {character} />
-                {:else if field === 'callings'}
-                    <RowDailies expansion={8} {character} />
                 {:else if field === 'covenant'}
                     <RowCovenant {character} />
                 {:else if field === 'currencies'}
                     <RowCurrencies {character} />
                 {:else if field === 'currentLocation'}
                     <RowCurrentLocation {character} />
-                {:else if field === 'emissariesBfa'}
-                    <RowDailies expansion={7} {character} />
-                {:else if field === 'emissariesLegion'}
-                    <RowDailies expansion={6} {character} />
                 {:else if field === 'gear'}
                     <RowGear {character} />
                 {:else if field === 'gold'}
@@ -155,7 +149,7 @@
                     <RowVaultRaid {character} />
                 {:else if field === 'vaultWorld'}
                     <RowVaultWorld {character} />
-                {:else}
+                {:else if !removedHomeChoices.has(field)}
                     <td>&nbsp;</td>
                 {/if}
             {/each}

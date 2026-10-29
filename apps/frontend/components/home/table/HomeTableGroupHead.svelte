@@ -1,11 +1,11 @@
 <script lang="ts">
     import sumBy from 'lodash/sumBy';
 
-    import { iconStrings } from '@/data/icons';
     import { iconLibrary } from '@/shared/icons';
     import { browserState } from '@/shared/state/browser.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { removedHomeChoices } from '@/user-home/components/settings/data';
     import type { Character } from '@/types';
     import type { GroupByContext } from '@/utils/get-character-group-func';
 
@@ -140,24 +140,12 @@
                 data-tooltip="Best Item Level"
                 onclick={() => setSortState()}>Best</td
             >
-        {:else if field === 'callings'}
-            <td data-tooltip="Shadowlands Callings">
-                <IconifyWrapper icon={iconStrings['calendar-quest']} /> SL
-            </td>
         {:else if field === 'covenant'}
             <HeadCovenant />
         {:else if field === 'currencies'}
             <HeadCurrencies {getSortState} {setSortState} />
         {:else if field === 'currentLocation'}
             <HeadCurrentLocation {getSortState} {setSortState} />
-        {:else if field === 'emissariesBfa'}
-            <td data-tooltip="Battle for Azeroth Emissaries">
-                <IconifyWrapper icon={iconStrings['calendar-quest']} /> BfA
-            </td>
-        {:else if field === 'emissariesLegion'}
-            <td data-tooltip="Legion Emissaries">
-                <IconifyWrapper icon={iconStrings['calendar-quest']} /> Legion
-            </td>
         {:else if field === 'gear'}
             <td>Gear</td>
         {:else if field === 'gold'}
@@ -258,7 +246,7 @@
             <td class="sortable sorted-{getSortState()}" onclick={() => setSortState()}
                 >World <IconifyWrapper icon={iconLibrary.mdiSafeSquareOutline} /></td
             >
-        {:else}
+        {:else if !removedHomeChoices.has(field)}
             <td>&nbsp;</td>
         {/if}
     {/each}
