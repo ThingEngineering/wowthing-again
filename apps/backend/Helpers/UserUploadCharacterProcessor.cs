@@ -323,7 +323,6 @@ public class UserUploadCharacterProcessor
                 continue;
             }
 
-            dbGarrison.Level = Math.Max(dbGarrison.Level, dataGarrison.Level);
             dbGarrison.ScannedAt = scanTime;
             dbGarrison.Buildings = dataGarrison.Buildings
                 .EmptyIfNull()
@@ -335,6 +334,11 @@ public class UserUploadCharacterProcessor
                     Name = building.Name.Truncate(64),
                 })
                 .ToList();
+
+            // If they have any buildings we don't want to overwrite the level
+            dbGarrison.Level = dbGarrison.Buildings.Count > 0
+                ? Math.Max(dbGarrison.Level, dataGarrison.Level)
+                : dataGarrison.Level;
         }
 
         // Garrison Trees
