@@ -46,18 +46,15 @@ export function getRenownData({
 
     character ||= userState.general.characters[0];
 
-    ret.characterRep = character.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
     ret.dataRep = wowthingData.static.reputationById.get(
-        ret.characterRep?.reputationId ||
-            reputation.both?.id ||
-            reputation.alliance?.id ||
-            reputation.horde?.id
+        reputation.both?.id || reputation.alliance?.id || reputation.horde?.id
     );
 
-    const repValue =
-        (ret.dataRep.accountWide
-            ? userState.general.reputations[ret.dataRep.id]
-            : ret.characterRep.value) || 0;
+    ret.characterRep = ret.dataRep.accountWide
+        ? { reputationId: ret.dataRep.id, value: userState.general.reputations[ret.dataRep.id] }
+        : character.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
+
+    const repValue = ret.characterRep.value || 0;
     if (ret.dataRep.renownCurrencyId > 0) {
         const currency = wowthingData.static.currencyById.get(ret.dataRep.renownCurrencyId);
         ret.renownMax = currency.maxTotal;
