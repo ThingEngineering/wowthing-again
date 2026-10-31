@@ -171,7 +171,7 @@
         <h4>
             {#if reputation !== undefined && reputation.both === undefined}
                 <WowthingImage
-                    name={character.faction === 0
+                    name={character?.faction === 0 || !reputation.horde
                         ? Constants.icons.alliance
                         : Constants.icons.horde}
                     size={20}
