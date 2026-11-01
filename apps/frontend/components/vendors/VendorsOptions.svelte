@@ -38,13 +38,16 @@
         if (browserState.current.vendors.showCosmetics) {
             byType2.push('O');
         }
+        if (browserState.current.vendors.showEnsembles) {
+            byType2.push('E');
+        }
         if (browserState.current.vendors.showWeapons) {
             byType2.push('W');
         }
 
         if (byType2.length === 0) {
             byType2 = ['---'];
-        } else if (byType2.length === 3) {
+        } else if (byType2.length === 4) {
             byType2 = ['ALL'];
         }
 
@@ -226,6 +229,12 @@
             <CheckboxInput
                 name="show_cosmetics"
                 bind:value={browserState.current.vendors.showCosmetics}>Cosmetics</CheckboxInput
+            >
+        </button>
+        <button>
+            <CheckboxInput
+                name="show_ensembles"
+                bind:value={browserState.current.vendors.showEnsembles}>Ensembles</CheckboxInput
             >
         </button>
         <button>
