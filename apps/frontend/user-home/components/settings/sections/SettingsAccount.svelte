@@ -55,12 +55,14 @@
 
         text-align: center;
     }
-    .account-characters {
-        --width: 100%;
-
+    .account-slots {
+        text-align: center;
         code {
             word-spacing: -0.5ch;
         }
+    }
+    .account-characters {
+        --width: 100%;
     }
 
     .api-key {
@@ -96,6 +98,9 @@
             flex: 1;
             margin: 0;
         }
+    }
+    .hide-disabled {
+        margin-top: 1rem;
     }
 </style>
 
@@ -207,10 +212,10 @@
     <table class="table-striped">
         <thead>
             <tr>
+                <th>Enabled</th>
                 <th>ID</th>
                 <th>Tag</th>
-                <th>Enabled</th>
-                <th>Characters</th>
+                <th>Slots</th>
             </tr>
         </thead>
         <tbody>
@@ -218,6 +223,12 @@
                 {@const accountState = settingsState.value.accounts?.[account.id]}
                 {@const accountCharacters = getAccountCharacters(account.id)}
                 <tr>
+                    <td class="account-enabled">
+                        <Checkbox
+                            name="account_enabled_${account.id}"
+                            bind:value={accountState.enabled}
+                        />
+                    </td>
                     <td class="account-id">
                         <code>{Region[account.region]}</code>
                         {account.accountId}
@@ -229,17 +240,7 @@
                             bind:value={accountState.tag}
                         />
                     </td>
-                    <td class="account-enabled">
-                        <Checkbox
-                            name="account_enabled_${account.id}"
-                            bind:value={accountState.enabled}
-                        />
-                    </td>
-                    <td class="account-characters">
-                        {#each accountCharacters as character, characterIndex (character.id)}
-                            {characterIndex > 0 ? ', ' : ''}
-                            <span class="class-{character.classId}">{character.name}</span>
-                        {/each}
+                    <td class="account-slots">
                         <code
                             class:status-fail={accountCharacters.length ===
                                 Constants.charactersPerAccount}
@@ -247,15 +248,23 @@
                                 Constants.charactersPerAccount - 20 &&
                                 accountCharacters.length < Constants.charactersPerAccount}
                         >
-                            ({accountCharacters.length} / {Constants.charactersPerAccount})</code
+                            {accountCharacters.length} / {Constants.charactersPerAccount}</code
                         >
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="account-characters">
+                        {#each accountCharacters as character, characterIndex (character.id)}
+                            {characterIndex > 0 ? ', ' : ''}
+                            <span class="class-{character.classId}">{character.name}</span>
+                        {/each}
                     </td>
                 </tr>
             {/each}
         </tbody>
     </table>
 
-    <div class="setting full-width">
+    <div class="hide-disabled setting full-width">
         <Checkbox
             name="characters_hideDisabledAccounts"
             bind:value={settingsState.value.characters.hideDisabledAccounts}
