@@ -3,6 +3,8 @@ import { DateTime } from 'luxon';
 import { callingQuestToHoliday, holidayIds } from '@/data/holidays';
 import { emissaryQuestToHoliday } from '@/data/reputation';
 import { Expansion } from '@/enums/expansion';
+import { Region } from '@/enums/region';
+import { settingsState } from '@/shared/state/settings.svelte';
 import { timeState } from '@/shared/state/time.svelte';
 import { wowthingData } from '@/shared/stores/data';
 import { userState } from '@/user-home/state/user';
@@ -31,17 +33,21 @@ class ActiveHolidays {
         const currentTime = timeState.time;
         const fakeStartTime = currentTime.plus({ days: 2 });
 
-        const regionMask = allRegions.reduce((a, b) => a + (1 << (b - 1)), 0);
-        if (this.cachedTime[regionMask] === currentTime) {
-            return this.cachedActive[regionMask];
+        const holidayRegion =
+            allRegions.length > 1 && allRegions.includes(settingsState.value.general.holidayRegion)
+                ? settingsState.value.general.holidayRegion
+                : allRegions[0];
+        if (this.cachedTime[holidayRegion] === currentTime) {
+            return this.cachedActive[holidayRegion];
         }
 
         // console.time('activeHolidays');
 
+        const holidayRegionMask = 1 << (holidayRegion - 1);
         const filteredHolidays = Array.from(wowthingData.static.holidayById.values()).filter(
             (holiday) =>
                 holiday.durations.length > 0 &&
-                (holiday.regionMask === 0 || (holiday.regionMask & regionMask) > 0)
+                (holiday.regionMask === 0 || (holiday.regionMask & holidayRegionMask) > 0)
         );
 
         const activeHolidays: ActiveHolidayMap = {};
@@ -66,7 +72,9 @@ class ActiveHolidays {
             //     continue;
             // }
 
-            for (const startDate of holiday.startDates) {
+            for (const initialStartDate of holiday.startDates) {
+                const startDate = changeToRegion(holidayRegion, initialStartDate);
+
                 // Repeats, duration0 is duration and duration1 is time between
                 if (holiday.looping === 1) {
                     let actualStartDate = startDate;
@@ -139,8 +147,8 @@ class ActiveHolidays {
             }
         }
 
-        this.cachedActive[regionMask] = activeHolidays;
-        this.cachedTime[regionMask] = currentTime;
+        this.cachedActive[holidayRegion] = activeHolidays;
+        this.cachedTime[holidayRegion] = currentTime;
 
         // console.timeEnd('activeHolidays');
         return activeHolidays;
@@ -148,3 +156,14 @@ class ActiveHolidays {
 }
 
 export const activeHolidays = new ActiveHolidays();
+
+function changeToRegion(region: Region, value: DateTime<boolean>) {
+    if (region === Region.US) {
+        return value;
+    } else if (region === Region.EU) {
+        return value.setZone('Europe/Paris', { keepLocalTime: true });
+    } else {
+        // TODO: Region.KR, Region.TW
+        return value;
+    }
+}

@@ -151,6 +151,7 @@ interface BrowserStateIdk {
 
         showCloaks: boolean;
         showCosmetics: boolean;
+        showEnsembles: boolean;
         showWeapons: boolean;
 
         showDecor: boolean;
@@ -318,6 +319,7 @@ const initialState: BrowserStateIdk = {
 
         showCloaks: true,
         showCosmetics: true,
+        showEnsembles: true,
         showWeapons: true,
 
         showDecor: true,

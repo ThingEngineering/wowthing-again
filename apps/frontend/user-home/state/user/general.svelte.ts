@@ -323,7 +323,9 @@ export class DataUserGeneral {
             }
         }
 
-        return Array.from(regionSet);
+        const regionArray = Array.from(regionSet);
+        regionArray.sort();
+        return regionArray;
     }
 
     private _charactersByConnectedRealmId() {

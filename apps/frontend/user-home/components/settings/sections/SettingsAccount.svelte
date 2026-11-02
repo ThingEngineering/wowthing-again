@@ -1,16 +1,16 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
+    import { Constants } from '@/data/constants';
     import { Language } from '@/enums/language';
     import { Region } from '@/enums/region';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { userState } from '@/user-home/state/user';
     import getAccountCharacters from '@/utils/get-account-characters';
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import Select from '@/shared/components/forms/Select.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
-    import { userState } from '@/user-home/state/user';
-    import { Constants } from '@/data/constants';
 
     let apiKey = $state('');
 
@@ -55,12 +55,14 @@
 
         text-align: center;
     }
-    .account-characters {
-        --width: 100%;
-
+    .account-slots {
+        text-align: center;
         code {
             word-spacing: -0.5ch;
         }
+    }
+    .account-characters {
+        --width: 100%;
     }
 
     .api-key {
@@ -97,6 +99,9 @@
             margin: 0;
         }
     }
+    .hide-disabled {
+        margin-top: 1rem;
+    }
 </style>
 
 <div class="settings-block">
@@ -129,6 +134,27 @@
         >
             Prefer English realm names (eg "[EU] Greymane" instead of "[EU] Седогрив")
         </Checkbox>
+    </div>
+</div>
+
+<div class="settings-block">
+    <h3 class="space-me">Holidays Region</h3>
+
+    <div class="setting">
+        <Select
+            name="general_holiday_region"
+            bind:selected={settingsState.value.general.holidayRegion}
+            options={[
+                [Region.US, '[US] Americas & Oceania'],
+                [Region.EU, '[EU] Europe'],
+                [Region.KR, '[KR] Korea'],
+                [Region.TW, '[TW] Taiwan'],
+            ]}
+        />
+        <p>
+            Region to use for holiday start/end times. If you only have accounts in a single region
+            you shouldn't need to change this.
+        </p>
     </div>
 </div>
 
@@ -176,7 +202,7 @@
 </div>
 
 <div class="settings-block">
-    <h3 class="space-me">WoW Accounts</h3>
+    <h3>WoW Accounts</h3>
 
     <p>
         Tag is some short text that will display on character tables if "Account tag" is in your
@@ -186,10 +212,10 @@
     <table class="table-striped">
         <thead>
             <tr>
+                <th>Enabled</th>
                 <th>ID</th>
                 <th>Tag</th>
-                <th>Enabled</th>
-                <th>Characters</th>
+                <th>Slots</th>
             </tr>
         </thead>
         <tbody>
@@ -197,6 +223,12 @@
                 {@const accountState = settingsState.value.accounts?.[account.id]}
                 {@const accountCharacters = getAccountCharacters(account.id)}
                 <tr>
+                    <td class="account-enabled">
+                        <Checkbox
+                            name="account_enabled_${account.id}"
+                            bind:value={accountState.enabled}
+                        />
+                    </td>
                     <td class="account-id">
                         <code>{Region[account.region]}</code>
                         {account.accountId}
@@ -208,17 +240,7 @@
                             bind:value={accountState.tag}
                         />
                     </td>
-                    <td class="account-enabled">
-                        <Checkbox
-                            name="account_enabled_${account.id}"
-                            bind:value={accountState.enabled}
-                        />
-                    </td>
-                    <td class="account-characters">
-                        {#each accountCharacters as character, characterIndex (character.id)}
-                            {characterIndex > 0 ? ', ' : ''}
-                            <span class="class-{character.classId}">{character.name}</span>
-                        {/each}
+                    <td class="account-slots">
                         <code
                             class:status-fail={accountCharacters.length ===
                                 Constants.charactersPerAccount}
@@ -226,15 +248,23 @@
                                 Constants.charactersPerAccount - 20 &&
                                 accountCharacters.length < Constants.charactersPerAccount}
                         >
-                            ({accountCharacters.length} / {Constants.charactersPerAccount})</code
+                            {accountCharacters.length} / {Constants.charactersPerAccount}</code
                         >
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="account-characters">
+                        {#each accountCharacters as character, characterIndex (character.id)}
+                            {characterIndex > 0 ? ', ' : ''}
+                            <span class="class-{character.classId}">{character.name}</span>
+                        {/each}
                     </td>
                 </tr>
             {/each}
         </tbody>
     </table>
 
-    <div class="setting full-width">
+    <div class="hide-disabled setting full-width">
         <Checkbox
             name="characters_hideDisabledAccounts"
             bind:value={settingsState.value.characters.hideDisabledAccounts}

@@ -277,7 +277,8 @@ class LazyVendorsProcessor {
                             sharedItem?.cosmetic &&
                             !vendorState.showCosmetics) ||
                         (sharedItem?.inventoryType === InventoryType.Back &&
-                            !vendorState.showCloaks)
+                            !vendorState.showCloaks) ||
+                        (transmogSetId && !vendorState.showEnsembles)
                     ) {
                         continue;
                     }

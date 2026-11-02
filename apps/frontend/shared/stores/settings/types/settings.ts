@@ -1,5 +1,6 @@
 import type { CharacterFlag } from '@/enums/character-flag';
 import type { Language } from '@/enums/language';
+import type { Region } from '@/enums/region';
 import type { SettingsAccount } from './account';
 import type { SettingsAuctionCategory } from './auction-category';
 import type { SettingsTask } from './task';
@@ -47,6 +48,7 @@ export interface Settings {
 
     general: {
         desiredAccountName: string;
+        holidayRegion: Region;
         language: Language;
         useEnglishRealmNames: boolean;
         useWowdb: boolean;
