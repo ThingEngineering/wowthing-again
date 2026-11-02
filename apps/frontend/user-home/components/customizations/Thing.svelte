@@ -36,11 +36,13 @@
     .name {
         --width: 15rem;
 
+        max-width: var(--width);
         white-space: nowrap;
     }
     .item {
         --width: 20rem;
 
+        max-width: var(--width);
         white-space: nowrap;
     }
 </style>
