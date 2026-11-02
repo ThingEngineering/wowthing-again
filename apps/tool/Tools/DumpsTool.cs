@@ -1489,9 +1489,13 @@ public class DumpsTool
         {
             _completeQuestByItemId.GetOrNew(itemXItemEffect.ItemID).Add(effectValues[0]);
         }
-        else if (effectType == WowSpellEffectEffect.LearnDecor && effectValues[0] > 0)
+        else if (effectType == WowSpellEffectEffect.LearnHouseDecor && effectValues[0] > 0)
         {
             _teachDecorByItemId.GetOrNew(itemXItemEffect.ItemID).Add(effectValues[0]);
+        }
+        else if (effectType == WowSpellEffectEffect.LearnHouseRoom && effectValues[0] > 0)
+        {
+            _teachDecorByItemId.GetOrNew(itemXItemEffect.ItemID).Add(1_000_000 + effectValues[0]);
         }
         else if (effectType == WowSpellEffectEffect.LearnTransmogIllusion && effectValues[0] > 0)
         {
