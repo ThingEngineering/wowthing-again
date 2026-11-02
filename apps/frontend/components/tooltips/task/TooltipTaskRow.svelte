@@ -5,14 +5,15 @@
     import { uiIcons } from '@/shared/icons';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { DbResetType } from '@/shared/stores/db/enums';
+    import { timeState } from '@/shared/state/time.svelte';
     import { userState } from '@/user-home/state/user';
+    import { toNiceDuration } from '@/utils/formatting';
     import { getPercentStatusClass } from '@/utils/get-percent-class';
+    import type { Chore } from '@/types/tasks';
     import type { CharacterChore } from '@/user-home/state/user/types/tasks.svelte';
 
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
-    import { timeState } from '@/shared/state/time.svelte';
-    import { toNiceDuration } from '@/utils/formatting';
 
     type Props = {
         characterId: number;
@@ -29,12 +30,12 @@
     );
 
     let choreSets = $derived.by(() => {
-        const ret: CharacterChore[][] = [];
+        const ret: [Chore, CharacterChore][][] = [];
 
         if (charChore) {
-            ret.push([charChore]);
+            ret.push([[taskChoreMap[`${taskName}_${charChore.key}`], charChore]]);
         } else if (charTask) {
-            let currentSet: CharacterChore[] = [];
+            let currentSet: (typeof ret)[0] = [];
             for (const chore of charTask.task.chores) {
                 if (!chore) {
                     ret.push(currentSet);
@@ -42,7 +43,7 @@
                 } else {
                     const charTaskChore = charTask.chores[chore.key];
                     if (charTaskChore && !charTaskChore.skipped) {
-                        currentSet.push(charTaskChore);
+                        currentSet.push([chore, charTaskChore]);
                     }
                 }
             }
@@ -52,7 +53,7 @@
         if (task.sortByExpiry) {
             for (const choreSet of ret) {
                 choreSet.sort((a, b) => {
-                    return a.expiresAt.diff(b.expiresAt).toMillis();
+                    return a[1].expiresAt.diff(b[1].expiresAt).toMillis();
                 });
             }
         }
@@ -63,11 +64,12 @@
     let anyErrors = $derived(
         choreSets.some((taskSet) =>
             taskSet.some(
-                (task) =>
-                    !!task &&
-                    (task.status === QuestStatus.NotStarted || task.status === QuestStatus.Error) &&
-                    task.name !== '' &&
-                    task.statusTexts.some((st) => !!st)
+                ([, charChore]) =>
+                    !!charChore &&
+                    (charChore.status === QuestStatus.NotStarted ||
+                        charChore.status === QuestStatus.Error) &&
+                    charChore.name !== '' &&
+                    charChore.statusTexts.some((st) => !!st)
             )
         )
     );
@@ -151,8 +153,7 @@
     {#each choreSets.filter((s) => s.length > 0) as choreSet (choreSet)}
         <table class="table-striped">
             <tbody>
-                {#each choreSet as charTaskChore (charTaskChore)}
-                    {@const chore = taskChoreMap[`${taskName}_${charTaskChore.key}`]}
+                {#each choreSet as [chore, charTaskChore] (charTaskChore)}
                     {#if chore}
                         <tr
                             class:skipped={!charChore &&
