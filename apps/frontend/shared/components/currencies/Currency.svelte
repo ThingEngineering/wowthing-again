@@ -10,6 +10,7 @@
     type Props = CharacterProps & {
         currency: StaticDataCurrency;
         fullIsBad?: boolean;
+        showIcon?: boolean;
         useIconOverride?: boolean;
         useStatusClass?: boolean;
     };
@@ -17,6 +18,7 @@
         character,
         currency,
         fullIsBad,
+        showIcon = true,
         useIconOverride = true,
         useStatusClass,
     }: Props = $props();
@@ -59,11 +61,15 @@
 {#if data}
     {@const { amount, percent, tooltip } = data}
     {@const status = statusClass(percent)}
-    {@const icon = useIconOverride ? currencyIconOverride[currency.id] : ''}
-    <div class="currency {status}" data-tooltip={tooltip}>
-        <WowthingImage name={icon || `currency/${currency.id}`} size={20} border={1} />
-        <span>{amount}</span>
-    </div>
+    {#if showIcon}
+        {@const icon = useIconOverride ? currencyIconOverride[currency.id] : ''}
+        <div class="currency {status}" data-tooltip={tooltip}>
+            <WowthingImage name={icon || `currency/${currency.id}`} size={20} border={1} />
+            <span>{amount}</span>
+        </div>
+    {:else}
+        <span class={status} data-tooltip={tooltip}>{amount}</span>
+    {/if}
 {:else}
     <div class="currency"></div>
 {/if}

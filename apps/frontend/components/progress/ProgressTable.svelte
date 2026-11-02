@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { Constants } from '@/data/constants';
     import { wowthingData } from '@/shared/stores/data';
     import { progressState } from '@/stores/local-storage';
     import { userState } from '@/user-home/state/user';
@@ -10,6 +11,8 @@
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte';
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte';
+    import Currency from '@/shared/components/currencies/Currency.svelte';
+    import CurrencyIcon from '@/shared/components/images/CurrencyIcon.svelte';
     import HeadCovenant from '@/components/home/table/head/HomeTableHeadCovenant.svelte';
     import HeadProgress from './ProgressTableHead.svelte';
     import RowCovenant from '@/components/home/table/row/HomeTableRowCovenant.svelte';
@@ -149,11 +152,28 @@
     });
 </script>
 
+<style lang="scss">
+    th.icon {
+        border-left: 1px solid var(--border-color);
+        min-width: 48px;
+        padding: 0.1rem;
+        width: 48px;
+    }
+    td.currency {
+        border-left: 1px solid var(--border-color);
+        text-align: right;
+    }
+</style>
+
 <CharacterTable skipGrouping={sorted} skipIgnored={true} {filterFunc} {sortFunc}>
     <CharacterTableHead slot="head">
         {#key slugKey}
             {#if slug1 === 'shadowlands'}
                 <HeadCovenant />
+            {:else if slug1 === 'warlords-of-draenor'}
+                <th class="icon">
+                    <CurrencyIcon currencyId={Constants.currencies.garrisonResources} size={40} />
+                </th>
             {/if}
 
             <th class="spacer"></th>
@@ -188,6 +208,18 @@
         {#key slugKey}
             {#if slug1 === 'shadowlands'}
                 <RowCovenant {character} />
+            {:else if slug1 === 'warlords-of-draenor'}
+                <td class="currency">
+                    <Currency
+                        {character}
+                        currency={wowthingData.static.currencyById.get(
+                            Constants.currencies.garrisonResources
+                        )}
+                        fullIsBad={true}
+                        showIcon={false}
+                        useStatusClass={true}
+                    />
+                </td>
             {/if}
 
             <td class="spacer"></td>

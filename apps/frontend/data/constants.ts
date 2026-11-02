@@ -23,6 +23,7 @@ export abstract class Constants {
     static readonly currencies = {
         catalyst: 3465, // Venomblight Manaflux [Mid S2]
         conquest: 1602,
+        garrisonResources: 824,
         honor: 1792,
     };
 
