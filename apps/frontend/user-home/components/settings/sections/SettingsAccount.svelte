@@ -1,16 +1,16 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
+    import { Constants } from '@/data/constants';
     import { Language } from '@/enums/language';
     import { Region } from '@/enums/region';
     import { settingsState } from '@/shared/state/settings.svelte';
+    import { userState } from '@/user-home/state/user';
     import getAccountCharacters from '@/utils/get-account-characters';
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import Select from '@/shared/components/forms/Select.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
-    import { userState } from '@/user-home/state/user';
-    import { Constants } from '@/data/constants';
 
     let apiKey = $state('');
 
@@ -133,6 +133,27 @@
 </div>
 
 <div class="settings-block">
+    <h3 class="space-me">Holidays Region</h3>
+
+    <div class="setting">
+        <Select
+            name="general_holiday_region"
+            bind:selected={settingsState.value.general.holidayRegion}
+            options={[
+                [Region.US, '[US] Americas & Oceania'],
+                [Region.EU, '[EU] Europe'],
+                [Region.KR, '[KR] Korea'],
+                [Region.TW, '[TW] Taiwan'],
+            ]}
+        />
+        <p>
+            Region to use for holiday start/end times. If you only have accounts in a single region
+            you shouldn't need to change this.
+        </p>
+    </div>
+</div>
+
+<div class="settings-block">
     <h3 class="space-me">User Name</h3>
 
     <div class="setting">
@@ -176,7 +197,7 @@
 </div>
 
 <div class="settings-block">
-    <h3 class="space-me">WoW Accounts</h3>
+    <h3>WoW Accounts</h3>
 
     <p>
         Tag is some short text that will display on character tables if "Account tag" is in your

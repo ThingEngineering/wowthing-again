@@ -55,7 +55,7 @@
     };
 </script>
 
-<div class="thing-container settings-container">
+<div class="thing-container settings-container settings-{params.slug1}">
     <Router prefix="/settings" {routes} />
 </div>
 

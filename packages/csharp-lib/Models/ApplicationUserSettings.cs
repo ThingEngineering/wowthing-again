@@ -325,6 +325,7 @@ public class ApplicationUserSettingsCustomTask
 public class ApplicationUserSettingsGeneral
 {
     public string? DesiredAccountName { get; set; }
+    public WowRegion HolidayRegion { get; set; } = WowRegion.US;
     public Language Language { get; set; } = Language.enUS;
     public bool UseEnglishRealmNames { get; set; } = true;
     public bool UseWowdb { get; set; } = false;
