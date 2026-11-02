@@ -16,12 +16,13 @@
 </style>
 
 {#each activeProgress as [progressKey, , group] (progressKey)}
+    {@const icons = (group.icon || '').split(' ')}
     <td
         class="sortable sorted-{getSortState(progressKey)}"
         data-progress={progressKey}
         data-tooltip={group.name}
         onclick={() => setSortState(progressKey)}
     >
-        <WowthingImage name={group.icon} size={16} border={1} />
+        <WowthingImage name={icons[0]} size={16} border={1} />
     </td>
 {/each}
