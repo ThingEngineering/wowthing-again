@@ -19,6 +19,7 @@ import type {
     ManualDataProgressData,
     ManualDataProgressGroup,
 } from '@/types/data/manual';
+import type { StaticDataCharacterRace } from '@/shared/stores/static/types';
 
 export interface ProgressInfo {
     datas: ManualDataProgressData[];
@@ -129,9 +130,9 @@ export default function getProgress(
             }
         } else if (group.type === 'questline') {
             datas = [];
-            const lookupKey = group.lookup === 'faction' ? factionIdMap[character.faction] : 0;
 
-            for (const thing of group.data[lookupKey]) {
+            const lookupKey = getDataLookup(group, character, characterRace);
+            for (const thing of group.data[lookupKey] || []) {
                 const questLine = wowthingData.static.questLineById.get(thing.ids[0]);
                 if (!questLine) {
                     console.warn('bad questLine?', thing.ids);
@@ -146,44 +147,15 @@ export default function getProgress(
                 });
             }
         } else {
-            switch (group.lookup) {
-                case 'class':
-                    //(c) => some(drop.limit.slice(1), (cl) => classSlugMap[cl].id === c.classId)
-                    datas =
-                        group.data[
-                            wowthingData.static.characterClassById.get(character.classId).slug
-                        ];
-                    break;
+            const lookupKey = getDataLookup(group, character, characterRace);
+            datas = group.data[lookupKey];
 
-                case 'covenant':
-                    datas = group.data[character.shadowlands?.covenantId];
-                    if (datas) {
-                        icon = covenantMap[character.shadowlands.covenantId].icon;
-                    }
-                    break;
-
-                case 'faction':
-                    datas = group.data[factionIdMap[character.faction]];
-                    break;
-
-                case 'faction-class':
-                    datas =
-                        group.data[
-                            `${factionIdMap[character.faction]}-${wowthingData.static.characterClassById.get(character.classId).slug}`
-                        ];
-                    break;
-
-                case 'race':
-                    datas = group.data[characterRace.slug];
-                    break;
-
-                default:
-                    datas = group.data[0];
-                    break;
+            if (group.lookup === 'covenant' && datas) {
+                icon = covenantMap[character.shadowlands.covenantId].icon;
             }
         }
 
-        if (datas) {
+        if (datas?.length > 0) {
             if (group.type === 'dragon-racing') {
                 total = group.data[0].reduce((a, b) => a + 1 + b.description.split(' ').length, 0);
             } else if (datas[0].type === ProgressDataType.GarrisonTree) {
@@ -481,7 +453,6 @@ export default function getProgress(
 
                         case ProgressDataType.WodGarrison: {
                             const garrison = character.garrisons?.[GarrisonType.WarlordsOfDraenor];
-                            if (character.name === 'Momokan') console.log(garrison);
 
                             // Garrison level
                             if (data.value === undefined) {
@@ -566,6 +537,32 @@ function checkCharacterQuestIds(characterId: number, questIds: number[]) {
     return questIds.some((id) =>
         userState.quests.characterById.get(characterId)?.hasQuestById?.has(id)
     );
+}
+
+function getDataLookup(
+    group: ManualDataProgressGroup,
+    character: Character,
+    characterRace: StaticDataCharacterRace
+) {
+    switch (group.lookup) {
+        case 'class':
+            return wowthingData.static.characterClassById.get(character.classId).slug;
+
+        case 'covenant':
+            return character.shadowlands?.covenantId;
+
+        case 'faction':
+            return factionIdMap[character.faction];
+
+        case 'faction-class':
+            return `${factionIdMap[character.faction]}-${wowthingData.static.characterClassById.get(character.classId).slug}`;
+
+        case 'race':
+            return characterRace.slug;
+
+        default:
+            return 0;
+    }
 }
 
 function getSpentCyphers(character: Character): number {
