@@ -167,6 +167,9 @@ interface BrowserStateIdk {
 
         showAwakened: boolean;
 
+        showAlliance: boolean;
+        showHorde: boolean;
+
         hiddenCurrencies: number[];
     };
     worldQuests: {
@@ -334,6 +337,9 @@ const initialState: BrowserStateIdk = {
         showTier: true,
 
         showAwakened: true,
+
+        showAlliance: true,
+        showHorde: true,
 
         hiddenCurrencies: [],
     },

@@ -148,7 +148,7 @@ export function doTransmog(): LazyTransmog {
                         // Faction filters
                         if (
                             (skipAlliance && setName.indexOf(':alliance:') >= 0) ||
-                            (skipHorde && setName.indexOf(':horde') >= 0)
+                            (skipHorde && setName.indexOf(':horde:') >= 0)
                         ) {
                             ret.skip.add(setKey);
                             continue;

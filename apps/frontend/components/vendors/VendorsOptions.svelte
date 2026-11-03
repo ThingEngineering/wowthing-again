@@ -12,6 +12,7 @@
         let byType2: string[] = [];
         let byThing: string[] = [];
         let bySet: string[] = [];
+        let byFaction: string[] = [];
 
         if (browserState.current.vendors.showCloth) {
             byType1.push('C');
@@ -85,17 +86,27 @@
         if (browserState.current.vendors.showTier) {
             bySet.push('T');
         }
-        if (browserState.current.vendors.showAwakened) {
-            bySet.push('A');
-        }
 
         if (bySet.length === 0) {
             bySet = ['---'];
-        } else if (bySet.length === 3) {
+        } else if (bySet.length === 2) {
             bySet = ['ALL'];
         }
 
-        return `${byType1.join('')} | ${byType2.join('')} | ${byThing.join('')} | ${bySet.join('')}`;
+        if (browserState.current.vendors.showAlliance) {
+            byFaction.push('A');
+        }
+        if (browserState.current.vendors.showHorde) {
+            byFaction.push('H');
+        }
+
+        if (byFaction.length === 0) {
+            byFaction = ['---'];
+        } else if (byFaction.length === 2) {
+            byFaction = ['ALL'];
+        }
+
+        return `${byType1.join('')} | ${byType2.join('')} | ${byThing.join('')} | ${bySet.join('')} | ${byFaction.join('')}`;
     });
 </script>
 
@@ -115,11 +126,7 @@
 
         button {
             background: #24282f;
-            margin-right: 0;
-
-            &:not(:last-child) {
-                margin-right: -1px;
-            }
+            padding: 0.1rem 0.25rem 0.1rem 0.25rem;
         }
     }
     .margin-left {
@@ -312,10 +319,18 @@
             >
         </button>
 
-        <button class="margin-left">
+        <span>Faction:</span>
+
+        <button>
             <CheckboxInput
-                name="show_awakened"
-                bind:value={browserState.current.vendors.showAwakened}>Awakened</CheckboxInput
+                name="show_alliance"
+                bind:value={browserState.current.vendors.showAlliance}>Alliance</CheckboxInput
+            >
+        </button>
+
+        <button>
+            <CheckboxInput name="show_horde" bind:value={browserState.current.vendors.showHorde}
+                >Horde</CheckboxInput
             >
         </button>
 
