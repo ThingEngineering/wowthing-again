@@ -5,6 +5,10 @@
     <UserSecretsId>dotnet-Wowthing.Backend-08E9B79A-EF3A-409C-B7C6-BDB114990FD2</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <UseSharedCompilation>false</UseSharedCompilation>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="AWSSDK.S3" Version="4.0.24.1" />
     <PackageReference Include="CsvHelper" Version="33.1.0" />
