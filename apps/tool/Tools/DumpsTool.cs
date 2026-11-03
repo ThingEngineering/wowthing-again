@@ -26,6 +26,7 @@ public class DumpsTool
     private readonly JankTimer _timer = new();
 
     private readonly Dictionary<int, List<int>> _completeQuestByItemId = new();
+    private readonly Dictionary<int, int> _houseExteriorToItemId = new();
     private readonly Dictionary<int, List<int>> _teachDecorByItemId = new();
     private readonly Dictionary<int, List<int>> _teachSpellByItemId = new ();
     private readonly Dictionary<int, List<int>> _teachSpellBySpellId = new();
@@ -1496,6 +1497,10 @@ public class DumpsTool
         else if (effectType == WowSpellEffectEffect.LearnHouseRoom && effectValues[0] > 0)
         {
             _teachDecorByItemId.GetOrNew(itemXItemEffect.ItemID).Add(1_000_000 + effectValues[0]);
+        }
+        else if (effectType == WowSpellEffectEffect.LearnHouseExterior && effectValues[0] > 0)
+        {
+            _teachDecorByItemId.GetOrNew(itemXItemEffect.ItemID).Add(2_000_000 + effectValues[0]);
         }
         else if (effectType == WowSpellEffectEffect.LearnTransmogIllusion && effectValues[0] > 0)
         {

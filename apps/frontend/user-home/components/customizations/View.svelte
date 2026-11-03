@@ -1,6 +1,5 @@
 <script lang="ts">
     import find from 'lodash/find';
-    import { afterUpdate } from 'svelte';
 
     import { browserState } from '@/shared/state/browser.svelte';
     import { wowthingData } from '@/shared/stores/data';
@@ -8,51 +7,33 @@
     import { getColumnResizer } from '@/utils/get-column-resizer';
     import getPercentClass from '@/utils/get-percent-class';
     import type { MultiSlugParams } from '@/types';
-    import type { ManualDataCustomizationCategory } from '@/types/data/manual';
 
     import Options from './Options.svelte';
     import Thing from './Thing.svelte';
 
-    export let params: MultiSlugParams;
+    let { params }: { params: MultiSlugParams } = $props();
 
-    let category: ManualDataCustomizationCategory;
-    $: {
+    let category = $derived.by(() => {
         const categories = find(
             wowthingData.manual.customizationCategories,
             (c) => c !== null && c[0].slug === params.slug1
         );
-        if (!categories) {
-            break $;
-        }
+        return find(categories || [], (c) => c !== null && c.slug === params.slug2);
+    });
 
-        category = find(categories, (c) => c !== null && c.slug === params.slug2);
-        if (!category) {
-            break $;
-        }
-    }
-
-    let containerElement: HTMLElement;
-    let resizeableElement: HTMLElement;
-    let debouncedResize: () => void;
-    $: {
+    let containerElement = $state<HTMLElement>(null);
+    let resizeableElement = $state<HTMLElement>(null);
+    let debouncedResize: () => void = $derived.by(() => {
         if (resizeableElement) {
-            debouncedResize = getColumnResizer(
-                containerElement,
-                resizeableElement,
-                'table-striped',
-                {
-                    columnCount: '--column-count',
-                    gap: 30,
-                    padding: '1.5rem',
-                }
-            );
-            debouncedResize();
+            return getColumnResizer(containerElement, resizeableElement, 'table-striped', {
+                columnCount: '--column-count',
+                gap: 30,
+                padding: '1.5rem',
+            });
         } else {
-            debouncedResize = null;
+            return null;
         }
-    }
-
-    afterUpdate(() => debouncedResize?.());
+    });
 </script>
 
 <style lang="scss">

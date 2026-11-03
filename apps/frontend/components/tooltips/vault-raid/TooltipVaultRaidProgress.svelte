@@ -1,30 +1,26 @@
 <script lang="ts">
-    import { difficultyMap } from '@/data/difficulty'
+    import { difficultyMap } from '@/data/difficulty';
     import getItemLevelQuality from '@/utils/get-item-level-quality';
-    import getRaidVaultItemLevel from '@/utils/get-raid-vault-item-level'
-    import type { CharacterWeeklyProgress } from '@/types'
+    import getRaidVaultItemLevel from '@/utils/get-raid-vault-item-level';
+    import type { CharacterWeeklyProgress } from '@/types';
 
-    export let progress: CharacterWeeklyProgress
+    let { progress }: { progress: CharacterWeeklyProgress } = $props();
 
-    let cls: string
-    let dungeonName: string
-    let itemLevel: number
-
-    $: {
+    let [cls, dungeonName, itemLevel] = $derived.by(() => {
         if (progress.progress >= progress.threshold) {
-            cls = 'vault-reward'
-            dungeonName = difficultyMap[progress.level].name
-            itemLevel = getRaidVaultItemLevel(progress)[0]
+            return [
+                'vault-reward',
+                difficultyMap[progress.level].name,
+                getRaidVaultItemLevel(progress)[0],
+            ];
+        } else {
+            const more = progress.threshold - progress.progress;
+            return ['vault-more', `Kill ${more} more boss${more === 1 ? '' : 'es'}`, 0];
         }
-        else {
-            const more = progress.threshold - progress.progress
-            cls = 'vault-more'
-            dungeonName = `Kill ${more} more boss${more === 1 ? '' : 'es'}`
-        }
-    }
+    });
 </script>
 
-<tr class="{cls}">
+<tr class={cls}>
     <td>{progress.threshold}x</td>
     <td class="dungeon-name">{dungeonName}</td>
     {#if itemLevel}

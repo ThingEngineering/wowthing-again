@@ -1,16 +1,14 @@
 <script lang="ts">
-    import type { Character, GarrisonTree } from '@/types';
+    import type { GarrisonTree } from '@/types';
+    import type { CharacterProps } from '@/types/props';
 
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character;
-    export let tree: GarrisonTree;
+    type Props = CharacterProps & { tree: GarrisonTree };
+    let { character, tree }: Props = $props();
 
-    let status: Record<number, number[]>;
-    $: {
-        status = character.garrisonTrees?.[tree.id];
-    }
+    let status = $derived(character.garrisonTrees?.[tree.id]);
 </script>
 
 <style lang="scss">

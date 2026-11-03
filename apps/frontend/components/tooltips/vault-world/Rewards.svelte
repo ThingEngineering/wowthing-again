@@ -2,54 +2,28 @@
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import { inventoryTypeIcons } from '@/shared/icons/mappings';
     import { wowthingData } from '@/shared/stores/data';
-    import type { Character, CharacterItem } from '@/types';
+    import type { CharacterItem } from '@/types';
+    import type { CharacterProps } from '@/types/props';
+    import { applyBonusIds } from '@/utils/items/apply-bonus-ids';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 
-    let rewards: [CharacterItem, CalculatedItemData][];
-    $: rewards = [
-        character.weekly.vault.raidProgress,
-        character.weekly.vault.dungeonProgress,
-        character.weekly.vault.worldProgress,
-    ]
-        .flatMap((progress) => progress.flatMap((tier) => tier.rewards))
-        .filter((reward) => !!reward)
-        .map((reward) => [reward, applyBonusIds(reward)]);
-
-    type CalculatedItemData = {
-        itemLevel: number;
-        quality: number;
-    };
-
-    function applyBonusIds(rewardItem: CharacterItem): CalculatedItemData {
-        const ret = {
-            itemLevel: rewardItem.itemLevel,
-            quality: rewardItem.quality,
-        };
-
-        if (ret.itemLevel === 0) {
-            const item = wowthingData.items.items[rewardItem.itemId];
-            ret.itemLevel = item.itemLevel;
-            for (const bonusId of rewardItem.bonusIds || []) {
-                const itemBonus = wowthingData.items.itemBonuses[bonusId];
-                if (!itemBonus) {
-                    continue;
-                }
-
-                for (const bonus of itemBonus.bonuses || []) {
-                    if (bonus[0] === 1) {
-                        ret.itemLevel += bonus[1];
-                    } else if (bonus[0] === 3) {
-                        ret.quality = bonus[1];
-                    } else if (bonus[0] === 42) {
-                        ret.itemLevel = bonus[1];
-                    }
-                }
-            }
-        }
-
-        return ret;
-    }
+    let rewards: [CharacterItem, ReturnType<typeof applyBonusIds>][] = $derived(
+        [
+            character.weekly.vault.raidProgress,
+            character.weekly.vault.dungeonProgress,
+            character.weekly.vault.worldProgress,
+        ]
+            .flatMap((progress) => progress.flatMap((tier) => tier.rewards))
+            .filter((reward) => !!reward)
+            .map((reward) => [
+                reward,
+                applyBonusIds(reward.bonusIds, {
+                    itemLevel: reward.itemLevel,
+                    quality: reward.quality,
+                }),
+            ])
+    );
 </script>
 
 <style lang="scss">

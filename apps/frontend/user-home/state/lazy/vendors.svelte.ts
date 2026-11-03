@@ -278,7 +278,9 @@ class LazyVendorsProcessor {
                             !vendorState.showCosmetics) ||
                         (sharedItem?.inventoryType === InventoryType.Back &&
                             !vendorState.showCloaks) ||
-                        (transmogSetId && !vendorState.showEnsembles)
+                        (transmogSetId && !vendorState.showEnsembles) ||
+                        (groupItem.faction === Faction.Alliance && !vendorState.showAlliance) ||
+                        (groupItem.faction === Faction.Horde && !vendorState.showHorde)
                     ) {
                         continue;
                     }

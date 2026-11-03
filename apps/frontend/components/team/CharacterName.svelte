@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type { TeamDataCharacter } from '@/types'
+    import type { TeamDataCharacter } from '@/types';
 
-    export let teamCharacter: TeamDataCharacter
+    let { teamCharacter }: { teamCharacter: TeamDataCharacter } = $props();
 </script>
 
 <style lang="scss">

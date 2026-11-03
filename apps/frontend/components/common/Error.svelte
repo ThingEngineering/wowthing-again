@@ -1,6 +1,9 @@
 <script lang="ts">
-    export let text: string;
-    export let title = 'Error';
+    type Props = {
+        text: string;
+        title?: string;
+    };
+    let { text, title = 'Error' }: Props = $props();
 </script>
 
 <style lang="scss">
