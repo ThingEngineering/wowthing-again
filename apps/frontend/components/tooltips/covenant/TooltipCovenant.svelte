@@ -5,21 +5,17 @@
     import { timeStore } from '@/shared/stores/time';
     import { toNiceDuration, toNiceNumber } from '@/utils/formatting';
     import type {
-        Character,
         CharacterShadowlandsCovenant,
         CharacterShadowlandsCovenantFeature,
     } from '@/types';
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import type { CharacterProps } from '@/types/props';
 
-    export let character: Character;
+    let { character }: CharacterProps = $props();
 
-    let characterCovenantId: number;
-    let characterCovenants: Record<number, CharacterShadowlandsCovenant>;
-    $: {
-        characterCovenantId = character.shadowlands?.covenantId || 0;
-        characterCovenants = character.shadowlands?.covenants || {};
-    }
+    let characterCovenantId = $derived(character.shadowlands?.covenantId || 0);
+    let characterCovenants = $derived(character.shadowlands?.covenants || {});
 
     const featureFunc = function (feature: CharacterShadowlandsCovenantFeature): number | string {
         if (!feature) {
@@ -77,7 +73,7 @@
         <thead>
             <tr>
                 <th></th>
-                {#each covenantOrder as covenantId}
+                {#each covenantOrder as covenantId (covenantId)}
                     <th>
                         <WowthingImage name={covenantMap[covenantId].icon} size={32} border={1} />
                     </th>
@@ -85,10 +81,10 @@
             </tr>
         </thead>
         <tbody>
-            {#each rows as [name, valueFunc]}
+            {#each rows as [name, valueFunc] (name)}
                 <tr>
                     <td class="name">{name}</td>
-                    {#each covenantOrder as covenantId}
+                    {#each covenantOrder as covenantId (covenantId)}
                         <td class="value" class:active={covenantId === characterCovenantId}>
                             {#if characterCovenants[covenantId]}
                                 {@html valueFunc(characterCovenants[covenantId])}

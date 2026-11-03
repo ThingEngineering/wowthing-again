@@ -1,11 +1,13 @@
 <script lang="ts">
-    import { StatType } from '@/enums/stat-type'
-    import type { Character } from '@/types/character'
+    import { StatType } from '@/enums/stat-type';
+    import type { CharacterProps } from '@/types/props';
 
-    export let character: Character
-    export let type: StatType
+    type Props = CharacterProps & {
+        type: StatType;
+    };
+    let { character, type }: Props = $props();
 
-    $: value = character.statistics.basic[type]?.effective || 0
+    let value = $derived(character.statistics.basic[type]?.effective || 0);
 </script>
 
 {#if value > 0}

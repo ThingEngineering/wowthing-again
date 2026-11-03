@@ -1,28 +1,37 @@
 <script lang="ts">
     import { StatType } from '@/enums/stat-type';
-    import type { Character } from '@/types/character';
+    import type { CharacterProps } from '@/types/props';
 
-    export let character: Character;
-    export let label = '';
-    export let type: StatType;
+    type Props = CharacterProps & {
+        type: StatType;
+        label?: string;
+    };
 
-    let bonus: number;
-    let value: number;
-    $: {
+    let { character, type, label }: Props = $props();
+
+    let [bonus, value] = $derived.by(() => {
         if (type === StatType.VersatilityDamageTaken) {
-            bonus = character.statistics.misc[StatType.VersatilityRating]?.value || 0;
-            value = character.statistics.misc[type]?.value || 0;
+            return [
+                character.statistics.misc[StatType.VersatilityRating]?.value || 0,
+                character.statistics.misc[type]?.value || 0,
+            ];
         } else if (type === StatType.VersatilityDamageDone) {
-            bonus = character.statistics.misc[StatType.VersatilityRating]?.value || 0;
-            value = character.statistics.misc[type]?.value || 0;
+            return [
+                character.statistics.misc[StatType.VersatilityRating]?.value || 0,
+                character.statistics.misc[type]?.value || 0,
+            ];
         } else if (type === StatType.AvoidanceRating || type === StatType.SpeedRating) {
-            bonus = character.statistics.rating[type]?.rating || 0;
-            value = character.statistics.rating[type]?.ratingBonus || 0;
+            return [
+                character.statistics.rating[type]?.rating || 0,
+                character.statistics.rating[type]?.ratingBonus || 0,
+            ];
         } else {
-            bonus = character.statistics.rating[type]?.rating || 0;
-            value = character.statistics.rating[type]?.value || 0;
+            return [
+                character.statistics.rating[type]?.rating || 0,
+                character.statistics.rating[type]?.value || 0,
+            ];
         }
-    }
+    });
 </script>
 
 {#if bonus > 0 || value > 0}

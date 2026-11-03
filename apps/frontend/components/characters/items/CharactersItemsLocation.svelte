@@ -2,7 +2,7 @@
     import { bagSlots } from '@/data/bag-slots';
     import { ItemLocation } from '@/enums/item-location';
     import { wowthingData } from '@/shared/stores/data';
-    import type { Character } from '@/types';
+    import type { CharacterProps } from '@/types/props';
     import type { UserItem } from '@/types/shared';
 
     import Empty from '@/components/items/ItemsEmpty.svelte';
@@ -11,17 +11,20 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character;
-    export let location: ItemLocation;
+    type Props = CharacterProps & { location: ItemLocation };
+    let { character, location }: Props = $props();
 
-    let containers: {
+    type ContainerData = {
         bagId: number;
         id: number;
         name: string;
         slots: number;
         items: UserItem[];
-    }[];
-    $: {
+    };
+
+    let containers = $derived.by(() => {
+        const ret: ContainerData[] = [];
+
         const temp: Record<number, UserItem[]> = {};
         for (const item of character.itemsByLocation[location]) {
             (temp[item.containerId] ||= []).push(item);
@@ -33,7 +36,6 @@
             }
         }
 
-        containers = [];
         for (const [containerId, containerName, containerSlots] of bagSlots[location]) {
             const actualSlots =
                 containerSlots ||
@@ -48,7 +50,7 @@
                 newItems.push(item);
             }
 
-            containers.push({
+            ret.push({
                 id: containerId,
                 name: containerName,
                 bagId: character.bags[containerId] || 0,
@@ -56,7 +58,9 @@
                 items: newItems,
             });
         }
-    }
+
+        return ret;
+    });
 </script>
 
 <style lang="scss">

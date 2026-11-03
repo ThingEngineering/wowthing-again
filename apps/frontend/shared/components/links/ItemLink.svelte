@@ -1,25 +1,20 @@
 <script lang="ts">
     import { settingsState } from '@/shared/state/settings.svelte';
+    import type { ChildrenProp } from '@/types/props';
 
-    export let id: number;
-    export let bonusIds: number[] = [];
+    type Props = ChildrenProp & {
+        id: number;
+        // bonusIds?: number[];
+    };
+    let { id, children }: Props = $props();
 
-    let url: string;
-    const params: Map<string, string> = new Map<string, string>();
-    $: {
-        if (settingsState.value.general.useWowdb) {
-            url = `https://www.wowdb.com/items/${id}`;
-            if (bonusIds.length > 0) {
-                params.set('bonusIDs', bonusIds.join(','));
-            }
-        } else {
-            url = `https://${settingsState.wowheadBaseUrl}/item=${id}`;
-        }
-
-        // attach params
-    }
+    let url = $derived(
+        settingsState.value.general.useWowdb
+            ? `https://www.wowdb.com/items/${id}`
+            : `https://${settingsState.wowheadBaseUrl}/item=${id}`
+    );
 </script>
 
 <a href={url}>
-    <slot />
+    {@render children?.()}
 </a>

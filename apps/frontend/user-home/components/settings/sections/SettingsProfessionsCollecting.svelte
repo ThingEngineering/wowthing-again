@@ -11,8 +11,6 @@
 
     let { sortedProfessions }: { sortedProfessions: StaticDataProfession[] } = $props();
 
-    // export let sortedProfessions: StaticDataProfession[];
-
     type CharacterOption = {
         id: number;
         label: string;

@@ -8,9 +8,12 @@
     import TooltipProgress from '@/components/tooltips/progress/TooltipProgress.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character;
-    export let group: ManualDataProgressGroup;
-    export let progressData: ProgressInfo;
+    type Props = {
+        character: Character;
+        group: ManualDataProgressGroup;
+        progressData: ProgressInfo;
+    };
+    let { character, group, progressData }: Props = $props();
 </script>
 
 <style lang="scss">
