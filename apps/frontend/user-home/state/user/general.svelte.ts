@@ -52,7 +52,9 @@ export class DataUserGeneral {
     public characterById: Record<number, Character> = $state({});
     public currentPeriod: Record<number, UserDataCurrentPeriod> = $state({});
     public decor: Record<number, [number, number]> = $state({});
+    public goldHistoryRealms: number[] = $state([]);
     public guildById: Record<number, Guild> = $state({});
+    public images: Record<string, string> = $state({});
     public paragons: Record<number, UserDataParagon> = $state({});
     public petsById: Record<number, UserDataPet[]> = $state({});
     public reputations: Record<number, number> = $state({});
@@ -220,6 +222,9 @@ export class DataUserGeneral {
                 new UserDataParagon(...paragonArray),
             ])
         );
+
+        this.goldHistoryRealms = cloneDeep(userData.goldHistoryRealms || []);
+        this.images = cloneDeep(userData.images || {});
         this.reputations = cloneDeep(userData.reputations || {});
 
         this.honorCurrent = userData.honorCurrent;

@@ -1,32 +1,36 @@
 <script lang="ts">
     import { expansionSlugMap } from '@/data/expansion';
-    import type { Character, ExpansionData, MultiSlugParams } from '@/types';
+    import getPercentClass from '@/utils/get-percent-class';
     import type {
         StaticDataProfession,
         StaticDataSubProfession,
     } from '@/shared/stores/static/types';
+    import type { CharacterProps, ParamsSlugsProps } from '@/types/props';
 
     import Node from './CharacterProfessionsTraitsNode.svelte';
     import ProgressBar from '@/components/common/ProgressBar.svelte';
-    import getPercentClass from '@/utils/get-percent-class';
 
-    export let character: Character;
-    export let params: MultiSlugParams;
-    export let staticProfession: StaticDataProfession;
+    type Props = CharacterProps &
+        ParamsSlugsProps & {
+            staticProfession: StaticDataProfession;
+        };
+    let { character, params, staticProfession }: Props = $props();
 
-    let charTraits: Record<number, number>;
-    let expansion: ExpansionData;
-    let subProfession: StaticDataSubProfession;
-    $: {
-        expansion = expansionSlugMap[params.slug5];
-        const charProfession = character.professions[staticProfession.id];
-        subProfession = staticProfession.expansionSubProfession[expansion.id];
-        if (!expansion || !charProfession || !subProfession.traitTrees) {
-            break $;
-        }
+    let expansion = $derived(expansionSlugMap[params.slug5]);
 
-        charTraits = charProfession?.subProfessions?.[subProfession.id]?.traits;
-    }
+    let [charTraits, subProfession]: [Record<number, number>, StaticDataSubProfession] =
+        $derived.by(() => {
+            const charProfession = character.professions[staticProfession.id];
+            const retSubProfession = staticProfession.expansionSubProfession[expansion.id];
+            if (!expansion || !charProfession || !subProfession.traitTrees) {
+                return [undefined, undefined];
+            } else {
+                return [
+                    charProfession.subProfessions?.[subProfession.id]?.traits,
+                    retSubProfession,
+                ];
+            }
+        });
 </script>
 
 <style lang="scss">

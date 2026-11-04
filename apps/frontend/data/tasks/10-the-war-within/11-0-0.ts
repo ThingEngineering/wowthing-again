@@ -1,6 +1,5 @@
 import type { DateTime } from 'luxon';
 
-import { userQuestStore } from '@/stores';
 import { aliasedIcons, iconLibrary } from '@/shared/icons';
 import { timeState } from '@/shared/state/time.svelte';
 import { DbResetType } from '@/shared/stores/db/enums';
@@ -31,7 +30,7 @@ export const twwChores11_0_0: Task = {
             minimumLevel: 70,
             icon: aliasedIcons.bookshelf,
             questIds: (char) =>
-                userQuestStore.characterHas(char.id, 83450)
+                char.hasCompletedQuest(83450)
                     ? [82679] // Archives: Seeking History
                     : [82678], // Archives: The First Disc
             questReset: DbResetType.Custom,

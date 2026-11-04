@@ -18,9 +18,6 @@
 </script>
 
 <style lang="scss">
-    .thing-container {
-        padding: 0.75rem;
-    }
     .flex-wrapper {
         flex-wrap: wrap;
         justify-content: start;

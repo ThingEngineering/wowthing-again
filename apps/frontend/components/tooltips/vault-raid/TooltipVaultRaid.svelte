@@ -2,7 +2,7 @@
     import type { CharacterProps } from '@/types/props';
 
     import Progress from './TooltipVaultRaidProgress.svelte';
-    import Rewards from './Rewards.svelte';
+    import Rewards from '../vault-world/Rewards.svelte';
 
     let { character }: CharacterProps = $props();
 

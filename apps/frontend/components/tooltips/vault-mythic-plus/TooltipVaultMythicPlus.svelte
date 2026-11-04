@@ -8,7 +8,7 @@
     import { getDungeonLevel } from '@/utils/mythic-plus/get-dungeon-level';
     import type { Character, CharacterMythicPlusAddonRun, CharacterWeeklyProgress } from '@/types';
 
-    import Rewards from '../vault-raid/Rewards.svelte';
+    import Rewards from '../vault-world/Rewards.svelte';
     import Run from './TooltipVaultMythicPlusRun.svelte';
 
     export let character: Character;

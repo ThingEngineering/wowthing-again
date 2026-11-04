@@ -1,8 +1,5 @@
-import { get } from 'svelte/store';
-
 import { QuestStatus } from '@/enums/quest-status';
 import { DbResetType } from '@/shared/stores/db/enums';
-import { userQuestStore, userStore } from '@/stores';
 import { userState } from '@/user-home/state/user';
 import type { Character } from '@/types';
 import type { Chore, Task } from '@/types/tasks';
@@ -13,7 +10,7 @@ const chettIds = [
 function couldChett(char: Character, chore: Chore): boolean {
     // did they get the initial list yet?
     if (
-        !userQuestStore.characterHas(char.id, 87296) &&
+        !char.hasCompletedQuest(87296) &&
         userState.general.characterById[char.id]?.getItemCount(235053) === 0 &&
         userState.general.characterById[char.id]?.getItemCount(236682) === 0
     ) {
@@ -22,19 +19,19 @@ function couldChett(char: Character, chore: Chore): boolean {
 
     // did they complete this task?
     const questId = (chore.questIds as number[])[0];
-    if (userQuestStore.characterHas(char.id, questId)) {
+    if (char.hasCompletedQuest(questId)) {
         return true;
     }
 
-    const progressQuests = get(userQuestStore).characters[char.id]?.progressQuests || {};
+    const progressQuests = userState.quests.characterById.get(char.id)?.progressQuestByKey;
     let completed = 0;
     let thisInProgress = false;
 
     for (const chettId of chettIds) {
-        if (userQuestStore.characterHas(char.id, chettId)) {
+        if (char.hasCompletedQuest(chettId)) {
             completed++;
         } else {
-            const progressQuest = progressQuests[`q${chettId}`];
+            const progressQuest = progressQuests.get(`q${chettId}`);
             if (progressQuest?.status === QuestStatus.InProgress && chettId === questId) {
                 thisInProgress = true;
             }
@@ -59,7 +56,7 @@ export const twwChoresChett: Task = {
             name: 'Get List!',
             questIds: [87296],
             questReset: DbResetType.Weekly,
-            couldGetFunc: () => get(userStore).maxReputation.get(2653) >= 32500, // Cartels renown 13
+            couldGetFunc: () => (userState.general.reputations[2653] || 0) >= 32500, // Cartels renown 13
         },
         {
             key: 'twwChett86915',

@@ -3,7 +3,7 @@
     import { InventorySlot } from '@/enums/inventory-slot';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
-    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import type { CharacterProps } from '@/types/props';
 
     import Configure from './CharactersPaperdollConfigure.svelte';
@@ -54,7 +54,7 @@
     });
 
     let characterImage = $derived.by(() => {
-        const imagePath = $userStore.images[`${character.id}-2`];
+        const imagePath = userState.general.images[`${character.id}-2`];
         if (!imagePath) {
             return undefined;
         }

@@ -33,9 +33,6 @@
     h4 {
         --image-border-width: 1px;
     }
-    .tag {
-        border-right: 1px solid var(--border-color);
-    }
     .name,
     .realm {
         --width: 7rem;
