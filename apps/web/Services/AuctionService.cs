@@ -94,9 +94,34 @@ public class AuctionService
             itemQuery = itemQuery.Where(item => EF.Functions.ILike(item.String, $"%{temp}%"));
         }
 
+        var creatureIdToPetId = await _context.WowPet
+            .Where(pet => pet.CreatureId > 0)
+            .ToDictionaryAsync(pet => pet.CreatureId, pet => pet.Id);
+
+        var petQuery = _context.LanguageString
+            .Where(ls => ls.Language == Language.enUS && ls.Type == StringType.WowCreatureName)
+            .Where(ls => creatureIdToPetId.Keys.Contains(ls.Id));
+        foreach (string part in query.Split())
+        {
+            // Alias to avoid variable capture bullshit
+            string temp = part;
+            petQuery = petQuery.Where(item => EF.Functions.ILike(item.String, $"%{temp}%"));
+        }
+
+        int[] petIds = await petQuery
+            .Join(
+                _context.WowPet,
+                ls => ls.Id,
+                pet => pet.CreatureId,
+                (ls, pet) => pet.Id
+            )
+            .ToArrayAsync();
+
         var auctions = await _context.WowAuction
             .Where(auction => connectedRealmIds.Contains(auction.ConnectedRealmId))
-            .Where(auction => itemQuery.Select(item => item.Id).Contains(auction.ItemId))
+            .Where(auction => itemQuery.Select(item => item.Id).Contains(auction.ItemId) ||
+                              (auction.ItemId == 82800 && petIds.Contains(auction.PetSpeciesId))
+            )
             .Where(auction => auction.BuyoutPrice > 0)
             .GroupBy(auction => auction.GroupKey)
             .Select(group => new AuctionBrowseQuery
