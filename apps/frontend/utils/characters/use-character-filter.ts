@@ -1,4 +1,5 @@
 import { classByArmorType } from '@/data/character-class';
+import { crossFactionRaces } from '@/data/character-race';
 import { Constants } from '@/data/constants';
 import {
     isGatheringProfession,
@@ -158,7 +159,7 @@ export function useCharacterFilter(
                             }
 
                             // Race slug
-                            const raceSlug = ['dracthyr', 'earthen', 'pandaren'].includes(part)
+                            const raceSlug = crossFactionRaces.has(part)
                                 ? `${part}${char.faction}`
                                 : part;
                             const maybeRace = wowthingData.static.characterRaceBySlug.get(raceSlug);

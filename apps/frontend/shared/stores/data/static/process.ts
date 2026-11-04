@@ -1,7 +1,9 @@
 import cloneDeep from 'lodash/cloneDeep';
 import groupBy from 'lodash/groupBy';
 
+import { crossFactionRaces } from '@/data/character-race';
 import { extraInstances } from '@/data/dungeon';
+import { PlayableClassMask } from '@/enums/playable-class';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import {
     StaticDataBag,
@@ -26,7 +28,6 @@ import {
 } from '../../static/types';
 import { DataStatic, type RawStatic } from './types';
 import { StaticDataEnchantment } from '../../static/types/enchantment';
-import { PlayableClassMask } from '@/enums/playable-class';
 
 export function processStaticData(rawData: RawStatic): DataStatic {
     console.time('processStaticData');
@@ -120,7 +121,7 @@ export function processStaticData(rawData: RawStatic): DataStatic {
     }
 
     for (const characterRace of data.characterRaceById.values()) {
-        const raceSlug = ['dracthyr', 'earthen', 'pandaren'].includes(characterRace.slug)
+        const raceSlug = crossFactionRaces.has(characterRace.slug)
             ? `${characterRace.slug}${characterRace.faction}`
             : characterRace.slug;
         data.characterRaceBySlug.set(raceSlug, characterRace);
