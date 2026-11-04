@@ -1,5 +1,5 @@
 import { Constants } from '@/data/constants';
-import { aliasedIcons, iconLibrary, uiIcons } from '@/shared/icons';
+import { aliasedIcons, iconLibrary } from '@/shared/icons';
 import { timeState } from '@/shared/state/time.svelte';
 import { DbResetType } from '@/shared/stores/db/enums';
 import { dynamicDataStore } from '@/user-home/stores/dynamicData.svelte';
@@ -40,7 +40,7 @@ const specialAssignmentQuestToUnlock: Record<number, number> = Object.fromEntrie
 );
 
 export const specialAssignmentFunc = (unlocks: number[], index: number, isQuest: boolean) => {
-    return (char: Character, chore: Chore) => {
+    return (char: Character) => {
         const now = timeState.slowTime;
         const allWorldQuests = dynamicDataStore.getCachedQuests(char.region);
         const questIdIndexes = Object.fromEntries(

@@ -4,20 +4,20 @@ import { DbResetType } from '@/shared/stores/db/enums';
 import { userState } from '@/user-home/state/user';
 import type { Task } from '@/types/tasks';
 
-const PREY_REPUTATION_ID = 2764;
+// const PREY_REPUTATION_ID = 2764;
 const NORMAL_UNLOCK = 93086; // To the Sanctum!
 const HARD_UNLOCK = 92178; // Practical Magic
 const NIGHTMARE_UNLOCK = 92182; // The Sheep or the Wolf
 
-const renownFunc = (renown?: number) => {
-    if (!renown) {
-        return true;
-    }
+// const renownFunc = (renown?: number) => {
+//     if (!renown) {
+//         return true;
+//     }
 
-    const repCharacter =
-        userState.general.characterById[userState.reputations[PREY_REPUTATION_ID]?.characterId];
-    return repCharacter?.reputationData?.['midnight']?.sets?.[2]?.[2]?.value >= renown * 4000;
-};
+//     const repCharacter =
+//         userState.general.characterById[userState.reputations[PREY_REPUTATION_ID]?.characterId];
+//     return repCharacter?.reputationData?.['midnight']?.sets?.[2]?.[2]?.value >= renown * 4000;
+// };
 
 export const midPrey: Task = {
     key: 'midPrey',
@@ -60,7 +60,7 @@ export const midPrey: Task = {
             questReset: DbResetType.Weekly,
             questIds: [93169, 93857],
             // couldGetFunc: () => renownFunc(1),
-            canGetFunc: (char) =>
+            canGetFunc: () =>
                 userState.quests.anyCharacterHasById.has(HARD_UNLOCK) ? '' : Strings.doUnlockQuests,
         },
         {
@@ -73,7 +73,7 @@ export const midPrey: Task = {
             questReset: DbResetType.Weekly,
             questIds: [93170, 93861],
             // couldGetFunc: () => renownFunc(4),
-            canGetFunc: (char) =>
+            canGetFunc: () =>
                 userState.quests.anyCharacterHasById.has(NIGHTMARE_UNLOCK)
                     ? ''
                     : Strings.doUnlockQuests,
@@ -86,7 +86,7 @@ export const midPrey: Task = {
             questReset: DbResetType.Weekly,
             questIds: [94446],
             // couldGetFunc: () => renownFunc(4),
-            canGetFunc: (char) =>
+            canGetFunc: () =>
                 userState.quests.anyCharacterHasById.has(NIGHTMARE_UNLOCK)
                     ? ''
                     : Strings.doUnlockQuests,

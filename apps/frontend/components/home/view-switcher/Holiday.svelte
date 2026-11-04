@@ -104,10 +104,6 @@
         font-size: 0.9rem;
         padding-left: 0.4rem;
     }
-    .stats {
-        // font-size: 0.9rem;
-        // word-spacing: -0.7ch;
-    }
 </style>
 
 {#snippet flexWrapper()}

@@ -18,7 +18,7 @@ export const delegatedTooltips = (node: HTMLElement): ActionReturn => {
                 return;
             }
 
-            let cmp: Record<string, any> = null;
+            let cmp: ReturnType<typeof mount> = null;
             instance.setProps({
                 onShow(instance) {
                     if (cmp === null) {

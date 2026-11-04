@@ -12,9 +12,9 @@
 
     let { character }: CharacterProps = $props();
 
-    let backgroundId = $state(character.configuration.backgroundId);
-    let backgroundBrightness = $state(character.configuration.backgroundBrightness);
-    let backgroundSaturation = $state(character.configuration.backgroundSaturation);
+    let backgroundId = $derived(character.configuration.backgroundId);
+    let backgroundBrightness = $derived(character.configuration.backgroundBrightness);
+    let backgroundSaturation = $derived(character.configuration.backgroundSaturation);
 
     let { backgroundImage, filter } = $derived.by(() => {
         const retBackgroundImage =
@@ -63,6 +63,9 @@
         return imageUrl ? `${imageUrl}${imagePath}` : imagePath;
     });
 
+    $effect(() => {
+        character.configuration.backgroundId = backgroundId;
+    });
     $effect(() => {
         character.configuration.backgroundBrightness = backgroundBrightness;
     });

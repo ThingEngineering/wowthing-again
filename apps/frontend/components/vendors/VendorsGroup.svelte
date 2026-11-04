@@ -35,14 +35,16 @@
         Math.floor(((group.stats?.have ?? 0) / (group.stats?.total ?? 1)) * 100)
     );
 
-    let useShowCollected =
+    let useShowCollected = $derived(
         overrideShowCollected !== undefined
             ? overrideShowCollected
-            : browserState.current.vendors.showCollected;
-    let useShowUncollected =
+            : browserState.current.vendors.showCollected
+    );
+    let useShowUncollected = $derived(
         overrideShowUncollected !== undefined
             ? overrideShowUncollected
-            : browserState.current.vendors.showUncollected;
+            : browserState.current.vendors.showUncollected
+    );
 
     let [things, groupName, skipFaction] = $derived.by(() => {
         const retThings: ThingData[] = [];

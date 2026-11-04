@@ -23,7 +23,7 @@ const bountifulQuestIds = [
 ];
 
 export const bountifulFunc = (index: number) => {
-    return (char: Character, chore: Chore) => {
+    return (char: Character) => {
         const completedQuestIds = bountifulQuestIds.filter((questId) =>
             char.quests?.hasQuestById?.has(questId)
         );
