@@ -466,6 +466,39 @@ export const extraCategories: ExtraAchievementCategory[] = [
             },
             null,
             {
+                targetSlug: 'pet-battles/battle',
+                nameType: 1,
+                onlyAchievementIds: true,
+                achievementIds: [
+                    40194, // Khaz Algar Safari
+                    40153, // Battle on Khaz Algar
+                    41092, // Undermine Safari
+                    // Family Battler of Khaz Algar
+                    40154,
+                    40155,
+                    40156,
+                    40157,
+                    40158,
+                    40161,
+                    40162,
+                    40163,
+                    40164,
+                    40165,
+                    40980,
+                    // Family Battler of Undermine
+                    41543,
+                    41541,
+                    41544,
+                    41545,
+                    41546,
+                    41547,
+                    41548,
+                    41549,
+                    41550,
+                    41551,
+                ],
+            },
+            {
                 targetSlug: 'expansion-features/skyriding',
                 nameType: 2,
                 onlyAchievementIds: true,
