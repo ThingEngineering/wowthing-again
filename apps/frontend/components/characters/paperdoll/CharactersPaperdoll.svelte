@@ -3,7 +3,7 @@
     import { InventorySlot } from '@/enums/inventory-slot';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
-    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import type { CharacterProps } from '@/types/props';
 
     import Configure from './CharactersPaperdollConfigure.svelte';
@@ -12,9 +12,9 @@
 
     let { character }: CharacterProps = $props();
 
-    let backgroundId = $state(character.configuration.backgroundId);
-    let backgroundBrightness = $state(character.configuration.backgroundBrightness);
-    let backgroundSaturation = $state(character.configuration.backgroundSaturation);
+    let backgroundId = $derived(character.configuration.backgroundId);
+    let backgroundBrightness = $derived(character.configuration.backgroundBrightness);
+    let backgroundSaturation = $derived(character.configuration.backgroundSaturation);
 
     let { backgroundImage, filter } = $derived.by(() => {
         const retBackgroundImage =
@@ -54,7 +54,7 @@
     });
 
     let characterImage = $derived.by(() => {
-        const imagePath = $userStore.images[`${character.id}-2`];
+        const imagePath = userState.general.images[`${character.id}-2`];
         if (!imagePath) {
             return undefined;
         }
@@ -63,6 +63,9 @@
         return imageUrl ? `${imageUrl}${imagePath}` : imagePath;
     });
 
+    $effect(() => {
+        character.configuration.backgroundId = backgroundId;
+    });
     $effect(() => {
         character.configuration.backgroundBrightness = backgroundBrightness;
     });

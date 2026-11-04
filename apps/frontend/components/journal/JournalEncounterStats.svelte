@@ -10,7 +10,7 @@
     import { leftPad } from '@/utils/formatting';
     import type { JournalDataEncounter } from '@/types/data';
 
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
+    import ClassIcon from '@/shared/components/icons/ClassIcon.svelte';
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
 
     type Props = {

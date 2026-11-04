@@ -10,7 +10,7 @@
     import type { StaticDataCurrency } from '@/shared/stores/static/types';
 
     import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = {
         currency?: StaticDataCurrency;

@@ -20,7 +20,7 @@ public class OutInstance
 
     public OutInstance(DumpMap map, int instanceId)
     {
-        Expansion = map.ExpansionID;
+        Expansion = Hardcoded.MapExpansionoverride.GetValueOrDefault(map.ID, map.ExpansionID);
         Id = instanceId;
         Name = map.Name;
     }

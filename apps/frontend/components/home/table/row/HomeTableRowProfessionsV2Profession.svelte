@@ -13,7 +13,7 @@
 
     import Currency from '@/shared/components/currencies/Currency.svelte';
     import Tooltip from '@/components/tooltips/professions/TooltipProfessions.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = CharacterProps & {
         charProfession: CharacterSubProfession;

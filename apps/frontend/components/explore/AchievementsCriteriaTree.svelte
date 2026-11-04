@@ -5,7 +5,7 @@
     import { leftPad } from '@/utils/formatting';
     import type { AchievementDataAchievement } from '@/types';
 
-    import Self from './ExploreAchievementsCriteriaTree.svelte';
+    import Self from './AchievementsCriteriaTree.svelte';
 
     type Props = {
         achievement: AchievementDataAchievement;

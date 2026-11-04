@@ -4,11 +4,11 @@
     import { componentTooltip } from '@/shared/utils/tooltips';
     import type { ManualDataProgressGroup } from '@/types/data/manual';
 
-    import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte';
+    import CovenantIcon from '@/shared/components/icons/CovenantIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import TableSortedBy from '@/components/common/TableSortedBy.svelte';
     import Tooltip from '@/shared/components/parsed-text/Tooltip.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     export let group: ManualDataProgressGroup;
     export let slugKey: string;

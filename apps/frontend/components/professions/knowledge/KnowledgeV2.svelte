@@ -8,7 +8,7 @@
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte';
     import RowProfessions from '@/components/home/table/row/HomeTableRowProfessions.svelte';
     import V2Row from './V2Row.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     let { slug }: { slug: string } = $props();
 

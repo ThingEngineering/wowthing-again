@@ -9,7 +9,7 @@
     import type { StaticDataProfession } from '@/shared/stores/static/types';
     import type { Character, CharacterProfession } from '@/types';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = {
         character: Character;

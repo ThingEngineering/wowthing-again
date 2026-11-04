@@ -13,7 +13,7 @@
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import Paginate from '@/shared/components/paginate/Paginate.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     export let auctionsContainer: HTMLElement;
     export let page: number;

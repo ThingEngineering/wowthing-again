@@ -8,7 +8,7 @@
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
-    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
+    import ProfessionIcon from '@/shared/components/icons/ProfessionIcon.svelte';
 
     let { sortedProfessions }: { sortedProfessions: StaticDataProfession[] } = $props();
 

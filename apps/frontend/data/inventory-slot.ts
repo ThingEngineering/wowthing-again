@@ -1,5 +1,4 @@
 import { InventorySlot } from '@/enums/inventory-slot';
-import type { Character } from '@/types';
 
 export const slotOrder: InventorySlot[] = [
     InventorySlot.MainHand,

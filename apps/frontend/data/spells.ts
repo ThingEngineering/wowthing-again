@@ -1,5 +1,3 @@
-import { Constants } from './constants';
-
 // spellId, spellName, expiresWhileOffline
 export const durationAuras: [number, string, boolean?][] = [
     // flasks

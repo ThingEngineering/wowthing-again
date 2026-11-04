@@ -12,10 +12,10 @@
     import type { Character } from '@/types/character';
     import type { Icon } from '@/types/icons';
 
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import FactionIcon from '@/shared/components/icons/FactionIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
-    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import ProfessionIcon from '@/shared/components/icons/ProfessionIcon.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 

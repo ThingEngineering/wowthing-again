@@ -8,9 +8,9 @@
     import CharacterLevel from './row/CharacterLevel.svelte';
     import CharacterName from './row/CharacterName.svelte';
     import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
-    import RaceIcon from '@/shared/components/images/RaceIcon.svelte';
-    import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
+    import ClassIcon from '@/shared/components/icons/ClassIcon.svelte';
+    import RaceIcon from '@/shared/components/icons/RaceIcon.svelte';
+    import SpecializationIcon from '@/shared/components/icons/SpecializationIcon.svelte';
     import TableIcon from '@/components/common/TableIcon.svelte';
 
     let { character, last }: CharacterProps & { last: boolean } = $props();

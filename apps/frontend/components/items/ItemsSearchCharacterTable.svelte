@@ -8,7 +8,7 @@
     import type { ItemSearchResponseCharacter, ItemSearchResponseItem } from '@/types/items';
 
     import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
+    import ClassIcon from '@/shared/components/icons/ClassIcon.svelte';
     import Row from './ItemsSearchCharacterRow.svelte';
     import type { Snippet } from 'svelte';
     import type { ItemBinding } from '@/enums/item-binding';

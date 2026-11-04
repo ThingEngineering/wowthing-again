@@ -15,7 +15,7 @@
 
     import ReputationText from '@/components/common/ReputationText.svelte';
     import Tooltip from '@/components/tooltips/reputation/TooltipReputation.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     let { character }: CharacterProps = $props();
 

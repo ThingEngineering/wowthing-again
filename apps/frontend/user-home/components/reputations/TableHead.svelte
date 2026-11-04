@@ -5,7 +5,7 @@
 
     import TableSortedBy from '@/components/common/TableSortedBy.svelte';
     import Tooltip from '@/components/tooltips/reputation-header/TooltipReputationHeader.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = {
         reputation: ManualDataReputationSet;

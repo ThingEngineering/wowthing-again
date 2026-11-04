@@ -1,9 +1,9 @@
 import { DbResetType } from '@/shared/stores/db/enums';
-import type { Chore, Task } from '@/types/tasks';
 import { threeDayDecorator } from '../utils';
 import { Holiday } from '@/enums/holiday';
 import { holidayToCallingQuest } from '@/data/holidays';
 import { dynamicDataStore } from '@/user-home/stores/dynamicData.svelte';
+import type { Chore, Task } from '@/types/tasks';
 
 export const callingChoreData = (holiday: Holiday, questIds: number[]): Partial<Chore> => {
     const callingQuestId = holidayToCallingQuest[holiday];
@@ -13,7 +13,7 @@ export const callingChoreData = (holiday: Holiday, questIds: number[]): Partial<
         questResetForced: true,
         questIds,
         requiredHolidays: [holiday],
-        customExpiryFunc: (chore, char, scannedAt, questIds) => {
+        customExpiryFunc: (_chore, char) => {
             const dynamicData = dynamicDataStore.getCached(char.region);
             const activeEmissaryQuests = Object.values(dynamicData.emissaryQuests).flat();
             return activeEmissaryQuests.find((eq) => eq.questId === callingQuestId)?.expiresAt;

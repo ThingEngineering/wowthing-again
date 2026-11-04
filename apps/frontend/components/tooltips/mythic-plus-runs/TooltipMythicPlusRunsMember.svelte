@@ -4,8 +4,8 @@
     import getRealmName from '@/utils/get-realm-name';
     import type { CharacterMythicPlusRunMember } from '@/types';
 
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
-    import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
+    import ClassIcon from '@/shared/components/icons/ClassIcon.svelte';
+    import SpecializationIcon from '@/shared/components/icons/SpecializationIcon.svelte';
 
     let { member }: { member: CharacterMythicPlusRunMember } = $props();
 

@@ -5,7 +5,7 @@
     import type { Character } from '@/types';
     import type { StaticDataCharacterRace } from '@/shared/stores/static/types/character';
 
-    import WowthingImage from './sources/WowthingImage.svelte';
+    import WowthingImage from '../images/WowthingImage.svelte';
 
     type Props = {
         border?: number;

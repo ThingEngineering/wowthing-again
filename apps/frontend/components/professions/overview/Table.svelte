@@ -9,7 +9,7 @@
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte';
     import Profession from './TableProfession.svelte';
     import ProfessionSpecializationIcon from '@/shared/components/icons/ProfessionSpecializationIcon.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = {
         characterIds?: number[];

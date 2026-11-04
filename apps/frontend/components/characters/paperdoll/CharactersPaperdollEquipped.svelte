@@ -7,10 +7,10 @@
     import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
     import type { CharacterProps } from '@/types/props';
 
-    import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
+    import CraftedQualityIcon from '@/shared/components/icons/CraftedQualityIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = CharacterProps & {
         inventorySlot: InventorySlot;

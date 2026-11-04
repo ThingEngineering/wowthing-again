@@ -9,7 +9,7 @@
     import type { ItemSearchResponseCharacter, ItemSearchResponseItem } from '@/types/items';
 
     import Row from './ItemsSearchItemRow.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = {
         bindType: Snippet<[ItemBinding, boolean]>;

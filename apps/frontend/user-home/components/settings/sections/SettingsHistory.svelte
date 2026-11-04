@@ -5,14 +5,14 @@
     import { Region } from '@/enums/region';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { wowthingData } from '@/shared/stores/data';
-    import { userStore } from '@/stores';
+    import { userState } from '@/user-home/state/user';
     import type { StaticDataRealm } from '@/shared/stores/static/types';
 
     import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte';
 
     let realms: StaticDataRealm[] = $derived.by(() =>
         sortBy(
-            $userStore.goldHistoryRealms.map((realmId) =>
+            userState.general.goldHistoryRealms.map((realmId) =>
                 wowthingData.static.realmById.get(realmId)
             ),
             (realm) => [realm.region, realm.name]
@@ -20,7 +20,7 @@
     );
 
     let shownRealms: string[] = $derived.by(() =>
-        $userStore.goldHistoryRealms
+        userState.general.goldHistoryRealms
             .filter((realmId) => settingsState.value.history.hiddenRealms.indexOf(realmId) === -1)
             .map((realmId) => realmId.toString())
     );

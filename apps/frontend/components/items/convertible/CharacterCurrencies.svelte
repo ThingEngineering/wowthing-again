@@ -4,7 +4,7 @@
     import type { Character } from '@/types';
 
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
     import { browserState } from '@/shared/state/browser.svelte';
 
     type Props = {

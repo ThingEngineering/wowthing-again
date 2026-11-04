@@ -359,6 +359,47 @@ export const extraCategories: ExtraAchievementCategory[] = [
             },
             null,
             {
+                targetSlug: 'pet-battles/battle',
+                nameType: 1,
+                onlyAchievementIds: true,
+                achievementIds: [
+                    16519, // Dragon Isles Safari
+                    17879, // Zaralek Cavern Safari
+                    19401, // Emerald Dream Safari
+                    16464, // Battle on the Dragon Isles
+                    17406, // Battle on the Dragon Isles II
+                    17880, // Battle in Zaralek Cavern
+                    17541, // Global Swarming (Forbidden Reach)
+                    16399, // Lovin' Lubbins
+                    18383, // Hey Nanny Nanny
+                    18384, // Whelp, There It Is
+                    // Family Battler of the Dragon Isles
+                    16501, // Aquatic
+                    16503, // Beast
+                    16504, // Critter
+                    16505, // Dragonkin
+                    16506, // Elemental
+                    16507, // Flying
+                    16508, // Humanoid
+                    16509, // Magic
+                    16510, // Mechanical
+                    16511, // Undead
+                    16512,
+                    // Family Battler of Zaralek Cavern
+                    17881, // Aquatic
+                    17882, // Beast
+                    17883, // Critter
+                    17890, // Dragonkin
+                    17904, // Elemental
+                    17905, // Flying
+                    17915, // Humanoid
+                    17916, // Magic
+                    17917, // Mechanical
+                    17918, // Undead
+                    17934,
+                ],
+            },
+            {
                 targetSlug: 'expansion-features/skyriding',
                 nameType: 2,
                 onlyAchievementIds: true,
@@ -465,6 +506,39 @@ export const extraCategories: ExtraAchievementCategory[] = [
                 ],
             },
             null,
+            {
+                targetSlug: 'pet-battles/battle',
+                nameType: 1,
+                onlyAchievementIds: true,
+                achievementIds: [
+                    40194, // Khaz Algar Safari
+                    40153, // Battle on Khaz Algar
+                    41092, // Undermine Safari
+                    // Family Battler of Khaz Algar
+                    40154,
+                    40155,
+                    40156,
+                    40157,
+                    40158,
+                    40161,
+                    40162,
+                    40163,
+                    40164,
+                    40165,
+                    40980,
+                    // Family Battler of Undermine
+                    41543,
+                    41541,
+                    41544,
+                    41545,
+                    41546,
+                    41547,
+                    41548,
+                    41549,
+                    41550,
+                    41551,
+                ],
+            },
             {
                 targetSlug: 'expansion-features/skyriding',
                 nameType: 2,

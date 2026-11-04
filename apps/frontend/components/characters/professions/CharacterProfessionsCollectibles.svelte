@@ -13,9 +13,9 @@
     import type { StaticDataProfession } from '@/shared/stores/static/types';
     import type { CharacterProps } from '@/types/props';
 
-    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
+    import CollectedIcon from '@/shared/components/icons/CollectedIcon.svelte';
     import Collectible from './CharacterProfessionsCollectible.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = CharacterProps & {
         expansionSlug: string;

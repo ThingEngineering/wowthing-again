@@ -10,7 +10,7 @@
     import type { UserDataPet } from '@/types';
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     let pets: [number, UserDataPet, string][];
     $: {

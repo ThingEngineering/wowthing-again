@@ -11,7 +11,7 @@
     import type { CharacterProps } from '@/types/props';
 
     import Tooltip from '@/components/tooltips/professions/TooltipProfessions.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 
     let { character }: CharacterProps = $props();

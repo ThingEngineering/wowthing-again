@@ -4,8 +4,8 @@
     import type { StaticDataProfession } from '@/shared/stores/static/types';
     import type { CharacterProps } from '@/types/props';
 
-    import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import CraftedQualityIcon from '@/shared/components/icons/CraftedQualityIcon.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = CharacterProps & { profession: StaticDataProfession; size?: number };
     let { character, profession, size = 48 }: Props = $props();

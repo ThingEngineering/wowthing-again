@@ -4,9 +4,9 @@
     import type { CollectibleState } from '@/shared/state/browser.svelte';
     import { getCollectibleContext } from './context';
 
-    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
+    import CollectedIcon from '@/shared/components/icons/CollectedIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = {
         collectibleState: CollectibleState;

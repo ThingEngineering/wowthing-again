@@ -16,7 +16,7 @@
     import Paginate from '@/shared/components/paginate/Paginate.svelte';
     import RealmTooltip from './RealmTooltip.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = {
         auctionsContainer: HTMLElement;

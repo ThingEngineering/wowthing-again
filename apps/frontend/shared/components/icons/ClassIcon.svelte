@@ -4,7 +4,7 @@
     import type { StaticDataCharacterClass } from '@/shared/stores/static/types/character';
     import type { CharacterProps } from '@/types/props';
 
-    import WowthingImage from './sources/WowthingImage.svelte';
+    import WowthingImage from '../images/WowthingImage.svelte';
 
     type Props = Partial<CharacterProps> & {
         border?: number;

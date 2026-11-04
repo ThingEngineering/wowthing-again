@@ -14,7 +14,7 @@
         ItemSearchResponseGuildBank,
     } from '@/types/items';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = {
         bindType: Snippet<[ItemBinding, boolean]>;

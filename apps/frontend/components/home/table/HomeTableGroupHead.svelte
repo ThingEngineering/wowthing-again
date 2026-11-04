@@ -24,7 +24,7 @@
     import RowGold from './row/HomeTableRowGold.svelte';
     import RowPlayedTime from './row/HomeTableRowPlayedTime.svelte';
     import SpacerRow from '@/components/character-table/CharacterTableSpacerRow.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = {
         group: Character[];

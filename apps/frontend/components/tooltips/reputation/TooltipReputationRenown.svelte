@@ -8,7 +8,7 @@
 
     import ProgressBar from '@/components/common/ProgressBar.svelte';
     import RenownRewards from './RenownRewards.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = CharacterProps & {
         dataRep: StaticDataReputation;

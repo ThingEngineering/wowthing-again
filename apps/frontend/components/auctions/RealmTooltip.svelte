@@ -1,9 +1,10 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
 
-    import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
     import { userState } from '@/user-home/state/user';
     import type { StaticDataConnectedRealm } from '@/shared/stores/static/types';
+
+    import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
 
     type Props = {
         ageInMinutes: number;
@@ -37,10 +38,6 @@
     .realm-separator {
         color: #999 !important;
         padding-left: 0.2rem;
-    }
-    .tag {
-        background: var(--color-highlight-background);
-        border-right: 1px solid var(--border-color);
     }
     .name {
         --width: 7rem;

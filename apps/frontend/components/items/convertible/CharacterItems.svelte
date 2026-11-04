@@ -7,7 +7,7 @@
     import type { LazyConvertibleCharacterItem } from '@/user-home/state/lazy/convertible.svelte';
 
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     let { data }: { data: LazyConvertibleCharacterItem[] } = $props();
 </script>

@@ -18,9 +18,9 @@
     import type { CharacterProps } from '@/types/props';
     import type { ConvertibleCategoryUpgrade } from './convertible/types';
 
-    import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
+    import CraftedQualityIcon from '@/shared/components/icons/CraftedQualityIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
 
     type Props = Partial<CharacterProps> & {

@@ -1,7 +1,7 @@
 import { taskMap } from '@/data/tasks';
 import { settingsState } from '@/shared/state/settings.svelte';
 import { logErrors } from '@/utils/log-errors';
-import type { Chore, Task } from '@/types/tasks';
+import type { Chore } from '@/types/tasks';
 
 import { activeHolidays } from './activeHolidays.svelte';
 

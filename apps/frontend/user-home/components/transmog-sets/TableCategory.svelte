@@ -17,12 +17,12 @@
     import { tradingPostKeys } from './data';
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
-    import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte';
+    import ClassIcon from '@/shared/components/icons/ClassIcon.svelte';
+    import CovenantIcon from '@/shared/components/icons/CovenantIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import TableSet from './TableSet.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = {
         anyClasses: boolean;

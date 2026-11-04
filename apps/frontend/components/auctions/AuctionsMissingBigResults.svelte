@@ -24,16 +24,16 @@
     import connectedRealmName from '@/utils/connected-realm-name';
     import type { ItemDataItem } from '@/types/data/item';
 
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import FactionIcon from '@/shared/components/icons/FactionIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import Paginate from '@/shared/components/paginate/Paginate.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
-    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
+    import ProfessionIcon from '@/shared/components/icons/ProfessionIcon.svelte';
     import RealmTooltip from './RealmTooltip.svelte';
     import TooltipAlreadyHave from '@/components/tooltips/auction-already-have/TooltipAuctionAlreadyHave.svelte';
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
     import { timeState } from '@/shared/state/time.svelte';
 
     let { page, slug1 }: { page: number; slug1: string } = $props();

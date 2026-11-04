@@ -6,7 +6,7 @@
     import { settingsState } from '@/shared/state/settings.svelte';
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
+    import ClassIcon from '@/shared/components/icons/ClassIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '../../shared/components/parsed-text/ParsedText.svelte';
 

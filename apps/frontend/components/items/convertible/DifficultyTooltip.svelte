@@ -10,7 +10,7 @@
     import type { LazyConvertibleModifier } from '@/user-home/state/lazy/convertible.svelte';
 
     import CharacterTag from '@/user-home/components/character/CharacterTag.svelte';
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
+    import ClassIcon from '@/shared/components/icons/ClassIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
 
     type Props = {
@@ -32,9 +32,6 @@
 <style lang="scss">
     h4 {
         --image-border-width: 1px;
-    }
-    .tag {
-        border-right: 1px solid var(--border-color);
     }
     .name,
     .realm {

@@ -8,10 +8,10 @@
     import { wowthingData } from '@/shared/stores/data';
     import { characterNamesFromIds } from '@/utils/characters/character-names-from-ids';
 
-    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
+    import CollectedIcon from '@/shared/components/icons/CollectedIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = {
         lookupId: number;

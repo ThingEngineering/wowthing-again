@@ -17,12 +17,12 @@
         JournalDataInstance,
     } from '@/types/data/journal';
 
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
-    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import ClassIcon from '@/shared/components/icons/ClassIcon.svelte';
+    import CollectedIcon from '@/shared/components/icons/CollectedIcon.svelte';
+    import FactionIcon from '@/shared/components/icons/FactionIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
-    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import ProfessionIcon from '@/shared/components/icons/ProfessionIcon.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = {
         bonusIds?: Record<number, number>;

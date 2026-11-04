@@ -4,7 +4,7 @@
     import { getGenderedName } from '@/utils/get-gendered-name';
 
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
-    import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
+    import SpecializationIcon from '@/shared/components/icons/SpecializationIcon.svelte';
 
     type Props = {
         classData: [number, boolean][];

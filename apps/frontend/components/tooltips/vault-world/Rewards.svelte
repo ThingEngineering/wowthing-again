@@ -2,9 +2,9 @@
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import { inventoryTypeIcons } from '@/shared/icons/mappings';
     import { wowthingData } from '@/shared/stores/data';
+    import { applyBonusIds } from '@/utils/items/apply-bonus-ids';
     import type { CharacterItem } from '@/types';
     import type { CharacterProps } from '@/types/props';
-    import { applyBonusIds } from '@/utils/items/apply-bonus-ids';
 
     let { character }: CharacterProps = $props();
 

@@ -2,7 +2,7 @@
     import repeat from 'lodash/repeat';
     import sortBy from 'lodash/sortBy';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
     import { dungeonMap } from '@/data/dungeon';
     import { wowthingData } from '@/shared/stores/data';
     import type {

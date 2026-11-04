@@ -7,7 +7,7 @@
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte';
     import Row from './DragonflightRow.svelte';
     import RowProfessions from '@/components/home/table/row/HomeTableRowProfessions.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     const filterFunc = (char: Character) =>
         dragonflightProfessions.some((p) => char.professions?.[p.id]);

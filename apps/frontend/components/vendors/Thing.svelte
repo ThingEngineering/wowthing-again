@@ -10,15 +10,15 @@
     import type { Icon } from '@/types/icons';
     import type { ThingData } from '@/types/vendors';
 
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
-    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
+    import ClassIcon from '@/shared/components/icons/ClassIcon.svelte';
+    import CollectedIcon from '@/shared/components/icons/CollectedIcon.svelte';
     import CurrencyLink from '@/shared/components/links/CurrencyLink.svelte';
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import FactionIcon from '@/shared/components/icons/FactionIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
-    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
-    import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
+    import ProfessionIcon from '@/shared/components/icons/ProfessionIcon.svelte';
+    import SpecializationIcon from '@/shared/components/icons/SpecializationIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = {
         intersected?: boolean;

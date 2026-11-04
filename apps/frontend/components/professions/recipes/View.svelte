@@ -16,7 +16,7 @@
 
     import AbilityRow from './AbilityRow.svelte';
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
+    import ClassIcon from '@/shared/components/icons/ClassIcon.svelte';
 
     type Props = {
         expansion: ExpansionData;

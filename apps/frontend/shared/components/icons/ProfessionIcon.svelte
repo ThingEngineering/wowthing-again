@@ -3,7 +3,7 @@
     import { professionIdToSlug } from '@/data/professions';
     import { wowthingData } from '@/shared/stores/data';
 
-    import WowthingImage from './sources/WowthingImage.svelte';
+    import WowthingImage from '../images/WowthingImage.svelte';
 
     let { id, border = 0, size = 20 }: { id: number; border?: number; size?: number } = $props();
 </script>

@@ -4,11 +4,11 @@
     import { componentTooltip } from '@/shared/utils/tooltips';
     import type { ManualDataReputationSet } from '@/types/data/manual';
 
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import FactionIcon from '@/shared/components/icons/FactionIcon.svelte';
     import ProgressBar from '@/components/common/ProgressBar.svelte';
     import TooltipReputation from '@/components/tooltips/reputation/TooltipReputation.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = {
         reputationsIndex: number;

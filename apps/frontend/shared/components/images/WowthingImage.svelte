@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { ImageProps } from '@/types/props';
 
-    import Image from '../Image.svelte';
+    import Image from './Image.svelte';
 
     type Props = ImageProps & {
         lazy?: boolean;

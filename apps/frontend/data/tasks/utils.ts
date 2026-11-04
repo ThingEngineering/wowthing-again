@@ -1,7 +1,6 @@
 import type { DateTime } from 'luxon';
 
 import { emissaryQuestToHoliday, holidayToReputations } from '@/data/reputation';
-import { Expansion } from '@/enums/expansion';
 import { timeState } from '@/shared/state/time.svelte';
 import { DbResetType } from '@/shared/stores/db/enums';
 import { dynamicDataStore } from '@/user-home/stores/dynamicData.svelte';
@@ -29,7 +28,7 @@ export const emissaryChoreData = (holiday: Holiday): Partial<Chore> => {
         questResetForced: true,
         questIds: reputations.map((rep) => rep.emissaryQuestId),
         requiredHolidays: [holiday],
-        customExpiryFunc: (chore, char, scannedAt, questIds) => {
+        customExpiryFunc: (chore, char) => {
             const dynamicData = dynamicDataStore.getCached(char.region);
             const activeEmissaryQuests = Object.values(dynamicData.emissaryQuests).flat();
             return activeEmissaryQuests.find(
