@@ -11,13 +11,13 @@
     import { wowthingData } from '@/shared/stores/data';
     import { getGenderedName } from '@/utils/get-gendered-name';
 
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
-    import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import ClassIcon from '@/shared/components/icons/ClassIcon.svelte';
+    import CraftedQualityIcon from '@/shared/components/icons/CraftedQualityIcon.svelte';
+    import FactionIcon from '@/shared/components/icons/FactionIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
-    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
-    import RaceIcon from '@/shared/components/images/RaceIcon.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import ProfessionIcon from '@/shared/components/icons/ProfessionIcon.svelte';
+    import RaceIcon from '@/shared/components/icons/RaceIcon.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     export let cls: string = undefined;
     export let dropShadow = false;

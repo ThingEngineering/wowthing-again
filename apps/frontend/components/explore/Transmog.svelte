@@ -10,12 +10,12 @@
     import { getClassesFromMask } from '@/utils/get-classes-from-mask';
     import type { ItemDataItem } from '@/types/data/item';
 
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import ClassIcon from '@/shared/components/icons/ClassIcon.svelte';
+    import FactionIcon from '@/shared/components/icons/FactionIcon.svelte';
     import NumberInput from '@/shared/components/forms/NumberInput.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import { iconLibrary } from '@/shared/icons';
 

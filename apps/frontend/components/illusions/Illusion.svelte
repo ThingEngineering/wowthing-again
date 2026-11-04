@@ -4,9 +4,9 @@
     import { userState } from '@/user-home/state/user';
     import type { ManualDataIllusionItem } from '@/types/data/manual';
 
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
-    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import ClassIcon from '@/shared/components/icons/ClassIcon.svelte';
+    import CollectedIcon from '@/shared/components/icons/CollectedIcon.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     let { item }: { item: ManualDataIllusionItem } = $props();
 

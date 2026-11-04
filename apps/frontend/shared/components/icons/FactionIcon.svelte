@@ -2,7 +2,7 @@
     import { imageStrings } from '@/data/icons';
     import { Faction } from '@/enums/faction';
 
-    import WowthingImage from './sources/WowthingImage.svelte';
+    import WowthingImage from '../images/WowthingImage.svelte';
 
     type Props = {
         faction: Faction;

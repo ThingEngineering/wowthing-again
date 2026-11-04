@@ -6,7 +6,7 @@
     import type { Character } from '@/types';
 
     import SpellLink from '@/shared/components/links/SpellLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     export let character: Character;
     export let specializationId: number;
@@ -67,7 +67,7 @@
             character.gender
         )}
     </h3>
-    <!-- 
+    <!--
     {#each $staticStore.talents[specializationId] as tier, tierIndex}
         <div class="tier" class:none-chosen={selectedTalent[tierIndex] === undefined}>
             {#each tier as spellId}

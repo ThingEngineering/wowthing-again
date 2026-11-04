@@ -6,7 +6,7 @@
     import type { SortableProps } from '@/types/props';
 
     import Tooltip from '@/components/tooltips/currency/TooltipCurrency.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     let { getSortState, setSortState }: SortableProps = $props();
 </script>

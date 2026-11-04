@@ -2,7 +2,7 @@
     import { covenantMap } from '@/data/covenant';
     import type { Character } from '@/types';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     export let character: Character;
 

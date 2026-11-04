@@ -2,7 +2,7 @@
     import { covenantMap, covenantOrder } from '@/data/covenant';
     import { settingsState } from '@/shared/state/settings.svelte';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 </script>
 
 <style lang="scss">

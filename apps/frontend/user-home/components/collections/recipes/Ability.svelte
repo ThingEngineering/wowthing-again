@@ -8,11 +8,11 @@
 
     import { recipesState } from './state';
 
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import FactionIcon from '@/shared/components/icons/FactionIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 
     type Props = {

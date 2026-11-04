@@ -5,7 +5,7 @@
     import type { TaskProfessionQuest } from '@/types/data';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
-    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
+    import ProfessionIcon from '@/shared/components/icons/ProfessionIcon.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 
     export let character: Character;

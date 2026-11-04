@@ -1,7 +1,7 @@
 <script lang="ts">
     import { wowthingData } from '@/shared/stores/data';
 
-    import WowthingImage from './sources/WowthingImage.svelte';
+    import WowthingImage from '../images/WowthingImage.svelte';
 
     type Props = {
         currencyId: number;

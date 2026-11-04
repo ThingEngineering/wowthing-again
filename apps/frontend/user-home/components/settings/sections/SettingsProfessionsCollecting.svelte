@@ -7,7 +7,7 @@
     import { getGenderedName } from '@/utils/get-gendered-name';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
 
-    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
+    import ProfessionIcon from '@/shared/components/icons/ProfessionIcon.svelte';
 
     let { sortedProfessions }: { sortedProfessions: StaticDataProfession[] } = $props();
 

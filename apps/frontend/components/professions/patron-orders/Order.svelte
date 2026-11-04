@@ -9,8 +9,8 @@
 
     import type { CommodityData } from './auction-store';
 
-    import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import CraftedQualityIcon from '@/shared/components/icons/CraftedQualityIcon.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
 
     export let character: Character;

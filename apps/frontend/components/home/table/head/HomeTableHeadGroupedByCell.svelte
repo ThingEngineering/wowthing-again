@@ -3,7 +3,7 @@
     import type { Character } from '@/types';
     import type { GroupByContext } from '@/utils/get-character-group-func';
 
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import FactionIcon from '@/shared/components/icons/FactionIcon.svelte';
 
     type Props = { group: Character[]; groupByContext: GroupByContext };
     let { group, groupByContext }: Props = $props();

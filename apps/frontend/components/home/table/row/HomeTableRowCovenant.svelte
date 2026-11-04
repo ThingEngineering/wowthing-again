@@ -6,7 +6,7 @@
     import type { CharacterProps } from '@/types/props';
 
     import Tooltip from '@/components/tooltips/covenant/TooltipCovenant.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     let { character }: CharacterProps = $props();
 

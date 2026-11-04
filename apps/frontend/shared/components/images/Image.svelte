@@ -1,32 +1,29 @@
 <script lang="ts">
     import { componentTooltip } from '@/shared/utils/tooltips';
+    import type { ImageProps } from '@/types/props';
+    import type { MakeOptional } from '@/types/utility';
 
     import Tooltip from '@/shared/components/parsed-text/Tooltip.svelte';
-    import type { TippyProps } from '@/shared/utils/tooltips/types';
 
-    export let src: string;
-    export let alt: string;
-    export let border = 0;
-    export let height = 0;
-    export let size = 0;
-    export let width = 0;
-    export let cls: string = undefined;
-    export let lazy = true;
-    export let tooltip: TippyProps | string = undefined;
+    type Props = MakeOptional<ImageProps, 'size'> & {
+        alt: string;
+        src: string;
+        height?: number;
+        width?: number;
+        lazy?: boolean;
+    };
+    let { alt, src, border = 0, cls, height, lazy = true, size, tooltip, width }: Props = $props();
 
-    let actualHeight: number;
-    let actualWidth: number;
-    $: {
-        actualHeight = (height || size) + border * 2;
-        actualWidth = (width || size) + border * 2;
-    }
+    let actualHeight = $derived((height || size) + border * 2);
+    let actualWidth = $derived((width || size) + border * 2);
 
-    $: content =
+    let content = $derived(
         tooltip === undefined
             ? undefined
             : typeof tooltip === 'string'
               ? tooltip
-              : (tooltip.content as string);
+              : (tooltip.content as string)
+    );
 </script>
 
 <style lang="scss">

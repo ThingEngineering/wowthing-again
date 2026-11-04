@@ -8,7 +8,7 @@
     import { brannHack, nazjatarHack, valeeraHack } from './hacks';
 
     import RenownTooltip from './TooltipReputationRenown.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = {
         characterRep: number;

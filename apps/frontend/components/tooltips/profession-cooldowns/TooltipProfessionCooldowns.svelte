@@ -1,13 +1,13 @@
 <script lang="ts">
-    import { timeStore } from '@/shared/stores/time'
-    import { toNiceDuration } from '@/utils/formatting'
-    import type { Character, ProfessionCooldown } from '@/types'
+    import { timeStore } from '@/shared/stores/time';
+    import { toNiceDuration } from '@/utils/formatting';
+    import type { Character, ProfessionCooldown } from '@/types';
 
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import ProfessionIcon from '@/shared/components/icons/ProfessionIcon.svelte';
 
-    export let character: Character
-    export let cooldowns: ProfessionCooldown[]
+    export let character: Character;
+    export let cooldowns: ProfessionCooldown[];
 
     function getClass(cooldown: ProfessionCooldown, per: number): string {
         let ret = '';
@@ -17,9 +17,9 @@
             }
         } else {
             if (per === 100) {
-                ret = 'status-fail'
+                ret = 'status-fail';
             } else if (per >= 50) {
-                ret = 'status-shrug'
+                ret = 'status-shrug';
             }
         }
         return ret;
@@ -65,13 +65,10 @@
     <table class="table table-striped">
         <tbody>
             {#each cooldowns as cooldown}
-                {@const per = cooldown.have / cooldown.max * 100}
+                {@const per = (cooldown.have / cooldown.max) * 100}
                 <tr>
                     <td class="icon">
-                        <ProfessionIcon
-                            id={cooldown.data.profession}
-                            border={1}
-                        />
+                        <ProfessionIcon id={cooldown.data.profession} border={1} />
                     </td>
                     <td class="name">
                         <ParsedText text={cooldown.data.name} />
@@ -86,9 +83,7 @@
                         {/if}
                     </td>
                     {#if cooldown.have === -1 && cooldown.max === -1}
-                        <td class="status-fail" colspan="3">
-                            ???
-                        </td>
+                        <td class="status-fail" colspan="3"> ??? </td>
                     {:else}
                         {@const cls = getClass(cooldown, per)}
                         <td class="value {cls}">

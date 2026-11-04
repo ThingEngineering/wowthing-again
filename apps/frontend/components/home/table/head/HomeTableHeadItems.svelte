@@ -3,7 +3,7 @@
     import { wowthingData } from '@/shared/stores/data';
     import type { SortableProps } from '@/types/props';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     let { getSortState, setSortState }: SortableProps = $props();
 </script>

@@ -8,7 +8,7 @@
     import LookupThing from './LookupThing.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     let { thingData }: { thingData: SomethingThing } = $props();
 

@@ -11,7 +11,7 @@
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     export let characterData: CharacterCommodities;
     export let commodities: CommodityData;

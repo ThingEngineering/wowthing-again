@@ -1,10 +1,11 @@
 <script lang="ts">
-    type Props = {
+    import type { TextAreaEventProps } from '@/types/props';
+
+    type Props = TextAreaEventProps & {
         value: string;
         disabled?: boolean;
         placeholder?: string;
         rows?: number;
-        onclick?: (e: Event) => void;
     };
     let { value = $bindable(), disabled, placeholder, rows = 4, onclick }: Props = $props();
 </script>

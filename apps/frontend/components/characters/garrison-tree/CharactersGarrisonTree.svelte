@@ -3,7 +3,7 @@
     import type { CharacterProps } from '@/types/props';
 
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = CharacterProps & { tree: GarrisonTree };
     let { character, tree }: Props = $props();

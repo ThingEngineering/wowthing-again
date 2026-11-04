@@ -1,7 +1,7 @@
 <script lang="ts">
     import { dungeonMap } from '@/data/dungeon';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     let { dungeonId }: { dungeonId: number } = $props();
 

@@ -3,9 +3,9 @@
     import { wowthingData } from '@/shared/stores/data';
 
     import CriteriaTree from './AchievementsCriteriaTree.svelte';
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import FactionIcon from '@/shared/components/icons/FactionIcon.svelte';
     import NumberInput from '@/shared/components/forms/NumberInput.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     let achievement = $derived(
         wowthingData.achievements.achievementById.get(browserState.current.explore.achievementId)

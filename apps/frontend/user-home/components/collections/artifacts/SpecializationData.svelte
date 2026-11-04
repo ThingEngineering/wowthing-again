@@ -1,6 +1,6 @@
 <script lang="ts">
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
-    import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
+    import SpecializationIcon from '@/shared/components/icons/SpecializationIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';

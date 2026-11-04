@@ -18,7 +18,7 @@
     import Empty from '../../items/ItemsEmpty.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import Item from '@/components/items/ItemsItem.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     let { character, professionId, slug }: CharacterProps & { professionId: number; slug: string } =
         $props();

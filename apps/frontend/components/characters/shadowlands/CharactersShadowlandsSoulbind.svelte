@@ -7,7 +7,7 @@
 
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import SpellLink from '@/shared/components/links/SpellLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     export let character: Character;
     export let covenantId: number;

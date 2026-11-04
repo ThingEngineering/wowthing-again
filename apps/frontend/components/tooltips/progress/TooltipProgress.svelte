@@ -11,7 +11,7 @@
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import QuestStatusIcon from '@/shared/components/icons/QuestStatusIcon.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = CharacterProps & {
         datas: ManualDataProgressData[];

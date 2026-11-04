@@ -2,7 +2,7 @@
     import type { StaticDataSubProfessionTraitNode } from '@/shared/stores/static/types';
 
     import Self from './CharacterProfessionsTraitsNode.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = {
         indent: number;

@@ -1,6 +1,8 @@
 import type { Snippet } from 'svelte';
+import type { DOMAttributes } from 'svelte/elements';
 
 import type { Character } from './character';
+import type { TippyProps } from '@/shared/utils/tooltips/types';
 
 export type CharacterProps = {
     character: Character;
@@ -9,6 +11,10 @@ export type CharacterProps = {
 export type ChildrenProp = {
     children?: Snippet;
 };
+
+export type ButtonEventProps = Pick<DOMAttributes<HTMLButtonElement>, 'onclick'>;
+export type InputEventProps = Pick<DOMAttributes<HTMLInputElement>, 'onchange' | 'oninput'>;
+export type TextAreaEventProps = Pick<DOMAttributes<HTMLTextAreaElement>, 'onclick'>;
 
 export type SlugsProps = {
     slug1: string;
@@ -35,5 +41,5 @@ export type ImageProps = {
     size: number;
     border?: number;
     cls?: string;
-    tooltip?: string;
+    tooltip?: TippyProps | string;
 };

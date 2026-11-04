@@ -1,11 +1,11 @@
 <script lang="ts">
-    import type { ChildrenProp } from '@/types/props';
+    import type { ButtonEventProps, ChildrenProp } from '@/types/props';
 
-    type Props = ChildrenProp & {
-        cls?: string;
-        disabled?: boolean;
-        onclick?: (e: MouseEvent) => void;
-    };
+    type Props = ChildrenProp &
+        ButtonEventProps & {
+            cls?: string;
+            disabled?: boolean;
+        };
     let { children, cls, disabled, onclick }: Props = $props();
 </script>
 

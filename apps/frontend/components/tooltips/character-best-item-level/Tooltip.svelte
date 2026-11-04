@@ -7,7 +7,7 @@
     import type { CharacterProps } from '@/types/props';
 
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
-    import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
+    import SpecializationIcon from '@/shared/components/icons/SpecializationIcon.svelte';
 
     type Props = CharacterProps & {
         bestItemLevels: Record<number, [string, InventoryType[]]>;

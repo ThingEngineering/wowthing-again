@@ -8,7 +8,7 @@
     import TableSortedBy from '@/components/common/TableSortedBy.svelte';
     import Tooltip from '@/components/tooltips/currency/TooltipCurrency.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = {
         currency?: StaticDataCurrency;

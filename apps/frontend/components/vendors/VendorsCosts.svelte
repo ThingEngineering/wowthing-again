@@ -2,7 +2,7 @@
     import { getCurrencyCosts } from '@/utils/get-currency-costs';
 
     import CurrencyLink from '@/shared/components/links/CurrencyLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     let { costs }: { costs: Record<number, number> } = $props();
 </script>

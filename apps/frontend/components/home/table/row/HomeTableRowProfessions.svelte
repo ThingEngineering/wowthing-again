@@ -11,7 +11,7 @@
     import type { StaticDataProfession } from '@/shared/stores/static/types';
 
     import Tooltip from '@/components/tooltips/professions/TooltipProfessions.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     export let character: Character;
     export let professionType = 0;

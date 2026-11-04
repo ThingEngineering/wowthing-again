@@ -2,7 +2,7 @@
     import { activeViewProgress } from '@/user-home/state/activeViewProgress.svelte';
     import type { SortableProps } from '@/types/props';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     let { getSortState, setSortState }: SortableProps = $props();
 

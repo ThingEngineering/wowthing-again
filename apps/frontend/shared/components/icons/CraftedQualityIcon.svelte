@@ -2,7 +2,7 @@
     import type { ImageProps } from '@/types/props';
     import type { MakeOptional } from '@/types/utility';
 
-    import WowthingImage from './sources/WowthingImage.svelte';
+    import WowthingImage from '../images/WowthingImage.svelte';
 
     type Props = MakeOptional<ImageProps, 'size'> & { quality: number };
     let { quality, size = 24, ...imageProps }: Props = $props();

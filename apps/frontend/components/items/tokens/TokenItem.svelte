@@ -17,15 +17,15 @@
     import { getClassesFromMask } from '@/utils/get-classes-from-mask';
     import type { ItemDataItem } from '@/types/data/item';
 
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
+    import ClassIcon from '@/shared/components/icons/ClassIcon.svelte';
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
-    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import CollectedIcon from '@/shared/components/icons/CollectedIcon.svelte';
+    import FactionIcon from '@/shared/components/icons/FactionIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
-    import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
+    import SpecializationIcon from '@/shared/components/icons/SpecializationIcon.svelte';
     import TooltipAlreadyHave from '@/components/tooltips/auction-already-have/TooltipAuctionAlreadyHave.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     let { itemIdAndModifier, useV2 }: { itemIdAndModifier: string; useV2: boolean } = $props();
 

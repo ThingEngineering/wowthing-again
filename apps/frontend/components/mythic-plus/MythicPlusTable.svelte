@@ -23,7 +23,7 @@
     import RowRaiderIo from '@/components/character-table/row/RaiderIo.svelte';
     import RowVaultDungeon from '@/components/character-table/row/VaultDungeon.svelte';
     import TableFoot from './TableFoot.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     let { slug }: { slug: string } = $props();
 

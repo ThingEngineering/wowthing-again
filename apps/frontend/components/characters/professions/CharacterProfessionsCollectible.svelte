@@ -1,9 +1,9 @@
 <script lang="ts">
     import { wowthingData } from '@/shared/stores/data';
 
-    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
+    import CollectedIcon from '@/shared/components/icons/CollectedIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     export let disabled = false;
     export let itemId: number;

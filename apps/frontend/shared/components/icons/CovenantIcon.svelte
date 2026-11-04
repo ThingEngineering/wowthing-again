@@ -2,7 +2,7 @@
     import type { Covenant } from '@/types';
     import { covenantMap, covenantNameMap } from '@/data/covenant';
 
-    import WowthingImage from './sources/WowthingImage.svelte';
+    import WowthingImage from '../images/WowthingImage.svelte';
 
     type Props = {
         border?: number;

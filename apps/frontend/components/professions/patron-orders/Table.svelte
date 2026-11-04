@@ -8,7 +8,7 @@
     import CharacterTable from '@/components/character-table/CharacterTable.svelte';
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte';
     import TableCell from './TableCell.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = {
         commodities: CommodityData;

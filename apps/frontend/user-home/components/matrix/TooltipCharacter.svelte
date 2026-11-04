@@ -1,8 +1,8 @@
 <script lang="ts">
     import type { CharacterProps } from '@/types/props';
 
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
-    import RaceIcon from '@/shared/components/images/RaceIcon.svelte';
+    import ClassIcon from '@/shared/components/icons/ClassIcon.svelte';
+    import RaceIcon from '@/shared/components/icons/RaceIcon.svelte';
 
     let { character }: CharacterProps = $props();
 </script>

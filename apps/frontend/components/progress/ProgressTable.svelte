@@ -12,7 +12,7 @@
     import CharacterTable from '@/components/character-table/CharacterTable.svelte';
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte';
     import Currency from '@/shared/components/currencies/Currency.svelte';
-    import CurrencyIcon from '@/shared/components/images/CurrencyIcon.svelte';
+    import CurrencyIcon from '@/shared/components/icons/CurrencyIcon.svelte';
     import HeadCovenant from '@/components/home/table/head/HomeTableHeadCovenant.svelte';
     import HeadProgress from './ProgressTableHead.svelte';
     import RowCovenant from '@/components/home/table/row/HomeTableRowCovenant.svelte';

@@ -6,9 +6,9 @@
     import getPercentClass from '@/utils/get-percent-class';
     import type { ManualDataHeirloomItem } from '@/types/data/manual';
 
-    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
+    import CollectedIcon from '@/shared/components/icons/CollectedIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     let { isUnavailable, item }: { isUnavailable: boolean; item: ManualDataHeirloomItem } =
         $props();

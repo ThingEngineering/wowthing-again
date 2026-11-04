@@ -11,7 +11,7 @@
     import { worldQuestPrereqs } from './data';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import FactionIcon from '@/shared/components/icons/FactionIcon.svelte';
 
     let { worldQuest }: { worldQuest: ApiWorldQuest } = $props();
 

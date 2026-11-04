@@ -1,10 +1,13 @@
 <script lang="ts">
-    export let label: string = undefined
-    export let max: number
-    export let min = 0
-    export let name: string
-    export let step = 1
-    export let value: number
+    type Props = {
+        max: number;
+        name: string;
+        value: number;
+        label?: string;
+        min?: number;
+        step?: number;
+    };
+    let { max, name, value = $bindable(), label, min = 0, step = 1 }: Props = $props();
 </script>
 
 <style lang="scss">
@@ -21,18 +24,8 @@
 
 <fieldset>
     {#if label}
-        <label
-            for="input-{name}"
-        >{@html label}</label>
+        <label for="input-{name}">{@html label}</label>
     {/if}
-    
-    <input
-        id="input-{name}"
-        name={name}
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        bind:value={value}
-    />
+
+    <input id="input-{name}" {name} type="range" {min} {max} {step} bind:value />
 </fieldset>

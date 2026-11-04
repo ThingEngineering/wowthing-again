@@ -6,7 +6,7 @@
     import type { CharacterProps } from '@/types/props';
 
     import Abomination from './Abomination.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     type Props = CharacterProps & { feature: CharacterShadowlandsCovenantFeature };
 

@@ -12,12 +12,12 @@
     import type { Character, CharacterSubProfession } from '@/types';
 
     import CraftLevels from './CharacterProfessionsProfessionCraftLevels.svelte';
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import FactionIcon from '@/shared/components/icons/FactionIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import SkillRanks from './CharacterProfessionsProfessionSkillRanks.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     export let category: StaticDataProfessionCategory;
     export let character: Character;

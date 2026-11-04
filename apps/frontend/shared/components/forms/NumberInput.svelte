@@ -1,10 +1,25 @@
 <script lang="ts">
-    export let disabled = false;
-    export let label: string = null;
-    export let name: string;
-    export let value: number;
-    export let minValue: number;
-    export let maxValue: number;
+    import type { ChildrenProp, InputEventProps } from '@/types/props';
+
+    type Props = ChildrenProp &
+        InputEventProps & {
+            name: string;
+            value: number;
+            minValue: number;
+            maxValue: number;
+            disabled?: boolean;
+            label?: string;
+        };
+    let {
+        name,
+        value = $bindable(),
+        minValue,
+        maxValue,
+        disabled = false,
+        label,
+        children,
+        oninput,
+    }: Props = $props();
 </script>
 
 <style lang="scss">
@@ -32,7 +47,7 @@
         class:disabled
         {disabled}
         bind:value
-        on:input
+        {oninput}
     />
-    <slot />
+    {@render children?.()}
 </fieldset>

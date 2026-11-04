@@ -9,7 +9,7 @@
     import type { GlobalDailyQuest } from '@/types/data';
 
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     export let callings: [DailyQuestsReward, GlobalDailyQuest, boolean][];
     export let character: Character;

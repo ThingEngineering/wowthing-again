@@ -2,7 +2,7 @@
     import { professionSpecializationSpells } from '@/data/professions';
     import type { CharacterProps } from '@/types/props';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
 
     type Props = CharacterProps & {

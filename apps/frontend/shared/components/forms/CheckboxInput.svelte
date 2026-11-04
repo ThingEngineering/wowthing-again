@@ -8,16 +8,16 @@
         name: string;
         value?: boolean;
         disabled?: boolean;
-        onChange?: (newValue: boolean) => void;
         textClass?: string;
+        onChange?: (newValue: boolean) => void;
     };
     let {
-        children,
         disabled,
         name,
-        onChange,
         textClass,
         value = $bindable(false),
+        children,
+        onChange,
     }: Props = $props();
 </script>
 

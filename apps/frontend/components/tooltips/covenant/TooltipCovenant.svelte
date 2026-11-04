@@ -9,7 +9,7 @@
         CharacterShadowlandsCovenantFeature,
     } from '@/types';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
     import type { CharacterProps } from '@/types/props';
 
     let { character }: CharacterProps = $props();

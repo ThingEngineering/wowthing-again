@@ -7,7 +7,7 @@
     import type { Character } from '@/types';
 
     import Equipment from '@/components/professions/Equipment.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     export let character: Character;
     export let profession: StaticDataProfession;

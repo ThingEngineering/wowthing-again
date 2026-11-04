@@ -8,9 +8,9 @@
 
     import AchievementLink from '@/shared/components/links/AchievementLink.svelte';
     import Criteria from './Criteria.svelte';
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import FactionIcon from '@/shared/components/icons/FactionIcon.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
     export let achievementId: number;
     export let allAchievementIds: number[] = undefined;
