@@ -56,8 +56,12 @@ class ActiveHolidays {
                 holidayIds
             )) {
                 const actualDescriptionIds = descriptionIds || [];
+                if (nameIds.length === 0 && actualDescriptionIds.length === 0) {
+                    continue;
+                }
+
                 if (
-                    nameIds.includes(holiday.nameId) &&
+                    (nameIds.length === 0 || nameIds.includes(holiday.nameId)) &&
                     (actualDescriptionIds.length === 0 ||
                         actualDescriptionIds.includes(holiday.descriptionId))
                 ) {

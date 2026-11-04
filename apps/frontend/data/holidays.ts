@@ -40,8 +40,11 @@ export const holidayMinimumLevel: Record<number, number> = {
 
 // Holiday enum => [[StaticDataHoliday.nameIds], [StaticDataHoliday.descriptionIds]?]
 const timewalkingNameIds = [237, 239];
-export const holidayIds: Record<number, [number[], number[]?]> = {
-    [Holiday.Anniversary]: [[242, 439]],
+export const holidayIds: Record<
+    number,
+    [holidayNameIds: number[], holidayDescriptionIds?: number[]]
+> = {
+    [Holiday.Anniversary]: [[], [188]],
     [Holiday.Brewfest]: [[7]],
     [Holiday.ChildrensWeek]: [[13]],
     [Holiday.DarkmoonFaire]: [[1]],
