@@ -30,6 +30,12 @@ export const legionEmissaryQuests: Task = {
             ...emissaryChoreData(Holiday.EmissaryHighmountainTribes),
         },
         {
+            key: 'kirinTor',
+            name: 'Kirin Tor',
+            icon: '{factionIcon:WrathKirinTor}',
+            ...emissaryChoreData(Holiday.EmissaryKirinTor),
+        },
+        {
             key: 'nightfallen',
             name: 'Nightfallen',
             icon: '{factionIcon:LegionNightfallen}',

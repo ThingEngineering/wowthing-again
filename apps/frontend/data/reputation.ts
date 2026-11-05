@@ -4,6 +4,13 @@ import type { ReputationData } from '@/types/reputation-data';
 import { groupBy } from 'lodash';
 
 export const reputationMap: Partial<Record<Reputation, ReputationData>> = {
+    // This is actually a Legion emissary, bit of a hack
+    [Reputation.WrathKirinTor]: {
+        emissaryHoliday: Holiday.EmissaryKirinTor,
+        emissaryQuestId: 43179,
+        icon: 'achievement/8208',
+    },
+
     [Reputation.LegionHighmountainTribe]: {
         emissaryHoliday: Holiday.EmissaryHighmountainTribes,
         emissaryQuestId: 42233,

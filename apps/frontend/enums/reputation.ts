@@ -1,4 +1,6 @@
 export enum Reputation {
+    WrathKirinTor = 1090,
+
     LegionHighmountainTribe = 1828,
     LegionTheNightfallen = 1859,
     LegionDreamweavers = 1883,
