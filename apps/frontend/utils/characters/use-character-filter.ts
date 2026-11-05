@@ -288,7 +288,7 @@ function compareValues(comparison: string, sourceValue: number, compareValue: nu
 const professionSlugMap: Record<string, string> = {
     alc: 'alchemy',
     alch: 'alchemy',
-    alchemist: 'alchemist',
+    alchemist: 'alchemy',
     blacksmith: 'blacksmithing',
     bs: 'blacksmithing',
     cook: 'cooking',

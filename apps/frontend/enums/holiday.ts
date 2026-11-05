@@ -59,6 +59,7 @@ export enum Holiday {
     EmissaryCourtFarondis,
     EmissaryDreamweavers,
     EmissaryHighmountainTribes,
+    EmissaryKirinTor,
     EmissaryNightfallen,
     EmissaryValarjar,
     EmissaryWardens,
