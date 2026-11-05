@@ -140,7 +140,7 @@ class ActiveHolidays {
                     if (emissaryHoliday) {
                         activeHolidays[emissaryHoliday] = {
                             holiday: null,
-                            startDate: emissaryQuest.expiresAt.minus({ days: 1 }),
+                            startDate: emissaryQuest.expiresAt.minus({ days: 3 }),
                             endDate: emissaryQuest.expiresAt,
                             soon: false,
                         };
