@@ -22,11 +22,11 @@
         $derived.by(() => {
             const charProfession = character.professions[staticProfession.id];
             const retSubProfession = staticProfession.expansionSubProfession[expansion.id];
-            if (!expansion || !charProfession || !subProfession.traitTrees) {
+            if (!expansion || !charProfession || !retSubProfession.traitTrees) {
                 return [undefined, undefined];
             } else {
                 return [
-                    charProfession.subProfessions?.[subProfession.id]?.traits,
+                    charProfession.subProfessions?.[retSubProfession.id]?.traits,
                     retSubProfession,
                 ];
             }
