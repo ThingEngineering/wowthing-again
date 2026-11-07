@@ -45,7 +45,7 @@
 </style>
 
 <div class="view">
-    <CollectibleSidebar forPets={route === 'pets'} {sets} />
+    <CollectibleSidebar forPets={route.endsWith('pets')} {sets} />
 
     {#if params.slug1 === 'search'}
         <PetSearch />
