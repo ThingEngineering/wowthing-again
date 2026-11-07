@@ -266,6 +266,40 @@ export const extraCategories: ExtraAchievementCategory[] = [
             },
             null,
             {
+                targetSlug: 'pet-battles/battle',
+                nameType: 1,
+                onlyAchievementIds: true,
+                achievementIds: [
+                    10876, // Battle on the Broken Isles
+                    11233, // Broken Isles Safari
+                    12088, // Anomalous Animals of Argus
+                    // Family Familiar (Broken Isles)
+                    9686, // Aquatic
+                    9687, // Beast
+                    9688, // Critter
+                    9689, // Dragonkin
+                    9690, // Elemental
+                    9691, // Flying
+                    9692, // Humanoid
+                    9693, // Magic
+                    9694, // Mechanical
+                    9695, // Undead
+                    9696,
+                    // Family Fighter (Argus)
+                    12089, // Aquatic
+                    12091, // Beast
+                    12092, // Critter
+                    12093, // Dragonkin
+                    12094, // Elemental
+                    12095, // Flying
+                    12096, // Humanoid
+                    12097, // Magic
+                    12098, // Mechanical
+                    12099, // Undead
+                    12100,
+                ],
+            },
+            {
                 targetSlug: 'expansion-features/legion-class-hall',
                 nameType: 3,
                 overrideName: 'Class Hall',
