@@ -1,10 +1,13 @@
 <script lang="ts">
+    import { getBasePathContext } from '@/shared/contexts/basePath';
     import { userState } from '@/user-home/state/user';
-    import type { MultiSlugParams } from '@/types';
+    import type { ParamsSlugsProps } from '@/types/props';
 
     import Collectible from './Collectible.svelte';
 
-    let { basePath = '', params }: { basePath: string; params: MultiSlugParams } = $props();
+    let { params }: ParamsSlugsProps = $props();
+
+    const basePath = getBasePathContext();
 </script>
 
 <Collectible

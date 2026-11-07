@@ -4,9 +4,12 @@
 
     import Sidebar from './AppearancesSidebar.svelte';
     import View from './AppearancesView.svelte';
+    import { getBasePathContext } from '@/shared/contexts/basePath';
 
-    type Props = ParamsSlugsProps & { basePath?: string };
-    let { basePath, params }: Props = $props();
+    type Props = ParamsSlugsProps;
+    let { params }: Props = $props();
+
+    const basePath = getBasePathContext();
 
     $effect(() =>
         getSavedRoute(basePath ? `${basePath}/appearances` : 'appearances', params.slug1)

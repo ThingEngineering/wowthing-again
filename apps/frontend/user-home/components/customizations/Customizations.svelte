@@ -1,11 +1,14 @@
 <script lang="ts">
+    import { getBasePathContext } from '@/shared/contexts/basePath';
     import getSavedRoute from '@/utils/get-saved-route';
     import type { ParamsSlugsProps } from '@/types/props';
 
     import Sidebar from './Sidebar.svelte';
     import View from './View.svelte';
 
-    let { basePath = '', params }: { basePath?: string } & ParamsSlugsProps = $props();
+    let { params }: ParamsSlugsProps = $props();
+
+    const basePath = getBasePathContext();
 
     $effect(() =>
         getSavedRoute(

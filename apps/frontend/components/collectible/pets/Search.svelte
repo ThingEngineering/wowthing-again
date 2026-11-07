@@ -12,9 +12,8 @@
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
 
-    let pets: [number, UserDataPet, string][];
-    $: {
-        pets = [];
+    let pets = $derived.by(() => {
+        const temp: [number, UserDataPet, string][] = [];
 
         const noMaxLevel = browserState.current['collectible-pets'].searchNoMaxLevel;
         const noRare = browserState.current['collectible-pets'].searchNoRare;
@@ -34,14 +33,14 @@
             }
 
             if (keep) {
-                pets.push([speciesId, bestPet(thesePets), staticPet?.name || `Pet #${speciesId}`]);
+                temp.push([speciesId, bestPet(thesePets), staticPet?.name || `Pet #${speciesId}`]);
             }
         }
 
-        pets = sortBy(pets, ([, pet, name]) =>
+        return sortBy(temp, ([, pet, name]) =>
             [5 - pet.quality, leftPad(pet.level, 2, '0'), name].join('|')
         );
-    }
+    });
 
     function bestPet(pets: UserDataPet[]) {
         if (pets.length === 1) {

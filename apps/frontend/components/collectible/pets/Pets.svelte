@@ -1,14 +1,17 @@
 <script lang="ts">
     import { ItemQuality } from '@/enums/item-quality';
+    import { getBasePathContext } from '@/shared/contexts/basePath';
     import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
-    import type { MultiSlugParams } from '@/types';
+    import type { ParamsSlugsProps } from '@/types/props';
 
-    import Collectible from './Collectible.svelte';
-    import ProgressBar from '../common/ProgressBar.svelte';
-    import RarityBar from '../common/RarityBar.svelte';
+    import Collectible from '../Collectible.svelte';
+    import ProgressBar from '@/components/common/ProgressBar.svelte';
+    import RarityBar from '@/components/common/RarityBar.svelte';
 
-    let { basePath = '', params }: { basePath: string; params: MultiSlugParams } = $props();
+    let { params }: ParamsSlugsProps = $props();
+
+    const basePath = getBasePathContext();
 
     const thingMapFunc = (thing: number) => wowthingData.static.petById.get(thing)?.creatureId;
     const thingQualityFunc = (thing: number) => {

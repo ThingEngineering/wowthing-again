@@ -8,7 +8,7 @@
 
     import CollectibleSection from './CollectibleSection.svelte';
     import CollectibleSidebar from './CollectibleSidebar.svelte';
-    import PetSearch from './PetSearch.svelte';
+    import PetSearch from './pets/Search.svelte';
 
     type Props = {
         params: MultiSlugParams;

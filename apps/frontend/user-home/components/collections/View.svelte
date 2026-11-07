@@ -1,31 +1,14 @@
 <script lang="ts">
-    import type { MultiSlugParams } from '@/types';
-    import type { ParamsSlugsProps } from '@/types/props';
+    import { setBasePathContext } from '@/shared/contexts/basePath';
 
-    import Appearances from '@/components/appearances/Appearances.svelte';
-    import Customizations from '@/user-home/components/customizations/Customizations.svelte';
-    import Heirlooms from '@/components/heirlooms/Heirlooms.svelte';
-    import Illusions from '@/components/illusions/Illusions.svelte';
-    import Mounts from '@/components/collectible/Mounts.svelte';
-    import Pets from '@/components/collectible/Pets.svelte';
-    import Recipes from './recipes/Recipes.svelte';
-    import Toys from '@/components/collectible/Toys.svelte';
-    import Artifacts from './artifacts/Artifacts.svelte';
-    import Decor from './decor/Decor.svelte';
-    import MageTower from './mage-tower/MageTower.svelte';
+    import Routes from './Routes.svelte';
 
-    let { params }: ParamsSlugsProps = $props();
-
-    let shiftedParams: MultiSlugParams = $derived({
-        slug1: params.slug2,
-        slug2: params.slug3,
-        slug3: params.slug4,
-        slug4: params.slug5,
-    });
+    setBasePathContext(() => 'collections');
 </script>
 
 <div>
-    {#if params.slug1 === 'appearances'}
+    <Routes />
+    <!-- {#if params.slug1 === 'appearances'}
         <Appearances basePath="collections" params={shiftedParams} />
     {:else if params.slug1 === 'artifacts'}
         <Artifacts />
@@ -47,5 +30,5 @@
         <Recipes params={shiftedParams} />
     {:else if params.slug1 === 'toys'}
         <Toys basePath="collections" params={shiftedParams} />
-    {/if}
+    {/if} -->
 </div>
