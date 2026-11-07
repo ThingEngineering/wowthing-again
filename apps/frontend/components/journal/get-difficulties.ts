@@ -33,8 +33,8 @@ export function getDifficulties(
     const ret: [string[], string[]] = [[], []];
     if (raidSizeInstances.has(instance.id)) {
         const normal10 = appearance.difficulties.includes(Difficulty.RaidLegacy10Normal);
-        const normal25 = appearance.difficulties.includes(Difficulty.RaidLegacy10Heroic);
-        const heroic10 = appearance.difficulties.includes(Difficulty.RaidLegacy25Normal);
+        const normal25 = appearance.difficulties.includes(Difficulty.RaidLegacy25Normal);
+        const heroic10 = appearance.difficulties.includes(Difficulty.RaidLegacy10Heroic);
         const heroic25 = appearance.difficulties.includes(Difficulty.RaidLegacy25Heroic);
 
         if (normal10 && normal25 && heroic10 && heroic25) {

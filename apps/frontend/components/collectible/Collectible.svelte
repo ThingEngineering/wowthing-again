@@ -8,7 +8,8 @@
 
     import CollectibleSection from './CollectibleSection.svelte';
     import CollectibleSidebar from './CollectibleSidebar.svelte';
-    import PetSearch from './PetSearch.svelte';
+    import FamilyBattler from './pets/FamilyBattler.svelte';
+    import PetSearch from './pets/Search.svelte';
 
     type Props = {
         params: MultiSlugParams;
@@ -44,10 +45,12 @@
 </style>
 
 <div class="view">
-    <CollectibleSidebar includeSearch={route === 'pets'} {sets} />
+    <CollectibleSidebar forPets={route.endsWith('pets')} {sets} />
 
     {#if params.slug1 === 'search'}
         <PetSearch />
+    {:else if params.slug1 === 'family-battler'}
+        <FamilyBattler slug={params.slug2} />
     {:else}
         <CollectibleSection slug1={params.slug1} slug2={params.slug2} {sets}>
             <slot name="extra-options" slot="extra-options" />

@@ -21,7 +21,5 @@
 <div class="wrapper-column">
     <Subnav />
 
-    {#if params.slug1}
-        <View {params} />
-    {/if}
+    <View />
 </div>

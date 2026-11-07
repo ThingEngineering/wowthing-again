@@ -19,7 +19,7 @@
     import Lockouts from '@/components/lockouts/Lockouts.svelte';
     import Mounts from '@/components/collectible/Mounts.svelte';
     import MythicPlus from '@/components/mythic-plus/MythicPlus.svelte';
-    import Pets from '@/components/collectible/Pets.svelte';
+    import Pets from '@/components/collectible/pets/Pets.svelte';
     import Progress from '@/components/progress/Progress.svelte';
     import Reputations from '@/user-home/components/reputations/Reputations.svelte';
     import Toys from '@/components/collectible/Toys.svelte';

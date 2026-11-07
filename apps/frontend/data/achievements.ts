@@ -1,3 +1,5 @@
+import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
+
 export const addonAchievements: Record<number, boolean> = Object.fromEntries(
     [
         14765, // Ramparts Racer
@@ -74,6 +76,23 @@ export const honorAchievements: Record<number, boolean> = Object.fromEntries(
         12917, // Honor Level 500
     ].map((id) => [id, true])
 );
+
+export type FamilyBattlerAchievement = SidebarItem & { achievementId: number };
+export const familyBattlerAchievements: FamilyBattlerAchievement[] = [
+    { name: 'Eastern Kingdoms', slug: 'eastern-kingdoms', achievementId: 61040 },
+    { name: 'Kalimdor', slug: 'kalimdor', achievementId: 61051 },
+    { name: 'Outland', slug: 'outland', achievementId: 62460 },
+    { name: 'Northrend', slug: 'northrend', achievementId: 60956 },
+    { name: 'Cataclysm', slug: 'cataclsym', achievementId: 62461 },
+    { name: 'Broken Isles', slug: 'broken-isles', achievementId: 9696 },
+    { name: 'Argus', slug: 'argus', achievementId: 12100 },
+    { name: 'Kul Tiras/Zandalar', slug: 'kul-tiras-zandalar', achievementId: 13279 },
+    { name: 'Shadowlands', slug: 'shadowlands', achievementId: 14879 },
+    { name: 'Dragon Isles', slug: 'dragon-isles', achievementId: 16512 },
+    { name: 'Zaralek Cavern', slug: 'zaralek-cavern', achievementId: 17934 },
+    { name: 'Khaz Algar', slug: 'khaz-algar', achievementId: 40980 },
+    { name: 'Undermine', slug: 'undermine', achievementId: 41551 },
+];
 
 type ExtraAchievementCategory = {
     slug: string;
@@ -265,6 +284,40 @@ export const extraCategories: ExtraAchievementCategory[] = [
                 overrideSlug: 'raids',
             },
             null,
+            {
+                targetSlug: 'pet-battles/battle',
+                nameType: 1,
+                onlyAchievementIds: true,
+                achievementIds: [
+                    10876, // Battle on the Broken Isles
+                    11233, // Broken Isles Safari
+                    12088, // Anomalous Animals of Argus
+                    // Family Familiar (Broken Isles)
+                    9686, // Aquatic
+                    9687, // Beast
+                    9688, // Critter
+                    9689, // Dragonkin
+                    9690, // Elemental
+                    9691, // Flying
+                    9692, // Humanoid
+                    9693, // Magic
+                    9694, // Mechanical
+                    9695, // Undead
+                    9696,
+                    // Family Fighter (Argus)
+                    12089, // Aquatic
+                    12091, // Beast
+                    12092, // Critter
+                    12093, // Dragonkin
+                    12094, // Elemental
+                    12095, // Flying
+                    12096, // Humanoid
+                    12097, // Magic
+                    12098, // Mechanical
+                    12099, // Undead
+                    12100,
+                ],
+            },
             {
                 targetSlug: 'expansion-features/legion-class-hall',
                 nameType: 3,

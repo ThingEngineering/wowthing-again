@@ -6,8 +6,8 @@
     import ProgressBar from '@/components/common/ProgressBar.svelte';
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
 
-    type Props = { includeSearch?: boolean; sets: ManualDataSetCategory[][] };
-    let { includeSearch = false, sets }: Props = $props();
+    type Props = { forPets?: boolean; sets: ManualDataSetCategory[][] };
+    let { forPets = false, sets }: Props = $props();
 
     let { route, stats } = getCollectibleContext();
 
@@ -15,8 +15,9 @@
     let categories = $derived.by(() => {
         const ret: SidebarItem[] = [];
 
-        if (includeSearch) {
+        if (forPets) {
             ret.push({ name: 'Search', slug: 'search' });
+            ret.push({ name: 'Family Battler', slug: 'family-battler', forceWildcard: true });
             ret.push(null);
         }
 
@@ -35,7 +36,7 @@
     });
 
     const percentFunc = function (entry: SidebarItem, parentEntries?: SidebarItem[]) {
-        if (entry.slug === 'search') {
+        if (entry.slug === 'search' || entry.slug === 'family-battler') {
             return -1;
         }
 

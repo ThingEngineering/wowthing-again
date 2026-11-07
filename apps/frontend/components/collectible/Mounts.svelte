@@ -1,11 +1,14 @@
 <script lang="ts">
+    import { getBasePathContext } from '@/shared/contexts/basePath';
     import { wowthingData } from '@/shared/stores/data';
     import { userState } from '@/user-home/state/user';
-    import type { MultiSlugParams } from '@/types';
+    import type { ParamsSlugsProps } from '@/types/props';
 
     import Collectible from './Collectible.svelte';
 
-    let { basePath = '', params }: { basePath: string; params: MultiSlugParams } = $props();
+    let { params }: ParamsSlugsProps = $props();
+
+    const basePath = getBasePathContext();
 
     const thingMapFunc = (thing: number) => wowthingData.static.mountById.get(thing)?.spellId;
 </script>
