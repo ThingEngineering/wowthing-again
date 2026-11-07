@@ -1,3 +1,5 @@
+import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
+
 export const addonAchievements: Record<number, boolean> = Object.fromEntries(
     [
         14765, // Ramparts Racer
@@ -74,6 +76,23 @@ export const honorAchievements: Record<number, boolean> = Object.fromEntries(
         12917, // Honor Level 500
     ].map((id) => [id, true])
 );
+
+export type FamilyBattlerAchievement = SidebarItem & { achievementId: number };
+export const familyBattlerAchievements: FamilyBattlerAchievement[] = [
+    { name: 'Eastern Kingdoms', slug: 'eastern-kingdoms', achievementId: 61040 },
+    { name: 'Kalimdor', slug: 'kalimdor', achievementId: 61051 },
+    { name: 'Outland', slug: 'outland', achievementId: 62460 },
+    { name: 'Northrend', slug: 'northrend', achievementId: 60956 },
+    { name: 'Cataclysm', slug: 'cataclsym', achievementId: 62461 },
+    { name: 'Broken Isles', slug: 'broken-isles', achievementId: 9696 },
+    { name: 'Argus', slug: 'argus', achievementId: 12100 },
+    { name: 'Kul Tiras/Zandalar', slug: 'kul-tiras-zandalar', achievementId: 13279 },
+    { name: 'Shadowlands', slug: 'shadowlands', achievementId: 14879 },
+    { name: 'Dragon Isles', slug: 'dragon-isles', achievementId: 16512 },
+    { name: 'Zaralek Cavern', slug: 'zaralek-cavern', achievementId: 17934 },
+    { name: 'Khaz Algar', slug: 'khaz-algar', achievementId: 40980 },
+    { name: 'Undermine', slug: 'undermine', achievementId: 41551 },
+];
 
 type ExtraAchievementCategory = {
     slug: string;
