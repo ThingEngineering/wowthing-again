@@ -3,6 +3,7 @@
     import type { FamilyBattlerData } from './family-battler-data';
 
     import BattlePetTypeIcon from '@/shared/components/icons/BattlePetTypeIcon.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 
     let { familyBattle }: { familyBattle: FamilyBattlerData } = $props();
@@ -26,7 +27,11 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>{familyBattle.name}</th>
+            <th>
+                <WowheadLink type="achievement" id={familyBattle.familyBattle.achievementId}
+                    >{familyBattle.name}
+                </WowheadLink>
+            </th>
             {#each battlePetOrder as battlePetType (battlePetType)}
                 <th class="icon">
                     <BattlePetTypeIcon size={40} {battlePetType} />
