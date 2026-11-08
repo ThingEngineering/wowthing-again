@@ -71,11 +71,11 @@ export function generateFamilyBattlerData() {
                 const row = data.rows[i];
                 const childTree = childTrees[i];
                 const userHm = userState.achievements.criteriaById.get(childTree.id);
-                const userHas = hasAchievement || !!userHm;
-                row.userHas.push(userHas);
+                const hasCriteria = !!userHm;
+                row.userHas.push(hasCriteria);
 
                 data.stats.total++;
-                if (userHas) {
+                if (hasAchievement || hasCriteria) {
                     data.stats.have++;
                 }
             }
