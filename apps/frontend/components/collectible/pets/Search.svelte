@@ -11,6 +11,7 @@
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
 
     let pets = $derived.by(() => {
         const temp: [number, UserDataPet, string][] = [];
@@ -65,6 +66,7 @@
         padding: 0 0.3rem;
     }
     .level {
+        color: var(--color-body-text);
         white-space: nowrap;
     }
 </style>
@@ -90,15 +92,17 @@
     <div class="pets">
         {#each pets as [speciesId, pet, name] (speciesId)}
             {@const staticPet = wowthingData.static.petById.get(speciesId)}
-            <div class="flex-wrapper no-break pet" data-species-id={speciesId}>
-                <div class="quality{pet.quality} text-overflow">
-                    {#if staticPet}
-                        <WowthingImage name="npc/{staticPet.creatureId}" size={16} border={1} />
-                    {/if}
-                    {name}
-                </div>
-                <div class="level">{pet.level}</div>
-            </div>
+            {#if staticPet}
+                <WowheadLink type="battle-pet" id={staticPet.id}>
+                    <div class="flex-wrapper no-break pet" data-species-id={speciesId}>
+                        <div class="quality{pet.quality} text-overflow">
+                            <WowthingImage name="npc/{staticPet.creatureId}" size={16} border={1} />
+                            {name}
+                        </div>
+                        <div class="level">{pet.level}</div>
+                    </div>
+                </WowheadLink>
+            {/if}
         {/each}
     </div>
     <table class="table table-striped">
