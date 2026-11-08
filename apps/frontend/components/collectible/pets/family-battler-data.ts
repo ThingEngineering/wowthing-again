@@ -64,12 +64,14 @@ export function generateFamilyBattlerData() {
             data.rows.push(row);
         }
 
+        const hasAchievement = !!userState.achievements.achievementEarnedById.get(achievement.id);
+
         for (const [, childTrees] of childCriteriaTrees) {
             for (let i = 0; i < childTrees.length; i++) {
                 const row = data.rows[i];
                 const childTree = childTrees[i];
                 const userHm = userState.achievements.criteriaById.get(childTree.id);
-                const userHas = !!userHm;
+                const userHas = hasAchievement || !!userHm;
                 row.userHas.push(userHas);
 
                 data.stats.total++;

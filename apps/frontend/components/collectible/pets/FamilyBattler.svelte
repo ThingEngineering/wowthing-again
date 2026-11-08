@@ -33,8 +33,8 @@
     {percentFunc}
 />
 {#if slug}
-    {@const familyBattle = data[slug]}
-    {#if familyBattle}
-        <FamilyBattlerAchievement {familyBattle} />
+    {@const familyBattleData = data[slug]}
+    {#if familyBattleData}
+        <FamilyBattlerAchievement {familyBattleData} />
     {/if}
 {/if}

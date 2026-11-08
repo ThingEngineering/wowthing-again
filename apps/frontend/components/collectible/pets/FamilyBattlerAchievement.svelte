@@ -6,7 +6,7 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 
-    let { familyBattle }: { familyBattle: FamilyBattlerData } = $props();
+    let { familyBattleData }: { familyBattleData: FamilyBattlerData } = $props();
 </script>
 
 <style lang="scss">
@@ -28,8 +28,8 @@
     <thead>
         <tr>
             <th>
-                <WowheadLink type="achievement" id={familyBattle.familyBattle.achievementId}
-                    >{familyBattle.name}
+                <WowheadLink type="achievement" id={familyBattleData.familyBattle.achievementId}
+                    >{familyBattleData.name}
                 </WowheadLink>
             </th>
             {#each battlePetOrder as battlePetType (battlePetType)}
@@ -40,7 +40,7 @@
         </tr>
     </thead>
     <tbody>
-        {#each familyBattle.rows as row (row.name)}
+        {#each familyBattleData.rows as row (row.name)}
             <tr>
                 <td class="name text-overflow">{row.name}</td>
                 {#each row.userHas as userHas}
