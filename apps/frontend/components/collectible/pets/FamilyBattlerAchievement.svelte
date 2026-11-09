@@ -5,6 +5,7 @@
     import BattlePetTypeIcon from '@/shared/components/icons/BattlePetTypeIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
+    import CollectibleCount from '../CollectibleCount.svelte';
 
     let { familyBattleData }: { familyBattleData: FamilyBattlerData } = $props();
 </script>
@@ -17,7 +18,7 @@
     }
     .icon {
         --image-margin-top: -2px;
-        --width: 3rem;
+        --width: 4rem;
 
         border-left: 1px solid var(--border-color);
         text-align: center;
@@ -51,4 +52,14 @@
             </tr>
         {/each}
     </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            {#each familyBattleData.columns as column}
+                <td class="icon">
+                    <CollectibleCount counts={column} />
+                </td>
+            {/each}
+        </tr>
+    </tfoot>
 </table>
