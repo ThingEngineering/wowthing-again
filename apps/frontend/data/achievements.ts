@@ -255,6 +255,17 @@ export const extraCategories: ExtraAchievementCategory[] = [
                 overrideName: 'Raids',
                 overrideSlug: 'raids',
             },
+            {
+                targetSlug: 'pet-battles/battle',
+                nameType: 1,
+                onlyAchievementIds: true,
+                achievementIds: [
+                    9463, // Draenic Pet Battler
+                    9685, // Draenor Safari
+                    9724, // Taming Draenor
+                    10052, // Tiny Terrors in Tanaan
+                ],
+            },
             null,
             {
                 targetSlug: 'expansion-features/draenor-garrison',
@@ -283,7 +294,6 @@ export const extraCategories: ExtraAchievementCategory[] = [
                 overrideName: 'Raids',
                 overrideSlug: 'raids',
             },
-            null,
             {
                 targetSlug: 'pet-battles/battle',
                 nameType: 1,
@@ -318,6 +328,7 @@ export const extraCategories: ExtraAchievementCategory[] = [
                     12100,
                 ],
             },
+            null,
             {
                 targetSlug: 'expansion-features/legion-class-hall',
                 nameType: 3,
@@ -433,7 +444,6 @@ export const extraCategories: ExtraAchievementCategory[] = [
                     19349, // Glory of the Dream Raider
                 ],
             },
-            null,
             {
                 targetSlug: 'pet-battles/battle',
                 nameType: 1,
@@ -475,6 +485,7 @@ export const extraCategories: ExtraAchievementCategory[] = [
                     17934,
                 ],
             },
+            null,
             {
                 targetSlug: 'expansion-features/skyriding',
                 nameType: 2,
@@ -581,7 +592,6 @@ export const extraCategories: ExtraAchievementCategory[] = [
                     40465, // Unbound Bounty
                 ],
             },
-            null,
             {
                 targetSlug: 'pet-battles/battle',
                 nameType: 1,
@@ -615,6 +625,7 @@ export const extraCategories: ExtraAchievementCategory[] = [
                     41551,
                 ],
             },
+            null,
             {
                 targetSlug: 'expansion-features/skyriding',
                 nameType: 2,
