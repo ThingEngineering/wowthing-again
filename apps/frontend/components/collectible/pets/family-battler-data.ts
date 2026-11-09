@@ -1,10 +1,12 @@
 import { familyBattlerAchievements } from '@/data/achievements';
+import { CriteriaTreeOperator } from '@/enums/wow';
 import { wowthingData } from '@/shared/stores/data';
 import { AchievementDataCriteriaTree, UserCount } from '@/types';
 import { userState } from '@/user-home/state/user';
 
 type AchievementRow = { name: string; userHas: boolean[] };
 export class FamilyBattlerData {
+    public columns: UserCount[] = [];
     public rows: AchievementRow[] = [];
     public stats = new UserCount();
 
@@ -34,6 +36,9 @@ export function generateFamilyBattlerData() {
         const childCriteriaTrees: [AchievementDataCriteriaTree, AchievementDataCriteriaTree[]][] =
             [];
         for (const childCriteriaTreeId of criteriaTree?.children || []) {
+            const childStats = new UserCount();
+            data.columns.push(childStats);
+
             const childCriteriaTree =
                 wowthingData.achievements.criteriaTreeById.get(childCriteriaTreeId);
             const childCriteria = wowthingData.achievements.criteriaById.get(
@@ -50,6 +55,15 @@ export function generateFamilyBattlerData() {
             ).map((criteriaTreeId) =>
                 wowthingData.achievements.criteriaTreeById.get(criteriaTreeId)
             );
+
+            if (childAchievementCriteriaTree.operator === CriteriaTreeOperator.All) {
+                childStats.total += childAchievementCriteriaTree.children.length;
+            } else if (childAchievementCriteriaTree.operator === CriteriaTreeOperator.Any) {
+                childStats.total += childAchievementCriteriaTree.amount;
+            } else {
+                console.log('???', childAchievementCriteriaTree);
+            }
+
             childCriteriaTrees.push([
                 childAchievementCriteriaTree,
                 childAchievementCriteriaTreeChildren,
@@ -64,16 +78,25 @@ export function generateFamilyBattlerData() {
             data.rows.push(row);
         }
 
-        for (const [, childTrees] of childCriteriaTrees) {
-            for (let i = 0; i < childTrees.length; i++) {
-                const row = data.rows[i];
-                const childTree = childTrees[i];
+        const hasAchievement = !!userState.achievements.achievementEarnedById.get(achievement.id);
+
+        for (let childIndex = 0; childIndex < childCriteriaTrees.length; childIndex++) {
+            const [, childTrees] = childCriteriaTrees[childIndex];
+            const childStats = data.columns[childIndex];
+
+            for (let treeIndex = 0; treeIndex < childTrees.length; treeIndex++) {
+                const row = data.rows[treeIndex];
+                const childTree = childTrees[treeIndex];
                 const userHm = userState.achievements.criteriaById.get(childTree.id);
-                const userHas = !!userHm;
-                row.userHas.push(userHas);
+                const hasCriteria = !!userHm;
+                row.userHas.push(hasCriteria);
+
+                if (hasCriteria) {
+                    childStats.have++;
+                }
 
                 data.stats.total++;
-                if (userHas) {
+                if (hasAchievement || hasCriteria) {
                     data.stats.have++;
                 }
             }

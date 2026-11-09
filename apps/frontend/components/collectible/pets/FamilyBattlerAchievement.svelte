@@ -3,9 +3,11 @@
     import type { FamilyBattlerData } from './family-battler-data';
 
     import BattlePetTypeIcon from '@/shared/components/icons/BattlePetTypeIcon.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
+    import CollectibleCount from '../CollectibleCount.svelte';
 
-    let { familyBattle }: { familyBattle: FamilyBattlerData } = $props();
+    let { familyBattleData }: { familyBattleData: FamilyBattlerData } = $props();
 </script>
 
 <style lang="scss">
@@ -16,7 +18,7 @@
     }
     .icon {
         --image-margin-top: -2px;
-        --width: 3rem;
+        --width: 4rem;
 
         border-left: 1px solid var(--border-color);
         text-align: center;
@@ -26,7 +28,11 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>{familyBattle.name}</th>
+            <th>
+                <WowheadLink type="achievement" id={familyBattleData.familyBattle.achievementId}
+                    >{familyBattleData.name}
+                </WowheadLink>
+            </th>
             {#each battlePetOrder as battlePetType (battlePetType)}
                 <th class="icon">
                     <BattlePetTypeIcon size={40} {battlePetType} />
@@ -35,7 +41,7 @@
         </tr>
     </thead>
     <tbody>
-        {#each familyBattle.rows as row (row.name)}
+        {#each familyBattleData.rows as row (row.name)}
             <tr>
                 <td class="name text-overflow">{row.name}</td>
                 {#each row.userHas as userHas}
@@ -46,4 +52,14 @@
             </tr>
         {/each}
     </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            {#each familyBattleData.columns as column}
+                <td class="icon">
+                    <CollectibleCount counts={column} />
+                </td>
+            {/each}
+        </tr>
+    </tfoot>
 </table>

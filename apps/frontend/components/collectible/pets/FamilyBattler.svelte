@@ -1,6 +1,7 @@
 <script lang="ts">
     import { familyBattlerAchievements } from '@/data/achievements';
     import { getBasePathContext } from '@/shared/contexts/basePath';
+    import getSavedRoute from '@/utils/get-saved-route';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
     import { generateFamilyBattlerData } from './family-battler-data';
 
@@ -14,16 +15,26 @@
 
     let data = $derived(generateFamilyBattlerData());
 
+    $effect(() => {
+        getSavedRoute(baseUrl.slice(1), slug, null, null, 'family-battler-subnav');
+    });
+
     const percentFunc = function (entry: SidebarItem): number {
         const cat = data[entry.slug]?.stats;
         return cat ? (cat.have / cat.total) * 100 : 0;
     };
 </script>
 
-<SubSidebar {baseUrl} items={familyBattlerAchievements} width="16rem" {percentFunc} />
+<SubSidebar
+    {baseUrl}
+    id="family-battler-subnav"
+    items={familyBattlerAchievements}
+    width="16rem"
+    {percentFunc}
+/>
 {#if slug}
-    {@const familyBattle = data[slug]}
-    {#if familyBattle}
-        <FamilyBattlerAchievement {familyBattle} />
+    {@const familyBattleData = data[slug]}
+    {#if familyBattleData}
+        <FamilyBattlerAchievement {familyBattleData} />
     {/if}
 {/if}
