@@ -371,6 +371,29 @@ export const extraCategories: ExtraAchievementCategory[] = [
                 overrideName: 'Raids',
                 overrideSlug: 'raids',
             },
+            {
+                targetSlug: 'pet-battles/battle',
+                nameType: 1,
+                onlyAchievementIds: true,
+                achievementIds: [
+                    14625, // Battle in the Shadowlands
+                    14867, // Shadowlands Safari
+                    14881, // Abhorrent Adversaries of the Afterlife
+                    15004, // A Sly Fox
+                    // Family Exorcist
+                    14868, // Aquatic
+                    14869, // Beast
+                    14870, // Critter
+                    14871, // Dragonkin
+                    14872, // Elemental
+                    14873, // Flying
+                    14874, // Humanoid
+                    14875, // Magic
+                    14876, // Mechanical
+                    14877, // Undead
+                    14879,
+                ],
+            },
             null,
             { targetSlug: 'expansion-features/covenant-sanctums', nameType: 2 },
             { targetSlug: 'expansion-features/torghast', nameType: 2 },
