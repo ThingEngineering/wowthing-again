@@ -100,26 +100,30 @@
     </div>
 
     <div class="flex-wrapper extra-stuff">
-        {#if !sharedState.public}
-            <button
-                class="account-gold"
-                data-tooltip="Click to toggle between Warbank and Total gold"
-                onclick={() =>
-                    (browserState.current.home.showTotalGold =
-                        !browserState.current.home.showTotalGold)}
-            >
-                {#if browserState.current.home.showTotalGold}
-                    Total: {totalGold} g
-                {:else}
-                    Warbank: {warbankGold} g
+        {#each settingsState.value.layout.homeViewSwitcher as key (key)}
+            {#if key === 'delves'}
+                <Delves />
+            {:else if key === 'gold'}
+                {#if !sharedState.public}
+                    <button
+                        class="account-gold"
+                        data-tooltip="Click to toggle between Warbank and Total gold"
+                        onclick={() =>
+                            (browserState.current.home.showTotalGold =
+                                !browserState.current.home.showTotalGold)}
+                    >
+                        {#if browserState.current.home.showTotalGold}
+                            Total: {totalGold} g
+                        {:else}
+                            Warbank: {warbankGold} g
+                        {/if}
+                    </button>
                 {/if}
-            </button>
-        {/if}
-
-        <ParagonQuests />
-
-        <Holidays />
-
-        <Delves />
+            {:else if key === 'holidays'}
+                <Holidays />
+            {:else if key === 'paragons'}
+                <ParagonQuests />
+            {/if}
+        {/each}
     </div>
 </div>

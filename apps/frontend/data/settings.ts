@@ -11,3 +11,11 @@ export const characterNameTooltipChoices: SettingsChoice[] = [
     { id: 'playedTime', name: 'Played time' },
     { id: 'restedXp', name: 'Rested XP' },
 ];
+
+export const viewSwitcherChoices: SettingsChoice[] = [
+    { id: 'gold', name: 'Total/Warbank Gold' },
+    { id: 'paragons', name: 'Paragons' },
+    { id: 'tasks', name: 'Tasks' },
+    { id: 'holidays', name: 'Holidays' },
+    { id: 'delves', name: 'Bountiful Delves' },
+];
