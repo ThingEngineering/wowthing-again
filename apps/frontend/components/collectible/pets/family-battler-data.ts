@@ -4,7 +4,7 @@ import { wowthingData } from '@/shared/stores/data';
 import { AchievementDataCriteriaTree, UserCount } from '@/types';
 import { userState } from '@/user-home/state/user';
 
-type AchievementRow = { name: string; userHas: boolean[] };
+type AchievementRow = { name: string; stats: UserCount; userHas: boolean[] };
 export class FamilyBattlerData {
     public columns: UserCount[] = [];
     public rows: AchievementRow[] = [];
@@ -73,6 +73,7 @@ export function generateFamilyBattlerData() {
         for (const firstChildTree of childCriteriaTrees[0][1]) {
             const row: AchievementRow = {
                 name: firstChildTree.description,
+                stats: new UserCount(),
                 userHas: [],
             };
             data.rows.push(row);
@@ -84,6 +85,10 @@ export function generateFamilyBattlerData() {
             const [, childTrees] = childCriteriaTrees[childIndex];
             const childStats = data.columns[childIndex];
 
+            if (!hasAchievement) {
+                data.stats.total += childStats.total;
+            }
+
             for (let treeIndex = 0; treeIndex < childTrees.length; treeIndex++) {
                 const row = data.rows[treeIndex];
                 const childTree = childTrees[treeIndex];
@@ -91,12 +96,17 @@ export function generateFamilyBattlerData() {
                 const hasCriteria = !!userHm;
                 row.userHas.push(hasCriteria);
 
+                row.stats.total++;
+
                 if (hasCriteria) {
                     childStats.have++;
+                    row.stats.have++;
                 }
 
-                data.stats.total++;
-                if (hasAchievement || hasCriteria) {
+                if (hasAchievement) {
+                    data.stats.total++;
+                    data.stats.have++;
+                } else if (hasCriteria) {
                     data.stats.have++;
                 }
             }

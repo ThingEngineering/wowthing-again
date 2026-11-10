@@ -23,6 +23,23 @@
         border-left: 1px solid var(--border-color);
         text-align: center;
     }
+    .blank {
+        background: var(--color-body-background);
+    }
+    th.blank {
+        border-right-width: 0 !important;
+        border-top-width: 0 !important;
+    }
+    td.blank {
+        border-bottom-width: 0 !important;
+
+        &:first-child {
+            border-left-width: 0 !important;
+        }
+        &:last-child {
+            border-right-width: 0 !important;
+        }
+    }
 </style>
 
 <table class="table table-striped">
@@ -38,6 +55,7 @@
                     <BattlePetTypeIcon size={40} {battlePetType} />
                 </th>
             {/each}
+            <th class="blank b-l"></th>
         </tr>
     </thead>
     <tbody>
@@ -49,17 +67,21 @@
                         <YesNoIcon state={userHas} useStatusColors={true} />
                     </td>
                 {/each}
+                <td class="icon">
+                    <CollectibleCount counts={row.stats} />
+                </td>
             </tr>
         {/each}
     </tbody>
     <tfoot>
         <tr>
-            <td></td>
+            <td class="blank"></td>
             {#each familyBattleData.columns as column}
                 <td class="icon">
                     <CollectibleCount counts={column} />
                 </td>
             {/each}
+            <td class="blank b-l"></td>
         </tr>
     </tfoot>
 </table>
