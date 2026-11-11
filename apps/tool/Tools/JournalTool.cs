@@ -322,8 +322,8 @@ public class JournalTool
         var encounterIdToSlug = new Dictionary<int, string>();
         foreach (var encounter in encountersByInstanceId.Values.SelectMany(e => e))
         {
-            encounterIdToSlug[encounter.ID] =
-                GetString(StringType.WowJournalEncounterName, Language.enUS, encounter.ID).Slugify();
+            string encounterName = GetString(StringType.WowJournalEncounterName, Language.enUS, encounter.ID);
+            encounterIdToSlug[encounter.ID] = encounterName.Slugify();
         }
 
         // Add extra tiers
@@ -457,12 +457,13 @@ public class JournalTool
 
             foreach (var dataEncounter in dataInstance.Encounters.Values)
             {
-                if (string.IsNullOrWhiteSpace(dataEncounter.AddBefore) && string.IsNullOrWhiteSpace(dataEncounter.AddAfter))
+                if (string.IsNullOrWhiteSpace(dataEncounter.AddBefore) &&
+                    string.IsNullOrWhiteSpace(dataEncounter.AddAfter))
                 {
                     continue;
                 }
 
-                for (int i = instanceEncounters.Count - 1; i > 0; i--)
+                for (int i = instanceEncounters.Count - 1; i >= 0; i--)
                 {
                     var instanceEncounter = instanceEncounters[i];
                     if (!encounterIdToSlug.TryGetValue(instanceEncounter.ID, out string encounterSlug))
@@ -496,6 +497,9 @@ public class JournalTool
                     {
                         instanceEncounters.Insert(i + 1, newEncounter);
                     }
+
+                    ToolContext.Logger.Information("[{instance}] Added extra encounter from YAML {id}/{name}",
+                        instanceId, encounterId, dataEncounter.Name);
 
                     foreach (var language in languages)
                     {
