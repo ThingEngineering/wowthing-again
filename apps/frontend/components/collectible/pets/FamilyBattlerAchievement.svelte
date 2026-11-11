@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { battlePetOrder } from '@/enums/battle-pet-type';
+    import { battlePetOrder, BattlePetType } from '@/enums/battle-pet-type';
     import type { FamilyBattlerData } from './family-battler-data';
 
     import BattlePetTypeIcon from '@/shared/components/icons/BattlePetTypeIcon.svelte';
+    import CollectibleCount from '../CollectibleCount.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
-    import CollectibleCount from '../CollectibleCount.svelte';
 
     let { familyBattleData }: { familyBattleData: FamilyBattlerData } = $props();
 </script>
@@ -62,8 +62,11 @@
         {#each familyBattleData.rows as row (row.name)}
             <tr>
                 <td class="name text-overflow">{row.name}</td>
-                {#each row.userHas as userHas}
-                    <td class="icon">
+                {#each row.userHas as userHas, columnIndex}
+                    <td
+                        class="icon"
+                        data-tooltip="{row.name} - {BattlePetType[battlePetOrder[columnIndex]]}"
+                    >
                         <YesNoIcon state={userHas} useStatusColors={true} />
                     </td>
                 {/each}
