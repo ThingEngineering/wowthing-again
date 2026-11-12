@@ -78,10 +78,10 @@ export class ManualDataReputationCategory {
         public name: string,
         public slug: string,
         reputationArrays: ManualDataReputationSetArray[][],
-        public minimumLevel?: number,
+        public minimumLevel?: number
     ) {
         this.reputations = reputationArrays.map((repGroup) =>
-            repGroup.map((repSet) => new ManualDataReputationSet(...repSet)),
+            repGroup.map((repSet) => new ManualDataReputationSet(...repSet))
         );
     }
 }
@@ -95,8 +95,9 @@ export class ManualDataReputationSet {
     public horde: ManualDataReputationReputation;
 
     constructor(
+        public unavailable: boolean,
         public paragon: boolean,
-        reputationArrays: ManualDataReputationReputationArray[],
+        reputationArrays: ManualDataReputationReputationArray[]
     ) {
         for (const reputationArray of reputationArrays) {
             const obj = new ManualDataReputationReputation(...reputationArray);
@@ -121,7 +122,7 @@ export class ManualDataReputationReputation {
         public icon: string,
         public iconText: string,
         rewards: ManualDataReputationRewardArray[],
-        public note?: string,
+        public note?: string
     ) {
         this.rewards = rewards.map((rewardArray) => new ManualDataReputationReward(...rewardArray));
     }
@@ -133,7 +134,7 @@ export type ManualDataReputationReputationArray = ConstructorParameters<
 export class ManualDataReputationReward {
     constructor(
         public type: RewardType,
-        public id: number,
+        public id: number
     ) {}
 }
 export type ManualDataReputationRewardArray = ConstructorParameters<

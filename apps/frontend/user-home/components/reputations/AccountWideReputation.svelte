@@ -91,6 +91,7 @@
 
 <div
     class="account-rep {cls} flex-wrapper"
+    class:faded={reputationSet.unavailable}
     data-id={repId}
     use:componentTooltip={{
         component: TooltipReputation,

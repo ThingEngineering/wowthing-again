@@ -26,6 +26,7 @@ public class ManualReputationCategoryConverter : JsonConverter<ManualReputationC
             {
                 // Reputation
                 writer.WriteStartArray();
+                writer.WriteBooleanValue(reputation.Unavailable);
                 writer.WriteBooleanValue(reputation.Paragon);
 
                 // Reps
