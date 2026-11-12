@@ -117,7 +117,8 @@ export function getRenownData({
                 ret.renownLevel = ((actualValue / actualMax) * 100).toFixed(1) + '%';
             }
         } else {
-            ret.cls = `reputation${ret.repTier.tier} reputation${ret.repTier.tier}-border`;
+            const oof = Math.min(6, ret.repTier.tier);
+            ret.cls = `reputation${oof} reputation${oof}-border`;
             ret.renownLevel = `${ret.repTier.percent}%`;
 
             if (ret.dataRep.paragonId) {
