@@ -7,4 +7,5 @@ public class ManualReputationCategorySet
     public ManualReputationCategoryReputation Horde { get; set; }
 
     public bool Paragon { get; set; } = false;
+    public bool Unavailable { get; set; } = false;
 }

@@ -22,6 +22,11 @@
             name: 'Layout',
             slug: 'layout',
         },
+        null,
+        {
+            name: 'Home',
+            slug: 'home',
+        },
         {
             name: 'Tags',
             slug: 'tags',

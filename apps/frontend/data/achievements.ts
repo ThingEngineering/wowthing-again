@@ -255,6 +255,17 @@ export const extraCategories: ExtraAchievementCategory[] = [
                 overrideName: 'Raids',
                 overrideSlug: 'raids',
             },
+            {
+                targetSlug: 'pet-battles/battle',
+                nameType: 1,
+                onlyAchievementIds: true,
+                achievementIds: [
+                    9463, // Draenic Pet Battler
+                    9685, // Draenor Safari
+                    9724, // Taming Draenor
+                    10052, // Tiny Terrors in Tanaan
+                ],
+            },
             null,
             {
                 targetSlug: 'expansion-features/draenor-garrison',
@@ -283,7 +294,6 @@ export const extraCategories: ExtraAchievementCategory[] = [
                 overrideName: 'Raids',
                 overrideSlug: 'raids',
             },
-            null,
             {
                 targetSlug: 'pet-battles/battle',
                 nameType: 1,
@@ -318,6 +328,7 @@ export const extraCategories: ExtraAchievementCategory[] = [
                     12100,
                 ],
             },
+            null,
             {
                 targetSlug: 'expansion-features/legion-class-hall',
                 nameType: 3,
@@ -371,6 +382,29 @@ export const extraCategories: ExtraAchievementCategory[] = [
                 overrideName: 'Raids',
                 overrideSlug: 'raids',
             },
+            {
+                targetSlug: 'pet-battles/battle',
+                nameType: 1,
+                onlyAchievementIds: true,
+                achievementIds: [
+                    14625, // Battle in the Shadowlands
+                    14867, // Shadowlands Safari
+                    14881, // Abhorrent Adversaries of the Afterlife
+                    15004, // A Sly Fox
+                    // Family Exorcist
+                    14868, // Aquatic
+                    14869, // Beast
+                    14870, // Critter
+                    14871, // Dragonkin
+                    14872, // Elemental
+                    14873, // Flying
+                    14874, // Humanoid
+                    14875, // Magic
+                    14876, // Mechanical
+                    14877, // Undead
+                    14879,
+                ],
+            },
             null,
             { targetSlug: 'expansion-features/covenant-sanctums', nameType: 2 },
             { targetSlug: 'expansion-features/torghast', nameType: 2 },
@@ -410,7 +444,6 @@ export const extraCategories: ExtraAchievementCategory[] = [
                     19349, // Glory of the Dream Raider
                 ],
             },
-            null,
             {
                 targetSlug: 'pet-battles/battle',
                 nameType: 1,
@@ -452,6 +485,7 @@ export const extraCategories: ExtraAchievementCategory[] = [
                     17934,
                 ],
             },
+            null,
             {
                 targetSlug: 'expansion-features/skyriding',
                 nameType: 2,
@@ -558,7 +592,6 @@ export const extraCategories: ExtraAchievementCategory[] = [
                     40465, // Unbound Bounty
                 ],
             },
-            null,
             {
                 targetSlug: 'pet-battles/battle',
                 nameType: 1,
@@ -592,6 +625,7 @@ export const extraCategories: ExtraAchievementCategory[] = [
                     41551,
                 ],
             },
+            null,
             {
                 targetSlug: 'expansion-features/skyriding',
                 nameType: 2,

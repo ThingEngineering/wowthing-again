@@ -138,27 +138,6 @@
 </div>
 
 <div class="settings-block">
-    <h3 class="space-me">Holidays Region</h3>
-
-    <div class="setting">
-        <Select
-            name="general_holiday_region"
-            bind:selected={settingsState.value.general.holidayRegion}
-            options={[
-                [Region.US, '[US] Americas & Oceania'],
-                [Region.EU, '[EU] Europe'],
-                [Region.KR, '[KR] Korea'],
-                [Region.TW, '[TW] Taiwan'],
-            ]}
-        />
-        <p>
-            Region to use for holiday start/end times. If you only have accounts in a single region
-            you shouldn't need to change this.
-        </p>
-    </div>
-</div>
-
-<div class="settings-block">
     <h3 class="space-me">User Name</h3>
 
     <div class="setting">

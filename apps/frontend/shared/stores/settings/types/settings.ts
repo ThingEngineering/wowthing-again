@@ -74,10 +74,9 @@ export interface Settings {
 
         covenantColumn: 'current' | 'all';
         padding: 'small' | 'medium' | 'large';
-        // commonFields: string[]
-        // homeFields: string[]
-        // homeLockouts: number[]
-        // homeTasks: string[]
+
+        homeTasksV2: string[];
+        homeViewSwitcher: string[];
     };
 
     leaderboard: {

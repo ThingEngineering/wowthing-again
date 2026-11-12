@@ -55,7 +55,7 @@
         </div>
 
         <MagicLists
-            key="lockouts"
+            key="tasks"
             choices={taskChoices}
             filter={taskFilter}
             bind:activeStringIds={view.homeTasks}

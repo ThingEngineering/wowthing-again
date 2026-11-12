@@ -360,6 +360,9 @@ public class ApplicationUserSettingsLayout
     public List<string> HomeFields { get; set; } = new();
     public List<int> HomeLockouts { get; set; } = new();
     public List<string> HomeTasks { get; set; } = new();
+
+    public List<string> HomeTasksV2 { get; set; } = new();
+    public List<string> HomeViewSwitcher { get; set; } = ["gold", "paragons", "tasks", "holidays", "delves"];
 }
 
 public class ApplicationUserSettingsLeaderboard

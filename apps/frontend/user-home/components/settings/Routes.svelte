@@ -10,6 +10,7 @@
     import Collections from './sections/SettingsCollections.svelte';
     import Delves from './sections/SettingsDelves.svelte';
     import History from './sections/SettingsHistory.svelte';
+    import Home from './sections/home/SettingsHome.svelte';
     import HomeTable from '@/components/home/HomeTable.svelte';
     import Layout from './sections/SettingsLayout.svelte';
     import LayoutGrouping from './sections/layout/SettingsLayoutGrouping.svelte';
@@ -36,6 +37,7 @@
         '/collections': Collections,
         '/delves': Delves,
         '/history': History,
+        '/home': Home,
         '/leaderboard': Leaderboard,
         '/privacy': Privacy,
         '/professions': Professions,
