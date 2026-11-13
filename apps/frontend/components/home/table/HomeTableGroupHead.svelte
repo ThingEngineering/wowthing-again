@@ -233,7 +233,7 @@
         {:else if field === 'statsSpeed'}
             <HeadMovementSpeed {getSortState} {setSortState} />
         {:else if field === 'tasks'}
-            <HeadTasks {getSortState} {setSortState} />
+            <HeadTasks characters={group} {getSortState} {setSortState} />
         {:else if field === 'vaultMythicPlus'}
             <td class="sortable sorted-{getSortState()}" onclick={() => setSortState()}
                 >Dungeon <IconifyWrapper icon={iconLibrary.mdiSafeSquareOutline} /></td

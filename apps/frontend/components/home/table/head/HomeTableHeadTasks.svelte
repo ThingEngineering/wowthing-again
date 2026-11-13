@@ -5,13 +5,15 @@
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { activeViewTasks } from '@/user-home/state/activeViewTasks.svelte';
     import { userState } from '@/user-home/state/user';
+    import type { Character } from '@/types/character';
     import type { SortableProps } from '@/types/props';
 
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import Tooltip from '@/components/tooltips/task/TooltipTaskHead.svelte';
 
-    let { getSortState, setSortState }: SortableProps = $props();
+    type Props = SortableProps & { characters: Character[] };
+    let { characters, getSortState, setSortState }: Props = $props();
 
     let activeTasks = $derived(activeViewTasks.value);
 </script>
@@ -55,12 +57,13 @@
         onclick={() => setSortState(fullTaskName)}
         use:componentTooltip={{
             component: Tooltip,
-            props: {
+            propsFunc: () => ({
+                characters,
                 chore,
                 expiresAt: customExpiry,
                 fullTaskName,
                 task,
-            },
+            }),
         }}
     >
         {#if chore}
