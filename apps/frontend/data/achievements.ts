@@ -226,6 +226,22 @@ export const extraCategories: ExtraAchievementCategory[] = [
                 overrideName: 'Raids',
                 overrideSlug: 'raids',
             },
+            {
+                targetSlug: 'pet-battles/battle',
+                nameType: 1,
+                onlyAchievementIds: true,
+                achievementIds: [
+                    6589, // Pandaria Safari
+                    6606, // Taming Pandaria
+                    6616, // Pandaria Tamer
+                    7936, // Pandaren Spirit Tamer
+                    8080, // Fabled Pandaren Tamer
+                    8410, // The Celestial Tournament
+                    8518, // Master of the Masters
+                    8519, // Celestial Family
+                    13469, // Raiding with Leashes VI: Pets of Pandaria
+                ],
+            },
             null,
             { targetSlug: 'expansion-features/proving-grounds', nameType: 2 },
             {
