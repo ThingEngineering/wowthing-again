@@ -114,7 +114,7 @@ export function processAchievementsData(rawData: RawAchievements): DataAchieveme
                 const childAchievementIds = child.achievementIds || [];
 
                 category.children.push({
-                    id: child.onlyAchievementIds ? categoryId++ : childCat2.id,
+                    id: categoryId++,
                     name: childName,
                     slug: childSlug,
                     achievementIds: child.onlyAchievementIds
