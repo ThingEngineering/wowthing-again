@@ -203,6 +203,27 @@ export const extraCategories: ExtraAchievementCategory[] = [
                 overrideName: 'Raids',
                 overrideSlug: 'raids',
             },
+            {
+                targetSlug: 'pet-battles/battle',
+                nameType: 1,
+                onlyAchievementIds: true,
+                achievementIds: [
+                    7525, // Taming Cataclysm
+                    12079, // Raiding with Leashes V: Cuteaclysm
+                    // Family Battler
+                    62476, // Aquatic
+                    62477, // Beast
+                    62478, // Critter
+                    62479, // Dragonkin
+                    62480, // Elemental
+                    62481, // Flying
+                    62482, // Humanoid
+                    62483, // Magic
+                    62487, // Mechanical
+                    62488, // Undead
+                    62461,
+                ],
+            },
             null,
             { targetSlug: 'expansion-features/tol-barad', nameType: 2 },
         ],
