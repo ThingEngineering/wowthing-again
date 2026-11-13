@@ -227,11 +227,33 @@ export const midChores12_0: Task = {
         },
         {
             key: 'midEchoesRekindled',
-            name: '[Har] Echoes Rekindled',
+            name: '[Har] Legends of Haranar',
             icon: iconLibrary.gameSmallFire,
             minimumLevel: 80,
             questReset: DbResetType.Weekly,
-            questIds: [92713],
+            subChores: [
+                {
+                    key: 'choose',
+                    name: 'Choose a relic',
+                    alwaysStarted: false,
+                    questReset: DbResetType.Weekly,
+                    questIds: [92713],
+                },
+                {
+                    key: 'do',
+                    name: 'Do the story',
+                    questReset: DbResetType.Weekly,
+                    questIds: [
+                        92716, // Wey'nan's Ward
+                        92719, // Cauldron of Echoes
+                        92720, // Alnh'hara's Bloom
+                        92721, // Echoless Flame
+                        92722, // Russula's Outreach
+                        92724, // Root of the World
+                        92725, // Sky's Hope
+                    ],
+                },
+            ],
         },
         // {
         //     key: 'midLostLegends',
