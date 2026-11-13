@@ -6,18 +6,21 @@
     import { timeState } from '@/shared/state/time.svelte';
     import { userState } from '@/user-home/state/user';
     import { toNiceDuration } from '@/utils/formatting';
+    import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
+    import type { Character } from '@/types/character';
     import type { Chore, Task } from '@/types/tasks';
     import type { CharacterTask } from '@/user-home/state/user/types/tasks.svelte';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
     type Props = {
+        characters: Character[];
         chore: Chore;
         fullTaskName: string;
         task: Task;
         expiresAt?: DateTime;
     };
-    let { chore, fullTaskName, task, expiresAt }: Props = $props();
+    let { characters, chore, fullTaskName, task, expiresAt }: Props = $props();
 
     // TODO: get title from character quests?
 
@@ -47,7 +50,15 @@
             }
         };
 
-        for (const characterTasks of Object.values(userState.activeViewTasks)) {
+        const characterIds = new Set(characters.map((char) => char.id));
+
+        for (const [characterId, characterTasks] of getNumberKeyedEntries(
+            userState.activeViewTasks
+        )) {
+            if (!characterIds.has(characterId)) {
+                continue;
+            }
+
             const characterTask = characterTasks[fullTaskName];
             if (!characterTask) {
                 continue;

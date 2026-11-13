@@ -231,7 +231,7 @@
                             {/if}
                         </tr>
 
-                        {#if charTaskChore.status === QuestStatus.InProgress && charTaskChore.statusTexts[0]}
+                        {#if (chore.subChores || charTaskChore.status === QuestStatus.InProgress) && charTaskChore.statusTexts[0]}
                             <tr class:skipped={charTaskChore.skipped}>
                                 <td class="status-text" colspan={anyErrors ? 3 : 2}>
                                     {#each charTaskChore.statusTexts as statusText}
