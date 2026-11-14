@@ -125,6 +125,22 @@ export const midDelves: Task = {
             questIds: [97064],
         },
         {
+            key: 'afflictedSoul',
+            name: 'Affliced Soul',
+            minimumLevel: 90,
+            questReset: DbResetType.Weekly,
+            questResetForced: true,
+            questIds: [97628],
+        },
+        {
+            key: 'tormentedSoul',
+            name: 'Tormented Soul',
+            minimumLevel: 90,
+            questReset: DbResetType.Weekly,
+            questResetForced: true,
+            questIds: [97637],
+        },
+        {
             key: 'bountiful',
             name: 'Bountiful Delves',
             icon: iconLibrary.gameKey,

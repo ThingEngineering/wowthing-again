@@ -203,6 +203,27 @@ export const extraCategories: ExtraAchievementCategory[] = [
                 overrideName: 'Raids',
                 overrideSlug: 'raids',
             },
+            {
+                targetSlug: 'pet-battles/battle',
+                nameType: 1,
+                onlyAchievementIds: true,
+                achievementIds: [
+                    7525, // Taming Cataclysm
+                    12079, // Raiding with Leashes V: Cuteaclysm
+                    // Family Battler
+                    62476, // Aquatic
+                    62477, // Beast
+                    62478, // Critter
+                    62479, // Dragonkin
+                    62480, // Elemental
+                    62481, // Flying
+                    62482, // Humanoid
+                    62483, // Magic
+                    62487, // Mechanical
+                    62488, // Undead
+                    62461,
+                ],
+            },
             null,
             { targetSlug: 'expansion-features/tol-barad', nameType: 2 },
         ],
@@ -225,6 +246,22 @@ export const extraCategories: ExtraAchievementCategory[] = [
                 nameType: 3,
                 overrideName: 'Raids',
                 overrideSlug: 'raids',
+            },
+            {
+                targetSlug: 'pet-battles/battle',
+                nameType: 1,
+                onlyAchievementIds: true,
+                achievementIds: [
+                    6589, // Pandaria Safari
+                    6606, // Taming Pandaria
+                    6616, // Pandaria Tamer
+                    7936, // Pandaren Spirit Tamer
+                    8080, // Fabled Pandaren Tamer
+                    8410, // The Celestial Tournament
+                    8518, // Master of the Masters
+                    8519, // Celestial Family
+                    13469, // Raiding with Leashes VI: Pets of Pandaria
+                ],
             },
             null,
             { targetSlug: 'expansion-features/proving-grounds', nameType: 2 },
@@ -735,14 +772,6 @@ export const extraCategories: ExtraAchievementCategory[] = [
             { targetSlug: 'expansion-features/ritual-sites', nameType: 2 },
             { targetSlug: 'expansion-features/void-assaults', nameType: 2 },
         ],
-    },
-    {
-        slug: 'prepatch-midnight',
-        achievementIds: [
-            42300, // Two Minutes to Midnight
-            61430, // Crunching for Cultists
-        ],
-        children: [],
     },
     {
         slug: 'outland-cup',
