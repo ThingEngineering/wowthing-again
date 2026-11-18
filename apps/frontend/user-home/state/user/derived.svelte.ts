@@ -690,16 +690,23 @@ export class DataUserDerived {
             } else if (charChore.progressCurrent > 0) {
                 charChore.status = QuestStatus.InProgress;
             }
-        } else if (chore.progressFunc) {
-            const { have, need } = chore.progressFunc(character);
+        }
 
-            if (!resetForced || charChore.expiresAt > timeState.slowTime) {
-                charChore.progressCurrent = have;
-            }
-            charChore.progressTotal = need;
+        // progressFunc can overwrite status
+        if (chore.progressFunc) {
+            const result = chore.progressFunc(character);
+            if (result) {
+                const { have, need } = result;
 
-            if (charChore.progressCurrent === charChore.progressTotal) {
-                charChore.status = QuestStatus.Completed;
+                if (!resetForced || charChore.expiresAt > timeState.slowTime) {
+                    charChore.progressCurrent = have;
+                }
+                charChore.progressTotal = need;
+
+                if (charChore.progressCurrent === charChore.progressTotal) {
+                    charChore.quest = null;
+                    charChore.status = QuestStatus.Completed;
+                }
             }
         }
 
