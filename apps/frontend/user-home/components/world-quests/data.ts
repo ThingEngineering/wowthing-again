@@ -437,6 +437,31 @@ export const zoneData: WorldQuestZone[] = [
         mapName: '06-legion/broken_isles',
         children: [
             {
+                id: 885,
+                name: 'Antoran Wastes',
+                slug: 'antoran-wastes',
+                mapName: '06-legion/antoran_wastes',
+                continentPoint: [0, 0],
+                anchor: 'top-left',
+            },
+            {
+                id: 882,
+                name: 'Eredath',
+                slug: 'eredath',
+                mapName: '06-legion/eredath',
+                continentPoint: [0, 0],
+                anchor: 'top-left',
+            },
+            {
+                id: 830,
+                name: 'Krokuun',
+                slug: 'krokuun',
+                mapName: '06-legion/krokuun',
+                continentPoint: [0, 0],
+                anchor: 'top-left',
+            },
+            null,
+            {
                 id: 630,
                 name: 'Azsuna',
                 slug: 'azsuna',
