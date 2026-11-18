@@ -57,9 +57,11 @@ public class ApplicationUserSettings
         "guild",
         "itemlevel",
         "level",
+        "levelBand",
         "mplusrating",
         "name",
         "realm",
+        "seen",
     };
 
     private readonly HashSet<string> _validCovenantColumn = new()
