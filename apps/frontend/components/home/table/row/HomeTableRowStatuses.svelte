@@ -7,6 +7,7 @@
     import { timeStore } from '@/shared/stores/time';
     import { wowthingData } from '@/shared/stores/data';
     import { toNiceDuration } from '@/utils/formatting';
+    import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
     import type { CharacterProps } from '@/types/props';
 
     import WowthingImage from '@/shared/components/images/WowthingImage.svelte';
@@ -14,10 +15,10 @@
     let { character }: CharacterProps = $props();
 
     let images = $derived.by(() => {
-        const ret: [string, string, string?][] = [];
+        const ret: [number, string, string, string?][] = [];
 
         if (character.auras?.[418563] !== undefined) {
-            ret.push([Constants.icons.anniversary, 'Anniversary Buff']);
+            ret.push([418563, Constants.icons.anniversary, 'Anniversary Buff']);
         }
 
         for (const [spellId, spellName] of durationAuras) {
@@ -50,6 +51,7 @@
                     lines.push(`${timeText} remaining`);
 
                     ret.push([
+                        spellId,
                         `spell/${spellId}`,
                         `<div class="center">${lines.join('<br>')}</div>`,
                         iconText,
@@ -62,24 +64,29 @@
             const [spellId, auraTooltip] = staticAuras[auraIndex];
             const aura = character.auras?.[spellId];
             if (aura) {
-                ret.push([`spell/${spellId}`, `<div class="center">${auraTooltip}</div>`, '']);
+                ret.push([
+                    spellId,
+                    `spell/${spellId}`,
+                    `<div class="center">${auraTooltip}</div>`,
+                    '',
+                ]);
             }
         }
 
         if (character.level < Constants.characterMaxLevel) {
             if (character.chromieTime) {
-                ret.push([Constants.icons.chromieTime, 'Chromie Time']);
+                ret.push([0, Constants.icons.chromieTime, 'Chromie Time']);
             }
             if (character.isResting) {
-                ret.push([Constants.icons.resting, 'Resting']);
+                ret.push([0, Constants.icons.resting, 'Resting']);
             }
         }
 
         if (character.isWarMode) {
-            ret.push([Constants.icons.warMode, 'War Mode']);
+            ret.push([0, Constants.icons.warMode, 'War Mode']);
         }
 
-        for (const spellId in contractAuras) {
+        for (const [spellId, [reputationId, rank]] of getNumberKeyedEntries(contractAuras)) {
             if (character.auras?.[spellId]?.expires > 0) {
                 const diff = DateTime.fromSeconds(character.auras[spellId].expires)
                     .diff($timeStore)
@@ -89,9 +96,9 @@
                 }
 
                 const niceRemaining = toNiceDuration(diff).replace('&nbsp;', '');
-                const [reputationId, rank] = contractAuras[spellId];
                 const reputation = wowthingData.static.reputationById.get(reputationId);
                 ret.push([
+                    spellId,
                     `spell/${spellId}`,
                     `<div class="center">{craftedQuality:${rank}} ${reputation.name}<br>${niceRemaining} remaining</div>`,
                 ]);
@@ -126,6 +133,7 @@
             }
 
             ret.push([
+                0,
                 'item/163633',
                 `<div>${lines.join('<br>')}</div>`,
                 openableItems.reduce((a, b) => a + b[1], 0).toString(),
@@ -177,8 +185,8 @@
 
 <td>
     <div class="flex-wrapper">
-        {#each images as [icon, tooltip, iconText]}
-            <div class="status-icon">
+        {#each images as [spellId, icon, tooltip, iconText]}
+            <div class="status-icon" data-spell-id={spellId}>
                 <WowthingImage name={icon} size={20} border={1} {tooltip} />
 
                 {#if iconText}

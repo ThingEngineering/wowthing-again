@@ -94,7 +94,9 @@
             const reversed = browserState.current.home.groupSortReverse[sortKey];
 
             const keySort =
-                isHome && sortedBy && settingsState.activeView.homeFields.includes(sortedBy)
+                isHome &&
+                sortedBy &&
+                (sortedBy.includes(':') || settingsState.activeView.homeFields.includes(sortedBy))
                     ? getCharacterSortFunc((char) => homeSort(char, sortedBy))
                     : sortFunc;
 
