@@ -99,7 +99,7 @@ export const getCharacterSortFunc = (prefixFunc?: SortValueFunction, viewSortBy?
                 );
             } else if (thing === 'levelBand') {
                 const levelData = getCharacterLevel(char);
-                out.push(leftPad(Math.floor(levelData.level / 10), 2, '0'));
+                out.push(leftPad(99 - Math.floor(levelData.level / 10), 2, '0'));
             } else if (thing === 'mplusrating') {
                 const rating =
                     char.mythicPlusSeasonScores?.[Constants.mythicPlusSeason] ||
