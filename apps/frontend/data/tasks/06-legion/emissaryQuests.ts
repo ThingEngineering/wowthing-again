@@ -38,7 +38,7 @@ export const legionEmissaryQuests: Task = {
         {
             key: 'nightfallen',
             name: 'Nightfallen',
-            icon: '{factionIcon:LegionNightfallen}',
+            icon: '{factionIcon:LegionTheNightfallen}',
             ...emissaryChoreData(Holiday.EmissaryNightfallen),
         },
         {
