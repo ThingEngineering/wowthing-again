@@ -261,7 +261,7 @@ public class JournalTool
             await context.WowPet
                 .AsNoTracking()
                 .Where(pet => pet.ItemIds.Count > 0 && (pet.Flags & 32) == 0)
-                .Where(pet => pet.Id != 5073) // FIXME dupe in data?
+                .Where(pet => pet.Id != 5124) // FIXME dupe in data?
                 .ToArrayAsync()
             )
             .ToManyDictionary(pet => pet.ItemIds, pet => pet);
