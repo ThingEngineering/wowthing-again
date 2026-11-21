@@ -25,8 +25,13 @@
 </script>
 
 <style lang="scss">
+    .delves {
+        align-items: center;
+        display: flex;
+    }
     .flex-wrapper {
         --image-margin-top: -4px;
+        --scale: 0.9;
 
         gap: var(--padding-size);
     }
@@ -38,7 +43,7 @@
     }
 </style>
 
-<div>
+<div class="delves">
     <div
         class="flex-wrapper"
         use:componentTooltip={{
