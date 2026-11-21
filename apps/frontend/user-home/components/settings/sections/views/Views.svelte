@@ -52,6 +52,7 @@
             id: crypto.randomUUID(),
             name: 'NEW',
             characterFilter: '',
+            limitTaskHeaderTooltipToGroup: false,
             showCompletedUntrackedChores: false,
             groups: ['groupBy'],
             groupBy: [],
