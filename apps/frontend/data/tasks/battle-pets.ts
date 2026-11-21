@@ -11,7 +11,8 @@ export const battlePetTasks: Task[] = [
             {
                 key: 'celestialTournament',
                 name: 'Celestial Tournament',
-                icon: '{image:achievement/8410}',
+                // icon: '{image:achievement/8410}',
+                icon: ':pet:CT',
                 accountWide: true,
                 questReset: DbResetType.Weekly,
                 questIds: [33137],
@@ -19,7 +20,8 @@ export const battlePetTasks: Task[] = [
             {
                 key: 'blackrockDepths',
                 name: 'Blackrock Depths',
-                icon: '{image:achievement/14020}',
+                // icon: '{image:achievement/14020}',
+                icon: ':pet:BRD',
                 accountWide: true,
                 questReset: DbResetType.Weekly,
                 questIds: [58458],
@@ -27,7 +29,8 @@ export const battlePetTasks: Task[] = [
             {
                 key: 'deadmines',
                 name: 'Deadmines',
-                icon: '{image:achievement/11856}',
+                // icon: '{image:achievement/11856}',
+                icon: ':pet:DM',
                 accountWide: true,
                 questReset: DbResetType.Weekly,
                 questIds: [46292],
@@ -35,7 +38,8 @@ export const battlePetTasks: Task[] = [
             {
                 key: 'gnomeregan',
                 name: 'Gnomeregan',
-                icon: '{image:achievement/13269}',
+                // icon: '{image:achievement/13269}',
+                icon: ':pet:GR',
                 accountWide: true,
                 questReset: DbResetType.Weekly,
                 questIds: [54186],
@@ -43,7 +47,8 @@ export const battlePetTasks: Task[] = [
             {
                 key: 'stratholme',
                 name: 'Stratholme',
-                icon: '{image:achievement/13627}',
+                // icon: '{image:achievement/13627}',
+                icon: ':pet:ST',
                 accountWide: true,
                 questReset: DbResetType.Weekly,
                 questIds: [56492],
@@ -51,7 +56,8 @@ export const battlePetTasks: Task[] = [
             {
                 key: 'wailingCaverns',
                 name: 'Wailing Caverns',
-                icon: '{image:achievement/11765}',
+                // icon: '{image:achievement/11765}',
+                icon: ':pet:WC',
                 accountWide: true,
                 questReset: DbResetType.Weekly,
                 questIds: [45539],

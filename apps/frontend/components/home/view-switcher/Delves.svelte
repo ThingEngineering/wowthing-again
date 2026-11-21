@@ -25,8 +25,13 @@
 </script>
 
 <style lang="scss">
+    .delves {
+        align-items: center;
+        display: flex;
+    }
     .flex-wrapper {
         --image-margin-top: -4px;
+        --scale: 0.9;
 
         gap: var(--padding-size);
     }
@@ -38,20 +43,22 @@
     }
 </style>
 
-<div
-    class="flex-wrapper"
-    use:componentTooltip={{
-        component: DelvesTooltip,
-        propsFunc: () => ({
-            delves,
-        }),
-    }}
->
-    <IconifyWrapper icon={iconLibrary.faDungeon} />
+<div class="delves">
+    <div
+        class="flex-wrapper"
+        use:componentTooltip={{
+            component: DelvesTooltip,
+            propsFunc: () => ({
+                delves,
+            }),
+        }}
+    >
+        <IconifyWrapper icon={iconLibrary.faDungeon} />
 
-    {#each delves as [delve, , ranking] (delve)}
-        <div class="delve quality{ranking}">
-            {delve?.shortName ?? '??'}
-        </div>
-    {/each}
+        {#each delves as [delve, , ranking] (delve)}
+            <div class="delve quality{ranking}">
+                {delve?.shortName ?? '??'}
+            </div>
+        {/each}
+    </div>
 </div>

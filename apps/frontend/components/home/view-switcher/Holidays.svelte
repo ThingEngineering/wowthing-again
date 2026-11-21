@@ -30,6 +30,10 @@
     });
 </script>
 
-{#each activeFancyHolidays as [fancyHoliday, activeHoliday] (fancyHoliday)}
-    <Holiday {fancyHoliday} {activeHoliday} />
-{/each}
+{#if activeFancyHolidays.length > 0}
+    <div class="flex-wrapper">
+        {#each activeFancyHolidays as [fancyHoliday, activeHoliday] (fancyHoliday)}
+            <Holiday {fancyHoliday} {activeHoliday} />
+        {/each}
+    </div>
+{/if}

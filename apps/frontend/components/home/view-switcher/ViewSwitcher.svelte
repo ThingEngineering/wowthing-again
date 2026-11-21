@@ -5,21 +5,14 @@
     import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
-    import { userState } from '@/user-home/state/user';
 
     import Delves from './Delves.svelte';
+    import Gold from './Gold.svelte';
     import Holidays from './Holidays.svelte';
     import IconifyWrapper from '@/shared/components/images/IconifyWrapper.svelte';
     import ParagonQuests from '../table/paragon/ParagonQuests.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
-
-    let totalGold = $derived(
-        (
-            userState.general.warbankGold +
-            userState.general.characters.map((char) => char.gold || 0).reduce((a, b) => a + b, 0)
-        ).toLocaleString()
-    );
-    let warbankGold = $derived(userState.general.warbankGold.toLocaleString());
+    import Tasks from './Tasks.svelte';
 
     const setActiveView = (viewId: string) => {
         browserState.current.home.activeView = viewId;
@@ -30,8 +23,24 @@
     .view-switcher {
         display: flex;
         flex-wrap: wrap;
-        gap: calc(var(--padding-size) * 2) 3rem;
+        gap: calc(var(--padding-size) * 2) calc(var(--padding-size) * 2);
         margin-bottom: calc(var(--padding-size) * 2);
+
+        :global(> :nth-child(2)) {
+            margin-left: 1rem;
+        }
+        :global(> :not(:first-child)) {
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: flex-start;
+
+            :global(> *) {
+                border: 1px solid var(--border-color);
+                border-radius: var(--border-radius-large);
+                padding: 0.1rem 0.5rem;
+                z-index: 10;
+            }
+        }
     }
     .tabs {
         align-items: center;
@@ -54,22 +63,6 @@
             border-color: #ddd;
             color: #fff;
         }
-    }
-    .extra-stuff {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        justify-content: flex-start;
-
-        :global(> *) {
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-large);
-            padding: 0.1rem 0.5rem;
-            z-index: 10;
-        }
-    }
-    .account-gold {
-        border-color: #7f7;
-        cursor: pointer;
     }
 </style>
 
@@ -99,31 +92,19 @@
         {/if}
     </div>
 
-    <div class="flex-wrapper extra-stuff">
-        {#each settingsState.value.layout.homeViewSwitcher as key (key)}
-            {#if key === 'delves'}
-                <Delves />
-            {:else if key === 'gold'}
-                {#if !sharedState.public}
-                    <button
-                        class="account-gold"
-                        data-tooltip="Click to toggle between Warbank and Total gold"
-                        onclick={() =>
-                            (browserState.current.home.showTotalGold =
-                                !browserState.current.home.showTotalGold)}
-                    >
-                        {#if browserState.current.home.showTotalGold}
-                            Total: {totalGold} g
-                        {:else}
-                            Warbank: {warbankGold} g
-                        {/if}
-                    </button>
-                {/if}
-            {:else if key === 'holidays'}
-                <Holidays />
-            {:else if key === 'paragons'}
-                <ParagonQuests />
+    {#each settingsState.value.layout.homeViewSwitcher as key (key)}
+        {#if key === 'delves'}
+            <Delves />
+        {:else if key === 'gold'}
+            {#if !sharedState.public}
+                <Gold />
             {/if}
-        {/each}
-    </div>
+        {:else if key === 'holidays'}
+            <Holidays />
+        {:else if key === 'paragons'}
+            <ParagonQuests />
+        {:else if key === 'tasks'}
+            <Tasks />
+        {/if}
+    {/each}
 </div>

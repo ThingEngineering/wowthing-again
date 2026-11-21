@@ -33,15 +33,17 @@
 </style>
 
 {#if total > 0}
-    <div
-        class="paragons"
-        use:componentTooltip={{
-            component: Tooltip,
-            propsFunc: () => ({
-                paragonQuests,
-            }),
-        }}
-    >
-        Paragons: {total}
+    <div class="flex-wrapper">
+        <div
+            class="paragons"
+            use:componentTooltip={{
+                component: Tooltip,
+                propsFunc: () => ({
+                    paragonQuests,
+                }),
+            }}
+        >
+            Paragons: {total}
+        </div>
     </div>
 {/if}
