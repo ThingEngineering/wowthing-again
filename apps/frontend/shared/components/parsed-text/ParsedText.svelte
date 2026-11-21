@@ -283,7 +283,7 @@
                     props: {
                         border: 0,
                         name: span.getAttribute('data-icon'),
-                        size: 16,
+                        size: 20,
                     },
                 });
             } else if (span.hasAttribute('data-class')) {

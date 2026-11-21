@@ -119,12 +119,10 @@
     }
     .status {
         --scale: 1;
+        --width: 1rem;
 
-        //padding-left: 0;
-        //padding-right: 0;
         text-align: center;
         white-space: nowrap;
-        width: 1rem;
     }
     .error-text {
         font-size: 0.95rem;

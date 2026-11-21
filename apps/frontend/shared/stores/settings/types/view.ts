@@ -3,6 +3,7 @@ export interface SettingsView {
     name: string;
 
     characterFilter: string;
+    limitTaskHeaderTooltipToGroup: boolean;
     showCompletedUntrackedChores: boolean;
 
     groups: string[];
