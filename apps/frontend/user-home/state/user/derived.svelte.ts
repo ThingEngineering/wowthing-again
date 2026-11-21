@@ -694,7 +694,7 @@ export class DataUserDerived {
 
         // progressFunc can overwrite status
         if (chore.progressFunc) {
-            const result = chore.progressFunc(character);
+            const result = chore.progressFunc(character, charScanned);
             if (result) {
                 const { have, need } = result;
 
