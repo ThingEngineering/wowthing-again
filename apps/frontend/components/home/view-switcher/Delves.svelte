@@ -38,20 +38,22 @@
     }
 </style>
 
-<div
-    class="flex-wrapper"
-    use:componentTooltip={{
-        component: DelvesTooltip,
-        propsFunc: () => ({
-            delves,
-        }),
-    }}
->
-    <IconifyWrapper icon={iconLibrary.faDungeon} />
+<div>
+    <div
+        class="flex-wrapper"
+        use:componentTooltip={{
+            component: DelvesTooltip,
+            propsFunc: () => ({
+                delves,
+            }),
+        }}
+    >
+        <IconifyWrapper icon={iconLibrary.faDungeon} />
 
-    {#each delves as [delve, , ranking] (delve)}
-        <div class="delve quality{ranking}">
-            {delve?.shortName ?? '??'}
-        </div>
-    {/each}
+        {#each delves as [delve, , ranking] (delve)}
+            <div class="delve quality{ranking}">
+                {delve?.shortName ?? '??'}
+            </div>
+        {/each}
+    </div>
 </div>
