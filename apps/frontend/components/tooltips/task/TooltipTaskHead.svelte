@@ -24,6 +24,7 @@
 
     // TODO: get title from character quests?
 
+    let limitToGroup = $derived(settingsState.activeView.limitTaskHeaderTooltipToGroup);
     let disabledChores = $derived(settingsState.activeView.disabledChores?.[fullTaskName] || []);
 
     let { choreStats, overallStats } = $derived.by(() => {
@@ -55,7 +56,7 @@
         for (const [characterId, characterTasks] of getNumberKeyedEntries(
             userState.activeViewTasks
         )) {
-            if (!characterIds.has(characterId)) {
+            if (limitToGroup && !characterIds.has(characterId)) {
                 continue;
             }
 

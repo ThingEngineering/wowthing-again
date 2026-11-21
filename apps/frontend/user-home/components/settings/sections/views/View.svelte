@@ -116,6 +116,13 @@
             >
                 Show completed untracked chores
             </CheckboxInput>
+
+            <CheckboxInput
+                name="limit_task_header_tooltip_to_group"
+                bind:value={view.limitTaskHeaderTooltipToGroup}
+            >
+                Limit Task header tooltip to character group
+            </CheckboxInput>
         </div>
 
         <div class="settings-block settings-block-big">
