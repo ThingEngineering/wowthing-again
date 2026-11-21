@@ -30,17 +30,19 @@ export const emissaryChoreData = (holiday: Holiday): Partial<Chore> => {
         questIds: reputations.map((rep) => rep.emissaryQuestId),
         requiredHolidays: [holiday],
         customExpiryFunc: (chore, char, scannedAt) => {
-            const activeHoliday = activeHolidays.value[holiday];
-            if (activeHoliday && scannedAt < activeHoliday.startDate) {
-                return activeHoliday.startDate;
-            }
-
             const dynamicData = dynamicDataStore.getCached(char.region);
             const activeEmissaryQuests = Object.values(dynamicData.emissaryQuests).flat();
+
             return activeEmissaryQuests.find(
                 (eq) => emissaryQuestToHoliday[eq.questId] === chore.requiredHolidays[0]
             )?.expiresAt;
         },
         decorationFunc: threeDayDecorator,
+        progressFunc: (char, scannedAt) => {
+            const activeHoliday = activeHolidays.value[holiday];
+            if (activeHoliday && scannedAt < activeHoliday.startDate) {
+                return { have: 0, need: 1 };
+            }
+        },
     };
 };
