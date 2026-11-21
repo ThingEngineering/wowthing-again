@@ -74,6 +74,14 @@
                     >Collected</CheckboxInput
                 >
             </button>
+
+            <button>
+                <CheckboxInput
+                    name="show_completed_groups"
+                    bind:value={browserState.current.everything.showCompletedGroups}
+                    >Completed Groups</CheckboxInput
+                >
+            </button>
         </div>
     </div>
 
@@ -110,7 +118,9 @@
 
             <div class="collection-section drops">
                 {#each dbThings as dbThing}
-                    <Thing thingData={dbThing} />
+                    {#if dbThing.stats.percent < 100 || browserState.current.everything.showCompletedGroups}
+                        <Thing thingData={dbThing} />
+                    {/if}
                 {/each}
             </div>
         </div>

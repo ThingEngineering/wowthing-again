@@ -222,6 +222,21 @@ export default function getProgress(
                     if (datas.length === 1) {
                         total = data.ids.length;
                         have = haveQuests - (haveThis ? 1 : 0);
+                    } else if (group.type === 'questline') {
+                        total = datas.reduce((acc, d) => acc + d.ids.length, 0);
+                        have =
+                            datas.reduce(
+                                (acc, d) =>
+                                    acc +
+                                    d.ids
+                                        .map((questId) =>
+                                            userState.quests.characterById
+                                                .get(character.id)
+                                                ?.hasQuestById?.has(questId)
+                                        )
+                                        .filter((has) => has).length,
+                                0
+                            ) - (haveThis ? 1 : 0);
                     }
                 } else if (group.type === 'item') {
                     haveThis = data.ids.some((id) => character.getItemCount(id) > 0);

@@ -33,6 +33,8 @@ export function doEverything(): LazyEverything {
     };
     const snapshot = snapshotStateForUserHasLookup();
 
+    const showCollected = browserState.current.everything.showCollected;
+
     for (const [key, something] of Object.entries(everythingData)) {
         const drops = new LazyEverythingDrops();
 
@@ -78,7 +80,7 @@ export function doEverything(): LazyEverything {
                 }
 
                 const show =
-                    (userHas && browserState.current.everything.showCollected) ||
+                    (userHas && showCollected) ||
                     (!userHas &&
                         (hasOnCharacterIds.length === 0 ||
                             browserState.current.everything.showTransfers));

@@ -46,7 +46,7 @@ export type Chore = {
     /**
      * Function to manually calculate progress
      */
-    progressFunc?: (char: Character) => { have: number; need: number };
+    progressFunc?: (char: Character, scannedAt: DateTime) => { have: number; need: number };
     /**
      * Function to check if character is eligibile for this task (eg has a profession)
      */

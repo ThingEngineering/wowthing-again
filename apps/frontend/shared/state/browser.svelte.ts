@@ -24,6 +24,7 @@ interface BrowserStateIdk {
     };
     everything: {
         showCollected: boolean;
+        showCompletedGroups: boolean;
         showTransfers: boolean;
     };
     explore: {
@@ -196,6 +197,7 @@ const initialState: BrowserStateIdk = {
     },
     everything: {
         showCollected: true,
+        showCompletedGroups: true,
         showTransfers: true,
     },
     explore: {
