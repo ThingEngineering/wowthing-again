@@ -36,6 +36,8 @@ export const uiIcons = {
 };
 
 export const aliasedIcons = {
+    pet: iconLibrary.gameFrog,
+
     bookshelf: iconLibrary.mdiBookshelf,
     brick: iconLibrary.notoBrick,
     carrot: iconLibrary.notoCarrot,
