@@ -6,6 +6,7 @@ import { userState } from '@/user-home/state/user';
 
 type AchievementRow = { name: string; stats: UserCount; userHas: boolean[] };
 export class FamilyBattlerData {
+    public anyAny = false;
     public columns: UserCount[] = [];
     public rows: AchievementRow[] = [];
     public stats = new UserCount();
@@ -59,6 +60,7 @@ export function generateFamilyBattlerData() {
             if (childAchievementCriteriaTree.operator === CriteriaTreeOperator.All) {
                 childStats.total += childAchievementCriteriaTree.children.length;
             } else if (childAchievementCriteriaTree.operator === CriteriaTreeOperator.Any) {
+                data.anyAny = true;
                 childStats.total += childAchievementCriteriaTree.amount;
             } else {
                 console.log('???', childAchievementCriteriaTree);
@@ -93,7 +95,7 @@ export function generateFamilyBattlerData() {
                 const row = data.rows[treeIndex];
                 const childTree = childTrees[treeIndex];
                 const userHm = userState.achievements.criteriaById.get(childTree.id);
-                const hasCriteria = !!userHm;
+                const hasCriteria = !!userHm || (hasAchievement && !data.anyAny);
                 row.userHas.push(hasCriteria);
 
                 row.stats.total++;
