@@ -62,7 +62,7 @@ export class DataUserDerived {
 
         // Stats
         const overallData = (ret.stats['OVERALL'] = new UserCount());
-        const overallSeen: Record<number, boolean> = {};
+        const overallSeen = new Set<number>();
 
         for (const category of categories) {
             if (category === null) {
@@ -85,7 +85,7 @@ export class DataUserDerived {
 
                     for (const things of group.things) {
                         const hasThing = things.some((t) => userHasFunc(t));
-                        const seenOverall = things.some((t) => overallSeen[t]);
+                        const seenOverall = things.some((t) => overallSeen.has(t));
                         const seenSet = things.some((t) => setSeen.has(t));
 
                         const doOverall =
@@ -131,7 +131,7 @@ export class DataUserDerived {
                         }
 
                         for (const thing of things) {
-                            overallSeen[thing] = true;
+                            overallSeen.add(thing);
                             setSeen.add(thing);
                         }
                     }

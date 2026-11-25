@@ -34,8 +34,14 @@
             let hasMaxed = false;
 
             for (const pet of pets) {
+                const staticPet = wowthingData.static.petById.get(pet.breedId);
+
                 bestQuality = Math.max(bestQuality, pet.quality);
-                hasMaxed ||= pet.level === 25 && pet.quality === ItemQuality.Rare;
+                // pets that can't battle can't gain levels or quality
+                hasMaxed ||=
+                    staticPet?.canBattle === true
+                        ? pet.level === 25 && pet.quality === ItemQuality.Rare
+                        : true;
             }
 
             countQualities[bestQuality]++;
