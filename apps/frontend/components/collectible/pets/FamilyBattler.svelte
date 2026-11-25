@@ -3,7 +3,7 @@
     import { getBasePathContext } from '@/shared/contexts/basePath';
     import getSavedRoute from '@/utils/get-saved-route';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
-    import { generateFamilyBattlerData } from './family-battler-data';
+    import { generateFamilyBattlerData } from './generate-family-battler-data';
 
     import FamilyBattlerAchievement from './FamilyBattlerAchievement.svelte';
     import SubSidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';

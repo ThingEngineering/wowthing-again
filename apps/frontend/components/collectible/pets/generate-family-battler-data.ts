@@ -4,7 +4,13 @@ import { wowthingData } from '@/shared/stores/data';
 import { AchievementDataCriteriaTree, UserCount } from '@/types';
 import { userState } from '@/user-home/state/user';
 
-type AchievementRow = { name: string; stats: UserCount; userHas: boolean[] };
+type AchievementRow = {
+    criteriaId: number;
+    name: string;
+    stats: UserCount;
+    userHas: boolean[];
+};
+
 export class FamilyBattlerData {
     public anyAny = false;
     public columns: UserCount[] = [];
@@ -74,6 +80,7 @@ export function generateFamilyBattlerData() {
 
         for (const firstChildTree of childCriteriaTrees[0][1]) {
             const row: AchievementRow = {
+                criteriaId: firstChildTree.criteriaId,
                 name: firstChildTree.description,
                 stats: new UserCount(),
                 userHas: [],
