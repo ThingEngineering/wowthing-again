@@ -4,7 +4,7 @@
     import { timeState } from '@/shared/state/time.svelte';
     import { dynamicDataStore } from '@/user-home/stores/dynamicData.svelte';
     import { userState } from '@/user-home/state/user';
-    import type { FamilyBattlerData } from './generate-family-battler-data';
+    import type { FamilyBattlerData } from './family-battler-data.svelte';
 
     import BattlePetTypeIcon from '@/shared/components/icons/BattlePetTypeIcon.svelte';
     import CollectibleCount from '../CollectibleCount.svelte';
@@ -19,7 +19,6 @@
             .filter((worldQuest) => worldQuest.expires > timeState.time)
             .map((worldQuest) => worldQuest.questId)
     );
-    $inspect(allWorldQuests);
 </script>
 
 <style lang="scss">

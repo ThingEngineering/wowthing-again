@@ -2,6 +2,7 @@
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
     import type { ManualDataSetCategory } from '@/types/data/manual';
     import { getCollectibleContext } from './context';
+    import { familyBattlerDataStore } from './pets/family-battler-data.svelte';
 
     import ProgressBar from '@/components/common/ProgressBar.svelte';
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
@@ -36,8 +37,19 @@
     });
 
     const percentFunc = function (entry: SidebarItem, parentEntries?: SidebarItem[]) {
-        if (entry.slug === 'search' || entry.slug === 'family-battler') {
+        if (entry.slug === 'search') {
             return -1;
+        }
+        if (entry.slug === 'family-battler') {
+            let have = 0;
+            let total = 0;
+
+            for (const familyBattle of Object.values(familyBattlerDataStore.data)) {
+                have += familyBattle.stats.have;
+                total += familyBattle.stats.total;
+            }
+
+            return (have / total) * 100;
         }
 
         const slug = [...parentEntries, entry]
