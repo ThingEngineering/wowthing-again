@@ -29,6 +29,12 @@ public class UserService
             return ret;
         }
 
+        if (foundUser.LockoutEnabled && foundUser.LockoutEnd > DateTimeOffset.UtcNow)
+        {
+            ret.Banned = true;
+            return ret;
+        }
+
         ret.Public = currentUser.Identity?.Name != foundUser.UserName;
         ret.Privacy = foundUser.Settings?.Privacy ?? new ApplicationUserSettingsPrivacy();
 
