@@ -48,7 +48,9 @@
 
     let isPublic = $derived(sharedState.public);
     let activeView = $derived(
-        settingsState.value.views.find((view) => view.id === browserState.current.home.activeView)
+        settingsState.value.views.find(
+            (view) => view.id === browserState.current.home.activeView
+        ) || settingsState.value.views[0]
     );
 
     setHomeContext(() => ({ activeView }));
