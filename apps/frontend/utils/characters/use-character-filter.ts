@@ -211,6 +211,11 @@ export function useCharacterFilter(
                                 );
                             }
 
+                            // XP disabled
+                            if (part === 'noxp') {
+                                return char.auras?.[Constants.spells.noXp] !== undefined;
+                            }
+
                             // Mythic+ score
                             match = part.match(/^m\+((<|<=|=|>=|>)(\d+))?$/);
                             if (match) {

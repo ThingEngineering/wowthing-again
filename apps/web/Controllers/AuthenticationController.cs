@@ -98,6 +98,10 @@ public class AuthenticationController : Controller
                 throw new Exception("create fail");
             }
         }
+        else if (user.LockoutEnabled && user.LockoutEnd > DateTimeOffset.UtcNow)
+        {
+            return Redirect("/error?statusCode=403");
+        }
 
         // Ensure user settings are created and migrated
         if (user.Settings == null)
@@ -107,9 +111,9 @@ public class AuthenticationController : Controller
         user.Settings.Migrate();
 
         user.LastApiCheck = DateTime.UtcNow;
-            
+
         await _userManager.UpdateAsync(user);
-            
+
         await _cacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, user.Id);
 
         // Sign in the user

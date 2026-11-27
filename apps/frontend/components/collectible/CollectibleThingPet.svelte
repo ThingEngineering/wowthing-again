@@ -3,7 +3,7 @@
     import maxBy from 'lodash/maxBy';
     import IntersectionObserver from 'svelte-intersection-observer';
 
-    import { petBreedMap } from '@/data/pet-breed';
+    import { petBreedMap } from '@/data/battle-pets';
     import { userState } from '@/user-home/state/user';
     import type { CollectibleState } from '@/shared/state/browser.svelte';
     import { getCollectibleContext } from './context';

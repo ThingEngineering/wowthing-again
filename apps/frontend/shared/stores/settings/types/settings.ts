@@ -50,6 +50,7 @@ export interface Settings {
         desiredAccountName: string;
         holidayRegion: Region;
         language: Language;
+        deleteMe: boolean;
         useEnglishRealmNames: boolean;
         useWowdb: boolean;
     };

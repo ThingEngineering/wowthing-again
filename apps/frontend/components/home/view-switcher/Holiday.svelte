@@ -10,11 +10,11 @@
     import { lazyState } from '@/user-home/state/lazy';
     import { userState } from '@/user-home/state/user';
     import { toNiceDuration } from '@/utils/formatting';
-    import getPercentClass from '@/utils/get-percent-class';
     import { type ActiveHoliday } from '@/user-home/state/activeHolidays.svelte';
 
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
     import HolidayTooltip from './HolidayTooltip.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
     type Props = { activeHoliday: ActiveHoliday; fancyHoliday: FancyHoliday };
     let { activeHoliday, fancyHoliday }: Props = $props();
@@ -100,6 +100,7 @@
         }
     }
     code {
+        background: transparent;
         vertical-align: 0;
         word-spacing: -0.5ch;
     }
@@ -126,7 +127,8 @@
 
         <span>{fancyHoliday.shortName}</span>
 
-        <code class="stats {getPercentClass(stats.percent)}">{stats.have}/{stats.total}</code>
+        <CollectibleCount counts={stats} marginLeft="0" noEm={true} />
+
         <span class="remaining">
             {activeHoliday.soon ? 'starts ' : 'ends '}
             <code>{toNiceDuration(remainingTime, { maxDays: 7, useNbsp: false })}</code>

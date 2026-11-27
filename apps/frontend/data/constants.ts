@@ -46,6 +46,10 @@ export abstract class Constants {
         midnightSilvermoon: 2710,
     };
 
+    static readonly spells = {
+        noXp: 306715,
+    };
+
     // item JSON -> itemBonusListGroups -> match upgradeTiers IDs
     static readonly seasonItemBonusListGroups = new Set<number>([
         // 607,

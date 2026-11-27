@@ -1,6 +1,10 @@
 <script lang="ts">
+    import { criteriaIdToWorldQuestId } from '@/data/battle-pets';
     import { battlePetOrder, BattlePetType } from '@/enums/battle-pet-type';
-    import type { FamilyBattlerData } from './family-battler-data';
+    import { timeState } from '@/shared/state/time.svelte';
+    import { dynamicDataStore } from '@/user-home/stores/dynamicData.svelte';
+    import { userState } from '@/user-home/state/user';
+    import type { FamilyBattlerData } from './family-battler-data.svelte';
 
     import BattlePetTypeIcon from '@/shared/components/icons/BattlePetTypeIcon.svelte';
     import CollectibleCount from '../CollectibleCount.svelte';
@@ -8,6 +12,13 @@
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 
     let { familyBattleData }: { familyBattleData: FamilyBattlerData } = $props();
+
+    let allWorldQuests = $derived(
+        dynamicDataStore
+            .getCachedQuests(userState.general.allRegions[0])
+            .filter((worldQuest) => worldQuest.expires > timeState.time)
+            .map((worldQuest) => worldQuest.questId)
+    );
 </script>
 
 <style lang="scss">
@@ -60,7 +71,11 @@
     </thead>
     <tbody>
         {#each familyBattleData.rows as row (row.name)}
-            <tr>
+            {@const questId = criteriaIdToWorldQuestId[row.criteriaId]}
+            <tr
+                class:faded={!!questId && !allWorldQuests.includes(questId)}
+                data-criteria-id={row.criteriaId}
+            >
                 <td class="name text-overflow">{row.name}</td>
                 {#each row.userHas as userHas, columnIndex}
                     <td

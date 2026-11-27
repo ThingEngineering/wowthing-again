@@ -1,3 +1,5 @@
+import { Constants } from './constants';
+
 // spellId, spellName, expiresWhileOffline
 export const durationAuras: [number, string, boolean?][] = [
     // flasks
@@ -39,7 +41,7 @@ export const durationAuras: [number, string, boolean?][] = [
 ];
 
 export const staticAuras: [number, string][] = [
-    [306715, 'XP gain disabled'],
+    [Constants.spells.noXp, 'XP gain disabled'],
     [1246363, "Delver's Bounty"],
     [1293799, "Trovehunter's Bounty"],
 ];

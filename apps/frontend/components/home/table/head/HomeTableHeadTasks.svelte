@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { getCharacterTableContext } from '@/components/character-table/context';
     import { taskMap } from '@/data/tasks';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { timeState } from '@/shared/state/time.svelte';
@@ -15,6 +16,9 @@
     type Props = SortableProps & { characters: Character[] };
     let { characters, getSortState, setSortState }: Props = $props();
 
+    const { characters: visibleCharacters } = $derived(
+        settingsState.activeView && getCharacterTableContext()()
+    );
     let activeTasks = $derived(activeViewTasks.value);
 </script>
 
@@ -60,9 +64,10 @@
             propsFunc: () => ({
                 characters,
                 chore,
-                expiresAt: customExpiry,
                 fullTaskName,
                 task,
+                visibleCharacters,
+                expiresAt: customExpiry,
             }),
         }}
     >

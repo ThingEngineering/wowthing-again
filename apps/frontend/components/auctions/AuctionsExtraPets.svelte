@@ -1,7 +1,7 @@
 <script lang="ts">
     import { afterUpdate } from 'svelte';
 
-    import { petBreedMap } from '@/data/pet-breed';
+    import { petBreedMap } from '@/data/battle-pets';
     import { ItemLocation } from '@/enums/item-location';
     import { itemLocationIcons } from '@/shared/icons/mappings';
     import { userAuctionExtraPetsStore } from '@/stores';

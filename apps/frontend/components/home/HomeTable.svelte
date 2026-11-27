@@ -1,8 +1,10 @@
 <script lang="ts">
     import { Constants } from '@/data/constants';
+    import { browserState } from '@/shared/state/browser.svelte';
     import { settingsState } from '@/shared/state/settings.svelte';
     import { sharedState } from '@/shared/state/shared.svelte';
     import { removedHomeChoices } from '@/user-home/components/settings/data';
+    import { setHomeContext } from './context';
     import { delegatedTooltips } from './utils/delegated-tooltips';
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte';
@@ -45,6 +47,11 @@
     let { characterLimit = 0 } = $props();
 
     let isPublic = $derived(sharedState.public);
+    let activeView = $derived(
+        settingsState.value.views.find((view) => view.id === browserState.current.home.activeView)
+    );
+
+    setHomeContext(() => ({ activeView }));
 </script>
 
 <style lang="scss">
@@ -68,7 +75,7 @@
         />
 
         <svelte:fragment slot="rowExtra" let:character>
-            {#each settingsState.activeView.homeFields as field (field)}
+            {#each activeView.homeFields as field (field)}
                 {#if field === 'bagSpace'}
                     <RowBagSpace {character} />
                 {:else if field === 'bestItemLevel'}

@@ -18,9 +18,10 @@
         chore: Chore;
         fullTaskName: string;
         task: Task;
+        visibleCharacters: Character[];
         expiresAt?: DateTime;
     };
-    let { characters, chore, fullTaskName, task, expiresAt }: Props = $props();
+    let { characters, chore, fullTaskName, task, visibleCharacters, expiresAt }: Props = $props();
 
     // TODO: get title from character quests?
 
@@ -51,12 +52,14 @@
             }
         };
 
-        const characterIds = new Set(characters.map((char) => char.id));
+        const characterIds = new Set(
+            (limitToGroup ? characters : visibleCharacters).map((char) => char.id)
+        );
 
         for (const [characterId, characterTasks] of getNumberKeyedEntries(
             userState.activeViewTasks
         )) {
-            if (limitToGroup && !characterIds.has(characterId)) {
+            if (!characterIds.has(characterId)) {
                 continue;
             }
 

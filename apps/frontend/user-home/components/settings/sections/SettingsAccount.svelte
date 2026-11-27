@@ -181,6 +181,20 @@
 </div>
 
 <div class="settings-block">
+    <h3 class="space-me">Delete Me</h3>
+
+    <div class="setting">
+        <Checkbox bind:value={settingsState.value.general.deleteMe} name="general_deleteMe">
+            Delete my account, eventually!
+        </Checkbox>
+        <p>
+            <strong>ALL OF YOUR DATA WILL BE DELETED</strong>, and your account will be locked to
+            prevent logging in re-pulling characters.
+        </p>
+    </div>
+</div>
+
+<div class="settings-block">
     <h3>WoW Accounts</h3>
 
     <p>

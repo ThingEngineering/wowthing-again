@@ -33,6 +33,11 @@ public class UserController : Controller
             return NotFound();
         }
 
+        if (apiResult.Banned)
+        {
+            return Redirect("/auth/logout");
+        }
+
         timer.AddPoint("user");
 
         var expectedUri = await _uriService.GetUriForUser(user: apiResult.User);
